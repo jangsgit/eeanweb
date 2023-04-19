@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- mapper >> interface 매핑 : id 값 중요 (interface 메소드) -->
+<mapper namespace="com.dae.eean.Mapper.App01.Index02Mapper">
+    <select id="GetCifList" parameterType="com.dae.eean.DTO.App01.Index02Dto" resultType="com.dae.eean.DTO.App01.Index02Dto">
+        <![CDATA[
+            select acorp1, acorp2, acorp3, acorp, asano1, asano2, asano3, asano1 + '-' + asano2 + '-' + asano3 as asanotxt, aname, aupte, ajong, apost1,  acorp1 + CAST(acorp2 as varchar) as acode,
+                   ajuso1, ajuso2, abigo, agita, ajumi1, ajumi2, ajumi1 + '-' + ajumi2 as ajumitxt,
+                   aascode1,aascode2, aascode1 + '-' + aascode2 as aascodetxt, atelno, atelno2,
+                   ahand , aemail,abonsadam1, abonsadam2, abonsadam3, adomain, afax, isnull(ajuso1,'') + ' ' + isnull(ajuso2,'') as ajusotxt,
+                   B.inname as inname01, C.inname as inname02, D.inname as inname03, E.cifcodename as cifcodename
+            from cif WITH (NOLOCK)
+            LEFT OUTER JOIN INSA B WITH(NOLOCK) ON (cif.abonsadam1 = B.insano)
+            LEFT OUTER JOIN INSA C WITH(NOLOCK) ON (cif.abonsadam2 = C.insano)
+            LEFT OUTER JOIN INSA D WITH(NOLOCK) ON (cif.abonsadam3 = D.insano)
+            LEFT OUTER JOIN cifcode E WITH(NOLOCK) ON (cif.acorp1 = E.cifcode)
+            WHERE isnull(acorp,'') Like concat('%',#{acorp},'%') and isnull(delflag,'0')  = '0'
+            ORDER BY acorp
+        ]]>
+    </select>
+
+    <select id="GetCifListTot" parameterType="com.dae.eean.DTO.App01.Index02Dto" resultType="com.dae.eean.DTO.App01.Index02Dto">
+        <![CDATA[
+        select acorp1, acorp2, acorp3, acorp, asano1, asano2, asano3, asano1 + '-' + asano2 + '-' + asano3 as asanotxt, aname, aupte, ajong, apost1,  acorp1 + CAST(acorp2 as varchar) as acode,
+               ajuso1, ajuso2, abigo, agita, ajumi1, ajumi2, ajumi1 + '-' + ajumi2 as ajumitxt,
+               aascode1,aascode2, aascode1 + '-' + aascode2 as aascodetxt,  atelno, atelno2,
+               ahand , aemail,abonsadam1, abonsadam2, abonsadam3, adomain, afax, isnull(ajuso1,'') + ' ' + isnull(ajuso2,'') as ajusotxt,
+               B.inname as inname01, C.inname as inname02, D.inname as inname03, E.cifcodename as cifcodename
+        from cif WITH (NOLOCK)
+            LEFT OUTER JOIN INSA B WITH(NOLOCK) ON (cif.abonsadam1 = B.insano)
+            LEFT OUTER JOIN INSA C WITH(NOLOCK) ON (cif.abonsadam2 = C.insano)
+            LEFT OUTER JOIN INSA D WITH(NOLOCK) ON (cif.abonsadam3 = D.insano)
+            LEFT OUTER JOIN cifcode E WITH(NOLOCK) ON (cif.acorp1 = E.cifcode)
+        WHERE isnull(acorp,'') Like concat('%',#{acorp},'%')
+          and isnull(delflag,'0')  = '0'
+          and isnull(acorp1,'') Like concat('%',#{acorp1},'%')
+          and isnull(agita,'') Like concat('%',#{agita},'%')
+        ORDER BY acorp
+        ]]>
+    </select>
+
+    <select id="getIndex02MaxSeq"  parameterType="String" resultType="String">
+        <![CDATA[ select isnull(max(acorp2),'0') from cif  where acorp1 = #{acorp1}   ]]>
+    </select>
+
+    <insert id="InsertCif" parameterType="com.dae.eean.DTO.App01.Index02Dto" >
+        insert into CIF (acorp1, acorp2, acorp3, acorp, asano1, asano2, asano3, aname, aupte, ajong, apost1,
+                         ajuso1, ajuso2, abigo, agita, ajumi1, ajumi2, aascode1,aascode2, atelno, atelno2,
+                         ahand , aemail,abonsadam1, abonsadam2, abonsadam3, adomain, afax, delflag) values
+                        (#{acorp1}, #{acorp2}, 0, #{acorp}, #{asano1}, #{asano2}, #{asano3}, #{aname},#{aupte},#{ajong},#{apost1},
+                         #{ajuso1}, #{ajuso2}, #{abigo}, #{agita}, #{ajumi1}, #{ajumi2}, #{aascode1}, #{aascode2},#{atelno},#{atelno2},
+                         #{ahand}, #{aemail}, #{abonsadam1}, #{abonsadam2}, #{abonsadam3}, #{adomain}, #{afax}, '0')
+    </insert>
+
+
+    <update id="UpdateCif" parameterType="com.dae.eean.DTO.App01.Index02Dto">
+        update CIF
+        set acorp1 = #{acorp1}
+        <if test="acorp != null ">,</if>
+        <if test="acorp != null">acorp=#{acorp}</if>
+        <if test="asano1 != null ">,</if>
+        <if test="asano1 != null">asano1=#{asano1}</if>
+        <if test="asano2 != null ">,</if>
+        <if test="asano2 != null">asano2=#{asano2}</if>
+        <if test="asano3 != null ">,</if>
+        <if test="asano3 != null">asano3=#{asano3}</if>
+        <if test="aname != null ">,</if>
+        <if test="aname != null">aname=#{aname}</if>
+        <if test="aupte != null ">,</if>
+        <if test="aupte != null">aupte=#{aupte}</if>
+        <if test="ajong != null ">,</if>
+        <if test="ajong != null">ajong=#{ajong}</if>
+        <if test="apost1 != null ">,</if>
+        <if test="apost1 != null">apost1=#{apost1}</if>
+        <if test="ajuso1 != null ">,</if>
+        <if test="ajuso1 != null">ajuso1=#{ajuso1}</if>
+        <if test="ajuso2 != null ">,</if>
+        <if test="ajuso2 != null">ajuso2=#{ajuso2}</if>
+        <if test="abigo != null ">,</if>
+        <if test="abigo != null">abigo=#{abigo}</if>
+        <if test="agita != null ">,</if>
+        <if test="agita != null">agita=#{agita}</if>
+        <if test="ajumi1 != null ">,</if>
+        <if test="ajumi1 != null">ajumi1=#{ajumi1}</if>
+        <if test="ajumi2 != null ">,</if>
+        <if test="ajumi2 != null">ajumi2=#{ajumi2}</if>
+        <if test="aascode1 != null ">,</if>
+        <if test="aascode1 != null">aascode1=#{aascode1}</if>
+        <if test="aascode2 != null ">,</if>
+        <if test="aascode2 != null">aascode2=#{aascode2}</if>
+        <if test="atelno != null ">,</if>
+        <if test="atelno != null">atelno=#{atelno}</if>
+        <if test="atelno2 != null ">,</if>
+        <if test="atelno2 != null">atelno2=#{atelno2}</if>
+        <if test="ahand != null ">,</if>
+        <if test="ahand != null">ahand=#{ahand}</if>
+        <if test="aemail != null ">,</if>
+        <if test="aemail != null">aemail=#{aemail}</if>
+        <if test="abonsadam1 != null ">,</if>
+        <if test="abonsadam1 != null">abonsadam1=#{abonsadam1}</if>
+        <if test="abonsadam2 != null ">,</if>
+        <if test="abonsadam2 != null">abonsadam2=#{abonsadam2}</if>
+        <if test="abonsadam3 != null ">,</if>
+        <if test="abonsadam3 != null">abonsadam3=#{abonsadam3}</if>
+        <if test="adomain != null ">,</if>
+        <if test="adomain != null">adomain=#{adomain}</if>
+        <if test="afax != null ">,</if>
+        <if test="afax != null">afax=#{afax}</if>
+        where acorp1 + CAST(acorp2 as varchar) = #{acode}
+    </update>
+
+
+    <update id="DeleteCif" parameterType="com.dae.eean.DTO.App01.Index02Dto">
+        UPDATE  CIF SET delflag = '1' where acorp1 + CAST(acorp2 as varchar) = #{acode}
+    </update>
+
+
+
+</mapper>

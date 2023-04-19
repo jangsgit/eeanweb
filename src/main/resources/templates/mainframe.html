@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head th:replace="layouts/APPHeader/apphead :: headFragment" />
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이인옵틱수주시스템-본사직원용</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+
+    
+    <!-- <script> 
+function chk(){ 
+            var btn_obj = document.getElementById('menu01_btn');
+            btn_obj.addEventListener("click",function(){  
+                //TB_FPLAN_WORK TB_FPLAN_W010  SAVE    
+                var ls_actuseridz   = document.getElementById('actuseridz').value; 
+                var ls_actusernamez = document.getElementById('actusernamez').value;  
+                var ls_actcltcdz = document.getElementById('actcltcdz').value;  
+                var ls_actdbnmz = document.getElementById('actdbnmz').value;    
+                var ls_actflagz = document.getElementById('actflagz').value;  
+                var ls_uri = "actuseridz=" + ls_actuseridz +"&actusernamez=" + ls_actusernamez + "&actcltcdz=" + ls_actcltcdz + "&actdbnmz=" + ls_actdbnmz + "&actflagz=" + ls_actflagz;
+                var win = window.open("/app01/ktcall?" + ls_uri, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=400,height=400"); 
+    
+        }) 
+       
+  </script>       -->
+     
+</head>
+
+<form class="row gy-2 gx-4 align-items-center" role="form" th:object="${userFormDto}" th:action="@{/appcom01/update}" method="post" enctype="multipart/form-data"></form>
+
+<body style="background: #f5f9fa;">
+<input type="hidden"  name="actuseridz" id="actuseridz" th:value="${userFormDto.userid}" >
+<header>
+
+</header>
+<div class="content flex">
+    <div class="header on">
+        <div class="left">
+            <div class="ham">
+                <button type="button"><img src="/images/ham.png" alt=""></button>
+            </div>
+            <div class="nav_bg"></div>
+            <!-- ################################ -->
+            <!-- ## Left navigator include -->
+            <th:block th:include="layouts/APPHeader/appLeftNav" />
+        </div>
+        <div class="right">
+        </div>
+    </div>
+    <div class="con"> 
+        <div class="header_top">
+            <ul class="left">
+                <li>
+                    <div class="logo">
+                        <a href="">
+                            <img src="/images/logo.png" alt="">
+                        </a>
+                    </div>
+                </li>
+                <li class="home on">
+                    <a><img src="/images/i_home.png" alt=""></a>
+                    <a><img src="/images/i_home_on.png" alt=""></a>
+                </li>
+                <li>
+                    본사 DashBoard
+                </li> 
+            </ul>
+            <ul class="right">
+
+                <li>
+                    <a href="#">
+                        <img src="/images/in2.png" onclick="logout()">
+                    </a>
+                </li>
+                <!-- <li>
+                    <button id="userinfo"> 
+                        <img src="/images/i_user.png" alt="">
+                    </button>
+                </li> -->
+            </ul>
+        </div>
+        <div class="infor_bar type2">
+            <ul class="right">
+                <li>
+                    <button   type="button" visible="false" data-bs-toggle="modal" data-bs-target="#staticBackdrop" id="listmodal_btn" onclick="clear_rtn(this)" > </button>
+                    <button   type="button" visible="false" data-bs-toggle="modal" data-bs-target="#fileBackdrop" id="filemodal_btn" onclick="clear_rtn(this)" ></button>
+                </li>
+            </ul>
+
+        </div>
+        <div class="section section1"> 
+            <div class="sec_con" style="width: 40%;">
+                <div class="calender box_wrap">
+                    <div data-calendar='{"events":[{"title":"Bootcamp","start":"2021-09-19"}]}'></div> 
+                </div>
+
+            </div>
+            <div class="sec_con" style="width: 30%;">
+                <div class="sec_con_tit">
+                    <span>당일주문현황</span>
+                </div>
+                <div class="box_wrap with_tit" style="padding: 0px;">
+                    <div class="container-fluid" style="padding: 0px;">
+                        <div id="wtab01Grid_div" ></div>
+                        <div id="tab01Pager"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="sec_con" style="width: 30%;">
+                <div class="sec_con_tit">
+                    <span>예약주문현황</span>
+                </div>
+                <div class="box_wrap with_tit" style="padding: 0px;">
+                    <div class="container-fluid" style="padding: 0px;">
+                        <div id="mGrid_div" ></div>
+                        <div id="tabPager01"></div>
+                    </div>
+                </div>
+            </div> 
+        </div>
+        <!-- <div class="section section2">
+            <div class="sec_con" style="width: 33.3333%;">
+                <div class="sec_con_tit">
+                    <span>당월계약만료현장</span>
+                </div>
+                <div class="box_wrap with_tit" style="padding: 0px;">
+                    <div class="container-fluid" style="padding: 0px;">
+                        <div id="nGrid_div" ></div>
+                        <div id="tabPager02"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="sec_con" style="width: 33.3333%;">
+                <div class="sec_con_tit">
+                    <span>익월계약만료현장</span>
+                </div>
+                <div class="box_wrap with_tit" style="padding: 0px;">
+                    <div class="container-fluid" style="padding: 0px;">
+                        <div id="bGrid_div" ></div>
+                        <div id="tabPager03"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="sec_con" style="width: 33.3333%;">  
+                <div class="container-fluid">
+                    <div id="chart"></div>
+                  </div>
+                <div class="sec_con_tit">
+                    <span>당월 현장별/호기별 고장접수 현황</span>
+                </div>
+                <div class="box_wrap with_tit" style="padding: 0px;">
+                    <div class="container-fluid" style="padding: 0px;">
+                        <div id="vGrid_div" ></div>
+                        <div id="tabPager04"></div>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+    </div>
+
+
+ 
+
+</div>
+<!--------------------------------------------------------------------------------------->
+
+
+<!--------------------------------------------------------------------------------------->
+<!-- 마이페이지 MODAL FROM  -->
+<div class="modal fade" id="userinfomodal" data-bs-keyboard="false"
+     data-bs-backdrop="static" tabindex="-1" aria-labelledby="staticBackdropLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg mt-6" role="document" id = "modalForm01"
+         style="max-width: 500px">
+        <div class="modal-content border-0">
+            <div class="modal-body p-0" >
+                <div class="rounded-top-lg py-3 ps-4 pe-6 bg-light">
+                    <!-- <h4 class="mb-1" id="modalExampleDemoLabel">현장검색</h4>  -->
+                    <label>비밀번호</label>
+                    <input class="form-control form-control-sm" type="text"  th:value="${userFormDto.passwd1}" id="actpasswdz" onchange="check_pw()">
+                    <label>이름</label>
+                    <input class="form-control form-control-sm" type="text"  th:value="${userFormDto.username}" id="actnamez">
+                    <label>핸드폰번호</label>
+                    <input class="form-control form-control-sm" type="text"  th:value="${userFormDto.phone}" id="actphonez">
+                    <!--<input class="form-control form-control-sm" type="text"  th:value="${userFormDto.userid}">-->
+
+
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <div class="row g-1">
+                    <div class="col-auto">
+                        <button class="badge-soft-primary dropdown-item rounded-1"
+                                type="button"  id="wpernmmodal_btn2" data-bs-dismiss="modal" onclick="save_btn()">수정</button>
+                    </div>
+                    <div class="col-auto">
+                        <button class="badge-soft-primary dropdown-item rounded-1"
+                                type="button"  id="wpernmmodal_btn" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!--------------------------------------------------------------------------------------->
+<!-- modal -->
+<!-- class="modal_step_open" modal_step="1" -->
+
+
+<script type="text/javascript" th:inline="javascript">
+
+    let formData = new FormData();
+    var view_p01tab01page;
+    var view_p01tab02page;
+    var view_p01tab03page;
+    var view_p01tab04page;
+    var wtab01Grid;
+
+ 
+        // <!--당일주문현황-->
+        view_p01tab04page = new wijmo.collections.CollectionView(getData_tab04(), {
+            pageSize: 10
+        });
+
+        new wijmo.input.CollectionViewNavigator('#tabPager04', {
+            byPage: true,
+            headerFormat: 'Page {currentPage:n0} of {pageCount:n0}',
+            cv: view_p01tab04page
+        });
+        wtab01Grid = new wijmo.grid.FlexGrid('#vGrid_div', {
+            autoGenerateColumns: false,
+            showMarquee: true,
+            isReadOnly: false,
+            allowSorting: 'MultiColumn',
+            alternatingRowStep: 0,
+            columns: [
+                { binding: 'actcd', header: '현장코드', align: "center", width: 100 },
+                { binding: 'actnm', header: '현장명', align: "center", width: 120 },
+                { binding: 'equpcd', header: '호기코드', align: "center", width: 100},
+                { binding: 'equpnm', header: '호기명', align: "center", width: 100 },
+                { binding: 'pernm', header: '담당자', align: "center", width: 100 },
+                { binding: 'contnm', header: '고장내용', align: "center", width: 100 },
+                { binding: 'contents', header: '고장상세내용', align: "center", width: 100 },
+                { binding: 'stdate', header: '담당자', align: "center", width: 100 },
+                { binding: 'enddate', header: '담당자', align: "center", width: 100 },
+                {binding:  'qty', header: '건수', align: "center", width: 100}
+
+
+            ],
+            itemsSource: view_p01tab04page
+        });
+
+        // tab01검색 데이터 수집
+        function getData_tab04(){
+            // var mapp15Dto = [[${app15DtoList4}]];
+            var wactnm_data = [];
+            var cnt = 1;
+            
+            return wactnm_data;
+            // for (var i = 0; i < mapp15Dto.length; i++) {
+            //     wactnm_data.push({
+            //         id: i,
+            //         index: cnt,
+            //         actcd: mapp15Dto[i]["actcd"],
+            //         actnm: mapp15Dto[i]["actnm"],
+            //         equpcd: mapp15Dto[i]["equpcd"],
+            //         equpnm: mapp15Dto[i]["equpnm"],
+            //         pernm: mapp15Dto[i]["pernm"],
+            //         contnm: mapp15Dto[i]["contnm"],
+            //         contents: mapp15Dto[i]["contents"],
+            //         stdate: mapp15Dto[i]["stdate"],
+            //         enddate: mapp15Dto[i]["enddate"],
+            //         qty: mapp15Dto[i]["qty"],
+
+
+            //     });
+            //     cnt++;
+            // }
+            // return wactnm_data;
+        }
+        // <!--당일주문현황 끝-->
+
+
+
+        // <!--30일후 계약만료현장-->
+        view_p01tab03page = new wijmo.collections.CollectionView(getData_tab03(), {
+            pageSize: 10
+        });
+
+        new wijmo.input.CollectionViewNavigator('#tabPager03', {
+            byPage: true,
+            headerFormat: 'Page {currentPage:n0} of {pageCount:n0}',
+            cv: view_p01tab03page
+        });
+        wtab01Grid = new wijmo.grid.FlexGrid('#bGrid_div', {
+            autoGenerateColumns: false,
+            showMarquee: true,
+            isReadOnly: false,
+            allowSorting: 'MultiColumn',
+            alternatingRowStep: 0,
+            columns: [
+                { binding: 'actcd', header: '현장코드', align: "center", width: 100 },
+                { binding: 'actnm', header: '현장명', align: "center", width: 170 },
+                { binding: 'contdate', header: '계약일자', align: "center", width: 100},
+                { binding: 'stdate', header: '시작일자', align: "center", width: 100 },
+                { binding: 'enddate', header: '만료일자', align: "center", width: 100 },
+
+            ],
+            itemsSource: view_p01tab03page
+        });
+
+        // tab01검색 데이터 수집
+        function getData_tab03(){
+            // var mapp15Dto = [[${app15DtoList3}]];
+            var wactnm_data = [];
+            var cnt = 1;
+            return wactnm_data;
+            // for (var i = 0; i < mapp15Dto.length; i++) {
+            //     wactnm_data.push({
+            //         id: i,
+            //         index: cnt,
+            //         actcd: mapp15Dto[i]["actcd"],
+            //         actnm: mapp15Dto[i]["actnm"],
+            //         contdate: mapp15Dto[i]["contdate"],
+            //         stdate: mapp15Dto[i]["stdate"],
+            //         enddate: mapp15Dto[i]["enddate"],
+            //     });
+            //     cnt++;
+            // }
+            
+            // if (mapp15Dto.length <= 10){
+
+            //         for (var i = 0; i < 10 - mapp15Dto.length; i++) {
+            //             wactnm_data.push({
+            //             id: cnt,
+            //             index: cnt,
+            //             actcd: '',
+            //             actnm: '',
+            //             contdate: '',
+            //             stdate:  '',
+            //             enddate:  '',
+            //         });
+            //         cnt++;
+            //     }
+            // }
+            // return wactnm_data;
+        }
+        // <!--30일후 계약만료현장-->
+
+        // <!--당일계약만료현장 시작-->
+        view_p01tab02page = new wijmo.collections.CollectionView(getData_tab02(), {
+            pageSize: 10
+        });
+
+        new wijmo.input.CollectionViewNavigator('#tabPager02', {
+            byPage: true,
+            headerFormat: 'Page {currentPage:n0} of {pageCount:n0}',
+            cv: view_p01tab02page
+        });
+        wtab01Grid = new wijmo.grid.FlexGrid('#nGrid_div', {
+            autoGenerateColumns: false,
+            showMarquee: true,
+            isReadOnly: false,
+            allowSorting: 'MultiColumn',
+            alternatingRowStep: 0,
+            columns: [
+                { binding: 'actcd', header: '현장코드', align: "center", width: 100 },
+                { binding: 'actnm', header: '현장명', align: "center", width: 170 },
+                { binding: 'contdate', header: '계약일자', align: "center", width: 100},
+                { binding: 'stdate', header: '시작일자', align: "center", width: 100 },
+                { binding: 'enddate', header: '만료일자', align: "center", width: 100 },
+
+            ],
+            itemsSource: view_p01tab02page
+        });
+
+        // tab01검색 데이터 수집
+        function getData_tab02(){
+            // var mapp15Dto = [[${app15DtoList2}]];
+            var wactnm_data = [];
+            var cnt = 1;
+            return wactnm_data;
+            // for (var i = 0; i < mapp15Dto.length; i++) {
+            //     wactnm_data.push({
+            //         id: i,
+            //         index: cnt,
+            //         actcd: mapp15Dto[i]["actcd"],
+            //         actnm: mapp15Dto[i]["actnm"],
+            //         contdate: mapp15Dto[i]["contdate"],
+            //         stdate: mapp15Dto[i]["stdate"],
+            //         enddate: mapp15Dto[i]["enddate"],
+            //   });
+            //     cnt++;
+            // } 
+            // if (mapp15Dto.length <= 10){
+
+            //         for (var i = 0; i < 10 - mapp15Dto.length; i++) {
+            //             wactnm_data.push({
+            //             id: cnt,
+            //             index: cnt,
+            //             actcd: '',
+            //             actnm: '',
+            //             contdate: '',
+            //             stdate:  '',
+            //             enddate:  '',
+            //         });
+            //         cnt++;
+            //     }
+            // }
+
+            // return wactnm_data;
+        }
+        //<!--당일계약만료현장 시작-->
+
+        //<!--당월 점검현황 시작-->
+        view_p01tab01page = new wijmo.collections.CollectionView(getData_tab01(), {
+            pageSize: 16
+        });
+
+        new wijmo.input.CollectionViewNavigator('#tab01Pager', {
+            byPage: true,
+            headerFormat: 'Page {currentPage:n0} of {pageCount:n0}',
+            cv: view_p01tab01page
+        });
+        wtab01Grid = new wijmo.grid.FlexGrid('#wtab01Grid_div', {
+            autoGenerateColumns: false,
+            showMarquee: true,
+            isReadOnly: false,
+            // selectionMode: 'RowRange',
+            allowSorting: 'MultiColumn',
+            alternatingRowStep: 0,
+            columns: [
+                { binding: 'flag', header: '상태', align: "center", width: 60 },
+                { binding: 'pernm', header: '사원명', align: "center", width: 80 },
+                { binding: 'atdnm', header: '구분', align: "center", width: 60 },
+                { binding: 'vafrdate', header: '시작', align: "center", width: 80 },
+                { binding: 'vatodate', header: '종료', align: "center", width: 80 },                
+                { binding: 'gubun', header: '구분', align: "center", width: 100 },
+                { binding: 'plandate', header: '점검일자', align: "center", width: 100 },
+                { binding: 'plantime', header: '점검시간', align: "center", width: 100 },
+                { binding: 'actnm', header: '현장명', align: "center", width: 120},
+                { binding: 'equpnm', header: '호기명', align: "center", width: 100 },                
+                { binding: 'qty', header: '대수', align: "center", width: 100 },
+                { binding: 'remark', header: '기타호기', align: "center", width: 100 },
+                { binding: 'kcspnm', header: '검사기관', align: "center", width: 100 },
+                { binding: 'kcpernm', header: '검사자', align: "center", width: 100 }
+
+            ],
+            itemsSource: view_p01tab01page
+        });
+
+        // tab01검색 데이터 수집
+        function getData_tab01(){
+            // var mapp15Dto = [[${app15DtoList}]];
+            var wactnm_data = [];
+            console.log("-------------");
+            console.log(mapp15Dto);
+            var cnt = 1;
+            return wactnm_data;
+            // for (var i = 0; i < mapp15Dto.length; i++) {
+            //     wactnm_data.push({
+            //         id: i,
+            //         index: cnt,
+            //         flag: mapp15Dto[i]["flag"],
+            //         pernm: mapp15Dto[i]["pernm"],
+            //         atdnm: mapp15Dto[i]["atdnm"],
+            //         vafrdate: mapp15Dto[i]["vafrdate"],
+            //         vatodate: mapp15Dto[i]["vatodate"],
+            //         plandate: mapp15Dto[i]["plandate"],
+            //         plantime: mapp15Dto[i]["plantime"],
+            //         actnm: mapp15Dto[i]["actnm"],
+            //         equpnm: mapp15Dto[i]["equpnm"],
+            //         gubun: mapp15Dto[i]["gubun"],
+            //         kcpernm: mapp15Dto[i]["kcpernm"],
+            //         qty: mapp15Dto[i]["qty"],
+            //         remark: mapp15Dto[i]["remark"],
+            //         kcspnm: mapp15Dto[i]["kcspnm"],
+            //     });
+            //     cnt++;
+            // }
+            
+            // if (mapp15Dto.length <= 16){
+
+            //         for (var i = 0; i < 16 - mapp15Dto.length; i++) {
+            //             wactnm_data.push({
+            //             id: cnt,
+            //             index: cnt,
+            //             flag: '',
+            //             pernm: '',
+            //             atdnm: '',
+            //             vafrdate: '',
+            //             vatodate: '',
+            //             plandate: '',
+            //             plantime: '',
+            //             actnm: '',
+            //             equpnm: '',
+            //             gubun: '',
+            //             kcpernm: '',
+            //             qty: '',
+            //             remark: '',
+            //             kcspnm: '',
+            //         });
+            //         cnt++;
+            //     }
+            // }
+            // return wactnm_data;
+        }
+        //<!--당월점검현황 끝-->
+
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////onload 끝
+
+    $(document).ready(function() {
+        getToday() 
+        $("#actninputdatez").change(function(e){
+            // console.log("달력클릭");
+            // console.log(convert_time(e.timestamp));
+        })
+
+    })
+
+
+    function getToday(){
+        let today = new Date();
+
+        let year = today.getFullYear(); // 년도
+        let month = today.getMonth() + 1;  // 월
+        let date = today.getDate();  // 날짜
+        let day = today.getDay();  // 요일
+        if(month > 0 && month < 10) {month = "0" + month};
+        if(date > 0 && date < 10) {date = "0" + date};
+        let ls_today = year + '-' + month + '-' + date
+        document.getElementById('actninputdatez').value = ls_today;
+    }
+
+    function convert_time(timestamp){
+        //현재시간
+        var date = new Date(timestamp);
+        var year = date.getFullYear();
+        var month = ("0" + (1 + date.getMonth())).slice(-2);
+        var day = ("0" + date.getDate()).slice(-2);
+        var hh = date.getHours();
+        var min = ('0' + date.getMinutes()).slice(-2)
+        time = year +  month +  day   ;
+        return time;
+    }
+
+  //마이페이지 모달 호출
+    document.getElementById("userinfo").addEventListener("click",function(){
+        document.getElementById("userinfobtn").click();
+
+
+
+
+    });
+
+
+
+</script>
+<footer th:replace="layouts/APPHeader/appfooter :: footerFragment"></footer>
+
+</body>
+<script>
+        function menu01_btn(){ 
+                    var ls_actuseridz   =  jQuery('#actuseridz').val(); //document.getElementById('actuseridz').value; 
+                    var ls_actusernamez =  jQuery('#actusernamez').val(); //document.getElementById('actusernamez').value;  
+                    var ls_actcltcdz =   jQuery('#actcltcdz').val();  //document.getElementById('actcltcdz').value;  
+                    ls_actcltcdz =    ls_actcltcdz + "";
+                    var ls_actdbnmz =  jQuery('#actdbnmz').val();   //document.getElementById('actdbnmz').value;    
+                    var ls_actflagz =  jQuery('#actflagz').val();   //document.getElementById('actflagz').value;  
+                    var ls_actcalluseridz =  jQuery('#actcalluseridz').val();   
+                    var ls_actcalluserpwz =  jQuery('#actcalluserpwz').val();   
+
+                    var ls_uri          = "actuseridz=" + ls_actuseridz +"&actusernamez=" + ls_actusernamez + "&actcltcdz=" + ls_actcltcdz ;
+                        ls_uri = ls_uri +  "&actdbnmz=" + ls_actdbnmz + "&actflagz=" + ls_actflagz + "&actcalluseridz=" + ls_actcalluseridz;
+                        ls_uri = ls_uri +  "&actcalluserpwz=" + ls_actcalluserpwz;
+                    var win = window.open("/app01/ktcall?" + ls_uri,   "fullscreen=yes"); 
+            }
+
+            function logout(){   
+            if (!confirm("로그아웃하시겠습니까?") ){
+             return    
+            }else{
+                insertLogOut()
+                location.href = "/" ;
+            }
+            
+        }   
+
+        function insertLogOut(){ 
+            var ls_loginid   = document.getElementById('actuseridz').value;  
+            $.ajax({
+                url: '/authcrud/logoutlog',
+                type:"POST",
+                data: {
+                    "loginid" : ls_loginid 
+                },
+                async:false,
+                success:function(){
+                     console.log('success');
+                }
+            });
+         }
+
+    </script>
+
+
+
+</html>

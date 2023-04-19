@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- mapper >> interface 매핑 : id 값 중요 (interface 메소드) -->
+<mapper namespace="com.dae.eean.Mapper.TBXa012Mapper">
+    <select id="GetTBXa012Blank" resultType="com.dae.eean.DTO.TBXa012VO">
+        select '' as  custcd, '' as spjangcd, '' as spjangnm, '' as custperclsf, '' as saupnum, '' as prenm, '' as corpnum, '' as biztype, '' as item, '' as tel1, '' as fax,
+               '' as zipcd, '' as adresa, '' as adresb, '' as popidmsg, '' as poppw, '' as guchung, '' as reqcustcd,'' as cmsmemo, '' as cmspass, '' as agnertel1, '' as agnertel2 from dual
+    </select>
+<!--    <select id="GetTBXa012List" resultType="TBXa012VO">-->
+<!--        select * from tb_Xa012-->
+<!--    </select>-->
+<!--    <select id="GetTBXa012Detail" parameterType="TBXa012VO" resultType="TBXa012VO">-->
+<!--        select * from tb_Xa012-->
+<!--        where spjangcd=#{spjangcd}-->
+<!--    </select>-->
+<!--    <insert id="TBXa012Insert" parameterType="TBXa012VO" keyProperty="spjangcd">-->
+<!--        INSERT INTO TB_XA012(custcd, spjangcd, spjangnm, custperclsf, saupnum, prenm, corpnum, biztype, item, tel1, fax,-->
+<!--                zipcd, adresa, adresb, popidmsg, poppw, guchung, reqcustcd,cmsmemo, cmspass, agnertel1, agnertel2)-->
+<!--        VALUES (#{custcd},#{spjangcd}, #{spjangnm}, #{custperclsf}, #{saupnum}, #{prenm}, #{corpnum}, #{biztype}, #{item}, #{tel1}, #{fax},-->
+<!--                 #{zipcd}, #{adresa}, #{adresb}, #{popidmsg}, #{poppw}, #{guchung}, #{reqcustcd}, #{cmsmemo}, #{cmspass}, #{agnertel1}, #{agnertel2})-->
+<!--    </insert>-->
+<!--    <update id="TBXa012Update" parameterType="TBXa012VO"  >-->
+<!--        UPDATE TB_XA012 SET-->
+<!--        <if test="spjangnm != null">spjangnm=#{spjangnm}</if>-->
+<!--        <if test="saupnum != null and spjangnm != null ">,</if>-->
+<!--        <if test="saupnum != null">saupnum=#{saupnum}</if>-->
+<!--        <if test="saupnum != null and prenm != null ">,</if>-->
+<!--        <if test="prenm != null">prenm=#{prenm}</if>-->
+<!--        <if test="corpnum != null and prenm != null ">,</if>-->
+<!--        <if test="corpnum != null">corpnum=#{corpnum}</if>-->
+<!--        <if test="corpnum != null and item != null ">,</if>-->
+<!--        <if test="item != null">item=#{item}</if>-->
+<!--        <if test="biztype != null and item != null ">,</if>-->
+<!--        <if test="biztype != null">biztype=#{biztype}</if>-->
+<!--        <if test="biztype != null and tel1 != null ">,</if>-->
+<!--        <if test="tel1 != null">tel1=#{tel1}</if>-->
+<!--        <if test="fax != null and tel1 != null ">,</if>-->
+<!--        <if test="fax != null">fax=#{fax}</if>-->
+<!--        <if test="fax != null and zipcd != null ">,</if>-->
+<!--        <if test="zipcd != null">zipcd=#{zipcd}</if>-->
+<!--        <if test="adresa != null and zipcd != null ">,</if>-->
+<!--        <if test="adresa != null">adresa=#{adresa}</if>-->
+<!--        <if test="adresa != null and adresb != null ">,</if>-->
+<!--        <if test="adresb != null">adresb=#{adresb}</if>-->
+<!--        <if test="popidmsg != null and adresb != null ">,</if>-->
+<!--        <if test="popidmsg != null">popidmsg=#{popidmsg}</if>-->
+<!--        <if test="popidmsg != null and poppw != null ">,</if>-->
+<!--        <if test="poppw != null">poppw=#{poppw}</if>-->
+<!--        <if test="guchung != null and poppw != null ">,</if>-->
+<!--        <if test="guchung != null">guchung=#{guchung}</if>-->
+<!--        <if test="guchung != null and reqcustcd != null ">,</if>-->
+<!--        <if test="reqcustcd != null">reqcustcd=#{reqcustcd}</if>-->
+<!--        <if test="cmsmemo != null and reqcustcd != null ">,</if>-->
+<!--        <if test="cmsmemo != null">cmsmemo=#{cmsmemo}</if>-->
+<!--        <if test="cmsmemo != null and cmspass != null ">,</if>-->
+<!--        <if test="cmspass != null">cmspass=#{cmspass}</if>-->
+<!--        <if test="agnertel1 != null and cmspass != null ">,</if>-->
+<!--        <if test="agnertel1 != null">agnertel1=#{agnertel1}</if>-->
+<!--        <if test="agnertel1 != null and agnertel2 != null ">,</if>-->
+<!--        <if test="agnertel2 != null">agnertel2=#{agnertel2}</if>-->
+<!--        where spjangcd=#{spjangcd}-->
+<!--    </update>-->
+<!--    <delete id="TBXa012Delete" parameterType="string" >-->
+<!--        DELETE  from tb_Xa012-->
+<!--        where spjangcd=#{spjangcd}-->
+<!--    </delete>-->
+
+</mapper>

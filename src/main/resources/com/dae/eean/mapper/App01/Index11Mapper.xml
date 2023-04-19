@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- mapper >> interface 매핑 : id 값 중요 (interface 메소드) -->
+<mapper namespace="com.dae.eean.Mapper.App01.Index11Mapper">
+    <select id="GetAsJupsuList01" parameterType="com.dae.eean.DTO.App01.Index11Dto" resultType="com.dae.eean.DTO.App01.Index11Dto">
+        <![CDATA[
+            select as_key1
+                 ,as_key2
+                 ,as_date
+                 ,as_model
+                 ,as_color
+                 ,as_suri
+                 ,as_yumu
+                 ,as_memo
+                 ,as_gongjang
+                 ,as_acorp
+                 ,as_acorp1
+                 ,as_acorp2
+                 ,as_acorp3
+                 ,as_computer
+                 ,as_damdang
+                 ,as_memo2
+                 ,as_aname
+                 ,as_key4
+                 ,Left(as_date2,10) as as_date2
+                 ,as_memo3
+            from as_jupsu WITH (NOLOCK)
+            WHERE isnull(as_acorp,'') Like concat('%',#{as_acorp},'%')
+            and as_key1 between #{frdate} and #{todate}
+            ORDER BY as_key1, as_key2
+        ]]>
+    </select>
+
+    <select id="GetAsJupsuList02" parameterType="com.dae.eean.DTO.App01.Index11Dto" resultType="com.dae.eean.DTO.App01.Index11Dto">
+        <![CDATA[
+        select as_key1
+             ,as_key2
+             ,as_date
+             ,as_model
+             ,as_color
+             ,as_suri
+             ,as_yumu
+             ,as_memo
+             ,as_gongjang
+             ,as_acorp
+             ,as_acorp1
+             ,as_acorp2
+             ,as_acorp3
+             ,as_computer
+             ,as_damdang
+             ,as_memo2
+             ,as_aname
+             ,as_key4
+             ,Left(as_date2,10) as as_date2
+             ,as_memo3
+        from as_jupsu WITH (NOLOCK)
+        WHERE isnull(as_acorp,'') Like concat('%',#{as_acorp},'%')
+          and as_key1 between #{frdate} and #{todate} and Len(isnull(as_date2,'')) = 0
+        ORDER BY as_key1, as_key2
+        ]]>
+    </select>
+
+    <select id="GetAsJupsuList03" parameterType="com.dae.eean.DTO.App01.Index11Dto" resultType="com.dae.eean.DTO.App01.Index11Dto">
+        <![CDATA[
+        select as_key1
+             ,as_key2
+             ,as_date
+             ,as_model
+             ,as_color
+             ,as_suri
+             ,as_yumu
+             ,as_memo
+             ,as_gongjang
+             ,as_acorp
+             ,as_acorp1
+             ,as_acorp2
+             ,as_acorp3
+             ,as_computer
+             ,as_damdang
+             ,as_memo2
+             ,as_aname
+             ,as_key4
+             ,Left(as_date2,10) as as_date2
+             ,as_memo3
+        from as_jupsu WITH (NOLOCK)
+        WHERE isnull(as_acorp,'') Like concat('%',#{as_acorp},'%')
+          and as_key1 between #{frdate} and #{todate} and Len(isnull(as_date2,'')) > 0
+        ORDER BY as_key1, as_key2
+        ]]>
+    </select>
+
+
+
+</mapper>

@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- mapper >> interface 매핑 : id 값 중요 (interface 메소드) -->
+<mapper namespace="com.dae.eean.Mapper.master.AuthDBMapper">
+    <insert id="TBXUSERS_Insert" parameterType="com.dae.eean.DTO.UserFormDto" keyProperty="username">
+        INSERT INTO TB_XUSERS(userid, rnum, passwd1, passwd2, custnm, pernm, useyn, password, role, custcd, spjangcd,
+                              username, actcd, actnm, saupnum, flag, phone, dbnm, encodepw, wrongnum)
+        VALUES (#{userid},#{rnum}, #{passwd1}, #{passwd2}, #{custnm}, #{pernm}, #{useyn}, #{password}, #{role}, #{custcd}, #{spjangcd},
+                #{username}, #{actcd}, #{actnm}, #{saupnum}, #{flag}, #{phone}, #{dbnm}, #{encodepw}, 0)
+    </insert>
+    <update id="Updatepushid" parameterType="com.dae.eean.DTO.UserFormDto">
+        update tb_xusers set
+            pushid = #{pushid}
+        where userid = #{userid} and custcd = #{custcd}
+    </update>
+    <select id="GetCustInfo" parameterType="com.dae.eean.DTO.UserFormDto"  resultType="com.dae.eean.DTO.UserFormDto">
+        select custcd, custnm from tb_xusers where len(custnm) > 0 group by custcd, custnm
+    </select>
+    <select id="GetUserInfo" parameterType="com.dae.eean.DTO.UserFormDto"  resultType="com.dae.eean.DTO.UserFormDto">
+        select top 1 userid, passwd1,  username, actcd, actnm, saupnum, flag, phone, perid, pernm, useyn, role, dbnm, wrongnum, custcd, custnm, perid, pushid
+         from TB_XUSERS where userid=#{userid} and passwd1=#{passwd1} and flag = #{flag}
+    </select>
+    <select id="GetAdminInfo" parameterType="com.dae.eean.DTO.UserFormDto"  resultType="com.dae.eean.DTO.UserFormDto">
+        select top 1 userid, passwd1,  username, actcd, actnm, saupnum, flag, phone, perid, pernm, useyn, role, dbnm, wrongnum, custcd, custnm, dbnm, psuhid
+        from TB_XUSERS where userid=#{userid} and passwd1=#{passwd1} and flag = #{flag} AND custcd = #{custcd}
+    </select>
+    <select id="GetUserInfoDto" parameterType="com.dae.eean.DTO.UserFormDto"  resultType="com.dae.eean.DTO.UserFormDto">
+        select top 1 userid, passwd1,  username, actcd, actnm, saupnum, flag, phone,  perid, pernm, useyn, role, dbnm, wrongnum, custcd, custnm, pushid
+        from TB_XUSERS where userid=#{userid} and flag = #{flag}
+    </select>
+    <select id="GetUserInfoDto2" parameterType="com.dae.eean.DTO.UserFormDto"  resultType="com.dae.eean.DTO.UserFormDto">
+        select top 1 userid, passwd1,  username, actcd, actnm, saupnum, flag, phone,  perid, pernm, useyn, role, dbnm, wrongnum, custcd, custnm, pushid
+        from TB_XUSERS where pernm=#{pernm} and flag = #{flag}
+    </select>
+    <select id="GetUserListDto" parameterType="com.dae.eean.DTO.UserFormDto"  resultType="com.dae.eean.DTO.UserFormDto">
+        <![CDATA[ select  seq, userid, passwd1,  username, actcd, actnm,   phone, perid, pernm, useyn, role, dbnm, wrongnum, custcd, custnm,
+        case useyn when 'Y' THEN '사용' ELSE '미사용' END as flag
+        from TB_XUSERS where flag like CONCAT('%',#{flag},'%') and flag in  ('AA', 'CC')
+                         AND (username like CONCAT('%',#{username},'%') or userid like CONCAT('%',#{username},'%') )
+                         and len(username) > 0 and custcd=#{custcd}
+        order by flag, username
+        ]]>
+    </select>
+    <select id="GetXMenuList" parameterType="com.dae.eean.DTO.TBXuserMenuDTO"  resultType="com.dae.eean.DTO.TBXuserMenuDTO">
+        select idx, menudv,  menuid, msysname, mname, mtext, mlevel, msort
+        from TB_XMENU
+    </select>
+    <select id="GetXusersMenuList" parameterType="com.dae.eean.DTO.TBXuserMenuDTO"  resultType="com.dae.eean.DTO.TBXuserMenuDTO">
+        select   A.menudv as menudv,  A.menuid as menuid, A.userid as userid,
+                 A.msysname as msysname, A.mname as mname, A.mtext as mtext,
+                 A.mlevel as mlevel, A.msort as msort, B.username as username,
+                 case visible when 'Y' THEN '사용' ELSE '미사용' END as visible
+        from TB_XUSERMENU A with (NOLOCK) , TB_XUSERS B with (NOLOCK) where A.userid = B.userid and A.userid=#{userid}   AND A.custcd = #{custcd}
+    </select>
+
+    <select id="GetLogListDto" parameterType="com.dae.eean.DTO.UserFormDto"  resultType="com.dae.eean.DTO.TBXLoginDTO">
+        <![CDATA[
+        select DISTINCT userid, ipaddr, Left(onoffdt,4) + '-' + substring(onoffdt, 5,2) + '-' + substring(onoffdt, 7,2) AS onoffdt, usernm, ondate, ofdate, onoffdv
+        from (
+                 select userid, ipaddr, onoffdt, usernm, ondate, case onoffdv when 'Y' then 'IN' ELSE 'OFF' END AS  onoffdv, ofdate
+                 from TB_XLOGIN
+                 where userid like CONCAT('%', #{userid}, '%') AND custnm = #{custnm} AND ofdate IS NULL
+                 union
+                 select userid, ipaddr, onoffdt, usernm, ofdate as ondate,  case onoffdv when 'Y' then 'IN' ELSE 'OFF'  END  AS  onoffdv, ofdate
+                  from TB_XLOGIN
+                 where userid like CONCAT('%', #{userid}, '%')  AND custnm = #{custnm} AND ondate IS NULL
+             ) F
+        order by onoffdt desc,  usernm,  ondate
+        ]]>
+    </select>
+
+    <update id="UpdateUserInfo" parameterType="com.dae.eean.DTO.UserFormDto"  >
+        UPDATE TB_XUSERS SET  useyn=#{useyn}
+            from TB_XUSERS  where userid=#{userid} and custcd = #{custcd} and flag = #{flag}
+    </update>
+    <update id="UpdateUserMenuInfo" parameterType="com.dae.eean.DTO.TBXuserMenuDTO"  >
+        UPDATE TB_XUSERMENU SET  visible=#{visible}
+            where userid=#{userid} and menuid = #{menuid}
+    </update>
+
+    <select id="GetClientInfo" parameterType="com.dae.eean.DTO.UserFormDto" resultType="String">
+        SELECT dbo.uf_client_info(#{saupnum})
+    </select>
+    <select id="GetClientInfoName" parameterType="com.dae.eean.DTO.UserFormDto" resultType="String">
+        SELECT dbo.uf_clientnm_info(#{actcd})
+    </select>
+    <update id="UpdateDbInfo" parameterType="com.dae.eean.DTO.UserFormDto"  >
+        UPDATE TB_XUSERS SET  dbnm=#{dbnm}, cltcd=#{cltcd}
+        from TB_XUSERS  where userid=#{userid} and passwd1=#{passwd1}
+    </update>
+
+    <select id="TB_XUSER_DUPCHK" parameterType="com.dae.eean.DTO.UserFormDto" resultType="String">
+        SELECT TOP 1 A.userid as userid
+        FROM tb_xusers A WITH(NOLOCK)
+        WHERE A.userid=#{userid}
+    </select>
+
+    <select id="TB_XCLIENT_SELECT" parameterType="com.dae.eean.DTO.UserFormDto" resultType="String">
+        <!--SELECT DBO.UF_CLIENT_INFO(#{saupnum}) -->
+        <!--
+        SELECT TOP 1 A.cltnm as cltnmsa
+        FROM tb_xusers A WITH(NOLOCK)
+        WHERE A.saupnum=#{saupnum}
+        -->
+
+        SELECT dbo.uf_clientnm_info(#{saupnum}) as cltcd
+
+        <!--SELECT dbo.uf_clientnm_info(#{saupnum}) as cltnm -->
+
+    </select>
+
+
+    <select id="TB_XUSER_PHDUPCHK" parameterType="com.dae.eean.DTO.UserFormDto" resultType="String">
+        SELECT TOP 1 A.phone as phone
+        FROM TB_XUSERS A WITH(NOLOCK)
+        WHERE A.phone=#{phone}
+    </select>
+
+    <insert id="TB_XLOGIN_INSERT" parameterType="com.dae.eean.DTO.UserFormDto">
+        INSERT INTO TB_XLOGIN
+        (userid, ipaddr, onoffdt, custnm, usernm, ondate, onoffdv)
+        VALUES
+        (#{userid}, #{ipaddr}, convert(varchar(8),getDate(),112), #{custnm}, #{username}, getDate(), 'Y')
+    </insert>
+
+
+    <insert id="TB_XLOGOUT_INSERT" parameterType="com.dae.eean.DTO.UserFormDto">
+        INSERT INTO TB_XLOGIN
+            (userid, ipaddr, onoffdt, custnm, usernm, ofdate, onoffdv)
+        VALUES
+            (#{userid}, #{ipaddr}, convert(varchar(8),getDate(),112), #{custnm}, #{username}, getDate(), 'N')
+    </insert>
+
+    <update id="TB_XUSERS_LOGFAIL" parameterType="com.dae.eean.DTO.UserFormDto">
+        UPDATE TB_XUSERS SET
+        wrongnum = wrongnum + 1
+        WHERE userid = #{userid}
+    </update>
+
+    <update id="TB_XUSERS_LOGSUCC" parameterType="com.dae.eean.DTO.UserFormDto">
+        UPDATE TB_XUSERS SET
+        wrongnum = 0
+        WHERE userid = #{userid}
+    </update>
+
+    <select id="TB_XUSER_DBNM" parameterType="com.dae.eean.DTO.UserFormDto" resultType="String">
+        select top(1) dbnm from tb_xusers where saupnum=#{saupnum}
+    </select>
+
+    <select id="TB_GET_PUSHID" parameterType="com.dae.eean.DTO.Popup.PopupDto" resultType="String">
+        select top(1) pushid from tb_xusers where pernm=#{pernm} and dbnm =#{dbnm}
+    </select>
+
+    <update id="TB_XUSER_UPDATE" parameterType="com.dae.eean.DTO.UserFormDto">
+        UPDATE TB_XUSERS SET
+            username = #{username}, passwd1 = #{passwd1}, passwd2 = #{passwd2}, phone = #{phone}
+        WHERE userid = #{userid} and custcd= #{custcd} and flag = #{flag}
+    </update>
+</mapper>

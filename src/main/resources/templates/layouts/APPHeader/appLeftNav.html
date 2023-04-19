@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <th:block layout:fragment="leftNavComm">
+        <ul class="nav">
+            <li>
+                <button type="button"><img th:src="@{/assets/images/header_icon1.png}" alt=""></button>
+                <div class="depth2">
+                    <div class="dep_main">
+                        <a href="./center.html">
+                            <button type="button">
+                                이인옵틱수주시스템
+                            </button>
+                        </a>
+                    </div>
+                    <ul>
+                        <li><a th:href="@{/app01/index01}"><i><img class="dot1" th:src="@{/assets/images/i_dot_header.png}" alt=""><img class="dot2" th:src="@{/assets/images/i_dot_header2.png}" alt=""></i>주문현황</a></li>
+                        <li><a th:href="@{/app01/index13}"><i><img class="dot1" th:src="@{/assets/images/i_dot_header.png}" alt=""><img class="dot2" th:src="@{/assets/images/i_dot_header2.png}" alt=""></i>기초코드</a></li>
+                        <li><a th:href="@{/app01/index02}"><i><img class="dot1" th:src="@{/assets/images/i_dot_header.png}" alt=""><img class="dot2" th:src="@{/assets/images/i_dot_header2.png}" alt=""></i>거래처등록</a></li>
+                        <li><a th:href="@{/app01/index03}"><i><img class="dot1" th:src="@{/assets/images/i_dot_header.png}" alt=""><img class="dot2" th:src="@{/assets/images/i_dot_header2.png}" alt=""></i>품목등록</a></li>
+                        <li><a th:href="@{/app01/index04}"><i><img class="dot1" th:src="@{/assets/images/i_dot_header.png}" alt=""><img class="dot2" th:src="@{/assets/images/i_dot_header2.png}" alt=""></i>재고등록</a></li>
+                        <li><a th:href="@{/app01/index05}"><i><img class="dot1" th:src="@{/assets/images/i_dot_header.png}" alt=""><img class="dot2" th:src="@{/assets/images/i_dot_header2.png}" alt=""></i>예약주문등록</a></li>
+                    </ul>
+                </div>     
+            </li>
+            <li>
+                <button type="button"><img th:src="@{/assets/images/header_icon2.png}" alt=""></button>
+                <div class="depth2 on">
+                    <div class="dep_main">
+                        <a href="">    
+                            <button type="button">
+                                통계관리
+                            </button>
+                        </a>
+                    </div>
+
+
+                    <ul>
+                        <li class="on"><a th:href="@{/app02/index13}"><i><img class="dot1" src="/images/i_dot_header.png" alt=""><img class="dot2" src="/images/i_dot_header2.png" alt=""></i>재고현황</a></li>
+                        <li><a th:href="@{/app02/index06}"><i><img class="dot1" src="/images/i_dot_header.png" alt=""><img class="dot2" src="/images/i_dot_header2.png" alt=""></i>사원별매출현황</a></li>
+                        <li><a th:href="@{/app02/index07}"><i><img class="dot1" src="/images/i_dot_header.png" alt=""><img class="dot2" src="/images/i_dot_header2.png" alt=""></i>거래처별매출현황</a></li>
+                        <li><a th:href="@{/app02/index08}"><i><img class="dot1" src="/images/i_dot_header.png" alt=""><img class="dot2" src="/images/i_dot_header2.png" alt=""></i>품목별매출현황</a></li>
+                        <li><a th:href="@{/app02/index09}"><i><img class="dot1" src="/images/i_dot_header.png" alt=""><img class="dot2" src="/images/i_dot_header2.png" alt=""></i>거래처현황</a></li>
+                        <li><a th:href="@{/app02/index10}"><i><img class="dot1" src="/images/i_dot_header.png" alt=""><img class="dot2" src="/images/i_dot_header2.png" alt=""></i>품목현황</a></li>
+                        <li><a th:href="@{/app01/index11}"><i><img class="dot1" src="/images/i_dot_header.png" alt=""><img class="dot2" src="/images/i_dot_header2.png" alt=""></i>A/S접수 배송현황</a></li>
+                        <!-- <li><a th:href="@{/app02/index12}"><i><img class="dot1" src="/images/i_dot_header.png" alt=""><img class="dot2" src="/images/i_dot_header2.png" alt=""></i>접수현황</a></li> -->
+                    </ul>
+                </div>
+            </li>
+            <!-- <li>
+                <button type="button"><img th:src="@{/assets/images/header_icon3.png}" alt=""></button>
+                <div class="depth2">
+                    <div class="dep_main">
+                        <a href="">
+                            <button type="button">
+                                기술자료실
+                            </button>
+                        </a>
+                    </div>
+                    <ul>
+                        <li  class='on'  ><a th:href="@{/app04/index01}"><i><img class="dot1" src="/images/i_dot_header.png" alt=""><img class="dot2" src="/images/i_dot_header2.png" alt=""></i>도면자료실</a></li>
+                        <li><a th:href="@{/app04/index02}"><i><img class="dot1" src="/images/i_dot_header.png" alt=""><img class="dot2" src="/images/i_dot_header2.png" alt=""></i>부품자료실</a></li>
+                        <li><a th:href="@{/app04/index03}"><i><img class="dot1" src="/images/i_dot_header.png" alt=""><img class="dot2" src="/images/i_dot_header2.png" alt=""></i>기타자료실</a></li>
+                        <li><a th:href="@{/app07/index01}"><i><img class="dot1" src="/images/i_dot_header.png" alt=""><img class="dot2" src="/images/i_dot_header2.png" alt=""></i>점검조치사항</a></li>
+
+                    </ul>
+                </div>
+            </li>
+            <li>
+                <button type="button"><img th:src="@{/assets/images/header_icon4.png}" alt=""></button>
+                <div class="depth2">
+                    <div class="dep_main">
+                        <a href="">
+                            
+                            <button type="button">
+                                수리노하우
+                            </button>
+                        </a>
+                    </div>
+                    <ul>
+                        <li><a th:href="@{/app06/index01}"><i><img class="dot1" src="/images/i_dot_header.png" alt=""><img class="dot2" src="/images/i_dot_header2.png" alt=""></i>수리노하우</a></li>
+                        <li><a th:href="@{/app08/index01}"><i><img class="dot1" src="/images/i_dot_header.png" alt=""><img class="dot2" src="/images/i_dot_header2.png" alt=""></i>부품가이드</a></li>
+                        <li><a th:href="@{/app28/index01}"><i><img class="dot1" src="/images/i_dot_header.png" alt=""><img class="dot2" src="/images/i_dot_header2.png" alt=""></i>수리 Q&A</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li>
+                <button type="button"><img th:src="@{/assets/images/header_icon5.png}" alt=""></button>
+                <div class="depth2">
+                    <div class="dep_main">
+                        <a href="./care_center.html">
+                            <button type="button">
+                                고객케어센터
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <button type="button"><img th:src="@{/assets/images/header_icon6.png}" alt=""></button>
+                <div class="depth2">
+                    <div class="dep_main">
+
+                            <button type="button">
+                                공지사항
+                            </button>
+                        </a>
+                      </div>
+                    <ul>
+                        <li><a th:href="@{/app05/index01}"><i><img class="dot1" src="/images/i_dot_header.png" alt=""><img class="dot2" src="/images/i_dot_header2.png" alt=""></i>공지사항</a></li>
+                        <li class="on"><a th:href="@{/app09/index01}"><i><img class="dot1" src="/images/i_dot_header.png" alt=""><img class="dot2" src="/images/i_dot_header2.png" alt=""></i>FaQ</a></li>
+
+                    </ul>
+                </div>
+
+            </li> -->
+            <!--<li>
+                <button type="button"><img th:src="@{/assets/images/header_icon7.png}" alt=""></button>
+                <div class="depth2">
+                    <div class="dep_main">
+                        <a href="">
+                            <button type="button">
+                                고객지원
+                            </button>
+                        </a>
+                    </div>
+                    <ul>
+                        <li><a th:href="@{/app20/index01}"><i><img class="dot1" src="/images/i_dot_header.png" alt=""><img class="dot2" src="/images/i_dot_header2.png" alt=""></i>호기별고장현황</a></li>
+                        <li><a th:href="@{/app27/index01}"><i><img class="dot1" src="/images/i_dot_header.png" alt=""><img class="dot2" src="/images/i_dot_header2.png" alt=""></i>고장구분별현황</a></li>
+                        <li><a th:href="@{/app16/index01}"><i><img class="dot1" src="/images/i_dot_header.png" alt=""><img class="dot2" src="/images/i_dot_header2.png" alt=""></i>월별고장율현황</a></li>
+                        <li><a th:href="@{/app19/index01}"><i><img class="dot1" src="/images/i_dot_header.png" alt=""><img class="dot2" src="/images/i_dot_header2.png" alt=""></i>승강기호기별고장통계</a></li>
+                        <li><a th:href="@{/app25/index01}"><i><img class="dot1" src="/images/i_dot_header.png" alt=""><img class="dot2" src="/images/i_dot_header2.png" alt=""></i>동호기별고장통계</a></li>
+                        <li><a th:href="@{/app22/index01}"><i><img class="dot1" src="/images/i_dot_header.png" alt=""><img class="dot2" src="/images/i_dot_header2.png" alt=""></i>승강기월별고장통계</a></li>
+
+                    </ul>
+                </div>                        
+            </li>-->
+        </ul>
+    </th:block>
+
+</html>

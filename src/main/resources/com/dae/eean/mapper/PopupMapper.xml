@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- mapper >> interface 매핑 : id 값 중요 (interface 메소드) -->
+<mapper namespace="com.dae.eean.Mapper.PopupMapper">
+    <select id="GetInsaList" parameterType="com.dae.eean.DTO.Popup.PopupDto" resultType="com.dae.eean.DTO.Popup.PopupDto">
+        <![CDATA[
+            select insano, inname
+            from insa WITH (NOLOCK)
+            WHERE isnull(inname,'') Like concat('%',#{inname},'%') or isnull(insano,'') Like concat('%',#{inname},'%')
+            ORDER BY inname
+        ]]>
+    </select>
+
+
+    <select id="getCifCodeList"  parameterType="com.dae.eean.DTO.Popup.PopupDto" resultType="com.dae.eean.DTO.Popup.PopupDto">
+        <![CDATA[
+            select cifcode, cifcodename from cifcode  where cifcode  not in ('00', '$0') and isnull(cifcode,'') Like concat('%',#{cifcode},'%') order by cifcode
+        ]]>
+    </select>
+
+
+    <insert id="InsertCifCode" parameterType="com.dae.eean.DTO.Popup.PopupDto" >
+        insert into CIFCODE (cifcode, cifcodename ) values
+            (#{cifcode}, #{cifcodename})
+    </insert>
+
+    <update id="UpdateCifCode" parameterType="com.dae.eean.DTO.Popup.PopupDto">
+        UPDATE  CIFCODE SET cifcodename = #{cifcodename} where cifcode   = #{cifcode}
+    </update>
+
+    <update id="DeleteCifCode" parameterType="com.dae.eean.DTO.Popup.PopupDto">
+        DELETE  CIFCODE   where cifcode  = #{cifcode}
+    </update>
+
+
+
+</mapper>
