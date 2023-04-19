@@ -1,0 +1,53 @@
+@font-face {
+    font-family: 'S-CoreDream-3Light';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+ margin: 20px;
+ font-family: 'S-CoreDream-3Light';
+}
+
+.highlightActive .wj-cells .wj-cell:focus {
+    background: rgba(255,150,30,.75) !important;  
+  }
+  
+.customMarquee .wj-marquee {
+    border: 8px solid rgba(255,150,30,.75);
+    border-radius: 8px;
+}
+
+.wj-flexgrid {
+   height: 400px;  
+   margin: 10px 0;
+}
+
+
+.wj-flexgrid .wj-cell.wj-frozen {
+    background: #FF8A65;
+    color:white;
+}
+
+.wj-flexgrid .wj-header {
+ background-color: #0786BD;
+ color:white;
+ font-weight:bold;
+}
+
+.wj-cells .wj-cell.wj-state-selected{
+ background: #4DD0E1;
+}
+
+
+.ctx-menu {
+    padding: 3px;
+    min-width: 120px;
+    background: #FFD56C;
+    overflow: hidden;
+  }
+  
+.ctx-menu .wj-listbox-item {
+margin: 6px;
+}
