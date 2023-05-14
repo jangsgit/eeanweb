@@ -28,7 +28,15 @@ public class Index03Service {
     public List<Index03Dto> GetGanListBonsa02(Index03Dto parm){
         return  appMapper.GetGanListBonsa02(parm);
     }
-
+    public List<Index03Dto> GetJcustomCode(Index03Dto parm){
+        return  appMapper.GetJcustomCode(parm);
+    }
+    public List<Index03Dto> GetJpumCustList(Index03Dto parm){
+        return  appMapper.GetJpumCustList(parm);
+    }
+    public List<Index03Dto> GetJpumModelList(Index03Dto parm){
+        return  appMapper.GetJpumModelList(parm);
+    }
     public Boolean InsertJpum(Index03Dto parm){ return  appMapper.InsertJpum(parm);}
     public Boolean UpdateJpum(Index03Dto parm){  return  appMapper.UpdateJpum(parm);  }
     public Boolean DeleteJpum(Index03Dto parm){  return  appMapper.DeleteJpum(parm);  }

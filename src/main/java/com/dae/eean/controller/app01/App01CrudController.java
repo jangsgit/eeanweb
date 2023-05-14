@@ -327,6 +327,64 @@ public class App01CrudController {
     }
 
 
+
+    //고객분류코드로 모델리스트  list
+    @GetMapping(value="/index03/custlist")
+    public Object App03CustList_index(@RequestParam("searchtxt") String searchtxt,
+                                  Model model, HttpServletRequest request) throws Exception{
+        CommDto.setMenuTitle("제품등록");
+        CommDto.setMenuUrl("기준정보>제품정보");
+        CommDto.setMenuCode("index03");
+        HttpSession session = request.getSession();
+        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        model.addAttribute("userformDto",userformDto);
+
+        try {
+
+            if(searchtxt == null || searchtxt.equals("")){
+                searchtxt = "%";
+            }
+            index03Dto.setJcustomer_code(searchtxt);
+            index03List = service03.GetJpumCustList(index03Dto);
+            model.addAttribute("index03CustList",index03List);
+
+        } catch (Exception ex) {
+            log.info("GetJpumCustList  Exception =====>" + ex.toString());
+        }
+
+        return index03List;
+    }
+
+    //고객코드와 모델코드로 제품정보 list
+    @GetMapping(value="/index03/modellist")
+    public Object App03ModelList_index(@RequestParam("jcust") String jcust,
+                                       @RequestParam("jmodel") String jmodel,
+                                      Model model, HttpServletRequest request) throws Exception{
+        CommDto.setMenuTitle("제품등록");
+        CommDto.setMenuUrl("기준정보>제품정보");
+        CommDto.setMenuCode("index03");
+        HttpSession session = request.getSession();
+        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        model.addAttribute("userformDto",userformDto);
+
+        try {
+
+            if(jcust == null || jcust.equals("")){
+                jcust = "%";
+            }
+            index03Dto.setJcustomer_code(jcust);
+            index03Dto.setJmodel_code(jmodel);
+            index03List = service03.GetJpumModelList(index03Dto);
+            model.addAttribute("index03MdelList",index03List);
+
+        } catch (Exception ex) {
+            log.info("GetJpumModelList  Exception =====>" + ex.toString());
+        }
+
+        return index03List;
+    }
+
+
     @RequestMapping(value="/index03/save")
     public String index03Save(@RequestPart(value = "key") Map<String, Object> param
             , Model model

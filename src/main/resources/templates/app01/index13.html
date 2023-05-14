@@ -199,43 +199,43 @@
                 return wactnm_data;                                          
             } 
 
-            //간편분류 popup list
-            view_p01tab02page = new wijmo.collections.CollectionView(getData_wlist(), {
-                pageSize: 12
-            });
-            // 간편분류 페이지 이동
-            new wijmo.input.CollectionViewNavigator('#thePager01', {
-                byPage: true,
-                headerFormat: 'Page {currentPage:n0} of {pageCount:n0}',
-                cv: view_p01tab02page
-            });     
-            wtab02Grid = new wijmo.grid.FlexGrid('#wtab02Grid_div', {  
-                autoGenerateColumns: false,
-                isReadOnly: false, 
-                allowSorting: 'MultiColumn',
-                selectionMode: 'RowRange',
-                alternatingRowStep: 0,
-                columns: [     
-                    { binding: 'actnm', header: '코드', align: "center", width: '1*' }, 
-                    { binding: 'telno', header: '간편분류명', align: "center", width: '1*' },  
-                ], 
-                itemsSource: view_p01tab02page
-            });  
-            // 현장검색 데이터 수집
-            function getData_wlist(){    
-                var wactnm_data = [[${cifcodeList}]];  
-                var cnt = 1;
-                for (var i = 0; i < 12; i++) {
-                    wactnm_data.push({
-                        id: i, 
-                        index: cnt,
-                        cifcode:  wactnm_data[i]["cifcode"], 
-                        cifcodename:  wactnm_data[i]["cifcodename"], 
-                    });
-                    cnt++;
-                }    
-                return wactnm_data;                                      
-            } 
+            // //간편분류 popup list
+            // view_p01tab02page = new wijmo.collections.CollectionView(getData_wlist(), {
+            //     pageSize: 12
+            // });
+            // // 간편분류 페이지 이동
+            // new wijmo.input.CollectionViewNavigator('#thePager01', {
+            //     byPage: true,
+            //     headerFormat: 'Page {currentPage:n0} of {pageCount:n0}',
+            //     cv: view_p01tab02page
+            // });     
+            // wtab02Grid = new wijmo.grid.FlexGrid('#wtab02Grid_div', {  
+            //     autoGenerateColumns: false,
+            //     isReadOnly: false, 
+            //     allowSorting: 'MultiColumn',
+            //     selectionMode: 'RowRange',
+            //     alternatingRowStep: 0,
+            //     columns: [     
+            //         { binding: 'actnm', header: '코드', align: "center", width: '1*' }, 
+            //         { binding: 'telno', header: '간편분류명', align: "center", width: '1*' },  
+            //     ], 
+            //     itemsSource: view_p01tab02page
+            // });  
+            // // 현장검색 데이터 수집
+            // function getData_wlist(){    
+            //     var wactnm_data = [[${cifcodeList}]];  
+            //     var cnt = 1;
+            //     for (var i = 0; i < 12; i++) {
+            //         wactnm_data.push({
+            //             id: i, 
+            //             index: cnt,
+            //             cifcode:  wactnm_data[i]["cifcode"], 
+            //             cifcodename:  wactnm_data[i]["cifcodename"], 
+            //         });
+            //         cnt++;
+            //     }    
+            //     return wactnm_data;                                      
+            // } 
                        
 
         } 
@@ -585,11 +585,7 @@
 
         $(document).ready(function() { 
             getToday()
-            fn_egov_init_date()
-            $('datetimepicker').datetimepicker({
-                
-            }); 
-
+            fn_egov_init_date() 
             $("#frdate").change(function(e){ 
                 // console.log("달력클릭");
                 // console.log(convert_time(e.timestamp));
@@ -599,15 +595,7 @@
                 // console.log(convert_time(e.timestamp));
             })
         })
-
-        function test_rtn(arg1){
-            console.log(arg1);
-            const disHtml = `
-                <div class="tab-pane fade show active" id=${arg1} role="tabpanel" aria-labelledby="profile-tab">${arg1}</div>`
-            $('#btnDiv02').before(disHtml);
-        }
-
-
+ 
         function getToday(){
             let today = new Date();   
 
@@ -619,8 +607,8 @@
             if(date > 0 && date < 10) {date = "0" + date};
             let ls_frday = year + '-' + month + '-01' 
             let ls_today = year + '-' + month + '-' + date 
-            document.getElementById('frdate').value = ls_frday;
-            document.getElementById('todate').value = ls_today;
+            // document.getElementById('frdate').value = ls_frday;
+            // document.getElementById('todate').value = ls_today;
         }
 
         function convert_time(timestamp){ 
@@ -636,33 +624,7 @@
         }
 
         function fn_egov_init_date(){
-            var $frdate = $('#frdate');
-            var $todate = $('#todate');
-            $frdate.datetimepicker({
-                timepicker: false,
-                lang: 'ko',
-                format: 'Y-m-d',
-                scrollMonth: false,
-                scrollInput: false,
-                onShow: function (ct) {                                    
-                    this.setOptions({
-                        // maxDate: $frdate.val() ? $frdate.val() : false
-                    })
-                },
-            });
-
-            $todate.datetimepicker({
-                timepicker: false,
-                lang: 'ko',
-                format: 'Y-m-d',    //'Y-m-d H:i',
-                scrollMonth: false,
-                scrollInput: false,
-                onShow: function (ct) {
-                    this.setOptions({
-                        // minDate: $todate.val() ? $todate.val() : false
-                    })
-                }
-            });
+            
 
         }
  

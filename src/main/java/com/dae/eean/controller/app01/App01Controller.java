@@ -175,7 +175,7 @@ public class App01Controller {
 
     //주문등록
     @GetMapping(value="/index15")
-    public String App15_index( Model model, HttpServletRequest request) throws Exception{
+    public Object App15_index( Model model, HttpServletRequest request) throws Exception{
         CommDto.setMenuTitle("거래처주문등록");
         CommDto.setMenuUrl("기준정보>거래처주문등록");
         CommDto.setMenuCode("index15");
@@ -184,9 +184,9 @@ public class App01Controller {
         model.addAttribute("userformDto",userformDto);
 
         try {
-//            popupListDto = svcpopup.getCifCodeList(popupDto);
+            index03List = service03.GetJcustomCode(index03Dto);
 
-//            model.addAttribute("cifcodeList",popupListDto);
+            model.addAttribute("index15List",index03List);
         } catch (Exception ex) {
 //                dispatchException = ex;
             log.info("App15_index Exception ================================================================");

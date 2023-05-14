@@ -3,6 +3,38 @@
 
 <!-- mapper >> interface 매핑 : id 값 중요 (interface 메소드) -->
 <mapper namespace="com.dae.eean.Mapper.App01.Index03Mapper">
+    <select id="GetJcustomCode" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
+        <![CDATA[
+        select   jcustomer_code as jcustomer_code
+        from JCODE3 WITH (NOLOCK)
+        WHERE isnull(jcustomer_code,'')   NOT IN ('X')
+        Group by jcustomer_code
+        ORDER BY jcustomer_code
+        ]]>
+    </select>
+
+
+    <select id="GetJpumCustList" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
+        <![CDATA[
+        select   jcustomer_code, jmodel_code
+        from JCODE3 WITH (NOLOCK)
+        WHERE isnull(jcustomer_code,'')   = #{jcustomer_code}
+        Group by jcustomer_code, jmodel_code
+        ORDER BY jcustomer_code, jmodel_code
+        ]]>
+    </select>
+
+    <select id="GetJpumModelList" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
+        <![CDATA[
+        select   jkey, jpb_gubn, jgong_code, jdan_code, jmodel_code, jcolor_code, jcustomer_code,
+                 jbonsa_code, jsayong_gubn, jpum, jgugek, jsize, jchgoga0, jbigo, 0 as jqty
+        from JCODE3 WITH (NOLOCK)
+        WHERE isnull(jmodel_code,'')   = #{jmodel_code} and isnull(jcustomer_code,'')   = #{jcustomer_code}
+        ORDER BY jmodel_code, jkey
+        ]]>
+    </select>
+
+
     <select id="GetJpumCheck" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="String">
         <![CDATA[
         select   jpum
