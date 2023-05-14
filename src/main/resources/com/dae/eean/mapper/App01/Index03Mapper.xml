@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- mapper >> interface 매핑 : id 값 중요 (interface 메소드) -->
+<mapper namespace="com.dae.eean.Mapper.App01.Index03Mapper">
+    <select id="GetJpumCheck" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="String">
+        <![CDATA[
+        select   jpum
+        from JCODE3 WITH (NOLOCK)
+        WHERE isnull(jkey,'')   = #{jkey}
+        ORDER BY jkey
+        ]]>
+    </select>
+
+    <select id="GetJpumList" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
+        <![CDATA[
+            select jkey, jpb_gubn, jgong_code, jdan_code, jmodel_code, jcolor_code, jcustomer_code,
+                   jbonsa_code, jsayong_gubn, jpum, jgugek, jsize, jchgoga0, jbigo,
+                   E.jcifcodename as jcifcodename
+            from JCODE3 WITH (NOLOCK)
+            LEFT OUTER JOIN jcifcode E WITH(NOLOCK) ON (JCODE3.jmodel_code = E.jcifcode)
+            WHERE isnull(jpum,'') Like concat('%',#{jpum},'%') and isnull(delflag,'0')  = '0'
+            ORDER BY jkey
+        ]]>
+    </select>
+
+    <select id="GetJpumListTot" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
+        <![CDATA[
+        select jkey, jpb_gubn, jgong_code, jdan_code, jmodel_code, jcolor_code, jcustomer_code,
+               jbonsa_code, jsayong_gubn, jpum, jgugek, jsize, jchgoga0, jbigo,
+               E.jcifcodename as jcifcodename
+        from JCODE3 WITH (NOLOCK)
+            LEFT OUTER JOIN jcifcode E WITH(NOLOCK) ON (JCODE3.jmodel_code = E.jcifcode)
+        WHERE isnull(jpum,'') Like concat('%',#{jpum},'%')
+          and isnull(delflag,'0')  = '0'
+          and isnull(jpb_gubn,'') Like concat('%',#{jpb_gubn},'%')
+          and isnull(jmodel_code,'') Like concat('%',#{jmodel_code},'%')
+        ORDER BY jpum
+        ]]>
+    </select>
+
+    <insert id="InsertJpum" parameterType="com.dae.eean.DTO.App01.Index03Dto" >
+        insert into JCODE3 ( jkey, jpb_gubn, jgong_code, jdan_code, jmodel_code, jcolor_code, jcustomer_code,
+                             jbonsa_code, jsayong_gubn, jpum, jgugek, jsize, jchgoga0, jbigo, delflag) values
+                        (#{jkey}, #{jpb_gubn}, #{jgong_code}, #{jdan_code}, #{jmodel_code}, #{jcolor_code}, #{jcustomer_code},
+                         #{jbonsa_code}, #{jsayong_gubn}, #{jpum}, #{jgugek}, #{jsize}, #{jchgoga0}, #{jbigo},  '0')
+    </insert>
+
+
+    <update id="UpdateJpum" parameterType="com.dae.eean.DTO.App01.Index03Dto">
+        update JCODE3
+        set delflag = '0'
+        <if test="jpb_gubn != null ">,</if>
+        <if test="jpb_gubn != null">jpb_gubn=#{jpb_gubn}</if>
+        <if test="jgong_code != null ">,</if>
+        <if test="jgong_code != null">jgong_code=#{jgong_code}</if>
+        <if test="jdan_code != null ">,</if>
+        <if test="jdan_code != null">jdan_code=#{jdan_code}</if>
+        <if test="jmodel_code != null ">,</if>
+        <if test="jmodel_code != null">jmodel_code=#{jmodel_code}</if>
+        <if test="jcolor_code != null ">,</if>
+        <if test="jcolor_code != null">jcolor_code=#{jcolor_code}</if>
+        <if test="jcustomer_code != null ">,</if>
+        <if test="jcustomer_code != null">jcustomer_code=#{jcustomer_code}</if>
+        <if test="jbonsa_code != null ">,</if>
+        <if test="jbonsa_code != null">jbonsa_code=#{jbonsa_code}</if>
+        <if test="jsayong_gubn != null ">,</if>
+        <if test="jsayong_gubn != null">jsayong_gubn=#{jsayong_gubn}</if>
+        <if test="jpum != null ">,</if>
+        <if test="jpum != null">jpum=#{jpum}</if>
+        <if test="jgugek != null ">,</if>
+        <if test="jgugek != null">jgugek=#{jgugek}</if>
+        <if test="jsize != null ">,</if>
+        <if test="jsize != null">jsize=#{jsize}</if>
+        <if test="jchgoga0 != null ">,</if>
+        <if test="jchgoga0 != null">jchgoga0=#{jchgoga0}</if>
+        <if test="jbigo != null ">,</if>
+        <if test="jbigo != null">jbigo=#{jbigo}</if>
+        where jkey   = #{jkey}
+    </update>
+
+
+    <update id="DeleteJpum" parameterType="com.dae.eean.DTO.App01.Index03Dto">
+        UPDATE  JCODE3 SET delflag = '1' where jkey  = #{jkey}
+    </update>
+
+    <select id="GetGanListBonsa01" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
+        <![CDATA[
+        SELECT jbonsa_code, jmodel_code,   jpb_gubn
+        from JCODE3 WITH (NOLOCK)
+        WHERE isnull(jpb_gubn,'')   = #{jpb_gubn}  AND jsayong_gubn IN ( '1', '2','3')
+         GROUP BY jbonsa_code, jmodel_code, jpb_gubn
+         ORDER  BY jbonsa_code, jmodel_code, jpb_gubn
+        ]]>
+    </select>
+
+
+    <select id="GetGanListBonsa02" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
+        <![CDATA[
+        SELECT jbonsa_code, jmodel_code,   jpb_gubn, jcolor_code, jkey
+        from JCODE3 WITH (NOLOCK)
+        WHERE isnull(jpb_gubn,'')   = #{jpb_gubn}
+          and isnull(jbonsa_code,'')   = #{jbonsa_code}
+          and isnull(jmodel_code,'') Like concat('%',#{jmodel_code},'%')
+          AND jsayong_gubn IN ( '1', '2','3')
+        ORDER  BY jmodel_code, jcolor_code, jkey
+        ]]>
+    </select>
+
+
+
+
+</mapper>

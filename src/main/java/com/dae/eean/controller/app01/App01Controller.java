@@ -6,6 +6,7 @@ import com.dae.eean.DTO.CommonDto;
 import com.dae.eean.DTO.Popup.PopupDto;
 import com.dae.eean.DTO.UserFormDto;
 import com.dae.eean.Service.App01.Index02Service;
+import com.dae.eean.Service.App01.Index03Service;
 import com.dae.eean.Service.Appcom01Service;
 import com.dae.eean.Service.PopupService;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +31,7 @@ import java.util.List;
 @RequestMapping(value = "/app01", method = RequestMethod.POST)
 public class App01Controller {
     private final Index02Service service02;
+    private final Index03Service service03;
     private final PopupService svcpopup;
 
     CommonDto CommDto = new CommonDto();
@@ -106,12 +108,10 @@ public class App01Controller {
         model.addAttribute("userformDto",userformDto);
 
         try {
-            index03Dto.setAcorp("%");
-            index02List = service02.GetCifList(index02Dto);
-            popupListDto = svcpopup.getCifCodeList(popupDto);
+            index03Dto.setJpum("%");
+            index03List = service03.GetJpumList(index03Dto);
 
-            model.addAttribute("index02List",index02List);
-            model.addAttribute("cifcodeList",popupListDto);
+            model.addAttribute("index03List",index03List);
         } catch (Exception ex) {
 //                dispatchException = ex;
             log.info("App03001Tab01Form Exception ================================================================");
@@ -120,6 +120,31 @@ public class App01Controller {
         }
 
         return "App01/index03";
+    }
+
+
+    //재고등록
+    @GetMapping(value="/index04")
+    public String App04_index( Model model, HttpServletRequest request) throws Exception{
+        CommDto.setMenuTitle("재고등록");
+        CommDto.setMenuUrl("기준정보>재고등록");
+        CommDto.setMenuCode("index04");
+        HttpSession session = request.getSession();
+        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        model.addAttribute("userformDto",userformDto);
+
+        try {
+//            popupListDto = svcpopup.getCifCodeList(popupDto);
+
+//            model.addAttribute("cifcodeList",popupListDto);
+        } catch (Exception ex) {
+//                dispatchException = ex;
+            log.info("App13_index Exception ================================================================");
+            log.info("Exception =====>" + ex.toString());
+//            log.debug("Exception =====>" + ex.toString() );
+        }
+
+        return "App01/index04";
     }
 
 
@@ -146,6 +171,58 @@ public class App01Controller {
 
         return "App01/index13";
     }
+
+
+    //주문등록
+    @GetMapping(value="/index15")
+    public String App15_index( Model model, HttpServletRequest request) throws Exception{
+        CommDto.setMenuTitle("거래처주문등록");
+        CommDto.setMenuUrl("기준정보>거래처주문등록");
+        CommDto.setMenuCode("index15");
+        HttpSession session = request.getSession();
+        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        model.addAttribute("userformDto",userformDto);
+
+        try {
+//            popupListDto = svcpopup.getCifCodeList(popupDto);
+
+//            model.addAttribute("cifcodeList",popupListDto);
+        } catch (Exception ex) {
+//                dispatchException = ex;
+            log.info("App15_index Exception ================================================================");
+            log.info("Exception =====>" + ex.toString());
+//            log.debug("Exception =====>" + ex.toString() );
+        }
+
+        return "App01/index15";
+    }
+
+
+    //주문등록
+    @GetMapping(value="/index14")
+    public String App14_index( Model model, HttpServletRequest request) throws Exception{
+        CommDto.setMenuTitle("주문등록");
+        CommDto.setMenuUrl("기준정보>주문등록");
+        CommDto.setMenuCode("index14");
+        HttpSession session = request.getSession();
+        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        model.addAttribute("userformDto",userformDto);
+
+        try {
+//            popupListDto = svcpopup.getCifCodeList(popupDto);
+
+//            model.addAttribute("cifcodeList",popupListDto);
+        } catch (Exception ex) {
+//                dispatchException = ex;
+            log.info("App13_index Exception ================================================================");
+            log.info("Exception =====>" + ex.toString());
+//            log.debug("Exception =====>" + ex.toString() );
+        }
+
+        return "App01/index14";
+    }
+
+
 
     //AS접수 배송현황
     @GetMapping(value="/index11")

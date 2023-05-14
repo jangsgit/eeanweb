@@ -1,10 +1,14 @@
 package com.dae.eean.controller.app01;
 
 import com.dae.eean.DTO.App01.Index02Dto;
+import com.dae.eean.DTO.App01.Index03Dto;
+import com.dae.eean.DTO.App01.Index04Dto;
 import com.dae.eean.DTO.CommonDto;
 import com.dae.eean.DTO.TBXuserMenuDTO;
 import com.dae.eean.DTO.UserFormDto;
 import com.dae.eean.Service.App01.Index02Service;
+import com.dae.eean.Service.App01.Index03Service;
+import com.dae.eean.Service.App01.Index04Service;
 import com.dae.eean.Service.master.AuthService;
 import com.dae.eean.controller.EncryptionController;
 import lombok.RequiredArgsConstructor;
@@ -29,9 +33,15 @@ public class App01CrudController {
     UserFormDto userformDto = new UserFormDto();
 
     private final Index02Service service02;
+    private final Index03Service service03;
+    private final Index04Service service04;
     CommonDto CommDto = new CommonDto();
+    Index04Dto index04Dto = new Index04Dto();
+    List<Index04Dto> index04List = new ArrayList<>();
+    List<Index03Dto> index03List = new ArrayList<>();
     List<Index02Dto> index02List = new ArrayList<>();
     Index02Dto index02Dto = new Index02Dto();
+    Index03Dto index03Dto = new Index03Dto();
 
     EncryptionController enc = new EncryptionController();
     protected Log log =  LogFactory.getLog(this.getClass());
@@ -89,7 +99,7 @@ public class App01CrudController {
                 conagita = "%";
             }
             index02Dto.setAcorp1(conacorp1);
-            log.info("conacorp1 =====>" + conacorp1);
+//            log.info("conacorp1 =====>" + conacorp1);
             index02Dto.setAcorp(conacorp);
             index02Dto.setAgita(conagita);
             index02List = service02.GetCifListTot(index02Dto);
@@ -248,6 +258,325 @@ public class App01CrudController {
         return "success";
     }
 
+
+
+    //제품등록
+    @GetMapping(value="/index03/list")
+    public Object App03List_index(@RequestParam("searchtxt") String searchtxt,
+                                  Model model, HttpServletRequest request) throws Exception{
+        CommDto.setMenuTitle("제품등록");
+        CommDto.setMenuUrl("기준정보>제품정보");
+        CommDto.setMenuCode("index03");
+        HttpSession session = request.getSession();
+        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        model.addAttribute("userformDto",userformDto);
+
+        try {
+
+            if(searchtxt == null || searchtxt.equals("")){
+                searchtxt = "%";
+            }
+            index03Dto.setJpum(searchtxt);
+            index03List = service03.GetJpumList(index03Dto);
+            model.addAttribute("index03List",index03List);
+
+        } catch (Exception ex) {
+            log.info("App02List_index Exception =====>" + ex.toString());
+        }
+
+        return index03List;
+    }
+
+
+    //거래처등록
+    @GetMapping(value="/index03/listtot")
+    public Object App03ListTot_index(@RequestParam("jpbgubn") String jpbgubn,
+                                     @RequestParam("jmodelcode") String jmodelcode,
+                                     @RequestParam("conagita") String conagita,
+                                     Model model, HttpServletRequest request) throws Exception{
+        CommDto.setMenuTitle("제품등록");
+        CommDto.setMenuUrl("기준정보>제품정보");
+        CommDto.setMenuCode("index03");
+        HttpSession session = request.getSession();
+        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        model.addAttribute("userformDto",userformDto);
+
+        try {
+            if(jpbgubn == null || jpbgubn.equals("")){
+                jpbgubn = "%";
+            }
+            if(jmodelcode == null || jmodelcode.equals("")){
+                jmodelcode = "%";
+            }
+            if(conagita == null || conagita.equals("")){
+                conagita = "%";
+            }
+            index03Dto.setJpb_gubn(jpbgubn);
+            log.info("jpbgubn =====>" + jpbgubn);
+            index03Dto.setJmodel_code(jmodelcode);
+            index03Dto.setJpum(conagita);
+            index03List = service03.GetJpumListTot(index03Dto);
+            model.addAttribute("index03List",index03List);
+
+        } catch (Exception ex) {
+            log.info("App02ListTot_index Exception =====>" + ex.toString());
+//            log.debug("Exception =====>" + ex.toString() );
+        }
+
+        return index03List;
+    }
+
+
+    @RequestMapping(value="/index03/save")
+    public String index03Save(@RequestPart(value = "key") Map<String, Object> param
+            , Model model
+            , HttpServletRequest request){
+
+        try {
+            param.forEach((key, values) -> {
+                switch (key) {
+                    case "jkey":
+                        index03Dto.setJkey(values.toString());
+                        break;
+                    case "jpbgubn":
+                        index03Dto.setJpb_gubn(values.toString());
+                        break;
+                    case "jgongcode":
+                        index03Dto.setJgong_code(values.toString());
+                        break;
+                    case "jdancode":
+                        index03Dto.setJdan_code(values.toString());
+                        break;
+                    case "jmodelcode":
+                        index03Dto.setJmodel_code(values.toString());
+                        break;
+                    case "jcolorcode":
+                        index03Dto.setJcolor_code(values.toString());
+                        break;
+                    case "jcustomercode":
+                        index03Dto.setJcustomer_code(values.toString());
+                        break;
+                    case "jbonsacode":
+                        index03Dto.setJbonsa_code(values.toString());
+                        break;
+                    case "jsayonggubn":
+                        index03Dto.setJsayong_gubn(values.toString());
+                        break;
+                    case "jpum":
+                        index03Dto.setJpum(values.toString());
+                        break;
+                    case "jgugek":
+                        index03Dto.setJgugek(values.toString());
+                        break;
+                    case "jsize":
+                        index03Dto.setJsize(values.toString());
+                        break;
+                    case "jchgoga0":
+                        index03Dto.setJchgoga0(values.toString());
+                        break;
+                    case "jbigo":
+                        index03Dto.setJbigo(values.toString());
+                        break;
+                    default:
+                        break;
+                }
+            });
+            HttpSession session = request.getSession();
+            UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+            model.addAttribute("userformDto",userformDto);
+
+            String ls_acode = service03.GetJpumCheck(index03Dto);
+            Boolean result = false;
+            log.info("ls_acode");
+            log.info(index03Dto.getJbigo());
+            if (ls_acode == null || ls_acode.equals("")) {
+                result = service03.InsertJpum(index03Dto);
+                log.info("result1");
+                log.info(result);
+                if (!result) {
+                    return "error";
+                }
+            } else {
+                result = service03.UpdateJpum(index03Dto);
+                log.info("result2");
+                log.info(result);
+                if (!result) {
+                    return "error";
+                }
+            }
+//            model.addAttribute("userformDto",userformDto);
+        }catch (IllegalStateException e){
+            model.addAttribute("errorMessage", e.getMessage());
+            return "error";
+        }
+        return "success";
+    }
+
+    @RequestMapping(value="/index03/del")
+    public String index03Delete(  @RequestParam("ascode") String ascode,
+                                  Model model,   HttpServletRequest request){
+        HttpSession session = request.getSession();
+        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        model.addAttribute("userformDto",userformDto);
+        index03Dto.setJkey(ascode);
+        Boolean result = service03.DeleteJpum(index03Dto);
+        if (!result) {
+            return "error";
+        }
+        return "success";
+    }
+
+
+    //간편주문 리스트 01 등록
+    @GetMapping(value="/index03/ganlist01")
+    public Object App03GanList01_index(@RequestParam("jpbgubn") String jpbgubn,
+                                     @RequestParam("flag") String flag,
+                                     Model model, HttpServletRequest request) throws Exception{
+        CommDto.setMenuTitle("주문등록");
+        CommDto.setMenuUrl("기준정보>주문등록");
+        CommDto.setMenuCode("index14");
+        HttpSession session = request.getSession();
+        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        model.addAttribute("userformDto",userformDto);
+
+        try {
+            if(jpbgubn == null || jpbgubn.equals("")){
+                jpbgubn = "%";
+            }
+            index03Dto.setJpb_gubn(jpbgubn);
+            index03List = service03.GetGanListBonsa01(index03Dto);
+            model.addAttribute("index03GanList01",index03List);
+
+        } catch (Exception ex) {
+            log.info("App03GanList01_index Exception =====>" + ex.toString());
+//            log.debug("Exception =====>" + ex.toString() );
+        }
+
+        return index03List;
+    }
+
+    //간편주문 리스트 02 등록
+    @GetMapping(value="/index03/ganlist02")
+    public Object App03GanList02_index(@RequestParam("jpbgubn") String jpbgubn,
+                                       @RequestParam("jbonsacode") String jbonsacode,
+                                       @RequestParam("jmodelcode") String jmodelcode,
+                                       @RequestParam("flag") String flag,
+                                       Model model, HttpServletRequest request) throws Exception{
+        CommDto.setMenuTitle("주문등록");
+        CommDto.setMenuUrl("기준정보>주문등록");
+        CommDto.setMenuCode("index14");
+        HttpSession session = request.getSession();
+        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        model.addAttribute("userformDto",userformDto);
+
+        try {
+            if(jpbgubn == null || jpbgubn.equals("")){
+                jpbgubn = "%";
+            }
+            index03Dto.setJpb_gubn(jpbgubn);
+            index03Dto.setJbonsa_code(jbonsacode);
+            index03Dto.setJmodel_code(jmodelcode);
+            index03List = service03.GetGanListBonsa02(index03Dto);
+            model.addAttribute("index03GanList02",index03List);
+
+        } catch (Exception ex) {
+            log.info("App03GanList01_index Exception =====>" + ex.toString());
+//            log.debug("Exception =====>" + ex.toString() );
+        }
+
+        return index03List;
+    }
+
+
+
+
+
+    @RequestMapping(value="/index04/save")
+    public String index04Save(
+             @RequestParam("frdate") String frdate
+            ,@RequestParam( value =  "jcode[]") List<String> jcode
+            ,@RequestParam( value =  "jqty[]") List<String> jqty
+            , Model model
+            , HttpServletRequest request){
+
+        try {
+
+            HttpSession session = request.getSession();
+            UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+            model.addAttribute("userformDto",userformDto);
+
+            String year = frdate.substring(0,4) ;
+            String month = frdate.substring(5,7) ;
+            String day   = frdate.substring(8,10) ;
+            frdate = year + month + day ;
+
+            Boolean result = false;
+            if( jcode.size() > 0){
+                for(int i = 0; i < jcode.size(); i++){
+                     index04Dto.setAcorp("00");
+                     index04Dto.setKey1(frdate);
+                     index04Dto.setJepm(jcode.get(i));
+                     index04Dto.setIjaego_su1(Integer.parseInt(jqty.get(i)));
+                     index04Dto.setJepm_size("00");
+                    log.info("frdate Exception =====>" + frdate);
+                    log.info("jcode  Exception =====>" + jcode.get(i));
+                    log.info("jqty  Exception =====>" + jqty.get(i));
+                     result = service04.InsertJegoIpgo(index04Dto);
+                    if (!result){
+                        return "error";
+                    }
+                }
+            }
+
+        }catch (IllegalStateException e){
+            model.addAttribute("errorMessage", e.getMessage());
+            return "error";
+        }
+        return "success";
+    }
+
+
+    @RequestMapping(value="/index04/del")
+    public String index04Delete(  @RequestParam("ipdate") String ipdate,
+                                  Model model,   HttpServletRequest request){
+        HttpSession session = request.getSession();
+        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        model.addAttribute("userformDto",userformDto);
+        index04Dto.setKey1(ipdate);
+        Boolean result = service04.DeleteJaegoIpgo(index04Dto);
+        if (!result) {
+            return "error";
+        }
+        return "success";
+    }
+
+
+    //거래처등록
+    @GetMapping(value="/index04/list")
+    public Object App04List_index(@RequestParam("ipdate") String searchtxt,
+                                  Model model, HttpServletRequest request) throws Exception{
+        CommDto.setMenuTitle("거래처등록");
+        CommDto.setMenuUrl("기준정보>재고등록");
+        CommDto.setMenuCode("index04");
+        HttpSession session = request.getSession();
+        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        model.addAttribute("userformDto",userformDto);
+
+        try {
+
+            if(searchtxt == null || searchtxt.equals("")){
+                searchtxt = "%";
+            }
+            index04Dto.setKey1(searchtxt);
+            index04List = service04.SelectJegoIpgo(index04Dto);
+            model.addAttribute("index04List",index04List);
+
+        } catch (Exception ex) {
+            log.info("App02List_index Exception =====>" + ex.toString());
+        }
+
+        return index04List;
+    }
 
 
 }
