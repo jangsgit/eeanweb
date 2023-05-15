@@ -23,7 +23,7 @@
         <div class="con">
             <!-- ## header top include -->
             <th:block th:include="layouts/APPHeader/appheadTop" />
-            <div class="infor_bar type2"> 
+            <!-- <div class="infor_bar type2"> 
                 <div class="left">
                     주문등록
                 </div>
@@ -31,16 +31,10 @@
                     <li>
                         <button class="btn btn-secondary me-1 mb-1"  id="retrieveBtn" type="button"><i><img th:src="@{/assets/images/i_search.png}" alt=""></i>조회
                         </button> 
-                    </li>
-                    <!-- <li>
-                        <button class="btn btn-warning me-1 mb-1" type="button" onclick="delete_btn()"><span class="fas fa-trash ms-1" data-fa-transform="shrink-3"></span>삭제 </button>
-                    </li> -->
-                    <!-- <li>
-                        <button class="btn btn-primary me-1 mb-1" type="button" onclick="save_btn()"><span class="fas fa-plus me-1" data-fa-transform="shrink-3"></span>저장 </button>
-                    </li>  -->
+                    </li> 
                 </ul>
 
-            </div> 
+            </div>  -->
             <div class="section status"> 
                 <div class="sec_con" style="width: 100%;">
                     <div class="box_wrap"> 
@@ -78,7 +72,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-1 col-sm-1">  
-                                                <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" type="button" onclick="retrieve_rtn()">조회
+                                                <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="retrieveBtn" type="button" onclick="retrieve_rtn()">조회
                                                 </button>
                                             </div> 
                                             <!-- <div class="col-2 col-sm-1">  
