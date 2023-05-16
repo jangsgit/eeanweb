@@ -148,7 +148,7 @@ public class App01Controller {
     }
 
 
-    //기초코드등록
+    //기초코드등록 emdfhr
     @GetMapping(value="/index13")
     public String App13_index( Model model, HttpServletRequest request) throws Exception{
         CommDto.setMenuTitle("기초코드");
