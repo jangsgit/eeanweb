@@ -100,7 +100,7 @@
                                         <div class="container-fluid">
                                             <div id="wtab02Grid_div" ></div>
                                             <div id="tab02Pager"></div>
-                                          </div>
+                                        </div>
                                     </div>
                                     <div class="tab-pane fade" id="step03">
                                         <div class="container-fluid">
@@ -195,12 +195,12 @@
             view_p01tab02page = new wijmo.collections.CollectionView(getData_wlist(), {
                 pageSize: 12
             });
-            // 일자별입고현황 페이지 이동
-            new wijmo.input.CollectionViewNavigator('#thePager02', {
-                byPage: true,
-                headerFormat: 'Page {currentPage:n0} of {pageCount:n0}',
-                cv: view_p01tab02page
-            });     
+            // // 일자별입고현황 페이지 이동
+            // new wijmo.input.CollectionViewNavigator('#thePager02', {
+            //     byPage: true,
+            //     headerFormat: 'Page {currentPage:n0} of {pageCount:n0}',
+            //     cv: view_p01tab02page
+            // });     
             wtab02Grid = new wijmo.grid.FlexGrid('#wtab02Grid_div', {  
                 autoGenerateColumns: false,
                 isReadOnly: false, 
@@ -209,33 +209,39 @@
                 alternatingRowStep: 0,
                 columns: [     
                     { binding: 'jepm', header: '품목코드', align: "center", width: '1*' }, 
+                    { binding: 'jepmnm', header: '품목', align: "center", width: '1*' }, 
+                    { binding: 'jgugek', header: '규격', align: "center", width: '1*' }, 
+                    { binding: 'jsize', header: '사이즈', align: "center", width: '1*' }, 
+                    { binding: 'jmodel_code', header: '모델코드', align: "center", width: '1*' }, 
+                    { binding: 'jcolor_code', header: '컬러코드', align: "center", width: '1*' }, 
+                    { binding: 'jcustomer_code', header: '고객코드', align: "center", width: '1*' }, 
                     { binding: 'ijaego_su1', header: '입고수량', align: "center", width: '1*' },  
                 ], 
                 itemsSource: view_p01tab02page
             });  
 
 
-            new FlexGridContextMenu(wtab02Grid); 
-            // 선택기 생성
-            let selector = new wijmo.grid.selector.Selector(wtab02Grid, {
-                itemChecked: () => {
-                    // showCheckedCount();
-                }
-            }); 
+            // new FlexGridContextMenu(wtab02Grid); 
+            // // 선택기 생성
+            // let selector = new wijmo.grid.selector.Selector(wtab02Grid, {
+            //     itemChecked: () => {
+            //         // showCheckedCount();
+            //     }
+            // }); 
             // 헤더 열 전환
-            setHeaderColumn(true);
-            function setHeaderColumn(headerOn) {
-                wtab02Grid.headersVisibility = headerOn
-                ? wijmo.grid.HeadersVisibility.All
-                : wijmo.grid.HeadersVisibility.Column;
-                selector.column = headerOn
-                ? wtab02Grid.rowHeaders.columns[0]
-                : wtab02Grid.columns[0];
-            } 
-            wtab02Grid.showMarquee = true;
-            wtab02Grid.focus();
-            wijmo.toggleClass(wtab02Grid.hostElement, 'highlightActive', true);
-            wtab02Grid.focus();
+            // setHeaderColumn(true);
+            // function setHeaderColumn(headerOn) {
+            //     wtab02Grid.headersVisibility = headerOn
+            //     ? wijmo.grid.HeadersVisibility.All
+            //     : wijmo.grid.HeadersVisibility.Column;
+            //     selector.column = headerOn
+            //     ? wtab02Grid.rowHeaders.columns[0]
+            //     : wtab02Grid.columns[0];
+            // } 
+            // wtab02Grid.showMarquee = true;
+            // wtab02Grid.focus();
+            // wijmo.toggleClass(wtab02Grid.hostElement, 'highlightActive', true);
+            // wtab02Grid.focus();
 
 
 
@@ -248,6 +254,12 @@
                         id: i, 
                         index: cnt,
                         jepm: '', 
+                        jepmnm: '', 
+                        jgugek: '', 
+                        jsize: '', 
+                        jmodel_code: '', 
+                        jcolor_code: '', 
+                        jcustomer_code: '', 
                         ijaego_su1:  '', 
                     });
                     cnt++;
@@ -434,6 +446,8 @@
                         document.getElementById("ipdate").focus(); 
                         return ;               
                     }   
+                    console.log("ls_ipdate");
+                    console.log(ls_ipdate);
                     $.ajax({
                         url: '/app01m/index04/list',  
                         type:"POST",
@@ -441,7 +455,8 @@
                             "ipdate"      : ls_ipdate,  
                         }, 
                         async:false,
-                        success:function(data){   
+                        success:function(data){  
+                    console.log("success"); 
                             tabB_grid(data);
                         },error:function(e){
                             console.log("error");
@@ -489,11 +504,16 @@
                     id: i, 
                     index: cnt,
                     jepm: wtab02Dto[i]["jepm"],
-                    ijaego_su1: wtab02Dto[i]["ijaego_su1"],                                 
+                    jepmnm: wtab02Dto[i]["jepmnm"],
+                    jgugek: wtab02Dto[i]["jgugek"], 
+                    jsize: wtab02Dto[i]["jsize"], 
+                    jmodel_code: wtab02Dto[i]["jmodel_code"],
+                    jcolor_code: wtab02Dto[i]["jcolor_code"], 
+                    jcustomer_code: wtab02Dto[i]["jcustomer_code"], 
                 });
                 cnt++;
             }   
-            // console.log("wtab02_data",wactnm_data) +
+            console.log("wtab02_data",wactnm_data) +
             // console.log(wtab02_data.length);
             wtab02Grid.columns.clear();  
             wtab02Grid.autoGenerateColumns = false; 
@@ -503,7 +523,50 @@
             cols.header = '코드';
             cols.align = "center";
             cols.width = 100; 
-            wtab02Grid.columns.push(cols);    
+            wtab02Grid.columns.push(cols);  
+
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'jepmnm';
+            cols.header = '품목';
+            cols.align = "center";
+            cols.width = 200;  
+            wtab02Grid.columns.push(cols);   
+
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'jgugek';
+            cols.header = '규격';
+            cols.align = "center";
+            cols.width = 100;  
+            wtab02Grid.columns.push(cols);   
+
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'jsize';
+            cols.header = '사이즈';
+            cols.align = "center";
+            cols.width = 100;  
+            wtab02Grid.columns.push(cols);   
+
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'jmodel_code';
+            cols.header = '모델코드';
+            cols.align = "center";
+            cols.width = 100;  
+            wtab02Grid.columns.push(cols);   
+
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'jcolor_code';
+            cols.header = '컬러코드';
+            cols.align = "center";
+            cols.width = 100;  
+            wtab02Grid.columns.push(cols);   
+
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'jcustomer_code';
+            cols.header = '고객코드';
+            cols.align = "center";
+            cols.width = 200;  
+            wtab02Grid.columns.push(cols);   
+   
             // console.log("cols", cols);  
             cols = new wijmo.grid.Column(); 
             cols.binding = 'ijaego_su1';

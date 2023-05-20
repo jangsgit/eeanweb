@@ -621,10 +621,11 @@ public class App01CrudController {
         model.addAttribute("userformDto",userformDto);
 
         try {
-
-            if(searchtxt == null || searchtxt.equals("")){
-                searchtxt = "%";
-            }
+            String year = searchtxt.substring(0,4) ;
+            String month = searchtxt.substring(5,7) ;
+            String day   = searchtxt.substring(8,10) ;
+            searchtxt = year + month + day ;
+            log.debug("searchtxt =====>" + searchtxt );
             index04Dto.setKey1(searchtxt);
             index04List = service04.SelectJegoIpgo(index04Dto);
             model.addAttribute("index04List",index04List);
