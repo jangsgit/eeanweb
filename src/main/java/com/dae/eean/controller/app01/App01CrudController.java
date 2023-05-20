@@ -576,9 +576,9 @@ public class App01CrudController {
                      index04Dto.setJepm(jcode.get(i));
                      index04Dto.setIjaego_su1(Integer.parseInt(jqty.get(i)));
                      index04Dto.setJepm_size("00");
-                    log.info("frdate Exception =====>" + frdate);
-                    log.info("jcode  Exception =====>" + jcode.get(i));
-                    log.info("jqty  Exception =====>" + jqty.get(i));
+//                    log.info("frdate Exception =====>" + frdate);
+//                    log.info("jcode  Exception =====>" + jcode.get(i));
+//                    log.info("jqty  Exception =====>" + jqty.get(i));
                      result = service04.InsertJegoIpgo(index04Dto);
                     if (!result){
                         return "error";
@@ -600,6 +600,10 @@ public class App01CrudController {
         HttpSession session = request.getSession();
         UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
         model.addAttribute("userformDto",userformDto);
+        String year = ipdate.substring(0,4) ;
+        String month = ipdate.substring(5,7) ;
+        String day   = ipdate.substring(8,10) ;
+        ipdate = year + month + day ;
         index04Dto.setKey1(ipdate);
         Boolean result = service04.DeleteJaegoIpgo(index04Dto);
         if (!result) {
@@ -609,7 +613,7 @@ public class App01CrudController {
     }
 
 
-    //거래처등록
+    //재고실사 리스트
     @GetMapping(value="/index04/list")
     public Object App04List_index(@RequestParam("ipdate") String searchtxt,
                                   Model model, HttpServletRequest request) throws Exception{
@@ -636,6 +640,73 @@ public class App01CrudController {
 
         return index04List;
     }
+
+    //재고현황 리스트
+    @GetMapping(value="/index04/jaegolist")
+    public Object App04JaegoList_index(@RequestParam("searchtxt") String searchtxt,
+                                  Model model, HttpServletRequest request) throws Exception{
+        CommDto.setMenuTitle("거래처등록");
+        CommDto.setMenuUrl("기준정보>재고현항");
+        CommDto.setMenuCode("index04");
+        HttpSession session = request.getSession();
+        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        model.addAttribute("userformDto",userformDto);
+
+        try {
+            if(searchtxt == null || searchtxt.equals("")){
+                searchtxt = "%";
+            }
+            log.debug("searchtxt =====>" + searchtxt );
+            index04Dto.setJkey(searchtxt);
+            index04Dto.setFrdate("2000-01-01");
+            index04Dto.setTodate(searchtxt);
+            index04List = service04.SelectJegoList(index04Dto);
+            model.addAttribute("index04List",index04List);
+
+        } catch (Exception ex) {
+            log.info("App04JaegoList_index Exception =====>" + ex.toString());
+        }
+
+        return index04List;
+    }
+
+
+    //그룹별 재고현황 리스트
+    @GetMapping(value="/index04/jaegocustlist")
+    public Object App04JaegoCustList_index(@RequestParam("searchtxt") String searchtxt,
+                                           @RequestParam("jcustcd") String jcustcd,
+                                           @RequestParam("todate") String todate,
+                                       Model model, HttpServletRequest request) throws Exception{
+        CommDto.setMenuTitle("거래처등록");
+        CommDto.setMenuUrl("기준정보>재고현항");
+        CommDto.setMenuCode("index04");
+        HttpSession session = request.getSession();
+        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        model.addAttribute("userformDto",userformDto);
+
+        try {
+            if(searchtxt == null || searchtxt.equals("")){
+                searchtxt = "%";
+            }
+            if(jcustcd == null || jcustcd.equals("")){
+                jcustcd = "%";
+            }
+            log.debug("searchtxt =====>" + searchtxt );
+
+            index03Dto.setJcustomer_code(jcustcd);
+            index03Dto.setJpum(searchtxt);
+            index03Dto.setFrdate("2000-01-01");
+            index03Dto.setTodate(todate);
+            index03List = service03.GetJpumCustJaegoList(index03Dto);
+            model.addAttribute("index03List",index03List);
+
+        } catch (Exception ex) {
+            log.info("App04JaegoList_index Exception =====>" + ex.toString());
+        }
+
+        return index03List;
+    }
+
 
 
 }

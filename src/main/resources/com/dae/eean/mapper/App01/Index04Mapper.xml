@@ -5,10 +5,20 @@
 <mapper namespace="com.dae.eean.Mapper.App01.Index04Mapper">
 
     <select id="SelectJegoIpgo"  parameterType="com.dae.eean.DTO.App01.Index04Dto" resultType="com.dae.eean.DTO.App01.Index04Dto">
-        <![CDATA[ select A.jepm, A.acorp, A.key1, A.jepm_size, A.ijaego_su1 , B.jpum as jpumnm, B.jgugek as jgugek , B.jsize as jsize,
+        <![CDATA[ select A.jepm, A.acorp, A.key1, A.jepm_size, A.ijaego_su1 as jqty , B.jpum as jpumnm, B.jgugek as jgugek , B.jsize as jsize,
                          B.jmodel_code as jmodel_code, B.jcolor_code as jcolor_code, B.jcustomer_code as jcustomer_code
            from JEGO_JEPMJANAK A WITH (NOLOCK) , JCODE3 B WITH (NOLOCK)
-           where key1 = #{key1}   ]]>
+           where A.jepm = B.jkey
+           AND A.key1 = #{key1}   ]]>
+    </select>
+
+
+    <select id="SelectJegoList"  parameterType="com.dae.eean.DTO.App01.Index04Dto" resultType="com.dae.eean.DTO.App01.Index04Dto">
+        <![CDATA[ select B.jkey,  B.jpum as jpumnm, B.jgugek as jgugek , B.jsize as jsize,
+                         B.jmodel_code as jmodel_code, B.jcolor_code as jcolor_code, B.jcustomer_code as jcustomer_code,
+                         convert(integer, DBO.DF_TB_PCODE_JQTY(B.jkey,  #{frdate},  #{todate}) ) as jqty
+           from  JCODE3 B WITH (NOLOCK)
+           where  isnull(B.jkey,'') Like concat('%',#{jkey},'%')     ]]>
     </select>
 
     <insert id="InsertJegoIpgo" parameterType="com.dae.eean.DTO.App01.Index04Dto" >

@@ -31,12 +31,22 @@ public class Index03Service {
     public List<Index03Dto> GetJcustomCode(Index03Dto parm){
         return  appMapper.GetJcustomCode(parm);
     }
+    public List<Index03Dto> GetJcustomCodeTot(Index03Dto parm){
+        return  appMapper.GetJcustomCodeTot(parm);
+    }
     public List<Index03Dto> GetJpumCustList(Index03Dto parm){
         return  appMapper.GetJpumCustList(parm);
     }
     public List<Index03Dto> GetJpumModelList(Index03Dto parm){
         return  appMapper.GetJpumModelList(parm);
     }
+    public List<Index03Dto> GetJpumCustJaegoList(Index03Dto parm){
+        return  appMapper.GetJpumCustJaegoList(parm);
+    }
+
+
+
+
     public Boolean InsertJpum(Index03Dto parm){ return  appMapper.InsertJpum(parm);}
     public Boolean UpdateJpum(Index03Dto parm){  return  appMapper.UpdateJpum(parm);  }
     public Boolean DeleteJpum(Index03Dto parm){  return  appMapper.DeleteJpum(parm);  }

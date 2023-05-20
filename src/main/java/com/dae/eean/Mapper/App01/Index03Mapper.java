@@ -15,8 +15,11 @@ public interface Index03Mapper {
     public List<Index03Dto> GetGanListBonsa01(Index03Dto parm) ;
     public List<Index03Dto> GetGanListBonsa02(Index03Dto parm) ;
     public List<Index03Dto> GetJcustomCode(Index03Dto parm) ;
+    public List<Index03Dto> GetJcustomCodeTot(Index03Dto parm) ;
     public List<Index03Dto> GetJpumCustList(Index03Dto parm) ;
     public List<Index03Dto> GetJpumModelList(Index03Dto parm) ;
+    public List<Index03Dto> GetJpumCustJaegoList(Index03Dto parm) ;
+
 
     public Boolean InsertJpum(Index03Dto  parm) ;
     public Boolean UpdateJpum(Index03Dto  parm) ;

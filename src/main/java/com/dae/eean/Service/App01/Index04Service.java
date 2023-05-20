@@ -21,7 +21,10 @@ public class Index04Service {
         return  appMapper.SelectJegoIpgo(parm);
     }
     public Boolean InsertJegoIpgo(Index04Dto parm){ return  appMapper.InsertJegoIpgo(parm);}
-    public Boolean DeleteJaegoIpgo(Index04Dto parm){ return  appMapper.InsertJegoIpgo(parm);}
+    public Boolean DeleteJaegoIpgo(Index04Dto parm){ return  appMapper.DeleteJaegoIpgo(parm);}
 
+    public List<Index04Dto> SelectJegoList(Index04Dto parm){
+        return  appMapper.SelectJegoList(parm);
+    }
 
 }
