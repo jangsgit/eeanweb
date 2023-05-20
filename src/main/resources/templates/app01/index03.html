@@ -202,11 +202,23 @@
                                         </tr>   
                                         <tr>  
                                             <th>BARCODE</th>
-                                            <td colspan="5">
-                                                <div class="input-group">  
+                                            <td colspan="1"> 
                                                     <div id="btnDiv" class="btn_wrap">  
-                                                    <div id="bcTarget"></div>
-                                                </div>                        
+                                                    <div id="bcTarget"></div> 
+                                                </div>             
+                                            </td>     
+                                            <th>인쇄수량</th>       
+                                            <td colspan="4">
+                                                <div class="container">
+                                                    <div class="row align-items-start">
+                                                        <div class="col"> 
+                                                            <input class="form-control form-control-sm" id="inprtqty" type="number"  value = 0 placeholder=""  />
+                                                          </div>
+                                                          <div class="col">
+                                                            <button class="btn btn-outline-danger me-1 mb-1"  style="display:inline; color:#dc3545; " type="button" id="barcodeprt" onclick="barcodeprt_btn()"><span class="fas fa-print ms-1" data-fa-transform="shrink-3"></span><span style="color: #084661;">출력</span></button>                                               
+                                                          </div>
+                                                    </div>
+                                                </div>        
                                             </td>                                       
                                         </tr>   
                                     </tbody>
@@ -1171,10 +1183,14 @@ function sample4_execDaumPostcode() {
         //    int25 (interleaved 2 of 5)
         //    msi
         //    datamatrix (ASCII + extended)
+        
+        // div 초기화 
+        const ListDivs = $('div[data-name="fileDiv"]');
+        ListDivs.remove();
         var ls_barcode = document.getElementById('jkey').value ;
 
 
-        for (var i = 0; i < 3; i++) {
+       // for (var i = 0; i < 3; i++) {
             // wfile_data.push({
             //     id: i, 
             //     index: cnt,
@@ -1182,10 +1198,10 @@ function sample4_execDaumPostcode() {
             //     boardIdx: wfileDto[i]["boardIdx"], 
             //     originalName: wfileDto[i]["originalName"], 
             // });  
-                var  id = i; 
-                var  idx = wfileDto[i]["idx"];
-                var  boardIdx = wfileDto[i]["boardIdx"];
-                var  originalName = wfileDto[i]["originalName"]; 
+                // var  id = i; 
+                // var  idx = wfileDto[i]["idx"];
+                // var  boardIdx = wfileDto[i]["boardIdx"];
+                // var  originalName = wfileDto[i]["originalName"]; 
 
             const fileHtml = `
             <div data-name="fileDiv" class="form-group filebox bs3-primary">
@@ -1194,7 +1210,7 @@ function sample4_execDaumPostcode() {
                         <tr> 
                             <td> 
                                 <div class="col-sm-15">
-                                    $("#bcTarget${cnt}").barcode("${ls_barcode}", "code128");
+                                    $("#bcTarget").barcode("${ls_barcode}", "code128");
  
                                 </div>
                             </td>
@@ -1203,15 +1219,35 @@ function sample4_execDaumPostcode() {
             </div>
             `; 
 
-            $('#btnDiv').before(fileHtml);                                
+            // $('#btnDiv').before(fileHtml);                                
 
-            cnt++;                        
-        }  
+        //    cnt++;                        
+       // }  
 
 
         $("#bcTarget").barcode(ls_barcode, "code128");
     }
-    
+    function barcodeprt_btn(){
+        var ls_barcode = document.getElementById('jkey').value ;
+        var ls_qty = document.getElementById('inprtqty').value ;
+
+
+        var initBody;
+            window.onbeforeprint = function(){
+                initBody = document.body.innerHTML;
+                document.body.innerHTML =  document.getElementById('bcTarget').innerHTML;
+            };
+            window.onafterprint = function(){
+             document.body.innerHTML = initBody;
+            };
+            for (var h = 0; h <= ls_qty ; h++){
+
+                window.print();
+            }
+            return false;
+
+
+    }
 
 
 
