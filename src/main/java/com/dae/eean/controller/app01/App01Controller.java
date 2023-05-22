@@ -134,9 +134,8 @@ public class App01Controller {
         model.addAttribute("userformDto",userformDto);
 
         try {
-//            popupListDto = svcpopup.getCifCodeList(popupDto);
-
-//            model.addAttribute("cifcodeList",popupListDto);
+            index03List = service03.GetJcustomCodeTot(index03Dto);
+            model.addAttribute("index04List",index03List);
         } catch (Exception ex) {
 //                dispatchException = ex;
             log.info("App13_index Exception ================================================================");

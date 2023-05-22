@@ -14,6 +14,7 @@ public class Index04Dto {
     private Integer ijaego_su1;
     private Integer ijaego_su2;
     private Integer ijaego_su3;
+    private Integer jqty;
 
     private String jpb_gubun;
     private String jmodel_code;
@@ -24,5 +25,7 @@ public class Index04Dto {
     private String jgugek;
     private String jsize;
     private Integer jchgoga0;
+    private String frdate;
+    private String todate;
 
 }

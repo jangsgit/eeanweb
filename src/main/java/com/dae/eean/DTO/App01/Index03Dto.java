@@ -22,4 +22,6 @@ public class Index03Dto {
     private String jbigo;
     private String ascode;
     private String jqty;
+    private String frdate;
+    private String todate;
 }

@@ -13,14 +13,36 @@
         ]]>
     </select>
 
+    <select id="GetJcustomCodeTot" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
+        <![CDATA[
+        select   jcustomer_code as jcustomer_code
+        from JCODE3 WITH (NOLOCK)
+        Group by jcustomer_code
+        ORDER BY jcustomer_code
+        ]]>
+    </select>
+
 
     <select id="GetJpumCustList" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
         <![CDATA[
-        select   jcustomer_code, jmodel_code
-        from JCODE3 WITH (NOLOCK)
-        WHERE isnull(jcustomer_code,'')   = #{jcustomer_code}
-        Group by jcustomer_code, jmodel_code
-        ORDER BY jcustomer_code, jmodel_code
+            select   jcustomer_code, jmodel_code
+            from JCODE3 WITH (NOLOCK)
+            WHERE isnull(jcustomer_code,'')   = #{jcustomer_code}
+            Group by jcustomer_code, jmodel_code
+            ORDER BY jcustomer_code, jmodel_code
+        ]]>
+    </select>
+
+
+    <select id="GetJpumCustJaegoList" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
+        <![CDATA[
+            select    jkey,  jpum  ,  jgugek , jsize,
+                             jmodel_code, jcolor_code, jcustomer_code,
+                             convert(integer, DBO.DF_TB_PCODE_JQTY(jkey,  #{frdate},  #{todate}) ) as jqty
+            from JCODE3 WITH (NOLOCK)
+            WHERE isnull(jcustomer_code,'') Like concat('%',#{jcustomer_code},'%')
+             and  isnull(jpum,'') Like concat('%',#{jpum},'%')
+            ORDER BY jcustomer_code, jmodel_code, jpum
         ]]>
     </select>
 
