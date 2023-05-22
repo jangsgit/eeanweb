@@ -545,10 +545,6 @@ public class App01CrudController {
         return index03List;
     }
 
-
-
-
-
     @RequestMapping(value="/index04/save")
     public String index04Save(
              @RequestParam("frdate") String frdate
@@ -708,5 +704,38 @@ public class App01CrudController {
     }
 
 
+    @RequestMapping(value="/index14/save")
+    public String index14Save(
+            @RequestParam("frdate") String frdate
+            ,@RequestParam("acode") String acode
+            ,@RequestParam("jbonsa") String jbonsa
+            ,@RequestParam("jmodel") String jmodel
+            ,@RequestParam("jcolor") String jcolor
+            , Model model
+            , HttpServletRequest request){
+
+        try {
+
+            HttpSession session = request.getSession();
+            UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+            model.addAttribute("userformDto",userformDto);
+
+            String year = frdate.substring(0,4) ;
+            String month = frdate.substring(5,7) ;
+            String day   = frdate.substring(8,10) ;
+            frdate = year + month + day ;
+
+            Boolean result = false;
+            result = service04.InsertJegoIpgo(index04Dto);
+            if (!result){
+                return "error";
+            }
+
+        }catch (IllegalStateException e){
+            model.addAttribute("errorMessage", e.getMessage());
+            return "error";
+        }
+        return "success";
+    }
 
 }

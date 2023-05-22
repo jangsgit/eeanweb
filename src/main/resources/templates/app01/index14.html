@@ -466,6 +466,14 @@
             document.getElementById('tabvalue').value = arg; 
         } 
 
+        function wOrderChk_a(arg1, arg2, arg3){  
+            // ls_jbonsa, ls_jmodel, ls_color
+            var ls_frdate = '';
+            ls_frdate = document.getElementById('frdate').value; 
+            alert(ls_frdate + ' / ' + arg3 + ' : 1EA 주문등록' )
+            
+        }
+        
         function save_btn(arg){
             var ls_tab = document.getElementById('tabvalue').value;
             var ls_frdate = document.getElementById('frdate').value;                                        
@@ -1292,12 +1300,7 @@
 
     //     }
 
-        function wOrderChk_a(arg1, arg2, arg3){  
-            var ls_frdate = '';
-            ls_frdate = document.getElementById('frdate').value; 
-            alert(ls_frdate + ' / ' + arg3 + ' : 1EA 주문등록' )
-            
-        }
+
 
 
 //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
