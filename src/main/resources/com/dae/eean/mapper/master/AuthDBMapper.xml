@@ -22,8 +22,8 @@
          from TB_XUSERS where userid=#{userid} and passwd1=#{passwd1} and flag = #{flag}
     </select>
     <select id="GetAdminInfo" parameterType="com.dae.eean.DTO.UserFormDto"  resultType="com.dae.eean.DTO.UserFormDto">
-        select top 1 userid, passwd1,  username, actcd, actnm, saupnum, flag, phone, perid, pernm, useyn, role, dbnm, wrongnum, custcd, custnm, dbnm, psuhid
-        from TB_XUSERS where userid=#{userid} and passwd1=#{passwd1} and flag = #{flag} AND custcd = #{custcd}
+        select top 1 userid, passwd1,  username, actcd, actnm, saupnum, flag, phone, perid, pernm, useyn, role, dbnm, wrongnum, custcd, custnm, dbnm, pushid
+        from TB_XUSERS where userid=#{userid} and passwd1=#{passwd1} and flag = #{flag}
     </select>
     <select id="GetUserInfoDto" parameterType="com.dae.eean.DTO.UserFormDto"  resultType="com.dae.eean.DTO.UserFormDto">
         select top 1 userid, passwd1,  username, actcd, actnm, saupnum, flag, phone,  perid, pernm, useyn, role, dbnm, wrongnum, custcd, custnm, pushid
@@ -36,9 +36,9 @@
     <select id="GetUserListDto" parameterType="com.dae.eean.DTO.UserFormDto"  resultType="com.dae.eean.DTO.UserFormDto">
         <![CDATA[ select  seq, userid, passwd1,  username, actcd, actnm,   phone, perid, pernm, useyn, role, dbnm, wrongnum, custcd, custnm,
         case useyn when 'Y' THEN '사용' ELSE '미사용' END as flag
-        from TB_XUSERS where flag like CONCAT('%',#{flag},'%') and flag in  ('AA', 'CC')
+        from TB_XUSERS where flag like CONCAT('%',#{flag},'%') and flag in  ('AA', 'BB','CC')
                          AND (username like CONCAT('%',#{username},'%') or userid like CONCAT('%',#{username},'%') )
-                         and len(username) > 0 and custcd=#{custcd}
+                         and len(username) > 0
         order by flag, username
         ]]>
     </select>
@@ -71,8 +71,8 @@
     </select>
 
     <update id="UpdateUserInfo" parameterType="com.dae.eean.DTO.UserFormDto"  >
-        UPDATE TB_XUSERS SET  useyn=#{useyn}
-            from TB_XUSERS  where userid=#{userid} and custcd = #{custcd} and flag = #{flag}
+        UPDATE TB_XUSERS SET  userid=#{userid}, username=#{username}, custnm=#{username}, passwd1=#{passwd1}, passwd2=#{passwd2}, useyn=#{useyn}
+            from TB_XUSERS  where seq=#{seq} and flag = #{flag}
     </update>
     <update id="UpdateUserMenuInfo" parameterType="com.dae.eean.DTO.TBXuserMenuDTO"  >
         UPDATE TB_XUSERMENU SET  visible=#{visible}

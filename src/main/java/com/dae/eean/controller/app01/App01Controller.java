@@ -198,6 +198,30 @@ public class App01Controller {
 
 
     //주문등록
+    @GetMapping(value="/index150")
+    public Object App150_index( Model model, HttpServletRequest request) throws Exception{
+        CommDto.setMenuTitle("거래처주문등록");
+        CommDto.setMenuUrl("기준정보>거래처주문등록");
+        CommDto.setMenuCode("index15");
+        HttpSession session = request.getSession();
+        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        model.addAttribute("userformDto",userformDto);
+
+        try {
+            index03List = service03.GetJcustomCode(index03Dto);
+
+            model.addAttribute("index15List",index03List);
+        } catch (Exception ex) {
+//                dispatchException = ex;
+            log.info("App15_index Exception ================================================================");
+            log.info("Exception =====>" + ex.toString());
+//            log.debug("Exception =====>" + ex.toString() );
+        }
+
+        return "App01/index150";
+    }
+
+    //주문등록
     @GetMapping(value="/index14")
     public String App14_index( Model model, HttpServletRequest request) throws Exception{
         CommDto.setMenuTitle("주문등록");
@@ -221,6 +245,29 @@ public class App01Controller {
         return "App01/index14";
     }
 
+    //주문등록
+    @GetMapping(value="/index140")
+    public String App140_index( Model model, HttpServletRequest request) throws Exception{
+        CommDto.setMenuTitle("주문등록");
+        CommDto.setMenuUrl("기준정보>주문등록");
+        CommDto.setMenuCode("index14");
+        HttpSession session = request.getSession();
+        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        model.addAttribute("userformDto",userformDto);
+
+        try {
+//            popupListDto = svcpopup.getCifCodeList(popupDto);
+
+//            model.addAttribute("cifcodeList",popupListDto);
+        } catch (Exception ex) {
+//                dispatchException = ex;
+            log.info("App13_index Exception ================================================================");
+            log.info("Exception =====>" + ex.toString());
+//            log.debug("Exception =====>" + ex.toString() );
+        }
+
+        return "App01/index140";
+    }
 
 
     //AS접수 배송현황

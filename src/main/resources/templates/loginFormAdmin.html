@@ -10,7 +10,7 @@
 
   <div class="box_con_wrap">
     <div class="head_tit">
-      <h1>ACTAS Elevator 유지보수센터</h1>
+      <h1>이안옵틱 수주시스템</h1>
     </div>
     <div class="box_con" style="background: url(/images/login_bg.png) no-repeat;">
       <div class="logo">
@@ -23,25 +23,11 @@
         <form action="/login" method="POST">
           <div class="input_wrap"> 
             <select name="select" id="select" class="select" disabled>
-              <option value="AA">보수업체사용자</option>  
+              <option value="AA">본사관리</option>
+              <option value="BB">고객사용자</option>
+              <option value="CC">영업사원</option>  
             </select> 
-          </div>
-          <div class="input_wrap">
-            <select   name="actcustcdz" id="actcustcdz">
-              <option value="ELVLRT"  >한국엘레텍(주)</option>
-              <option value="KYOUNG"  >경기엘리베이터(주)</option>
-              <option value="nmyang"   >성우엘리베이터(주)</option>
-              <option value="GAON"   >가온엘리베이터(주)</option>
-              <option value="ELVLRT" th:if="${actcustcdz eq 'ELVLRT'}" selected hidden>한국엘레텍(주)</option>
-              <option value="KYOUNG" th:if="${actcustcdz eq 'KYOUNG'}" selected hidden>경기엘리베이터(주)</option>
-              <option value="nmyang" th:if="${actcustcdz eq 'nmyang'}" selected hidden>성우엘리베이터(주)</option>
-              <option value="GAON" th:if="${actcustcdz eq 'GAON'}" selected hidden>가온엘리베이터(주)</option>
-            </select>  
-          </div>
-          <!-- <select th:field="*{custReturnDto}" name="actcustcdz" id="actcustcdz">
-            <option value="">보수업체선택</option>
-            <option th:each="val : ${custReturnDto}" th:value="${val.custcd}" th:text="${val.custnm}">
-          </select> -->
+          </div> 
           <div class="input_wrap icon i_id">
             <input type="text" id="loginid" name="loginid">
             <input type="hidden" id="ipaddr" name="ipaddr">
@@ -69,11 +55,7 @@
             </div>
 
 
-          </div>
-          <!-- <div>
-            <a th:href="@{/auth/cltcdnew}">보수업체사용자등록</a><br>
-            <a th:href="@{/auth/actcdnew}">고객사용자등록</a>
-          </div> -->
+          </div> 
           <div class="mb-3">
             <div th:if="${loginErrorMsg}" class="alert alert-warning border-2 d-flex align-items-center"
                  role="alert">
@@ -115,16 +97,13 @@
           var ls_loginid   = document.getElementById('loginid').value;
           var ls_logpass   = document.getElementById('logpass').value;
           var ls_ipaddr    = document.getElementById('ipaddr').value;
-          var ls_select  = document.getElementById('select').value;
-          var ls_actcustcdz =  document.getElementById('actcustcdz').value;
+          var ls_select  = document.getElementById('select').value; 
           $.ajax({
               url: '/authcrud/adminchk',
               type:"POST",
               data: {
                   "loginid"    : ls_loginid ,
-                  "logpass"  : ls_logpass,
-                  "ipaddr"  : ls_ipaddr,
-                  "flag"    : ls_actcustcdz 
+                  "logpass"  : ls_logpass 
               },
               async:false,
               success:function(userFormDto){

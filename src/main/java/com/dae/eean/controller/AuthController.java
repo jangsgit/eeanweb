@@ -86,13 +86,23 @@ public class AuthController {
         } else if (userformDto == null) {
             model.addAttribute("msg", "로그인실패");
             return "/";
+        } else if (ls_flag.equals("BB")) {
+            Date nowData = new Date();
+            SimpleDateFormat endDate = new SimpleDateFormat("yyyyMMdd");
+            String indate = endDate.format(nowData).toString();
+            return "mainframcustom";
+        }  else if (ls_flag.equals("CC")) {
+                Date nowData = new Date();
+                SimpleDateFormat endDate = new SimpleDateFormat("yyyyMMdd");
+                String indate = endDate.format(nowData).toString();
+                return "mainframbusiness";
         } else if (ls_flag.equals("ZZ")){
             //현재날짜기준 월초(1일) 구하기
             SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
             Date date  = new Date(System.currentTimeMillis());
             String time = formatter.format(date);
             String time2 = time.substring(0,6) + "01";
-            log.info(time2);
+//            log.info(time2);
 
 
             //현재날짜기준 당월말일 구하기
@@ -111,15 +121,15 @@ public class AuthController {
 
             String lastday1 = String.valueOf(cal.getActualMaximum(Calendar.DAY_OF_MONTH));
             String lastday = year+month+lastday1;
-            log.info(lastday);
+//            log.info(lastday);
 
             /*popParmDto.setFrdate(time2);
             popParmDto.setTodate(lastday);*/
             popParmDto.setFrdate(time2);
             popParmDto.setTodate(lastday);
 
-            log.info(time2);
-            log.info(lastday);
+//            log.info(time2);
+//            log.info(lastday);
 
             return "mainframadmin";
         } else{
@@ -129,7 +139,7 @@ public class AuthController {
             Date date  = new Date(System.currentTimeMillis());
             String time = formatter.format(date);
             String time2 = time.substring(0,6) + "01";
-            log.info(time2);
+//            log.info(time2);
 
 
             //현재날짜기준 당월말일 구하기
@@ -148,7 +158,7 @@ public class AuthController {
 
             String lastday1 = String.valueOf(cal.getActualMaximum(Calendar.DAY_OF_MONTH));
             String lastday = year+month+lastday1;
-            log.info(lastday);
+//            log.info(lastday);
 
             /*popParmDto.setFrdate(time2);
             popParmDto.setTodate(lastday);*/

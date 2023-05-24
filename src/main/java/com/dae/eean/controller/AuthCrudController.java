@@ -164,13 +164,11 @@ public class AuthCrudController {
     @RequestMapping(value = "/adminchk", method = RequestMethod.POST)
     public Object memberLoginAdminForm(@RequestParam("loginid") String loginid
             , @RequestParam("logpass") String logpass
-            , @RequestParam("flag") String select
             , Model model
             , HttpServletRequest request) throws Exception{
         userformDto.setUserid(loginid);
         userformDto.setPasswd1(logpass);
         userformDto.setFlag("ZZ");
-        userformDto.setCustcd(select);
         UserFormDto userReturnDto = authService.GetAdminInfo(userformDto);
 //        UserFormDto custReturnDto = authService.GetCustInfo(userformDto);
 
