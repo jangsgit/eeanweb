@@ -43,6 +43,9 @@ public class Index03Service {
     public List<Index03Dto> GetJpumCustJaegoList(Index03Dto parm){
         return  appMapper.GetJpumCustJaegoList(parm);
     }
+    public Index03Dto GetJpumOrderJkey(Index03Dto parm){
+        return  appMapper.GetJpumOrderJkey(parm);
+    }
 
 
 

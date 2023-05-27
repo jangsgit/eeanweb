@@ -20,6 +20,12 @@ public class Index02Service {
     public List<Index02Dto> GetCifListTot(Index02Dto parm){
         return  appMapper.GetCifListTot(parm);
     }
+    public Index02Dto GetCifListAcode(Index02Dto parm){
+        return  appMapper.GetCifListAcode(parm);
+    }
+    public Index02Dto GetCifBonsa(Index02Dto parm){
+        return  appMapper.GetCifBonsa(parm);
+    }
 
     public String getIndex02MaxSeq(String parm){
         return  appMapper.getIndex02MaxSeq(parm);

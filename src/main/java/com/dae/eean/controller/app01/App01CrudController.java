@@ -1,14 +1,13 @@
 package com.dae.eean.controller.app01;
 
-import com.dae.eean.DTO.App01.Index02Dto;
-import com.dae.eean.DTO.App01.Index03Dto;
-import com.dae.eean.DTO.App01.Index04Dto;
+import com.dae.eean.DTO.App01.*;
 import com.dae.eean.DTO.CommonDto;
 import com.dae.eean.DTO.TBXuserMenuDTO;
 import com.dae.eean.DTO.UserFormDto;
 import com.dae.eean.Service.App01.Index02Service;
 import com.dae.eean.Service.App01.Index03Service;
 import com.dae.eean.Service.App01.Index04Service;
+import com.dae.eean.Service.App01.Index14Service;
 import com.dae.eean.Service.master.AuthService;
 import com.dae.eean.controller.EncryptionController;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +20,9 @@ import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -35,13 +36,19 @@ public class App01CrudController {
     private final Index02Service service02;
     private final Index03Service service03;
     private final Index04Service service04;
+    private final Index14Service service14;
     CommonDto CommDto = new CommonDto();
     Index04Dto index04Dto = new Index04Dto();
     List<Index04Dto> index04List = new ArrayList<>();
     List<Index03Dto> index03List = new ArrayList<>();
     List<Index02Dto> index02List = new ArrayList<>();
     Index02Dto index02Dto = new Index02Dto();
+    Index02Dto index02BonsaDto = new Index02Dto();
     Index03Dto index03Dto = new Index03Dto();
+    IndexDa023Dto indexDa023Dto = new IndexDa023Dto();
+    IndexDa024Dto indexDa024Dto = new IndexDa024Dto();
+    IndexIa011Dto indexia011Dto = new IndexIa011Dto();
+    IndexIa012Dto indexia012Dto = new IndexIa012Dto();
 
     EncryptionController enc = new EncryptionController();
     protected Log log =  LogFactory.getLog(this.getClass());
@@ -711,6 +718,8 @@ public class App01CrudController {
             ,@RequestParam("jbonsa") String jbonsa
             ,@RequestParam("jmodel") String jmodel
             ,@RequestParam("jcolor") String jcolor
+            ,@RequestParam("mflag") String mflag
+            ,@RequestParam("ordercd") String ordercd
             , Model model
             , HttpServletRequest request){
 
@@ -720,22 +729,149 @@ public class App01CrudController {
             UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
             model.addAttribute("userformDto",userformDto);
 
+            Boolean result = false;
             String year = frdate.substring(0,4) ;
             String month = frdate.substring(5,7) ;
             String day   = frdate.substring(8,10) ;
             frdate = year + month + day ;
+            index03Dto.setJmodel_code(jmodel);
+            index03Dto.setJcolor_code(jcolor);
+            index03Dto.setJbonsa_code(jbonsa);
+            index02Dto.setAcode(acode);
+            index02Dto = service02.GetCifListAcode(index02Dto);  //거래처정보
+            index02BonsaDto = service02.GetCifBonsa(index02BonsaDto);
+            index03Dto = service03.GetJpumOrderJkey(index03Dto); //품목정보
 
-            Boolean result = false;
-            result = service04.InsertJegoIpgo(index04Dto);
+            indexDa023Dto.setMisdate(frdate);
+            String ls_misnum = "";
+            String ls_chknull = service14.SelectCheckMisnum(indexDa023Dto);
+            if(ls_chknull == null){
+                ls_misnum = "0001";
+            }else{
+                ls_misnum = GetMaxNum(frdate);
+            }
+
+            indexDa023Dto.setMisnum(ls_misnum);
+            indexDa023Dto.setCltcd(acode);
+            indexDa023Dto.setMisgubun(mflag);
+            indexDa023Dto.setYyyymm(year + month);
+
+            switch (mflag){
+                case "AA" :
+                    indexDa023Dto.setPerid("");
+                    break;
+                case "BB":
+                    indexDa023Dto.setPerid("");
+                    break;
+                case "CC":
+                    indexDa023Dto.setPerid(userformDto.getPerid());
+                    break;
+                default:
+                    break;
+            }
+            indexDa023Dto.setContamt(0);
+            indexDa023Dto.setAddamt(0);
+            indexDa023Dto.setAddamt(0);
+            indexDa023Dto.setMisamt(0);
+            indexDa023Dto.setAmt(0);
+            indexDa023Dto.setBillkind("1");     //0 미발행 1 발행 2 역발행 3 타사이트발행
+            indexDa023Dto.setTaxcls("0");       //0 부가세별도 1 부가세포함
+            indexDa023Dto.setTaxgubun("001");   //001 과세 002 비과세
+            indexDa023Dto.setBigo("");
+            indexDa023Dto.setRemark("");
+            indexDa023Dto.setVatemail(index02Dto.getAemail());  //계산서 메일주소
+            indexDa023Dto.setVatpernm(index02Dto.getInname01());  //계산서 담당자
+            indexDa023Dto.setSpjangnum(index02BonsaDto.getAcorp());
+            indexDa023Dto.setGubun("");
+            String ls_seq = "";
+            if (ls_chknull == null ){
+                ls_seq = "001";
+            }else{
+                ls_seq = GetMaxSeq(frdate);
+            }
+
+            String ls_chulgoga = index03Dto.getJchgoga0();
+            if( ls_chulgoga == null ){
+                ls_chulgoga = "0";
+            }
+            Integer ll_chulgoga = Integer.parseInt(ls_chulgoga);
+            indexDa024Dto.setSeq(ls_seq);
+            indexDa024Dto.setMisdate(indexDa023Dto.getMisdate());
+            indexDa024Dto.setMisnum(indexDa023Dto.getMisnum());
+            indexDa024Dto.setPcode(index03Dto.getJkey());
+            indexDa024Dto.setPname(index03Dto.getJpum());
+            indexDa024Dto.setPsize(index03Dto.getJgugek());
+            indexDa024Dto.setPbonsa(jbonsa);
+            indexDa024Dto.setPmodel(jmodel);
+            indexDa024Dto.setPcolor(jcolor);
+            indexDa024Dto.setQty(1);
+            indexDa024Dto.setUamt(ll_chulgoga);
+            indexDa024Dto.setSamt(ll_chulgoga);
+            indexDa024Dto.setCltcd(indexDa023Dto.getCltcd());
+            indexDa024Dto.setAddamt(0);
+            if(ll_chulgoga > 0 ) {indexDa024Dto.setAddamt(ll_chulgoga / 10);};
+            indexDa024Dto.setAmt(ll_chulgoga + (ll_chulgoga / 10));
+            indexDa024Dto.setIndate(getToDate());
+            indexDa024Dto.setInperid(userformDto.getPernm());
+            indexDa024Dto.setPunit("EA");
+            if (ls_chknull == null ){
+                result = service14.InsertDa023(indexDa023Dto);
+                if (!result){
+                    return "error";
+                }
+            }
+            result = service14.InsertDa024(indexDa024Dto);
             if (!result){
                 return "error";
             }
 
         }catch (IllegalStateException e){
-            model.addAttribute("errorMessage", e.getMessage());
+            model.addAttribute("index14Save errorMessage", e.getMessage());
             return "error";
         }
         return "success";
+    }
+
+    public String GetMaxNum(String agDate){
+
+        String ls_misnum = "";
+        ls_misnum = service14.SelectMaxMisnum(indexDa023Dto);
+        Integer ll_misnum = Integer.parseInt(ls_misnum) + 1;
+        ls_misnum = ll_misnum.toString();
+        if (ls_misnum.length() == 1){
+            ls_misnum = "000" + ls_misnum;
+        }else if(ls_misnum.length() == 2){
+            ls_misnum = "00" + ls_misnum;
+        }else if(ls_misnum.length() == 3){
+            ls_misnum = "0" + ls_misnum;
+        }
+
+        return ls_misnum;
+    }
+
+    public String GetMaxSeq(String agDate){
+
+        String ls_seq = service14.SelectMaxSeq(indexDa023Dto);
+        if(ls_seq == null){
+            ls_seq = "001";
+        }else{
+            Integer ll_misnum = Integer.parseInt(ls_seq) + 1;
+            ls_seq = ll_misnum.toString();
+            if (ls_seq.length() == 1){
+                ls_seq = "00" + ls_seq;
+            }else if(ls_seq.length() == 2){
+                ls_seq = "0" + ls_seq;
+            }
+        }
+        return ls_seq;
+    }
+
+
+    private String getToDate() {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
+        Date date      = new Date(System.currentTimeMillis());
+
+        return formatter.format(date);
     }
 
 }

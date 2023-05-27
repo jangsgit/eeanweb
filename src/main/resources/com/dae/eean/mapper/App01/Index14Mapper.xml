@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- mapper >> interface 매핑 : id 값 중요 (interface 메소드) -->
+<mapper namespace="com.dae.eean.Mapper.App01.Index14Mapper">
+
+
+
+    <select id="SelectCheckMisnum" parameterType="com.dae.eean.DTO.App01.IndexDa023Dto" resultType="String">
+        <![CDATA[  select  misnum  from tb_da023 where misdate = #{misdate} and cltcd=#{cltcd}     ]]>
+    </select>
+
+    <select id="SelectMaxMisnum" parameterType="com.dae.eean.DTO.App01.IndexDa023Dto" resultType="String">
+        <![CDATA[  select  max(misnum)  from tb_da023 where misdate = #{misdate}     ]]>
+    </select>
+
+    <select id="SelectMaxSeq" parameterType="com.dae.eean.DTO.App01.IndexDa023Dto" resultType="String">
+        <![CDATA[  select  max(seq)  from tb_da024 where misdate = #{misdate} and misnum = #{misnum}     ]]>
+    </select>
+
+
+    <insert id="InsertDa023" parameterType="com.dae.eean.DTO.App01.IndexDa023Dto" >
+        insert into TB_DA023 (custcd, spjangcd, cltcd, misgubun, misdate, misnum,
+        contamt, gubun, yyyymm, perid, amt, addamt, misamt, billkind,
+        taxcls, taxgubun, tax_spdate, tax_spnum, remark, bigo, vatemail, vatpernm,
+        spjangnum ) values
+        ('EEAN', 'ZZ', #{cltcd}, #{misgubun}, #{misdate},    #{misnum},
+         #{contamt}, #{gubun},    #{yyyymm},     #{perid},     #{amt},      #{addamt},  #{misamt},  #{billkind},
+         #{taxcls},  #{taxgubun}, '', '', #{remark},   #{bigo},    #{vatemail}, #{vatpernm}, #{spjangnum} )
+    </insert>
+
+
+    <insert id="InsertDa024" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
+        insert into TB_DA024 (custcd, spjangcd, cltcd, misdate, misnum, seq,
+        pcode, pname, psize,    punit,  qty,  uamt, samt, addamt,
+        amt, indate, inperid  ) values
+        ('EEAN', 'ZZ', #{cltcd},   #{misdate},  #{misnum}, #{seq},
+        #{pcode}, #{pname}, #{psize}, #{punit}, #{qty},   #{uamt},  #{samt},  #{addamt},
+        #{amt},  #{indate}, #{inperid}  )
+    </insert>
+
+
+
+    <insert id="InsertIa011" parameterType="com.dae.eean.DTO.App01.IndexIa011Dto" >
+        insert into TB_IA011 (custcd, spjangcd, cltcd, spdate, spnum, suprice,taxamt,
+            remarks, pubdate, booknum,    bookho,  serinum,  occuclafi, pubdatey, pubdatem, pubdated,
+            artclnm1, artclnm2, artclnm3 , artclnm4,standard1, standard2, standard3, standard4,
+            qty1, qty2, qty3, qty4, uprice1, uprice2, uprice3, uprice4, suprice1, suprice2, suprice3, suprice4,
+            taxamt1, taxamt2, taxamt3, taxamt4, delflag,
+            cltnm, prenm, saupnum, prenum, biztypenm, bisitemnm, zipcd, cltadres,
+            taxmail, taxflag, misdate, misnum
+        ) values
+        (   'EEAN', 'ZZ', #{cltcd},   #{spdate},  #{spnum}, #{suprice}, #{taxamt},
+            #{remarks}, #{pubdate}, #{booknum}, #{bookho}, #{serinum},   #{occuclafi},  #{pubdatey},  #{pubdatem}, #{pubdated},
+            #{artclnm1},  #{artclnm2}, #{artclnm3} , #{artclnm4} , #{artclnm3} , #{standard1} , #{standard2} , #{standard3} , #{standard4},
+            #{qty1} , #{qty2} , #{qty3} , #{qty4} , #{uprice1} , #{uprice2} , #{uprice3} , #{uprice4} ,
+            #{suprice1}, #{suprice2}, #{suprice3}, #{suprice4}, #{taxamt1}, #{taxamt2}, #{taxamt3}, #{taxamt4}, #{delflag},
+            #{cltnm}, #{prenm}, #{saupnum}, #{prenum}, #{biztypenm}, #{bisitemnm}, #{zipcd}, #{cltadres},
+            #{taxmail}, #{taxflag}, #{misdate}, #{misnum}  )
+    </insert>
+
+
+    <insert id="InsertIa012" parameterType="com.dae.eean.DTO.App01.IndexIa012Dto" >
+        insert into TB_IA012 (custcd, spjangcd, odnum, spdate, spnum, moday,
+             artclnm, standard, qty,    uprice,  suprice,  taxamt, remarks  ) values
+        (   'EEAN', 'ZZ', #{odnum},   #{spdate},  #{spnum}, #{moday},
+             #{artclnm}, #{standard}, #{qty}, #{uprice}, #{suprice},   #{taxamt},  #{remarks}   )
+    </insert>
+
+</mapper>

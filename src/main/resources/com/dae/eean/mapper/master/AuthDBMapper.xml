@@ -51,7 +51,7 @@
                  A.msysname as msysname, A.mname as mname, A.mtext as mtext,
                  A.mlevel as mlevel, A.msort as msort, B.username as username,
                  case visible when 'Y' THEN '사용' ELSE '미사용' END as visible
-        from TB_XUSERMENU A with (NOLOCK) , TB_XUSERS B with (NOLOCK) where A.userid = B.userid and A.userid=#{userid}   AND A.custcd = #{custcd}
+        from TB_XUSERMENU A with (NOLOCK) , TB_XUSERS B with (NOLOCK) where A.userid = B.userid and A.userid=#{userid}
     </select>
 
     <select id="GetLogListDto" parameterType="com.dae.eean.DTO.UserFormDto"  resultType="com.dae.eean.DTO.TBXLoginDTO">
@@ -60,11 +60,11 @@
         from (
                  select userid, ipaddr, onoffdt, usernm, ondate, case onoffdv when 'Y' then 'IN' ELSE 'OFF' END AS  onoffdv, ofdate
                  from TB_XLOGIN
-                 where userid like CONCAT('%', #{userid}, '%') AND custnm = #{custnm} AND ofdate IS NULL
+                 where userid like CONCAT('%', #{userid}, '%')   AND ofdate IS NULL
                  union
                  select userid, ipaddr, onoffdt, usernm, ofdate as ondate,  case onoffdv when 'Y' then 'IN' ELSE 'OFF'  END  AS  onoffdv, ofdate
                   from TB_XLOGIN
-                 where userid like CONCAT('%', #{userid}, '%')  AND custnm = #{custnm} AND ondate IS NULL
+                 where userid like CONCAT('%', #{userid}, '%')    AND ondate IS NULL
              ) F
         order by onoffdt desc,  usernm,  ondate
         ]]>

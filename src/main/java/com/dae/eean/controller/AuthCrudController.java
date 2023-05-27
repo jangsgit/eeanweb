@@ -134,7 +134,9 @@ public class AuthCrudController {
         userformDto.setPasswd1(logpass);
         userformDto.setFlag(select);
         UserFormDto userReturnDto = authService.GetUserInfo(userformDto);
-
+        if (userReturnDto == null){
+            return 0;
+        }
         if(userReturnDto.getWrongnum().equals("3")){
             return userReturnDto;
         }

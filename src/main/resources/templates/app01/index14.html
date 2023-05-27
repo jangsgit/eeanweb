@@ -504,10 +504,12 @@
                         type:"POST",
                         data: { 
                             "frdate"  : ls_frdate,  
-                            "acode"   : ls_acode3   , 
+                            "acode"   : ls_acode   , 
                             "jbonsa"  : arg1     ,
                             "jmodel"  : arg2   ,  
-                            "jcolor"  : arg3   ,   
+                            "jcolor"  : arg3   ,    
+                            "mflag"  : 'AA'   ,      
+                            "ordercd"  : 'AA'   , 
                         }, 
                         async:false,
                         success:function(data){   
