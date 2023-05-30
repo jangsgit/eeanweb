@@ -42,6 +42,8 @@ public class App01CrudController {
     List<Index04Dto> index04List = new ArrayList<>();
     List<Index03Dto> index03List = new ArrayList<>();
     List<Index02Dto> index02List = new ArrayList<>();
+    List<IndexDa024Dto> indexDa024ListDto = new ArrayList<>();
+
     Index02Dto index02Dto = new Index02Dto();
     Index02Dto index02BonsaDto = new Index02Dto();
     Index03Dto index03Dto = new Index03Dto();
@@ -713,7 +715,7 @@ public class App01CrudController {
 
     @RequestMapping(value="/index14/save")
     public String index14Save(
-            @RequestParam("frdate") String frdate
+            @RequestParam("ipdate") String frdate
             ,@RequestParam("acode") String acode
             ,@RequestParam("jbonsa") String jbonsa
             ,@RequestParam("jmodel") String jmodel
@@ -830,6 +832,42 @@ public class App01CrudController {
             return "error";
         }
         return "success";
+    }
+
+
+    //재고실사 리스트
+    @GetMapping(value="/index14/list")
+    public Object App14List_index(@RequestParam("frdate") String frdate,
+                                  @RequestParam("todate") String todate,
+                                  @RequestParam("acode") String acode,
+                                  Model model, HttpServletRequest request) throws Exception{
+        CommDto.setMenuTitle("주문등록");
+        CommDto.setMenuUrl("주문등록>주문현황");
+        CommDto.setMenuCode("index14");
+        HttpSession session = request.getSession();
+        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        model.addAttribute("userformDto",userformDto);
+
+        try {
+            String year = frdate.substring(0,4) ;
+            String month = frdate.substring(5,7) ;
+            String day   = frdate.substring(8,10) ;
+            frdate = year + month + day ;
+            year = todate.substring(0,4) ;
+            month = todate.substring(5,7) ;
+            day   = todate.substring(8,10) ;
+            todate = year + month + day ;
+            indexDa024Dto.setFrdate(frdate);
+            indexDa024Dto.setTodate(todate);
+            indexDa024Dto.setCltcd(acode);
+            indexDa024ListDto = service14.SelectDa024List(indexDa024Dto);
+            model.addAttribute("indexDa024ListDto",indexDa024ListDto);
+
+        } catch (Exception ex) {
+            log.info("App02List_index Exception =====>" + ex.toString());
+        }
+
+        return indexDa024ListDto;
     }
 
     public String GetMaxNum(String agDate){

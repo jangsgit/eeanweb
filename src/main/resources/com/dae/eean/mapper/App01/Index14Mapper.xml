@@ -19,6 +19,18 @@
     </select>
 
 
+    <select id="SelectDa024List"  parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" resultType="com.dae.eean.DTO.App01.IndexDa024Dto">
+        <![CDATA[ select B.cltcd, Left(B.misdate,4) + '-' + substring(B.misdate, 5,2)+ '-' + substring(B.misdate, 7,2) as misdate, B.misnum, B.seq,
+                         B.pcode, B.pname, B.psize,    B.punit,  B.qty,  B.uamt, B.samt, B.addamt,
+                         B.amt, A.acorp, pbonsa, pmodel, pcolor
+           from  TB_DA024 B WITH (NOLOCK) , cif A WITH (NOLOCK)
+           where B.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
+            AND A.acorp1 + CAST(A.acorp2 as varchar) Like concat('%',#{cltcd},'%')
+            AND B.misdate between #{frdate} and #{todate}
+        ]]>
+
+    </select>
+
     <insert id="InsertDa023" parameterType="com.dae.eean.DTO.App01.IndexDa023Dto" >
         insert into TB_DA023 (custcd, spjangcd, cltcd, misgubun, misdate, misnum,
         contamt, gubun, yyyymm, perid, amt, addamt, misamt, billkind,
@@ -33,10 +45,10 @@
     <insert id="InsertDa024" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
         insert into TB_DA024 (custcd, spjangcd, cltcd, misdate, misnum, seq,
         pcode, pname, psize,    punit,  qty,  uamt, samt, addamt,
-        amt, indate, inperid  ) values
+        amt, indate, inperid, pbonsa, pmodel, pcolor  ) values
         ('EEAN', 'ZZ', #{cltcd},   #{misdate},  #{misnum}, #{seq},
         #{pcode}, #{pname}, #{psize}, #{punit}, #{qty},   #{uamt},  #{samt},  #{addamt},
-        #{amt},  #{indate}, #{inperid}  )
+        #{amt},  #{indate}, #{inperid} , #{pbonsa} , #{pmodel} , #{pcolor}  )
     </insert>
 
 

@@ -23,7 +23,9 @@ public class Index14Service {
     public String SelectMaxSeq(IndexDa023Dto parm){
         return  appMapper.SelectMaxSeq(parm);
     }
-
+    public List<IndexDa024Dto> SelectDa024List(IndexDa024Dto parm){
+        return  appMapper.SelectDa024List(parm);
+    }
     public Boolean InsertDa023(IndexDa023Dto parm){ return  appMapper.InsertDa023(parm);}
     public Boolean InsertDa024(IndexDa024Dto parm){ return  appMapper.InsertDa024(parm);}
     public Boolean InsertIa011(IndexIa011Dto parm){ return  appMapper.InsertIa011(parm);}

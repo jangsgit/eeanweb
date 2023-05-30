@@ -21,10 +21,12 @@ public class IndexDa024Dto {
     private Integer amt;
     private String indate;
     private String inperid;
-    private String todate;
     private String pbonsa;
     private String pmodel;
     private String pcolor;
+    private String frdate;
+    private String todate;
+    private String acorp;
 
 
 }
