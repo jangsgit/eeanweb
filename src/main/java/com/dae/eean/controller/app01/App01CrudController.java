@@ -743,16 +743,18 @@ public class App01CrudController {
             index02Dto = service02.GetCifListAcode(index02Dto);  //거래처정보
             index02BonsaDto = service02.GetCifBonsa(index02BonsaDto);
             index03Dto = service03.GetJpumOrderJkey(index03Dto); //품목정보
-
+            indexDa023Dto.setCltcd(acode);
             indexDa023Dto.setMisdate(frdate);
             String ls_misnum = "";
             String ls_chknull = service14.SelectCheckMisnum(indexDa023Dto);
             if(ls_chknull == null){
+                ls_chknull = "";
+            }
+            if(ls_chknull.length() == 0){
                 ls_misnum = "0001";
             }else{
-                ls_misnum = GetMaxNum(frdate);
+                ls_misnum = ls_chknull;
             }
-
             indexDa023Dto.setMisnum(ls_misnum);
             indexDa023Dto.setCltcd(acode);
             indexDa023Dto.setMisgubun(mflag);
@@ -786,7 +788,7 @@ public class App01CrudController {
             indexDa023Dto.setSpjangnum(index02BonsaDto.getAcorp());
             indexDa023Dto.setGubun("");
             String ls_seq = "";
-            if (ls_chknull == null ){
+            if (ls_chknull.length() == 0 ){
                 ls_seq = "001";
             }else{
                 ls_seq = GetMaxSeq(frdate);
@@ -798,8 +800,10 @@ public class App01CrudController {
             }
             Integer ll_chulgoga = Integer.parseInt(ls_chulgoga);
             indexDa024Dto.setSeq(ls_seq);
-            indexDa024Dto.setMisdate(indexDa023Dto.getMisdate());
-            indexDa024Dto.setMisnum(indexDa023Dto.getMisnum());
+            indexDa024Dto.setMisdate(frdate);
+            indexDa024Dto.setMisnum(ls_misnum);
+            log.info("ls_misnum=============>");
+            log.info(ls_misnum);
             indexDa024Dto.setPcode(index03Dto.getJkey());
             indexDa024Dto.setPname(index03Dto.getJpum());
             indexDa024Dto.setPsize(index03Dto.getJgugek());
@@ -816,7 +820,7 @@ public class App01CrudController {
             indexDa024Dto.setIndate(getToDate());
             indexDa024Dto.setInperid(userformDto.getPernm());
             indexDa024Dto.setPunit("EA");
-            if (ls_chknull == null ){
+            if (ls_chknull.length() == 0){
                 result = service14.InsertDa023(indexDa023Dto);
                 if (!result){
                     return "error";
@@ -834,6 +838,45 @@ public class App01CrudController {
         return "success";
     }
 
+
+    //주문삭제
+    @GetMapping(value="/index14/del")
+    public String App14Del_index(@RequestParam("argmisdate") String misdate,
+                                  @RequestParam("argmisnum") String misnum,
+                                  @RequestParam("argmisseq") String seq,
+                                  @RequestParam("argcltcd") String cltcd,
+                                  Model model, HttpServletRequest request) throws Exception{
+        CommDto.setMenuTitle("주문등록");
+        CommDto.setMenuUrl("주문등록>주문현황");
+        CommDto.setMenuCode("index14");
+        HttpSession session = request.getSession();
+        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        model.addAttribute("userformDto",userformDto);
+
+        try {
+            String year = misdate.substring(0,4) ;
+            String month = misdate.substring(5,7) ;
+            String day   = misdate.substring(8,10) ;
+            misdate = year + month + day ;
+            indexDa024Dto.setMisdate(misdate);
+            indexDa024Dto.setMisnum(misnum);
+            indexDa024Dto.setSeq(seq);
+            indexDa024Dto.setCltcd(cltcd);
+            Boolean result = false;
+            result = service14.DeleteDA024(indexDa024Dto);
+            if (!result){
+                return "error";
+            }
+            result = service14.DeleteDA023(indexDa024Dto);
+            if (!result){
+                return "error";
+            }
+
+        } catch (Exception ex) {
+            log.info("App14Del_index Exception =====>" + ex.toString());
+        }
+        return "SUCCESS";
+    }
 
     //재고실사 리스트
     @GetMapping(value="/index14/list")
@@ -864,7 +907,7 @@ public class App01CrudController {
             model.addAttribute("indexDa024ListDto",indexDa024ListDto);
 
         } catch (Exception ex) {
-            log.info("App02List_index Exception =====>" + ex.toString());
+            log.info("App14List_index Exception =====>" + ex.toString());
         }
 
         return indexDa024ListDto;

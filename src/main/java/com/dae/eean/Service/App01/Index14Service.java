@@ -30,6 +30,8 @@ public class Index14Service {
     public Boolean InsertDa024(IndexDa024Dto parm){ return  appMapper.InsertDa024(parm);}
     public Boolean InsertIa011(IndexIa011Dto parm){ return  appMapper.InsertIa011(parm);}
     public Boolean InsertIa012(IndexIa012Dto parm){ return  appMapper.InsertIa012(parm);}
+    public Boolean DeleteDA023(IndexDa024Dto parm){ return  appMapper.DeleteDA023(parm);}
+    public Boolean DeleteDA024(IndexDa024Dto parm){ return  appMapper.DeleteDA024(parm);}
 
 
 }

@@ -124,10 +124,10 @@
                                                 <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="listBtn" type="button"  >조회
                                                 </button>
                                             </div> 
-                                            <div class="col-2 col-sm-1">  
+                                            <!-- <div class="col-2 col-sm-1">  
                                                 <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" type="button" onclick="delete_btn()">삭제
                                                 </button>
-                                            </div> 
+                                            </div>  -->
                                         </div> 
                                         <div class="container-fluid">
                                             <div id="wtab02Grid_div"  style="overflow:scroll;   height:600px;    margin:0 auto; "></div>  
@@ -729,7 +729,8 @@
                     pcolor: wtab02Dto[i]["pcolor"],    
                     qty: wtab02Dto[i]["qty"],    
                     uamt: wtab02Dto[i]["uamt"], 
-                    samt: wtab02Dto[i]["samt"],                               
+                    samt: wtab02Dto[i]["samt"],  
+                    cltcd: wtab02Dto[i]["cltcd"],                               
                 });
                 cnt++;
             }   
@@ -755,6 +756,13 @@
             cols.header = '순번';
             cols.align = "center";
             cols.width = 80;  
+            cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
+                text: '<b>${item.seq}</b>',
+                click: (e, ctx) => {
+                    wdelfun_a(ctx.item.misdate, ctx.item.misnum, ctx.item.seq, ctx.item.cltcd);                    
+                    
+                }
+            });
             wtab02Grid.columns.push(cols);   
             cols = new wijmo.grid.Column(); 
             cols.binding = 'acorp';
@@ -812,7 +820,36 @@
             wtab02Grid.columns.push(cols);  
  
         }
- 
+        function wdelfun_a(arg1, arg2, arg3, arg4){
+            console.log(arg1);
+            console.log(arg2);
+            console.log(arg3);
+            console.log(arg4);
+
+            if (!confirm("주문일자 : " + arg1 + "-" +  arg2 + "(" + arg3 + ")   삭제하시겠습니까?")) {
+                return ; 
+            }   
+            $.ajax({
+                        url: '/app01m/index14/del',  
+                    type:"POST",
+                    data: { 
+                        "argmisdate" :arg1, 
+                        "argmisnum" :arg2, 
+                        "argmisseq" :arg3, 
+                        "argcltcd" :arg4, 
+                    }, 
+                    async:false,
+                    success:function(data){  
+                        searchList_rtn("B");
+                    },error:function(e){
+                        console.log("error");                            
+                    }
+                }).done(function(fragment){           
+
+                })    
+
+
+        }
         function CifSearchList_rtn(arg){  
 
             var searchCode = ""; 

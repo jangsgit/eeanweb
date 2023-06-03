@@ -17,6 +17,10 @@ public interface Index14Mapper {
     public Boolean InsertDa024(IndexDa024Dto parm) ;
     public Boolean InsertIa011(IndexIa011Dto parm) ;
     public Boolean InsertIa012(IndexIa012Dto parm) ;
+
+    public Boolean DeleteDA023(IndexDa024Dto parm) ;
+
+    public Boolean DeleteDA024(IndexDa024Dto parm) ;
     public List<IndexDa024Dto> SelectDa024List(IndexDa024Dto parm) ;
 
 
