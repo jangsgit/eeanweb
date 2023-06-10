@@ -498,7 +498,13 @@
 
         function wOrderChk_a(arg1, arg2, arg3){  
             // ls_jbonsa, ls_jmodel, ls_color 
-            // alert(ls_frdate + ' / ' + arg3 + ' : 1EA 주문등록' )
+            //  alert(arg1 + '/' + arg2 +  ' / ' + arg3 + ' : 1EA 주문등록' )
+            if(arg1 == arg3){
+                return 
+            }
+            if(arg2 == arg3){
+                return 
+            }
             save_btn(arg1, arg2, arg3)
         }
 
@@ -516,7 +522,7 @@
             
             switch(ls_tab){
                 case 'A': 
-                    if (!confirm("주문하시겠습니까?")) {
+                    if (!confirm("모델라인: " + arg2 + " 컬러 : " + arg3 + " 주문하시겠습니까?")) {
                         return ; 
                     }   
                     if(ls_ipdate == null || ls_ipdate.length == 0 || ls_ipdate == ""){ 
@@ -1060,7 +1066,7 @@
             cols.binding = 'jmodel_code';  cols.header = '모델라인';cols.align = "center"; cols.allowMerging =  true;  cols.width = 100;   
             wtab01Grid.columns.push(cols);  
             cols = new wijmo.grid.Column(); 
-            cols.binding = 'A';  cols.header = 'A';cols.align = "center";  cols.width = 80;   
+            cols.binding = 'A';  cols.header = 'A';cols.align = "center";  cols.width = 80; cols.cssClass = 'switch';
             wtab01Grid.columns.push(cols);  
             cols = new wijmo.grid.Column(); 
             cols.binding = 'B';  cols.header = 'B';cols.align = "center";  cols.width = 80;   
@@ -1162,12 +1168,14 @@
             let ls_tempcode = ''; 
             let ll_row = 0;              
             wtab01Grid.allowMerging =  'Cells',
+            wtab01Grid.dataMap = getColors(),
             wtab01Grid.autoGenerateColumns = false; 
+            
             wtab01Grid.deferUpdate(() => {
                 for (let row = 0; row < wtab01Dto.length; row++) {
                      let  ls_jpbgubn    = wtab01Dto[row]["jpb_gubn"]; 
                      let  ls_jbonsacode = wtab01Dto[row]["jbonsa_code"]; 
-                     let  ls_jmodelcode = wtab01Dto[row]["jmodel_code"]; 
+                     let  ls_jmodelcode = wtab01Dto[row]["jmodel_code"];  
                       
                     wtab01Grid.setCellData(ll_row, 0, ls_jbonsacode);
                     wtab01Grid.setCellData(ll_row, 1, ls_jmodelcode);
@@ -1187,7 +1195,20 @@
                                         for (var p = 0; p < wtab01Dto_S.length; p++) {
                                             let  ls_jcolorcode   = wtab01Dto_S[p]["jcolor_code"]; 
                                             let  ls_jeky         = wtab01Dto_S[p]["jkey"]; 
-                                             wtab01Grid.setCellData(ll_row, ll_col,  ls_jcolorcode ) ; 
+                                            let  ls_jqty         = wtab01Dto_S[p]["jqty"]; 
+                                            // console.log(ls_jqty);
+                                            //  wtab01Grid.cellTemplate = "<span class='color-tile' style='background:${ls_jqty > 0 ? 'Blue' : 'Red'></span>";
+                                            // wtab01Grid.cellTemplate = `<span class="color-tile" style="background:'Red'">${ls_jcolorcode}</span>`;                                            
+                                            wtab01Grid.setCellData(ll_row, ll_col,  ls_jcolorcode ) ; 
+                                            // wtab01Grid.formatItem.addHandler(function (s, e) {
+                                            //     var col = ll_col;
+                                            //     var html = '<div class="diff-{cls}">' +
+                                            //                 '<span style="font-size:75%">${ls_jcolorcode}</span> ' +
+                                            //                 '<span style="font-size:120%" class="wj-glyph-{glyph}"></span>';
+                                            //     e.cell.innerHTML = html;
+                                            // })
+                                            
+
                                             ll_col++;
                                         }
   
@@ -1203,6 +1224,10 @@
                 }
             }); 
 
+        }
+        
+        function getColors() {
+        return 'Red,Green,Blue,White,Black,Yellow,Orange'.split(',');
         }
        /*
        //  품목 grid data 수집

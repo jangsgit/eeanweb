@@ -543,6 +543,8 @@ public class App01CrudController {
             index03Dto.setJpb_gubn(jpbgubn);
             index03Dto.setJbonsa_code(jbonsacode);
             index03Dto.setJmodel_code(jmodelcode);
+            index03Dto.setFrdate("20000101");
+            index03Dto.setTodate(getToDate());
             index03List = service03.GetGanListBonsa02(index03Dto);
             model.addAttribute("index03GanList02",index03List);
 

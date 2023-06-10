@@ -164,7 +164,8 @@
 
     <select id="GetGanListBonsa02" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
         <![CDATA[
-        SELECT jbonsa_code, jmodel_code,   jpb_gubn, jcolor_code, jkey
+        SELECT jbonsa_code, jmodel_code,   jpb_gubn, jcolor_code, jkey,
+               convert(integer, DBO.DF_TB_PCODE_JQTY(jkey,  #{frdate},  #{todate}) ) as jqty
         from JCODE3 WITH (NOLOCK)
         WHERE isnull(jpb_gubn,'')   = #{jpb_gubn}
           and isnull(jbonsa_code,'')   = #{jbonsa_code}
