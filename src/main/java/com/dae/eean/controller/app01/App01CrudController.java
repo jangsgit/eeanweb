@@ -873,6 +873,131 @@ public class App01CrudController {
     }
 
 
+    @RequestMapping(value="/index14/savewish")
+    public String index14SaveWish(
+            @RequestParam("ipdate") String frdate
+            ,@RequestParam("acode") String acode
+            ,@RequestParam("jbonsa") String jbonsa
+            ,@RequestParam("jmodel") String jmodel
+            ,@RequestParam("jcolor") String jcolor
+            ,@RequestParam("mflag") String mflag
+            ,@RequestParam("ordercd") String ordercd
+            , Model model
+            , HttpServletRequest request){
+
+        try {
+
+            HttpSession session = request.getSession();
+            UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+            model.addAttribute("userformDto",userformDto);
+
+            Boolean result = false;
+            String year = frdate.substring(0,4) ;
+            String month = frdate.substring(5,7) ;
+            String day   = frdate.substring(8,10) ;
+            frdate = year + month + day ;
+            index03Dto.setJmodel_code(jmodel);
+            index03Dto.setJcolor_code(jcolor);
+            index03Dto.setJbonsa_code(jbonsa);
+            index02Dto.setAcode(acode);
+            index02Dto = service02.GetCifListAcode(index02Dto);  //거래처정보
+            index02BonsaDto = service02.GetCifBonsa(index02BonsaDto);
+            index03Dto = service03.GetJpumOrderJkey(index03Dto); //품목정보
+            indexDa023Dto.setCltcd(acode);
+            indexDa023Dto.setMisdate(frdate);
+            String ls_misnum = "";
+            String ls_chknull = service14.SelectCheckMisnumWish(indexDa023Dto);
+            if(ls_chknull == null){
+                ls_chknull = "";
+            }
+            if(ls_chknull.length() == 0){
+                ls_misnum = "0001";
+            }else{
+                ls_misnum = ls_chknull;
+            }
+            indexDa023Dto.setMisnum(ls_misnum);
+            indexDa023Dto.setCltcd(acode);
+            indexDa023Dto.setMisgubun(mflag);
+            indexDa023Dto.setYyyymm(year + month);
+
+            switch (mflag){
+                case "AA" :
+                    indexDa023Dto.setPerid("");
+                    break;
+                case "BB":
+                    indexDa023Dto.setPerid("");
+                    break;
+                case "CC":
+                    indexDa023Dto.setPerid(userformDto.getPerid());
+                    break;
+                default:
+                    break;
+            }
+            indexDa023Dto.setContamt(0);
+            indexDa023Dto.setAddamt(0);
+            indexDa023Dto.setAddamt(0);
+            indexDa023Dto.setMisamt(0);
+            indexDa023Dto.setAmt(0);
+            indexDa023Dto.setBillkind("1");     //0 미발행 1 발행 2 역발행 3 타사이트발행
+            indexDa023Dto.setTaxcls("0");       //0 부가세별도 1 부가세포함
+            indexDa023Dto.setTaxgubun("001");   //001 과세 002 비과세
+            indexDa023Dto.setBigo("");
+            indexDa023Dto.setRemark("");
+            indexDa023Dto.setVatemail(index02Dto.getAemail());  //계산서 메일주소
+            indexDa023Dto.setVatpernm(index02Dto.getInname01());  //계산서 담당자
+            indexDa023Dto.setSpjangnum(index02BonsaDto.getAcorp());
+            indexDa023Dto.setGubun("");
+            String ls_seq = "";
+            if (ls_chknull.length() == 0 ){
+                ls_seq = "001";
+            }else{
+                ls_seq = GetMaxSeqWish(frdate);
+            }
+
+            String ls_chulgoga = index03Dto.getJchgoga0();
+            if( ls_chulgoga == null ){
+                ls_chulgoga = "0";
+            }
+            Integer ll_chulgoga = Integer.parseInt(ls_chulgoga);
+            indexDa024Dto.setSeq(ls_seq);
+            indexDa024Dto.setMisdate(frdate);
+            indexDa024Dto.setMisnum(ls_misnum);
+            log.info("ls_misnum=============>");
+            log.info(ls_misnum);
+            indexDa024Dto.setPcode(index03Dto.getJkey());
+            indexDa024Dto.setPname(index03Dto.getJpum());
+            indexDa024Dto.setPsize(index03Dto.getJgugek());
+            indexDa024Dto.setPbonsa(jbonsa);
+            indexDa024Dto.setPmodel(jmodel);
+            indexDa024Dto.setPcolor(jcolor);
+            indexDa024Dto.setQty(1);
+            indexDa024Dto.setUamt(ll_chulgoga);
+            indexDa024Dto.setSamt(ll_chulgoga);
+            indexDa024Dto.setCltcd(indexDa023Dto.getCltcd());
+            indexDa024Dto.setAddamt(0);
+            if(ll_chulgoga > 0 ) {indexDa024Dto.setAddamt(ll_chulgoga / 10);};
+            indexDa024Dto.setAmt(ll_chulgoga + (ll_chulgoga / 10));
+            indexDa024Dto.setIndate(getToDate());
+            indexDa024Dto.setInperid(userformDto.getPernm());
+            indexDa024Dto.setPunit("EA");
+            if (ls_chknull.length() == 0){
+                result = service14.InsertDa025(indexDa023Dto);
+                if (!result){
+                    return "error";
+                }
+            }
+            result = service14.InsertDa026(indexDa024Dto);
+            if (!result){
+                return "error";
+            }
+
+        }catch (IllegalStateException e){
+            model.addAttribute("index14SaveWish errorMessage", e.getMessage());
+            return "error";
+        }
+        return "success";
+    }
+
     @RequestMapping(value="/index14/savecust")
     public String index14SaveCust(
             @RequestParam("ipdate") String frdate
