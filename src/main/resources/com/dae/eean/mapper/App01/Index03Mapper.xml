@@ -3,6 +3,15 @@
 
 <!-- mapper >> interface 매핑 : id 값 중요 (interface 메소드) -->
 <mapper namespace="com.dae.eean.Mapper.App01.Index03Mapper">
+    <select id="GetJBonsaCodeList" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
+        <![CDATA[
+        select   jbonsa_code as jbonsa_code
+        from JCODE3 WITH (NOLOCK)
+         WHERE isnull(jpb_gubn,'') Like concat('%',#{jpb_gubn},'%')
+        Group by jbonsa_code
+        ORDER BY jbonsa_code
+        ]]>
+    </select>
     <select id="GetJcustomCode" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
         <![CDATA[
         select   jcustomer_code as jcustomer_code
@@ -50,7 +59,7 @@
     <select id="GetJpumOrderJkey" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
         <![CDATA[
             select top 1  jkey, jpb_gubn, jgong_code, jdan_code, jmodel_code, jcolor_code, jcustomer_code,
-                     jbonsa_code, jsayong_gubn, jpum, jgugek, jsize, Convert(int, jchgoga0) AS jchgoga0, jbigo
+                     jbonsa_code, jsayong_gubn, jpum, jgugek, jsize,    convert(int , jchgoga0)  AS jchgoga0, jbigo
             from JCODE3 WITH (NOLOCK)
             WHERE isnull(jmodel_code,'') = #{jmodel_code}
              and  isnull(jbonsa_code,'') = #{jbonsa_code}
@@ -58,11 +67,21 @@
         ]]>
     </select>
 
+    <select id="GetJpumOrderJkey02" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
+        <![CDATA[
+            select top 1  jkey, jpb_gubn, jgong_code, jdan_code, jmodel_code, jcolor_code, jcustomer_code,jbonsa_code,
+                     jbonsa_code, jsayong_gubn, jpum, jgugek, jsize,   convert(int , jchgoga0)  AS jchgoga0, jbigo
+            from JCODE3 WITH (NOLOCK)
+            WHERE isnull(jkey,'') = #{jkey}
+        ]]>
+    </select>
+
 
     <select id="GetJpumModelList" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
         <![CDATA[
         select   jkey, jpb_gubn, jgong_code, jdan_code, jmodel_code, jcolor_code, jcustomer_code,
-                 jbonsa_code, jsayong_gubn, jpum, jgugek, jsize, convert ( MONEY , convert(int , jchgoga0) ) as jchgoga0, jbigo, 0 as jqty
+                 jbonsa_code, jsayong_gubn, jpum, jgugek, jsize,   convert(int , jchgoga0)  as jchgoga0, jbigo,
+                 convert(integer, DBO.DF_TB_PCODE_JQTY(jkey,  #{frdate},  #{todate}) )   as jqty
         from JCODE3 WITH (NOLOCK)
         WHERE isnull(jmodel_code,'')   = #{jmodel_code} and isnull(jcustomer_code,'')   = #{jcustomer_code}
         ORDER BY jmodel_code, jkey
@@ -82,7 +101,7 @@
     <select id="GetJpumList" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
         <![CDATA[
             select jkey, jpb_gubn, jgong_code, jdan_code, jmodel_code, jcolor_code, jcustomer_code,
-                   jbonsa_code, jsayong_gubn, jpum, jgugek, jsize, Convert(int, jchgoga0) AS jchgoga0, jbigo,
+                   jbonsa_code, jsayong_gubn, jpum, jgugek, jsize,  convert ( MONEY , convert(int , jchgoga0) ) AS jchgoga0, jbigo,
                    E.jcifcodename as jcifcodename
             from JCODE3 WITH (NOLOCK)
             LEFT OUTER JOIN jcifcode E WITH(NOLOCK) ON (JCODE3.jmodel_code = E.jcifcode)
@@ -94,7 +113,7 @@
     <select id="GetJpumListTot" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
         <![CDATA[
         select jkey, jpb_gubn, jgong_code, jdan_code, jmodel_code, jcolor_code, jcustomer_code,
-               jbonsa_code, jsayong_gubn, jpum, jgugek, jsize, Convert(int, jchgoga0) AS jchgoga0, jbigo,
+               jbonsa_code, jsayong_gubn, jpum, jgugek, jsize,  convert ( MONEY , convert(int , jchgoga0) ) AS jchgoga0, jbigo,
                E.jcifcodename as jcifcodename
         from JCODE3 WITH (NOLOCK)
             LEFT OUTER JOIN jcifcode E WITH(NOLOCK) ON (JCODE3.jmodel_code = E.jcifcode)
@@ -155,7 +174,9 @@
         <![CDATA[
         SELECT jbonsa_code, jmodel_code,   jpb_gubn
         from JCODE3 WITH (NOLOCK)
-        WHERE isnull(jpb_gubn,'')   = #{jpb_gubn}  AND jsayong_gubn IN ( '1', '2','3')
+        WHERE isnull(jpb_gubn,'')   = #{jpb_gubn}
+         AND jsayong_gubn IN ( '1', '2','3')
+         AND isnull(jbonsa_code,'') = #{jbonsa_code}
          GROUP BY jbonsa_code, jmodel_code, jpb_gubn
          ORDER  BY jbonsa_code, jmodel_code, jpb_gubn
         ]]>

@@ -383,6 +383,8 @@ public class App01CrudController {
             }
             index03Dto.setJcustomer_code(jcust);
             index03Dto.setJmodel_code(jmodel);
+            index03Dto.setFrdate("20100101");
+            index03Dto.setTodate(getToDate());
             index03List = service03.GetJpumModelList(index03Dto);
             model.addAttribute("index03MdelList",index03List);
 
@@ -497,6 +499,7 @@ public class App01CrudController {
     //간편주문 리스트 01 등록
     @GetMapping(value="/index03/ganlist01")
     public Object App03GanList01_index(@RequestParam("jpbgubn") String jpbgubn,
+                                       @RequestParam("jcode") String jbonsacode,
                                      @RequestParam("flag") String flag,
                                      Model model, HttpServletRequest request) throws Exception{
         CommDto.setMenuTitle("주문등록");
@@ -510,6 +513,7 @@ public class App01CrudController {
             if(jpbgubn == null || jpbgubn.equals("")){
                 jpbgubn = "%";
             }
+            index03Dto.setJbonsa_code(jbonsacode);
             index03Dto.setJpb_gubn(jpbgubn);
             index03List = service03.GetGanListBonsa01(index03Dto);
             model.addAttribute("index03GanList01",index03List);
@@ -547,6 +551,34 @@ public class App01CrudController {
             index03Dto.setTodate(getToDate());
             index03List = service03.GetGanListBonsa02(index03Dto);
             model.addAttribute("index03GanList02",index03List);
+
+        } catch (Exception ex) {
+            log.info("App03GanList01_index Exception =====>" + ex.toString());
+//            log.debug("Exception =====>" + ex.toString() );
+        }
+
+        return index03List;
+    }
+
+    //간편주문 리스트 03 등록
+    @GetMapping(value="/index03/ganlist03")
+    public Object App03GanList03_index(@RequestParam("jpbgubn") String jpbgubn,
+                                       @RequestParam("flag") String flag,
+                                       Model model, HttpServletRequest request) throws Exception{
+        CommDto.setMenuTitle("주문등록");
+        CommDto.setMenuUrl("기준정보>주문등록");
+        CommDto.setMenuCode("index14");
+        HttpSession session = request.getSession();
+        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        model.addAttribute("userformDto",userformDto);
+
+        try {
+            if(jpbgubn == null || jpbgubn.equals("")){
+                jpbgubn = "%";
+            }
+            index03Dto.setJpb_gubn(jpbgubn);
+            index03List = service03.GetJBonsaCodeList(index03Dto);
+            model.addAttribute("index03GanList03",index03List);
 
         } catch (Exception ex) {
             log.info("App03GanList01_index Exception =====>" + ex.toString());
@@ -841,6 +873,134 @@ public class App01CrudController {
     }
 
 
+    @RequestMapping(value="/index14/savecust")
+    public String index14SaveCust(
+            @RequestParam("ipdate") String frdate
+            ,@RequestParam("acode") String acode
+            ,@RequestParam("jkey") String jkey
+            ,@RequestParam("mflag") String mflag
+            ,@RequestParam("ordercd") String ordercd
+            , Model model
+            , HttpServletRequest request){
+
+        try {
+
+            HttpSession session = request.getSession();
+            UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+            model.addAttribute("userformDto",userformDto);
+
+            Boolean result = false;
+            String year = frdate.substring(0,4) ;
+            String month = frdate.substring(5,7) ;
+            String day   = frdate.substring(8,10) ;
+            frdate = year + month + day ;
+            index02Dto.setAcode(acode);
+            index03Dto.setJkey(jkey);
+            index02Dto = service02.GetCifListAcode(index02Dto);  //거래처정보
+            index02BonsaDto = service02.GetCifBonsa(index02BonsaDto);
+            index03Dto = service03.GetJpumOrderJkey02(index03Dto); //품목
+
+            indexDa023Dto.setCltcd(acode);
+            indexDa023Dto.setMisdate(frdate);
+            String ls_misnum = "";
+            String ls_chknull = service14.SelectCheckMisnum(indexDa023Dto);
+            if(ls_chknull == null){
+                ls_chknull = "";
+            }
+            if(ls_chknull.length() == 0){
+                ls_misnum = "0001";
+            }else{
+                ls_misnum = ls_chknull;
+            }
+            indexDa023Dto.setMisnum(ls_misnum);
+            indexDa023Dto.setCltcd(acode);
+            indexDa023Dto.setMisgubun(mflag);
+            indexDa023Dto.setYyyymm(year + month);
+
+            switch (mflag){
+                case "AA" :
+                    indexDa023Dto.setPerid("");
+                    break;
+                case "BB":
+                    indexDa023Dto.setPerid("");
+                    break;
+                case "CC":
+                    indexDa023Dto.setPerid(userformDto.getPerid());
+                    break;
+                default:
+                    break;
+            }
+            indexDa023Dto.setContamt(0);
+            indexDa023Dto.setAddamt(0);
+            indexDa023Dto.setAddamt(0);
+            indexDa023Dto.setMisamt(0);
+            indexDa023Dto.setAmt(0);
+            indexDa023Dto.setBillkind("1");     //0 미발행 1 발행 2 역발행 3 타사이트발행
+            indexDa023Dto.setTaxcls("0");       //0 부가세별도 1 부가세포함
+            indexDa023Dto.setTaxgubun("001");   //001 과세 002 비과세
+            indexDa023Dto.setBigo("");
+            indexDa023Dto.setRemark("");
+            indexDa023Dto.setVatemail(index02Dto.getAemail());  //계산서 메일주소
+            indexDa023Dto.setVatpernm(index02Dto.getInname01());  //계산서 담당자
+            indexDa023Dto.setSpjangnum(index02BonsaDto.getAcorp());
+            indexDa023Dto.setGubun("");
+            String ls_seq = "";
+            if (ls_chknull.length() == 0 ){
+                ls_seq = "001";
+            }else{
+                ls_seq = GetMaxSeq(frdate);
+            }
+
+            String ls_chulgoga = index03Dto.getJchgoga0();
+            if( ls_chulgoga == null ){
+                ls_chulgoga = "0";
+            }
+            Integer ll_chulgoga = Integer.parseInt(ls_chulgoga);
+            indexDa024Dto.setSeq(ls_seq);
+            indexDa024Dto.setMisdate(frdate);
+            indexDa024Dto.setMisnum(ls_misnum);
+//            log.info("ls_misnum=============>");
+//            log.info(ls_misnum);
+            indexDa024Dto.setPcode(index03Dto.getJkey());
+            indexDa024Dto.setPname(index03Dto.getJpum());
+            indexDa024Dto.setPsize(index03Dto.getJgugek());
+            indexDa024Dto.setPbonsa(index03Dto.getJbonsa_code());
+            indexDa024Dto.setPmodel(index03Dto.getJmodel_code());
+            indexDa024Dto.setPcolor(index03Dto.getJcolor_code());
+            indexDa024Dto.setQty(1);
+            indexDa024Dto.setUamt(ll_chulgoga);
+            indexDa024Dto.setSamt(ll_chulgoga);
+            indexDa024Dto.setCltcd(indexDa023Dto.getCltcd());
+            indexDa024Dto.setAddamt(0);
+            if(ll_chulgoga > 0 ) {
+                indexDa024Dto.setAddamt(ll_chulgoga / 10);
+                indexDa024Dto.setAmt(ll_chulgoga + (ll_chulgoga / 10));
+            }else{
+                indexDa024Dto.setAddamt(0);
+                indexDa024Dto.setAmt(0);
+            };
+
+            indexDa024Dto.setIndate(getToDate());
+            indexDa024Dto.setInperid(userformDto.getPernm());
+            indexDa024Dto.setPunit("EA");
+            if (ls_chknull.length() == 0){
+                result = service14.InsertDa023(indexDa023Dto);
+                if (!result){
+                    return "error";
+                }
+            }
+            result = service14.InsertDa024(indexDa024Dto);
+            if (!result){
+                return "error";
+            }
+
+        }catch (IllegalStateException e){
+            model.addAttribute("index14Save errorMessage", e.getMessage());
+            return "error";
+        }
+        return "success";
+    }
+
     //주문삭제
     @GetMapping(value="/index14/del")
     public String App14Del_index(@RequestParam("argmisdate") String misdate,
@@ -880,7 +1040,175 @@ public class App01CrudController {
         return "SUCCESS";
     }
 
-    //재고실사 리스트
+
+    //주문삭제
+    @GetMapping(value="/index14/delwish")
+    public String App14DelWish_index(@RequestParam("argmisdate") String misdate,
+                                 @RequestParam("argmisnum") String misnum,
+                                 @RequestParam("argmisseq") String seq,
+                                 @RequestParam("argcltcd") String cltcd,
+                                 Model model, HttpServletRequest request) throws Exception{
+        CommDto.setMenuTitle("주문등록");
+        CommDto.setMenuUrl("주문등록>예약현황");
+        CommDto.setMenuCode("index14wish");
+        HttpSession session = request.getSession();
+        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        model.addAttribute("userformDto",userformDto);
+
+        try {
+            String year = misdate.substring(0,4) ;
+            String month = misdate.substring(5,7) ;
+            String day   = misdate.substring(8,10) ;
+            misdate = year + month + day ;
+            indexDa024Dto.setMisdate(misdate);
+            indexDa024Dto.setMisnum(misnum);
+            indexDa024Dto.setSeq(seq);
+            indexDa024Dto.setCltcd(cltcd);
+            Boolean result = false;
+            result = service14.DeleteDA026(indexDa024Dto);
+            if (!result){
+                return "error";
+            }
+            result = service14.DeleteDA025(indexDa024Dto);
+            if (!result){
+                return "error";
+            }
+
+        } catch (Exception ex) {
+            log.info("App14DelWish_index Exception =====>" + ex.toString());
+        }
+        return "SUCCESS";
+    }
+
+    @RequestMapping(value="/index14/savecustwish")
+    public String index14SaveCustWish(
+            @RequestParam("ipdate") String frdate
+            ,@RequestParam("acode") String acode
+            ,@RequestParam("jkey") String jkey
+            ,@RequestParam("mflag") String mflag
+            ,@RequestParam("ordercd") String ordercd
+            , Model model
+            , HttpServletRequest request){
+
+        try {
+
+            HttpSession session = request.getSession();
+            UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+            model.addAttribute("userformDto",userformDto);
+
+            Boolean result = false;
+            String year = frdate.substring(0,4) ;
+            String month = frdate.substring(5,7) ;
+            String day   = frdate.substring(8,10) ;
+            frdate = year + month + day ;
+            index02Dto.setAcode(acode);
+            index03Dto.setJkey(jkey);
+            index02Dto = service02.GetCifListAcode(index02Dto);  //거래처정보
+            index02BonsaDto = service02.GetCifBonsa(index02BonsaDto);
+            index03Dto = service03.GetJpumOrderJkey02(index03Dto); //품목
+
+            indexDa023Dto.setCltcd(acode);
+            indexDa023Dto.setMisdate(frdate);
+            String ls_misnum = "";
+            String ls_chknull = service14.SelectCheckMisnumWish(indexDa023Dto);
+            if(ls_chknull == null){
+                ls_chknull = "";
+            }
+            if(ls_chknull.length() == 0){
+                ls_misnum = "0001";
+            }else{
+                ls_misnum = ls_chknull;
+            }
+            indexDa023Dto.setMisnum(ls_misnum);
+            indexDa023Dto.setCltcd(acode);
+            indexDa023Dto.setMisgubun(mflag);
+            indexDa023Dto.setYyyymm(year + month);
+
+            switch (mflag){
+                case "AA" :
+                    indexDa023Dto.setPerid("");
+                    break;
+                case "BB":
+                    indexDa023Dto.setPerid("");
+                    break;
+                case "CC":
+                    indexDa023Dto.setPerid(userformDto.getPerid());
+                    break;
+                default:
+                    break;
+            }
+            indexDa023Dto.setContamt(0);
+            indexDa023Dto.setAddamt(0);
+            indexDa023Dto.setAddamt(0);
+            indexDa023Dto.setMisamt(0);
+            indexDa023Dto.setAmt(0);
+            indexDa023Dto.setBillkind("1");     //0 미발행 1 발행 2 역발행 3 타사이트발행
+            indexDa023Dto.setTaxcls("0");       //0 부가세별도 1 부가세포함
+            indexDa023Dto.setTaxgubun("001");   //001 과세 002 비과세
+            indexDa023Dto.setBigo("");
+            indexDa023Dto.setRemark("");
+            indexDa023Dto.setVatemail(index02Dto.getAemail());  //계산서 메일주소
+            indexDa023Dto.setVatpernm(index02Dto.getInname01());  //계산서 담당자
+            indexDa023Dto.setSpjangnum(index02BonsaDto.getAcorp());
+            indexDa023Dto.setGubun("");
+            String ls_seq = "";
+            if (ls_chknull.length() == 0 ){
+                ls_seq = "001";
+            }else{
+                ls_seq = GetMaxSeqWish(frdate);
+            }
+
+            String ls_chulgoga = index03Dto.getJchgoga0();
+            Integer ll_chulgoga = Integer.parseInt(ls_chulgoga);
+            if( ls_chulgoga == null ||  ll_chulgoga == 0 || ll_chulgoga == null ){
+                ls_chulgoga = "0";
+            }
+            indexDa024Dto.setSeq(ls_seq);
+            indexDa024Dto.setMisdate(frdate);
+            indexDa024Dto.setMisnum(ls_misnum);
+//            log.info("ls_misnum=============>");
+//            log.info(ls_misnum);
+            indexDa024Dto.setPcode(index03Dto.getJkey());
+            indexDa024Dto.setPname(index03Dto.getJpum());
+            indexDa024Dto.setPsize(index03Dto.getJgugek());
+            indexDa024Dto.setPbonsa(index03Dto.getJbonsa_code());
+            indexDa024Dto.setPmodel(index03Dto.getJmodel_code());
+            indexDa024Dto.setPcolor(index03Dto.getJcolor_code());
+            indexDa024Dto.setQty(1);
+            indexDa024Dto.setUamt(ll_chulgoga);
+            indexDa024Dto.setSamt(ll_chulgoga);
+            indexDa024Dto.setCltcd(indexDa023Dto.getCltcd());
+            indexDa024Dto.setAddamt(0);
+            if(ll_chulgoga > 0 ) {
+                indexDa024Dto.setAddamt(ll_chulgoga / 10);
+                indexDa024Dto.setAmt(ll_chulgoga + (ll_chulgoga / 10));
+            }else{
+                indexDa024Dto.setAddamt(0);
+                indexDa024Dto.setAmt(0);
+            };
+
+            indexDa024Dto.setIndate(getToDate());
+            indexDa024Dto.setInperid(userformDto.getPernm());
+            indexDa024Dto.setPunit("EA");
+            if (ls_chknull.length() == 0){
+                result = service14.InsertDa025(indexDa023Dto);
+                if (!result){
+                    return "error";
+                }
+            }
+            result = service14.InsertDa026(indexDa024Dto);
+            if (!result){
+                return "error";
+            }
+
+        }catch (IllegalStateException e){
+            model.addAttribute("index14SaveWish errorMessage", e.getMessage());
+            return "error";
+        }
+        return "success";
+    }
+
+    //주문현황 리스트
     @GetMapping(value="/index14/list")
     public Object App14List_index(@RequestParam("frdate") String frdate,
                                   @RequestParam("todate") String todate,
@@ -910,6 +1238,42 @@ public class App01CrudController {
 
         } catch (Exception ex) {
             log.info("App14List_index Exception =====>" + ex.toString());
+        }
+
+        return indexDa024ListDto;
+    }
+
+
+    //주문현황 리스트
+    @GetMapping(value="/index14/listwish")
+    public Object App14ListWish_index(@RequestParam("frdate") String frdate,
+                                  @RequestParam("todate") String todate,
+                                  @RequestParam("acode") String acode,
+                                  Model model, HttpServletRequest request) throws Exception{
+        CommDto.setMenuTitle("주문등록");
+        CommDto.setMenuUrl("주문등록>예약현황");
+        CommDto.setMenuCode("index14wish");
+        HttpSession session = request.getSession();
+        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        model.addAttribute("userformDto",userformDto);
+
+        try {
+            String year = frdate.substring(0,4) ;
+            String month = frdate.substring(5,7) ;
+            String day   = frdate.substring(8,10) ;
+            frdate = year + month + day ;
+            year = todate.substring(0,4) ;
+            month = todate.substring(5,7) ;
+            day   = todate.substring(8,10) ;
+            todate = year + month + day ;
+            indexDa024Dto.setFrdate(frdate);
+            indexDa024Dto.setTodate(todate);
+            indexDa024Dto.setCltcd(acode);
+            indexDa024ListDto = service14.SelectDa026List(indexDa024Dto);
+            model.addAttribute("indexDa024ListDto",indexDa024ListDto);
+
+        } catch (Exception ex) {
+            log.info("App14ListWish_index Exception =====>" + ex.toString());
         }
 
         return indexDa024ListDto;
@@ -948,7 +1312,22 @@ public class App01CrudController {
         }
         return ls_seq;
     }
+    public String GetMaxSeqWish(String agDate){
 
+        String ls_seq = service14.SelectMaxSeqWish(indexDa023Dto);
+        if(ls_seq == null){
+            ls_seq = "001";
+        }else{
+            Integer ll_misnum = Integer.parseInt(ls_seq) + 1;
+            ls_seq = ll_misnum.toString();
+            if (ls_seq.length() == 1){
+                ls_seq = "00" + ls_seq;
+            }else if(ls_seq.length() == 2){
+                ls_seq = "0" + ls_seq;
+            }
+        }
+        return ls_seq;
+    }
 
     private String getToDate() {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");

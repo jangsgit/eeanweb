@@ -37,6 +37,10 @@ public class Index03Service {
     public List<Index03Dto> GetJpumCustList(Index03Dto parm){
         return  appMapper.GetJpumCustList(parm);
     }
+    public List<Index03Dto> GetJBonsaCodeList(Index03Dto parm){
+        return  appMapper.GetJBonsaCodeList(parm);
+    }
+
     public List<Index03Dto> GetJpumModelList(Index03Dto parm){
         return  appMapper.GetJpumModelList(parm);
     }
@@ -45,6 +49,9 @@ public class Index03Service {
     }
     public Index03Dto GetJpumOrderJkey(Index03Dto parm){
         return  appMapper.GetJpumOrderJkey(parm);
+    }
+    public Index03Dto GetJpumOrderJkey02(Index03Dto parm){
+        return  appMapper.GetJpumOrderJkey02(parm);
     }
 
 

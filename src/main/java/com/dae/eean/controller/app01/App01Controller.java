@@ -232,12 +232,12 @@ public class App01Controller {
         model.addAttribute("userformDto",userformDto);
 
         try {
-//            popupListDto = svcpopup.getCifCodeList(popupDto);
-
-//            model.addAttribute("cifcodeList",popupListDto);
+            index03Dto.setJpb_gubn("%");
+            index03List = service03.GetJBonsaCodeList(index03Dto);
+            model.addAttribute("index03List",index03List);
         } catch (Exception ex) {
 //                dispatchException = ex;
-            log.info("App13_index Exception ================================================================");
+            log.info("App14_index Exception ================================================================");
             log.info("Exception =====>" + ex.toString());
 //            log.debug("Exception =====>" + ex.toString() );
         }
@@ -256,12 +256,12 @@ public class App01Controller {
         model.addAttribute("userformDto",userformDto);
 
         try {
-//            popupListDto = svcpopup.getCifCodeList(popupDto);
+            index03List = service03.GetJBonsaCodeList(index03Dto);
 
-//            model.addAttribute("cifcodeList",popupListDto);
+            model.addAttribute("index03List",index03List);
         } catch (Exception ex) {
 //                dispatchException = ex;
-            log.info("App13_index Exception ================================================================");
+            log.info("App140_index Exception ================================================================");
             log.info("Exception =====>" + ex.toString());
 //            log.debug("Exception =====>" + ex.toString() );
         }
