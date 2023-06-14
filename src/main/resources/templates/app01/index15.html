@@ -631,18 +631,19 @@ aria-hidden="true">
             alert("주문등록");
         } 
 
-        function wdelfun_a(arg1, arg2, arg3, arg4){ 
+        function wdelfun_a(arg1, arg2, arg3, arg4, arg5){ 
             if (!confirm("주문일자 : " + arg1 + "-" +  arg2 + "(" + arg3 + ")   삭제하시겠습니까?")) {
                 return ; 
             }   
             $.ajax({
-                        url: '/app01m/index14/del',  
+                    url: '/app01m/index14/del',  
                     type:"POST",
                     data: { 
                         "argmisdate" :arg1, 
                         "argmisnum" :arg2, 
                         "argmisseq" :arg3, 
                         "argcltcd" :arg4, 
+                        "mflag" :arg5, 
                     }, 
                     async:false,
                     success:function(data){  
@@ -656,7 +657,7 @@ aria-hidden="true">
 
 
         }   
-        function wdelfunwish_a(arg1, arg2, arg3, arg4){ 
+        function wdelfunwish_a(arg1, arg2, arg3, arg4, arg5){ 
             if (!confirm("예약일자 : " + arg1 + "-" +  arg2 + "(" + arg3 + ")   삭제하시겠습니까?")) {
                 return ; 
             }   
@@ -668,6 +669,7 @@ aria-hidden="true">
                         "argmisnum" :arg2, 
                         "argmisseq" :arg3, 
                         "argcltcd" :arg4, 
+                        "mflag" :arg5, 
                     }, 
                     async:false,
                     success:function(data){  
@@ -765,13 +767,16 @@ aria-hidden="true">
                     if(ls_bacode == null || ls_bacode.length == 0 || ls_bacode == ""){  
                         ls_bacode = "%";
                     }   
+                    ls_perid = "";
                     $.ajax({
                         url: '/app01m/index14/list',  
                         type:"POST",
                         data: { 
                             "frdate"      : ls_frdate,
                             "todate"      : ls_todate,
-                            "acode"      : ls_bacode,  
+                            "acode"      : ls_bacode,    
+                            "perid"      : ls_perid,       
+                            "mflag"  : 'AA'   ,  
                         }, 
                         async:false,
                         success:function(data){   
@@ -802,13 +807,16 @@ aria-hidden="true">
                     if(ls_bacode == null || ls_bacode.length == 0 || ls_bacode == ""){  
                         ls_bacode = "%";
                     }   
+                    ls_perid = "";
                     $.ajax({
                         url: '/app01m/index14/listwish',  
                         type:"POST",
                         data: { 
                             "frdate"      : ls_frdate,
                             "todate"      : ls_todate,
-                            "acode"      : ls_bacode,  
+                            "acode"      : ls_bacode,       
+                            "perid"      : ls_perid,    
+                            "mflag"  : 'AA'   ,  
                         }, 
                         async:false,
                         success:function(data){   
@@ -848,7 +856,8 @@ aria-hidden="true">
                     qty: wtab02Dto[i]["qty"],    
                     uamt: wtab02Dto[i]["uamt"], 
                     samt: wtab02Dto[i]["samt"],  
-                    cltcd: wtab02Dto[i]["cltcd"],                               
+                    cltcd: wtab02Dto[i]["cltcd"],   
+                    misgubun: wtab02Dto[i]["misgubun"],                             
                 });
                 cnt++;
             }   
@@ -877,7 +886,7 @@ aria-hidden="true">
             cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
                 text: '<b>${item.seq}</b>',
                 click: (e, ctx) => {
-                    wdelfun_a(ctx.item.misdate, ctx.item.misnum, ctx.item.seq, ctx.item.cltcd);                    
+                    wdelfun_a(ctx.item.misdate, ctx.item.misnum, ctx.item.seq, ctx.item.cltcd, ctx.item.misgubun);                    
                     
                 }
             });
@@ -959,7 +968,8 @@ aria-hidden="true">
                     qty: wtab03Dto[i]["qty"],    
                     uamt: wtab03Dto[i]["uamt"], 
                     samt: wtab03Dto[i]["samt"],  
-                    cltcd: wtab03Dto[i]["cltcd"],                               
+                    cltcd: wtab03Dto[i]["cltcd"],   
+                    misgubun: wtab03Dto[i]["misgubun"],                             
                 });
                 cnt++;
             }   
@@ -988,7 +998,7 @@ aria-hidden="true">
             cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
                 text: '<b>${item.seq}</b>',
                 click: (e, ctx) => {
-                    wdelfunwish_a(ctx.item.misdate, ctx.item.misnum, ctx.item.seq, ctx.item.cltcd);                    
+                    wdelfunwish_a(ctx.item.misdate, ctx.item.misnum, ctx.item.seq, ctx.item.cltcd, ctx.item.misgubun);                    
                     
                 }
             });
@@ -1065,6 +1075,7 @@ aria-hidden="true">
             }     
             let ls_conacorp1 = "%";  
             let ls_conagita = "%";   
+            let ls_abonsadam1 = "%";
             $.ajax({
                         url: '/app01m/index02/listtot',  
                     type:"POST",
@@ -1072,6 +1083,7 @@ aria-hidden="true">
                         "conacorp1" :ls_conacorp1, 
                         "conacorp" :searchCode, 
                         "conagita" :ls_conagita, 
+                        "abonsadam1" :ls_abonsadam1, 
                     }, 
                     async:false,
                     success:function(data){  
@@ -1206,13 +1218,15 @@ aria-hidden="true">
                         document.getElementById("cifname").focus(); 
                         return ;               
                     }   
+                    var  ls_jpbgubn    = document.getElementById('jpbgubn').value;   
+                    console.log(arg2);
                     $.ajax({
                         url: '/app01m/index14/savecust',  
                         type:"POST",
                         data: { 
                             "ipdate"  : ls_ipdate,  
                             "acode"   : ls_acode   , 
-                            "jkey"  : arg2     ,    
+                            "jkey"  : arg2     ,      
                             "mflag"  : 'AA'   ,      
                             "ordercd"  : 'AA'   , 
                         }, 

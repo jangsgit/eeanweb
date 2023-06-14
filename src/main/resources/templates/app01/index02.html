@@ -1347,6 +1347,7 @@
                
             let ls_conacorp1 = document.getElementById('conacorp1').value;  
             let ls_conacorp = document.getElementById('conacorp').value;  
+            let ls_abonsadam1 = "%";
             let ls_conagita = '%'; //document.getElementById('conagita').value;   
             $.ajax({
                         url: '/app01m/index02/listtot',  
@@ -1354,7 +1355,8 @@
                         data: { 
                             "conacorp1" :ls_conacorp1, 
                             "conacorp" :ls_conacorp, 
-                            "conagita" :ls_conagita, 
+                            "conagita" :ls_conagita,
+                            "abonsadam1" :ls_abonsadam1,  
                         }, 
                         async:false,
                         success:function(data){  

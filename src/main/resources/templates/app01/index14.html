@@ -652,11 +652,11 @@
                 jqty = "0";
             }else{
                 jqty = jqty.replace(')','');
-            } 
-            console.log(arg3 + "/" + jqty); 
+            }  
             var ls_tab = document.getElementById('tabvalue').value;
             var ls_ipdate = document.getElementById('ipdate').value;          
-            var ls_acode   = document.getElementById('acode').value;                                      
+            var ls_acode   = document.getElementById('acode').value;       
+            var  ls_jpbgubn    = document.getElementById('jpbgubn').value;                        
             const warnning_grid = document.getElementById('inwarnning_grid'); 
             var ls_pcode  =  [];        
             var ll_qty    =  [];    
@@ -689,7 +689,8 @@
                                 "acode"   : ls_acode   , 
                                 "jbonsa"  : arg1     ,
                                 "jmodel"  : arg2   ,  
-                                "jcolor"  : arg3   ,    
+                                "jcolor"  : arg3   ,   
+                                "jpbgubn"  : ls_jpbgubn   ,    
                                 "mflag"  : 'AA'   ,      
                                 "ordercd"  : 'AA'   , 
                             }, 
@@ -735,7 +736,8 @@
                                 "acode"   : ls_acode   , 
                                 "jbonsa"  : arg1     ,
                                 "jmodel"  : arg2   ,  
-                                "jcolor"  : arg3   ,    
+                                "jcolor"  : arg3   ,   
+                                "jpbgubn"  : ls_jpbgubn   , 
                                 "mflag"  : 'AA'   ,      
                                 "ordercd"  : 'AA'   , 
                             }, 
@@ -767,52 +769,7 @@
             } 
 
         } 
-
-        function delete_btn(arg){
-            var ls_tab = document.getElementById('tabvalue').value;
-            var ls_ipdate = document.getElementById('ipdate').value; 
-        
-            if (!confirm("삭제하시겠습니까?")) {
-                    return ; 
-            }   
-            
-            switch(ls_tab){
-                case 'B':
-
-                if(ls_ipdate == null || ls_ipdate.length == 0 || ls_ipdate == ""){ 
-                    alert("입고일자를 등록하세요") 
-                    document.getElementById("ipdate").focus(); 
-                    return ;               
-                }   
-
-                    $.ajax({
-                        url: '/app01m/index04/del',  
-                        type:"POST",
-                        data: { 
-                            "ipdate"      : ls_ipdate,    
-                        }, 
-                        async:false,
-                        success:function(data){   
-                            if(data == "success"){
-                                alert("삭제되었습니다.") 
-                                // searchList_rtn(ls_tab);  
-                                // clear_rtn(ls_tab);             
-                            }else{                       
-                                alert("삭제중 오류가 발생했습니다. 관리자에게 문의하세요.")  
-                            }
-                           
-                        },error:function(e){
-                            console.log("error"); 
-                        }
-                    }).done(function(fragment){           
-
-                    })  
-                    break;                
-                default:    
-                    break;                
-            } 
-
-        }         
+       
         function clear_rtn(arg){
             switch(arg){
                 case 'A': 
@@ -921,13 +878,16 @@
                     if(ls_bacode == null || ls_bacode.length == 0 || ls_bacode == ""){  
                         ls_bacode = "%";
                     }   
+                    ls_abonsadam1 = "";
                     $.ajax({
                         url: '/app01m/index14/list',  
                         type:"POST",
                         data: { 
                             "frdate"      : ls_frdate,
                             "todate"      : ls_todate,
-                            "acode"      : ls_bacode,  
+                            "acode"      : ls_bacode,   
+                            "perid"      : ls_abonsadam1,    
+                            "mflag"  : 'AA'   ,  
                         }, 
                         async:false,
                         success:function(data){   
@@ -958,13 +918,16 @@
                     if(ls_bacode == null || ls_bacode.length == 0 || ls_bacode == ""){  
                         ls_bacode = "%";
                     }   
+                    ls_abonsadam1 = "";
                     $.ajax({
                         url: '/app01m/index14/listwish',  
                         type:"POST",
                         data: { 
                             "frdate"      : ls_frdate,
                             "todate"      : ls_todate,
-                            "acode"      : ls_bacode,  
+                            "acode"      : ls_bacode,   
+                            "perid"      : ls_abonsadam1,    
+                            "mflag"  : 'AA'   ,  
                         }, 
                         async:false,
                         success:function(data){   
@@ -1004,7 +967,9 @@
                     qty: wtab02Dto[i]["qty"],    
                     uamt: wtab02Dto[i]["uamt"], 
                     samt: wtab02Dto[i]["samt"],  
-                    cltcd: wtab02Dto[i]["cltcd"],                               
+                    cltcd: wtab02Dto[i]["cltcd"],  
+                    inname: wtab02Dto[i]["inname"],       
+                    misgubun: wtab02Dto[i]["misgubun"],                          
                 });
                 cnt++;
             }   
@@ -1033,11 +998,17 @@
             cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
                 text: '<b>${item.seq}</b>',
                 click: (e, ctx) => {
-                    wdelfun_a(ctx.item.misdate, ctx.item.misnum, ctx.item.seq, ctx.item.cltcd);                    
+                    wdelfun_a(ctx.item.misdate, ctx.item.misnum, ctx.item.seq, ctx.item.cltcd, ctx.item.misgubun);                    
                     
                 }
             });
-            wtab02Grid.columns.push(cols);   
+            wtab02Grid.columns.push(cols); 
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'inname';
+            cols.header = '담당사원';
+            cols.align = "center";
+            cols.width = 100;  
+            wtab02Grid.columns.push(cols);     
             cols = new wijmo.grid.Column(); 
             cols.binding = 'acorp';
             cols.header = '거래처';
@@ -1087,7 +1058,7 @@
             cols.width = 100;  
             wtab02Grid.columns.push(cols);     
             cols = new wijmo.grid.Column(); 
-            cols.binding = 'samt';
+            cols.binding = 'samt'; 
             cols.header = '금액';
             cols.align = "center";
             cols.width = 150;  
@@ -1115,7 +1086,9 @@
                     qty: wtab04Dto[i]["qty"],    
                     uamt: wtab04Dto[i]["uamt"], 
                     samt: wtab04Dto[i]["samt"],  
-                    cltcd: wtab04Dto[i]["cltcd"],                               
+                    cltcd: wtab04Dto[i]["cltcd"],  
+                    inname: wtab04Dto[i]["inname"],     
+                    misgubun: wtab04Dto[i]["misgubun"],                            
                 });
                 cnt++;
             }   
@@ -1144,11 +1117,17 @@
             cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
                 text: '<b>${item.seq}</b>',
                 click: (e, ctx) => {
-                    wdelfunwish_a(ctx.item.misdate, ctx.item.misnum, ctx.item.seq, ctx.item.cltcd);                    
+                    wdelfunwish_a(ctx.item.misdate, ctx.item.misnum, ctx.item.seq, ctx.item.cltcd, ctx.item.misgubun);                    
                     
                 }
             });
-            wtab04Grid.columns.push(cols);   
+            wtab04Grid.columns.push(cols);  
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'inname';
+            cols.header = '담당사원';
+            cols.align = "center";
+            cols.width = 100;  
+            wtab04Grid.columns.push(cols);     
             cols = new wijmo.grid.Column(); 
             cols.binding = 'acorp';
             cols.header = '거래처';
@@ -1205,10 +1184,11 @@
             wtab04Grid.columns.push(cols);  
  
         }
-        function wdelfun_a(arg1, arg2, arg3, arg4){ 
+        function wdelfun_a(arg1, arg2, arg3, arg4, arg5){ 
             if (!confirm("주문일자 : " + arg1 + "-" +  arg2 + "(" + arg3 + ")   삭제하시겠습니까?")) {
                 return ; 
-            }   
+            }       
+            // return 
             $.ajax({
                         url: '/app01m/index14/del',  
                     type:"POST",
@@ -1217,6 +1197,7 @@
                         "argmisnum" :arg2, 
                         "argmisseq" :arg3, 
                         "argcltcd" :arg4, 
+                        "mflag" :arg5, 
                     }, 
                     async:false,
                     success:function(data){  
@@ -1231,10 +1212,15 @@
 
         }
         
-        function wdelfunwish_a(arg1, arg2, arg3, arg4){ 
+        function wdelfunwish_a(arg1, arg2, arg3, arg4, arg5){ 
             if (!confirm("예약일자 : " + arg1 + "-" +  arg2 + "(" + arg3 + ")   삭제하시겠습니까?")) {
                 return ; 
             }   
+            console.log(arg1);        
+            console.log(arg2);        
+            console.log(arg3);        
+            console.log(arg4);        
+            console.log(arg5);    
             $.ajax({
                         url: '/app01m/index14/delwish',  
                     type:"POST",
@@ -1243,6 +1229,7 @@
                         "argmisnum" :arg2, 
                         "argmisseq" :arg3, 
                         "argcltcd" :arg4, 
+                        "mflag" :arg5, 
                     }, 
                     async:false,
                     success:function(data){  
@@ -1274,6 +1261,7 @@
             }     
             let ls_conacorp1 = "%";  
             let ls_conagita = "%";   
+            let ls_abonsadam1 = "%";
             $.ajax({
                         url: '/app01m/index02/listtot',  
                     type:"POST",
@@ -1281,6 +1269,7 @@
                         "conacorp1" :ls_conacorp1, 
                         "conacorp" :searchCode, 
                         "conagita" :ls_conagita, 
+                        "abonsadam1" :ls_abonsadam1, 
                     }, 
                     async:false,
                     success:function(data){  

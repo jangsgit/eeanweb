@@ -7,19 +7,19 @@
 
 
     <select id="SelectCheckMisnum" parameterType="com.dae.eean.DTO.App01.IndexDa023Dto" resultType="String">
-        <![CDATA[  select top 1 misnum  from tb_da023 where misdate = #{misdate} and cltcd=#{cltcd} order by misdate, misnum     ]]>
+        <![CDATA[  select top 1 misnum  from tb_da023 where misdate = #{misdate} and cltcd=#{cltcd} and misgubun = #{misgubun}  order by misdate, misnum     ]]>
     </select>
 
     <select id="SelectCheckMisnumWish" parameterType="com.dae.eean.DTO.App01.IndexDa023Dto" resultType="String">
-        <![CDATA[  select top 1 misnum  from tb_da025 where misdate = #{misdate} and cltcd=#{cltcd} order by misdate, misnum     ]]>
+        <![CDATA[  select top 1 misnum  from tb_da025 where misdate = #{misdate} and cltcd=#{cltcd}  and misgubun = #{misgubun}    order by misdate, misnum     ]]>
     </select>
 
     <select id="SelectMaxMisnum" parameterType="com.dae.eean.DTO.App01.IndexDa023Dto" resultType="String">
-        <![CDATA[  select  max(misnum)  from tb_da023 where misdate = #{misdate}     ]]>
+        <![CDATA[  select  max(misnum)  from tb_da023 where misdate = #{misdate}    and misgubun = #{misgubun}    ]]>
     </select>
 
     <select id="SelectMaxMisnumWish" parameterType="com.dae.eean.DTO.App01.IndexDa023Dto" resultType="String">
-        <![CDATA[  select  max(misnum)  from tb_da025 where misdate = #{misdate}     ]]>
+        <![CDATA[  select  max(misnum)  from tb_da025 where misdate = #{misdate}   and misgubun = #{misgubun}    ]]>
     </select>
 
     <select id="SelectMaxSeq" parameterType="com.dae.eean.DTO.App01.IndexDa023Dto" resultType="String">
@@ -35,13 +35,16 @@
     <select id="SelectDa024List"  parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" resultType="com.dae.eean.DTO.App01.IndexDa024Dto">
         <![CDATA[ select B.cltcd as cltcd, Left(B.misdate,4) + '-' + substring(B.misdate, 5,2)+ '-' + substring(B.misdate, 7,2) as misdate, B.misnum, B.seq,
                          B.pcode, B.pname, B.psize,    B.punit,  B.qty,  B.uamt, B.samt, B.addamt,
-                         B.amt, A.acorp, pbonsa, pmodel, pcolor
-           from  TB_DA024 B WITH (NOLOCK) , cif A WITH (NOLOCK) , TB_DA023 C WITH (NOLOCK)
-           where B.misdate + B.misnum = C.misdate + C.misnum
+                         B.amt, A.acorp, pbonsa, pmodel, pcolor , D.inname, B.misgubun
+           from  TB_DA024 B WITH (NOLOCK) , cif A WITH (NOLOCK) ,
+                 TB_DA023 C WITH (NOLOCK) Left outer JOIN INSA D ON C.perid = D.insano
+           where B.misdate + B.misnum = C.misdate + C.misnum AND B.misgubun = C.misgubun
              AND isnull(C.delflag, '') <> 'Y'
              AND B.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
              AND C.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
             AND A.acorp1 + CAST(A.acorp2 as varchar) Like concat('%',#{cltcd},'%')
+             AND isnull(C.perid,'')  Like concat('%',#{perid},'%')
+             AND isnull(B.misgubun,'')  Like concat('%',#{misgubun},'%')
             AND B.misdate between #{frdate} and #{todate}
             ORDER BY B.misdate, B.misnum, B.seq
         ]]>
@@ -51,14 +54,17 @@
     <select id="SelectDa026List"  parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" resultType="com.dae.eean.DTO.App01.IndexDa024Dto">
         <![CDATA[ select B.cltcd as cltcd, Left(B.misdate,4) + '-' + substring(B.misdate, 5,2)+ '-' + substring(B.misdate, 7,2) as misdate, B.misnum, B.seq,
                          B.pcode, B.pname, B.psize,    B.punit,  B.qty,  B.uamt, B.samt, B.addamt,
-                         B.amt, A.acorp, pbonsa, pmodel, pcolor
-           from  TB_DA026 B WITH (NOLOCK) , cif A WITH (NOLOCK) , TB_DA025 C WITH (NOLOCK)
-           where B.misdate + B.misnum = C.misdate + C.misnum
+                         B.amt, A.acorp, pbonsa, pmodel, pcolor, D.inname, B.misgubun
+           from  TB_DA026 B WITH (NOLOCK) , cif A WITH (NOLOCK) ,
+                 TB_DA025 C WITH (NOLOCK)  Left outer JOIN INSA D ON C.perid = D.insano
+           where B.misdate + B.misnum = C.misdate + C.misnum AND B.misgubun = C.misgubun
              AND isnull(C.delflag, '') <> 'Y'
              AND B.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
              AND C.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
             AND A.acorp1 + CAST(A.acorp2 as varchar) Like concat('%',#{cltcd},'%')
+             AND isnull(C.perid,'')  Like concat('%',#{perid},'%')
             AND B.misdate between #{frdate} and #{todate}
+             AND isnull(B.misgubun,'')  Like concat('%',#{misgubun},'%')
             ORDER BY B.misdate, B.misnum, B.seq
         ]]>
 
@@ -68,37 +74,37 @@
         insert into TB_DA023 (custcd, spjangcd, cltcd, misgubun, misdate, misnum,
         contamt, gubun, yyyymm, perid, amt, addamt, misamt, billkind,
         taxcls, taxgubun, tax_spdate, tax_spnum, remark, bigo, vatemail, vatpernm,
-        spjangnum, delflag ) values
+        spjangnum, delflag, ggubun ) values
         ('EEAN', 'ZZ', #{cltcd}, #{misgubun}, #{misdate},    #{misnum},
          #{contamt}, #{gubun},    #{yyyymm},     #{perid},     #{amt},      #{addamt},  #{misamt},  #{billkind},
-         #{taxcls},  #{taxgubun}, '', '', #{remark},   #{bigo},    #{vatemail}, #{vatpernm}, #{spjangnum}, 'N' )
+         #{taxcls},  #{taxgubun}, '', '', #{remark},   #{bigo},    #{vatemail}, #{vatpernm}, #{spjangnum}, 'N', #{ggubun} )
     </insert>
 
     <insert id="InsertDa025" parameterType="com.dae.eean.DTO.App01.IndexDa023Dto" >
         insert into TB_DA025 (custcd, spjangcd, cltcd, misgubun, misdate, misnum,
         contamt, gubun, yyyymm, perid, amt, addamt, misamt, billkind,
         taxcls, taxgubun, tax_spdate, tax_spnum, remark, bigo, vatemail, vatpernm,
-        spjangnum, delflag ) values
+        spjangnum, delflag, ggubun  ) values
         ('EEAN', 'ZZ', #{cltcd}, #{misgubun}, #{misdate},    #{misnum},
         #{contamt}, #{gubun},    #{yyyymm},     #{perid},     #{amt},      #{addamt},  #{misamt},  #{billkind},
-        #{taxcls},  #{taxgubun}, '', '', #{remark},   #{bigo},    #{vatemail}, #{vatpernm}, #{spjangnum}, 'N' )
+        #{taxcls},  #{taxgubun}, '', '', #{remark},   #{bigo},    #{vatemail}, #{vatpernm}, #{spjangnum}, 'N' , #{ggubun} )
     </insert>
 
 
     <insert id="InsertDa024" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
-        insert into TB_DA024 (custcd, spjangcd, cltcd, misdate, misnum, seq,
+        insert into TB_DA024 (custcd, spjangcd, cltcd, misgubun, misdate, misnum, seq,
         pcode, pname, psize,    punit,  qty,  uamt, samt, addamt,
         amt, indate, inperid, pbonsa, pmodel, pcolor  ) values
-        ('EEAN', 'ZZ', #{cltcd},   #{misdate},  #{misnum}, #{seq},
+        ('EEAN', 'ZZ', #{cltcd},    #{misgubun}, #{misdate},  #{misnum}, #{seq},
         #{pcode}, #{pname}, #{psize}, #{punit}, #{qty},   #{uamt},  #{samt},  #{addamt},
         #{amt},  #{indate}, #{inperid} , #{pbonsa} , #{pmodel} , #{pcolor}  )
     </insert>
 
     <insert id="InsertDa026" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
-        insert into TB_DA026 (custcd, spjangcd, cltcd, misdate, misnum, seq,
+        insert into TB_DA026 (custcd, spjangcd, cltcd, misgubun, misdate, misnum, seq,
         pcode, pname, psize,    punit,  qty,  uamt, samt, addamt,
         amt, indate, inperid, pbonsa, pmodel, pcolor  ) values
-        ('EEAN', 'ZZ', #{cltcd},   #{misdate},  #{misnum}, #{seq},
+        ('EEAN', 'ZZ', #{cltcd},   #{misgubun},  #{misdate},  #{misnum}, #{seq},
         #{pcode}, #{pname}, #{psize}, #{punit}, #{qty},   #{uamt},  #{samt},  #{addamt},
         #{amt},  #{indate}, #{inperid} , #{pbonsa} , #{pmodel} , #{pcolor}  )
     </insert>
@@ -134,24 +140,24 @@
 
     <delete id="DeleteDA023" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
         delete from tb_da023
-        where misdate = #{misdate} and misnum = #{misnum} and cltcd = #{cltcd}
-          and misdate + misnum not in (select misdate + misnum from tb_da024 where misdate = #{misdate} and misnum=#{misnum} )
+        where misdate = #{misdate} and misnum = #{misnum} and cltcd = #{cltcd} and misgubun = #{misgubun}
+          and misdate + misnum not in (select misdate + misnum from tb_da024 where misdate = #{misdate} and misnum=#{misnum} and misgubun = #{misgubun}  )
     </delete>
 
     <delete id="DeleteDA024" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
         delete from tb_da024
-        where misdate = #{misdate} and misnum = #{misnum} and seq = #{seq} and cltcd = #{cltcd}
+        where misdate = #{misdate} and misnum = #{misnum} and seq = #{seq} and cltcd = #{cltcd} and misgubun = #{misgubun}
     </delete>
 
 
     <delete id="DeleteDA025" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
         delete from tb_da025
-        where misdate = #{misdate} and misnum = #{misnum} and cltcd = #{cltcd}
-        and misdate + misnum not in (select misdate + misnum from tb_da024 where misdate = #{misdate} and misnum=#{misnum} )
+        where misdate = #{misdate} and misnum = #{misnum} and cltcd = #{cltcd} and misgubun = #{misgubun}
+          and misdate + misnum not in (select misdate + misnum from tb_da026 where misdate = #{misdate} and misnum=#{misnum} and misgubun = #{misgubun} )
     </delete>
 
     <delete id="DeleteDA026" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
         delete from tb_da026
-        where misdate = #{misdate} and misnum = #{misnum} and seq = #{seq} and cltcd = #{cltcd}
+        where misdate = #{misdate} and misnum = #{misnum} and seq = #{seq} and cltcd = #{cltcd} and misgubun = #{misgubun}
     </delete>
 </mapper>

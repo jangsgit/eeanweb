@@ -27,6 +27,9 @@ public class IndexDa024Dto {
     private String frdate;
     private String todate;
     private String acorp;
+    private String perid;
+    private String misgubun;
+    private String inname;
 
 
 }

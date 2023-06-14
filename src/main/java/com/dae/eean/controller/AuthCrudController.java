@@ -153,6 +153,8 @@ public class AuthCrudController {
 
         HttpSession session = request.getSession();
         session.setAttribute("userformDto",userformDto);
+
+        log.debug("userReturnDto =====>" + userReturnDto );
         if(select.equals(userformDto.getFlag()) == false){
             userReturnDto = null;
             return userReturnDto;
@@ -183,12 +185,11 @@ public class AuthCrudController {
 
         HttpSession session = request.getSession();
         session.setAttribute("userformDto",userReturnDto);
+
         if(!userformDto.getFlag().equals("ZZ")){
             userReturnDto = null;
             return userReturnDto;
         }else {
-
-
             return userReturnDto;
         }
     }

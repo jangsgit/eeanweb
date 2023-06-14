@@ -122,8 +122,9 @@
                 var ls_url = 'userid=' + ls_userid
                 var ls_useyn = userFormDto["useyn"]
                 var ls_wrongnum = userFormDto["wrongnum"]
-
-
+                window.localStorage.setItem("perid",  userFormDto["perid"])
+                window.localStorage.setItem("pernm",  userFormDto["pernm"])
+                window.localStorage.setItem("custnm",  userFormDto["custnm"])
                 if(userFormDto == "" || userFormDto == null){
                   alert("사용자 구분을 확인하세요.");
                   return false;

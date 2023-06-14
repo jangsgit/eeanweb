@@ -28,5 +28,6 @@ public class IndexDa023Dto {
     private String vatpernm;
     private String spjangnum;
     private String todate;
+    private String ggubun;
 
 }

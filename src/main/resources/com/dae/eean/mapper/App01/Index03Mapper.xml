@@ -64,6 +64,7 @@
             WHERE isnull(jmodel_code,'') = #{jmodel_code}
              and  isnull(jbonsa_code,'') = #{jbonsa_code}
              and  isnull(jcolor_code,'') = #{jcolor_code}
+              and  isnull(jpb_gubn,'') = #{jpb_gubn}
         ]]>
     </select>
 

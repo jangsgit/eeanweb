@@ -89,6 +89,7 @@ public class App01CrudController {
     public Object App02ListTot_index(@RequestParam("conacorp1") String conacorp1,
                                      @RequestParam("conacorp") String conacorp,
                                      @RequestParam("conagita") String conagita,
+                                     @RequestParam("abonsadam1") String abonsadam1,
                                   Model model, HttpServletRequest request) throws Exception{
         CommDto.setMenuTitle("거래처등록");
         CommDto.setMenuUrl("기준정보>거래처정보");
@@ -107,10 +108,14 @@ public class App01CrudController {
             if(conagita == null || conagita.equals("")){
                 conagita = "%";
             }
+            if(abonsadam1 == null || abonsadam1.equals("")){
+                abonsadam1 = "%";
+            }
             index02Dto.setAcorp1(conacorp1);
 //            log.info("conacorp1 =====>" + conacorp1);
             index02Dto.setAcorp(conacorp);
             index02Dto.setAgita(conagita);
+            index02Dto.setAbonsadam1(abonsadam1);
             index02List = service02.GetCifListTot(index02Dto);
             model.addAttribute("index02List",index02List);
 
@@ -755,6 +760,7 @@ public class App01CrudController {
             ,@RequestParam("jmodel") String jmodel
             ,@RequestParam("jcolor") String jcolor
             ,@RequestParam("mflag") String mflag
+            ,@RequestParam("jpbgubn") String jpbgubn
             ,@RequestParam("ordercd") String ordercd
             , Model model
             , HttpServletRequest request){
@@ -773,11 +779,13 @@ public class App01CrudController {
             index03Dto.setJmodel_code(jmodel);
             index03Dto.setJcolor_code(jcolor);
             index03Dto.setJbonsa_code(jbonsa);
+            index03Dto.setJpb_gubn(jpbgubn);
             index02Dto.setAcode(acode);
             index02Dto = service02.GetCifListAcode(index02Dto);  //거래처정보
             index02BonsaDto = service02.GetCifBonsa(index02BonsaDto);
             index03Dto = service03.GetJpumOrderJkey(index03Dto); //품목정보
             indexDa023Dto.setCltcd(acode);
+            indexDa023Dto.setMisgubun(mflag);
             indexDa023Dto.setMisdate(frdate);
             String ls_misnum = "";
             String ls_chknull = service14.SelectCheckMisnum(indexDa023Dto);
@@ -791,18 +799,20 @@ public class App01CrudController {
             }
             indexDa023Dto.setMisnum(ls_misnum);
             indexDa023Dto.setCltcd(acode);
-            indexDa023Dto.setMisgubun(mflag);
             indexDa023Dto.setYyyymm(year + month);
 
             switch (mflag){
                 case "AA" :
                     indexDa023Dto.setPerid("");
+                    indexDa023Dto.setGgubun("AA");
                     break;
                 case "BB":
                     indexDa023Dto.setPerid("");
+                    indexDa023Dto.setGgubun("BB");
                     break;
                 case "CC":
                     indexDa023Dto.setPerid(userformDto.getPerid());
+                    indexDa023Dto.setGgubun("CC");
                     break;
                 default:
                     break;
@@ -821,6 +831,7 @@ public class App01CrudController {
             indexDa023Dto.setVatpernm(index02Dto.getInname01());  //계산서 담당자
             indexDa023Dto.setSpjangnum(index02BonsaDto.getAcorp());
             indexDa023Dto.setGubun("");
+            indexDa024Dto.setMisgubun(mflag);
             String ls_seq = "";
             if (ls_chknull.length() == 0 ){
                 ls_seq = "001";
@@ -881,6 +892,7 @@ public class App01CrudController {
             ,@RequestParam("jmodel") String jmodel
             ,@RequestParam("jcolor") String jcolor
             ,@RequestParam("mflag") String mflag
+            ,@RequestParam("jpbgubn") String jpbgubn
             ,@RequestParam("ordercd") String ordercd
             , Model model
             , HttpServletRequest request){
@@ -899,12 +911,14 @@ public class App01CrudController {
             index03Dto.setJmodel_code(jmodel);
             index03Dto.setJcolor_code(jcolor);
             index03Dto.setJbonsa_code(jbonsa);
+            index03Dto.setJpb_gubn(jpbgubn);
             index02Dto.setAcode(acode);
             index02Dto = service02.GetCifListAcode(index02Dto);  //거래처정보
             index02BonsaDto = service02.GetCifBonsa(index02BonsaDto);
             index03Dto = service03.GetJpumOrderJkey(index03Dto); //품목정보
             indexDa023Dto.setCltcd(acode);
             indexDa023Dto.setMisdate(frdate);
+            indexDa023Dto.setMisgubun(mflag);
             String ls_misnum = "";
             String ls_chknull = service14.SelectCheckMisnumWish(indexDa023Dto);
             if(ls_chknull == null){
@@ -917,18 +931,20 @@ public class App01CrudController {
             }
             indexDa023Dto.setMisnum(ls_misnum);
             indexDa023Dto.setCltcd(acode);
-            indexDa023Dto.setMisgubun(mflag);
             indexDa023Dto.setYyyymm(year + month);
 
             switch (mflag){
                 case "AA" :
                     indexDa023Dto.setPerid("");
+                    indexDa023Dto.setGgubun("AA");
                     break;
                 case "BB":
                     indexDa023Dto.setPerid("");
+                    indexDa023Dto.setGgubun("BB");
                     break;
                 case "CC":
                     indexDa023Dto.setPerid(userformDto.getPerid());
+                    indexDa023Dto.setGgubun("CC");
                     break;
                 default:
                     break;
@@ -947,6 +963,7 @@ public class App01CrudController {
             indexDa023Dto.setVatpernm(index02Dto.getInname01());  //계산서 담당자
             indexDa023Dto.setSpjangnum(index02BonsaDto.getAcorp());
             indexDa023Dto.setGubun("");
+            indexDa024Dto.setMisgubun(mflag);
             String ls_seq = "";
             if (ls_chknull.length() == 0 ){
                 ls_seq = "001";
@@ -1084,6 +1101,7 @@ public class App01CrudController {
             indexDa024Dto.setSeq(ls_seq);
             indexDa024Dto.setMisdate(frdate);
             indexDa024Dto.setMisnum(ls_misnum);
+            indexDa024Dto.setMisgubun(mflag);
 //            log.info("ls_misnum=============>");
 //            log.info(ls_misnum);
             indexDa024Dto.setPcode(index03Dto.getJkey());
@@ -1132,6 +1150,7 @@ public class App01CrudController {
                                   @RequestParam("argmisnum") String misnum,
                                   @RequestParam("argmisseq") String seq,
                                   @RequestParam("argcltcd") String cltcd,
+                                 @RequestParam("mflag") String mflag,
                                   Model model, HttpServletRequest request) throws Exception{
         CommDto.setMenuTitle("주문등록");
         CommDto.setMenuUrl("주문등록>주문현황");
@@ -1149,6 +1168,7 @@ public class App01CrudController {
             indexDa024Dto.setMisnum(misnum);
             indexDa024Dto.setSeq(seq);
             indexDa024Dto.setCltcd(cltcd);
+            indexDa024Dto.setMisgubun(mflag);
             Boolean result = false;
             result = service14.DeleteDA024(indexDa024Dto);
             if (!result){
@@ -1172,6 +1192,7 @@ public class App01CrudController {
                                  @RequestParam("argmisnum") String misnum,
                                  @RequestParam("argmisseq") String seq,
                                  @RequestParam("argcltcd") String cltcd,
+                                     @RequestParam("mflag") String mflag,
                                  Model model, HttpServletRequest request) throws Exception{
         CommDto.setMenuTitle("주문등록");
         CommDto.setMenuUrl("주문등록>예약현황");
@@ -1189,6 +1210,7 @@ public class App01CrudController {
             indexDa024Dto.setMisnum(misnum);
             indexDa024Dto.setSeq(seq);
             indexDa024Dto.setCltcd(cltcd);
+            indexDa024Dto.setMisgubun(mflag);
             Boolean result = false;
             result = service14.DeleteDA026(indexDa024Dto);
             if (!result){
@@ -1291,6 +1313,7 @@ public class App01CrudController {
             indexDa024Dto.setSeq(ls_seq);
             indexDa024Dto.setMisdate(frdate);
             indexDa024Dto.setMisnum(ls_misnum);
+            indexDa024Dto.setMisgubun(mflag);
 //            log.info("ls_misnum=============>");
 //            log.info(ls_misnum);
             indexDa024Dto.setPcode(index03Dto.getJkey());
@@ -1338,6 +1361,8 @@ public class App01CrudController {
     public Object App14List_index(@RequestParam("frdate") String frdate,
                                   @RequestParam("todate") String todate,
                                   @RequestParam("acode") String acode,
+                                  @RequestParam("perid") String perid,
+                                  @RequestParam("mflag") String mflag,
                                   Model model, HttpServletRequest request) throws Exception{
         CommDto.setMenuTitle("주문등록");
         CommDto.setMenuUrl("주문등록>주문현황");
@@ -1358,6 +1383,26 @@ public class App01CrudController {
             indexDa024Dto.setFrdate(frdate);
             indexDa024Dto.setTodate(todate);
             indexDa024Dto.setCltcd(acode);
+            if(perid == null || perid.equals("")){
+                perid = "%";
+            }
+            switch (mflag){
+                case "AA" :
+                    indexDa024Dto.setPerid(perid);
+                    mflag = "%";
+                    break;
+                case "BB":
+                    indexDa024Dto.setPerid(perid);
+                    break;
+                case "CC":
+                    indexDa024Dto.setPerid(userformDto.getPerid());
+                    break;
+                default:
+                    break;
+            }
+            indexDa024Dto.setPerid(perid);
+            indexDa024Dto.setMisgubun(mflag);
+            log.info("mflag =====>" + mflag);
             indexDa024ListDto = service14.SelectDa024List(indexDa024Dto);
             model.addAttribute("indexDa024ListDto",indexDa024ListDto);
 
@@ -1374,6 +1419,8 @@ public class App01CrudController {
     public Object App14ListWish_index(@RequestParam("frdate") String frdate,
                                   @RequestParam("todate") String todate,
                                   @RequestParam("acode") String acode,
+                                  @RequestParam("perid") String perid,
+                                  @RequestParam("mflag") String mflag,
                                   Model model, HttpServletRequest request) throws Exception{
         CommDto.setMenuTitle("주문등록");
         CommDto.setMenuUrl("주문등록>예약현황");
@@ -1394,6 +1441,24 @@ public class App01CrudController {
             indexDa024Dto.setFrdate(frdate);
             indexDa024Dto.setTodate(todate);
             indexDa024Dto.setCltcd(acode);
+            if(perid == null || perid.equals("")){
+                perid = "%";
+            }
+            switch (mflag){
+                case "AA" :
+                    indexDa024Dto.setPerid(perid);
+                    mflag = "%";
+                    break;
+                case "BB":
+                    indexDa024Dto.setPerid(perid);
+                    break;
+                case "CC":
+                    indexDa024Dto.setPerid(userformDto.getPerid());
+                    break;
+                default:
+                    break;
+            }
+            indexDa024Dto.setMisgubun(mflag);
             indexDa024ListDto = service14.SelectDa026List(indexDa024Dto);
             model.addAttribute("indexDa024ListDto",indexDa024ListDto);
 
