@@ -76,8 +76,8 @@
     <link th:href="@{/vendors/fullcalendar/main.min.css}" rel="stylesheet" />
     <link th:href="@{/vendors/glightbox/glightbox.min.css}" rel="stylesheet" />    
     <script th:src="@{/vendors/glightbox/glightbox.min.js}" rel="stylesheet" ></script> 
+    <link th:href="@{/wijimo/switch.css}" rel="stylesheet" > 
     <!-- <link th:href="@{/vendors/swiper/swiper-bundle.min.css}" rel="stylesheet" />   -->
-
 
     
     <!-- Use Swiper from CDN --> 
@@ -118,23 +118,29 @@
 
 
 <!-- Wijmo 레퍼런스 (필수) -->
-<link th:href="@{/wijimo/styles/wijmo.min.css}" rel="stylesheet" /> 
+
+<!-- <link href="https://cdn.grapecity.com/wijmo/5.20211.781/styles/wijmo.min.css" rel="stylesheet" />  -->
+<!-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />  -->
+<!-- <link th:href="@{/wijimo/styles/wijmo.min.css}" rel="stylesheet" />   -->
+<link href="https://cdn.grapecity.com/wijmo/5.20211.781/styles/wijmo.min.css" rel="stylesheet" />
+
+
 <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.1/css/bulma.min.css" rel="stylesheet" />  -->
-<script src="https://cdn.grapecity.com/wijmo/5.20202.732/controls/wijmo.min.js"></script>
+<!-- <script src="https://cdn.grapecity.com/wijmo/5.20202.732/controls/wijmo.min.js"></script> -->
 
           <!-- wijmo.min.css 대신에 아래와 같이 사용자 정의 테마 사용가능 -->
-          <!-- <link href="https://cdn.grapecity.com/wijmo/5.20202.732/styles/themes/wijmo.theme.modern.min.css" rel="stylesheet"/> -->
-
-<script src="https://cdn.grapecity.com/wijmo/5.20211.781/controls/wijmo.min.js"></script>
+          <!-- <link href="https://cdn.grapecity.com/wijmo/5.20202.732/styles/themes/wijmo.theme.modern.min.css" rel="stylesheet"/> --> 
 
 <!-- Wijmo 컨트롤 (옵션, 필요한 컨트롤 만 추가) -->
+<script src="https://cdn.grapecity.com/wijmo/5.20211.781/controls/wijmo.min.js"></script>
 <script src="https://cdn.grapecity.com/wijmo/5.20211.781/controls/wijmo.grid.min.js"></script>
 <script src="https://cdn.grapecity.com/wijmo/5.20211.781/controls/wijmo.chart.min.js"></script>
 <script src="https://cdn.grapecity.com/wijmo/5.20211.781/controls/wijmo.chart.animation.min.js"></script>
 <script src="https://cdn.grapecity.com/wijmo/5.20211.781/controls/wijmo.chart.hierarchical.min.js"></script>
 <script src="https://cdn.grapecity.com/wijmo/5.20211.781/controls/wijmo.input.min.js"></script>
 <script src="https://cdn.grapecity.com/wijmo/5.20211.781/controls/wijmo.gauge.min.js"></script>
-
+<script src="https://cdn.grapecity.com/wijmo/5.20211.781/controls/wijmo.grid.selector.min.js"></script>  
+     <!-- <script src="https://cdn.grapecity.com/wijmo/5.20202.732/controls/wijmo.grid.selector.min.js"></script>  -->
 <!-- 그리드 그룹 -->
 <script src="https://cdn.grapecity.com/wijmo/5.20211.781/controls/wijmo.grid.grouppanel.min.js"></script>
 <!-- 그리드 excel -->
@@ -145,7 +151,7 @@
 <script src="https://cdn.grapecity.com/wijmo/5.20211.781/controls/wijmo.grid.sheet.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.5.0/jszip.min.js"></script>
   
-
+ 
 
 <!-- Wijmo custom culture (옵션, 원하는 문화권을 추가) -->
 <!-- <script src="https://cdn.grapecity.com/wijmo/5.20202.732/controls/cultures/wijmo.culture.ja.min.js"></script> -->
@@ -156,7 +162,6 @@
 
 
 <script src="https://cdn.grapecity.com/wijmo/5.20202.732/controls/wijmo.grid.cellmaker.min.js"></script>
-<script src="https://cdn.grapecity.com/wijmo/5.20202.732/controls/wijmo.grid.selector.min.js"></script>
 
 
 
