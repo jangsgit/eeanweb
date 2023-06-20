@@ -262,25 +262,23 @@
         let Chknum = 0;
          window.onload = function() {  
             localStorage.setItem("setpage", "app03p001"); 
-            // 그리드 초기화 
-             
- 
             //일자별주문현황 popup list
             view_p01tab02page = new wijmo.collections.CollectionView(getData_wlist(), {
                 // pageSize: 100
             });    
             setGroups(true);
             wtab02Grid = new wijmo.grid.FlexGrid('#wtab02Grid_div', { 
+                deferResizing: true,
                 showMarquee: true,
-                selectionMode: 'MultiRange',
                 alternatingRowStep: 0,
+                selectionMode:3,
                 autoGenerateColumns: false,
                 columns: [     
-                    { header: '선택', align: "center", width: 80  ,  cssClass: 'switch'},
+                    { binding: 'active', header: '선택', align: "center", width: 80  ,dataType:3,allowSorting: false, dataType: wijmo.DataType.Boolean  },
                     { binding: 'misdate', header: '주문일자', align: "center", width: 120 }, 
                     { binding: 'misnum', header: '주문번호', align: "center", width: 80 },  
                     { binding: 'seq', header: '순번', align: "center", width: 80 },  
-                    { binding: 'acorp', header: '거래처', align: "center", width: 150 },  
+                    { binding: 'acorp', header: '거래처', align: "center", width: 150 , },  
                     { binding: 'pname', header: '품목', align: "center", width: 150 },   
                     { binding: 'psize', header: '규격', align: "center", width: 120 },  
                     { binding: 'pbonsa', header: '코드', align: "center", width: 100 },  
@@ -298,7 +296,24 @@
                 itemChecked: () => {
                     showCheckedCount();
                 }
-            }); 
+            });   
+            // selector.column = wtab02Grid.columns[0];
+            // wtab02Grid.selectionMode = "CellRange"; //"Row";
+
+
+            // wtab02Grid.hostElement.addEventListener("click",function(e){
+            //     var ht = wtab02Grid.hitTest(e);
+            //     if(ht.cellType === wijmo.grid.CellType.Cell){
+            //         if(wtab02Grid.rows[ht.row].isSelected === true){
+            //         wtab02Grid.rows[ht.row].isSelected = false;
+            //         console.log("a");
+            //     } else {
+            //         wtab02Grid.rows[ht.row].isSelected = true;
+            //         console.log("b");
+            //     }
+            //     }
+            //     wtab02Grid.refresh();
+            // }) 
 
             // 그룹 전환 
             setGroups(true); 
@@ -307,19 +322,15 @@
                 let groups = view_p01tab02page.groupDescriptions;
                 groups.clear();
                 if (groupsOn) {
-                groups.push(new wijmo.collections.PropertyGroupDescription('misdate'), new wijmo.collections.PropertyGroupDescription('acorp'));
+                    groups.push(new wijmo.collections.PropertyGroupDescription('misdate'), new wijmo.collections.PropertyGroupDescription('acorp'));
                 }
             }
   
             // 헤더 열 전환 
             setHeaderColumn(true); 
-            function setHeaderColumn(headerOn) {
-                wtab02Grid.headersVisibility = headerOn
-                ? wijmo.grid.HeadersVisibility.All
-                : wijmo.grid.HeadersVisibility.Column;
-                selector.column = headerOn
-                ? wtab02Grid.rowHeaders.columns[0]
-                : wtab02Grid.columns[0];
+            function setHeaderColumn(headerOn) {  
+                wtab02Grid.headersVisibility = headerOn ? wijmo.grid.HeadersVisibility.All : wijmo.grid.HeadersVisibility.Column;
+                selector.column = headerOn ? wtab02Grid.rowHeaders.columns[1] : wtab02Grid.columns[1]; 
             } 
             // 체크된 항목 표시 
             showCheckedCount();
@@ -328,7 +339,10 @@
                 cnt.textContent = sel.length.toString();
             } 
             new FlexGridContextMenu(wtab02Grid); 
-            
+
+            let checker = new wijmo.grid.selector.BooleanChecker(
+                wtab02Grid.columns.getColumn("active")
+            );
             wtab02Grid.focus();
             // wijmo.toggleClass(wtab02Grid.hostElement, 'highlightActive', true); 
  
@@ -339,12 +353,11 @@
            view_p01tab04page = new wijmo.collections.CollectionView(getData_wlist(), {
                 // pageSize: 100
             });    
-            wtab04Grid = new wijmo.grid.FlexGrid('#wtab04Grid_div', {  
-                autoGenerateColumns: false,
-                isReadOnly: false, 
-                allowSorting: 'MultiColumn',
-                selectionMode: 'RowRange',
+            wtab04Grid = new wijmo.grid.FlexGrid('#wtab04Grid_div', { 
+                deferResizing: true,
+                showMarquee: true,
                 alternatingRowStep: 0,
+                autoGenerateColumns: false,
                 columns: [     
                     { binding: 'misdate', header: '예약일자', align: "center", width: 120 }, 
                     { binding: 'misnum', header: '예약번호', align: "center", width: 80 },  
@@ -365,11 +378,11 @@
 
             new FlexGridContextMenu(wtab04Grid); 
             // 선택기 생성
-            let selector02 = new wijmo.grid.selector.Selector(wtab04Grid, {
-                itemChecked: () => {
-                    // showCheckedCount();
-                }
-            }); 
+            // let selector02 = new wijmo.grid.selector.Selector(wtab04Grid, {
+            //     itemChecked: () => {
+            //         // showCheckedCount();
+            //     }
+            // }); 
             // 헤더 열 전환
             // setHeaderColumn(true);
             // function setHeaderColumn(headerOn) {
@@ -394,6 +407,7 @@
                         index: cnt,
                         jepm: '', 
                         ijaego_su1:  '', 
+                        active: false
                     });
                     cnt++;
                 }     
@@ -751,22 +765,23 @@
                 cnt++;
             }   
   
+            // { binding: 'active', header: '선택', align: "center", width: 80  ,dataType:3,allowSorting: false  },
             wtab02Grid.columns.clear();  
             wtab02Grid.autoGenerateColumns = false; 
             view_p01tab02page.sourceCollection  = wtab02_data;
+            // var cols = new wijmo.grid.Column(); 
+            // cols.binding = 'select';
+            // cols.header = '선택';
+            // cols.align = "center";
+            // cols.width = 80; 
+            // cols.cssClass= 'switch'
+            // wtab02Grid.columns.push(cols);  
             var cols = new wijmo.grid.Column(); 
-            cols.binding = 'select';
-            cols.header = '선택';
-            cols.align = "center";
-            cols.width = 80; 
-            cols.cssClass= 'switch'
-            wtab02Grid.columns.push(cols);  
-            cols = new wijmo.grid.Column(); 
             cols.binding = 'misdate';
             cols.header = '주문일자';
             cols.align = "center";
             cols.width = 120; 
-            wtab02Grid.columns.push(cols);  
+            wtab02Grid.columns.push(cols); 
             cols = new wijmo.grid.Column(); 
             cols.binding = 'misnum';
             cols.header = '주문번호';

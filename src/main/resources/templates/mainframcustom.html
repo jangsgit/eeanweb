@@ -61,7 +61,7 @@
                     <span>
                         <span class="input-group-text" id="basic-addon1" style="display: inline; float: left">기간</span>
                         <input type="text"  class="form-control datetimepicker" id="frdate2" autocomplete="off"  placeholder="Y-m-d"  style="width: 150px; display: inline; float: left">
-                        <input type="text"  class="form-control datetimepicker" id="todate2" autocomplete="off"  placeholder="Y-m-d" style="width: 150px; display: inline; float: left">당월 고장접수 현황 그래프</span>
+                        <input type="text"  class="form-control datetimepicker" id="todate2" autocomplete="off"  placeholder="Y-m-d" style="width: 150px; display: inline; float: left">당월 주문접수 현황 그래프</span>
                     <button type="button" class="color2" id="retrieveBtn2"
                             style="background-color: #018297;  border-radius: 3px; color: #fff; padding: 4px; float: right; font-size: 17px;">
                         <img th:src="@{/assets/images/i_search.png}" alt="">조회
@@ -84,7 +84,7 @@
                     <span>
                         <span class="input-group-text" id="basic-addon1" style="display: inline; float: left">기간</span>
                         <input type="text"  class="form-control datetimepicker" id="frdate" autocomplete="off"  placeholder="Y-m-d"  style="width: 150px; display: inline; float: left">
-                        <input type="text"  class="form-control datetimepicker" id="todate" autocomplete="off"  placeholder="Y-m-d" style="width: 150px; display: inline; float: left">당월 고장접수 현황</span>
+                        <input type="text"  class="form-control datetimepicker" id="todate" autocomplete="off"  placeholder="Y-m-d" style="width: 150px; display: inline; float: left">당월 주문접수 현황</span>
                     <button type="button" class="color2" id="retrieveBtn"
                                                    style="background-color: #018297;  border-radius: 3px; color: #fff; padding: 4px; float: right; font-size: 17px;">
                     <img th:src="@{/assets/images/i_search.png}" alt="">조회
@@ -122,8 +122,8 @@
                                 <img src="/images/center_img1.png" alt="">
                             </div>
                             <div class="txt">
-                                <h5>현장별 호기별 고장 현황</h5>
-                                <p>호기별로 고장부위 현황을<br>살펴 볼 수 있습니다.</p>
+                                <h5>현장별 호기별 주문 현황</h5>
+                                <p>호기별로 주문부위 현황을<br>살펴 볼 수 있습니다.</p>
                                 <a th:href="@{/app21/index01}">
                                     자세히 보기 >
                                 </a>
@@ -134,8 +134,8 @@
                                 <img src="/images/center_img2.png" alt="">
                             </div>
                             <div class="txt">
-                                <h5>현장별 고장구분별 현황</h5>
-                                <p>호기별로 고장구분별로 현황을<br>살펴 볼 수 있습니다.</p>
+                                <h5>현장별 주문구분별 현황</h5>
+                                <p>호기별로 주문구분별로 현황을<br>살펴 볼 수 있습니다.</p>
                                 <a th:href="@{/app27/index01}">
                                     자세히 보기 >
                                 </a>
@@ -146,8 +146,8 @@
                                 <img src="/images/center_img3.png" alt="">
                             </div>
                             <div class="txt">
-                                <h5>현장별 월별 고장율 현황</h5>
-                                <p>호기별로 고장구분별로 현황을<br>살펴 볼 수 있습니다.</p>
+                                <h5>현장별 월별 주문율 현황</h5>
+                                <p>호기별로 주문구분별로 현황을<br>살펴 볼 수 있습니다.</p>
                                 <a th:href="@{/app16/index01}">
                                     자세히 보기 >
                                 </a>
@@ -160,8 +160,8 @@
                                 <img src="/images/center_img4.png" alt="">
                             </div>
                             <div class="txt">
-                                <h5>승강기 호기별 고장통계</h5>
-                                <p>호기별로 고장구분별로 현황을<br>살펴 볼 수 있습니다.</p>
+                                <h5>승강기 호기별 주문통계</h5>
+                                <p>호기별로 주문구분별로 현황을<br>살펴 볼 수 있습니다.</p>
                                 <a th:href="@{/app19/index01}">
                                     자세히 보기 >
                                 </a>
@@ -172,8 +172,8 @@
                                 <img src="/images/center_img5.png" alt="">
                             </div>
                             <div class="txt">
-                                <h5>동호기별 고장 통계</h5>
-                                <p>호기별로 고장 구분별로 현황을<br>살펴 볼 수 있습니다.</p>
+                                <h5>동호기별 주문 통계</h5>
+                                <p>호기별로 주문 구분별로 현황을<br>살펴 볼 수 있습니다.</p>
                                 <a th:href="@{/app25/index01}">
                                     자세히 보기 >
                                 </a>
@@ -184,8 +184,8 @@
                                 <img src="/images/center_img6.png" alt="">
                             </div>
                             <div class="txt">
-                                <h5>승강기 월별 고장 통계</h5>
-                                <p>호기별로 고장 구분별로 현황을<br>살펴 볼 수 있습니다.</p>
+                                <h5>승강기 월별 주문 통계</h5>
+                                <p>호기별로 주문 구분별로 현황을<br>살펴 볼 수 있습니다.</p>
                                 <a th:href="@{/app22/index01}">
                                     자세히 보기 >
                                 </a>
@@ -291,7 +291,7 @@
     window.onload = function (){
 
 
-        <!--고장다발현장-->
+        <!--주문다발현장-->
         view_p01tab04page = new wijmo.collections.CollectionView(getData_tab04(), {
             pageSize: 12
         });
@@ -315,8 +315,8 @@
                 { binding: 'equpcd', header: '호기코드', align: "center", width: 100},
                 { binding: 'equpnm', header: '호기명', align: "center", width: 100 },
                 { binding: 'pernm', header: '담당자', align: "center", width: 100 },
-                { binding: 'contnm', header: '고장내용', align: "center", width: 100 },
-                { binding: 'contents', header: '고장상세내용', align: "center", width: 100 },
+                { binding: 'contnm', header: '주문내용', align: "center", width: 100 },
+                { binding: 'contents', header: '주문상세내용', align: "center", width: 100 },
                 { binding: 'stdate', header: '시작일자', align: "center", width: 100 },
                 { binding: 'enddate', header: '만료일자', align: "center", width: 100 },
                 {binding:  'qty', header: '건수', align: "center", width: 100}
@@ -352,11 +352,11 @@
             }
             return wactnm_data;
         }
-        <!--고장다발현장 끝@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@-->
-        <!--고장다발현장 끝-->
-        <!--고장다발현장 끝-->
-        <!--고장다발현장 끝-->
-        <!--고장다발현장 끝-->
+        <!--주문다발현장 끝@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@-->
+        <!--주문다발현장 끝-->
+        <!--주문다발현장 끝-->
+        <!--주문다발현장 끝-->
+        <!--주문다발현장 끝-->
 
 
 
@@ -653,14 +653,14 @@
 
         cols = new wijmo.grid.Column();
         cols.binding = 'contnm';
-        cols.header = '고장내용';
+        cols.header = '주문내용';
         cols.align = "center";
         cols.width = 100;
         wtab01Grid.columns.push(cols);
 
         cols = new wijmo.grid.Column();
         cols.binding = 'contents';
-        cols.header = '고장상세내용';
+        cols.header = '주문상세내용';
         cols.align = "center";
         cols.width = 100;
         wtab01Grid.columns.push(cols);

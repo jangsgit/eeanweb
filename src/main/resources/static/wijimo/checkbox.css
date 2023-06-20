@@ -1,0 +1,37 @@
+@font-face {
+    font-family: 'S-CoreDream-3Light';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+  body {
+    margin: 20px;
+    font-family: 'S-CoreDream-3Light';
+  }
+  /* fixed grid height */
+  .wj-flexgrid {
+    height: 350px;
+  }
+  
+  /* some extra cell padding */
+  .wj-flexgrid .wj-cell {
+    padding: 8px;
+  }
+  
+  /* some space after the labels */
+  label {
+    margin-right: 4em;
+  }
+  
+  
+  .wj-flexgrid .wj-header {
+    background-color: #0786BD;
+    color:white;
+    font-weight:bold;
+  }
+  
+  .wj-cells .wj-cell.wj-state-selected{
+    background: #4DD0E1;
+  }
+  
