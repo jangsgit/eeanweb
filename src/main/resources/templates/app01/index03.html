@@ -1,6 +1,17 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head th:replace="layouts/APPHeader/apphead :: headFragment" />
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>이인옵틱수주시스템</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>  
+</head>
+
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" th:src="@{/js/jquery-barcode.js}"></script>
 
@@ -55,8 +66,8 @@
                                       <div class="tab-content" >                                        
                                         <div class="tab-pane fade show active"  >  
                                                 <div class="container-fluid" id="op1" >
-                                                <div id="wtab01Grid_div" ></div>
-                                                <div style="display: flex; margin: 0 auto; " id="tab01Pager"></div>
+                                                <div id="wtab01Grid_div" style="overflow:scroll;   height:600px;    margin:0 auto; "></div>
+                                                <!-- <div style="display: flex; margin: 0 auto; " id="tab01Pager"></div> -->
                                             </div>                                               
                                         </div>                                        
                                       </div>
@@ -386,21 +397,21 @@
     window.onload = function() {   
             //tab01 grid list
         view_p01tab01page = new wijmo.collections.CollectionView(getData_tab01(), {
-            sortDescriptions: [new wijmo.collections.SortDescription("acode", false)],
-            pageSize: 21
+            // sortDescriptions: [new wijmo.collections.SortDescription("acode", false)],
+            // pageSize: 21
         });
        // tab01 grid page
-        new wijmo.input.CollectionViewNavigator('#tab01Pager', {
-            byPage: true,
-            headerFormat: 'Page {currentPage:n0} of {pageCount:n0}',
-            cv: view_p01tab01page
-        });      
+        // new wijmo.input.CollectionViewNavigator('#tab01Pager', {
+        //     byPage: true,
+        //     headerFormat: 'Page {currentPage:n0} of {pageCount:n0}',
+        //     cv: view_p01tab01page
+        // });      
         wtab01Grid = new wijmo.grid.FlexGrid('#wtab01Grid_div', {  
             autoGenerateColumns: false,
             showMarquee: true,
             isReadOnly: false, 
-            // selectionMode: 'RowRange',
             allowSorting: 'MultiColumn',
+            // selectionMode: 'RowRange',
             alternatingRowStep: 0,
             columns: [     
                 {

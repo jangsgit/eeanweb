@@ -1,7 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head th:replace="layouts/APPHeader/apphead :: headFragment" />
-
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>이인옵틱수주시스템</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>  
+</head>
 <body style="background: #f5f9fa;">
     <div class="content flex"> 
         <div class="header on">
@@ -49,12 +58,12 @@
                             </div>                              
                             <!-- //여기서부터 그래프 -->
                             <div class="table table_style2">
-                                <div class="card-body bg-light">   
+                                <div class="card-body bg-light">    
                                       <div class="tab-content" >                                        
                                         <div class="tab-pane fade show active"  >  
                                                 <div class="container-fluid" id="op1" >
-                                                <div id="wtab01Grid_div" ></div>
-                                                <div style="display: flex; margin: 0 auto; " id="tab01Pager"></div>
+                                                <div id="wtab01Grid_div"  style="overflow:scroll;   height:600px;    margin:0 auto; "></div>
+                                                <!-- <div style="display: flex; margin: 0 auto; " id="tab01Pager"></div> -->
                                             </div>                                               
                                         </div>                                        
                                       </div>
@@ -424,7 +433,9 @@
     var insaflag = "";
     let barchart;
     let ani;
-    var wseries_data = [0]; 
+    var wseries_data = [0];  
+    var rowCount = 0;
+    var cellCount = 100;
     // 폼 저장시  file data 와   string data 담을 변수 
     let formData = new FormData(); 
 
@@ -435,22 +446,24 @@
             // **************거래처현황 LIST************************************************ 
             // console.log("[window onload] : [start]");
             //tab01 grid list
+        // var data = getData_tab01(100);
         view_p01tab01page = new wijmo.collections.CollectionView(getData_tab01(), {
-            sortDescriptions: [new wijmo.collections.SortDescription("acode", false)],
-            pageSize: 21
+            // sortDescriptions: [new wijmo.collections.SortDescription("acode", false)],
+            // pageSize: 21
         });
        // tab01 grid page
-        new wijmo.input.CollectionViewNavigator('#tab01Pager', {
-            byPage: true,
-            headerFormat: 'Page {currentPage:n0} of {pageCount:n0}',
-            cv: view_p01tab01page
-        });      
+        // new wijmo.input.CollectionViewNavigator('#tab01Pager', {
+        //     byPage: true,
+        //     headerFormat: 'Page {currentPage:n0} of {pageCount:n0}',
+        //     cv: view_p01tab01page
+        // });      
+        
         wtab01Grid = new wijmo.grid.FlexGrid('#wtab01Grid_div', {  
             autoGenerateColumns: false,
             showMarquee: true,
             isReadOnly: false, 
-            // selectionMode: 'RowRange',
             allowSorting: 'MultiColumn',
+            // selectionMode: 'RowRange',
             alternatingRowStep: 0,
             columns: [     
                 {
@@ -471,10 +484,11 @@
                 { binding: 'ajusotxt', header: '주소', align: "center", width: '*' },                     
                 
             ], 
-            itemsSource: view_p01tab01page
+            itemsSource: view_p01tab01page,  
         });        
-
-        new FlexGridContextMenu(wtab01Grid);
+ 
+        
+            new FlexGridContextMenu(wtab01Grid);
             // 그룹 패널 생성
             // var theGroupPanel = new wijmo.grid.grouppanel.GroupPanel('#theGroupPanel', {
             //     placeholder: '그룹을 만들려면 열을 여기로 끌어다 놓아주세요.  마우스 우 클릭하시면 엑셀로 받으실 수 있습니다.',
@@ -503,13 +517,16 @@
 
  
         // tab01검색 데이터 수집
-        function getData_tab01(){      
+        function getData_tab01(scnt, start){      
             var wtab01Dto = [[${index02List}]];   
             var wactnm_data = [];          
             var cnt = 1;   
-            for (var i = 0; i < wtab01Dto.length; i++) {
+            if (!start)
+                start = 0;
+            rowCount = wtab01Dto.length; 
+            for (var i = 0; i < rowCount; i++) {
                 wactnm_data.push({
-                    id: i, 
+                    id: i + start, 
                     index: cnt,
                     acorp1: wtab01Dto[i]["acorp1"], 
                     acorp2: wtab01Dto[i]["acorp2"], 
@@ -1247,7 +1264,7 @@
                 cnt++;
             }   
 
-            // console.log(wtab01_data);
+            console.log(wtab01_data);
 
             wtab01Grid.columns.clear();  
             wtab01Grid.autoGenerateColumns = false; 
