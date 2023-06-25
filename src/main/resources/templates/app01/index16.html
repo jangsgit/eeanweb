@@ -95,12 +95,20 @@
                                                     
                                                 </div>
                                             </div>
+                                            <div class="col-2 col-sm-2">
+                                                <select class="form-select form-select-sm" id="misfixflag" aria-label=".form-select-sm example">
+                                                    <option selected="">확정구분</option>
+                                                    <option value="%">전체</option>
+                                                    <option value="1">확정</option>
+                                                    <option value="0">미확정</option>
+                                                  </select> 
+                                            </div>  
                                             <div class="col-1 col-sm-1">  
                                                 <button class="btn btn-falcon-primary me-1 mb-1 btn-sm" id="listBtn" type="button"  >조회
                                                 </button>
                                             </div> 
                                             <div class="col-1 col-sm-1">  
-                                                <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="listBtn" type="button"  >주문확정
+                                                <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="saveBtn01" type="button"  >주문확정
                                                 </button>
                                             </div> 
                                             <!-- <div class="col-2 col-sm-1">  
@@ -111,7 +119,7 @@
                                         <div class="container-fluid">
                                             <p>
                                                현재 <b><span id="checked-count">0</span></b> 개의 항목이 선택되었습니다.
-                                            </p>
+                                            </p>  
                                             <div id="wtab02Grid_div"  style="overflow:scroll;   height:600px;    margin:0 auto; "></div>  
                                             <!-- <div id="tab02Pager"></div> -->
                                           </div>
@@ -124,7 +132,7 @@
                                                 </div>
                                             </div> 
                                             <div class="col-2 col-sm-2">
-                                                <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">예약일자</span>
+                                                <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">예약기간</span>
                                                     <input type="text"  class="form-control datetimepicker" id="frdate02" autocomplete="off"  placeholder="Y-m-d"     >
                                                 </div> 
                                             </div>   
@@ -134,22 +142,19 @@
                                                 </div>
                                             </div> 
                                             <div class="col-2 col-sm-2">
-                                                <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">거래처</span> 
-                                                    <input class="form-control form-control-sm" id="dcifname" type="text"    autocomplete="off"  placeholder=""     >
-                                                    <input class="form-control form-control-sm" id="dacorp1" type="hidden"  />
-                                                    <input class="form-control form-control-sm" id="dacorp2" type="hidden"  />
-                                                    <input class="form-control form-control-sm" id="dacorp3" type="hidden"  />
-                                                    <input class="form-control form-control-sm" id="dacode" type="hidden"  /> 
-                                                    <input class="form-control form-control-sm" id="djpbgubn" type="hidden"  /> 
-                                                    
-                                                </div>
-                                            </div>
+                                                <select class="form-select form-select-sm" id="wishfixflag" aria-label=".form-select-sm example">
+                                                    <option selected="">주문구분</option>
+                                                    <option value="%">전체</option>
+                                                    <option value="1">주문</option>
+                                                    <option value="0">예약</option>
+                                                  </select> 
+                                            </div>   
                                             <div class="col-1 col-sm-1">  
                                                 <button class="btn btn-falcon-primary me-1 mb-1 btn-sm" id="listBtn02" type="button"  >조회
                                                 </button>
                                             </div> 
                                             <div class="col-1 col-sm-1">  
-                                                <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="listBtn02" type="button"  >주문등록
+                                                <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="saveBtn02" type="button"  >주문등록
                                                 </button>
                                             </div> 
                                             <!-- <div class="col-2 col-sm-1">  
@@ -158,6 +163,9 @@
                                             </div>  -->
                                         </div> 
                                         <div class="container-fluid">
+                                            <p>
+                                               현재 <b><span id="checked-count02">0</span></b> 개의 항목이 선택되었습니다.
+                                            </p>
                                             <div id="wtab04Grid_div"  style="overflow:scroll;   height:600px;    margin:0 auto; "></div>  
                                             <!-- <div id="tab02Pager"></div> -->
                                           </div>
@@ -267,6 +275,14 @@
          var wtab03Grid; 
          var wtab04Grid; 
          var winnameGrid; 
+
+         var misdateArr = new Array();
+         var misnumArr = new Array();
+         var seqArr    = new Array(); 
+
+         var misdateWArr = new Array();
+         var misnumWArr = new Array();
+         var seqWArr    = new Array(); 
         
          var excelIOSheet;
          var typeMenu;  
@@ -307,17 +323,32 @@
                     { binding: 'pcolor', header: '컬러', align: "center", width: 100 },  
                     { binding: 'qty', header: '수량', align: "center", width: 80 },  
                     { binding: 'uamt', header: '단가', align: "center", width: 100 },  
-                    { binding: 'samt', header: '금액', align: "center", width: 150 },    
+                    { binding: 'samt', header: '금액', align: "center", width: 150 },  
+                    { binding: 'fixflag', header: '확정', align: "center", width: 150, cssClass: 'switch'   },  
+                    
                 ], 
                 itemsSource: view_p01tab02page, 
             }); 
                
             // 선택기 생성
-            let selector = new wijmo.grid.selector.Selector(wtab02Grid, {
+            let selector = new wijmo.grid.selector.Selector(wtab02Grid, {                
                 itemChecked: () => {
-                showCheckedCount();
-                }
+                    console.log("kkkk");
+                     showCheckedCount();
+                }                
             }); 
+            // 체크된 항목 표시
+            // showCheckedCount();
+            function showCheckedCount() {
+                let cnt = document.getElementById('checked-count'), sel = wtab02Grid.rows.filter(r => r.isSelected);
+                cnt.textContent = sel.length.toString();    
+                for (var i = 0; i < sel.length; i++) { 
+                    misdateArr[i]   = sel[i]._data.misdate;
+                    misnumArr[i]   = sel[i]._data.misnum;
+                    seqArr[i]  = sel[i]._data.seq; 
+                }   
+
+            } 
             // 그룹 전환 
             setGroups(true); 
             function setGroups(groupsOn) {
@@ -337,12 +368,6 @@
                 ? wtab02Grid.rowHeaders.columns[0]
                 : wtab02Grid.columns[0];
             }
-            // 체크된 항목 표시
-            showCheckedCount();
-            function showCheckedCount() {
-                let cnt = document.getElementById('checked-count'), sel = wtab02Grid.rows.filter(r => r.isSelected);
-                cnt.textContent = sel.length.toString();
-            } 
             new FlexGridContextMenu(wtab02Grid); 
             wtab02Grid.focus();
 
@@ -374,6 +399,7 @@
                     { binding: 'qty', header: '수량', align: "center", width: 80 },  
                     { binding: 'uamt', header: '단가', align: "center", width: 100 },  
                     { binding: 'samt', header: '금액', align: "center", width: 150 },    
+                    { binding: 'fixflag', header: '주문', align: "center", width: 150, cssClass: 'switch'   },  
                 ], 
                 itemsSource: view_p01tab04page
             });  
@@ -383,7 +409,7 @@
             // 선택기 생성
             let selector02 = new wijmo.grid.selector.Selector(wtab04Grid, {
                 itemChecked: () => {
-                    // showCheckedCount();
+                    showCheckedCount02();
                 }
             }); 
             // 그룹 전환 
@@ -408,8 +434,13 @@
             // 체크된 항목 표시
             showCheckedCount02();
             function showCheckedCount02() {
-                let cnt = document.getElementById('checked-count'), sel = wtab04Grid.rows.filter(r => r.isSelected);
-                cnt.textContent = sel.length.toString();
+                let cnt = document.getElementById('checked-count02'), sel = wtab04Grid.rows.filter(r => r.isSelected);
+                cnt.textContent = sel.length.toString(); 
+                for (var i = 0; i < sel.length; i++) { 
+                    misdateWArr[i]   = sel[i]._data.misdate;
+                    misnumWArr[i]   = sel[i]._data.misnum;
+                    seqWArr[i]  = sel[i]._data.seq; 
+                }   
             } 
             new FlexGridContextMenu(wtab04Grid); 
             wtab04Grid.focus(); 
@@ -453,7 +484,7 @@
                     index: cnt,
                     jepm: '', 
                     ijaego_su1:  '', 
-                    active: false
+                    fixflag: false
                 });
                 cnt++;
             }     
@@ -496,127 +527,92 @@
         }
         
 
-        function save_btn(arg1, arg2, arg3){
-            var words = arg3.split('(');
-            var jqty = ""; 
-            arg3 = words[0];
-            jqty = words[1];  //undefined 
-            if(jqty == undefined){
-                jqty = "0";
-            }else{
-                jqty = jqty.replace(')','');
-            }  
-            var ls_tab = document.getElementById('tabvalue').value;
-            var ls_ipdate = document.getElementById('ipdate').value;          
-            var ls_acode   = document.getElementById('acode').value;       
-            var  ls_jpbgubn    = document.getElementById('jpbgubn').value;                        
-            const warnning_grid = document.getElementById('inwarnning_grid'); 
-            var ls_pcode  =  [];        
-            var ll_qty    =  [];    
-            var ls_jcode  =  [];        
-            var ll_jqty    =  []; 
-            var llCount = 0;         
+        function save_btn(arg1, arg2, arg3){ 
+            var ls_tab = document.getElementById('tabvalue').value; 
 
             
             switch(ls_tab){
                 case 'A': 
-                    if(Number(jqty) == 0){
-                        if (!confirm("모델라인: " + arg2 + " 컬러 : " + arg3 + " 예약 하시겠습니까?")) { 
-                            return false; 
-                        }   
-                        if(ls_ipdate == null || ls_ipdate.length == 0 || ls_ipdate == ""){ 
-                            alert("등록일자를 등록하세요") 
-                            document.getElementById("ipdate").focus(); 
-                            return ;               
-                        }   
-                        if(ls_acode == null || ls_acode.length == 0 || ls_acode == ""){ 
-                            alert("거래처를 등록하세요") 
-                            document.getElementById("cifname").focus(); 
-                            return ;               
-                        }   
-                        $.ajax({
-                            url: '/app01m/index14/savewish',  
-                            type:"POST",
-                            data: { 
-                                "ipdate"  : ls_ipdate,  
-                                "acode"   : ls_acode   , 
-                                "jbonsa"  : arg1     ,
-                                "jmodel"  : arg2   ,  
-                                "jcolor"  : arg3   ,   
-                                "jpbgubn"  : ls_jpbgubn   ,    
-                                "mflag"  : 'AA'   ,      
-                                "ordercd"  : 'AA'   , 
-                            }, 
-                            async:false,
-                            success:function(data){   
-                                if(data == "success"){
-                                    alert("저장되었습니다.") 
-                                    return true;
-                                    // searchList_rtn(ls_tab);  
-                                    // clear_rtn(ls_tab);        
-                                }else{                       
-                                    alert("저장중 오류가 발생했습니다. 관리자에게 문의하세요.")
-                                    // listUp();
-                                    console.log(data); 
-                                    return false; 
-                                }
-                            
-                            },error:function(e){
-                                console.log("error"); 
+                    if (!confirm("주문확정 하시겠습니까?")) { 
+                        return false; 
+                    }  
+                    if(misdateArr.length == null || misdateArr.length == 0){ 
+                        alert("확정할 내역을 선택하세요") 
+                        return ;               
+                    }   
+                    $.ajax({
+                        url: '/app01m/index16/save',  
+                        type:"POST",
+                        data: { 
+                            "misdatearr"  : misdateArr,  
+                            "misnumarr"   : misnumArr   , 
+                            "seqarr"  : seqArr     , 
+                            "mflag"  : 'AA'   ,      
+                            "ordercd"  : 'AA'   , 
+                        }, 
+                        async:false,
+                        success:function(data){   
+                            if(data == "success"){
+                                alert("확정되었습니다.") 
+                                return true;
+                                // searchList_rtn(ls_tab);  
+                                // clear_rtn(ls_tab);        
+                            }else{                       
+                                alert("확정중 오류가 발생했습니다. 관리자에게 문의하세요.")
+                                // listUp();
+                                console.log(data); 
+                                return false; 
                             }
-                        }).done(function(fragment){           
+                        
+                        },error:function(e){
+                            console.log("error"); 
+                        }
+                    }).done(function(fragment){           
 
-                        })  
-                    }else{
-                        if (!confirm("모델라인: " + arg2 + " 컬러 : " + arg3 + " 주문하시겠습니까?")) { 
-                            return false; 
-                        }   
-                        if(ls_ipdate == null || ls_ipdate.length == 0 || ls_ipdate == ""){ 
-                            alert("등록일자를 등록하세요") 
-                            document.getElementById("ipdate").focus(); 
-                            return ;               
-                        }   
-                        if(ls_acode == null || ls_acode.length == 0 || ls_acode == ""){ 
-                            alert("거래처를 등록하세요") 
-                            document.getElementById("cifname").focus(); 
-                            return ;               
-                        }   
-                        $.ajax({
-                            url: '/app01m/index14/save',  
-                            type:"POST",
-                            data: { 
-                                "ipdate"  : ls_ipdate,  
-                                "acode"   : ls_acode   , 
-                                "jbonsa"  : arg1     ,
-                                "jmodel"  : arg2   ,  
-                                "jcolor"  : arg3   ,   
-                                "jpbgubn"  : ls_jpbgubn   , 
-                                "mflag"  : 'AA'   ,      
-                                "ordercd"  : 'AA'   , 
-                            }, 
-                            async:false,
-                            success:function(data){   
-                                if(data == "success"){
-                                    alert("저장되었습니다.") 
-                                    return true;
-                                    // searchList_rtn(ls_tab);  
-                                    // clear_rtn(ls_tab);        
-                                }else{                       
-                                    alert("저장중 오류가 발생했습니다. 관리자에게 문의하세요.")
-                                    // listUp();
-                                    console.log(data); 
-                                    return false; 
-                                }
-                            
-                            },error:function(e){
-                                console.log("error"); 
+                    })   
+
+                    break; 
+
+                case 'B': 
+                    if (!confirm("주문등록 하시겠습니까?")) { 
+                        return false; 
+                    }  
+                    if(misdateWArr.length == null || misdateWArr.length == 0){ 
+                        alert("등록할 내역을 선택하세요") 
+                        return ;               
+                    }   
+                    $.ajax({
+                        url: '/app01m/index16/savewish',  
+                        type:"POST",
+                        data: { 
+                            "misdatearr"  : misdateWArr,  
+                            "misnumarr"   : misnumWArr   , 
+                            "seqarr"  : seqWArr     , 
+                            "mflag"  : 'AA'   ,      
+                            "ordercd"  : 'AA'   , 
+                        }, 
+                        async:false,
+                        success:function(data){   
+                            if(data == "success"){
+                                alert("주문되었습니다.") 
+                                return true;
+                                // searchList_rtn(ls_tab);  
+                                // clear_rtn(ls_tab);        
+                            }else{                       
+                                alert("주문중 오류가 발생했습니다. 관리자에게 문의하세요.")
+                                // listUp();
+                                console.log(data); 
+                                return false; 
                             }
-                        }).done(function(fragment){           
+                        
+                        },error:function(e){
+                            console.log("error"); 
+                        }
+                    }).done(function(fragment){           
 
-                        })  
-                    }
+                    })   
 
-                    break;              
+                    break;                                  
                 default:    
                     break;                
             } 
@@ -643,17 +639,28 @@
         //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
                 
         // tab01 검색   
-        document.getElementById("listBtn").addEventListener("click",function(){ 
-            
+        document.getElementById("listBtn").addEventListener("click",function(){  
             var ls_tab = document.getElementById('tabvalue').value;   
             searchList_rtn(ls_tab);
         })                         
         // tab02 검색   
-        document.getElementById("listBtn02").addEventListener("click",function(){ 
-            
+        document.getElementById("listBtn02").addEventListener("click",function(){  
             var ls_tab = document.getElementById('tabvalue').value;   
             searchList_rtn(ls_tab);
+        })                    
+        // 주문확정 
+        document.getElementById("saveBtn01").addEventListener("click",function(){ 
+            var ls_tab = document.getElementById('tabvalue').value;    
+            save_btn(ls_tab);
+        })               
+        // 주문등록 
+        document.getElementById("saveBtn02").addEventListener("click",function(){
+            var ls_tab = document.getElementById('tabvalue').value;     
+            save_btn(ls_tab);
         }) 
+
+
+        
 
         //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 모달 검색@@@@@@@@@@@@@@@@@@@@@@@@@@@
         //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
@@ -670,6 +677,7 @@
                     var ls_frdate = document.getElementById('frdate').value; 
                     var ls_todate = document.getElementById('todate').value;          
                     var ls_bacode   = document.getElementById('bacode').value; 
+                    var ls_misfixflag = document.getElementById('misfixflag').value; 
                     if(ls_frdate == null || ls_frdate.length == 0 || ls_frdate == ""){ 
                         alert("조회일자를 등록하세요") 
                         document.getElementById("frdate").focus(); 
@@ -680,6 +688,9 @@
                         document.getElementById("todate").focus(); 
                         return ;               
                     }   
+                    if(ls_misfixflag == "확정구분"){ 
+                        ls_misfixflag = "%";
+                    }    
                     if(ls_bacode == null || ls_bacode.length == 0 || ls_bacode == ""){  
                         ls_bacode = "%";
                     }   
@@ -691,7 +702,8 @@
                             "frdate"      : ls_frdate,
                             "todate"      : ls_todate,
                             "acode"      : ls_bacode,   
-                            "perid"      : ls_abonsadam1,    
+                            "perid"      : ls_abonsadam1,  
+                            "fixflag"    : ls_misfixflag,
                             "mflag"  : 'AA'   ,  
                         }, 
                         async:false,
@@ -710,6 +722,10 @@
                     var ls_frdate = document.getElementById('frdate02').value; 
                     var ls_todate = document.getElementById('todate02').value;          
                     var ls_bacode   = document.getElementById('dacode').value; 
+                    var ls_wishfixflag = document.getElementById('wishfixflag').value; 
+                    if(ls_wishfixflag == "주문구분"){ 
+                        ls_wishfixflag = "%";
+                    }  
                     if(ls_frdate == null || ls_frdate.length == 0 || ls_frdate == ""){ 
                         alert("조회일자를 등록하세요") 
                         document.getElementById("frdate02").focus(); 
@@ -731,7 +747,8 @@
                             "frdate"      : ls_frdate,
                             "todate"      : ls_todate,
                             "acode"      : ls_bacode,   
-                            "perid"      : ls_abonsadam1,    
+                            "perid"      : ls_abonsadam1,   
+                            "fixflag"    : ls_wishfixflag, 
                             "mflag"  : 'AA'   ,  
                         }, 
                         async:false,
@@ -756,7 +773,13 @@
             var wtab02Dto  = data;    
             var wtab02_data = [];
             var cnt = 1;
+            var bfixflag = false
             for (var i = 0; i < wtab02Dto.length; i++) {
+                if(wtab02Dto[i]["fixflag"] == "1"){
+                    bfixflag = true;
+                }else{
+                    bfixflag = false;
+                }
                 wtab02_data.push({
                     id: i, 
                     index: cnt,
@@ -775,7 +798,8 @@
                     samt: wtab02Dto[i]["samt"],  
                     cltcd: wtab02Dto[i]["cltcd"],  
                     inname: wtab02Dto[i]["inname"],       
-                    misgubun: wtab02Dto[i]["misgubun"],                          
+                    misgubun: wtab02Dto[i]["misgubun"],       
+                    fixflag: bfixflag,                          
                 });
                 cnt++;
             }   
@@ -795,7 +819,7 @@
             cols.binding = 'misdate';
             cols.header = '주문일자';
             cols.align = "center";
-            cols.width = 120; 
+            cols.width = 150; 
             wtab02Grid.columns.push(cols); 
             cols = new wijmo.grid.Column(); 
             cols.binding = 'misnum';
@@ -862,19 +886,26 @@
             cols.binding = 'qty';
             cols.header = '수량';
             cols.align = "center";
-            cols.width = 80;  
+            cols.width = 60;  
             wtab02Grid.columns.push(cols);   
             cols = new wijmo.grid.Column(); 
             cols.binding = 'uamt';
             cols.header = '단가';
             cols.align = "center";
-            cols.width = 100;  
+            cols.width = 80;  
             wtab02Grid.columns.push(cols);     
             cols = new wijmo.grid.Column(); 
             cols.binding = 'samt'; 
             cols.header = '금액';
             cols.align = "center";
-            cols.width = 150;  
+            cols.width = 120;  
+            wtab02Grid.columns.push(cols);    
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'fixflag'; 
+            cols.header = '확정';
+            cols.align = "center";
+            cols.width = 100;  
+            cols.cssClass = 'switch'
             wtab02Grid.columns.push(cols);  
  
         }
@@ -883,7 +914,13 @@
             var wtab04Dto  = data;    
             var wtab04_data = [];
             var cnt = 1;
+            var bfixflag = false
             for (var i = 0; i < wtab04Dto.length; i++) {
+                if(wtab04Dto[i]["fixflag"] == "1"){
+                    bfixflag = true;
+                }else{
+                    bfixflag = false;
+                }
                 wtab04_data.push({
                     id: i, 
                     index: cnt,
@@ -901,7 +938,8 @@
                     samt: wtab04Dto[i]["samt"],  
                     cltcd: wtab04Dto[i]["cltcd"],  
                     inname: wtab04Dto[i]["inname"],     
-                    misgubun: wtab04Dto[i]["misgubun"],                            
+                    misgubun: wtab04Dto[i]["misgubun"],       
+                    fixflag: bfixflag,                                           
                 });
                 cnt++;
             }   
@@ -994,7 +1032,14 @@
             cols.header = '금액';
             cols.align = "center";
             cols.width = 150;  
-            wtab04Grid.columns.push(cols);  
+            wtab04Grid.columns.push(cols);   
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'fixflag'; 
+            cols.header = '주문';
+            cols.align = "center";
+            cols.width = 100;  
+            cols.cssClass = 'switch'
+            wtab04Grid.columns.push(cols);   
  
         }
         function wdelfun_a(arg1, arg2, arg3, arg4, arg5){ 

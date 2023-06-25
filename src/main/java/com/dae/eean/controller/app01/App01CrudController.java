@@ -1361,6 +1361,7 @@ public class App01CrudController {
     public Object App14List_index(@RequestParam("frdate") String frdate,
                                   @RequestParam("todate") String todate,
                                   @RequestParam("acode") String acode,
+                                  @RequestParam("fixflag") String fixflag,
                                   @RequestParam("perid") String perid,
                                   @RequestParam("mflag") String mflag,
                                   Model model, HttpServletRequest request) throws Exception{
@@ -1383,6 +1384,7 @@ public class App01CrudController {
             indexDa024Dto.setFrdate(frdate);
             indexDa024Dto.setTodate(todate);
             indexDa024Dto.setCltcd(acode);
+            indexDa024Dto.setFixflag(fixflag);
             if(perid == null || perid.equals("")){
                 perid = "%";
             }
@@ -1419,6 +1421,7 @@ public class App01CrudController {
     public Object App14ListWish_index(@RequestParam("frdate") String frdate,
                                   @RequestParam("todate") String todate,
                                   @RequestParam("acode") String acode,
+                                  @RequestParam("fixflag") String fixflag,
                                   @RequestParam("perid") String perid,
                                   @RequestParam("mflag") String mflag,
                                   Model model, HttpServletRequest request) throws Exception{
@@ -1441,6 +1444,7 @@ public class App01CrudController {
             indexDa024Dto.setFrdate(frdate);
             indexDa024Dto.setTodate(todate);
             indexDa024Dto.setCltcd(acode);
+            indexDa024Dto.setFixflag(fixflag);
             if(perid == null || perid.equals("")){
                 perid = "%";
             }
@@ -1468,6 +1472,29 @@ public class App01CrudController {
 
         return indexDa024ListDto;
     }
+
+
+
+
+    @RequestMapping(value="/index16/save")
+    public String index16Save(@RequestParam(value = "misdatearr[]") List<String> misdatearr
+            ,@RequestParam( value =  "misnumarr[]") List<String> misnumarr
+            ,@RequestParam( value =  "seqarr[]") List<String> seqarr
+            ,@RequestParam("mflag") String mflag
+            , Model model
+            , HttpServletRequest request){
+
+        try {
+
+
+
+        }catch (IllegalStateException e){
+            model.addAttribute("index14Save errorMessage", e.getMessage());
+            return "error";
+        }
+        return "success";
+    }
+
 
     public String GetMaxNum(String agDate){
 

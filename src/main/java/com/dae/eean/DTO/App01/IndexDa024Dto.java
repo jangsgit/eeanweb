@@ -30,6 +30,6 @@ public class IndexDa024Dto {
     private String perid;
     private String misgubun;
     private String inname;
-
+    private String fixflag;
 
 }
