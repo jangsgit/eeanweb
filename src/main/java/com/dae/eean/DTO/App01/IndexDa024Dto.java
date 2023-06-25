@@ -22,6 +22,7 @@ public class IndexDa024Dto {
     private String indate;
     private String inperid;
     private String pbonsa;
+    private String pbonsa2;
     private String pmodel;
     private String pcolor;
     private String frdate;
@@ -31,5 +32,8 @@ public class IndexDa024Dto {
     private String misgubun;
     private String inname;
     private String fixflag;
+    private String omisdate;
+    private String omisnum;
+    private String oseq;
 
 }

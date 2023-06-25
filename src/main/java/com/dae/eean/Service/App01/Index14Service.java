@@ -42,6 +42,8 @@ public class Index14Service {
     public Boolean InsertDa024(IndexDa024Dto parm){ return  appMapper.InsertDa024(parm);}
     public Boolean InsertDa025(IndexDa023Dto parm){ return  appMapper.InsertDa025(parm);}
     public Boolean InsertDa026(IndexDa024Dto parm){ return  appMapper.InsertDa026(parm);}
+    public Boolean InsertDa023Order(IndexDa024Dto parm){ return  appMapper.InsertDa023Order(parm);}
+    public Boolean InsertDa024Order(IndexDa024Dto parm){ return  appMapper.InsertDa024Order(parm);}
 
     public Boolean InsertIa011(IndexIa011Dto parm){ return  appMapper.InsertIa011(parm);}
     public Boolean InsertIa012(IndexIa012Dto parm){ return  appMapper.InsertIa012(parm);}
@@ -50,5 +52,9 @@ public class Index14Service {
 
     public Boolean DeleteDA025(IndexDa024Dto parm){ return  appMapper.DeleteDA025(parm);}
     public Boolean DeleteDA026(IndexDa024Dto parm){ return  appMapper.DeleteDA026(parm);}
+    public Boolean UpdateDA024(IndexDa024Dto parm){ return  appMapper.UpdateDA024(parm);}
+    public Boolean UpdateDA026(IndexDa024Dto parm){ return  appMapper.UpdateDA026(parm);}
+
+
 
 }

@@ -57,7 +57,8 @@
     <select id="SelectDa026List"  parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" resultType="com.dae.eean.DTO.App01.IndexDa024Dto">
         <![CDATA[ select B.cltcd as cltcd, Left(B.misdate,4) + '-' + substring(B.misdate, 5,2)+ '-' + substring(B.misdate, 7,2) as misdate, B.misnum, B.seq,
                          B.pcode, B.pname, B.psize,    B.punit,  B.qty,  B.uamt, B.samt, B.addamt,
-                         B.amt, A.acorp, pbonsa, pmodel, pcolor, D.inname, B.misgubun, isnull(B.fixflag,'0') as fixflag
+                         B.amt, A.acorp, pbonsa, pmodel, pcolor, D.inname, B.misgubun, isnull(B.fixflag,'0') as fixflag,
+                         B.omisdate, B.omisnum, B.oseq
            from  TB_DA026 B WITH (NOLOCK) , cif A WITH (NOLOCK) ,
                  TB_DA025 C WITH (NOLOCK)  Left outer JOIN INSA D ON C.perid = D.insano
            where B.misdate + B.misnum = C.misdate + C.misnum AND B.misgubun = C.misgubun
@@ -98,19 +99,42 @@
     <insert id="InsertDa024" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
         insert into TB_DA024 (custcd, spjangcd, cltcd, misgubun, misdate, misnum, seq,
         pcode, pname, psize,    punit,  qty,  uamt, samt, addamt,
-        amt, indate, inperid, pbonsa, pmodel, pcolor  ) values
+        amt, indate, inperid, pbonsa, pbonsa2, pmodel, pcolor  ) values
         ('EEAN', 'ZZ', #{cltcd},    #{misgubun}, #{misdate},  #{misnum}, #{seq},
         #{pcode}, #{pname}, #{psize}, #{punit}, #{qty},   #{uamt},  #{samt},  #{addamt},
-        #{amt},  #{indate}, #{inperid} , #{pbonsa} , #{pmodel} , #{pcolor}  )
+        #{amt},  #{indate}, #{inperid} , #{pbonsa} , #{pbonsa2} , #{pmodel} , #{pcolor}  )
     </insert>
 
     <insert id="InsertDa026" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
         insert into TB_DA026 (custcd, spjangcd, cltcd, misgubun, misdate, misnum, seq,
         pcode, pname, psize,    punit,  qty,  uamt, samt, addamt,
-        amt, indate, inperid, pbonsa, pmodel, pcolor  ) values
+        amt, indate, inperid, pbonsa, pbonsa2, pmodel, pcolor  ) values
         ('EEAN', 'ZZ', #{cltcd},   #{misgubun},  #{misdate},  #{misnum}, #{seq},
         #{pcode}, #{pname}, #{psize}, #{punit}, #{qty},   #{uamt},  #{samt},  #{addamt},
-        #{amt},  #{indate}, #{inperid} , #{pbonsa} , #{pmodel} , #{pcolor}  )
+        #{amt},  #{indate}, #{inperid} , #{pbonsa} , #{pbonsa2} , #{pmodel} , #{pcolor}  )
+    </insert>
+
+    <insert id="InsertDa023Order" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
+        insert into TB_DA023 (custcd, spjangcd, cltcd, misgubun, misdate, misnum,
+            contamt, gubun, yyyymm, perid, amt, addamt, misamt, billkind,
+            taxcls, taxgubun, tax_spdate, tax_spnum, remark, bigo, vatemail, vatpernm,
+            spjangnum, delflag, ggubun )
+        SELECT custcd, spjangcd, cltcd, misgubun, #{omisdate}, #{omisnum},
+            contamt, gubun, yyyymm, perid, amt, addamt, misamt, billkind,
+            taxcls, taxgubun, tax_spdate, tax_spnum, remark, bigo, vatemail, vatpernm,
+            spjangnum, delflag, ggubun
+        FROM TB_DA025 WHERE misdate = #{misdate} and misnum = #{misnum} and cltcd =#{cltcd} and misgubun = #{misgubun}
+    </insert>
+
+
+    <insert id="InsertDa024Order" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
+        insert into TB_DA024 (custcd, spjangcd, cltcd, misgubun, misdate, misnum, seq,
+            pcode, pname, psize,    punit,  qty,  uamt, samt, addamt,
+            amt, indate, inperid, pbonsa, pbonsa2, pmodel, pcolor  )
+        SELECT custcd, spjangcd, cltcd, misgubun, #{omisdate}, #{omisnum}, seq,
+            pcode, pname, psize,    punit,  qty,  uamt, samt, addamt,
+            amt, indate, inperid, pbonsa, pbonsa2, pmodel, pcolor
+        FROM TB_DA026 WHERE misdate=#{misdate} and misnum = #{misnum} and cltcd =#{cltcd} and misgubun = #{misgubun} and seq = #{seq}
     </insert>
 
 
@@ -150,7 +174,7 @@
 
     <delete id="DeleteDA024" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
         delete from tb_da024
-        where misdate = #{misdate} and misnum = #{misnum} and seq = #{seq} and cltcd = #{cltcd} and misgubun = #{misgubun}
+        where misdate = #{misdate} and misnum = #{misnum} and seq = #{seq} and cltcd = #{cltcd} and misgubun = #{misgubun} and isnull(fixflag,'0') = '0'
     </delete>
 
 
@@ -162,6 +186,25 @@
 
     <delete id="DeleteDA026" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
         delete from tb_da026
-        where misdate = #{misdate} and misnum = #{misnum} and seq = #{seq} and cltcd = #{cltcd} and misgubun = #{misgubun}
+        where misdate = #{misdate} and misnum = #{misnum} and seq = #{seq} and cltcd = #{cltcd} and misgubun = #{misgubun}  and isnull(fixflag,'0') = '0'
     </delete>
+
+
+    <update id="UpdateDA024" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
+        UPDATE tb_da024 SET
+        fixflag=#{fixflag}
+        where misdate=#{misdate} and misnum=#{misnum} and  seq=#{seq} and cltcd = #{cltcd} and misgubun = #{misgubun}
+    </update>
+
+
+    <update id="UpdateDA026" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
+        UPDATE tb_da026 SET
+        fixflag=#{fixflag}, omisdate=#{omisdate}, omisnum=#{omisnum}, oseq=#{oseq}
+        where misdate=#{misdate} and misnum=#{misnum} and  seq=#{seq} and cltcd = #{cltcd} and misgubun = #{misgubun}
+    </update>
+
+
+
+
+
 </mapper>

@@ -29,5 +29,7 @@ public class IndexDa023Dto {
     private String spjangnum;
     private String todate;
     private String ggubun;
+    private String omisdate;
+    private String omisnum;
 
 }

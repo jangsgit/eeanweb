@@ -412,27 +412,28 @@ aria-hidden="true">
                     { binding: 'qty', header: '수량', align: "center", width: 80 },  
                     { binding: 'uamt', header: '단가', align: "center", width: 100 },  
                     { binding: 'samt', header: '금액', align: "center", width: 150 },    
+                    { binding: 'fixflag', header: '확정', align: "center", width: 150, cssClass: 'switch'   },  
                 ], 
                 itemsSource: view_p01tab02page
             });   
 
             new FlexGridContextMenu(wtab02Grid); 
             // 선택기 생성
-            let selector = new wijmo.grid.selector.Selector(wtab02Grid, {
-                itemChecked: () => {
-                    // showCheckedCount();
-                }
-            }); 
-            // 헤더 열 전환
-            setHeaderColumn(true);
-            function setHeaderColumn(headerOn) {
-                wtab02Grid.headersVisibility = headerOn
-                ? wijmo.grid.HeadersVisibility.All
-                : wijmo.grid.HeadersVisibility.Column;
-                selector.column = headerOn
-                ? wtab02Grid.rowHeaders.columns[0]
-                : wtab02Grid.columns[0];
-            } 
+            // let selector = new wijmo.grid.selector.Selector(wtab02Grid, {
+            //     itemChecked: () => {
+            //         // showCheckedCount();
+            //     }
+            // }); 
+            // // 헤더 열 전환
+            // setHeaderColumn(true);
+            // function setHeaderColumn(headerOn) {
+            //     wtab02Grid.headersVisibility = headerOn
+            //     ? wijmo.grid.HeadersVisibility.All
+            //     : wijmo.grid.HeadersVisibility.Column;
+            //     selector.column = headerOn
+            //     ? wtab02Grid.rowHeaders.columns[0]
+            //     : wtab02Grid.columns[0];
+            // } 
             wtab02Grid.showMarquee = true;
             wtab02Grid.focus();
             wijmo.toggleClass(wtab02Grid.hostElement, 'highlightActive', true);
@@ -464,6 +465,7 @@ aria-hidden="true">
                     { binding: 'qty', header: '수량', align: "center", width: 80 },  
                     { binding: 'uamt', header: '단가', align: "center", width: 100 },  
                     { binding: 'samt', header: '금액', align: "center", width: 150 },    
+                    { binding: 'fixflag', header: '주문', align: "center", width: 150, cssClass: 'switch'   }, 
                 ], 
                 itemsSource: view_p01tab03page
             });  
@@ -472,11 +474,11 @@ aria-hidden="true">
 
             new FlexGridContextMenu(wtab03Grid); 
             // 선택기 생성
-            selector = new wijmo.grid.selector.Selector(wtab03Grid, {
-                itemChecked: () => {
-                    // showCheckedCount();
-                }
-            }); 
+            // selector = new wijmo.grid.selector.Selector(wtab03Grid, {
+            //     itemChecked: () => {
+            //         // showCheckedCount();
+            //     }
+            // }); 
             // 헤더 열 전환
             // setHeaderColumn(true);
             // function setHeaderColumn(headerOn) {
@@ -640,7 +642,11 @@ aria-hidden="true">
             alert("주문등록");
         } 
 
-        function wdelfun_a(arg1, arg2, arg3, arg4, arg5){ 
+        function wdelfun_a(arg1, arg2, arg3, arg4, arg5, arg6){ 
+            if(arg6){
+                alert("확정된 주문입니다. 삭제할 수 없습니다.")
+                return 
+            }
             if (!confirm("주문일자 : " + arg1 + "-" +  arg2 + "(" + arg3 + ")   삭제하시겠습니까?")) {
                 return ; 
             }   
@@ -666,7 +672,12 @@ aria-hidden="true">
 
 
         }   
-        function wdelfunwish_a(arg1, arg2, arg3, arg4, arg5){ 
+        function wdelfunwish_a(arg1, arg2, arg3, arg4, arg5, arg6){ 
+            
+            if(arg6){
+                alert("주문된 예약내역입니다. 삭제할 수 없습니다.")
+                return 
+            }
             if (!confirm("예약일자 : " + arg1 + "-" +  arg2 + "(" + arg3 + ")   삭제하시겠습니까?")) {
                 return ; 
             }   
@@ -851,7 +862,13 @@ aria-hidden="true">
             var wtab02Dto  = data;    
             var wtab02_data = [];
             var cnt = 1;
+            var bfixflag = false
             for (var i = 0; i < wtab02Dto.length; i++) {
+                if(wtab02Dto[i]["fixflag"] == "1"){
+                    bfixflag = true;
+                }else{
+                    bfixflag = false;
+                }
                 wtab02_data.push({
                     id: i, 
                     index: cnt,
@@ -868,7 +885,8 @@ aria-hidden="true">
                     uamt: wtab02Dto[i]["uamt"], 
                     samt: wtab02Dto[i]["samt"],  
                     cltcd: wtab02Dto[i]["cltcd"],   
-                    misgubun: wtab02Dto[i]["misgubun"],                             
+                    misgubun: wtab02Dto[i]["misgubun"],         
+                    fixflag: bfixflag,                                             
                 });
                 cnt++;
             }   
@@ -897,7 +915,7 @@ aria-hidden="true">
             cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
                 text: '<b>${item.seq}</b>',
                 click: (e, ctx) => {
-                    wdelfun_a(ctx.item.misdate, ctx.item.misnum, ctx.item.seq, ctx.item.cltcd, ctx.item.misgubun);                    
+                    wdelfun_a(ctx.item.misdate, ctx.item.misnum, ctx.item.seq, ctx.item.cltcd, ctx.item.misgubun, ctx.item.fixflag);                    
                     
                 }
             });
@@ -955,6 +973,13 @@ aria-hidden="true">
             cols.header = '금액';
             cols.align = "center";
             cols.width = 150;  
+            wtab02Grid.columns.push(cols);     
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'fixflag'; 
+            cols.header = '확정';
+            cols.align = "center";
+            cols.width = 100;  
+            cols.cssClass = 'switch'
             wtab02Grid.columns.push(cols);  
  
         }     
@@ -963,7 +988,13 @@ aria-hidden="true">
             var wtab03Dto  = data;    
             var wtab03_data = [];
             var cnt = 1;
+            var bfixflag = false
             for (var i = 0; i < wtab03Dto.length; i++) {
+                if(wtab03Dto[i]["fixflag"] == "1"){
+                    bfixflag = true;
+                }else{
+                    bfixflag = false;
+                }
                 wtab03_data.push({
                     id: i, 
                     index: cnt,
@@ -980,7 +1011,8 @@ aria-hidden="true">
                     uamt: wtab03Dto[i]["uamt"], 
                     samt: wtab03Dto[i]["samt"],  
                     cltcd: wtab03Dto[i]["cltcd"],   
-                    misgubun: wtab03Dto[i]["misgubun"],                             
+                    misgubun: wtab03Dto[i]["misgubun"],        
+                    fixflag: bfixflag,                                             
                 });
                 cnt++;
             }   
@@ -1009,7 +1041,7 @@ aria-hidden="true">
             cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
                 text: '<b>${item.seq}</b>',
                 click: (e, ctx) => {
-                    wdelfunwish_a(ctx.item.misdate, ctx.item.misnum, ctx.item.seq, ctx.item.cltcd, ctx.item.misgubun);                    
+                    wdelfunwish_a(ctx.item.misdate, ctx.item.misnum, ctx.item.seq, ctx.item.cltcd, ctx.item.misgubun, ctx.item.fixflag);                    
                     
                 }
             });
@@ -1067,7 +1099,14 @@ aria-hidden="true">
             cols.header = '금액';
             cols.align = "center";
             cols.width = 150;  
-            wtab03Grid.columns.push(cols);  
+            wtab03Grid.columns.push(cols);   
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'fixflag'; 
+            cols.header = '주문';
+            cols.align = "center";
+            cols.width = 100;  
+            cols.cssClass = 'switch'
+            wtab03Grid.columns.push(cols);   
  
         }
   

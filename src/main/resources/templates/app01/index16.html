@@ -108,7 +108,7 @@
                                                 </button>
                                             </div> 
                                             <div class="col-1 col-sm-1">  
-                                                <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="saveBtn01" type="button"  >주문확정
+                                                <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="saveBtn01" type="button"  >주문확정/취소
                                                 </button>
                                             </div> 
                                             <!-- <div class="col-2 col-sm-1">  
@@ -154,7 +154,7 @@
                                                 </button>
                                             </div> 
                                             <div class="col-1 col-sm-1">  
-                                                <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="saveBtn02" type="button"  >주문등록
+                                                <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="saveBtn02" type="button"  >주문등록/취소
                                                 </button>
                                             </div> 
                                             <!-- <div class="col-2 col-sm-1">  
@@ -279,10 +279,19 @@
          var misdateArr = new Array();
          var misnumArr = new Array();
          var seqArr    = new Array(); 
-
+         var cltcdArr    = new Array(); 
+         var gubunArr    = new Array(); 
+         var fixflagArr    = new Array(); 
+          
          var misdateWArr = new Array();
          var misnumWArr = new Array();
          var seqWArr    = new Array(); 
+         var cltcdWArr    = new Array();
+         var gubunWArr    = new Array();  
+         var fixflagWArr    = new Array(); 
+         var omisdateWArr = new Array();
+         var omisnumWArr = new Array();
+         var oseqWArr    = new Array(); 
         
          var excelIOSheet;
          var typeMenu;  
@@ -299,9 +308,7 @@
         function init() {
             localStorage.setItem("setpage", "app03p001"); 
             //일자별주문현황 popup list
-            view_p01tab02page = new wijmo.collections.CollectionView(getData_wlist(), {
-                // pageSize: 100
-            });    
+            view_p01tab02page = new wijmo.collections.CollectionView(getData_wlist());    
             setGroups(true);
             wtab02Grid = new wijmo.grid.FlexGrid('#wtab02Grid_div', { 
                 deferResizing: true,
@@ -346,7 +353,16 @@
                     misdateArr[i]   = sel[i]._data.misdate;
                     misnumArr[i]   = sel[i]._data.misnum;
                     seqArr[i]  = sel[i]._data.seq; 
-                }   
+                    cltcdArr[i]  = sel[i]._data.cltcd; 
+                    gubunArr[i]  = sel[i]._data.misgubun;  
+                    fixflagArr[i]  = sel[i]._data.fixflag;  
+                    if(!fixflagArr[i]){
+                        fixflagArr[i] = "0";
+                    }else{
+                        fixflagArr[i] = "1";
+                    }
+                    
+                }    
 
             } 
             // 그룹 전환 
@@ -440,6 +456,17 @@
                     misdateWArr[i]   = sel[i]._data.misdate;
                     misnumWArr[i]   = sel[i]._data.misnum;
                     seqWArr[i]  = sel[i]._data.seq; 
+                    cltcdWArr[i]  = sel[i]._data.cltcd; 
+                    gubunWArr[i]  = sel[i]._data.misgubun; 
+                    fixflagWArr[i]  = sel[i]._data.fixflag; 
+                    // omisdateWArr[i]   = sel[i]._data.omisdate;
+                    // omisnumWArr[i]   = sel[i]._data.omisnum;
+                    // oseqWArr[i]  = sel[i]._data.oseq; 
+                    if(!fixflagWArr[i]){
+                        fixflagWArr[i] = "0";
+                    }else{
+                        fixflagWArr[i] = "1";
+                    }
                 }   
             } 
             new FlexGridContextMenu(wtab04Grid); 
@@ -539,7 +566,8 @@
                     if(misdateArr.length == null || misdateArr.length == 0){ 
                         alert("확정할 내역을 선택하세요") 
                         return ;               
-                    }   
+                    }  
+                    console.log(cltcdArr) ;
                     $.ajax({
                         url: '/app01m/index16/save',  
                         type:"POST",
@@ -547,15 +575,18 @@
                             "misdatearr"  : misdateArr,  
                             "misnumarr"   : misnumArr   , 
                             "seqarr"  : seqArr     , 
+                            "cltcdarr"  : cltcdArr     , 
+                            "gubunarr"  : gubunArr     , 
+                            "fixflagarr"  : fixflagArr     , 
                             "mflag"  : 'AA'   ,      
                             "ordercd"  : 'AA'   , 
                         }, 
                         async:false,
                         success:function(data){   
                             if(data == "success"){
-                                alert("확정되었습니다.") 
+                                alert("확정되었습니다.")
+                                searchList_rtn(ls_tab);   
                                 return true;
-                                // searchList_rtn(ls_tab);  
                                 // clear_rtn(ls_tab);        
                             }else{                       
                                 alert("확정중 오류가 발생했습니다. 관리자에게 문의하세요.")
@@ -581,6 +612,7 @@
                         alert("등록할 내역을 선택하세요") 
                         return ;               
                     }   
+                    var ls_ipdate = document.getElementById('ipdate').value;   
                     $.ajax({
                         url: '/app01m/index16/savewish',  
                         type:"POST",
@@ -588,6 +620,10 @@
                             "misdatearr"  : misdateWArr,  
                             "misnumarr"   : misnumWArr   , 
                             "seqarr"  : seqWArr     , 
+                            "cltcdarr"  : cltcdWArr     , 
+                            "gubunarr"  : gubunWArr     , 
+                            "fixflagarr"  : fixflagWArr     ,  
+                            "ipdate"  : ls_ipdate     ,  
                             "mflag"  : 'AA'   ,      
                             "ordercd"  : 'AA'   , 
                         }, 
@@ -595,8 +631,8 @@
                         success:function(data){   
                             if(data == "success"){
                                 alert("주문되었습니다.") 
-                                return true;
-                                // searchList_rtn(ls_tab);  
+                                searchList_rtn(ls_tab);
+                                return true;  
                                 // clear_rtn(ls_tab);        
                             }else{                       
                                 alert("주문중 오류가 발생했습니다. 관리자에게 문의하세요.")
@@ -721,7 +757,7 @@
                 case 'B': 
                     var ls_frdate = document.getElementById('frdate02').value; 
                     var ls_todate = document.getElementById('todate02').value;          
-                    var ls_bacode   = document.getElementById('dacode').value; 
+                    var ls_bacode   = document.getElementById('bacode').value; 
                     var ls_wishfixflag = document.getElementById('wishfixflag').value; 
                     if(ls_wishfixflag == "주문구분"){ 
                         ls_wishfixflag = "%";
@@ -938,7 +974,10 @@
                     samt: wtab04Dto[i]["samt"],  
                     cltcd: wtab04Dto[i]["cltcd"],  
                     inname: wtab04Dto[i]["inname"],     
-                    misgubun: wtab04Dto[i]["misgubun"],       
+                    misgubun: wtab04Dto[i]["misgubun"],  
+                    omisdate: wtab04Dto[i]["omisdate"],
+                    omisnum: wtab04Dto[i]["omisnum"],     
+                    oseq: wtab04Dto[i]["oseq"],         
                     fixflag: bfixflag,                                           
                 });
                 cnt++;
@@ -952,7 +991,7 @@
             cols.binding = 'misdate';
             cols.header = '예약일자';
             cols.align = "center";
-            cols.width = 120; 
+            cols.width = 150; 
             wtab04Grid.columns.push(cols);  
             cols = new wijmo.grid.Column(); 
             cols.binding = 'misnum';
@@ -1039,6 +1078,24 @@
             cols.align = "center";
             cols.width = 100;  
             cols.cssClass = 'switch'
+            wtab04Grid.columns.push(cols);   
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'omisdate'; 
+            cols.header = '주문일자';
+            cols.align = "center";
+            cols.width = 150;   
+            wtab04Grid.columns.push(cols);   
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'omisnum'; 
+            cols.header = '번호';
+            cols.align = "center";
+            cols.width = 80;   
+            wtab04Grid.columns.push(cols);   
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'oseq'; 
+            cols.header = '순번';
+            cols.align = "center";
+            cols.width = 80;   
             wtab04Grid.columns.push(cols);   
  
         }

@@ -10,7 +10,7 @@
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>  
-</head>
+</head> 
 <body style="background: #f5f9fa;">
     <header>
 
@@ -77,6 +77,7 @@
                                                     <input class="form-control form-control-sm" id="acorp3" type="hidden"  />
                                                     <input class="form-control form-control-sm" id="acode" type="hidden"  /> 
                                                     <input class="form-control form-control-sm" id="jpbgubn" type="hidden"  /> 
+                                                    <input class="form-control form-control-sm" id="jbonsacd" type="hidden"  /> 
                                                     
                                                 </div>
                                             </div>
@@ -346,7 +347,7 @@
                 allowSorting: 'MultiColumn',
                 alternatingRowStep: 0,
                 columns: [     
-                    { binding: 'jbonsa_code', header: '주문코드', align: "center",   width: 100 }, 
+                    { binding: 'jbonsa_code', header: '주문상세', align: "center",   width: 100 }, 
                     { binding: 'jmodel_code', header: '모델라인', align: "center",   width: 80},   
                     { binding: 'A', header: 'A', align: "center",   width: 80},   
                     { binding: 'B', header: 'B', align: "center",   width: 80},   
@@ -488,6 +489,7 @@
                     { binding: 'qty', header: '수량', align: "center", width: 80 },  
                     { binding: 'uamt', header: '단가', align: "center", width: 100 },  
                     { binding: 'samt', header: '금액', align: "center", width: 150 },    
+                    { binding: 'fixflag', header: '확정', align: "center", width: 150, cssClass: 'switch'   },  
                 ], 
                 itemsSource: view_p01tab02page
             });  
@@ -495,21 +497,21 @@
 
             new FlexGridContextMenu(wtab02Grid); 
             // 선택기 생성
-            let selector = new wijmo.grid.selector.Selector(wtab02Grid, {
-                itemChecked: () => {
-                    // showCheckedCount();
-                }
-            }); 
+            // let selector = new wijmo.grid.selector.Selector(wtab02Grid, {
+            //     itemChecked: () => {
+            //         // showCheckedCount();
+            //     }
+            // }); 
             // 헤더 열 전환
-            setHeaderColumn(true);
-            function setHeaderColumn(headerOn) {
-                wtab02Grid.headersVisibility = headerOn
-                ? wijmo.grid.HeadersVisibility.All
-                : wijmo.grid.HeadersVisibility.Column;
-                selector.column = headerOn
-                ? wtab02Grid.rowHeaders.columns[0]
-                : wtab02Grid.columns[0];
-            } 
+            // setHeaderColumn(true);
+            // function setHeaderColumn(headerOn) {
+            //     wtab02Grid.headersVisibility = headerOn
+            //     ? wijmo.grid.HeadersVisibility.All
+            //     : wijmo.grid.HeadersVisibility.Column;
+            //     selector.column = headerOn
+            //     ? wtab02Grid.rowHeaders.columns[0]
+            //     : wtab02Grid.columns[0];
+            // } 
             wtab02Grid.showMarquee = true;
             wtab02Grid.focus();
             wijmo.toggleClass(wtab02Grid.hostElement, 'highlightActive', true);
@@ -540,6 +542,7 @@
                     { binding: 'qty', header: '수량', align: "center", width: 80 },  
                     { binding: 'uamt', header: '단가', align: "center", width: 100 },  
                     { binding: 'samt', header: '금액', align: "center", width: 150 },    
+                    { binding: 'fixflag', header: '주문', align: "center", width: 150, cssClass: 'switch'   }, 
                 ], 
                 itemsSource: view_p01tab04page
             });  
@@ -547,11 +550,11 @@
 
             new FlexGridContextMenu(wtab04Grid); 
             // 선택기 생성
-            selector = new wijmo.grid.selector.Selector(wtab04Grid, {
-                itemChecked: () => {
-                    // showCheckedCount();
-                }
-            }); 
+            // selector = new wijmo.grid.selector.Selector(wtab04Grid, {
+            //     itemChecked: () => {
+            //         // showCheckedCount();
+            //     }
+            // }); 
             // 헤더 열 전환
             // setHeaderColumn(true);
             // function setHeaderColumn(headerOn) {
@@ -640,8 +643,8 @@
             document.getElementById('tabvalue').value = arg; 
         } 
 
-        function wOrderChk_a(arg1, arg2, arg3){  
-            // ls_jbonsa, ls_jmodel, ls_color 
+        function wOrderChk_a(arg1, arg2, arg3 ){  
+            // ls_jbonsa, ls_jbonsa2, ls_jmodel, ls_color 
             //  alert(arg1 + '/' + arg2 +  ' / ' + arg3 + ' : 1EA 주문등록' )
             if(arg1 == arg3){
                 return 
@@ -649,10 +652,10 @@
             if(arg2 == arg3){
                 return 
             }
-            save_btn(arg1, arg2, arg3)
+            save_btn(arg1, arg2, arg3 )
         }
 
-        function save_btn(arg1, arg2, arg3){
+        function save_btn(arg1, arg2, arg3 ){
             var words = arg3.split('(');
             var jqty = ""; 
             arg3 = words[0];
@@ -666,6 +669,7 @@
             var ls_ipdate = document.getElementById('ipdate').value;          
             var ls_acode   = document.getElementById('acode').value;       
             var  ls_jpbgubn    = document.getElementById('jpbgubn').value;                        
+            var ls_bonsacd =   document.getElementById('jbonsacd').value ; 
             const warnning_grid = document.getElementById('inwarnning_grid'); 
             var ls_pcode  =  [];        
             var ll_qty    =  [];    
@@ -673,11 +677,11 @@
             var ll_jqty    =  []; 
             var llCount = 0;         
 
-            
+            console.log(ls_bonsacd);
             switch(ls_tab){
                 case 'A': 
                     if(Number(jqty) == 0){
-                        if (!confirm("모델라인: " + arg2 + " 컬러 : " + arg3 + " 예약 하시겠습니까?")) { 
+                        if (!confirm("코드상세: [" + arg1 + "]  모델라인: " + arg2 + " 컬러 : " + arg3 + " 예약 하시겠습니까?")) { 
                             return false; 
                         }   
                         if(ls_ipdate == null || ls_ipdate.length == 0 || ls_ipdate == ""){ 
@@ -696,7 +700,8 @@
                             data: { 
                                 "ipdate"  : ls_ipdate,  
                                 "acode"   : ls_acode   , 
-                                "jbonsa"  : arg1     ,
+                                "jbonsa"  : ls_bonsacd     ,
+                                "jbonsa2"  : arg1     ,
                                 "jmodel"  : arg2   ,  
                                 "jcolor"  : arg3   ,   
                                 "jpbgubn"  : ls_jpbgubn   ,    
@@ -724,7 +729,7 @@
 
                         })  
                     }else{
-                        if (!confirm("모델라인: " + arg2 + " 컬러 : " + arg3 + " 주문하시겠습니까?")) { 
+                        if (!confirm("코드상세: [" + arg1 + "]  모델라인: " + arg2 + " 컬러 : " + arg3 + " 주문하시겠습니까?")) { 
                             return false; 
                         }   
                         if(ls_ipdate == null || ls_ipdate.length == 0 || ls_ipdate == ""){ 
@@ -743,7 +748,8 @@
                             data: { 
                                 "ipdate"  : ls_ipdate,  
                                 "acode"   : ls_acode   , 
-                                "jbonsa"  : arg1     ,
+                                "jbonsa"  : ls_bonsacd     ,
+                                "jbonsa2"  : arg1     ,
                                 "jmodel"  : arg2   ,  
                                 "jcolor"  : arg3   ,   
                                 "jpbgubn"  : ls_jpbgubn   , 
@@ -838,6 +844,7 @@
 
             var searchCode = ""; 
             var ls_jpbgubn = document.getElementById('jpbgubn').value ;
+            document.getElementById('jbonsacd').value = arg; 
             var ls_jcode = arg ;
             var ls_flag = "A";
             if(ls_jpbgubn == null || ls_jpbgubn.length == 0 || ls_jpbgubn == ""){ 
@@ -962,7 +969,13 @@
             var wtab02Dto  = data;    
             var wtab02_data = [];
             var cnt = 1;
+            var bfixflag = false
             for (var i = 0; i < wtab02Dto.length; i++) {
+                if(wtab02Dto[i]["fixflag"] == "1"){
+                    bfixflag = true;
+                }else{
+                    bfixflag = false;
+                }
                 wtab02_data.push({
                     id: i, 
                     index: cnt,
@@ -980,7 +993,8 @@
                     samt: wtab02Dto[i]["samt"],  
                     cltcd: wtab02Dto[i]["cltcd"],  
                     inname: wtab02Dto[i]["inname"],       
-                    misgubun: wtab02Dto[i]["misgubun"],                          
+                    misgubun: wtab02Dto[i]["misgubun"],        
+                    fixflag: bfixflag,                                           
                 });
                 cnt++;
             }   
@@ -1009,7 +1023,7 @@
             cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
                 text: '<b>${item.seq}</b>',
                 click: (e, ctx) => {
-                    wdelfun_a(ctx.item.misdate, ctx.item.misnum, ctx.item.seq, ctx.item.cltcd, ctx.item.misgubun);                    
+                    wdelfun_a(ctx.item.misdate, ctx.item.misnum, ctx.item.seq, ctx.item.cltcd, ctx.item.misgubun, ctx.item.fixflag);                    
                     
                 }
             });
@@ -1073,7 +1087,14 @@
             cols.header = '금액';
             cols.align = "center";
             cols.width = 150;  
-            wtab02Grid.columns.push(cols);  
+            wtab02Grid.columns.push(cols);    
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'fixflag'; 
+            cols.header = '확정';
+            cols.align = "center";
+            cols.width = 100;  
+            cols.cssClass = 'switch'
+            wtab02Grid.columns.push(cols);   
  
         }
             
@@ -1081,7 +1102,13 @@
             var wtab04Dto  = data;    
             var wtab04_data = [];
             var cnt = 1;
+            var bfixflag = false
             for (var i = 0; i < wtab04Dto.length; i++) {
+                if(wtab04Dto[i]["fixflag"] == "1"){
+                    bfixflag = true;
+                }else{
+                    bfixflag = false;
+                }
                 wtab04_data.push({
                     id: i, 
                     index: cnt,
@@ -1099,7 +1126,8 @@
                     samt: wtab04Dto[i]["samt"],  
                     cltcd: wtab04Dto[i]["cltcd"],  
                     inname: wtab04Dto[i]["inname"],     
-                    misgubun: wtab04Dto[i]["misgubun"],                            
+                    misgubun: wtab04Dto[i]["misgubun"],        
+                    fixflag: bfixflag,                                            
                 });
                 cnt++;
             }   
@@ -1128,7 +1156,7 @@
             cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
                 text: '<b>${item.seq}</b>',
                 click: (e, ctx) => {
-                    wdelfunwish_a(ctx.item.misdate, ctx.item.misnum, ctx.item.seq, ctx.item.cltcd, ctx.item.misgubun);                    
+                    wdelfunwish_a(ctx.item.misdate, ctx.item.misnum, ctx.item.seq, ctx.item.cltcd, ctx.item.misgubun, ctx.item.fixflag);                    
                     
                 }
             });
@@ -1192,10 +1220,21 @@
             cols.header = '금액';
             cols.align = "center";
             cols.width = 150;  
-            wtab04Grid.columns.push(cols);  
+            wtab04Grid.columns.push(cols);   
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'fixflag'; 
+            cols.header = '주문';
+            cols.align = "center";
+            cols.width = 100;  
+            cols.cssClass = 'switch'
+            wtab04Grid.columns.push(cols);   
  
         }
-        function wdelfun_a(arg1, arg2, arg3, arg4, arg5){ 
+        function wdelfun_a(arg1, arg2, arg3, arg4, arg5, arg6){ 
+            if(arg6){
+                alert("확정된 주문입니다. 삭제할 수 없습니다.")
+                return 
+            }
             if (!confirm("주문일자 : " + arg1 + "-" +  arg2 + "(" + arg3 + ")   삭제하시겠습니까?")) {
                 return ; 
             }       
@@ -1223,15 +1262,15 @@
 
         }
         
-        function wdelfunwish_a(arg1, arg2, arg3, arg4, arg5){ 
+        function wdelfunwish_a(arg1, arg2, arg3, arg4, arg5, arg6){ 
+            
+            if(arg6){
+                alert("주문된 예약내역입니다. 삭제할 수 없습니다.")
+                return 
+            }
             if (!confirm("예약일자 : " + arg1 + "-" +  arg2 + "(" + arg3 + ")   삭제하시겠습니까?")) {
                 return ; 
-            }   
-            console.log(arg1);        
-            console.log(arg2);        
-            console.log(arg3);        
-            console.log(arg4);        
-            console.log(arg5);    
+            }      
             $.ajax({
                         url: '/app01m/index14/delwish',  
                     type:"POST",
@@ -1436,7 +1475,7 @@
         }        
 
         function tabA_grid(data){
-        // console.log(data);
+        //  console.log(data);  76ea
             var wtab01Dto  = data;    
             var wtab01_data = [];   
             var wtab01_temp = [];
@@ -1457,14 +1496,15 @@
             wtab01Grid.collectionView.clearChanges(); 
             wtab01Grid.hostElement.addEventListener("click",function(e){
                 // console.log(e);
-                isTimestamp = e.timeStamp;
+                isTimestamp = e.timeStamp; 
             var ht = wtab01Grid.hitTest(e);
                     if(ht.cellType === wijmo.grid.CellType.Cell){
                         if(wtab01Grid.rows[ht.row].isSelected === true){
                            console.log("kk");
                         } else {
                             let ls_color = ht._target.innerText;
-                            let ls_jbonsa = wtab01Grid.getCellData(ht.row,0);
+                            // let ls_jbonsa = wtab01Grid.getCellData(ht.row,0);
+                            let ls_jbonsa2 = wtab01Grid.getCellData(ht.row,0);
                             let ls_jmodel = wtab01Grid.getCellData(ht.row,1); 
             
                             if(ls_color == null || ls_color.length == 0 || ls_color == ""){  
@@ -1474,8 +1514,8 @@
                                 return ;
                            }
                         //    console.log(ls_color);
-                           wOrderChk_a( ls_jbonsa, ls_jmodel, ls_color);
-                            isPreTimestamp = isTimestamp; //이벤트중복발생 차단용                    
+                           wOrderChk_a(   ls_jbonsa2, ls_jmodel, ls_color);
+                            isPreTimestamp = isTimestamp; //이벤트중복발생 차단용     
                         }
                     }  
                 }
@@ -1486,6 +1526,7 @@
                     id: i, 
                     index: cnt, 
                     jbonsa_code : "",
+                    jbonsa_code2 : "",
                     jmodel_code : "",
                     A: "",  
                     B: "",  
@@ -1521,8 +1562,8 @@
             wtab01Grid.autoGenerateColumns = false; 
             wtab01Grid.itemsSource= wtab01_temp;
             var cols = new wijmo.grid.Column(); 
-            cols.binding = 'jbonsa_code';  cols.header = '주문코드';cols.align = "center"; cols.allowMerging =  true;  cols.width = 120;   
-            wtab01Grid.columns.push(cols);
+            cols.binding = 'jbonsa_code2';  cols.header = '주문코드';cols.align = "center"; cols.allowMerging =  true;  cols.width = 120;   
+            wtab01Grid.columns.push(cols); 
             cols = new wijmo.grid.Column();    
             cols.binding = 'jmodel_code';  cols.header = '모델라인';cols.align = "center"; cols.allowMerging =  true;  cols.width = 100;   
             wtab01Grid.columns.push(cols);  
@@ -1636,9 +1677,10 @@
                 for (let row = 0; row < wtab01Dto.length; row++) {
                      let  ls_jpbgubn    = wtab01Dto[row]["jpb_gubn"]; 
                      let  ls_jbonsacode = wtab01Dto[row]["jbonsa_code"]; 
+                     let  ls_jbonsacode2 = wtab01Dto[row]["jbonsa_code2"]; 
                      let  ls_jmodelcode = wtab01Dto[row]["jmodel_code"];  
-                      
-                    wtab01Grid.setCellData(ll_row, 0, ls_jbonsacode);
+                       
+                    wtab01Grid.setCellData(ll_row, 0, ls_jbonsacode2);
                     wtab01Grid.setCellData(ll_row, 1, ls_jmodelcode);
                     $.ajax({
                             url: '/app01m/index03/ganlist02',  
@@ -1646,12 +1688,14 @@
                             data: { 
                                 "jpbgubn" :ls_jpbgubn, 
                                 "jbonsacode" :ls_jbonsacode, 
+                                "jbonsacode2" :ls_jbonsacode2,
                                 "jmodelcode" :ls_jmodelcode, 
                                 "flag" :"A" 
                             }, 
                             async:false,
                             success:function(data){   
                                         var wtab01Dto_S  = data; 
+                                        // console.log(wtab01Dto_S);
                                         var ll_col = 2;    
                                         for (var p = 0; p < wtab01Dto_S.length; p++) {
                                             let  ls_jcolorcode   = wtab01Dto_S[p]["jcolor_code"]; 
@@ -1662,22 +1706,22 @@
                                             }else{
                                                 wtab01Grid.setCellData(ll_row, ll_col,  ls_jcolorcode  ) ; 
                                             }
-                                            wtab01Grid.formatItem.addHandler((s, e) => {
-                                                // var val = s.getCellData(e.row, e.col); 
-                                                if (e.panel === s.cells) { 
-                                                    let color = "";
-                                                    if (   e.col > 1 ){  //e.col == ll_col && e.row == ll_row &&               
-                                                        if (Number(ls_jqty) > 0) {
-                                                            color = "#e0e0e0";
-                                                        } else {
-                                                            color = "#e0e0e0"; 
-                                                        }   
-                                                    } 
-                                                    console.log("color =>" + color)  ; 
-                                                    e.cell.style.backgroundColor = color;     
-                                                }
-                                            });
-
+                                            // wtab01Grid.formatItem.addHandler((s, e) => {
+                                            //     // var val = s.getCellData(e.row, e.col); 
+                                            //     if (e.panel === s.cells) { 
+                                            //         let color = "";
+                                            //         if (   e.col > 1 ){  //e.col == ll_col && e.row == ll_row &&               
+                                            //             if (Number(ls_jqty) > 0) {
+                                            //                 color = "#e0e0e0";
+                                            //             } else {
+                                            //                 color = "#e0e0e0"; 
+                                            //             }   
+                                            //         } 
+                                            //         console.log("color =>" + color)  ; 
+                                            //         e.cell.style.backgroundColor = color;     
+                                            //     }
+                                            // });
+                                            // console.log(ll_col);
                                             ll_col++;
                                         }
   
@@ -1692,11 +1736,12 @@
 
                 }
             }); 
+            return 
 
         }
         
         function getColors() {
-        return 'Red,Green,Blue,White,Black,Yellow,Orange'.split(',');
+          return 'Red,Green,Blue,White,Black,Yellow,Orange'.split(',');
         }
        /*
        //  품목 grid data 수집

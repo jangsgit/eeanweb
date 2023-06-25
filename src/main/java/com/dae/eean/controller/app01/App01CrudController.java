@@ -535,6 +535,7 @@ public class App01CrudController {
     @GetMapping(value="/index03/ganlist02")
     public Object App03GanList02_index(@RequestParam("jpbgubn") String jpbgubn,
                                        @RequestParam("jbonsacode") String jbonsacode,
+                                       @RequestParam("jbonsacode2") String jbonsacode2,
                                        @RequestParam("jmodelcode") String jmodelcode,
                                        @RequestParam("flag") String flag,
                                        Model model, HttpServletRequest request) throws Exception{
@@ -551,6 +552,7 @@ public class App01CrudController {
             }
             index03Dto.setJpb_gubn(jpbgubn);
             index03Dto.setJbonsa_code(jbonsacode);
+            index03Dto.setJbonsa_code2(jbonsacode2);
             index03Dto.setJmodel_code(jmodelcode);
             index03Dto.setFrdate("20000101");
             index03Dto.setTodate(getToDate());
@@ -757,6 +759,7 @@ public class App01CrudController {
             @RequestParam("ipdate") String frdate
             ,@RequestParam("acode") String acode
             ,@RequestParam("jbonsa") String jbonsa
+            ,@RequestParam("jbonsa2") String jbonsa2
             ,@RequestParam("jmodel") String jmodel
             ,@RequestParam("jcolor") String jcolor
             ,@RequestParam("mflag") String mflag
@@ -779,6 +782,7 @@ public class App01CrudController {
             index03Dto.setJmodel_code(jmodel);
             index03Dto.setJcolor_code(jcolor);
             index03Dto.setJbonsa_code(jbonsa);
+            index03Dto.setJbonsa_code2(jbonsa2);
             index03Dto.setJpb_gubn(jpbgubn);
             index02Dto.setAcode(acode);
             index02Dto = service02.GetCifListAcode(index02Dto);  //거래처정보
@@ -847,12 +851,11 @@ public class App01CrudController {
             indexDa024Dto.setSeq(ls_seq);
             indexDa024Dto.setMisdate(frdate);
             indexDa024Dto.setMisnum(ls_misnum);
-            log.info("ls_misnum=============>");
-            log.info(ls_misnum);
             indexDa024Dto.setPcode(index03Dto.getJkey());
             indexDa024Dto.setPname(index03Dto.getJpum());
             indexDa024Dto.setPsize(index03Dto.getJgugek());
             indexDa024Dto.setPbonsa(jbonsa);
+            indexDa024Dto.setPbonsa2(index03Dto.getJbonsa_code2());
             indexDa024Dto.setPmodel(jmodel);
             indexDa024Dto.setPcolor(jcolor);
             indexDa024Dto.setQty(1);
@@ -889,6 +892,7 @@ public class App01CrudController {
             @RequestParam("ipdate") String frdate
             ,@RequestParam("acode") String acode
             ,@RequestParam("jbonsa") String jbonsa
+            ,@RequestParam("jbonsa2") String jbonsa2
             ,@RequestParam("jmodel") String jmodel
             ,@RequestParam("jcolor") String jcolor
             ,@RequestParam("mflag") String mflag
@@ -911,6 +915,7 @@ public class App01CrudController {
             index03Dto.setJmodel_code(jmodel);
             index03Dto.setJcolor_code(jcolor);
             index03Dto.setJbonsa_code(jbonsa);
+            index03Dto.setJbonsa_code2(jbonsa2);
             index03Dto.setJpb_gubn(jpbgubn);
             index02Dto.setAcode(acode);
             index02Dto = service02.GetCifListAcode(index02Dto);  //거래처정보
@@ -985,6 +990,7 @@ public class App01CrudController {
             indexDa024Dto.setPname(index03Dto.getJpum());
             indexDa024Dto.setPsize(index03Dto.getJgugek());
             indexDa024Dto.setPbonsa(jbonsa);
+            indexDa024Dto.setPbonsa2(index03Dto.getJbonsa_code2());
             indexDa024Dto.setPmodel(jmodel);
             indexDa024Dto.setPcolor(jcolor);
             indexDa024Dto.setQty(1);
@@ -1473,28 +1479,136 @@ public class App01CrudController {
         return indexDa024ListDto;
     }
 
-
-
-
     @RequestMapping(value="/index16/save")
     public String index16Save(@RequestParam(value = "misdatearr[]") List<String> misdatearr
             ,@RequestParam( value =  "misnumarr[]") List<String> misnumarr
             ,@RequestParam( value =  "seqarr[]") List<String> seqarr
+            ,@RequestParam( value =  "cltcdarr[]") List<String> cltcdarr
+            ,@RequestParam( value =  "gubunarr[]") List<String> gubunarr
+            ,@RequestParam( value =  "fixflagarr[]") List<String> fixflagarr
             ,@RequestParam("mflag") String mflag
             , Model model
             , HttpServletRequest request){
 
         try {
+            boolean result = false;
+            if( misdatearr.size() > 0){
+                for(int i = 0; i < misdatearr.size(); i++){
+                    String year = misdatearr.get(i).substring(0,4);
+                    String month = misdatearr.get(i).substring(5,7);
+                    String day = misdatearr.get(i).substring(8,10);
+                    String ls_misdate = year + month + day ;
+                    indexDa024Dto.setMisdate(ls_misdate);
+                    indexDa024Dto.setMisnum(misnumarr.get(i));
+                    indexDa024Dto.setSeq(seqarr.get(i));
+                    indexDa024Dto.setCltcd(cltcdarr.get(i));
+                    indexDa024Dto.setMisgubun(gubunarr.get(i));
+                    if(fixflagarr.get(i).equals("0")){
+                        indexDa024Dto.setFixflag("1");
+                    }else{
+                        indexDa024Dto.setFixflag("0");
+                    }
+                    result = service14.UpdateDA024(indexDa024Dto);
+                    if (!result){
+                        return "error";
+                    }
+                }
 
-
+            }
 
         }catch (IllegalStateException e){
-            model.addAttribute("index14Save errorMessage", e.getMessage());
+            model.addAttribute("index16Save errorMessage", e.getMessage());
             return "error";
         }
         return "success";
     }
 
+    @RequestMapping(value="/index16/savewish")
+    public String index16SaveWish(@RequestParam(value = "misdatearr[]") List<String> misdatearr
+            ,@RequestParam( value =  "misnumarr[]") List<String> misnumarr
+            ,@RequestParam( value =  "seqarr[]") List<String> seqarr
+            ,@RequestParam( value =  "cltcdarr[]") List<String> cltcdarr
+            ,@RequestParam( value =  "gubunarr[]") List<String> gubunarr
+            ,@RequestParam( value =  "fixflagarr[]") List<String> fixflagarr
+            ,@RequestParam("ipdate") String ipdate
+            ,@RequestParam("mflag") String mflag
+            , Model model
+            , HttpServletRequest request){
+
+        try {
+            boolean result = false;
+            if( misdatearr.size() > 0){
+                for(int i = 0; i < misdatearr.size(); i++){
+                    String year = misdatearr.get(i).substring(0,4);
+                    String month = misdatearr.get(i).substring(5,7);
+                    String day = misdatearr.get(i).substring(8,10);
+                    String ls_misdate = year + month + day ;
+
+//                    year = omisdatearr.get(i).substring(0,4);
+//                    month = omisdatearr.get(i).substring(5,7);
+//                    day = omisdatearr.get(i).substring(8,10);
+//                    String ls_omisdate = year + month + day ;
+
+                    year = ipdate.substring(0,4);
+                    month = ipdate.substring(5,7);
+                    day = ipdate.substring(8,10);
+                    String ls_ipdate  = year + month + day ;
+
+                    indexDa024Dto.setMisdate(ls_misdate);
+                    indexDa024Dto.setMisnum(misnumarr.get(i));
+                    indexDa024Dto.setSeq(seqarr.get(i));
+                    indexDa024Dto.setCltcd(cltcdarr.get(i));
+                    indexDa024Dto.setMisgubun(gubunarr.get(i));
+//                    indexDa024Dto.setOmisdate(ls_omisdate);
+                    indexDa024Dto.setOmisnum(misnumarr.get(i));
+                    indexDa024Dto.setOseq(seqarr.get(i));
+                    if(fixflagarr.get(i).equals("0")){
+                        indexDa024Dto.setFixflag("1");
+                        indexDa024Dto.setOmisdate(ls_ipdate);
+
+                        if(i == 0){
+                            String ls_omisnum = "";
+                            String ls_chknull = service14.SelectCheckMisnum(indexDa023Dto);
+                            if(ls_chknull == null){
+                                ls_chknull = "";
+                            }
+                            if(ls_chknull.length() == 0){
+                                ls_omisnum = "0001";
+                            }else{
+                                ls_omisnum = GetMaxNum(ls_ipdate);
+                            }
+                            indexDa024Dto.setOmisnum(ls_omisnum);
+                            result = service14.InsertDa023Order(indexDa024Dto);
+                            if (!result){
+                                return "error";
+                            }
+                        }
+                        result = service14.InsertDa024Order(indexDa024Dto);
+                        if (!result){
+                            return "error";
+                        }
+
+
+                    }else{
+                        indexDa024Dto.setFixflag("0");
+                        indexDa024Dto.setOmisdate("");
+                        indexDa024Dto.setOmisnum("");
+                        indexDa024Dto.setOseq("");
+                    }
+                    result = service14.UpdateDA026(indexDa024Dto);
+                    if (!result){
+                        return "error";
+                    }
+                }
+
+            }
+
+        }catch (IllegalStateException e){
+            model.addAttribute("index16Save errorMessage", e.getMessage());
+            return "error";
+        }
+        return "success";
+    }
 
     public String GetMaxNum(String agDate){
 

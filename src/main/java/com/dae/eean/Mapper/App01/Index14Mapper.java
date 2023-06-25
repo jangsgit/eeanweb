@@ -22,6 +22,10 @@ public interface Index14Mapper {
     public Boolean InsertDa026(IndexDa024Dto parm) ;
     public Boolean InsertIa011(IndexIa011Dto parm) ;
     public Boolean InsertIa012(IndexIa012Dto parm) ;
+    public Boolean InsertDa023Order(IndexDa024Dto parm) ;
+    public Boolean InsertDa024Order(IndexDa024Dto parm) ;
+
+
 
     public Boolean DeleteDA023(IndexDa024Dto parm) ;
 
@@ -29,6 +33,11 @@ public interface Index14Mapper {
     public Boolean DeleteDA025(IndexDa024Dto parm) ;
 
     public Boolean DeleteDA026(IndexDa024Dto parm) ;
+
+
+    public Boolean UpdateDA024(IndexDa024Dto parm) ;
+    public Boolean UpdateDA026(IndexDa024Dto parm) ;
+
     public List<IndexDa024Dto> SelectDa024List(IndexDa024Dto parm) ;
     public List<IndexDa024Dto> SelectDa026List(IndexDa024Dto parm) ;
 
