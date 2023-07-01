@@ -1554,21 +1554,34 @@ public class App01CrudController {
                     day = ipdate.substring(8,10);
                     String ls_ipdate  = year + month + day ;
 
-                    indexDa024Dto.setMisdate(ls_misdate);
-                    indexDa024Dto.setMisnum(misnumarr.get(i));
+                    log.info("ls_misdate =====>" + ls_misdate);
+                    indexDa024Dto.setMisdate(ls_misdate);       //예약 tb_da025 misdate
+                    indexDa024Dto.setMisnum(misnumarr.get(i));  //예약 tb_da025 misnum
                     indexDa024Dto.setSeq(seqarr.get(i));
                     indexDa024Dto.setCltcd(cltcdarr.get(i));
                     indexDa024Dto.setMisgubun(gubunarr.get(i));
 //                    indexDa024Dto.setOmisdate(ls_omisdate);
                     indexDa024Dto.setOmisnum(misnumarr.get(i));
                     indexDa024Dto.setOseq(seqarr.get(i));
+
+                    indexDa023Dto.setMisdate(ls_misdate);
+                    indexDa023Dto.setCltcd(cltcdarr.get(i));
+                    indexDa023Dto.setMisgubun(gubunarr.get(i));
+
+                    String ls_omisnum = "";
+                    String ls_chknull = service14.SelectCheckMisnumOrd(indexDa023Dto);
+                    log.info("getCltcd =====>" + indexDa024Dto.getCltcd());
+                    log.info("getMisgubun =====>" + indexDa024Dto.getMisgubun());
+                    log.info("getMisdate =====>" + indexDa024Dto.getMisdate());
+                    log.info("getMisnum =====>" + indexDa024Dto.getMisnum());
+                    log.info("getSeq =====>" + indexDa024Dto.getSeq());
                     if(fixflagarr.get(i).equals("0")){
                         indexDa024Dto.setFixflag("1");
                         indexDa024Dto.setOmisdate(ls_ipdate);
-
-                        if(i == 0){
-                            String ls_omisnum = "";
-                            String ls_chknull = service14.SelectCheckMisnum(indexDa023Dto);
+                        if(indexDa023Dto.getMisdate() == null){
+                            return "error";
+                        }
+                        if(ls_chknull == null){
                             if(ls_chknull == null){
                                 ls_chknull = "";
                             }
@@ -1576,12 +1589,18 @@ public class App01CrudController {
                                 ls_omisnum = "0001";
                             }else{
                                 ls_omisnum = GetMaxNum(ls_ipdate);
+
+                                log.info("ls_ipdate =====>" + ls_ipdate);
+                                log.info("ls_omisnum =====>" + ls_omisnum);
                             }
+                            log.info("ls_omisnum 02=====>" + ls_omisnum);
                             indexDa024Dto.setOmisnum(ls_omisnum);
                             result = service14.InsertDa023Order(indexDa024Dto);
                             if (!result){
                                 return "error";
                             }
+                        }else{
+                            indexDa024Dto.setOmisnum(ls_chknull);
                         }
                         result = service14.InsertDa024Order(indexDa024Dto);
                         if (!result){
@@ -1590,6 +1609,15 @@ public class App01CrudController {
 
 
                     }else{
+
+                        result = service14.DeleteDA024Ord(indexDa024Dto);
+                        if (!result){
+                            return "error";
+                        }
+                        result = service14.DeleteDA023(indexDa024Dto);
+                        if (!result){
+                            return "error";
+                        }
                         indexDa024Dto.setFixflag("0");
                         indexDa024Dto.setOmisdate("");
                         indexDa024Dto.setOmisnum("");

@@ -10,6 +10,10 @@
         <![CDATA[  select top 1 misnum  from tb_da023 where misdate = #{misdate} and cltcd=#{cltcd} and misgubun = #{misgubun}  order by misdate, misnum     ]]>
     </select>
 
+    <select id="SelectCheckMisnumOrd" parameterType="com.dae.eean.DTO.App01.IndexDa023Dto" resultType="String">
+        <![CDATA[  select top 1 misnum  from tb_da023 where misdate = #{omisdate} and cltcd=#{cltcd} and misgubun = #{misgubun}  order by misdate, misnum     ]]>
+    </select>
+
     <select id="SelectCheckMisnumWish" parameterType="com.dae.eean.DTO.App01.IndexDa023Dto" resultType="String">
         <![CDATA[  select top 1 misnum  from tb_da025 where misdate = #{misdate} and cltcd=#{cltcd}  and misgubun = #{misgubun}    order by misdate, misnum     ]]>
     </select>
@@ -169,12 +173,19 @@
     <delete id="DeleteDA023" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
         delete from tb_da023
         where misdate = #{misdate} and misnum = #{misnum} and cltcd = #{cltcd} and misgubun = #{misgubun}
-          and misdate + misnum not in (select misdate + misnum from tb_da024 where misdate = #{misdate} and misnum=#{misnum} and misgubun = #{misgubun}  )
+          and misdate + misnum not in (select misdate + misnum from tb_da024 where misdate = #{misdate} and misnum=#{misnum} and misgubun = #{misgubun} and cltcd = #{cltcd} )
     </delete>
 
     <delete id="DeleteDA024" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
         delete from tb_da024
         where misdate = #{misdate} and misnum = #{misnum} and seq = #{seq} and cltcd = #{cltcd} and misgubun = #{misgubun} and isnull(fixflag,'0') = '0'
+    </delete>
+
+
+    <delete id="DeleteDA024Ord" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
+        delete from tb_da024
+        where  cltcd = #{cltcd} and misgubun = #{misgubun}
+          and  misdate + misnum + seq in (select omisdate + omisnum + oseq from tb_da026 where misdate = #{misdate} and misnum = #{misnum} and seq = #{seq} and cltcd = #{cltcd} and misgubun = #{misgubun} and isnull(fixflag,'0') = '1')
     </delete>
 
 

@@ -23,6 +23,10 @@ public class Index14Service {
     public String SelectCheckMisnum(IndexDa023Dto parm){
         return  appMapper.SelectCheckMisnum(parm);
     }
+    public String SelectCheckMisnumOrd(IndexDa023Dto parm){
+        return  appMapper.SelectCheckMisnumOrd(parm);
+    }
+
     public String SelectCheckMisnumWish(IndexDa023Dto parm){
         return  appMapper.SelectCheckMisnumWish(parm);
     }
@@ -49,6 +53,9 @@ public class Index14Service {
     public Boolean InsertIa012(IndexIa012Dto parm){ return  appMapper.InsertIa012(parm);}
     public Boolean DeleteDA023(IndexDa024Dto parm){ return  appMapper.DeleteDA023(parm);}
     public Boolean DeleteDA024(IndexDa024Dto parm){ return  appMapper.DeleteDA024(parm);}
+    public Boolean DeleteDA024Ord(IndexDa024Dto parm){ return  appMapper.DeleteDA024Ord(parm);}
+
+
 
     public Boolean DeleteDA025(IndexDa024Dto parm){ return  appMapper.DeleteDA025(parm);}
     public Boolean DeleteDA026(IndexDa024Dto parm){ return  appMapper.DeleteDA026(parm);}

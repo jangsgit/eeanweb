@@ -11,6 +11,8 @@ import java.util.List;
 public interface Index14Mapper {
     public String SelectMaxMisnum(IndexDa023Dto parm) ;
     public String SelectCheckMisnum(IndexDa023Dto parm) ;
+    public String SelectCheckMisnumOrd(IndexDa023Dto parm) ;
+
     public String SelectMaxSeq(IndexDa023Dto parm) ;
     public String SelectMaxMisnumWish(IndexDa023Dto parm) ;
     public String SelectCheckMisnumWish(IndexDa023Dto parm) ;
@@ -31,6 +33,8 @@ public interface Index14Mapper {
 
     public Boolean DeleteDA024(IndexDa024Dto parm) ;
     public Boolean DeleteDA025(IndexDa024Dto parm) ;
+
+    public Boolean DeleteDA024Ord(IndexDa024Dto parm) ;
 
     public Boolean DeleteDA026(IndexDa024Dto parm) ;
 
