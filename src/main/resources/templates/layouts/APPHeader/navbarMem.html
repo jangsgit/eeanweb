@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"> 
+
+<body> 
+    <div th:fragment="navbar">
+        <div class="collapse navbar-collapse" id="navbarVerticalCollapse">
+            <div class="navbar-vertical-content scrollbar">
+                <ul class="navbar-nav flex-column mb-3" id="navbarVerticalNav"> 
+                    <li class="nav-item">
+                        <!-- label-->
+                        <div class="row navbar-vertical-label-wrapper mt-3 mb-2">
+                            <div class="col-auto navbar-vertical-label">DaeSanSystem
+                            </div>
+                            <div class="col ps-0">
+                                <hr class="mb-0 navbar-vertical-divider" />
+                            </div>
+                        </div> 
+                       <!-- parent pages-->
+                        <a class="nav-link dropdown-indicator" href="#stdcode" role="button"
+                            data-bs-toggle="collapse" aria-expanded="false" aria-controls="withdraw">
+                            <div class="d-flex align-items-center"><span class="nav-link-icon"><span
+                                        class="fas fa-envelope-open"></span></span><span
+                                    class="nav-link-text ps-1">EEAN 주문시스템</span>  
+                            </div>
+                        </a>                        
+                        <!-- th:if="${CommDto.MenuCode} == 'appcom01'" class="nav-link active"  -->
+                        <ul class="nav collapse false" id="stdcode">
+                            <li class="nav-item">
+                                <a class="nav-link" th:href="@{/app01/index140m}" aria-expanded="false" >
+                                    <div class="d-flex align-items-center"><span
+                                        class="nav-link-text ps-1">주문등록</span>  
+                                    </div>
+                                </a>
+                                <!-- more inner pages-->
+                            </li> 
+                            <li class="nav-item">
+                                <a class="nav-link" th:href="@{/appcom02/list?line=00&wflag=00020&fdate=20000101&tdate=20221231&cltcd=&pcode=&plan_no=''&wseq=''   }" aria-expanded="false" >
+                                    <div class="d-flex align-items-center"><span
+                                            class="nav-link-text ps-1">주문현황</span> 
+                                    </div>
+                                </a>
+                                <!-- more inner pages-->
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" th:href="@{/appcom03/list?line=00&wflag=00030&fdate=20000101&tdate=20221231&cltcd=&pcode=&plan_no=''&wseq=''   }" aria-expanded="false" >
+                                    <div class="d-flex align-items-center"><span
+                                            class="nav-link-text ps-1">환경설정</span>  
+                                    </div>
+                                </a>
+                                <!-- more inner pages-->
+                            </li> 
+                        </ul>    
+                    </li>  
+                </ul>
+                <!-- <div class="settings mb-3">
+                    <div class="card alert p-0 shadow-none" role="alert"> 
+                        <div class="card-body text-center"><img th:src="@{/assetsfalcon/img/icons/spot-illustrations/navbar-vertical.png}" alt="" width="80" />
+                            <p class="fs--2 mt-2">문의하고 싶으신가요? <br /><a href="#!">원격지원</a>을 통해 상담받으세요 </p>
+                            <div class="d-grid"><a class="btn btn-sm btn-purchase" href="https://939.co.kr/onit" target="_blank">원격지원</a></div>
+                        </div>
+                    </div>
+                </div>    -->
+            </div>
+        </div>
+    </div>
+</body>
+</html>

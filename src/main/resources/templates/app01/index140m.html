@@ -6,256 +6,231 @@
     <header>
 
     </header>
-    <div class="content flex">
-        <div class="header on">
-            <div class="left">
-                <div class="ham">
-                    <button type="button"><img th:src="@{/assets/images/ham.png}" alt=""></button>
-                </div>
-                <div class="nav_bg"></div>
-                <!-- ################################ -->
-                <!-- ## Left navigator include -->
-                <th:block th:include="layouts/APPHeader/appbusileft" />
-            </div>
-            <div class="right">           
-            </div>
-        </div>
-        <div class="con">
-            <!-- ## header top include -->
-            <th:block th:include="layouts/APPHeader/appheadTop" />
-            <!-- <div class="infor_bar type2"> 
-                <div class="left">
-                    주문등록
-                </div>
-                <ul class="right">
-                    <li>
-                        <button class="btn btn-secondary me-1 mb-1"  id="retrieveBtn" type="button"><i><img th:src="@{/assets/images/i_search.png}" alt=""></i>조회
-                        </button> 
-                    </li> 
-                </ul>
 
-            </div>  -->
-            <div class="section status"> 
-                <div class="sec_con" style="width: 100%;">
-                    <div class="box_wrap"> 
-                        <div class="table table_style2">
-                            <div class="card-body bg-light">
-                                <ul class="nav nav-tabs">
-                                    <li class="nav-item">
-                                      <a class="nav-link active" data-toggle="tab" href="#step01" onclick="tabchk_rtn('A')">주문등록</a>
-                                    </li>
-                                    <li class="nav-item">
-                                      <a class="nav-link" data-toggle="tab" href="#step02"  onclick="tabchk_rtn('B')">주문현황</a>
-                                    </li>
-                                    <li class="nav-item">
-                                      <a class="nav-link" data-toggle="tab" href="#step03"  onclick="tabchk_rtn('C')">예약현황</a>
-                                    </li>
-                                    <input type="hidden" id="tabvalue" value="A">
-                                  </ul>
-                                  <div class="tab-content">
-                                    <div class="tab-pane fade show active" id="step01">   
-                                        <div class="row gx-3" style="  margin: 10px 10px 10px;">   
-                                            <div class="col-2 col-sm-2">
-                                                <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">등록일자</span>
-                                                    <input type="text"  class="form-control datetimepicker" id="ipdate" autocomplete="off"  placeholder="Y-m-d"     >
-                                                </div>
-                                            </div> 
-                                            <div class="col-2 col-sm-2">
-                                                <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">거래처</span> 
-                                                    <input class="form-control form-control-sm" id="cifname" type="text"    autocomplete="off"  placeholder=""     >
-                                                    <input class="form-control form-control-sm" id="acorp1" type="hidden"  />
-                                                    <input class="form-control form-control-sm" id="acorp2" type="hidden"  />
-                                                    <input class="form-control form-control-sm" id="acorp3" type="hidden"  />
-                                                    <input class="form-control form-control-sm" id="acode" type="hidden"  /> 
-                                                    <input class="form-control form-control-sm" id="jpbgubn" type="hidden"  /> 
-                                                    <input class="form-control form-control-sm" id="abonsadam1" type="hidden"   /> 
-                                                    <input class="form-control form-control-sm" id="jbonsacd" type="hidden"  /> 
-                                                    
-                                                </div>
+    <div class="card-body d-flex align-items-center py-md-2 px-auto py-auto ">
+        <main class="main" id="top">
+            <div class="container-fluid"> 
+                <script>
+                    var isFluid = JSON.parse(localStorage.getItem('isFluid'));
+                    if (isFluid) {
+                        var container = document.querySelector('[data-layout]'); 
+                        container.classList.remove('container');
+                        container.classList.add('container-fluid');
+                    }
+                </script>
+                <nav class="navbar navbar-light navbar-vertical navbar-expand-xl">
+                    <script>
+                        var navbarStyle = localStorage.getItem("navbarStyle");
+                        if (navbarStyle && navbarStyle !== 'transparent') {
+                            document.querySelector('.navbar-vertical').classList.add(`navbar-${navbarStyle}`);
+                        }
+                    </script> 
+                    <!------navbar vertical------>
+                    <div th:replace="layouts/APPHeader/navbarMem :: navbar"></div>
+                </nav>                
+                <div class="content" id="fw010">
+                    <div th:replace="layouts/APPHeader/headerNav :: headerNav"></div>
+                    <body layout:fragment="fw010">
+                        <div class="card-body bg-light">
+                            <ul class="nav nav-tabs">
+                                <li class="nav-item">
+                                  <a class="nav-link active" data-toggle="tab" href="#step01" onclick="tabchk_rtn('A')">주문등록</a>
+                                </li>
+                                <li class="nav-item">
+                                  <a class="nav-link" data-toggle="tab" href="#step02"  onclick="tabchk_rtn('B')">주문현황</a>
+                                </li>
+                                <li class="nav-item">
+                                  <a class="nav-link" data-toggle="tab" href="#step03"  onclick="tabchk_rtn('C')">예약현황</a>
+                                </li>
+                                <input type="hidden" id="tabvalue" value="A">
+                            </ul>
+                            <div class="tab-content"  > 
+                                <div class="tab-pane fade show active" id="step01" >   
+                                    <div class="row gx-3" style="  margin: 10px 10px 10px;">   
+                                        <div class="col-2 col-sm-1">
+                                            <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm" >등록일자</span>
+                                                <input type="text"  class="form-control datetimepicker" id="ipdate" autocomplete="off"  placeholder="Y-m-d"     >
                                             </div>
-                                            <div class="col-2 col-sm-2">
-                                                <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">담당사원</span> 
-                                                    <input class="form-control form-control-sm"   type="text"    autocomplete="off"  placeholder=""   id="pernm" disabled  >
-                                                    
-                                                </div>
-                                            </div>
-                                            <div class="col-1 col-sm-1">  
-                                                <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="retrieveBtn" type="button" onclick="retrieve_rtn()">조회
-                                                </button>
-                                            </div> 
-                                            <!-- <div class="col-2 col-sm-1">  
-                                                <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" type="button" onclick="save_btn()">주문등록
-                                                </button>
-                                            </div>  -->
                                         </div> 
-                                        
-                                        <div class="table-responsive">
-                                            <table class="table table-borderless" style="height: 100px; cellpadding:0px" >
-                                              <tbody>
-                                                <tr style="padding-top:0; padding-bottom: 0px; padding-left: 0px; padding-right: 0px;"> 
-                                                  <td class="align-top" style="width: 15%;" style="padding-top:0; padding-bottom: 0px; padding-left: 0px; padding-right: 0px;"> 
-                                                    <div class="container-fluid">   
-                                                        <div id="wtab03Grid_div"  style="overflow:scroll;   height:600px;  width:200px; margin:0 auto; "></div> 
-                                                        <!-- <div style="display: flex; margin: 0 auto; " id="tab01Pager"  ></div> -->
-                                                    </div>  
-                                                  </td>
-                                                  <td class="align-top" style="padding-top:0; padding-bottom: 0px; padding-left: 0px; padding-right: 0px;">                                                         
-                                                    <div class="container-fluid"  style="overflow:scroll;    width:1300px;  margin:0 auto; " >                                                         
-                                                        <div id="wtab01Grid_div"  style="overflow:scroll;   height:600px;   margin:0 auto; "></div> 
-                                                     </div>  
-                                                  </td> 
-                                                </tr>
-                                              </tbody>
-                                            </table>
+                                        <div class="col-2 col-sm-1">
+                                            <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">거래처</span> 
+                                                <input class="form-control form-control-sm" id="cifname" type="text"    autocomplete="off"  placeholder=""     >
+                                                <input class="form-control form-control-sm" id="acorp1" type="hidden"  />
+                                                <input class="form-control form-control-sm" id="acorp2" type="hidden"  />
+                                                <input class="form-control form-control-sm" id="acorp3" type="hidden"  />
+                                                <input class="form-control form-control-sm" id="acode" type="hidden"  /> 
+                                                <input class="form-control form-control-sm" id="jpbgubn" type="hidden"  /> 
+                                                <input class="form-control form-control-sm" id="abonsadam1" type="hidden"   /> 
+                                                <input class="form-control form-control-sm" id="jbonsacd" type="hidden"  /> 
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-2 col-sm-1">
+                                            <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">담당사원</span> 
+                                                <input class="form-control form-control-sm"   type="text"    autocomplete="off"  placeholder=""   id="pernm" disabled  >
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-1 col-sm-1">  
+                                            <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="retrieveBtn" type="button" onclick="retrieve_rtn()">조회
+                                            </button>
                                         </div> 
-                                        <!-- <div class="container-fluid" >   
-                                            <div id="wtab01Grid_div" style="overflow:scroll;   height:600px; "></div>
-                                            <div id="tab01Pager"></div>
-                                        </div>  -->
-                                        <!-- <form class="row g-3">
-                                            <div class="col-md-6">                                                
-                                                <div class="container-fluid" >   
-                                                    <div id="wtab01Grid_div" style="overflow:scroll;   height:600px; "></div>                                                    
-                                                </div>   
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="container-fluid">   
-                                                    <div id="wtab03Grid_div" ></div> 
-                                                </div>   
-                                            </div>
-                                        </form> -->
-                                    </div>
-                                    <div class="tab-pane fade" id="step02"> 
-                                        <div class="row gx-3" style="  margin: 10px 10px 10px;">   
-                                            <div class="col-2 col-sm-2">
-                                                <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">주문일자</span>
-                                                    <input type="text"  class="form-control datetimepicker" id="frdate" autocomplete="off"  placeholder="Y-m-d"     >
-                                                </div> 
-                                            </div>   
-                                            <div class="col-2 col-sm-2"> 
-                                                <div class="input-group input-group-sm mb-3"> 
-                                                    <input type="text"  class="form-control datetimepicker" id="todate" autocomplete="off"  placeholder="Y-m-d"     >
-                                                </div>
-                                            </div> 
-                                            <div class="col-2 col-sm-2">
-                                                <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">거래처</span> 
-                                                    <input class="form-control form-control-sm" id="bcifname" type="text"    autocomplete="off"  placeholder=""     >
-                                                    <input class="form-control form-control-sm" id="bacorp1" type="hidden"  />
-                                                    <input class="form-control form-control-sm" id="bacorp2" type="hidden"  />
-                                                    <input class="form-control form-control-sm" id="bacorp3" type="hidden"  />
-                                                    <input class="form-control form-control-sm" id="bacode" type="hidden"  /> 
-                                                    <input class="form-control form-control-sm" id="bjpbgubn" type="hidden"  /> 
-                                                    
-                                                </div>
-                                            </div>
-                                            <div class="col-1 col-sm-1">  
-                                                <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="listBtn" type="button"  >조회
-                                                </button>
-                                            </div> 
-                                            <!-- <div class="col-2 col-sm-1">  
-                                                <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" type="button" onclick="delete_btn()">삭제
-                                                </button>
-                                            </div>  -->
-                                        </div> 
-                                        <div class="container-fluid">
-                                            <div id="wtab02Grid_div"  style="overflow:scroll;   height:600px;    margin:0 auto; "></div>  
-                                            <!-- <div id="tab02Pager"></div> -->
-                                          </div>
-                                    </div>
+                                    </div> <!----  <div class="row gx-3" style="  margin: 10px 10px 10px;">   -->
                                     
-                                    <div class="tab-pane fade" id="step03"> 
-                                        <div class="row gx-3" style="  margin: 10px 10px 10px;">   
-                                            <div class="col-2 col-sm-2">
-                                                <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">예약일자</span>
-                                                    <input type="text"  class="form-control datetimepicker" id="frdate02" autocomplete="off"  placeholder="Y-m-d"     >
-                                                </div> 
-                                            </div>   
-                                            <div class="col-2 col-sm-2"> 
-                                                <div class="input-group input-group-sm mb-3"> 
-                                                    <input type="text"  class="form-control datetimepicker" id="todate02" autocomplete="off"  placeholder="Y-m-d"     >
-                                                </div>
+                                    <div class="table-responsive">
+                                        <table class="table table-borderless"  style="overflow:scroll;  margin:0 auto; cellpadding:0px"  >
+                                          <tbody>
+                                            <tr  style="padding-top:0; padding-bottom: 0px; padding-left: 0px; padding-right: 0px;" > 
+                                              <td class="align-top" style="padding-top:0; padding-bottom: 0px; padding-left: 0px; padding-right: 0px;" > 
+                                                <div class="container-fluid">   
+                                                    <div id="wtab03Grid_div"  style="overflow:scroll;  margin:0 auto; "></div> 
+                                                    <!-- <div style="display: flex; margin: 0 auto; " id="tab01Pager"  ></div> -->
+                                                </div>  
+                                              </td>
+                                              <td class="align-top" style="padding-top:0; padding-bottom: 0px; padding-left: 0px; padding-right: 0px;">                                                         
+                                                <div class="container-fluid"  style="overflow:scroll;       margin:0 auto; " >                                                         
+                                                    <div id="wtab01Grid_div"  style="overflow:scroll;       margin:0 auto; "></div> 
+                                                 </div>  
+                                              </td> 
+                                            </tr>
+                                          </tbody>
+                                        </table>
+                                    </div>  <!---  <div class="table-responsive">  -->
+                                </div>  <!----   <div class="tab-pane fade show active" id="step01">   -->
+
+
+                                <div class="tab-pane fade" id="step02"> 
+                                    <div class="row gx-3" style="  margin: 10px 10px 10px;">   
+                                        <div class="col-2 col-sm-2">
+                                            <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">주문일자</span>
+                                                <input type="text"  class="form-control datetimepicker" id="frdate" autocomplete="off"  placeholder="Y-m-d"     >
                                             </div> 
-                                            <div class="col-2 col-sm-2">
-                                                <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">거래처</span> 
-                                                    <input class="form-control form-control-sm" id="dcifname" type="text"    autocomplete="off"  placeholder=""     >
-                                                    <input class="form-control form-control-sm" id="dacorp1" type="hidden"  />
-                                                    <input class="form-control form-control-sm" id="dacorp2" type="hidden"  />
-                                                    <input class="form-control form-control-sm" id="dacorp3" type="hidden"  />
-                                                    <input class="form-control form-control-sm" id="dacode" type="hidden"  /> 
-                                                    <input class="form-control form-control-sm" id="djpbgubn" type="hidden"  /> 
-                                                    
-                                                </div>
+                                        </div>   
+                                        <div class="col-2 col-sm-2"> 
+                                            <div class="input-group input-group-sm mb-3"> 
+                                                <input type="text"  class="form-control datetimepicker" id="todate" autocomplete="off"  placeholder="Y-m-d"     >
                                             </div>
-                                            <div class="col-1 col-sm-1">  
-                                                <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="listBtn02" type="button"  >조회
-                                                </button>
-                                            </div> 
-                                            <!-- <div class="col-2 col-sm-1">  
-                                                <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" type="button" onclick="delete_btn()">삭제
-                                                </button>
-                                            </div>  -->
                                         </div> 
-                                        <div class="container-fluid">
-                                            <div id="wtab04Grid_div"  style="overflow:scroll;   height:600px;    margin:0 auto; "></div>  
-                                            <!-- <div id="tab02Pager"></div> -->
-                                          </div>
+                                        <div class="col-2 col-sm-2">
+                                            <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">거래처</span> 
+                                                <input class="form-control form-control-sm" id="bcifname" type="text"    autocomplete="off"  placeholder=""     >
+                                                <input class="form-control form-control-sm" id="bacorp1" type="hidden"  />
+                                                <input class="form-control form-control-sm" id="bacorp2" type="hidden"  />
+                                                <input class="form-control form-control-sm" id="bacorp3" type="hidden"  />
+                                                <input class="form-control form-control-sm" id="bacode" type="hidden"  /> 
+                                                <input class="form-control form-control-sm" id="bjpbgubn" type="hidden"  /> 
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-1 col-sm-1">  
+                                            <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="listBtn" type="button"  >조회
+                                            </button>
+                                        </div> 
+                                        <!-- <div class="col-2 col-sm-1">  
+                                            <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" type="button" onclick="delete_btn()">삭제
+                                            </button>
+                                        </div>  -->
                                     </div> 
-                                  </div>
-                            </div>
-                        </div>    
+                                    <div class="container-fluid">
+                                        <div id="wtab02Grid_div"  style="overflow:scroll;     margin:0 auto; "></div>  
+                                        <!-- <div id="tab02Pager"></div> -->
+                                        </div>
+                                </div>  <!--   <div class="tab-pane fade" id="step02">  -->
+
+
+                                <div class="tab-pane fade" id="step03"> 
+                                    <div class="row gx-3" style="  margin: 10px 10px 10px;">   
+                                        <div class="col-2 col-sm-2">
+                                            <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">예약일자</span>
+                                                <input type="text"  class="form-control datetimepicker" id="frdate02" autocomplete="off"  placeholder="Y-m-d"     >
+                                            </div> 
+                                        </div>   
+                                        <div class="col-2 col-sm-2"> 
+                                            <div class="input-group input-group-sm mb-3"> 
+                                                <input type="text"  class="form-control datetimepicker" id="todate02" autocomplete="off"  placeholder="Y-m-d"     >
+                                            </div>
+                                        </div> 
+                                        <div class="col-2 col-sm-2">
+                                            <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">거래처</span> 
+                                                <input class="form-control form-control-sm" id="dcifname" type="text"    autocomplete="off"  placeholder=""     >
+                                                <input class="form-control form-control-sm" id="dacorp1" type="hidden"  />
+                                                <input class="form-control form-control-sm" id="dacorp2" type="hidden"  />
+                                                <input class="form-control form-control-sm" id="dacorp3" type="hidden"  />
+                                                <input class="form-control form-control-sm" id="dacode" type="hidden"  /> 
+                                                <input class="form-control form-control-sm" id="djpbgubn" type="hidden"  /> 
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-1 col-sm-1">  
+                                            <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="listBtn02" type="button"  >조회
+                                            </button>
+                                        </div> 
+                                        <!-- <div class="col-2 col-sm-1">  
+                                            <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" type="button" onclick="delete_btn()">삭제
+                                            </button>
+                                        </div>  -->
+                                    </div> 
+                                    <div class="container-fluid">
+                                        <div id="wtab04Grid_div"  style="overflow:scroll;   height:600px;    margin:0 auto; "></div>  
+                                        <!-- <div id="tab02Pager"></div> -->
+                                        </div>
+                                </div>  <!--  <div class="tab-pane fade" id="step03">  -->
+
+                            </div> <!----- <div class="tab-content">    -->
+                        </div>                        
+                    </body>
                 </div>
             </div>
-        </div>
+        </main>
     </div>
 
 
     
-         <!--  모달 처리 -->
-         <input class="form-control form-control-sm"  type="hidden" id="innamebtn" data-bs-toggle="modal" data-bs-target="#cifmodal"  /> 
-         <!--------------------------------------------------------------------------------------->   
-         <div class="modal fade" id="cifmodal" data-bs-keyboard="false"
-         data-bs-backdrop="static" tabindex="-1" aria-labelledby="staticBackdropLabel"
-         aria-hidden="true">
-             <div class="modal-dialog modal-lg mt-6" role="document" id = "modalForm01"
-                 style="max-width: 600px">
-                 <div class="modal-content border-0">
-                     <div class="modal-body p-0" > 
-                         <div class="rounded-top-lg py-3 ps-4 pe-6 bg-light">                            
-                             <div class="search">
-                                 <div class="input_wrap">  
-                                     <input class="form-control form-control-sm" id="searchCode" type="text"   onkeyup="if(window.event.keyCode==13){CifSearchList_rtn('M')}"
-                                     placeholder="업체명 "     />                                      
-                                 </div>
- 
-                                 <button id="winnameBtn">
-                                     <img th:src="@{/assets/images/i_search.png}" alt=""> 
-                                 </button>
-                             </div>                             
-                         </div>   
-                         <div class="container-fluid"> 
-                             <div id="winnameGrid_div" ></div>
-                             <div id="thePager03"></div>
-                         </div>   
-                     </div>  
- 
-                     <div class="modal-footer">
-                         <div class="row g-1">
-                             <div class="col-auto">
-                                 <button class="badge-soft-primary dropdown-item rounded-1"
-                                     type="button"  id="winnamemodal_btn" data-bs-dismiss="modal">Close</button>
-                             </div> 
-                         </div>
-                     </div>   
- 
-                 </div>
-             </div> 
-         </div>  
+    <!--  모달 처리 -->
+    <input class="form-control form-control-sm"  type="hidden" id="innamebtn" data-bs-toggle="modal" data-bs-target="#cifmodal"  /> 
+    <!--------------------------------------------------------------------------------------->   
+    <div class="modal fade" id="cifmodal" data-bs-keyboard="false"
+    data-bs-backdrop="static" tabindex="-1" aria-labelledby="staticBackdropLabel"
+    aria-hidden="true">
+        <div class="modal-dialog modal-lg mt-6" role="document" id = "modalForm01"
+            style="max-width: 600px">
+            <div class="modal-content border-0">
+                <div class="modal-body p-0" > 
+                    <div class="rounded-top-lg py-3 ps-4 pe-6 bg-light">                            
+                        <div class="search">
+                            <div class="input_wrap">  
+                                <input class="form-control form-control-sm" id="searchCode" type="text"   onkeyup="if(window.event.keyCode==13){CifSearchList_rtn('M')}"
+                                placeholder="업체명 "     />                                      
+                            </div>
+
+                            <button id="winnameBtn">
+                                <img th:src="@{/assets/images/i_search.png}" alt=""> 
+                            </button>
+                        </div>                             
+                    </div>   
+                    <div class="container-fluid"> 
+                        <div id="winnameGrid_div" ></div>
+                        <div id="thePager03"></div>
+                    </div>   
+                </div>  
+
+                <div class="modal-footer">
+                    <div class="row g-1">
+                        <div class="col-auto">
+                            <button class="badge-soft-primary dropdown-item rounded-1"
+                                type="button"  id="winnamemodal_btn" data-bs-dismiss="modal">Close</button>
+                        </div> 
+                    </div>
+                </div>   
+
+            </div>
+        </div> 
+    </div>  
+           
+     
       
-
- 
-<!--------------------------------------------------------------------------------------->     
-
-
+     <!--------------------------------------------------------------------------------------->     
+     
 
 
 
@@ -2076,35 +2051,6 @@
     <!------footer ------>
     <footer th:replace="layouts/APPHeader/appfooter :: footerFragment"></footer> 
 
-    <!-- modal -->
-    <!-- class="modal_step_open" modal_step="1" -->
-    
-    <div class="modal modal modal_step modal_step1 hidden">
-        <div class="modal_overlay">
-        </div>
-        <div class="modal_content modal_sm scrollbar">
-            <div class="layoutCont">  
-                <div class="modalContWrap">
-                    <!-- <div class="modal_close cancerButton">
-                      <img th:src="@{/assets/images/modal_close.png}" alt="모달 닫기버튼">
-                    </div>                       -->
-                    <div class="modal_head">
-                    </div>
-                    <div class="modal_con scrollbar">
-                      모든 정보를 입력하세요.                          
-                    </div>
-
-                </div>
-                <div class="modal_btn">
-                    <button class="cancerButton " type="button">확인</button>
-                </div>
-                <!-- <div class="modal_btn flex">
-                    <button class="cancerButton " type="button">확인</button>
-                    <button class="cancerButton " type="button">확인</button>                        
-                </div> -->
-            </div>
-        </div>
-    </div>
     
 </body>
 </html>

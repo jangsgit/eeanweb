@@ -33,6 +33,7 @@ public interface Index14Mapper {
 
     public Boolean DeleteDA024(IndexDa024Dto parm) ;
     public Boolean DeleteDA025(IndexDa024Dto parm) ;
+    public Boolean DeleteDA023Ord(IndexDa024Dto parm) ;
 
     public Boolean DeleteDA024Ord(IndexDa024Dto parm) ;
 
@@ -44,6 +45,7 @@ public interface Index14Mapper {
 
     public List<IndexDa024Dto> SelectDa024List(IndexDa024Dto parm) ;
     public List<IndexDa024Dto> SelectDa026List(IndexDa024Dto parm) ;
+    public IndexDa024Dto SelectDa026Detail(IndexDa024Dto parm) ;
 
 
 }

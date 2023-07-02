@@ -170,10 +170,41 @@ public class AuthController {
 
             return "mainframcustom";
         }
-
-
     }
 
+    @GetMapping(value="/mobiledashboard")
+    public String memberMobileBoardForm( Model model
+            , HttpServletRequest request) {
 
+        HttpSession session = request.getSession();
+        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        String ls_flag = userformDto.getFlag();
+        userformDto.setPagetree01("관리자모드");
+        userformDto.setPagenm("Dashboard");
+        model.addAttribute("userFormDto", userformDto);
+
+        if (ls_flag.equals("AA")) {
+
+            Date nowData = new Date();
+            SimpleDateFormat endDate = new SimpleDateFormat("yyyyMMdd");
+            String indate = endDate.format(nowData).toString();
+
+            return "mainframe";
+        } else if (userformDto == null) {
+            model.addAttribute("msg", "로그인실패");
+            return "/";
+        } else if (ls_flag.equals("BB")) {
+            Date nowData = new Date();
+            SimpleDateFormat endDate = new SimpleDateFormat("yyyyMMdd");
+            String indate = endDate.format(nowData).toString();
+            return "mainframcustom";
+        } else if (ls_flag.equals("CC")) {
+            Date nowData = new Date();
+            SimpleDateFormat endDate = new SimpleDateFormat("yyyyMMdd");
+            String indate = endDate.format(nowData).toString();
+            return "app01/index140m";
+        }
+        return "app01/index140m";
+    }
 
 }

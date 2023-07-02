@@ -270,6 +270,29 @@ public class App01Controller {
     }
 
 
+    //주문등록
+    @GetMapping(value="/index140m")
+    public String App140m_index( Model model, HttpServletRequest request) throws Exception{
+        CommDto.setMenuTitle("주문등록");
+        CommDto.setMenuUrl("기준정보>주문등록");
+        CommDto.setMenuCode("index14");
+        HttpSession session = request.getSession();
+        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        model.addAttribute("userformDto",userformDto);
+
+        try {
+            index03List = service03.GetJBonsaCodeList(index03Dto);
+
+            model.addAttribute("index03List",index03List);
+        } catch (Exception ex) {
+//                dispatchException = ex;
+            log.info("App140m_index Exception ================================================================");
+            log.info("Exception =====>" + ex.toString());
+//            log.debug("Exception =====>" + ex.toString() );
+        }
+
+        return "App01/index140m";
+    }
 
     //주문등록
     @GetMapping(value="/index16")

@@ -49,6 +49,7 @@ public class App01CrudController {
     Index03Dto index03Dto = new Index03Dto();
     IndexDa023Dto indexDa023Dto = new IndexDa023Dto();
     IndexDa024Dto indexDa024Dto = new IndexDa024Dto();
+    IndexDa024Dto indexDa024OrdDto = new IndexDa024Dto();
     IndexIa011Dto indexia011Dto = new IndexIa011Dto();
     IndexIa012Dto indexia012Dto = new IndexIa012Dto();
 
@@ -1565,6 +1566,7 @@ public class App01CrudController {
                     indexDa024Dto.setOseq(seqarr.get(i));
 
                     indexDa023Dto.setMisdate(ls_misdate);
+                    indexDa023Dto.setMisnum(misnumarr.get(i));
                     indexDa023Dto.setCltcd(cltcdarr.get(i));
                     indexDa023Dto.setMisgubun(gubunarr.get(i));
 
@@ -1609,14 +1611,17 @@ public class App01CrudController {
 
 
                     }else{
-
-                        result = service14.DeleteDA024Ord(indexDa024Dto);
+                        indexDa024OrdDto.setOmisdate("");
+                        indexDa024OrdDto.setOmisnum("");
+                        indexDa024OrdDto.setOseq("");
+                        indexDa024OrdDto = service14.SelectDa026Detail(indexDa024Dto);
+                        result = service14.DeleteDA024Ord(indexDa024OrdDto);
                         if (!result){
-                            return "error";
+                            //return "error";
                         }
-                        result = service14.DeleteDA023(indexDa024Dto);
+                        result = service14.DeleteDA023Ord(indexDa024OrdDto);
                         if (!result){
-                            return "error";
+                            //return "error";
                         }
                         indexDa024Dto.setFixflag("0");
                         indexDa024Dto.setOmisdate("");

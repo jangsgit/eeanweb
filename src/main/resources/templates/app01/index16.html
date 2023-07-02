@@ -2,13 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head th:replace="layouts/APPHeader/apphead :: headFragment" />
 
-<script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<!-- <script src="//code.jquery.com/jquery-3.3.1.min.js"></script> -->
+<!-- <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script> -->
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> -->
 
 <head>
     <meta charset="UTF-8">
@@ -171,38 +171,6 @@
                                           </div>
                                     </div>
                                     
-                                    <!-- <div class="tab-pane fade" id="step03"> 
-                                        <div class="row gx-3" style="  margin: 10px 10px 10px;">   
-                                            <div class="col-2 col-sm-2">
-                                                <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">예약일자</span>
-                                                    <input type="text"  class="form-control datetimepicker" id="frdate02" autocomplete="off"  placeholder="Y-m-d"     >
-                                                </div> 
-                                            </div>   
-                                            <div class="col-2 col-sm-2"> 
-                                                <div class="input-group input-group-sm mb-3"> 
-                                                    <input type="text"  class="form-control datetimepicker" id="todate02" autocomplete="off"  placeholder="Y-m-d"     >
-                                                </div>
-                                            </div> 
-                                            <div class="col-2 col-sm-2">
-                                                <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">거래처</span> 
-                                                    <input class="form-control form-control-sm" id="dcifname" type="text"    autocomplete="off"  placeholder=""     >
-                                                    <input class="form-control form-control-sm" id="dacorp1" type="hidden"  />
-                                                    <input class="form-control form-control-sm" id="dacorp2" type="hidden"  />
-                                                    <input class="form-control form-control-sm" id="dacorp3" type="hidden"  />
-                                                    <input class="form-control form-control-sm" id="dacode" type="hidden"  /> 
-                                                    <input class="form-control form-control-sm" id="djpbgubn" type="hidden"  /> 
-                                                    
-                                                </div>
-                                            </div>
-                                            <div class="col-1 col-sm-1">  
-                                                <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="listBtn02" type="button"  >조회
-                                                </button>
-                                            </div>  
-                                        </div> 
-                                        <div class="container-fluid">
-                                            <div id="wtab04Grid_div"  style="overflow:scroll;   height:600px;    margin:0 auto; "></div>   
-                                          </div>
-                                    </div>  -->
                                   </div>
                             </div>
                         </div>    
@@ -560,11 +528,11 @@
             
             switch(ls_tab){
                 case 'A': 
-                    if (!confirm("주문확정 하시겠습니까?")) { 
+                    if (!confirm("주문확정/취소 하시겠습니까?")) { 
                         return false; 
                     }  
                     if(misdateArr.length == null || misdateArr.length == 0){ 
-                        alert("확정할 내역을 선택하세요") 
+                        alert("처리할 내역을 선택하세요") 
                         return ;               
                     }  
                     console.log(cltcdArr) ;
@@ -584,12 +552,12 @@
                         async:false,
                         success:function(data){   
                             if(data == "success"){
-                                alert("확정되었습니다.")
+                                alert("처리되었습니다.")
                                 searchList_rtn(ls_tab);   
                                 return true;
                                 // clear_rtn(ls_tab);        
                             }else{                       
-                                alert("확정중 오류가 발생했습니다. 관리자에게 문의하세요.")
+                                alert("처리중 오류가 발생했습니다. 관리자에게 문의하세요.")
                                 // listUp();
                                 console.log(data); 
                                 return false; 
@@ -605,11 +573,11 @@
                     break; 
 
                 case 'B': 
-                    if (!confirm("주문등록 하시겠습니까?")) { 
+                    if (!confirm("주문등록/취소작업을  하시겠습니까?")) { 
                         return false; 
                     }  
                     if(misdateWArr.length == null || misdateWArr.length == 0){ 
-                        alert("등록할 내역을 선택하세요") 
+                        alert("처리할 내역을 선택하세요") 
                         return ;               
                     }   
                     var ls_ipdate = document.getElementById('ipdate').value;   
@@ -630,12 +598,12 @@
                         async:false,
                         success:function(data){   
                             if(data == "success"){
-                                alert("주문되었습니다.") 
+                                alert("처리되었습니다.") 
                                 searchList_rtn(ls_tab);
                                 return true;  
                                 // clear_rtn(ls_tab);        
                             }else{                       
-                                alert("주문중 오류가 발생했습니다. 관리자에게 문의하세요.")
+                                alert("처리중 오류가 발생했습니다. 관리자에게 문의하세요.")
                                 // listUp();
                                 console.log(data); 
                                 return false; 
@@ -1130,12 +1098,7 @@
         function wdelfunwish_a(arg1, arg2, arg3, arg4, arg5){ 
             if (!confirm("예약일자 : " + arg1 + "-" +  arg2 + "(" + arg3 + ")   삭제하시겠습니까?")) {
                 return ; 
-            }   
-            console.log(arg1);        
-            console.log(arg2);        
-            console.log(arg3);        
-            console.log(arg4);        
-            console.log(arg5);    
+            }        
             $.ajax({
                         url: '/app01m/index14/delwish',  
                     type:"POST",
@@ -1271,11 +1234,7 @@
             }
             
         }   
- 
- 
-        function getColors() {
-        return 'Red,Green,Blue,White,Black,Yellow,Orange'.split(',');
-        } 
+  
 
 //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
    
@@ -1288,8 +1247,8 @@
         // }); 
 
         // $("#frdate").change(function(e){ 
-        //     // console.log("달력클릭");
-        //     // console.log(convert_time(e.timestamp));
+        //      console.log("달력클릭");
+        //      console.log(convert_time(e.timestamp));
         // })
         // $("#todate").change(function(e){ 
         //     // console.log("달력클릭");
@@ -1320,7 +1279,7 @@
         document.getElementById('todate').value = ls_today;
         document.getElementById('ipdate').value = ls_today;
         document.getElementById('frdate02').value = ls_frday;
-        document.getElementById('todate02').value = ls_today;
+        document.getElementById('todate02').value = ls_today; 
         // document.getElementById('todate').value = ls_today;
     }
 
@@ -1577,7 +1536,7 @@
     </script>
     
     <!------footer ------>
-    <!-- <footer th:replace="layouts/APPHeader/appfooter :: footerFragment"></footer>  -->
+    <footer th:replace="layouts/APPHeader/appfooter :: footerFragment"></footer> 
 
     <!-- modal -->
     <!-- class="modal_step_open" modal_step="1" -->
