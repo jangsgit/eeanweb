@@ -293,8 +293,9 @@
             wtab03Grid = new wijmo.grid.FlexGrid('#wtab03Grid_div', {  
                 autoGenerateColumns: false,
                 showMarquee: true,
-                isReadOnly: false, 
-                // selectionMode: 'RowRange',
+                showSelectedHeaders: 'All',
+                isReadOnly: true, 
+                selectionMode: 'RowRange',
                 allowSorting: 'MultiColumn',
                 alternatingRowStep: 0,
                 columns: [       
@@ -317,6 +318,8 @@
             });   
             // 첫번째 항목(정렬/그룹화한 후)을 선택
             wtab03Grid.select(new wijmo.grid.CellRange(0, 0), true);
+            wijmo.toggleClass(wtab03Grid.hostElement, 'highlightActive', true);
+            wtab03Grid.focus();
             var rowCount = 50;
             var cellCount = 20;
               // tab01검색 데이터 수집
@@ -398,6 +401,8 @@
             });   
             // 첫번째 항목(정렬/그룹화한 후)을 선택
             wtab01Grid.select(new wijmo.grid.CellRange(0, 0), true);
+            wijmo.toggleClass(wtab01Grid.hostElement, 'highlightActive', true);
+            wtab01Grid.focus();
             var rowCount = 50;
             var cellCount = 20;
               // tab01검색 데이터 수집
@@ -510,8 +515,7 @@
             //     ? wtab02Grid.rowHeaders.columns[0]
             //     : wtab02Grid.columns[0];
             // } 
-            wtab02Grid.showMarquee = true;
-            wtab02Grid.focus();
+            wtab02Grid.showMarquee = true; 
             wijmo.toggleClass(wtab02Grid.hostElement, 'highlightActive', true);
             wtab02Grid.focus();
  
@@ -563,8 +567,7 @@
             //     ? wtab04Grid.rowHeaders.columns[0]
             //     : wtab04Grid.columns[0];
             // } 
-            wtab04Grid.showMarquee = true;
-            wtab04Grid.focus();
+            wtab04Grid.showMarquee = true; 
             wijmo.toggleClass(wtab04Grid.hostElement, 'highlightActive', true);
             wtab04Grid.focus();
 

@@ -23,12 +23,10 @@ body {
 label {
   margin-right: 4em;
 }
+ 
 
-
-.wj-flexgrid .wj-header {
-  background-color: #0786BD;
-  color:white;
-  font-weight:bold;
+.highlightActive .wj-cells .wj-cell:focus {
+  background: rgba(255,150,30,.75) !important;  
 }
 
 .wj-cells .wj-cell.wj-state-selected{

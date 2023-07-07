@@ -164,8 +164,11 @@
                   wrongPasswd();
                 }else{
                   insertLogin();
-
-                window.location.href = '/auth/mobiledashboard';
+                if(ls_select == "CC"){
+                   window.location.href = '/app01/index140m';
+                }else{
+                   window.location.href = '/app01/index150m'; 
+                }
                   // if(data == "success"){
                   //     alert("등록 되었습니다.");
                   //     var ls_text = "<div style='color:red'><span class='badge badge-soft-danger'>가입되었습니다.</span></div>";

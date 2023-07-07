@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head th:replace="layouts/APPHeader/apphead :: headFragment" />
 
-<body style="background: #f5f9fa;">
+<body style="background: #f5f9fa; min-height: 100vh;  margin: 0 auto;">
     <header>
 
     </header>
@@ -75,7 +75,7 @@
                                             <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="retrieveBtn" type="button" onclick="retrieve_rtn()">조회
                                             </button>
                                         </div> 
-                                    </div> <!----  <div class="row gx-3" style="  margin: 10px 10px 10px;">   -->
+                                    </div> <!----  <div class="row gx-3" style="  margin: 10px 10px 10px;">   --> 
                                     
                                     <div class="table-responsive">
                                         <table class="table table-borderless"  style="overflow:scroll;  margin:0 auto; cellpadding:0px"  >
@@ -89,7 +89,7 @@
                                               </td>
                                               <td class="align-top" style="padding-top:0; padding-bottom: 0px; padding-left: 0px; padding-right: 0px;">                                                         
                                                 <div class="container-fluid"  style="overflow:scroll;       margin:0 auto; " >                                                         
-                                                    <div id="wtab01Grid_div"  style="overflow:scroll;       margin:0 auto; "></div> 
+                                                    <div id="wtab01Grid_div"  style="overflow:scroll;    margin:0 auto; "></div> 
                                                  </div>  
                                               </td> 
                                             </tr>
@@ -268,8 +268,9 @@
             wtab03Grid = new wijmo.grid.FlexGrid('#wtab03Grid_div', {  
                 autoGenerateColumns: false,
                 showMarquee: true,
-                isReadOnly: false, 
-                // selectionMode: 'RowRange',
+                showSelectedHeaders: 'All',
+                isReadOnly: true, 
+                selectionMode: 'RowRange',
                 allowSorting: 'MultiColumn',
                 alternatingRowStep: 0,
                 columns: [       
@@ -290,8 +291,11 @@
                 itemsSource: view_p01tab03page
                 
             });   
+
             // 첫번째 항목(정렬/그룹화한 후)을 선택
             wtab03Grid.select(new wijmo.grid.CellRange(0, 0), true);
+            wijmo.toggleClass(wtab03Grid.hostElement, 'highlightActive', true);
+            wtab03Grid.focus();
             var rowCount = 50;
             var cellCount = 20;
               // tab01검색 데이터 수집
@@ -315,7 +319,7 @@
             wtab01Grid = new wijmo.grid.FlexGrid('#wtab01Grid_div', {  
                 autoGenerateColumns: false,
                 showMarquee: true,
-                isReadOnly: false, 
+                isReadOnly: true, 
                 // selectionMode: 'RowRange',
                 allowSorting: 'MultiColumn',
                 alternatingRowStep: 0,
@@ -348,31 +352,15 @@
                     { binding: 'X', header: 'X', align: "center",   width: 80},   
                     { binding: 'Y', header: 'Y', align: "center",   width: 80},   
                     { binding: 'Z', header: 'Z', align: "center",   width: 80},   
-                ], 
-                
-                // updatedView: function (s, e) {
-                //     rowCount.textContent = s.rows.length;
-                //     cellCount.textContent = s.hostElement.querySelectorAll('.wj-cell').length;
-                // },
-                // scrollPositionChanged: function (s, e) { 
-                //     // 바닥에 가까워지면 20개 아이템 추가
-                //     if (s.viewRange.bottomRow >= s.rows.length - 1) {
-                //         let view = s.collectionView;
-                //         let index = view.currentPosition; // 뷰가 정렬될 경우를 대비해서 위치를 유지
-                //         addData(data, 20);
-                //         view.refresh();
-                //         view.currentPosition = index;
-                //     }
-                // },
-                itemsSource: getData_tab01()
-                // itemsSource: new wijmo.collections.CollectionView(getData_tab01(), {
-                //     sortDescriptions: ['jbonsa_code', 'jmodel_code'],
-                //     groupDescriptions: ['jbonsa_code', 'jmodel_code']
-                // })
+                ],  
+                itemsSource: getData_tab01() 
                 
             });   
             // 첫번째 항목(정렬/그룹화한 후)을 선택
             wtab01Grid.select(new wijmo.grid.CellRange(0, 0), true);
+            wijmo.toggleClass(wtab01Grid.hostElement, 'highlightActive', true);
+            wtab01Grid.focus();
+
             var rowCount = 50;
             var cellCount = 20;
               // tab01검색 데이터 수집
@@ -389,55 +377,7 @@
                     cnt++;
                 }    
                 return wactnm_data;                                          
-            } 
-
-
-            // wtab03Grid = new wijmo.grid.FlexGrid('#wtab03Grid_div', {  
-            //     autoGenerateColumns: false,
-            //     showMarquee: true,
-            //     isReadOnly: false, 
-            //     // selectionMode: 'RowRange',
-            //     allowSorting: 'MultiColumn',
-            //     alternatingRowStep: 0,
-            //     columns: [     
-            //         { binding: 'jmodel_code', header: '모델라인', align: "center",   width: 80},  
-            //         { binding: 'jcolor_code', header: '모델컬러', align: "center",   width: 100 },  
-            //     ], 
-                
-            //     // updatedView: function (s, e) {
-            //     //     rowCount.textContent = s.rows.length;
-            //     //     cellCount.textContent = s.hostElement.querySelectorAll('.wj-cell').length;
-            //     // },
-            //     // scrollPositionChanged: function (s, e) { 
-            //     //     // 바닥에 가까워지면 20개 아이템 추가
-            //     //     if (s.viewRange.bottomRow >= s.rows.length - 1) {
-            //     //         let view = s.collectionView;
-            //     //         let index = view.currentPosition; // 뷰가 정렬될 경우를 대비해서 위치를 유지
-            //     //         addData(data, 20);
-            //     //         view.refresh();
-            //     //         view.currentPosition = index;
-            //     //     }
-            //     // },
-            //     itemsSource: getData_tab01()
-            // });   
-             
-            //   // tab01검색 데이터 수집
-            // function getData_tab01(){       
-            //     var wactnm_data = [];
-            //     var cnt = 1;
-            //     for (var i = 0; i < 20; i++) {
-            //         wactnm_data.push({
-            //             id: i, 
-            //             index: cnt,
-            //             jbonsa_code: '', 
-            //             jmodel_code:  '', 
-            //         });
-            //         cnt++;
-            //     }    
-            //     return wactnm_data;                                          
-            // } 
-             
- 
+            }  
  
             //일자별주문현황 popup list
             view_p01tab02page = new wijmo.collections.CollectionView(getData_wlist(), {
@@ -445,7 +385,7 @@
             });    
             wtab02Grid = new wijmo.grid.FlexGrid('#wtab02Grid_div', {  
                 autoGenerateColumns: false,
-                isReadOnly: false, 
+                isReadOnly: true, 
                 allowSorting: 'MultiColumn',
                 selectionMode: 'RowRange',
                 alternatingRowStep: 0,
@@ -469,24 +409,7 @@
 
 
             new FlexGridContextMenu(wtab02Grid); 
-            // 선택기 생성
-            // let selector = new wijmo.grid.selector.Selector(wtab02Grid, {
-            //     itemChecked: () => {
-            //         // showCheckedCount();
-            //     }
-            // }); 
-            // // 헤더 열 전환
-            // setHeaderColumn(true);
-            // function setHeaderColumn(headerOn) {
-            //     wtab02Grid.headersVisibility = headerOn
-            //     ? wijmo.grid.HeadersVisibility.All
-            //     : wijmo.grid.HeadersVisibility.Column;
-            //     selector.column = headerOn
-            //     ? wtab02Grid.rowHeaders.columns[0]
-            //     : wtab02Grid.columns[0];
-            // } 
-            wtab02Grid.showMarquee = true;
-            wtab02Grid.focus();
+            wtab02Grid.showMarquee = true; 
             wijmo.toggleClass(wtab02Grid.hostElement, 'highlightActive', true);
             wtab02Grid.focus();
  
@@ -498,7 +421,7 @@
             });    
             wtab04Grid = new wijmo.grid.FlexGrid('#wtab04Grid_div', {  
                 autoGenerateColumns: false,
-                isReadOnly: false, 
+                isReadOnly: true, 
                 allowSorting: 'MultiColumn',
                 selectionMode: 'RowRange',
                 alternatingRowStep: 0,
@@ -522,24 +445,7 @@
 
 
             new FlexGridContextMenu(wtab04Grid); 
-            // 선택기 생성
-            // selector = new wijmo.grid.selector.Selector(wtab04Grid, {
-            //     itemChecked: () => {
-            //         // showCheckedCount();
-            //     }
-            // }); 
-            // 헤더 열 전환
-            // setHeaderColumn(true);
-            // function setHeaderColumn(headerOn) {
-            //     wtab04Grid.headersVisibility = headerOn
-            //     ? wijmo.grid.HeadersVisibility.All
-            //     : wijmo.grid.HeadersVisibility.Column;
-            //     selector.column = headerOn
-            //     ? wtab04Grid.rowHeaders.columns[0]
-            //     : wtab04Grid.columns[0];
-            // } 
-            wtab04Grid.showMarquee = true;
-            wtab04Grid.focus();
+            wtab04Grid.showMarquee = true; 
             wijmo.toggleClass(wtab04Grid.hostElement, 'highlightActive', true);
             wtab04Grid.focus();
 
@@ -1813,7 +1719,7 @@
             document.getElementById('todate').value = ls_today;
             document.getElementById('ipdate').value = ls_today;
             document.getElementById('frdate02').value = ls_frday;
-            document.getElementById('todate02').value = ls_today;
+            document.getElementById('todate02').value = ls_today; 
             // document.getElementById('todate').value = ls_today;
         }
 
