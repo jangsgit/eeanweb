@@ -886,6 +886,12 @@
                 CifSearchList_rtn("B"); 
             }
         });   
+        document.getElementById("dcifname").addEventListener("keyup", (e)=>{ 
+            if(e.keyCode === 13){  
+                document.getElementById("innamebtn").click(); 
+                CifSearchList_rtn("C"); 
+            }
+        });   
         //본사주문코드 클릭시 조회
         function wbonsacodeChk_a(arg){  
 
@@ -927,7 +933,8 @@
                 case 'B': 
                     var ls_frdate = document.getElementById('frdate').value; 
                     var ls_todate = document.getElementById('todate').value;          
-                    var ls_bacode   = document.getElementById('bacode').value; 
+                    var ls_bacode   = document.getElementById('bacode').value;    
+                    var ls_bcifname   = document.getElementById('bcifname').value; 
                     var ls_abonsadam1   = document.getElementById('abonsadam1').value; 
                     
                     if(ls_frdate == null || ls_frdate.length == 0 || ls_frdate == ""){ 
@@ -950,7 +957,7 @@
                         document.getElementById("pernm").focus(); 
                         return ;               
                     }   
-                    if(ls_bacode == null || ls_bacode.length == 0 || ls_bacode == ""){  
+                    if(ls_bcifname == null || ls_bcifname.length == 0 || ls_bcifname == ""){  
                         ls_bacode = "%";
                     }   
                     $.ajax({
@@ -980,7 +987,8 @@
                 case 'C': 
                     var ls_frdate = document.getElementById('frdate02').value; 
                     var ls_todate = document.getElementById('todate02').value;          
-                    var ls_bacode   = document.getElementById('dacode').value; 
+                    var ls_bacode   = document.getElementById('dacode').value;     
+                    var ls_dcifname   = document.getElementById('dcifname').value; 
                     var ls_abonsadam1   = document.getElementById('abonsadam1').value; 
                     if(ls_frdate == null || ls_frdate.length == 0 || ls_frdate == ""){ 
                         alert("조회일자를 등록하세요") 
@@ -997,7 +1005,7 @@
                         document.getElementById("pernm").focus(); 
                         return ;               
                     }  
-                    if(ls_bacode == null || ls_bacode.length == 0 || ls_bacode == ""){  
+                    if(ls_dcifname == null || ls_dcifname.length == 0 || ls_dcifname == ""){  
                         ls_bacode = "%";
                     }   
                     $.ajax({
@@ -1369,6 +1377,9 @@
             if(arg == "B"){
                 searchCode = document.getElementById('bcifname').value;   
             } 
+            if(arg == "C"){
+                searchCode = document.getElementById('dcifname').value;   
+            } 
             if(searchCode == null || searchCode.length == 0 || searchCode == ""){ 
                 searchCode = "%"         ;
             } 
@@ -1465,12 +1476,19 @@
                 //품목조회 본사코드를 조건으로 추가하면서 막음 
                 retrieve_rtn()
                 $("#winnamemodal_btn").trigger("click");
-            }else{
+            }else if(ls_tab == "B"){
                 document.getElementById('bacorp1').value = arg1;  
                 document.getElementById('bacorp2').value = arg2;  
                 document.getElementById('bacorp3').value = arg3;  
                 document.getElementById('bacode').value = arg4;   
                 document.getElementById('bcifname').value = arg5;  
+                $("#winnamemodal_btn").trigger("click"); 
+            }else if(ls_tab == "C"){
+                document.getElementById('dacorp1').value = arg1;  
+                document.getElementById('dacorp2').value = arg2;  
+                document.getElementById('dacorp3').value = arg3;  
+                document.getElementById('dacode').value = arg4;   
+                document.getElementById('dcifname').value = arg5;  
                 $("#winnamemodal_btn").trigger("click"); 
             }
             

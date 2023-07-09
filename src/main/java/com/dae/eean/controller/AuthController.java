@@ -197,7 +197,7 @@ public class AuthController {
             Date nowData = new Date();
             SimpleDateFormat endDate = new SimpleDateFormat("yyyyMMdd");
             String indate = endDate.format(nowData).toString();
-            return "mainframcustom";
+            return "app01/index150m";
         } else if (ls_flag.equals("CC")) {
             Date nowData = new Date();
             SimpleDateFormat endDate = new SimpleDateFormat("yyyyMMdd");

@@ -80,7 +80,7 @@
                                     <div class="table-responsive">
                                         <table class="table table-borderless"  style="overflow:scroll;  margin:0 auto; cellpadding:0px"  >
                                           <tbody>
-                                            <tr  style="padding-top:0; padding-bottom: 0px; padding-left: 0px; padding-right: 0px;" > 
+                                             <tr  style="padding-top:0; padding-bottom: 0px; padding-left: 0px; padding-right: 0px;" > 
                                               <td class="align-top" style="padding-top:0; padding-bottom: 0px; padding-left: 0px; padding-right: 0px;" > 
                                                 <div class="container-fluid">   
                                                     <div id="wtab03Grid_div"  style="overflow:scroll;  margin:0 auto; "></div> 
@@ -89,7 +89,7 @@
                                               </td>
                                               <td class="align-top" style="padding-top:0; padding-bottom: 0px; padding-left: 0px; padding-right: 0px;">                                                         
                                                 <div class="container-fluid"  style="overflow:scroll;       margin:0 auto; " >                                                         
-                                                    <div id="wtab01Grid_div"  style="overflow:scroll;    margin:0 auto; "></div> 
+                                                    <div id="wtab01Grid_div"  style="overflow:scroll;   height:500px;   margin:0 auto; "></div> 
                                                  </div>  
                                               </td> 
                                             </tr>
@@ -132,7 +132,7 @@
                                         </div>  -->
                                     </div> 
                                     <div class="container-fluid">
-                                        <div id="wtab02Grid_div"  style="overflow:scroll;     margin:0 auto; "></div>  
+                                        <div id="wtab02Grid_div"  style="overflow:scroll;   height:500px;    margin:0 auto; "></div>  
                                         <!-- <div id="tab02Pager"></div> -->
                                         </div>
                                 </div>  <!--   <div class="tab-pane fade" id="step02">  -->
@@ -157,8 +157,7 @@
                                                 <input class="form-control form-control-sm" id="dacorp2" type="hidden"  />
                                                 <input class="form-control form-control-sm" id="dacorp3" type="hidden"  />
                                                 <input class="form-control form-control-sm" id="dacode" type="hidden"  /> 
-                                                <input class="form-control form-control-sm" id="djpbgubn" type="hidden"  /> 
-                                                
+                                                <input class="form-control form-control-sm" id="djpbgubn" type="hidden"  />  
                                             </div>
                                         </div>
                                         <div class="col-1 col-sm-1">  
@@ -171,7 +170,7 @@
                                         </div>  -->
                                     </div> 
                                     <div class="container-fluid">
-                                        <div id="wtab04Grid_div"  style="overflow:scroll;   height:600px;    margin:0 auto; "></div>  
+                                        <div id="wtab04Grid_div"  style="overflow:scroll;   height:500px;    margin:0 auto; "></div>  
                                         <!-- <div id="tab02Pager"></div> -->
                                         </div>
                                 </div>  <!--  <div class="tab-pane fade" id="step03">  -->
@@ -763,6 +762,12 @@
                 document.getElementById("innamebtn").click(); 
                 CifSearchList_rtn("B"); 
             }
+        });    
+        document.getElementById("dcifname").addEventListener("keyup", (e)=>{ 
+            if(e.keyCode === 13){  
+                document.getElementById("innamebtn").click(); 
+                CifSearchList_rtn("C"); 
+            }
         });   
         //본사주문코드 클릭시 조회
         function wbonsacodeChk_a(arg){  
@@ -805,7 +810,8 @@
                 case 'B': 
                     var ls_frdate = document.getElementById('frdate').value; 
                     var ls_todate = document.getElementById('todate').value;          
-                    var ls_bacode   = document.getElementById('bacode').value; 
+                    var ls_bacode   = document.getElementById('bacode').value;       
+                    var ls_bcifname   = document.getElementById('bcifname').value; 
                     var ls_abonsadam1   = document.getElementById('abonsadam1').value; 
                     
                     if(ls_frdate == null || ls_frdate.length == 0 || ls_frdate == ""){ 
@@ -828,7 +834,7 @@
                         document.getElementById("pernm").focus(); 
                         return ;               
                     }   
-                    if(ls_bacode == null || ls_bacode.length == 0 || ls_bacode == ""){  
+                    if(ls_bcifname == null || ls_bcifname.length == 0 || ls_bcifname == ""){  
                         ls_bacode = "%";
                     }   
                     $.ajax({
@@ -858,7 +864,9 @@
                 case 'C': 
                     var ls_frdate = document.getElementById('frdate02').value; 
                     var ls_todate = document.getElementById('todate02').value;          
-                    var ls_bacode   = document.getElementById('dacode').value; 
+                    var ls_bacode   = document.getElementById('dacode').value;          
+                    var ls_dcifname   = document.getElementById('dcifname').value; 
+                    
                     var ls_abonsadam1   = document.getElementById('abonsadam1').value; 
                     if(ls_frdate == null || ls_frdate.length == 0 || ls_frdate == ""){ 
                         alert("조회일자를 등록하세요") 
@@ -875,7 +883,7 @@
                         document.getElementById("pernm").focus(); 
                         return ;               
                     }  
-                    if(ls_bacode == null || ls_bacode.length == 0 || ls_bacode == ""){  
+                    if(ls_dcifname == null || ls_dcifname.length == 0 || ls_dcifname == ""){  
                         ls_bacode = "%";
                     }   
                     $.ajax({
@@ -1247,6 +1255,9 @@
             if(arg == "B"){
                 searchCode = document.getElementById('bcifname').value;   
             } 
+            if(arg == "C"){
+                searchCode = document.getElementById('dcifname').value;   
+            } 
             if(searchCode == null || searchCode.length == 0 || searchCode == ""){ 
                 searchCode = "%"         ;
             } 
@@ -1343,12 +1354,19 @@
                 //품목조회 본사코드를 조건으로 추가하면서 막음 
                 retrieve_rtn()
                 $("#winnamemodal_btn").trigger("click");
-            }else{
+            }else if(ls_tab == "B"){
                 document.getElementById('bacorp1').value = arg1;  
                 document.getElementById('bacorp2').value = arg2;  
                 document.getElementById('bacorp3').value = arg3;  
                 document.getElementById('bacode').value = arg4;   
                 document.getElementById('bcifname').value = arg5;  
+                $("#winnamemodal_btn").trigger("click"); 
+            }else if(ls_tab == "C"){
+                document.getElementById('dacorp1').value = arg1;  
+                document.getElementById('dacorp2').value = arg2;  
+                document.getElementById('dacorp3').value = arg3;  
+                document.getElementById('dacode').value = arg4;   
+                document.getElementById('dcifname').value = arg5;  
                 $("#winnamemodal_btn").trigger("click"); 
             }
             
