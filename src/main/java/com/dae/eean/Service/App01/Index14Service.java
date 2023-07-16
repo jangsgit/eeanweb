@@ -42,6 +42,12 @@ public class Index14Service {
     public List<IndexDa024Dto> SelectDa026List(IndexDa024Dto parm){
         return  appMapper.SelectDa026List(parm);
     }
+    public List<IndexDa024Dto> SelectDa024ListPerid(IndexDa024Dto parm){
+        return  appMapper.SelectDa024ListPerid(parm);
+    }
+    public List<IndexDa024Dto> SelectDa026ListPerid(IndexDa024Dto parm){
+        return  appMapper.SelectDa026ListPerid(parm);
+    }
     public IndexDa024Dto SelectDa026Detail(IndexDa024Dto parm){
         return  appMapper.SelectDa026Detail(parm);
     }

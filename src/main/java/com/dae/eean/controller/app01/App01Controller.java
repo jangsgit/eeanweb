@@ -344,6 +344,69 @@ public class App01Controller {
     }
 
 
+    //사원별매출현황
+    @GetMapping(value="/index06")
+    public String App06_index( Model model, HttpServletRequest request) throws Exception{
+        CommDto.setMenuTitle("사원별매출현황");
+        CommDto.setMenuUrl("기준정보>사원별매출현황");
+        CommDto.setMenuCode("index06");
+        HttpSession session = request.getSession();
+        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        model.addAttribute("userformDto",userformDto);
+
+        try {
+        } catch (Exception ex) {
+//                dispatchException = ex;
+            log.info("App06_index Exception ================================================================");
+            log.info("Exception =====>" + ex.toString());
+//            log.debug("Exception =====>" + ex.toString() );
+        }
+
+        return "App01/index06";
+    }
+
+
+    //거래별매출현황
+    @GetMapping(value="/index07")
+    public String App07_index( Model model, HttpServletRequest request) throws Exception{
+        CommDto.setMenuTitle("거래별매출현황");
+        CommDto.setMenuUrl("기준정보>사원별매출현황");
+        CommDto.setMenuCode("index07");
+        HttpSession session = request.getSession();
+        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        model.addAttribute("userformDto",userformDto);
+
+        try {
+        } catch (Exception ex) {
+//                dispatchException = ex;
+            log.info("App07_index Exception ================================================================");
+            log.info("Exception =====>" + ex.toString());
+//            log.debug("Exception =====>" + ex.toString() );
+        }
+
+        return "App01/index07";
+    }
+
+    //제품별매출현황
+    @GetMapping(value="/index08")
+    public String App08_index( Model model, HttpServletRequest request) throws Exception{
+        CommDto.setMenuTitle("제품별매출현황");
+        CommDto.setMenuUrl("기준정보>제품별매출현황");
+        CommDto.setMenuCode("index08");
+        HttpSession session = request.getSession();
+        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        model.addAttribute("userformDto",userformDto);
+
+        try {
+        } catch (Exception ex) {
+//                dispatchException = ex;
+            log.info("App08_index Exception ================================================================");
+            log.info("Exception =====>" + ex.toString());
+//            log.debug("Exception =====>" + ex.toString() );
+        }
+
+        return "App01/index08";
+    }
 
     //AS접수 배송현황
     @GetMapping(value="/index11")

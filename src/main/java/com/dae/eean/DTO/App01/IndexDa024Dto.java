@@ -29,6 +29,7 @@ public class IndexDa024Dto {
     private String todate;
     private String acorp;
     private String perid;
+    private String pernm;
     private String misgubun;
     private String inname;
     private String fixflag;
