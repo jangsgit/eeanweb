@@ -50,10 +50,10 @@
                 </ul>
 
             </div>  -->
-            <div class="section status"> 
+            <!-- <div class="section status"> 
                 <div class="sec_con" style="width: 100%;">
                     <div class="box_wrap"> 
-                        <div class="table table_style2">
+                        <div class="table table_style2"> -->
                             <div class="card-body bg-light">
                                 <ul class="nav nav-tabs">
                                     <li class="nav-item">
@@ -88,7 +88,7 @@
                                             </div> 
                                         </div> 
                                         <div class="container-fluid">   
-                                            <div id="wtab01Grid_div" ></div>
+                                            <div id="wtab01Grid_div" style="overflow:scroll;   height:680px;  width:1600px;  margin:0 auto; "></div> 
                                             <!-- <div id="tab01Pager"></div> -->
                                         </div>   
                                     </div>
@@ -151,9 +151,10 @@
                                     </div>
                                   </div>
                             </div>
-                        </div>    
+                        <!-- </div> 
+                    </div>       
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
     
@@ -217,6 +218,12 @@
                 itemsSource: getData_tab01()
             });   
              
+            setHeaderColumn(false);
+            function setHeaderColumn(headerOn) {
+                wtab01Grid.headersVisibility = headerOn
+                ? wijmo.grid.HeadersVisibility.All
+                : wijmo.grid.HeadersVisibility.Column; 
+            } 
               // tab01검색 데이터 수집
             function getData_tab01(){       
                 var wactnm_data = [];
@@ -273,14 +280,11 @@
                 }
             }); 
             // 헤더 열 전환
-            setHeaderColumn(true);
-            function setHeaderColumn(headerOn) {
-                // wtab02Grid.headersVisibility = headerOn
-                // ? wijmo.grid.HeadersVisibility.All
-                // : wijmo.grid.HeadersVisibility.Column;
-                // selector.column = headerOn
-                // ? wtab02Grid.rowHeaders.columns[0]
-                // : wtab02Grid.columns[0];
+            setHeaderColumn2(false);
+            function setHeaderColumn2(headerOn) {
+                wtab02Grid.headersVisibility = headerOn
+                ? wijmo.grid.HeadersVisibility.All
+                : wijmo.grid.HeadersVisibility.Column; 
             } 
             wtab02Grid.showMarquee = true;
             wtab02Grid.focus();
@@ -400,14 +404,11 @@
                 }
             }); 
             // 헤더 열 전환
-            setHeaderColumn(true);
-            function setHeaderColumn(headerOn) {
-                // wtab04Grid.headersVisibility = headerOn
-                // ? wijmo.grid.HeadersVisibility.All
-                // : wijmo.grid.HeadersVisibility.Column;
-                // selector.column = headerOn
-                // ? wtab04Grid.rowHeaders.columns[0]
-                // : wtab04Grid.columns[0];
+            setHeaderColumn3(false);
+            function setHeaderColumn3(headerOn) {
+                wtab04Grid.headersVisibility = headerOn
+                ? wijmo.grid.HeadersVisibility.All
+                : wijmo.grid.HeadersVisibility.Column; 
             } 
             wtab04Grid.showMarquee = true;
             wtab04Grid.focus();

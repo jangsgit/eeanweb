@@ -11,6 +11,19 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>  
 </head> 
+
+<style>
+    table, th, td {
+      border: 1px solid black;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding-top: 0px;
+      padding-bottom: 0px;
+      padding-left: 0px;
+      padding-right: 0px;
+    }
+</style>
 <body style="background: #f5f9fa;">
     <header>
 
@@ -44,10 +57,10 @@
                 </ul>
 
             </div>  -->
-            <div class="section status"> 
-                <div class="sec_con" style="width: 100%;">
-                    <div class="box_wrap"> 
-                        <div class="table table_style2">
+            <!-- <div class="section status">  -->
+                <!-- <div class="sec_con" style="width: 100%;"> -->
+                    <!-- <div class="box_wrap">  -->
+                        <!-- <div class="table table_style2"  > -->
                             <div class="card-body bg-light">
                                 <ul class="nav nav-tabs">
                                     <li class="nav-item">
@@ -61,7 +74,7 @@
                                     </li>
                                     <input type="hidden" id="tabvalue" value="A">
                                   </ul>
-                                  <div class="tab-content">
+                                  <div class="tab-content" style="  margin: 0px 0px 0px;">
                                     <div class="tab-pane fade show active" id="step01">   
                                         <div class="row gx-3" style="  margin: 10px 10px 10px;">   
                                             <div class="col-2 col-sm-2">
@@ -94,16 +107,16 @@
                                         <div class="table-responsive">
                                             <table class="table table-borderless" style="height: 100px; cellpadding:0px" >
                                               <tbody>
-                                                <tr style="padding-top:0; padding-bottom: 0px; padding-left: 0px; padding-right: 0px;"> 
-                                                  <td class="align-top"  style="padding-top:0; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; width: 15%;"> 
+                                                <tr style="padding-top:0; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; "> 
+                                                  <td class="align-top"  style="padding-top:0; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; "> 
                                                     <div class="container-fluid">   
-                                                        <div id="wtab03Grid_div"  style="overflow:scroll;   height:600px;  width:200px; margin:0 auto; "></div> 
+                                                        <div id="wtab03Grid_div"  style="overflow:scroll;   height:680px;  width:150px; margin:0 auto; "></div> 
                                                         <!-- <div style="display: flex; margin: 0 auto; " id="tab01Pager"  ></div> -->
                                                     </div>  
                                                   </td>
                                                   <td class="align-top" style="padding-top:0; padding-bottom: 0px; padding-left: 0px; padding-right: 0px;">                                                         
-                                                    <div class="container-fluid"  style="overflow:scroll;    width:1300px;  margin:0 auto; " >                                                         
-                                                        <div id="wtab01Grid_div"  style="overflow:scroll;   height:600px;   margin:0 auto; "></div> 
+                                                    <div class="container-fluid"  style="overflow:scroll;     margin:0 auto; " >                                                         
+                                                        <div id="wtab01Grid_div"  style="overflow:scroll;   height:680px;  width:1600px;  margin:0 auto; "></div> 
                                                      </div>  
                                                   </td> 
                                                 </tr>
@@ -204,54 +217,55 @@
                                     </div> 
                                   </div>
                             </div>
-                        </div>    
-                </div>
-            </div>
+                        <!-- </div>    <div class="table table_style2"  > -->
+                    <!-- </div>    <div class="box_wrap">  -->
+                <!-- </div> <div class="sec_con" style="width: 100%;">-->
+            <!-- </div> <div class="section status">  -->
         </div>
     </div>
 
 
     
-         <!--  모달 처리 -->
-         <input class="form-control form-control-sm"  type="hidden" id="innamebtn" data-bs-toggle="modal" data-bs-target="#cifmodal"  /> 
-         <!--------------------------------------------------------------------------------------->   
-         <div class="modal fade" id="cifmodal" data-bs-keyboard="false"
-         data-bs-backdrop="static" tabindex="-1" aria-labelledby="staticBackdropLabel"
-         aria-hidden="true">
-             <div class="modal-dialog modal-lg mt-6" role="document" id = "modalForm01"
-                 style="max-width: 600px">
-                 <div class="modal-content border-0">
-                     <div class="modal-body p-0" > 
-                         <div class="rounded-top-lg py-3 ps-4 pe-6 bg-light">                            
-                             <div class="search">
-                                 <div class="input_wrap">  
-                                     <input class="form-control form-control-sm" id="searchCode" type="text"   onkeyup="if(window.event.keyCode==13){CifSearchList_rtn('M')}"
-                                     placeholder="업체명 "     />                                      
-                                 </div>
- 
-                                 <button id="winnameBtn">
-                                     <img th:src="@{/assets/images/i_search.png}" alt=""> 
-                                 </button>
-                             </div>                             
-                         </div>   
-                         <div class="container-fluid"> 
-                             <div id="winnameGrid_div" ></div>
-                             <div id="thePager03"></div>
-                         </div>   
-                     </div>  
- 
-                     <div class="modal-footer">
-                         <div class="row g-1">
-                             <div class="col-auto">
-                                 <button class="badge-soft-primary dropdown-item rounded-1"
-                                     type="button"  id="winnamemodal_btn" data-bs-dismiss="modal">Close</button>
-                             </div> 
-                         </div>
-                     </div>   
- 
-                 </div>
-             </div> 
-         </div>  
+    <!--  모달 처리 -->
+    <input class="form-control form-control-sm"  type="hidden" id="innamebtn" data-bs-toggle="modal" data-bs-target="#cifmodal"  /> 
+    <!--------------------------------------------------------------------------------------->   
+    <div class="modal fade" id="cifmodal" data-bs-keyboard="false"
+    data-bs-backdrop="static" tabindex="-1" aria-labelledby="staticBackdropLabel"
+    aria-hidden="true">
+        <div class="modal-dialog modal-lg mt-6" role="document" id = "modalForm01"
+            style="max-width: 600px">
+            <div class="modal-content border-0">
+                <div class="modal-body p-0" > 
+                    <div class="rounded-top-lg py-3 ps-4 pe-6 bg-light">                            
+                        <div class="search">
+                            <div class="input_wrap">  
+                                <input class="form-control form-control-sm" id="searchCode" type="text"   onkeyup="if(window.event.keyCode==13){CifSearchList_rtn('M')}"
+                                placeholder="업체명 "     />                                      
+                            </div>
+
+                            <button id="winnameBtn">
+                                <img th:src="@{/assets/images/i_search.png}" alt=""> 
+                            </button>
+                        </div>                             
+                    </div>   
+                    <div class="container-fluid"> 
+                        <div id="winnameGrid_div" ></div>
+                        <div id="thePager03"></div>
+                    </div>   
+                </div>  
+
+                <div class="modal-footer">
+                    <div class="row g-1">
+                        <div class="col-auto">
+                            <button class="badge-soft-primary dropdown-item rounded-1"
+                                type="button"  id="winnamemodal_btn" data-bs-dismiss="modal">Close</button>
+                        </div> 
+                    </div>
+                </div>   
+
+            </div>
+        </div> 
+    </div>  
       
 
  
@@ -340,6 +354,12 @@
                 return wactnm_data;                                          
             }  
      
+            setHeaderColumn(false);
+            function setHeaderColumn(headerOn) {
+                wtab03Grid.headersVisibility = headerOn
+                ? wijmo.grid.HeadersVisibility.All
+                : wijmo.grid.HeadersVisibility.Column; 
+            } 
          // // ################################################################
 
             wtab01Grid = new wijmo.grid.FlexGrid('#wtab01Grid_div', {  
@@ -424,6 +444,12 @@
                 return wactnm_data;                                          
             } 
 
+            setHeaderColumn2(false);
+            function setHeaderColumn2(headerOn) {
+                wtab01Grid.headersVisibility = headerOn
+                ? wijmo.grid.HeadersVisibility.All
+                : wijmo.grid.HeadersVisibility.Column; 
+            } 
 
             // wtab03Grid = new wijmo.grid.FlexGrid('#wtab03Grid_div', {  
             //     autoGenerateColumns: false,
@@ -656,6 +682,12 @@
             if(arg2 == arg3){
                 return 
             }
+            if(arg3.length > 3){
+                return 
+            }
+            console.log(arg3.length)
+            console.log(arg2)
+            console.log(arg3)
             save_btn(arg1, arg2, arg3 )
         }
 

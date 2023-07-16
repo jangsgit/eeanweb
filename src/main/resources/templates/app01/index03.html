@@ -443,20 +443,20 @@
             //     grid: wtab01Grid
             // }); 
             // 선택기 생성
-            let selector = new wijmo.grid.selector.Selector(wtab01Grid, {
-                itemChecked: () => {
-                    showCheckedCount();
-                }
-            }); 
+            // let selector = new wijmo.grid.selector.Selector(wtab01Grid, {
+            //     itemChecked: () => {
+            //         showCheckedCount();
+            //     }
+            // }); 
             // 헤더 열 전환
-            setHeaderColumn(true);
+            setHeaderColumn(false);
             function setHeaderColumn(headerOn) {
                 wtab01Grid.headersVisibility = headerOn
                 ? wijmo.grid.HeadersVisibility.All
                 : wijmo.grid.HeadersVisibility.Column;
-                selector.column = headerOn
-                ? wtab01Grid.rowHeaders.columns[0]
-                : wtab01Grid.columns[0];
+                // selector.column = headerOn
+                // ? wtab01Grid.rowHeaders.columns[0]
+                // : wtab01Grid.columns[0];
             } 
             wtab01Grid.showMarquee = true;
             wtab01Grid.focus();

@@ -11,6 +11,19 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>  
 </head>
+<style>
+    table, th, td {
+      border: 1px solid black;
+      border-collapse: collapse;
+      border-spacing: 0px;
+    }
+    th, td {
+      padding-top: 0px;
+      padding-bottom: 0px;
+      padding-left: 0px;
+      padding-right: 0px;
+    }
+</style>
 <body style="background: #f5f9fa;">
     <header>
 
@@ -44,10 +57,10 @@
                 </ul>
 
             </div>  -->
-            <div class="section status"> 
+            <!-- <div class="section status"> 
                 <div class="sec_con" style="width: 100%;">
                     <div class="box_wrap"> 
-                        <div class="table table_style2">
+                        <div class="table table_style2"> -->
                             <div class="card-body bg-light">
                                 <ul class="nav nav-tabs">
                                     <li class="nav-item">
@@ -89,24 +102,25 @@
                                             </div>  
                                         </div> 
                                         <div class="table-responsive">
-                                            <table class="table table-borderless" style="height: 100px;" >
+                                            <table class="table table-borderless" style="height: 100px; cellpadding:0px" >
                                               <tbody>
-                                                <tr> 
-                                                  <td class="align-top" style="width: 20%;"> 
+                                                <tr style="padding-top:0; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; "> 
+                                                  <td class="align-top" style="padding-top:0; padding-bottom: 0px; padding-left: 0px; padding-right: 0px;  width:250px;"> 
                                                     <div class="container-fluid">   
-                                                        <div id="wtab01Grid_div"  style="overflow:scroll;   height:600px;  width:300px; margin:0 auto; "></div> 
+                                                        <div id="wtab01Grid_div"  style="overflow:scroll;   height:680px;  width:250px; margin:0 auto; "></div> 
                                                         <!-- <div style="display: flex; margin: 0 auto; " id="tab01Pager"  ></div> -->
                                                     </div>  
                                                   </td>
-                                                  <td class="align-top">                                                         
-                                                    <div class="container-fluid"  style="overflow:scroll;    width:1300px;  margin:0 auto; " >                                                         
+                                                  <td class="align-top"style="padding-top:0; padding-bottom: 0px; padding-left: 0px; padding-right: 0px;  width:1500px; ">                                                         
+                                                    <div class="container-fluid"  style="overflow:scroll;    width:1500px;  margin:0 auto; " >                                                         
                                                         <div id="btnDiv" class="btn_wrap"></div> 
                                                      </div>  
                                                   </td> 
                                                 </tr>
                                               </tbody>
                                             </table>
-                                        </div> 
+                                        </div>   
+
                                     </div>
                                     <div class="tab-pane fade" id="step02"> 
                                         <div class="row gx-3" style="  margin: 10px 10px 10px;">   
@@ -183,10 +197,11 @@
                                           </div>
                                     </div>
                                   </div>
-                            </div>
-                        </div>    
-                </div>
-            </div>
+                            </div> 
+                        <!-- </div>    <div class="table table_style2"  > -->
+                    <!-- </div>    <div class="box_wrap">  -->
+                <!-- </div> <div class="sec_con" style="width: 100%;">-->
+            <!-- </div> <div class="section status">  -->
         </div>
     </div>
 
@@ -342,6 +357,13 @@ aria-hidden="true">
                     cnt++;
                 }     
                 return wactnm_data;                                          
+            } 
+
+            setHeaderColumn(false);
+            function setHeaderColumn(headerOn) {
+                wtab01Grid.headersVisibility = headerOn
+                ? wijmo.grid.HeadersVisibility.All
+                : wijmo.grid.HeadersVisibility.Column; 
             } 
  
          // // ################################################################
@@ -588,7 +610,7 @@ aria-hidden="true">
                 var ls_jcolorcode = data[i]["jcolor_code"]  
                 var ls_jqty = data[i]["jqty"]   
                 var ls_argstr = "'" + ls_jpum + "','" + ls_jkey + "'";
-                console.log(ls_jchgoga0);
+                // console.log(ls_jchgoga0);
                     DivHtml01 = DivHtml01 +  "    <div class='col-2'  > "; 
                     DivHtml01 = DivHtml01 +  "    <div class='card card-block'  > "; 
 
@@ -1394,7 +1416,7 @@ aria-hidden="true">
 
 
         $(document).ready(function() { 
-            getToday()
+            getToday() 
             fn_egov_init_date() 
         })
 
