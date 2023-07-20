@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--  컨텐츠 페이지의 title 들어감 head-->
     <th:block layout:fragment="titile"></th:block>
- 
+  
 
     <!-- ===============================================-->
     <!--    Document Title-->
@@ -29,53 +29,34 @@
     <!-- <th:block layout:fragment="css"></th:block> -->
 
     <!-- Wijmo 레퍼런스 (필수) -->
-    <link
-      href="https://cdn.grapecity.com/wijmo/5.20202.732/styles/wijmo.min.css"
-      rel="stylesheet"
-    />
-    
-        <!-- wijmo.min.css 대신에 아래와 같이 사용자 정의 테마 사용가능 -->
-        <link href="https://cdn.grapecity.com/wijmo/5.20202.732/styles/themes/wijmo.theme.modern.min.css" rel="stylesheet"/>
-   
-    <script src="https://cdn.grapecity.com/wijmo/5.20202.732/controls/wijmo.min.js"></script>
-
+    <link href="https://cdn.grapecity.com/wijmo/5.20211.781/styles/wijmo.min.css" rel="stylesheet" />
+    <link th:href="@{/wijimo/checkbox.css}" rel="stylesheet">
     <!-- Wijmo 컨트롤 (옵션, 필요한 컨트롤 만 추가) -->
-    <script src="https://cdn.grapecity.com/wijmo/5.20202.732/controls/wijmo.grid.min.js"></script>
-    <script src="https://cdn.grapecity.com/wijmo/5.20202.732/controls/wijmo.chart.min.js"></script>
-    <script src="https://cdn.grapecity.com/wijmo/5.20202.732/controls/wijmo.input.min.js"></script>
-    <script src="https://cdn.grapecity.com/wijmo/5.20202.732/controls/wijmo.gauge.min.js"></script>
-
+    <script src="https://cdn.grapecity.com/wijmo/5.20211.781/controls/wijmo.min.js"></script>
+    <script src="https://cdn.grapecity.com/wijmo/5.20211.781/controls/wijmo.grid.min.js"></script>
+    <script src="https://cdn.grapecity.com/wijmo/5.20211.781/controls/wijmo.chart.min.js"></script>
+    <script src="https://cdn.grapecity.com/wijmo/5.20211.781/controls/wijmo.chart.animation.min.js"></script>
+    <script src="https://cdn.grapecity.com/wijmo/5.20211.781/controls/wijmo.chart.hierarchical.min.js"></script>
+    <script src="https://cdn.grapecity.com/wijmo/5.20211.781/controls/wijmo.input.min.js"></script>
+    <script src="https://cdn.grapecity.com/wijmo/5.20211.781/controls/wijmo.gauge.min.js"></script>
+    <script src="https://cdn.grapecity.com/wijmo/5.20211.781/controls/wijmo.grid.selector.min.js"></script>  
+    <script src="https://cdn.grapecity.com/wijmo/5.20211.781/controls/wijmo.grid.cellmaker.min.js"></script> 
+         <!-- <script src="https://cdn.grapecity.com/wijmo/5.20202.732/controls/wijmo.grid.selector.min.js"></script>  -->
     <!-- 그리드 그룹 -->
-    <script src="https://cdn.grapecity.com/wijmo/5.20202.732/controls/wijmo.grid.grouppanel.min.js"></script>
+    <script src="https://cdn.grapecity.com/wijmo/5.20211.781/controls/wijmo.grid.grouppanel.min.js"></script>
     <!-- 그리드 excel -->
     <script src="https://cdn.grapecity.com/wijmo/5.20211.781/controls/wijmo.grid.xlsx.min.js"></script>
     <script src="https://cdn.grapecity.com/wijmo/5.20211.781/controls/wijmo.xlsx.min.js"></script>
-    <script src="https://cdn.grapecity.com/wijmo/5.20211.781/controls/wijmo.grid.sheet.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.5.0/jszip.min.js"></script>
-    
-    
-    <!-- Wijmo custom culture (옵션, 원하는 문화권을 추가) -->
-    <script src="https://cdn.grapecity.com/wijmo/5.20202.732/controls/cultures/wijmo.culture.ja.min.js"></script>
-
-    <!-- AngularJS and Wijmo directives (옵션, Angular/React/Vue/etc 어플리케이션에서 사용가능) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
-    <script src="https://cdn.grapecity.com/wijmo/5.20202.732/interop/angular/wijmo.angular.min.js"></script>
-
-
-    <script src="https://cdn.grapecity.com/wijmo/5.20202.732/controls/wijmo.grid.cellmaker.min.js"></script>
-    <script src="https://cdn.grapecity.com/wijmo/5.20202.732/controls/wijmo.grid.selector.min.js"></script>
-
+    <script src="https://cdn.grapecity.com/wijmo/5.20211.781/controls/wijmo.pdf.min.js"></script> 
+    <script src="https://cdn.grapecity.com/wijmo/5.20211.781/controls/wijmo.grid.pdf.min.js"></script> 
+    <!-- <script src="https://cdn.grapecity.com/wijmo/5.20211.781/controls/wijmo.grid.sheet.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.5.0/jszip.min.js"></script> 
 
     <!-- Wijmo 레퍼런스 (필수) -->
-    <link th:href="@{/wijimo/styles/wijmo.min.css}" rel="stylesheet" />
-    <!--
-        wijmo.min.css 대신에 아래와 같이 사용자 정의 테마 사용가능
-        <link href="styles/themes/wijmo.theme.modern.min.css" rel="stylesheet"/>
-    -->
-    <script th:src="@{/wijimo/controls/wijmo.min.js}"></script>
-
+    <!-- <link th:href="@{/wijimo/styles/wijmo.min.css}" rel="stylesheet" /> 
+    <script th:src="@{/wijimo/controls/wijmo.min.js}"></script>  -->
     <!-- Wijmo 컨트롤 (옵션, 필요한 컨트롤 만 추가) -->
-    <script th:src="@{/wijimo/controls/wijmo.grid.min.js}"></script>
+    <!-- <script th:src="@{/wijimo/controls/wijmo.grid.min.js}"></script>
     <script th:src="@{/wijimo/controls/wijmo.chart.min.js}"></script>
     <script th:src="@{/wijimo/controls/wijmo.input.min.js}"></script>
     <script th:src="@{/wijimo/controls/wijmo.gauge.min.js}"></script>
@@ -88,15 +69,15 @@
     <script th:src="@{/wijimo/controls/wijmo.chart.animation.min.js}"></script>
     <script th:src="@{/wijimo/controls/wijmo.chart.hierarchical.min.js}"></script>
     <script th:src="@{/wijimo/controls/wijmo.chart.min.js}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.5.0/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.5.0/jszip.min.js"></script> -->
 
     <!-- Wijmo custom culture (옵션, 원하는 문화권을 추가) -->
-    <script th:src="@{/wijimo/controls/cultures/wijmo.culture.ko.min.js}"></script>
-    <script src="https://cdn.grapecity.com/wijmo/5.20221.842/controls/wijmo.grid.cellmaker.min.js"></script>
+    <!-- <script th:src="@{/wijimo/controls/cultures/wijmo.culture.ko.min.js}"></script>
+    <script src="https://cdn.grapecity.com/wijmo/5.20221.842/controls/wijmo.grid.cellmaker.min.js"></script> -->
 
     <!-- Wijmo 배포라이선스키 적용 (배포 시 필요) -->
-    <script>
-      wijmo.setLicenseKey('emmsg.co.kr,173371689525245#B0IdMwSZzxWYmpjIyNHZisnOiwmbBJye0ICRiwiI34TQKFkWzU6btlWZwhjRhZEWDlXdQNjev4mWqZVVXZEeHBjUvZ4d6kzSwtGetNncl96VmJmViJDbKdlYDZFdTN4U8RnRkNUZJlTTZ5WYUdkbPJUOGZGaMFEZDJ5bOVleYl6KYR6ZvA5bOdnTVlmZZtEbCRXUsFmRwo5LudGUxkTZ5E4RykDZ6wmZYVVa7M5bURDVatCakF6T7BjNkdDUzoEVC5WN5U7K5IkM9p7N9A5RDRTZjlHTHJEO4BnSxYmWk5UYBlDTM36cppET8pWQzBnVnhUVkV5QTp7VL9WVIJHUrcGakZDcGJHVl3kQId7Vw8GTiB5VtFVdxE7c0xmZ4o5LBp7SxVmZ7JHR4IHWrJ5UQVWeUhXavRVV5QEbL3iNEhkdZdzLkhGMFhjaXtGSZJTOVREVzo6Sw4mMrJ7Yzd4UwwGbrplNWV6dCtiT9oWU6gXQ7AnVP5kI0IyUiwiIxkzN5gDN6cjI0ICSiwCO9YTM9IzM4ATM0IicfJye#4Xfd5nIJBjMSJiOiMkIsIibvl6cuVGd8VEIgQXZlh6U8VGbGBybtpWaXJiOi8kI1xSfiUTSOFlI0IyQiwiIu3Waz9WZ4hXRgAicldXZpZFdy3GclJFIv5mapdlI0IiTisHL3JyS7gDSiojIDJCLi86bpNnblRHeFBCI73mUpRHb55EIv5mapdlI0IiTisHL3JCNGZDRiojIDJCLi86bpNnblRHeFBCIQFETPBCIv5mapdlI0IiTisHL3JyMDBjQiojIDJCLiUmcvNEIv5mapdlI0IiTisHL3JSV8cTQiojIDJCLi86bpNnblRHeFBCI4JXYoNEbhl6YuFmbpZEIv5mapdlI0IiTis7W0ICZyBlIsICOxkzM4ADIwITOwIjMwIjI0ICdyNkIsIyNykDMyIDMyIiOiAHeFJCLiI7au26Yuc6ct5WZiojIz5GRiwiIcWY1kqI1cuI1wuY146J1EWJ1oiJ1iojIh94QiwiI5QjM5ITN9gjNxczMzcTMiojIklkIs4XXbpjInxmZiwiIyYHMyAjMioYIJV');
+    <script>      
+      wijmo.setLicenseKey('eean.co.kr,145937768533813#B0wxZYmpjIyNHZisnOiwmbBJye0ICRiwiI34zZExUT99GaYZ5UtZXaCRURx3SZrwmcEJTbrdlZ4d7KY9UMB3yUuJmYVxWcMFEZYVXQQZVdMxmMa56TCNnMWdkTQNkcJhDMk9mTsFlVvc5LxQUb4NXVodHbvM7QhlzMjNkTFZ4KhZEUrEjMSlzTjh7Y7NHbwl6byIFTUplNEZ5Q0JTe0FkRwtGOp3Cby8UdYxme8RHMvVjYwdDbyUzR6oFVa9UN8EUcOlUQIFFM8gnYzgFcUpkb6MHcvZHOzBlMppEa8hnRWZnQ6RjbyR7UNZVUaR5bvMHRipVcp3mVxJWYpNmNuRlVkJ7NNRkQKl5ZvdmUpZnYrE6N9M6NaBnS45GNWRVc53WYXN7aa3kQWdXWIxGVwIjdaNTQPVUQ5EVejNGcitCZpdkYJNGerYka5I6NF3Ea694LkNFc5NjVzQzU786aURzaCpWZZRHO7kXV0NzbzRFWvEkI0IyUiwiIGJ4NFREOyYjI0ICSiwyNyEzM7MTM8kTM0IicfJye#4Xfd5nIJBjMSJiOiMkIsIibvl6cuVGd8VEIgQXZlh6U8VGbGBybtpWaXJiOi8kI1xSfiUTSOFlI0IyQiwiIu3Waz9WZ4hXRgAicldXZpZFdy3GclJFIv5mapdlI0IiTisHL3JyS7gDSiojIDJCLi86bpNnblRHeFBCI73mUpRHb55EIv5mapdlI0IiTisHL3JCNGZDRiojIDJCLi86bpNnblRHeFBCIQFETPBCIv5mapdlI0IiTisHL3JyMDBjQiojIDJCLiUmcvNEIv5mapdlI0IiTisHL3JSV8cTQiojIDJCLi86bpNnblRHeFBCI4JXYoNEbhl6YuFmbpZEIv5mapdlI0IiTis7W0ICZyBlIsIyNzIDNyADI9EzNwMjMwIjI0ICdyNkIsIicr9ybj9ibhVWZsI7au26Yu8WYlVmL7d7diojIz5GRiwiIcWY1kqI1cuI1wKI1Ay80iojIh94QiwiIzEDOzMTN8YzN7MTO5QTMiojIklkIs4XXbpjInxmZiwiIxY7MyAjMiojIyVmdswIZ');
     </script>
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
