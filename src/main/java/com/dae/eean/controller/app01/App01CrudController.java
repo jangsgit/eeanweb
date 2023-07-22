@@ -302,6 +302,68 @@ public class App01CrudController {
         return index03List;
     }
 
+    //기간별수불현황
+    @GetMapping(value="/index03/subul01")
+    public Object App03SubulList_index(@RequestParam("frdate") String frdate,
+                                       @RequestParam("todate") String todate,
+                                       @RequestParam("searchtxt") String searchtxt,
+                                  Model model, HttpServletRequest request) throws Exception{
+        CommDto.setMenuTitle("제품등록");
+        CommDto.setMenuUrl("기준정보>기간별수불현황");
+        CommDto.setMenuCode("index03");
+        HttpSession session = request.getSession();
+        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        model.addAttribute("userformDto",userformDto);
+
+        try {
+
+            if(searchtxt == null || searchtxt.equals("")){
+                searchtxt = "%";
+            }
+            index03Dto.setJkey(searchtxt);
+            index03Dto.setFrdate(frdate);
+            index03Dto.setTodate(todate);
+            index03List = service03.GetJpumSubul02(index03Dto);
+            model.addAttribute("index03List",index03List);
+
+        } catch (Exception ex) {
+            log.info("App03SubulList_index Exception =====>" + ex.toString());
+        }
+
+        return index03List;
+    }
+
+    //기간별수불현황
+    @GetMapping(value="/index03/subul02")
+    public Object App03SubulList02_index(@RequestParam("frdate") String frdate,
+                                       @RequestParam("todate") String todate,
+                                       @RequestParam("searchtxt") String searchtxt,
+                                       Model model, HttpServletRequest request) throws Exception{
+        CommDto.setMenuTitle("제품등록");
+        CommDto.setMenuUrl("기준정보>제품별수불현황");
+        CommDto.setMenuCode("index03");
+        HttpSession session = request.getSession();
+        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        model.addAttribute("userformDto",userformDto);
+
+        try {
+
+            if(searchtxt == null || searchtxt.equals("")){
+                searchtxt = "%";
+            }
+            index03Dto.setJkey(searchtxt);
+            index03Dto.setFrdate(frdate);
+            index03Dto.setTodate(todate);
+            index03List = service03.GetJpumSubul02(index03Dto);
+            model.addAttribute("index03List",index03List);
+
+        } catch (Exception ex) {
+            log.info("App03SubulList02_index Exception =====>" + ex.toString());
+        }
+
+        return index03List;
+    }
+
 
     //거래처등록
     @GetMapping(value="/index03/listtot")
@@ -1484,6 +1546,126 @@ public class App01CrudController {
         return indexDa024ListDto;
     }
 
+
+    //주문현황 리스트
+    @GetMapping(value="/index14/listcltcd")
+    public Object App14ListCltcd_index(@RequestParam("frdate") String frdate,
+                                       @RequestParam("todate") String todate,
+                                       @RequestParam("acode") String acode,
+                                       @RequestParam("fixflag") String fixflag,
+                                       @RequestParam("perid") String perid,
+                                       @RequestParam("mflag") String mflag,
+                                       Model model, HttpServletRequest request) throws Exception{
+        CommDto.setMenuTitle("주문등록");
+        CommDto.setMenuUrl("주문등록>주문현황");
+        CommDto.setMenuCode("index14");
+        HttpSession session = request.getSession();
+        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        model.addAttribute("userformDto",userformDto);
+
+        try {
+            String year = frdate.substring(0,4) ;
+            String month = frdate.substring(5,7) ;
+            String day   = frdate.substring(8,10) ;
+            frdate = year + month + day ;
+            year = todate.substring(0,4) ;
+            month = todate.substring(5,7) ;
+            day   = todate.substring(8,10) ;
+            todate = year + month + day ;
+            indexDa024Dto.setFrdate(frdate);
+            indexDa024Dto.setTodate(todate);
+            indexDa024Dto.setCltcd(acode);
+            indexDa024Dto.setFixflag(fixflag);
+            if(perid == null || perid.equals("")){
+                perid = "%";
+            }
+            switch (mflag){
+                case "AA" :
+                    indexDa024Dto.setPerid(perid);
+                    mflag = "%";
+                    break;
+                case "BB":
+                    indexDa024Dto.setPerid(perid);
+                    break;
+                case "CC":
+                    indexDa024Dto.setPerid(userformDto.getPerid());
+                    break;
+                default:
+                    break;
+            }
+            indexDa024Dto.setPerid(perid);
+            indexDa024Dto.setMisgubun(mflag);
+            indexDa024ListDto = service14.SelectDa024ListCltcd(indexDa024Dto);
+            model.addAttribute("indexDa024ListDto",indexDa024ListDto);
+
+        } catch (Exception ex) {
+            log.info("App14List_index Exception =====>" + ex.toString());
+        }
+
+        return indexDa024ListDto;
+    }
+
+    //주문현황 리스트
+    @GetMapping(value="/index14/listjkey")
+    public Object App14ListJkey_index(@RequestParam("frdate") String frdate,
+                                       @RequestParam("todate") String todate,
+                                       @RequestParam("acode") String acode,
+                                       @RequestParam("jkey") String jkey,
+                                       @RequestParam("fixflag") String fixflag,
+                                       @RequestParam("perid") String perid,
+                                       @RequestParam("mflag") String mflag,
+                                       Model model, HttpServletRequest request) throws Exception{
+        CommDto.setMenuTitle("주문등록");
+        CommDto.setMenuUrl("주문등록>주문현황");
+        CommDto.setMenuCode("index14");
+        HttpSession session = request.getSession();
+        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        model.addAttribute("userformDto",userformDto);
+
+        try {
+            String year = frdate.substring(0,4) ;
+            String month = frdate.substring(5,7) ;
+            String day   = frdate.substring(8,10) ;
+            frdate = year + month + day ;
+            year = todate.substring(0,4) ;
+            month = todate.substring(5,7) ;
+            day   = todate.substring(8,10) ;
+            todate = year + month + day ;
+            indexDa024Dto.setFrdate(frdate);
+            indexDa024Dto.setTodate(todate);
+            indexDa024Dto.setCltcd(acode);
+            indexDa024Dto.setFixflag(fixflag);
+            if(perid == null || perid.equals("")){
+                perid = "%";
+            }
+            switch (mflag){
+                case "AA" :
+                    indexDa024Dto.setPerid(perid);
+                    mflag = "%";
+                    break;
+                case "BB":
+                    indexDa024Dto.setPerid(perid);
+                    break;
+                case "CC":
+                    indexDa024Dto.setPerid(userformDto.getPerid());
+                    break;
+                default:
+                    break;
+            }
+            indexDa024Dto.setPerid(perid);
+            indexDa024Dto.setMisgubun(mflag);
+            indexDa024Dto.setPcode(jkey);
+            indexDa024ListDto = service14.SelectDa024ListJpum(indexDa024Dto);
+            model.addAttribute("indexDa024ListDto",indexDa024ListDto);
+
+        } catch (Exception ex) {
+            log.info("App14List_index Exception =====>" + ex.toString());
+        }
+
+        return indexDa024ListDto;
+    }
+
+
     //주문현황 리스트
     @GetMapping(value="/index14/listwish")
     public Object App14ListWish_index(@RequestParam("frdate") String frdate,
@@ -1598,6 +1780,125 @@ public class App01CrudController {
 
         return indexDa024ListDto;
     }
+
+
+    //주문현황 리스트
+    @GetMapping(value="/index14/listwishcltcd")
+    public Object App14ListWishCltcd_index(@RequestParam("frdate") String frdate,
+                                           @RequestParam("todate") String todate,
+                                           @RequestParam("acode") String acode,
+                                           @RequestParam("fixflag") String fixflag,
+                                           @RequestParam("perid") String perid,
+                                           @RequestParam("mflag") String mflag,
+                                           Model model, HttpServletRequest request) throws Exception{
+        CommDto.setMenuTitle("주문등록");
+        CommDto.setMenuUrl("주문등록>예약현황");
+        CommDto.setMenuCode("index14wish");
+        HttpSession session = request.getSession();
+        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        model.addAttribute("userformDto",userformDto);
+
+        try {
+            String year = frdate.substring(0,4) ;
+            String month = frdate.substring(5,7) ;
+            String day   = frdate.substring(8,10) ;
+            frdate = year + month + day ;
+            year = todate.substring(0,4) ;
+            month = todate.substring(5,7) ;
+            day   = todate.substring(8,10) ;
+            todate = year + month + day ;
+            indexDa024Dto.setFrdate(frdate);
+            indexDa024Dto.setTodate(todate);
+            indexDa024Dto.setCltcd(acode);
+            indexDa024Dto.setFixflag(fixflag);
+            if(perid == null || perid.equals("")){
+                perid = "%";
+            }
+            switch (mflag){
+                case "AA" :
+                    indexDa024Dto.setPerid(perid);
+                    mflag = "%";
+                    break;
+                case "BB":
+                    indexDa024Dto.setPerid(perid);
+                    break;
+                case "CC":
+                    indexDa024Dto.setPerid(userformDto.getPerid());
+                    break;
+                default:
+                    break;
+            }
+            indexDa024Dto.setMisgubun(mflag);
+            indexDa024ListDto = service14.SelectDa026ListCltcd(indexDa024Dto);
+            model.addAttribute("indexDa024ListDto",indexDa024ListDto);
+
+        } catch (Exception ex) {
+            log.info("App14ListWish_index Exception =====>" + ex.toString());
+        }
+
+        return indexDa024ListDto;
+    }
+
+
+    //주문현황 리스트
+    @GetMapping(value="/index14/listwishjkey")
+    public Object App14ListWishJkey_index(@RequestParam("frdate") String frdate,
+                                           @RequestParam("todate") String todate,
+                                           @RequestParam("acode") String acode,
+                                           @RequestParam("jkey") String jkey,
+                                           @RequestParam("fixflag") String fixflag,
+                                           @RequestParam("perid") String perid,
+                                           @RequestParam("mflag") String mflag,
+                                           Model model, HttpServletRequest request) throws Exception{
+        CommDto.setMenuTitle("주문등록");
+        CommDto.setMenuUrl("주문등록>예약현황");
+        CommDto.setMenuCode("index14wish");
+        HttpSession session = request.getSession();
+        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        model.addAttribute("userformDto",userformDto);
+
+        try {
+            String year = frdate.substring(0,4) ;
+            String month = frdate.substring(5,7) ;
+            String day   = frdate.substring(8,10) ;
+            frdate = year + month + day ;
+            year = todate.substring(0,4) ;
+            month = todate.substring(5,7) ;
+            day   = todate.substring(8,10) ;
+            todate = year + month + day ;
+            indexDa024Dto.setFrdate(frdate);
+            indexDa024Dto.setTodate(todate);
+            indexDa024Dto.setCltcd(acode);
+            indexDa024Dto.setPcode(jkey);
+            indexDa024Dto.setFixflag(fixflag);
+            if(perid == null || perid.equals("")){
+                perid = "%";
+            }
+            switch (mflag){
+                case "AA" :
+                    indexDa024Dto.setPerid(perid);
+                    mflag = "%";
+                    break;
+                case "BB":
+                    indexDa024Dto.setPerid(perid);
+                    break;
+                case "CC":
+                    indexDa024Dto.setPerid(userformDto.getPerid());
+                    break;
+                default:
+                    break;
+            }
+            indexDa024Dto.setMisgubun(mflag);
+            indexDa024ListDto = service14.SelectDa026ListJpum(indexDa024Dto);
+            model.addAttribute("indexDa024ListDto",indexDa024ListDto);
+
+        } catch (Exception ex) {
+            log.info("App14ListWish_index Exception =====>" + ex.toString());
+        }
+
+        return indexDa024ListDto;
+    }
+
 
     @RequestMapping(value="/index16/save")
     public String index16Save(@RequestParam(value = "misdatearr[]") List<String> misdatearr

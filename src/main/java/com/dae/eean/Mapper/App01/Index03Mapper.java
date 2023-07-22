@@ -20,6 +20,8 @@ public interface Index03Mapper {
     public List<Index03Dto> GetJpumModelList(Index03Dto parm) ;
     public List<Index03Dto> GetJpumCustJaegoList(Index03Dto parm) ;
     public List<Index03Dto> GetJBonsaCodeList(Index03Dto parm) ;
+    public List<Index03Dto> GetJpumSubul01(Index03Dto parm) ;
+    public List<Index03Dto> GetJpumSubul02(Index03Dto parm) ;
 
     public Index03Dto GetJpumOrderJkey(Index03Dto parm) ;
     public Index03Dto GetJpumOrderJkey02(Index03Dto parm) ;

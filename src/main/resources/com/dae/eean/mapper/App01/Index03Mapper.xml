@@ -199,7 +199,53 @@
         ]]>
     </select>
 
+    <select id="GetJpumSubul01" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
+        <![CDATA[
+            select p.flag, Left(p.jdate,4) + '-' + substring(p.jdate, 5,2)+ '-' + substring(p.jdate, 7,2) as jdate, p.jkey, p.jpum,p.jgugek, p.jbonsa_code, p.jcolor_code, p.jmodel_code, p.ipsu, p.chulsu
+            FROM (
+                select '0' as flag, A.key1 as jdate, B.jkey, B.jpum, isnull(B.jgugek, '') as jgugek, B.jbonsa_code, B.jcolor_code, B.jmodel_code, a.ijaego_su1 as ipsu, 0 as chulsu
+                from  jego_jepmjanak A WITH (NOLOCK), jcode3 B WITH (NOLOCK)
+                WHERE A.jepm = B.jkey
+                and A.key1 between #{frdate} and #{todate}
+                and  isnull(B.jkey,'') Like concat('%',#{jkey},'%')
+                and a.ijaego_su1 <> 0
+
+                union
+
+                Select '1' as flag, A.misdate as jdate,   B.jkey, B.jpum, isnull(B.jgugek, '') as jgugek, B.jbonsa_code, B.jcolor_code, B.jmodel_code, 0 as ipsu, A.qty as chulsu
+                from  tb_da024 A WITH (NOLOCK), jcode3 B WITH (NOLOCK)
+                WHERE A.pcode = B.jkey
+                and A.misdate between #{frdate} and #{todate}
+                and  isnull(B.jkey,'') Like concat('%',#{jkey},'%')
+                and A.qty <> 0
+            ) P
+            ORDER BY P.jdate, p.jkey, p.flag
+        ]]>
+    </select>
 
 
+    <select id="GetJpumSubul02" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
+        <![CDATA[
+            select p.flag, Left(p.jdate,4) + '-' + substring(p.jdate, 5,2)+ '-' + substring(p.jdate, 7,2) as jdate, p.jkey, p.jpum,p.jgugek, p.jbonsa_code, p.jcolor_code, p.jmodel_code, p.ipsu, p.chulsu
+            FROM (
+                select '0' as flag, A.key1 as jdate, B.jkey, B.jpum, isnull(B.jgugek, '') as jgugek, B.jbonsa_code, B.jcolor_code, B.jmodel_code, a.ijaego_su1 as ipsu, 0 as chulsu
+                from  jego_jepmjanak A WITH (NOLOCK), jcode3 B WITH (NOLOCK)
+                WHERE A.jepm = B.jkey
+                and A.key1 between #{frdate} and #{todate}
+                and  isnull(B.jkey,'') Like concat('%',#{jkey},'%')
+                and a.ijaego_su1 <> 0
+
+                union
+
+                Select '1' as flag, A.misdate as jdate,   B.jkey, B.jpum, isnull(B.jgugek, '') as jgugek, B.jbonsa_code, B.jcolor_code, B.jmodel_code, 0 as ipsu, A.qty as chulsu
+                from  tb_da024 A WITH (NOLOCK), jcode3 B WITH (NOLOCK)
+                WHERE A.pcode = B.jkey
+                and A.misdate between #{frdate} and #{todate}
+                and  isnull(B.jkey,'') Like concat('%',#{jkey},'%')
+                and A.qty <> 0
+            ) P
+            ORDER BY  p.jkey, P.jdate, p.flag
+        ]]>
+    </select>
 
 </mapper>

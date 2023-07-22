@@ -408,6 +408,23 @@
 
 
             new FlexGridContextMenu(wtab02Grid); 
+            // 그룹 전환 
+            setGroups01(true); 
+            function setGroups01(groupsOn) {
+                let groups = view_p01tab02page.groupDescriptions;
+                groups.clear();
+                if (groupsOn) {
+                    
+                    groups.push(new wijmo.collections.PropertyGroupDescription('misdate'));
+                    // groups.push(new wijmo.collections.PropertyGroupDescription('pernm'), new wijmo.collections.PropertyGroupDescription('misdate'));
+                }
+            }
+            setHeaderColumn1(false);
+            function setHeaderColumn1(headerOn) {
+                wtab02Grid.headersVisibility = headerOn
+                ? wijmo.grid.HeadersVisibility.All
+                : wijmo.grid.HeadersVisibility.Column; 
+            } 
             wtab02Grid.showMarquee = true; 
             wijmo.toggleClass(wtab02Grid.hostElement, 'highlightActive', true);
             wtab02Grid.focus();
@@ -444,6 +461,23 @@
 
 
             new FlexGridContextMenu(wtab04Grid); 
+            // 그룹 전환 
+            setGroups02(true); 
+            function setGroups02(groupsOn) {
+                let groups = view_p01tab04page.groupDescriptions;
+                groups.clear();
+                if (groupsOn) {
+                    
+                    groups.push(new wijmo.collections.PropertyGroupDescription('misdate'));
+                    // groups.push(new wijmo.collections.PropertyGroupDescription('pernm'), new wijmo.collections.PropertyGroupDescription('misdate'));
+                }
+            }
+            setHeaderColumn2(false);
+            function setHeaderColumn2(headerOn) {
+                wtab04Grid.headersVisibility = headerOn
+                ? wijmo.grid.HeadersVisibility.All
+                : wijmo.grid.HeadersVisibility.Column; 
+            } 
             wtab04Grid.showMarquee = true; 
             wijmo.toggleClass(wtab04Grid.hostElement, 'highlightActive', true);
             wtab04Grid.focus();
@@ -1024,6 +1058,7 @@
             cols.binding = 'qty';
             cols.header = '수량';
             cols.align = "center";
+            cols.aggregate = 'Sum';
             cols.width = 80;  
             wtab02Grid.columns.push(cols);   
             cols = new wijmo.grid.Column(); 
@@ -1036,6 +1071,7 @@
             cols.binding = 'samt'; 
             cols.header = '금액';
             cols.align = "center";
+            cols.aggregate = 'Sum';
             cols.width = 150;  
             wtab02Grid.columns.push(cols);     
             cols = new wijmo.grid.Column(); 
@@ -1157,6 +1193,7 @@
             cols.binding = 'qty';
             cols.header = '수량';
             cols.align = "center";
+            cols.aggregate = 'Sum';
             cols.width = 80;  
             wtab04Grid.columns.push(cols);   
             cols = new wijmo.grid.Column(); 
@@ -1169,6 +1206,7 @@
             cols.binding = 'samt';
             cols.header = '금액';
             cols.align = "center";
+            cols.aggregate = 'Sum';
             cols.width = 150;  
             wtab04Grid.columns.push(cols);   
             cols = new wijmo.grid.Column(); 

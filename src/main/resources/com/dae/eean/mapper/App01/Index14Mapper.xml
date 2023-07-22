@@ -106,6 +106,47 @@
     </select>
 
 
+    <select id="SelectDa024ListCltcd"  parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" resultType="com.dae.eean.DTO.App01.IndexDa024Dto">
+        <![CDATA[ select B.cltcd as cltcd, Left(B.misdate,4) + '-' + substring(B.misdate, 5,2)+ '-' + substring(B.misdate, 7,2) as misdate, B.misnum, B.seq,
+                         B.pcode, B.pname, B.psize,    B.punit,  B.qty,  B.uamt, B.samt, B.addamt,
+                         B.amt, A.acorp, pbonsa, pmodel, pcolor , D.inname, B.misgubun, isnull(B.fixflag,'0') as fixflag, D.inname as pernm
+           from  TB_DA024 B WITH (NOLOCK) , cif A WITH (NOLOCK) ,
+                 TB_DA023 C WITH (NOLOCK) Left outer JOIN INSA D ON C.perid = D.insano
+           where B.misdate + B.misnum = C.misdate + C.misnum AND B.misgubun = C.misgubun
+             AND isnull(C.delflag, '') <> 'Y'
+             AND B.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
+             AND C.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
+            AND A.acorp1 + CAST(A.acorp2 as varchar) Like concat('%',#{cltcd},'%')
+             AND isnull(C.perid,'')  Like concat('%',#{perid},'%')
+             AND isnull(B.misgubun,'')  Like concat('%',#{misgubun},'%')
+            AND B.misdate between #{frdate} and #{todate}
+            AND Isnull(B.fixflag, '') Like concat('%',#{fixflag},'%')
+            ORDER BY B.cltcd,  B.misdate, B.misnum, B.seq
+        ]]>
+
+    </select>
+
+
+    <select id="SelectDa024ListJpum"  parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" resultType="com.dae.eean.DTO.App01.IndexDa024Dto">
+        <![CDATA[ select B.cltcd as cltcd, Left(B.misdate,4) + '-' + substring(B.misdate, 5,2)+ '-' + substring(B.misdate, 7,2) as misdate, B.misnum, B.seq,
+                         B.pcode, B.pname, B.psize,    B.punit,  B.qty,  B.uamt, B.samt, B.addamt,
+                         B.amt, A.acorp, pbonsa, pmodel, pcolor , D.inname, B.misgubun, isnull(B.fixflag,'0') as fixflag, D.inname as pernm
+           from  TB_DA024 B WITH (NOLOCK) , cif A WITH (NOLOCK) ,
+                 TB_DA023 C WITH (NOLOCK) Left outer JOIN INSA D ON C.perid = D.insano
+           where B.misdate + B.misnum = C.misdate + C.misnum AND B.misgubun = C.misgubun
+             AND isnull(C.delflag, '') <> 'Y'
+             AND B.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
+             AND C.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
+            AND A.acorp1 + CAST(A.acorp2 as varchar) Like concat('%',#{cltcd},'%')
+             AND isnull(B.pcode,'')  Like concat('%',#{pcode},'%')
+             AND isnull(B.misgubun,'')  Like concat('%',#{misgubun},'%')
+            AND B.misdate between #{frdate} and #{todate}
+            AND Isnull(B.fixflag, '') Like concat('%',#{fixflag},'%')
+            ORDER BY B.pcode,  B.misdate, B.misnum, B.seq
+        ]]>
+
+    </select>
+
 
     <select id="SelectDa026ListPerid"  parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" resultType="com.dae.eean.DTO.App01.IndexDa024Dto">
         <![CDATA[ select B.cltcd as cltcd, Left(B.misdate,4) + '-' + substring(B.misdate, 5,2)+ '-' + substring(B.misdate, 7,2) as misdate, B.misnum, B.seq,
@@ -128,6 +169,47 @@
 
     </select>
 
+    <select id="SelectDa026ListCltcd"  parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" resultType="com.dae.eean.DTO.App01.IndexDa024Dto">
+        <![CDATA[ select B.cltcd as cltcd, Left(B.misdate,4) + '-' + substring(B.misdate, 5,2)+ '-' + substring(B.misdate, 7,2) as misdate, B.misnum, B.seq,
+                         B.pcode, B.pname, B.psize,    B.punit,  B.qty,  B.uamt, B.samt, B.addamt,
+                         B.amt, A.acorp, pbonsa, pmodel, pcolor, D.inname, B.misgubun, isnull(B.fixflag,'0') as fixflag, D.inname as pernm,
+                         B.omisdate, B.omisnum, B.oseq
+           from  TB_DA026 B WITH (NOLOCK) , cif A WITH (NOLOCK) ,
+                 TB_DA025 C WITH (NOLOCK)  Left outer JOIN INSA D ON C.perid = D.insano
+           where B.misdate + B.misnum = C.misdate + C.misnum AND B.misgubun = C.misgubun
+             AND isnull(C.delflag, '') <> 'Y'
+             AND B.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
+             AND C.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
+            AND A.acorp1 + CAST(A.acorp2 as varchar) Like concat('%',#{cltcd},'%')
+             AND isnull(C.perid,'')  Like concat('%',#{perid},'%')
+            AND B.misdate between #{frdate} and #{todate}
+             AND isnull(B.misgubun,'')  Like concat('%',#{misgubun},'%')
+             AND Isnull(B.fixflag, '') Like concat('%',#{fixflag},'%')
+            ORDER BY B.cltcd,  B.misdate, B.misnum, B.seq
+        ]]>
+
+    </select>
+
+    <select id="SelectDa026ListJpum"  parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" resultType="com.dae.eean.DTO.App01.IndexDa024Dto">
+        <![CDATA[ select B.cltcd as cltcd, Left(B.misdate,4) + '-' + substring(B.misdate, 5,2)+ '-' + substring(B.misdate, 7,2) as misdate, B.misnum, B.seq,
+                         B.pcode, B.pname, B.psize,    B.punit,  B.qty,  B.uamt, B.samt, B.addamt,
+                         B.amt, A.acorp, pbonsa, pmodel, pcolor, D.inname, B.misgubun, isnull(B.fixflag,'0') as fixflag, D.inname as pernm,
+                         B.omisdate, B.omisnum, B.oseq
+           from  TB_DA026 B WITH (NOLOCK) , cif A WITH (NOLOCK) ,
+                 TB_DA025 C WITH (NOLOCK)  Left outer JOIN INSA D ON C.perid = D.insano
+           where B.misdate + B.misnum = C.misdate + C.misnum AND B.misgubun = C.misgubun
+             AND isnull(C.delflag, '') <> 'Y'
+             AND B.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
+             AND C.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
+            AND A.acorp1 + CAST(A.acorp2 as varchar) Like concat('%',#{cltcd},'%')
+             AND isnull(B.pcode,'')  Like concat('%',#{pcode},'%')
+            AND B.misdate between #{frdate} and #{todate}
+             AND isnull(B.misgubun,'')  Like concat('%',#{misgubun},'%')
+             AND Isnull(B.fixflag, '') Like concat('%',#{fixflag},'%')
+            ORDER BY B.pcode,  B.misdate, B.misnum, B.seq
+        ]]>
+
+    </select>
 
     <insert id="InsertDa023" parameterType="com.dae.eean.DTO.App01.IndexDa023Dto" >
         insert into TB_DA023 (custcd, spjangcd, cltcd, misgubun, misdate, misnum,

@@ -259,9 +259,9 @@
                     { binding: 'pbonsa', header: '코드', align: "center", width: 100 },  
                     { binding: 'pmodel', header: '모델', align: "center", width: 100 },  
                     { binding: 'pcolor', header: '컬러', align: "center", width: 100 },  
-                    { binding: 'qty', header: '수량', align: "center", width: 80 },  
+                    { binding: 'qty', header: '수량', align: "center", width: 80 ,  aggregate: 'Sum'},  
                     { binding: 'uamt', header: '단가', align: "center", width: 100 },  
-                    { binding: 'samt', header: '금액', align: "center", width: 150 },  
+                    { binding: 'samt', header: '금액', align: "center", width: 150,  aggregate: 'Sum' },  
                     { binding: 'fixflag', header: '확정', align: "center", width: 150, cssClass: 'switch'   },  
                     
                 ], 
@@ -345,9 +345,9 @@
                     { binding: 'pbonsa', header: '코드', align: "center", width: 100 },  
                     { binding: 'pmodel', header: '모델', align: "center", width: 100 },  
                     { binding: 'pcolor', header: '컬러', align: "center", width: 100 },  
-                    { binding: 'qty', header: '수량', align: "center", width: 80 },  
+                    { binding: 'qty', header: '수량', align: "center", width: 80,  aggregate: 'Sum' },  
                     { binding: 'uamt', header: '단가', align: "center", width: 100 },  
-                    { binding: 'samt', header: '금액', align: "center", width: 150 },    
+                    { binding: 'samt', header: '금액', align: "center", width: 150,  aggregate: 'Sum' },    
                     { binding: 'fixflag', header: '주문', align: "center", width: 150, cssClass: 'switch'   },  
                 ], 
                 itemsSource: view_p01tab04page
@@ -675,12 +675,12 @@
             cols.align = "center";
             cols.width = 80;   
             wtab02Grid.columns.push(cols); 
-            cols = new wijmo.grid.Column(); 
-            cols.binding = 'inname';
-            cols.header = '담당사원';
-            cols.align = "center";
-            cols.width = 100;  
-            wtab02Grid.columns.push(cols);     
+            // cols = new wijmo.grid.Column(); 
+            // cols.binding = 'inname';
+            // cols.header = '담당사원';
+            // cols.align = "center";
+            // cols.width = 100;  
+            // wtab02Grid.columns.push(cols);     
             cols = new wijmo.grid.Column(); 
             cols.binding = 'acorp';
             cols.header = '거래처';
@@ -721,6 +721,7 @@
             cols.binding = 'qty';
             cols.header = '수량';
             cols.align = "center";
+            cols.aggregate = 'Sum';
             cols.width = 60;  
             wtab02Grid.columns.push(cols);   
             cols = new wijmo.grid.Column(); 
@@ -733,6 +734,7 @@
             cols.binding = 'samt'; 
             cols.header = '금액';
             cols.align = "center";
+            cols.aggregate = 'Sum';
             cols.width = 120;  
             wtab02Grid.columns.push(cols);    
             cols = new wijmo.grid.Column(); 
@@ -811,12 +813,12 @@
             cols.align = "center";
             cols.width = 80;   
             wtab04Grid.columns.push(cols);  
-            cols = new wijmo.grid.Column(); 
-            cols.binding = 'inname';
-            cols.header = '담당사원';
-            cols.align = "center";
-            cols.width = 100;  
-            wtab04Grid.columns.push(cols);     
+            // cols = new wijmo.grid.Column(); 
+            // cols.binding = 'inname';
+            // cols.header = '담당사원';
+            // cols.align = "center";
+            // cols.width = 100;  
+            // wtab04Grid.columns.push(cols);     
             cols = new wijmo.grid.Column(); 
             cols.binding = 'acorp';
             cols.header = '거래처';
@@ -857,6 +859,7 @@
             cols.binding = 'qty';
             cols.header = '수량';
             cols.align = "center";
+            cols.aggregate = 'Sum';
             cols.width = 80;  
             wtab04Grid.columns.push(cols);   
             cols = new wijmo.grid.Column(); 
@@ -869,6 +872,7 @@
             cols.binding = 'samt';
             cols.header = '금액';
             cols.align = "center";
+            cols.aggregate = 'Sum';
             cols.width = 150;  
             wtab04Grid.columns.push(cols);   
             cols = new wijmo.grid.Column(); 

@@ -40,6 +40,12 @@ public class Index03Service {
     public List<Index03Dto> GetJBonsaCodeList(Index03Dto parm){
         return  appMapper.GetJBonsaCodeList(parm);
     }
+    public List<Index03Dto> GetJpumSubul01(Index03Dto parm){
+        return  appMapper.GetJpumSubul01(parm);
+    }
+    public List<Index03Dto> GetJpumSubul02(Index03Dto parm){
+        return  appMapper.GetJpumSubul02(parm);
+    }
 
     public List<Index03Dto> GetJpumModelList(Index03Dto parm){
         return  appMapper.GetJpumModelList(parm);

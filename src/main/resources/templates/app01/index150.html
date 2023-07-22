@@ -279,8 +279,7 @@
 
 <input class="form-control form-control-sm"  type="hidden" id="imgbtn" data-bs-toggle="modal" data-bs-target="#imgmodal"  /> 
 <!--------------------------------------------------------------------------------------->   
-<div class="modal fade" id="imgmodal" data-bs-keyboard="false"
-data-bs-backdrop="static" tabindex="-1" aria-labelledby="staticBackdropLabel"
+<div class="modal fade" id="imgmodal" data-bs-keyboard="false"  tabindex="-1" aria-labelledby="staticBackdropLabel"
 aria-hidden="true">
     <div class="modal-dialog modal-lg mt-6" role="document" id = "modalForm02"
         style="max-width: 1000px">
@@ -464,6 +463,23 @@ aria-hidden="true">
             });   
 
             new FlexGridContextMenu(wtab02Grid); 
+            // 그룹 전환 
+            setGroups01(true); 
+            function setGroups01(groupsOn) {
+                let groups = view_p01tab02page.groupDescriptions;
+                groups.clear();
+                if (groupsOn) {
+                    
+                    groups.push(new wijmo.collections.PropertyGroupDescription('misdate'));
+                    // groups.push(new wijmo.collections.PropertyGroupDescription('pernm'), new wijmo.collections.PropertyGroupDescription('misdate'));
+                }
+            }
+            setHeaderColumn2(false);
+            function setHeaderColumn2(headerOn) {
+                wtab02Grid.headersVisibility = headerOn
+                ? wijmo.grid.HeadersVisibility.All
+                : wijmo.grid.HeadersVisibility.Column; 
+            } 
             // 선택기 생성
             // let selector = new wijmo.grid.selector.Selector(wtab02Grid, {
             //     itemChecked: () => {
@@ -519,6 +535,23 @@ aria-hidden="true">
 
 
             new FlexGridContextMenu(wtab03Grid); 
+            // 그룹 전환 
+            setGroups02(true); 
+            function setGroups02(groupsOn) {
+                let groups = view_p01tab03page.groupDescriptions;
+                groups.clear();
+                if (groupsOn) {
+                    
+                    groups.push(new wijmo.collections.PropertyGroupDescription('misdate'));
+                    // groups.push(new wijmo.collections.PropertyGroupDescription('pernm'), new wijmo.collections.PropertyGroupDescription('misdate'));
+                }
+            }
+            setHeaderColumn3(false);
+            function setHeaderColumn3(headerOn) {
+                wtab03Grid.headersVisibility = headerOn
+                ? wijmo.grid.HeadersVisibility.All
+                : wijmo.grid.HeadersVisibility.Column; 
+            } 
             // 선택기 생성
             // selector = new wijmo.grid.selector.Selector(wtab03Grid, {
             //     itemChecked: () => {
@@ -1010,6 +1043,7 @@ aria-hidden="true">
             cols.binding = 'qty';
             cols.header = '수량';
             cols.align = "center";
+            cols.aggregate = 'Sum';
             cols.width = 80;  
             wtab02Grid.columns.push(cols);   
             cols = new wijmo.grid.Column(); 
@@ -1022,6 +1056,7 @@ aria-hidden="true">
             cols.binding = 'samt';
             cols.header = '금액';
             cols.align = "center";
+            cols.aggregate = 'Sum';
             cols.width = 150;  
             wtab02Grid.columns.push(cols);     
             cols = new wijmo.grid.Column(); 
@@ -1136,6 +1171,7 @@ aria-hidden="true">
             cols.binding = 'qty';
             cols.header = '수량';
             cols.align = "center";
+            cols.aggregate = 'Sum';
             cols.width = 80;  
             wtab03Grid.columns.push(cols);   
             cols = new wijmo.grid.Column(); 
@@ -1148,6 +1184,7 @@ aria-hidden="true">
             cols.binding = 'samt';
             cols.header = '금액';
             cols.align = "center";
+            cols.aggregate = 'Sum';
             cols.width = 150;  
             wtab03Grid.columns.push(cols);  
             cols = new wijmo.grid.Column(); 

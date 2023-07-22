@@ -25,4 +25,9 @@ public class Index03Dto {
     private String jqty;
     private String frdate;
     private String todate;
+    private String flag;
+    private String jdate;
+    private Integer ipsu;
+    private Integer chulsu;
+
 }
