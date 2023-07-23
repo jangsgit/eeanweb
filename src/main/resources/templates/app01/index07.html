@@ -1253,7 +1253,7 @@
                         // 내보내기
                         case 'X_CSV':
                             let rng = new wijmo.grid.CellRange(0, 0, grid.rows.length - 1, grid.columns.length - 1), csv = grid.getClipString(rng, wijmo.grid.ClipStringOptions.CSV, true, false);
-                            wijmo.saveFile(csv, 'FlexGrid.csv');
+                            wijmo.saveFile(csv, '거래처별매출현황.csv');
                             break;
                         case 'X_XLSX':
                             const gridView = grid.collectionView;
@@ -1262,7 +1262,7 @@
                             grid.beginUpdate();
                             gridView.pageSize = 0;
 
-                            wijmo.grid.xlsx.FlexGridXlsxConverter.saveAsync(grid, {includeCellStyles: true, includeColumnHeaders: true}, 'FlexGrid.xlsx',
+                            wijmo.grid.xlsx.FlexGridXlsxConverter.saveAsync(grid, {includeCellStyles: true, includeColumnHeaders: true}, '거래처별매출현황.xlsx',
                             saved => {
                             gridView.pageSize = oldPgSize;
                             gridView.moveToPage(oldPgIndex);
@@ -1271,20 +1271,30 @@
                             ); 
                             break;
                         case 'X_PDF':
-                            wijmo.grid.pdf.FlexGridPdfConverter.export(grid, 'FlexGrid.pdf', {
+                            wijmo.grid.pdf.FlexGridPdfConverter.export(grid, '거래처별매출현황.pdf', {
                                 maxPages: 10,
                                 scaleMode: wijmo.grid.pdf.ScaleMode.PageWidth,
                                 documentOptions: {
                                 compress: true,
                                 header: { declarative: { text: '\t&[Page] of &[Pages]' } },
                                 footer: { declarative: { text: '\t&[Page] of &[Pages]' } },
-                                info: { author: 'GrapeCity', title: 'FlexGrid' }
+                                info: { author: 'GrapeCity', title: '거래처별매출현황' }
                                 },
+                                //내장된 폰트 정보
+                                embeddedFonts: [
+                                    {
+                                    source: "https://assets.codepen.io/975719/BMHANNAPro.ttf",
+                                    name: "BMHANNAPro",
+                                    style: "normal",
+                                    weight: "normal",
+                                    sansSerif: true
+                                    }
+                                ],
                                 styles: {
-                                cellStyle: { backgroundColor: '#ffffff', borderColor: '#c6c6c6' },
-                                altCellStyle: { backgroundColor: '#f9f9f9' },
-                                groupCellStyle: { backgroundColor: '#dddddd' },
-                                headerCellStyle: { backgroundColor: '#eaeaea' }
+                                    cellStyle: { backgroundColor: '#ffffff', borderColor: '#c6c6c6', font: {family: "BMHANNAPro"} },
+                                    altCellStyle: { backgroundColor: '#f9f9f9' },
+                                    groupCellStyle: { backgroundColor: '#dddddd' },
+                                    headerCellStyle: { backgroundColor: '#eaeaea' }
                                 }
                             });
                             break;

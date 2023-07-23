@@ -36,5 +36,18 @@ public class IndexDa024Dto {
     private String omisdate;
     private String omisnum;
     private String oseq;
+    private Integer rownum;
+    private String asano;
+    private String aname;
+    private String aupte;
+    private String ajong;
+    private String ajuso;
+    private String eeacorp;
+    private String eeasano;
+    private String eeaname;
+    private String eeupte;
+    private String eeajong;
+    private String eeajuso;
+
 
 }

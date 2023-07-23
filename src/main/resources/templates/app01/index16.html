@@ -18,7 +18,29 @@
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>   
+    <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>  
+    <style type="text/css">
+        .border_out {font-family: 굴림;border: 3px double black;} 
+        .border_in {border-width:1px; border-color:black; border-style:solid none solid solid;}
+        .l_dot {border-style:dotted; border-width:0 0 0 1px; border-color:#4C4C4C;}
+        .lb_dot {border-style:dotted; border-width:0 0 1px 1px; border-color:#6C6C6C;}
+        .tl_dot {border-style:solid solid solid dotted; border-width:1px 0px 1px 1px; border-color:black black black #6C6C6C;}
+        #command_bar {
+          font-size: 10pt;
+          background-color: #FEFFD2;
+          border: 1px solid #AF9E29;
+          padding: 5px;
+          margin-bottom: 10px;
+        }
+        .sign_area {
+          position: relative;
+        }
+        .sign_img {
+          position: absolute;
+          top: 15px;
+          left: 190px;
+        }
+    </style>
 </head>
  
 <body style="background: #f5f9fa;">
@@ -61,14 +83,14 @@
                             <div class="card-body bg-light">
                                 <ul class="nav nav-tabs">
                                     <li class="nav-item">
-                                      <a class="nav-link active" data-toggle="tab" href="#step01" onclick="tabchk_rtn('A')">주문확정</a>
+                                      <a class="nav-link active" data-toggle="tab" href="#step01" onclick="tabchk_rtn('A')">주문출력</a>
                                     </li>
                                     <li class="nav-item">
                                       <a class="nav-link" data-toggle="tab" href="#step02"  onclick="tabchk_rtn('B')">예약확정</a>
                                     </li>
-                                    <!-- <li class="nav-item">
-                                      <a class="nav-link" data-toggle="tab" href="#step03"  onclick="tabchk_rtn('C')">예약현황</a>
-                                    </li> -->
+                                    <li class="nav-item">
+                                      <a class="nav-link" data-toggle="tab" href="#step03"  onclick="tabchk_rtn('C')">출력양식</a>
+                                    </li>
                                     <input type="hidden" id="tabvalue" value="A">
                                   </ul>
                                   <div class="tab-content">
@@ -97,10 +119,10 @@
                                             </div>
                                             <div class="col-2 col-sm-2">
                                                 <select class="form-select form-select-sm" id="misfixflag" aria-label=".form-select-sm example">
-                                                    <option selected="">확정구분</option>
+                                                    <option selected="">출력구분</option>
                                                     <option value="%">전체</option>
-                                                    <option value="1">확정</option>
-                                                    <option value="0">미확정</option>
+                                                    <option value="1">출력</option>
+                                                    <option value="0">미출력</option>
                                                   </select> 
                                             </div>  
                                             <div class="col-1 col-sm-1">  
@@ -108,7 +130,7 @@
                                                 </button>
                                             </div> 
                                             <div class="col-1 col-sm-1">  
-                                                <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="saveBtn01" type="button"  >주문확정/취소
+                                                <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="saveBtn01" type="button"  >주문출력/취소
                                                 </button>
                                             </div> 
                                             <!-- <div class="col-2 col-sm-1">  
@@ -169,8 +191,13 @@
                                             <div id="wtab04Grid_div"  style="overflow:scroll;   height:600px;    margin:0 auto; "></div>  
                                             <!-- <div id="tab02Pager"></div> -->
                                           </div>
-                                    </div>
-                                    
+                                    </div> 
+                                    <div class="tab-pane fade" id="step03">  
+                                        <div class="container-fluid"> 
+                                            <div id="wtab03Grid_div"  style="overflow:scroll;   height:600px;    margin:0 auto; "></div>  
+                                            <!-- <div id="tab02Pager"></div> -->
+                                          </div>
+                                    </div> 
                                   </div>
                             </div>
                         <!-- </div> 
@@ -269,6 +296,22 @@
          let ani;
          var isTimestamp = "";
          var isPreTimestamp = "";
+ 
+         var ls_acorp = "";
+         var ls_asano = "";
+         var ls_aname = "";
+         var ls_aupte = "";
+         var ls_ajong = "";
+         var ls_ajuso = "";
+         var ls_eeacorp = "";
+         var ls_eeasano = "";
+         var ls_eeaname = "";
+         var ls_eeupte = "";
+         var ls_eeajong = "";
+         var ls_eeajuso = "";
+         var ls_misdate = "";
+         var ls_misnum = "";
+
         var wseries_data = [0]; 
         let includeColumnHeader = false;
         let Chknum = 0; 
@@ -300,7 +343,7 @@
                     { binding: 'qty', header: '수량', align: "center", width: 80 },  
                     { binding: 'uamt', header: '단가', align: "center", width: 100 },  
                     { binding: 'samt', header: '금액', align: "center", width: 150 },  
-                    { binding: 'fixflag', header: '확정', align: "center", width: 150, cssClass: 'switch'   },  
+                    { binding: 'fixflag', header: '출력', align: "center", width: 150, cssClass: 'switch'   },  
                     
                 ], 
                 itemsSource: view_p01tab02page, 
@@ -441,7 +484,43 @@
             new FlexGridContextMenu(wtab04Grid); 
             wtab04Grid.focus(); 
 
-            // // ################################################################ 
+           
+            //////////////////////////////////////////////////////////////////////////////////////////////////////////    
+            //////////////////////////////////////////////////////////////////////////////////////////////////////////
+            view_p01tab03page = new wijmo.collections.CollectionView(getData_wlist());    
+            setGroups(true);
+            wtab03Grid = new wijmo.grid.FlexGrid('#wtab03Grid_div', { 
+                deferResizing: true,
+                showMarquee: true,
+                alternatingRowStep: 0,
+                selectionMode: 'MultiRange',
+                allowSorting: 'MultiColumn',
+                autoGenerateColumns: false,
+                columns: [     
+                    // { binding: 'active', header: '선택', align: "center", width: 80  ,dataType:3,allowSorting: false, dataType: wijmo.DataType.Boolean  }, 
+                    { binding: 'misdate', header: '주문일자', align: "center", width: 120 },  
+                    { binding: 'pname', header: '품목', align: "center", width: 150 },   
+                    { binding: 'psize', header: '규격', align: "center", width: 120 },  
+                    { binding: 'pbonsa', header: '코드', align: "center", width: 100 },  
+                    { binding: 'pmodel', header: '모델', align: "center", width: 100 },  
+                    { binding: 'pcolor', header: '컬러', align: "center", width: 100 },  
+                    { binding: 'qty', header: '수량', align: "center", width: 80 },  
+                    { binding: 'uamt', header: '단가', align: "center", width: 100 },  
+                    { binding: 'samt', header: '금액', align: "center", width: 150 },  
+                ], 
+                itemsSource: view_p01tab03page, 
+            }); 
+
+            // 헤더 열 전환
+            setHeaderColumn03(false); 
+            function setHeaderColumn03(headerOn) {
+                wtab03Grid.headersVisibility = headerOn
+                ? wijmo.grid.HeadersVisibility.All
+                : wijmo.grid.HeadersVisibility.Column; 
+            }
+
+            //////////////////////////////////////////////////////////////////////////////////////////////////////////    
+            //////////////////////////////////////////////////////////////////////////////////////////////////////////
             //거래처현황 Modalㅁ
             view_innamepage = new wijmo.collections.CollectionView(getData_wlist2(), {
                 pageSize: 12
@@ -529,11 +608,11 @@
             
             switch(ls_tab){
                 case 'A': 
-                    if (!confirm("주문확정/취소 하시겠습니까?")) { 
+                    if (!confirm("주문출력/취소 하시겠습니까?")) { 
                         return false; 
                     }  
                     if(misdateArr.length == null || misdateArr.length == 0){ 
-                        alert("처리할 내역을 선택하세요") 
+                        //alert("처리할 내역을 선택하세요") 
                         return ;               
                     }  
                     console.log(cltcdArr) ;
@@ -657,6 +736,7 @@
         document.getElementById("saveBtn01").addEventListener("click",function(){ 
             var ls_tab = document.getElementById('tabvalue').value;    
             save_btn(ls_tab);
+            print_rtn();
         })               
         // 주문등록 
         document.getElementById("saveBtn02").addEventListener("click",function(){
@@ -664,9 +744,216 @@
             save_btn(ls_tab);
         }) 
 
-
+        //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 인쇄 @@@@@@@@@@@@@@@@@@@@@@@@@@@
+        //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+                 
         
+        function print_rtn(){ 
+            // create PrintDocument
+            var doc = new wijmo.PrintDocument({
+                    title: '',
+                    copyCss: false, // prevent cross-origin issues in jsfiddle  
+            })
+            // wijmo.grid.pdf.FlexGridPdfConverter.draw(orderManagement, doc, null, null, settings)
+            doc.append('<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">');
+            doc.append('<link href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" rel="stylesheet">'); 
 
+ 
+            // add some simple text
+            doc.append(`
+                <table width="600" border="0" cellspacing="0" cellpadding="0" align="left" style="table-layout:auto">
+                <tr> 
+                    <td>
+                        <table width="600" cellpadding="0" cellspacing="0" class="border_out">
+                            <tr height="44"> 
+                            <td><table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <td align="center"><span style="font-size:18pt;font-weight:bold;">거 래 명 세 서</span></td>
+                                    <td><table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
+                                        <tr>
+                                        <td class="border_in" align="center" style="border-top-style:none">작성일</td> 
+                                        <td class="border_in" align="center" style="border-top-style:none">일련번호</td>
+                                        </tr>
+                                        <tr>
+                                        <td class="border_in" align="center" style="border-top-style:none;border-bottom-style:none;">${ls_misdate}</td> 
+                                        <td align="center" class="border_in" style="border-top-style:none;border-bottom-style:none;">${ls_misdate+'-' + ls_misnum }</td>
+                                        </tr>
+                                    </table></td>
+                                </tr>
+                                </table></td>
+                            </tr>
+                            <tr> 
+                            <td><table width="100%" class="border_in" style="border-left-style:none" border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <td width="45%"><table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
+                                        <tr> 
+                                        <td width="18" align="center" class="border_in" style="border-left-style:none"><span style="line-height:20px">공<br />
+                                            급<br />
+                                            받<br />
+                                            는<br />
+                                            자</span></td>
+                                        <td><table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
+                                            <tr height="30"> 
+                                                <td width="25%" align="center" class="border_in">상 호<br />(법인명)</td>
+                                                <td width="75%" class="border_in">
+                                                <table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                    <td align="center"><strong style="font-size:11px">${ls_acorp}</strong></td>
+                                                    <td width="25%" align="center" class="l_dot" style="font-size:12px;">귀하</td>
+                                                    </tr>
+                                                </table>
+                                                </td>
+                                            </tr>
+                                            <tr height="30"> 
+                                                <td align="center" class="border_in" style="border-top-style:none">사업장<br />
+                                                주 소</td>
+                                                <td class="border_in" style="border-top-style:none" align="center">${ls_ajuso}</td>
+                                            </tr>
+                                            <tr height="30"> 
+                                                <td align="center" class="border_in" style="border-top-style:none">전화번호</td>
+                                                <td class="border_in" style="border-top-style:none" align="center">남대문전화변수</td>
+                                            </tr>
+                                            <tr height="30"> 
+                                                <td align="center" class="border_in" style="border-top-style:none">합계금액</td>
+                                                <td class="border_in" style="border-top-style:none;font-size:12px;" align="center"><strong>5000000</strong> <span style="font-size:80%">(VAT<?=$prtInfo['tax_added_txt']?>)</span></td>
+                                            </tr>
+                                            </table></td>
+                                        </tr>
+                                    </table></td>
+                                    <td width="55%"><div class="sign_area"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                        <tr> 
+                                        <td class="border_in" width="18" align="center"><span style="line-height:38px">공<br />
+                                            급<br />
+                                            자</span></td>
+                                        <td><table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
+                                            <tr height="30"> 
+                                                <td width="47" align="center" class="border_in">등록번호</td>
+                                                <td class="border_in" align="center"><span style="font-size:13px;font-weight:bold">${ls_eeasano}</span></td>
+                                            </tr>
+                                            <tr height="30"> 
+                                                <td align="center" class="border_in" style="border-top-style:none">상 
+                                                호<br />
+                                                (법인명) </td>
+                                                <td><table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr> 
+                                                    <td class="border_in" style="border-top-style:none" align="center"><strong style="font-size:11px">${ls_eeacorp}</strong></td>
+                                                    <td class="border_in" style="border-top-style:none" align="center" width="15">성<br />
+                                                        명</span></td>
+                                                    <td class="border_in" style="border-top-style:none" align="left">&nbsp;&nbsp;<strong style="font-size:11px">${ls_eeaname}</strong> (인)<?=$prtCompany['sign_img']?></td>
+                                                    </tr>
+                                                </table></td>
+                                            </tr>
+                                            <tr height="30"> 
+                                                <td align="center" class="border_in" style="border-top-style:none">사업장<br />
+                                                주 소</td>
+                                                <td class="border_in" style="border-top-style:none" align="center">${ls_eeajuso}</td>
+                                            </tr>
+                                            <tr height="30"> 
+                                                <td align="center" class="border_in" style="border-top-style:none">업 
+                                                태</td>
+                                                <td><table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr> 
+                                                    <td class="border_in" style="border-top-style:none" align="center">${ls_eeupte}</td>
+                                                    <td class="border_in" style="border-top-style:none" width="15" align="center">종<br />
+                                                        목</td>
+                                                    <td class="border_in" style="border-top-style:none" align="center">${ls_eeajong}</td>
+                                                    </tr>
+                                                </table></td>
+                                            </tr>
+                                            </table></td>
+                                        </tr>
+                                    </table></div></td>
+                                </tr>
+                                </table></td>
+                            </tr>
+                        </table>
+                    </td>
+                    </tr>
+                </table>            
+            `);   
+
+
+
+
+            //doc.append(`<h1>${ls_acorp}</h1>`);
+            //doc.append('<p>This document was created using the <b>PrintDocument</b> class.</p>');
+            // add a printer-friendly version of a FlexGrid to the document
+            var flex = wijmo.Control.getControl('#wtab03Grid_div');  //wtab02Grid  wtab02Grid_div
+            //doc.append('<p>Here\'s a FlexGrid rendered as a table:</p>');
+            var tbl = renderTable(flex);
+            doc.append(tbl);
+            //
+            // print the document
+            doc.print();
+
+        }    
+
+
+        function renderTable(flex) {
+            //
+            // start table
+            var tbl = '<table>';
+            //
+            // headers
+            if (flex.headersVisibility & wijmo.grid.HeadersVisibility.Column) {
+                tbl += '<thead>';
+                for (var r = 0; r < flex.columnHeaders.rows.length; r++) {
+                    tbl += renderRow(flex.columnHeaders, r);
+                }
+                tbl += '</thead>';
+            }
+            //
+            // body
+            tbl += '<tbody>';
+            for (var r = 0; r < flex.rows.length; r++) {
+                tbl += renderRow(flex.cells, r);
+            }
+            tbl += '</tbody>';
+            //
+            // done
+            tbl += '</table>';
+            return tbl;
+        }
+        function renderRow(panel, r) {
+            var tr = '', row = panel.rows[r];
+            if (row.renderSize > 0) {
+                tr += '<tr>';
+                for (var c = 0; c < panel.columns.length; c++) {
+                    var col = panel.columns[c];
+                    if (col.renderSize > 0) {
+                        //
+                        // get cell style, content
+                        var style = 'width:' + col.renderSize + 'px;' +
+                            'text-align:' + col.getAlignment() + ';' +
+                            'padding-right: 6px';
+                        var content = panel.getCellData(r, c, true);
+                        if (!row.isContentHtml && !col.isContentHtml) {
+                            content = wijmo.escapeHtml(content);
+                        }
+                        //
+                        // add cell to row
+                        if (panel.cellType == wijmo.grid.CellType.ColumnHeader) {
+                            tr += '<th style="' + style + '">' + content + '</th>';
+                        }
+                        else {
+                            //
+                            // show boolean values as checkboxes
+                            var raw = panel.getCellData(r, c, false);
+                            if (raw === true) {
+                                content = '&#9745;';
+                            }
+                            else if (raw === false) {
+                                content = '&#9744;';
+                            }
+                            //
+                            tr += '<td style="' + style + '">' + content + '</td>';
+                        }
+                    }
+                }
+                tr += '</tr>';
+            }
+            return tr;
+        }        
         //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 모달 검색@@@@@@@@@@@@@@@@@@@@@@@@@@@
         //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
                   
@@ -693,7 +980,7 @@
                         document.getElementById("todate").focus(); 
                         return ;               
                     }   
-                    if(ls_misfixflag == "확정구분"){ 
+                    if(ls_misfixflag == "출력구분"){ 
                         ls_misfixflag = "%";
                     }    
                     if(ls_bacode == null || ls_bacode.length == 0 || ls_bacode == ""){  
@@ -718,10 +1005,38 @@
                             console.log("error");
                             // alert(data.code);
                             // alert(data.message);
+                            return 
                         }
                     }).done(function(fragment){           
 
-                    })  
+                    })   
+
+
+
+                    //출력화면 조회     
+                    $.ajax({
+                        url: '/app01m/index14/listprt',  
+                        type:"POST",
+                        data: { 
+                            "frdate"      : ls_frdate,
+                            "todate"      : ls_todate,
+                            "acode"      : ls_bacode,   
+                            "perid"      : ls_abonsadam1,  
+                            "fixflag"    : ls_misfixflag,
+                            "mflag"  : 'AA'   ,  
+                        }, 
+                        async:false,
+                        success:function(data){   
+                            tabD_grid(data);
+                        },error:function(e){
+                            console.log("error");
+                            // alert(data.code);
+                            // alert(data.message);
+                        }
+                    }).done(function(fragment){           
+
+                    })   
+
                     break;
                 case 'B': 
                     var ls_frdate = document.getElementById('frdate02').value; 
@@ -909,7 +1224,7 @@
             wtab02Grid.columns.push(cols);    
             cols = new wijmo.grid.Column(); 
             cols.binding = 'fixflag'; 
-            cols.header = '확정';
+            cols.header = '출력';
             cols.align = "center";
             cols.width = 100;  
             cols.cssClass = 'switch'
@@ -917,6 +1232,141 @@
  
         }
             
+      
+        function tabD_grid(data){
+            var wtab03Dto  = data;    
+            var wtab03_data = [];
+            var cnt = 1;
+            var bfixflag = false
+            console.log(wtab03Dto)
+            for (var i = 0; i < wtab03Dto.length; i++) {
+                if(wtab03Dto[i]["fixflag"] == "1"){
+                    bfixflag = true;
+                }else{
+                    bfixflag = false;
+                }
+                ls_acorp = wtab03Dto[i]["acorp"];
+                ls_asano = wtab03Dto[i]["asano"];
+                ls_aname = wtab03Dto[i]["aname"];
+                ls_aupte = wtab03Dto[i]["aupte"];
+                ls_ajong = wtab03Dto[i]["ajong"];
+                ls_ajuso = wtab03Dto[i]["ajuso"];
+                ls_eeacorp = wtab03Dto[i]["eeacorp"];
+                ls_eeasano = wtab03Dto[i]["eeasano"];
+                ls_eeaname = wtab03Dto[i]["eeaname"];
+                ls_eeupte = wtab03Dto[i]["eeupte"];
+                ls_eeajong = wtab03Dto[i]["eeajong"];
+                ls_eeajuso = wtab03Dto[i]["eeajuso"];
+                ls_misdate = wtab03Dto[i]["misdate"];
+                ls_misnum = wtab03Dto[i]["misnum"];
+                wtab03_data.push({
+                    id: i, 
+                    index: cnt,
+                    select: false,
+                    misdate: wtab03Dto[i]["misdate"],
+                    misnum: wtab03Dto[i]["misnum"],     
+                    seq: wtab03Dto[i]["seq"],    
+                    acorp: wtab03Dto[i]["acorp"],    
+                    pname: wtab03Dto[i]["pname"],    
+                    psize: wtab03Dto[i]["psize"],    
+                    pbonsa: wtab03Dto[i]["pbonsa"],    
+                    pmodel: wtab03Dto[i]["pmodel"],    
+                    pcolor: wtab03Dto[i]["pcolor"],    
+                    qty: wtab03Dto[i]["qty"],    
+                    uamt: wtab03Dto[i]["uamt"], 
+                    samt: wtab03Dto[i]["samt"],  
+                    cltcd: wtab03Dto[i]["cltcd"],  
+                    inname: wtab03Dto[i]["inname"],       
+                    misgubun: wtab03Dto[i]["misgubun"],    
+                    rownum: wtab03Dto[i]["rownum"],      
+                    acorp: wtab03Dto[i]["acorp"],      
+                    asano: wtab03Dto[i]["asano"],      
+                    aname: wtab03Dto[i]["aname"],      
+                    aupte: wtab03Dto[i]["aupte"],      
+                    ajong: wtab03Dto[i]["ajong"],      
+                    ajuso: wtab03Dto[i]["ajuso"],      
+                    eeacorp: wtab03Dto[i]["eeacorp"],      
+                    eeasano: wtab03Dto[i]["eeasano"],      
+                    eeaname: wtab03Dto[i]["eeaname"],      
+                    eeupte: wtab03Dto[i]["eeupte"],      
+                    eeajong: wtab03Dto[i]["eeajong"],      
+                    eeajuso: wtab03Dto[i]["eeajuso"],   
+                    fixflag: bfixflag,                          
+                });
+                cnt++;
+            }   
+            
+            wtab03Grid.columns.clear();  
+            wtab03Grid.autoGenerateColumns = false; 
+            view_p01tab03page.sourceCollection  = wtab03_data; 
+            var cols = new wijmo.grid.Column(); 
+            cols.binding = 'rownum';
+            cols.header = '순번';
+            cols.align = "center";
+            cols.width = 50;  
+            wtab03Grid.columns.push(cols);  
+            cols = new wijmo.grid.Column();    
+            cols.binding = 'misdate';
+            cols.header = '주문일자';
+            cols.align = "center";
+            cols.width = 80; 
+            wtab03Grid.columns.push(cols);    
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'pname';
+            cols.header = '품목';
+            cols.align = "center";
+            cols.width = 150;  
+            wtab03Grid.columns.push(cols);   
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'psize';
+            cols.header = '규격';
+            cols.align = "center";
+            cols.width = 120;  
+            wtab03Grid.columns.push(cols);    
+            // cols = new wijmo.grid.Column(); 
+            // cols.binding = 'pbonsa';
+            // cols.header = '코드';
+            // cols.align = "center";
+            // cols.width = 100;  
+            // wtab03Grid.columns.push(cols);  
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'pmodel';
+            cols.header = '모델';
+            cols.align = "center";
+            cols.width = 100;  
+            wtab03Grid.columns.push(cols);  
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'pcolor';
+            cols.header = '컬러';
+            cols.align = "center";
+            cols.width = 100;  
+            wtab03Grid.columns.push(cols);   
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'qty';
+            cols.header = '수량';
+            cols.align = "center";
+            cols.aggregate = 'Sum';
+            cols.width = 60;  
+            wtab03Grid.columns.push(cols);   
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'uamt';
+            cols.header = '단가';
+            cols.align = "right";
+            cols.width = 80;  
+            wtab03Grid.columns.push(cols);     
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'samt'; 
+            cols.header = '금액';
+            cols.align = "right";
+            cols.aggregate = 'Sum';
+            cols.width = 120;  
+            wtab03Grid.columns.push(cols);   
+ 
+        }
+
+
+
+
         function tabC_grid(data){
             var wtab04Dto  = data;    
             var wtab04_data = [];
@@ -1499,28 +1949,38 @@
                             gridView.pageSize = 0;
 
                             wijmo.grid.xlsx.FlexGridXlsxConverter.saveAsync(grid, {includeCellStyles: true, includeColumnHeaders: true}, 'FlexGrid.xlsx',
-                            saved => {
-                            gridView.pageSize = oldPgSize;
-                            gridView.moveToPage(oldPgIndex);
-                            grid.endUpdate();
-                            }, null
+                                saved => {
+                                gridView.pageSize = oldPgSize;
+                                gridView.moveToPage(oldPgIndex);
+                                grid.endUpdate();
+                                }, null
                             ); 
                             break;
                         case 'X_PDF':
-                            wijmo.grid.pdf.FlexGridPdfConverter.export(grid, 'FlexGrid.pdf', {
+                            wijmo.grid.pdf.FlexGridPdfConverter.export(grid, '주문출력.pdf', {
                                 maxPages: 10,
                                 scaleMode: wijmo.grid.pdf.ScaleMode.PageWidth,
                                 documentOptions: {
-                                compress: true,
-                                header: { declarative: { text: '\t&[Page] of &[Pages]' } },
-                                footer: { declarative: { text: '\t&[Page] of &[Pages]' } },
-                                info: { author: 'GrapeCity', title: 'FlexGrid' }
+                                    compress: true,
+                                    header: { declarative: { text: '\t&[Page] of &[Pages]' } },
+                                    footer: { declarative: { text: '\t&[Page] of &[Pages]' } },
+                                    info: { author: 'GrapeCity', title: '주문출력' }
                                 },
+                                //내장된 폰트 정보
+                                embeddedFonts: [
+                                    {
+                                    source: "https://assets.codepen.io/975719/BMHANNAPro.ttf",
+                                    name: "BMHANNAPro",
+                                    style: "normal",
+                                    weight: "normal",
+                                    sansSerif: true
+                                    }
+                                ],
                                 styles: {
-                                cellStyle: { backgroundColor: '#ffffff', borderColor: '#c6c6c6' },
-                                altCellStyle: { backgroundColor: '#f9f9f9' },
-                                groupCellStyle: { backgroundColor: '#dddddd' },
-                                headerCellStyle: { backgroundColor: '#eaeaea' }
+                                    cellStyle: { backgroundColor: '#ffffff', borderColor: '#c6c6c6', font: {family: "BMHANNAPro"} },
+                                    altCellStyle: { backgroundColor: '#f9f9f9' },
+                                    groupCellStyle: { backgroundColor: '#dddddd' },
+                                    headerCellStyle: { backgroundColor: '#eaeaea' }
                                 }
                             });
                             break;

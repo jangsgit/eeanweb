@@ -1895,7 +1895,7 @@ function sample4_execDaumPostcode() {
                             // 내보내기
                             case 'X_CSV':
                                 let rng = new wijmo.grid.CellRange(0, 0, grid.rows.length - 1, grid.columns.length - 1), csv = grid.getClipString(rng, wijmo.grid.ClipStringOptions.CSV, true, false);
-                                wijmo.saveFile(csv, 'FlexGrid.csv');
+                                wijmo.saveFile(csv, '거래처현황.csv');
                                 break;
                             case 'X_XLSX':
                                 //엑셀수정
@@ -1905,7 +1905,7 @@ function sample4_execDaumPostcode() {
                                 grid.beginUpdate();
                                 gridView.pageSize = 0;
 
-                                wijmo.grid.xlsx.FlexGridXlsxConverter.saveAsync(grid, {includeCellStyles: true, includeColumnHeaders: true}, 'FlexGrid.xlsx',
+                                wijmo.grid.xlsx.FlexGridXlsxConverter.saveAsync(grid, {includeCellStyles: true, includeColumnHeaders: true}, '거래처현황.xlsx',
                                 saved => {
                                 gridView.pageSize = oldPgSize;
                                 gridView.moveToPage(oldPgIndex);
@@ -1914,34 +1914,35 @@ function sample4_execDaumPostcode() {
                                 );                          
                                 break;
                             case 'X_PDF':
-                                wijmo.grid.pdf.FlexGridPdfConverter.export(grid,'FlexGrid.pdf', {
+                                wijmo.grid.pdf.FlexGridPdfConverter.export(grid,'거래처현황.pdf', {
                                     maxPages: 10,
                                     scaleMode: wijmo.grid.pdf.ScaleMode.PageWidth,
                                     // exportMode = wijmo.grid.pdf.ExportMode.All,
                                     documentOptions: {
-                                        compress: true,
-                                        pageSettings: {
-                                        layout: orientation
-                                        },
-                                    header: { declarative: { text: '\t&[Page] of &[Pages]' } },
-                                    footer: { declarative: { text: '\t&[Page] of &[Pages]' } },
-                                    info: { author: 'Actas', title: 'FlexGrid' }
+                                            compress: true,
+                                            pageSettings: {
+                                            layout: orientation
+                                            },
+                                        header: { declarative: { text: '\t&[Page] of &[Pages]' } },
+                                        footer: { declarative: { text: '\t&[Page] of &[Pages]' } },
+                                        info: { author: 'Actas', title: '거래처현황' }
                                     },
+                                    //내장된 폰트 정보
+                                    embeddedFonts: [
+                                        {
+                                        source: "https://assets.codepen.io/975719/BMHANNAPro.ttf",
+                                        name: "BMHANNAPro",
+                                        style: "normal",
+                                        weight: "normal",
+                                        sansSerif: true
+                                        }
+                                    ],
                                     styles: {
-                                    cellStyle: { backgroundColor: '#ffffff', borderColor: '#c6c6c6' },
-                                    altCellStyle: { backgroundColor: '#f9f9f9' },
-                                    groupCellStyle: { backgroundColor: '#dddddd' },
-                                    headerCellStyle: { backgroundColor: '#eaeaea' }
-                                    },
-                                    embeddedFonts: 
-                                    {
-                                    // source: 'resources/fira/FiraSans-Regular.ttf',
-                                    source: 'https://assets.codepen.io/975719/FiraSans-Regular.ttf',
-                                    name: 'fira',
-                                    style: 'normal',
-                                    weight: 'normal',
-                                    sansSerif: true
-                                    }
+                                        cellStyle: { backgroundColor: '#ffffff', borderColor: '#c6c6c6', font: {family: "BMHANNAPro"} },
+                                        altCellStyle: { backgroundColor: '#f9f9f9' },
+                                        groupCellStyle: { backgroundColor: '#dddddd' },
+                                        headerCellStyle: { backgroundColor: '#eaeaea' }
+                                    } 
                                 });
                                 // let doc = new pdf.PdfDocument({
                                 // header: {
