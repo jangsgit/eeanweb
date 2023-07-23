@@ -4,6 +4,7 @@ import com.dae.eean.DTO.App01.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Repository
@@ -45,7 +46,8 @@ public interface Index14Mapper {
 
     public List<IndexDa024Dto> SelectDa024List(IndexDa024Dto parm) ;
 
-    public List<IndexDa024Dto> SelectDa024ListPrt(IndexDa024Dto parm) ;
+//    public List<IndexDa024Dto> SelectDa024ListPrt(IndexDa024Dto parm) ;
+    public List<IndexDa024Dto> SelectDa024ListPrt(HashMap<String,String> parm) ;
     public List<IndexDa024Dto> SelectDa026List(IndexDa024Dto parm) ;
     public IndexDa024Dto SelectDa026Detail(IndexDa024Dto parm) ;
     public List<IndexDa024Dto> SelectDa024ListPerid(IndexDa024Dto parm) ;

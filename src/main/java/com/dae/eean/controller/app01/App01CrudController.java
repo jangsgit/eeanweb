@@ -21,10 +21,7 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -1487,13 +1484,12 @@ public class App01CrudController {
 
     //주문현황 리스트
     @GetMapping(value="/index14/listprt")
-    public Object App14ListPrt_index(@RequestParam("frdate") String frdate,
-                                  @RequestParam("todate") String todate,
-                                  @RequestParam("acode") String acode,
-                                  @RequestParam("fixflag") String fixflag,
-                                  @RequestParam("perid") String perid,
-                                  @RequestParam("mflag") String mflag,
-                                  Model model, HttpServletRequest request) throws Exception{
+    public Object App14ListPrt_index(@RequestParam(value = "misdatearr[]") List<String> misdatearr
+                                    ,@RequestParam( value =  "misnumarr[]") List<String> misnumarr
+                                    ,@RequestParam( value =  "seqarr[]") List<String> seqarr
+                                    ,@RequestParam( value =  "cltcdarr[]") List<String> cltcdarr
+                                    ,@RequestParam( value =  "gubunarr[]") List<String> gubunarr
+                                    ,Model model, HttpServletRequest request) throws Exception{
         CommDto.setMenuTitle("주문등록");
         CommDto.setMenuUrl("주문등록>주문현황");
         CommDto.setMenuCode("index14");
@@ -1502,39 +1498,22 @@ public class App01CrudController {
         model.addAttribute("userformDto",userformDto);
 
         try {
-            String year = frdate.substring(0,4) ;
-            String month = frdate.substring(5,7) ;
-            String day   = frdate.substring(8,10) ;
-            frdate = year + month + day ;
-            year = todate.substring(0,4) ;
-            month = todate.substring(5,7) ;
-            day   = todate.substring(8,10) ;
-            todate = year + month + day ;
-            indexDa024Dto.setFrdate(frdate);
-            indexDa024Dto.setTodate(todate);
-            indexDa024Dto.setCltcd(acode);
-            indexDa024Dto.setFixflag(fixflag);
-            if(perid == null || perid.equals("")){
-                perid = "%";
+            HashMap hm = new HashMap();
+            String[] itemString =new String[misdatearr.size()];
+
+            if( misdatearr.size() > 0){
+                for(int i = 0; i < misdatearr.size(); i++){
+                    String year = misdatearr.get(i).substring(0,4);
+                    String month = misdatearr.get(i).substring(5,7);
+                    String day = misdatearr.get(i).substring(8,10);
+                    String ls_misdate = year + month + day ;
+                    itemString[i] = ls_misdate + misnumarr.get(i) + seqarr.get(i) + cltcdarr.get(i);
+                    log.info("itemString =====>" + ls_misdate + misnumarr.get(i) + seqarr.get(i) + cltcdarr.get(i));
+                }
+                hm.put("itemcdArr", itemString);
+                indexDa024ListDto = service14.SelectDa024ListPrt(hm);
+
             }
-            switch (mflag){
-                case "AA" :
-                    indexDa024Dto.setPerid(perid);
-                    mflag = "%";
-                    break;
-                case "BB":
-                    indexDa024Dto.setPerid(perid);
-                    break;
-                case "CC":
-                    indexDa024Dto.setPerid(userformDto.getPerid());
-                    break;
-                default:
-                    break;
-            }
-            indexDa024Dto.setPerid(perid);
-            indexDa024Dto.setMisgubun(mflag);
-            indexDa024ListDto = service14.SelectDa024ListPrt(indexDa024Dto);
-            model.addAttribute("indexDa024ListDto",indexDa024ListDto);
 
         } catch (Exception ex) {
             log.info("App14List_index Exception =====>" + ex.toString());
@@ -1985,11 +1964,13 @@ public class App01CrudController {
                     indexDa024Dto.setSeq(seqarr.get(i));
                     indexDa024Dto.setCltcd(cltcdarr.get(i));
                     indexDa024Dto.setMisgubun(gubunarr.get(i));
-                    if(fixflagarr.get(i).equals("0")){
-                        indexDa024Dto.setFixflag("1");
-                    }else{
-                        indexDa024Dto.setFixflag("0");
-                    }
+                    indexDa024Dto.setFixflag("1");
+                    //출력(확정)취소는 없앰. 7.23
+//                    if(fixflagarr.get(i).equals("0")){
+//                        indexDa024Dto.setFixflag("1");
+//                    }else{
+//                        indexDa024Dto.setFixflag("0");
+//                    }
                     result = service14.UpdateDA024(indexDa024Dto);
                     if (!result){
                         return "error";

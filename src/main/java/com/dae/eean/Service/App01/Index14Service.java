@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -39,9 +40,13 @@ public class Index14Service {
     public List<IndexDa024Dto> SelectDa024List(IndexDa024Dto parm){
         return  appMapper.SelectDa024List(parm);
     }
-    public List<IndexDa024Dto> SelectDa024ListPrt(IndexDa024Dto parm){
+//    public List<IndexDa024Dto> SelectDa024ListPrt(IndexDa024Dto parm){
+//        return  appMapper.SelectDa024ListPrt(parm);
+//    }
+
+    public List<IndexDa024Dto> SelectDa024ListPrt(HashMap<String,String> parm) {
         return  appMapper.SelectDa024ListPrt(parm);
-    }
+    };
     public List<IndexDa024Dto> SelectDa026List(IndexDa024Dto parm){
         return  appMapper.SelectDa026List(parm);
     }

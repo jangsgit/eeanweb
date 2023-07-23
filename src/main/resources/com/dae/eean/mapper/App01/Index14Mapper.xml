@@ -62,29 +62,26 @@
     </select>
 
 
-    <select id="SelectDa024ListPrt"  parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" resultType="com.dae.eean.DTO.App01.IndexDa024Dto">
-        <![CDATA[ select B.cltcd as cltcd,  substring(B.misdate, 5,2)+ '.' + substring(B.misdate, 7,2) as misdate, B.misnum, B.seq,
+    <select id="SelectDa024ListPrt"  parameterType="hashmap"  resultType="com.dae.eean.DTO.App01.IndexDa024Dto">
+          select B.cltcd as cltcd,  substring(B.misdate, 5,2)+ '.' + substring(B.misdate, 7,2) as misdate, B.misnum, B.seq,
                          B.pcode, B.pname, B.psize,    B.punit,  B.qty,  B.uamt, B.samt, B.addamt,
                          B.amt, A.acorp, pbonsa, pmodel, pcolor , D.inname, B.misgubun, isnull(B.fixflag,'0') as fixflag, D.inname as pernm,
                          ROW_NUMBER() OVER(ORDER BY (SELECT 1)) AS rownum,
-                         A.acorp, A.asano1 + '-' + A.asano2 + '-' + A.asano3 as asano, A.aname, A.aupte, A.ajong, A.ajuso1 + ' ' + A.ajuso2 as ajuso,
+                         A.acorp, A.asano1 + '-' + A.asano2 + '-' + A.asano3 as asano, A.aname, A.aupte, A.ajong, A.ajuso1 + ' ' + A.ajuso2 as ajuso, A.atelno,
                          F.acorp as eeacorp, F.asano as eeasano, F.aname as eeaname, F.aupte as eeupte, F.ajong as eeajong, F.ajuso as eeajuso
            from  TB_DA024 B WITH (NOLOCK) , cif A WITH (NOLOCK) ,
                  TB_DA023 C WITH (NOLOCK) Left outer JOIN INSA D ON C.perid = D.insano ,
                  ( select acorp, asano1 + '-' + asano2 + '-' + asano3 as asano, aname, aupte, ajong, ajuso1 + ' ' + ajuso2 as ajuso
                     from cif where acorp1 + acorp2 + acorp3 = '0000' ) F
            where B.misdate + B.misnum = C.misdate + C.misnum AND B.misgubun = C.misgubun
-             AND isnull(C.delflag, '') <> 'Y'
              AND B.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
              AND C.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
-            AND A.acorp1 + CAST(A.acorp2 as varchar) Like concat('%',#{cltcd},'%')
-             AND isnull(C.perid,'')  Like concat('%',#{perid},'%')
-             AND isnull(B.misgubun,'')  Like concat('%',#{misgubun},'%')
-            AND B.misdate between #{frdate} and #{todate}
+            AND B.misdate + B.misnum + B.seq + B.cltcd in
+                <foreach collection="itemcdArr" item="itemcd"  open="(" close=")" separator=",">
+                  #{itemcd}
+                </foreach>
             AND B.fixflag = '1'
             ORDER BY B.misdate, B.misnum, B.seq
-        ]]>
-
     </select>
 
 

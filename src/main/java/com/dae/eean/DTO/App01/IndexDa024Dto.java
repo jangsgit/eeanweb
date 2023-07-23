@@ -48,6 +48,8 @@ public class IndexDa024Dto {
     private String eeupte;
     private String eeajong;
     private String eeajuso;
+    private String atelno;
+    private String[] itemcdArr;
 
 
 }
