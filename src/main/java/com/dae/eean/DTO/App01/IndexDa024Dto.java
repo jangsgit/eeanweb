@@ -49,7 +49,9 @@ public class IndexDa024Dto {
     private String eeajong;
     private String eeajuso;
     private String atelno;
+    private String eeatelno;
     private String[] itemcdArr;
+    private String misdatetxt;
 
 
 }

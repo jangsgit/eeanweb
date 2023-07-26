@@ -194,7 +194,8 @@
                                     </div> 
                                     <div class="tab-pane fade" id="step03">  
                                         <div class="container-fluid"> 
-                                            <div id="wtab03Grid_div"  style="overflow:scroll;   height:600px;    margin:0 auto; "></div>  
+                                            <div id="wtab03Grid_div"  style="overflow:scroll;   height:600px;    margin:0 auto; "></div> 
+                                            <div id="flexGridFooter" class="gridFooter"></div> 
                                             <!-- <div id="tab02Pager"></div> -->
                                           </div>
                                     </div> 
@@ -312,6 +313,13 @@
          var ls_misdate = "";
          var ls_misnum = "";
          var ls_atelno = "";
+         var ls_eeatelno = ""; 
+         var ls_misdatetxt = "" ;
+         var wtab03_data = [];
+         var ll_sumqty = 0; 
+         var ll_sumsamt = 0; 
+         var ll_sumaddamt = 0; 
+         var ll_sumamt= 0
 
         var wseries_data = [0]; 
         let includeColumnHeader = false;
@@ -352,8 +360,7 @@
                
             // 선택기 생성
             let selector = new wijmo.grid.selector.Selector(wtab02Grid, {                
-                itemChecked: () => {
-                    console.log("kkkk");
+                itemChecked: () => { 
                      showCheckedCount();
                 }                
             }); 
@@ -615,10 +622,7 @@
                     if(misdateArr.length == null || misdateArr.length == 0){ 
                         alert("출력할 내역을 선택하세요") 
                         return ;               
-                    }  
-                  
-console.log("1 --------------------------")
-console.log(misdateArr + misnumArr + seqArr)  
+                    }   
                     $.ajax({
                         url: '/app01m/index16/save',  
                         type:"POST",
@@ -750,214 +754,302 @@ console.log(misdateArr + misnumArr + seqArr)
 
         //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 인쇄 @@@@@@@@@@@@@@@@@@@@@@@@@@@
         //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-                 
-        
-        function print_rtn(){ 
+     
+
+        function print_rtn(getData){ 
+            
+            if(misdateArr.length == null || misdateArr.length == 0){  
+                return ;               
+            }   
             // create PrintDocument
-            var doc = new wijmo.PrintDocument({
-                    title: '',
-                    copyCss: false, // prevent cross-origin issues in jsfiddle  
-            })
-            // wijmo.grid.pdf.FlexGridPdfConverter.draw(orderManagement, doc, null, null, settings)
-            doc.append('<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">');
-            doc.append('<link href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" rel="stylesheet">'); 
-
- 
-            // add some simple text
-            doc.append(`
-                <table width="600" border="0" cellspacing="0" cellpadding="0" align="left" style="table-layout:auto">
-                <tr> 
-                    <td>
-                        <table width="600" cellpadding="0" cellspacing="0" class="border_out">
-                            <tr height="44"> 
-                            <td><table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
-                                <tr>
-                                    <td align="center"><span style="font-size:18pt;font-weight:bold;">거 래 명 세 서</span></td>
-                                    <td><table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
-                                        <tr>
-                                        <td class="border_in" align="center" style="border-top-style:none">작성일</td> 
-                                        <td class="border_in" align="center" style="border-top-style:none">일련번호</td>
-                                        </tr>
-                                        <tr>
-                                        <td class="border_in" align="center" style="border-top-style:none;border-bottom-style:none;">${ls_misdate}</td> 
-                                        <td align="center" class="border_in" style="border-top-style:none;border-bottom-style:none;">${ls_misdate+'-' + ls_misnum }</td>
-                                        </tr>
-                                    </table></td>
-                                </tr>
-                                </table></td>
-                            </tr>
-                            <tr> 
-                            <td><table width="100%" class="border_in" style="border-left-style:none" border="0" cellspacing="0" cellpadding="0">
-                                <tr>
-                                    <td width="45%"><table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
-                                        <tr> 
-                                        <td width="18" align="center" class="border_in" style="border-left-style:none"><span style="line-height:20px">공<br />
-                                            급<br />
-                                            받<br />
-                                            는<br />
-                                            자</span></td>
-                                        <td><table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
-                                            <tr height="30"> 
-                                                <td width="25%" align="center" class="border_in">상 호<br />(법인명)</td>
-                                                <td width="75%" class="border_in">
-                                                <table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
-                                                    <tr>
-                                                    <td align="center"><strong style="font-size:11px">${ls_acorp}</strong></td>
-                                                    <td width="25%" align="center" class="l_dot" style="font-size:12px;">귀하</td>
-                                                    </tr>
-                                                </table>
-                                                </td>
-                                            </tr>
-                                            <tr height="30"> 
-                                                <td align="center" class="border_in" style="border-top-style:none">사업장<br />
-                                                주 소</td>
-                                                <td class="border_in" style="border-top-style:none" align="center">${ls_ajuso}</td>
-                                            </tr>
-                                            <tr height="30"> 
-                                                <td align="center" class="border_in" style="border-top-style:none">전화번호</td>
-                                                <td class="border_in" style="border-top-style:none" align="center">${ls_atelno}</td>
-                                            </tr>
-                                            <tr height="30"> 
-                                                <td align="center" class="border_in" style="border-top-style:none">합계금액</td>
-                                                <td class="border_in" style="border-top-style:none;font-size:12px;" align="center"><strong>5000000</strong> <span style="font-size:80%">(VAT<?=$prtInfo['tax_added_txt']?>)</span></td>
-                                            </tr>
-                                            </table></td>
-                                        </tr>
-                                    </table></td>
-                                    <td width="55%"><div class="sign_area"><table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                        <tr> 
-                                        <td class="border_in" width="18" align="center"><span style="line-height:38px">공<br />
-                                            급<br />
-                                            자</span></td>
-                                        <td><table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
-                                            <tr height="30"> 
-                                                <td width="47" align="center" class="border_in">등록번호</td>
-                                                <td class="border_in" align="center"><span style="font-size:13px;font-weight:bold">${ls_eeasano}</span></td>
-                                            </tr>
-                                            <tr height="30"> 
-                                                <td align="center" class="border_in" style="border-top-style:none">상 
-                                                호<br />
-                                                (법인명) </td>
-                                                <td><table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
-                                                    <tr> 
-                                                    <td class="border_in" style="border-top-style:none" align="center"><strong style="font-size:11px">${ls_eeacorp}</strong></td>
-                                                    <td class="border_in" style="border-top-style:none" align="center" width="15">성<br />
-                                                        명</span></td>
-                                                    <td class="border_in" style="border-top-style:none" align="left">&nbsp;&nbsp;<strong style="font-size:11px">${ls_eeaname}</strong> (인)<?=$prtCompany['sign_img']?></td>
-                                                    </tr>
-                                                </table></td>
-                                            </tr>
-                                            <tr height="30"> 
-                                                <td align="center" class="border_in" style="border-top-style:none">사업장<br />
-                                                주 소</td>
-                                                <td class="border_in" style="border-top-style:none" align="center">${ls_eeajuso}</td>
-                                            </tr>
-                                            <tr height="30"> 
-                                                <td align="center" class="border_in" style="border-top-style:none">업 
-                                                태</td>
-                                                <td><table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
-                                                    <tr> 
-                                                    <td class="border_in" style="border-top-style:none" align="center">${ls_eeupte}</td>
-                                                    <td class="border_in" style="border-top-style:none" width="15" align="center">종<br />
-                                                        목</td>
-                                                    <td class="border_in" style="border-top-style:none" align="center">${ls_eeajong}</td>
-                                                    </tr>
-                                                </table></td>
-                                            </tr>
-                                            </table></td>
-                                        </tr>
-                                    </table></div></td>
-                                </tr>
-                                </table></td>
-                            </tr>
-                        </table>
-                    </td>
-                    </tr>
-                </table>            
-            `);   
-
-
-
-
-            //doc.append(`<h1>${ls_acorp}</h1>`);
-            //doc.append('<p>This document was created using the <b>PrintDocument</b> class.</p>');
-            // add a printer-friendly version of a FlexGrid to the document
-            var flex = wijmo.Control.getControl('#wtab03Grid_div');  //wtab02Grid  wtab02Grid_div
-            //doc.append('<p>Here\'s a FlexGrid rendered as a table:</p>');
-            var tbl = renderTable(flex);
-            doc.append(tbl);
-            //
-            // print the document
-            doc.print();
+            //To hide footer or header set the area's height property to 0:
+            var doc = new wijmo.pdf.PdfDocument({   
+                compress: true,
+                pageSettings: {
+                    layout: wijmo.pdf.PdfPageOrientation.Portrait,
+                    size: wijmo.pdf.PdfPageSize.Letter,
+                    margins: {
+                        left: 36,
+                        right: 36,
+                        top: 50,
+                        bottom: 36
+                    }
+                },
+                footer: {
+                    declarative: {
+                        text: 'EEAN Optic\t&[Page]\\&[Pages]',
+                        font: new wijmo.pdf.PdfFont('times', 12),
+                        brush: '#bfc1c2'
+                    }
+                },
+                ended: (sender, args) => wijmo.pdf.saveBlob(args.blob, ls_acorp + '_' + ls_misdate + '.pdf')
+            }) 
+            doc.registerFont({
+                source: "https://assets.codepen.io/975719/UnDotum.ttf",
+                name: "BMHANNAPro",
+                style: "normal",
+                weight: "normal",
+                sansSerif: true
+            });
+            
+            doc.header.drawText("거 래 명 세 서", null, null, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 20), align: 1, baseline: 5, underline: false});   //align 1 center baseline 5 bottom
+            //doc.moveDown(3);
+            drawEmployee(doc, getData);
+            // doc.drawText("바디", null, null, {font: new wijmo.pdf.PdfFont("BMHANNAPro")});
+            // doc.footer.drawText('EEAN Optic \t&[Page]\\&[Pages]', null, null, {font: new wijmo.pdf.PdfFont("BMHANNAPro")});
+            // wijmo.grid.pdf.FlexGridPdfConverter.draw(wtab03Grid, doc, 400,400,{ embeddedFonts: [
+            //     {
+            //     source: 'https://assets.codepen.io/975719/UnDotum.ttf',
+            //     name: 'dotum',
+            //     style: 'normal',
+            //     weight: 'normal',
+            //     sansSerif: true
+            //     }],
+            // styles: {
+            //     cellStyle: { backgroundColor: '#ffffff', borderColor: '#c6c6c6', font: {
+            //     family: 'dotum'
+            //     } },
+            //     altCellStyle: { backgroundColor: '#f9f9f9' },
+            //     groupCellStyle: { backgroundColor: '#dddddd' },
+            //     headerCellStyle: { backgroundColor: '#eaeaea' }
+            // }}); 
+                 
+            doc.end(); 
 
         }    
 
+//
+        function drawEmployee(doc, employee) {
+            let tot = 0; //employee.expenses.totals;
+            // console.log('employee');
+            // console.log(employee);
+            let expenses = employee;
+            let font_url = "https://assets.codepen.io/975719/UnDotum.ttf";
+            // 
+            let minDate = employee[0].misdate, maxDate = employee[expenses.length -1].misdate, columns = [
+                { header: '순번', binding: 'rownum', width: 105 , align : "center"},
+                { header: '주문일자', binding: 'misdate', format: 'c', width: 105, align : "center" },
+                { header: '품목', binding: 'pname', format: 'c', width: 105, align : "left" },
+                { header: '규격', binding: 'psize', format: 'c', width: 105 , align : "left"},
+                { header: '모델', binding: 'pmodel', format: 'c', width: 105 , align : "center"},
+                { header: '컬러', binding: 'pcolor', format: 'c', width: 105, align : "center" },
+                { header: '수량', binding: 'qty', format: 'n0', width: 105 , align : "center"},
+                { header: '단가', binding: 'uamt', format: 'n0', width: 105, align : "right" },
+                { header: '금액', binding: 'samt', format: 'n0', width: 105, align : "right" },
+                { header: '부가세', binding: 'addamt', format: 'n0', width: 105, align : "right" },
+                { header: '합계', binding: 'amt', format: 'n0', width: 105, align : "right" } 
+            ], bold = new wijmo.pdf.PdfFont('BMHANNAPro', 10, 'normal', 'bold'), thinPen = new wijmo.pdf.PdfPen('#000000', 0.5);
+            //
+            let flexGrid, footer;
+            //
+            try {
+                // * setup FlexGrid *
+                //flexGrid =  new wijmo.grid.FlexGrid('#wtab03Grid_div');
+                footer = new wijmo.grid.FlexGrid('#flexGridFooter');
+                // console.log(view_p01tab03page)
+                wtab03Grid.initialize({
+                    autoGenerateColumns: false,
+                    allowMerging: wijmo.grid.AllowMerging.All,
+                    columns: columns,
+                    headersVisibility: wijmo.grid.HeadersVisibility.Column,
+                    itemsSource: view_p01tab03page
+                });
+                //
+                footer.initialize({
+                    allowMerging: wijmo.grid.AllowMerging.All,
+                    autoGenerateColumns: false,
+                    headersVisibility: wijmo.grid.HeadersVisibility.None,
+                    columns: columns,
+                    itemsSource: [{
+                        rownum: null,
+                        misdate: null,
+                        pname: null,
+                        psize: null,
+                        pmodel:null,
+                        fuel: null,
+                        pcolor: null,
+                        qty: null,
+                        uamt: null,
+                        samt: null,
+                        addamt: null,
+                        amt: null,
+                    }]
+                });
+                //
+                footer.cells.setCellData(0, 'rownum', '', false);
+                footer.cells.setCellData(0, 'misdate', '', false);
+                footer.cells.setCellData(0, 'pname', '', false);
+                footer.cells.setCellData(0, 'psize', '', false);
+                footer.cells.setCellData(0, 'pmodel', '', false);
+                footer.cells.setCellData(0, 'pcolor', 'Total', false);
+                footer.cells.setCellData(0, 'qty', ll_sumqty, false);
+                footer.cells.setCellData(0, 'uamt', '', false);
+                footer.cells.setCellData(0, 'samt', ll_sumsamt, false);
+                footer.cells.setCellData(0, 'addamt', ll_sumaddamt, false);
+                footer.cells.setCellData(0, 'amt', ll_sumamt, false); 
 
-        function renderTable(flex) {
-            //
-            // start table
-            var tbl = '<table>';
-            //
-            // headers
-            if (flex.headersVisibility & wijmo.grid.HeadersVisibility.Column) {
-                tbl += '<thead>';
-                for (var r = 0; r < flex.columnHeaders.rows.length; r++) {
-                    tbl += renderRow(flex.columnHeaders, r);
-                }
-                tbl += '</thead>';
-            }
-            //
-            // body
-            tbl += '<tbody>';
-            for (var r = 0; r < flex.rows.length; r++) {
-                tbl += renderRow(flex.cells, r);
-            }
-            tbl += '</tbody>';
-            //
-            // done
-            tbl += '</table>';
-            return tbl;
-        }
-        function renderRow(panel, r) {
-            var tr = '', row = panel.rows[r];
-            if (row.renderSize > 0) {
-                tr += '<tr>';
-                for (var c = 0; c < panel.columns.length; c++) {
-                    var col = panel.columns[c];
-                    if (col.renderSize > 0) {
-                        //
-                        // get cell style, content
-                        var style = 'width:' + col.renderSize + 'px;' +
-                            'text-align:' + col.getAlignment() + ';' +
-                            'padding-right: 6px';
-                        var content = panel.getCellData(r, c, true);
-                        if (!row.isContentHtml && !col.isContentHtml) {
-                            content = wijmo.escapeHtml(content);
+                // footer.cells.rows[0].allowMerging = true; 
+
+    // // * draw captions *
+    // doc.drawText('Purpose: ', null, null, { font: bold, continued: true });
+    // doc.drawText(ls_eeacorp);
+    // //
+    // doc.drawText('From: ', 380, 0, { font: bold, continued: true });
+    // doc.drawText(wijmo.changeType(minDate, wijmo.DataType.String, 'd'));
+    // //
+    // doc.drawText('To: ', 470, 0, { font: bold, continued: true });
+    // doc.drawText(wijmo.changeType(maxDate, wijmo.DataType.String, 'd'));
+    // //
+    // doc.moveDown(2);
+                let y = doc.y;
+                doc.moveDown(2);
+                // * draw captions *
+                doc.drawText('작성일자: ' + ls_misdatetxt, 10, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 14), align: 0, underline:true});
+                //
+                doc.drawText('등록번호 : ' + ls_eeasano, 320, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11),  underline:false}); 
+                //
+                doc.moveDown(1);
+                //
+                y = doc.y; 
+                doc.drawText('상 호(법인명) : ' + ls_eeacorp, 320, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11),  underline:false});
+                //
+                doc.moveDown(1);
+                //
+                y = doc.y;
+                doc.drawText(ls_acorp + ' 귀하', 10, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 14), underline:true}); 
+                //
+                doc.drawText('사업장주소 : '  , 320, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11),   underline:false});  
+                //
+                doc.drawText('대 표 자 : ' + ls_eeaname, 430, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11),  underline:false}); 
+                //
+                y = doc.y;
+                doc.drawText(ls_eeajuso , 320, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11),   underline:false}); 
+                //
+                doc.moveDown(1);
+                //
+                y = doc.y;
+                //
+                y = doc.y; 
+                doc.drawText('업    태 : ' + ls_eeupte, 320, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11),   underline:false});
+                //
+                doc.drawText('종    목 : ' + ls_eeajong, 430, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11),  underline:false}); 
+                y = doc.y; 
+
+                doc.moveDown(1);
+                //
+                y = doc.y;
+                doc.drawText('아래와 같이 공급합니다.', 10, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro"), align: 0, underline:false});
+                doc.drawText('전화번호 : ' + ls_eeatelno, 320, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11),  underline:false});
+
+
+                // //
+                // doc.drawText('사업자번호: ' + ls_asano, 230, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro")});
+                // //
+                // doc.drawText('대표자: ' + ls_aname, 390, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro")}); 
+                //
+                // doc.moveDown(1);
+                // //
+                // y = doc.y;
+                // doc.drawText('업태: ' + ls_aupte, 10, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro")}); 
+
+                // doc.drawText('종목: ' + ls_ajong, 230, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro")}); 
+                // //
+                // doc.drawText('전화번호: ' + ls_atelno, 390, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro")});
+                // // doc.drawText(ls_atelno, null, null, {font: new wijmo.pdf.PdfFont("BMHANNAPro")});
+                // doc.moveDown(1);  
+                // //
+                // y = doc.y; 
+                // doc.drawText('주소: ' + ls_ajuso, 10, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro")}); 
+                //
+                // doc.drawText('Employee ID: ', 390, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro")});
+                // doc.drawText(employee.id);
+                //
+                doc.moveDown(1);
+                
+                // draw FlexGrid 
+                 
+                wijmo.grid.pdf.FlexGridPdfConverter.draw(wtab03Grid, doc, doc.width, null, { 
+                    //내장된 폰트 정보
+                    embeddedFonts: [
+                        {
+                        source: "https://assets.codepen.io/975719/BMHANNAPro.ttf",
+                        name: "BMHANNAPro",
+                        style: "normal",
+                        weight: "normal",
+                        sansSerif: true
                         }
-                        //
-                        // add cell to row
-                        if (panel.cellType == wijmo.grid.CellType.ColumnHeader) {
-                            tr += '<th style="' + style + '">' + content + '</th>';
-                        }
-                        else {
-                            //
-                            // show boolean values as checkboxes
-                            var raw = panel.getCellData(r, c, false);
-                            if (raw === true) {
-                                content = '&#9745;';
-                            }
-                            else if (raw === false) {
-                                content = '&#9744;';
-                            }
-                            //
-                            tr += '<td style="' + style + '">' + content + '</td>';
+                    ],
+                    styles: {
+                        cellStyle: { backgroundColor: '#ffffff', borderColor: '#c6c6c6', font: {family: "BMHANNAPro"} },
+                        altCellStyle: { backgroundColor: '#f9f9f9' },
+                        groupCellStyle: { backgroundColor: '#dddddd' },
+                        headerCellStyle: { backgroundColor: '#eaeaea' }
+                    } 
+                });
+                
+                // draw footer
+                wijmo.grid.pdf.FlexGridPdfConverter.draw(footer, doc, doc.width, null, {
+                    styles: {
+                        cellStyle: {
+                        font: { weight: 'bold' },
+                        backgroundColor: '#dddddd',
+                        borderColor: '#c6c6c6'
                         }
                     }
-                }
-                tr += '</tr>';
+                });
+                //
+                doc.moveDown(2);
+                
+                // * draw captions *
+                doc.drawText('합계금액 : ' + wijmo.changeType(ll_sumamt, wijmo.DataType.String, 'n0') + '원', 370, doc.y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 13), continue:true, underline:true, align:2}); 
+                // doc.drawText(wijmo.changeType(ll_sumamt, wijmo.DataType.String, 'c'));
+                // let cz = doc.drawText('합계금액: ', 100, doc.y, {font: new wijmo.pdf.PdfFont("BMHANNAPro")}); 
+                // doc.paths.moveTo(cz.size.width, doc.y).lineTo(cz.size.width + 150, doc.y).stroke(thinPen);
+                // doc.drawText(wijmo.changeType(0, 'c'));
+                // //
+                // cz = doc.drawText('부가세 계: ', 250, doc.y, {font: new wijmo.pdf.PdfFont("BMHANNAPro")});  
+                // doc.paths.moveTo(cz.size.width, doc.y).lineTo(cz.size.width + 150, doc.y).stroke(thinPen);
+                // // doc.drawText(wijmo.changeType(0, 'c'));
+                // // //
+                // cz = doc.drawText('합계금액: ', 400, doc.y, {font: new wijmo.pdf.PdfFont("BMHANNAPro")});  
+                // doc.paths.moveTo(cz.size.width, doc.y).lineTo(cz.size.width + 150, doc.y).stroke(thinPen);
+                // // doc.drawText(wijmo.changeType(0, 'c'));
+                // doc.moveDown(2);
+                // // //
+                // checkLineAvailable(doc);
+                // // //
+                // y = doc.y;
+                // let sz = doc.drawText('공급자   서명: ', 0, y,{font: new wijmo.pdf.PdfFont("BMHANNAPro")}); 
+                // doc.paths.moveTo(sz.size.width, doc.y).lineTo(sz.size.width + 150, doc.y).stroke(thinPen);
+                // sz = doc.drawText('Date: ', 300, y);
+                // doc.paths.moveTo(300 + sz.size.width + 5, doc.y).lineTo(300 + sz.size.width + 100, doc.y).stroke(thinPen);
+                // doc.moveDown();
+                // //
+                // checkLineAvailable(doc);
+                // //
+                // y = doc.y;
+                // sz = doc.drawText('공급받는자 서명: ', 0, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro")}); 
+                // doc.paths.moveTo(sz.size.width, doc.y).lineTo(sz.size.width + 150, doc.y).stroke(thinPen);
+                // sz = doc.drawText('Date: ', 300, y);
+                // doc.paths.moveTo(300 + sz.size.width, doc.y).lineTo(300 + sz.size.width + 100, doc.y).stroke(thinPen);
             }
-            return tr;
-        }        
+            finally {
+                if (wtab03Grid) {
+                    wtab03Grid.dispose();
+                }
+                //
+                if (footer) {
+                footer.dispose();
+                }
+            }
+        }
+        
+        function checkLineAvailable(doc) {
+        if (doc.height - doc.y < doc.lineHeight() + doc.lineGap) {
+            doc.addPage();
+        }
+        }
+      
         //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 모달 검색@@@@@@@@@@@@@@@@@@@@@@@@@@@
         //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
                   
@@ -1036,6 +1128,7 @@ console.log(misdateArr + misnumArr + seqArr)
                         success:function(data){ 
                             misdateArr.pop() 
                             tabD_grid(data);
+                            print_rtn(data)
                         },error:function(e){
                             console.log("error");
                             // alert(data.code);
@@ -1242,11 +1335,10 @@ console.log(misdateArr + misnumArr + seqArr)
             
       
         function tabD_grid(data){
-            var wtab03Dto  = data;    
-            var wtab03_data = [];
+            var wtab03Dto  = data;  
             var cnt = 1;
-            var bfixflag = false
-            console.log(wtab03Dto)
+            var bfixflag = false 
+            ll_sumqty = 0; ll_sumsamt = 0; ll_sumaddamt = 0; ll_sumamt= 0
             for (var i = 0; i < wtab03Dto.length; i++) {
                 if(wtab03Dto[i]["fixflag"] == "1"){
                     bfixflag = true;
@@ -1265,9 +1357,16 @@ console.log(misdateArr + misnumArr + seqArr)
                 ls_eeupte = wtab03Dto[i]["eeupte"];
                 ls_eeajong = wtab03Dto[i]["eeajong"];
                 ls_eeajuso = wtab03Dto[i]["eeajuso"];
+                ls_eeatelno = wtab03Dto[i]["eeatelno"];
+                
                 ls_misdate = wtab03Dto[i]["misdate"];
                 ls_misnum = wtab03Dto[i]["misnum"];
+                ls_misdatetxt = wtab03Dto[i]["misdatetxt"];
                 ls_atelno = wtab03Dto[i]["atelno"];
+                ll_sumqty = ll_sumqty + wtab03Dto[i]["qty"]
+                ll_sumsamt = ll_sumsamt + wtab03Dto[i]["samt"]
+                ll_sumaddamt = ll_sumaddamt + wtab03Dto[i]["addamt"]
+                ll_sumamt = ll_sumamt + wtab03Dto[i]["amt"]
                 wtab03_data.push({
                     id: i, 
                     index: cnt,
@@ -1284,6 +1383,8 @@ console.log(misdateArr + misnumArr + seqArr)
                     qty: wtab03Dto[i]["qty"],    
                     uamt: wtab03Dto[i]["uamt"], 
                     samt: wtab03Dto[i]["samt"],  
+                    addamt: wtab03Dto[i]["addamt"], 
+                    amt: wtab03Dto[i]["amt"], 
                     cltcd: wtab03Dto[i]["cltcd"],  
                     inname: wtab03Dto[i]["inname"],       
                     misgubun: wtab03Dto[i]["misgubun"],    
@@ -1304,7 +1405,47 @@ console.log(misdateArr + misnumArr + seqArr)
                 });
                 cnt++;
             }   
-            
+            if (wtab03Dto.length < 20){ 
+                for (var p = wtab03Dto.length + 1; p < 30; p++) { 
+                    wtab03_data.push({
+                        id: p, 
+                        index: cnt,
+                        select: false,
+                        misdate: '',
+                        misnum: '',     
+                        seq: '',    
+                        acorp: '',    
+                        pname: '',    
+                        psize: '',    
+                        pbonsa: '',    
+                        pmodel: '',    
+                        pcolor: '',    
+                        qty: '',    
+                        uamt: '',
+                        samt: '',
+                        addamt: '',
+                        amt: '',
+                        cltcd: '',
+                        inname: '',
+                        misgubun: '',
+                        rownum: '',
+                        acorp: '',
+                        asano: '',
+                        aname: '',
+                        aupte: '',
+                        ajong: '',
+                        ajuso: '',
+                        eeacorp: '',
+                        eeasano: '',
+                        eeaname: '',
+                        eeupte: '',
+                        eeajong: '',
+                        eeajuso: '',
+                        fixflag: '',
+                    });
+                cnt++;
+                }
+            }
             wtab03Grid.columns.clear();  
             wtab03Grid.autoGenerateColumns = false; 
             view_p01tab03page.sourceCollection  = wtab03_data; 
@@ -1366,6 +1507,20 @@ console.log(misdateArr + misnumArr + seqArr)
             cols = new wijmo.grid.Column(); 
             cols.binding = 'samt'; 
             cols.header = '금액';
+            cols.align = "right";
+            cols.aggregate = 'Sum';
+            cols.width = 120;  
+            wtab03Grid.columns.push(cols);      
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'addamt'; 
+            cols.header = '부가세';
+            cols.align = "right";
+            cols.aggregate = 'Sum';
+            cols.width = 120;  
+            wtab03Grid.columns.push(cols);      
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'amt'; 
+            cols.header = '합계';
             cols.align = "right";
             cols.aggregate = 'Sum';
             cols.width = 120;  
