@@ -686,8 +686,8 @@
                         success:function(data){   
                             if(data == "success"){
                                 alert("처리되었습니다.") 
-                                misdateArr.pop() 
                                 searchList_rtn(ls_tab);
+                                misdateArr.pop() 
                                 return true;  
                                 // clear_rtn(ls_tab);        
                             }else{                       
@@ -845,6 +845,7 @@
             try {
                 // * setup FlexGrid *
                 //flexGrid =  new wijmo.grid.FlexGrid('#wtab03Grid_div');
+                console.log(view_p01tab03page)
                 footer = new wijmo.grid.FlexGrid('#flexGridFooter');
                 // console.log(view_p01tab03page)
                 wtab03Grid.initialize({
@@ -939,31 +940,7 @@
                 //
                 y = doc.y;
                 doc.drawText('아래와 같이 공급합니다.', 10, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro"), align: 0, underline:false});
-                doc.drawText('전화번호 : ' + ls_eeatelno, 320, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11),  underline:false});
-
-
-                // //
-                // doc.drawText('사업자번호: ' + ls_asano, 230, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro")});
-                // //
-                // doc.drawText('대표자: ' + ls_aname, 390, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro")}); 
-                //
-                // doc.moveDown(1);
-                // //
-                // y = doc.y;
-                // doc.drawText('업태: ' + ls_aupte, 10, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro")}); 
-
-                // doc.drawText('종목: ' + ls_ajong, 230, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro")}); 
-                // //
-                // doc.drawText('전화번호: ' + ls_atelno, 390, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro")});
-                // // doc.drawText(ls_atelno, null, null, {font: new wijmo.pdf.PdfFont("BMHANNAPro")});
-                // doc.moveDown(1);  
-                // //
-                // y = doc.y; 
-                // doc.drawText('주소: ' + ls_ajuso, 10, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro")}); 
-                //
-                // doc.drawText('Employee ID: ', 390, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro")});
-                // doc.drawText(employee.id);
-                //
+                doc.drawText('전화번호 : ' + ls_eeatelno, 320, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11),  underline:false}); 
                 doc.moveDown(1);
                 
                 // draw FlexGrid 
@@ -1065,7 +1042,7 @@
                     var ls_frdate = document.getElementById('frdate').value; 
                     var ls_todate = document.getElementById('todate').value;          
                     var ls_bacode   = document.getElementById('bacode').value; 
-                    var ls_misfixflag = document.getElementById('misfixflag').value; 
+                    var ls_misfixflag = document.getElementById('misfixflag').value;  
                     if(ls_frdate == null || ls_frdate.length == 0 || ls_frdate == ""){ 
                         alert("조회일자를 등록하세요") 
                         document.getElementById("frdate").focus(); 
@@ -1105,8 +1082,7 @@
                         }
                     }).done(function(fragment){           
 
-                    })   
-
+                    })    
                     if(misdateArr.length == null || misdateArr.length == 0){ 
                         //alert("처리할 내역을 선택하세요") 
                         return ;               
@@ -1126,9 +1102,9 @@
                         }, 
                         async:false,
                         success:function(data){ 
-                            misdateArr.pop() 
                             tabD_grid(data);
                             print_rtn(data)
+                            misdateArr.pop() 
                         },error:function(e){
                             console.log("error");
                             // alert(data.code);
@@ -1338,7 +1314,7 @@
             var wtab03Dto  = data;  
             var cnt = 1;
             var bfixflag = false 
-            ll_sumqty = 0; ll_sumsamt = 0; ll_sumaddamt = 0; ll_sumamt= 0
+            ll_sumqty = 0; ll_sumsamt = 0; ll_sumaddamt = 0; ll_sumamt= 0; wtab03_data = [];
             for (var i = 0; i < wtab03Dto.length; i++) {
                 if(wtab03Dto[i]["fixflag"] == "1"){
                     bfixflag = true;
@@ -1405,8 +1381,8 @@
                 });
                 cnt++;
             }   
-            if (wtab03Dto.length < 20){ 
-                for (var p = wtab03Dto.length + 1; p < 30; p++) { 
+            if (wtab03Dto.length < 28){ 
+                for (var p = wtab03Dto.length + 1; p < 29; p++) { 
                     wtab03_data.push({
                         id: p, 
                         index: cnt,

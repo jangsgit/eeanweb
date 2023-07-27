@@ -56,7 +56,7 @@
              AND isnull(B.misgubun,'')  Like concat('%',#{misgubun},'%')
             AND B.misdate between #{frdate} and #{todate}
             AND Isnull(B.fixflag, '') Like concat('%',#{fixflag},'%')
-            ORDER BY B.misdate, B.misnum, B.seq
+            ORDER BY B.cltcd, B.misdate, B.misnum, B.seq
         ]]>
 
     </select>
@@ -82,7 +82,7 @@
                   #{itemcd}
                 </foreach>
             AND B.fixflag = '1'
-            ORDER BY B.misdate, B.misnum, B.seq
+            ORDER BY B.cltcd,  B.misdate, B.misnum, B.seq
     </select>
 
 
