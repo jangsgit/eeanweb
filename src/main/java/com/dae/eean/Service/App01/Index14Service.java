@@ -44,9 +44,13 @@ public class Index14Service {
 //        return  appMapper.SelectDa024ListPrt(parm);
 //    }
 
-    public List<IndexDa024Dto> SelectDa024ListPrt(HashMap<String,String> parm) {
+    public List<IndexDa024Dto> SelectDa024ListPrt(IndexDa024Dto parm) {
         return  appMapper.SelectDa024ListPrt(parm);
     };
+    public List<IndexDa024Dto> SelectDa024ListPrtGroup(HashMap<String,String> parm) {
+        return  appMapper.SelectDa024ListPrtGroup(parm);
+    };
+
     public List<IndexDa024Dto> SelectDa026List(IndexDa024Dto parm){
         return  appMapper.SelectDa026List(parm);
     }

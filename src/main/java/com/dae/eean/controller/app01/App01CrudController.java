@@ -386,7 +386,7 @@ public class App01CrudController {
                 conagita = "%";
             }
             index03Dto.setJpb_gubn(jpbgubn);
-            log.info("jpbgubn =====>" + jpbgubn);
+//            log.info("jpbgubn =====>" + jpbgubn);
             index03Dto.setJmodel_code(jmodelcode);
             index03Dto.setJpum(conagita);
             index03List = service03.GetJpumListTot(index03Dto);
@@ -1500,18 +1500,24 @@ public class App01CrudController {
         try {
             HashMap hm = new HashMap();
             String[] itemString =new String[misdatearr.size()];
-
+            String ls_tempItem = "";
+            Integer ll_count = 0;
             if( misdatearr.size() > 0){
                 for(int i = 0; i < misdatearr.size(); i++){
                     String year = misdatearr.get(i).substring(0,4);
                     String month = misdatearr.get(i).substring(5,7);
                     String day = misdatearr.get(i).substring(8,10);
                     String ls_misdate = year + month + day ;
-                    itemString[i] = ls_misdate + misnumarr.get(i) + seqarr.get(i) + cltcdarr.get(i);
-                    log.info("itemString =====>" + ls_misdate + misnumarr.get(i) + seqarr.get(i) + cltcdarr.get(i));
+                    if(ls_tempItem.equals( ls_misdate + misnumarr.get(i)  + cltcdarr.get(i))){
+                        continue;
+                    }
+                    itemString[ll_count] = ls_misdate + misnumarr.get(i)  + cltcdarr.get(i);
+                    ll_count++;
+                    ls_tempItem = ls_misdate + misnumarr.get(i)  + cltcdarr.get(i);
+//                    log.info("itemString =====>" + ls_misdate + misnumarr.get(i) + seqarr.get(i) + cltcdarr.get(i));
                 }
                 hm.put("itemcdArr", itemString);
-                indexDa024ListDto = service14.SelectDa024ListPrt(hm);
+                indexDa024ListDto = service14.SelectDa024ListPrtGroup(hm);
 
             }
 
@@ -1522,6 +1528,35 @@ public class App01CrudController {
         return indexDa024ListDto;
     }
 
+
+    //주문현황 리스트
+    @GetMapping(value="/index14/listprtdetail")
+    public Object App14ListPrtDetail_index(@RequestParam("misdatearr") String misdatearr,
+                                           @RequestParam("misnumarr") String misnumarr,
+                                           @RequestParam("cltcdarr") String cltcdarr,
+                                           @RequestParam("gubunarr") String gubunarr,
+            Model model, HttpServletRequest request) throws Exception{
+        CommDto.setMenuTitle("주문등록");
+        CommDto.setMenuUrl("주문등록>주문현황");
+        CommDto.setMenuCode("index14");
+        HttpSession session = request.getSession();
+        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        model.addAttribute("userformDto",userformDto);
+
+        try {
+
+            indexDa024Dto.setMisdate(misdatearr);
+            indexDa024Dto.setMisnum(misnumarr);
+            indexDa024Dto.setCltcd(cltcdarr);
+//            log.info("itemString =====>" + misdatearr + '/' + misnumarr + '/' + cltcdarr);
+            indexDa024ListDto = service14.SelectDa024ListPrt(indexDa024Dto);
+
+        } catch (Exception ex) {
+            log.info("App14ListPrtDetail_index Exception =====>" + ex.toString());
+        }
+
+        return indexDa024ListDto;
+    }
 
 
     //주문현황 리스트
@@ -1572,10 +1607,10 @@ public class App01CrudController {
             }
             indexDa024Dto.setPerid(perid);
             indexDa024Dto.setMisgubun(mflag);
-            log.info("frdate =====>" + frdate);
-            log.info("fixflag =====>" + fixflag);
-            log.info("mflag =====>" + mflag);
-            log.info("perid =====>" + perid);
+//            log.info("frdate =====>" + frdate);
+//            log.info("fixflag =====>" + fixflag);
+//            log.info("mflag =====>" + mflag);
+//            log.info("perid =====>" + perid);
             indexDa024ListDto = service14.SelectDa024ListPerid(indexDa024Dto);
             model.addAttribute("indexDa024ListDto",indexDa024ListDto);
 
@@ -2000,6 +2035,7 @@ public class App01CrudController {
 
         try {
             boolean result = false;
+            String ls_tempchk = "";
             if( misdatearr.size() > 0){
                 for(int i = 0; i < misdatearr.size(); i++){
                     String year = misdatearr.get(i).substring(0,4);
@@ -2017,7 +2053,7 @@ public class App01CrudController {
                     day = ipdate.substring(8,10);
                     String ls_ipdate  = year + month + day ;
 
-                    log.info("ls_misdate =====>" + ls_misdate);
+//                    log.info("ls_misdate =====>" + ls_misdate);
                     indexDa024Dto.setMisdate(ls_misdate);       //예약 tb_da025 misdate
                     indexDa024Dto.setMisnum(misnumarr.get(i));  //예약 tb_da025 misnum
                     indexDa024Dto.setSeq(seqarr.get(i));
@@ -2034,48 +2070,40 @@ public class App01CrudController {
 
                     String ls_omisnum = "";
                     String ls_chknull = service14.SelectCheckMisnumOrd(indexDa023Dto);
-                    log.info("getCltcd =====>" + indexDa024Dto.getCltcd());
-                    log.info("getMisgubun =====>" + indexDa024Dto.getMisgubun());
-                    log.info("getMisdate =====>" + indexDa024Dto.getMisdate());
-                    log.info("getMisnum =====>" + indexDa024Dto.getMisnum());
-                    log.info("getSeq =====>" + indexDa024Dto.getSeq());
+                    String ls_getdata = ls_misdate + misnumarr.get(i) + cltcdarr.get(i); //
+//                    log.info("getCltcd =====>" + indexDa024Dto.getCltcd());
+//                    log.info("getMisgubun =====>" + indexDa024Dto.getMisgubun());
+//                    log.info("getMisdate =====>" + indexDa024Dto.getMisdate());
+//                    log.info("getMisnum =====>" + indexDa024Dto.getMisnum());
+//                    log.info("getSeq =====>" + indexDa024Dto.getSeq());
                     if(fixflagarr.get(i).equals("0")){
                         indexDa024Dto.setFixflag("1");
                         indexDa024Dto.setOmisdate(ls_ipdate);
                         if(indexDa023Dto.getMisdate() == null){
                             return "error";
                         }
-                        if(ls_chknull == null){
-                            if(ls_chknull == null){
-                                ls_chknull = "";
-                            }
-                            if(ls_chknull.length() == 0){
-                                ls_omisnum = "0001";
-                            }else{
-                                ls_omisnum = GetMaxNum(ls_ipdate);
-
-                                log.info("ls_ipdate =====>" + ls_ipdate);
-                                log.info("ls_omisnum =====>" + ls_omisnum);
-                            }
-                            log.info("ls_omisnum 02=====>" + ls_omisnum);
+                        if(!ls_tempchk.equals(ls_getdata)){
+                            ls_omisnum = GetMaxNum(ls_ipdate);
                             indexDa024Dto.setOmisnum(ls_omisnum);
                             result = service14.InsertDa023Order(indexDa024Dto);
                             if (!result){
                                 return "error";
                             }
                         }else{
-                            indexDa024Dto.setOmisnum(ls_chknull);
+                            //indexDa024Dto.setOmisnum(ls_chknull);
                         }
                         result = service14.InsertDa024Order(indexDa024Dto);
                         if (!result){
                             return "error";
                         }
+                        ls_tempchk = ls_misdate + misnumarr.get(i) + cltcdarr.get(i);
 
 
                     }else{
                         indexDa024OrdDto.setOmisdate("");
                         indexDa024OrdDto.setOmisnum("");
                         indexDa024OrdDto.setOseq("");
+                        //주문등록정보조회
                         indexDa024OrdDto = service14.SelectDa026Detail(indexDa024Dto);
                         result = service14.DeleteDA024Ord(indexDa024OrdDto);
                         if (!result){
@@ -2109,6 +2137,7 @@ public class App01CrudController {
 
         String ls_misnum = "";
         ls_misnum = service14.SelectMaxMisnum(indexDa023Dto);
+        if (ls_misnum == null){ ls_misnum = "0";}
         Integer ll_misnum = Integer.parseInt(ls_misnum) + 1;
         ls_misnum = ll_misnum.toString();
         if (ls_misnum.length() == 1){

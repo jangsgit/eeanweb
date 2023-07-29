@@ -316,6 +316,9 @@
          var ls_eeatelno = ""; 
          var ls_misdatetxt = "" ;
          var wtab03_data = [];
+         var wtab05_data = [];
+         var chkTabA = [];
+         var chkTabB = [];
          var ll_sumqty = 0; 
          var ll_sumsamt = 0; 
          var ll_sumaddamt = 0; 
@@ -368,21 +371,22 @@
             // showCheckedCount();
             function showCheckedCount() {
                 let cnt = document.getElementById('checked-count'), sel = wtab02Grid.rows.filter(r => r.isSelected);
-                cnt.textContent = sel.length.toString();    
-                for (var i = 0; i < sel.length; i++) { 
-                    misdateArr[i]   = sel[i]._data.misdate;
-                    misnumArr[i]   = sel[i]._data.misnum;
-                    seqArr[i]  = sel[i]._data.seq; 
-                    cltcdArr[i]  = sel[i]._data.cltcd; 
-                    gubunArr[i]  = sel[i]._data.misgubun;  
-                    fixflagArr[i]  = sel[i]._data.fixflag;  
-                    if(!fixflagArr[i]){
-                        fixflagArr[i] = "0";
-                    }else{
-                        fixflagArr[i] = "1";
-                    }
+                cnt.textContent = sel.length.toString();  
+                chkTabA = sel;          
+                // for (var i = 0; i < sel.length; i++) { 
+                //     misdateArr[i]   = sel[i]._data.misdate;
+                //     misnumArr[i]   = sel[i]._data.misnum;
+                //     seqArr[i]  = sel[i]._data.seq; 
+                //     cltcdArr[i]  = sel[i]._data.cltcd; 
+                //     gubunArr[i]  = sel[i]._data.misgubun;  
+                //     fixflagArr[i]  = sel[i]._data.fixflag;  
+                //     if(!fixflagArr[i]){
+                //         fixflagArr[i] = "0";
+                //     }else{
+                //         fixflagArr[i] = "1";
+                //     }
                     
-                }    
+                // }    
 
             } 
             // 그룹 전환 
@@ -471,23 +475,25 @@
             showCheckedCount02();
             function showCheckedCount02() {
                 let cnt = document.getElementById('checked-count02'), sel = wtab04Grid.rows.filter(r => r.isSelected);
-                cnt.textContent = sel.length.toString(); 
-                for (var i = 0; i < sel.length; i++) { 
-                    misdateWArr[i]   = sel[i]._data.misdate;
-                    misnumWArr[i]   = sel[i]._data.misnum;
-                    seqWArr[i]  = sel[i]._data.seq; 
-                    cltcdWArr[i]  = sel[i]._data.cltcd; 
-                    gubunWArr[i]  = sel[i]._data.misgubun; 
-                    fixflagWArr[i]  = sel[i]._data.fixflag; 
-                    // omisdateWArr[i]   = sel[i]._data.omisdate;
-                    // omisnumWArr[i]   = sel[i]._data.omisnum;
-                    // oseqWArr[i]  = sel[i]._data.oseq; 
-                    if(!fixflagWArr[i]){
-                        fixflagWArr[i] = "0";
-                    }else{
-                        fixflagWArr[i] = "1";
-                    }
-                }   
+                cnt.textContent = sel.length.toString();   
+                chkTabB = sel;       
+                // for (var i = 0; i < sel.length; i++) { 
+                //     misdateWArr[i]   = sel[i]._data.misdate;
+                //     misnumWArr[i]   = sel[i]._data.misnum;
+                //     seqWArr[i]  = sel[i]._data.seq; 
+                //     cltcdWArr[i]  = sel[i]._data.cltcd; 
+                //     gubunWArr[i]  = sel[i]._data.misgubun; 
+                //     fixflagWArr[i]  = sel[i]._data.fixflag; 
+                //     // omisdateWArr[i]   = sel[i]._data.omisdate;
+                //     // omisnumWArr[i]   = sel[i]._data.omisnum;
+                //     // oseqWArr[i]  = sel[i]._data.oseq; 
+                //     if(!fixflagWArr[i]){
+                //         fixflagWArr[i] = "0";
+                //     }else{
+                //         fixflagWArr[i] = "1";
+                //     }
+                // } 
+ 
             } 
             new FlexGridContextMenu(wtab04Grid); 
             wtab04Grid.focus(); 
@@ -618,11 +624,35 @@
                 case 'A': 
                     if (!confirm("주문출력 하시겠습니까?")) { 
                         return false; 
-                    }  
+                    }   
+                    while (misdateWArr.length > 0) {
+                        misdateWArr.pop();
+                        misnumWArr.pop();
+                        seqWArr.pop();
+                        cltcdWArr.pop();
+                        gubunWArr.pop();
+                        fixflagWArr.pop();
+                    } 
+                    for (var i = 0; i < chkTabA.length; i++) { 
+                        misdateArr[i]   = chkTabA[i]._data.misdate;
+                        misnumArr[i]   = chkTabA[i]._data.misnum;
+                        seqArr[i]  = chkTabA[i]._data.seq; 
+                        cltcdArr[i]  = chkTabA[i]._data.cltcd; 
+                        gubunArr[i]  = chkTabA[i]._data.misgubun; 
+                        fixflagArr[i]  = chkTabA[i]._data.fixflag; 
+                        // omisdateWArr[i]   = sel[i]._data.omisdate;
+                        // omisnumWArr[i]   = sel[i]._data.omisnum;
+                        // oseqWArr[i]  = sel[i]._data.oseq; 
+                        if(!fixflagArr[i]){
+                            fixflagArr[i] = "0";
+                        }else{
+                            fixflagArr[i] = "1";
+                        }
+                    }   
                     if(misdateArr.length == null || misdateArr.length == 0){ 
                         alert("출력할 내역을 선택하세요") 
                         return ;               
-                    }   
+                    }  
                     $.ajax({
                         url: '/app01m/index16/save',  
                         type:"POST",
@@ -662,7 +692,31 @@
                 case 'B': 
                     if (!confirm("주문등록/취소작업을  하시겠습니까?")) { 
                         return false; 
-                    }  
+                    }   
+                    while (misdateWArr.length > 0) {
+                        misdateWArr.pop();
+                        misnumWArr.pop();
+                        seqWArr.pop();
+                        cltcdWArr.pop();
+                        gubunWArr.pop();
+                        fixflagWArr.pop();
+                    } 
+                    for (var i = 0; i < chkTabB.length; i++) { 
+                        misdateWArr[i]   = chkTabB[i]._data.misdate;
+                        misnumWArr[i]   = chkTabB[i]._data.misnum;
+                        seqWArr[i]  = chkTabB[i]._data.seq; 
+                        cltcdWArr[i]  = chkTabB[i]._data.cltcd; 
+                        gubunWArr[i]  = chkTabB[i]._data.misgubun; 
+                        fixflagWArr[i]  = chkTabB[i]._data.fixflag; 
+                        // omisdateWArr[i]   = sel[i]._data.omisdate;
+                        // omisnumWArr[i]   = sel[i]._data.omisnum;
+                        // oseqWArr[i]  = sel[i]._data.oseq; 
+                        if(!fixflagWArr[i]){
+                            fixflagWArr[i] = "0";
+                        }else{
+                            fixflagWArr[i] = "1";
+                        }
+                    }   
                     if(misdateWArr.length == null || misdateWArr.length == 0){ 
                         alert("처리할 내역을 선택하세요") 
                         return ;               
@@ -687,7 +741,7 @@
                             if(data == "success"){
                                 alert("처리되었습니다.") 
                                 searchList_rtn(ls_tab);
-                                misdateArr.pop() 
+                                // misdateArr.pop() 
                                 return true;  
                                 // clear_rtn(ls_tab);        
                             }else{                       
@@ -744,7 +798,7 @@
         document.getElementById("saveBtn01").addEventListener("click",function(){ 
             var ls_tab = document.getElementById('tabvalue').value;    
             save_btn(ls_tab);
-            print_rtn();
+            //print_rtn();
         })               
         // 주문등록 
         document.getElementById("saveBtn02").addEventListener("click",function(){
@@ -782,7 +836,7 @@
                         brush: '#bfc1c2'
                     }
                 },
-                ended: (sender, args) => wijmo.pdf.saveBlob(args.blob, ls_acorp + '_' + ls_misdate + '.pdf')
+                ended: (sender, args) => wijmo.pdf.saveBlob(args.blob, ls_misdate + '_' + '거래명세서.pdf')
             }) 
             doc.registerFont({
                 source: "https://assets.codepen.io/975719/UnDotum.ttf",
@@ -793,8 +847,16 @@
             });
             
             doc.header.drawText("거 래 명 세 서", null, null, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 20), align: 1, baseline: 5, underline: false});   //align 1 center baseline 5 bottom
+ 
+            getData.forEach((saledata, i, arr) => { 
+                drawSales(doc, saledata);
+                //
+                if (i < arr.length - 1) {
+                    doc.addPage();
+                }
+            }); 
             //doc.moveDown(3);
-            drawEmployee(doc, getData);
+            //drawSales(doc, getData);
             // doc.drawText("바디", null, null, {font: new wijmo.pdf.PdfFont("BMHANNAPro")});
             // doc.footer.drawText('EEAN Optic \t&[Page]\\&[Pages]', null, null, {font: new wijmo.pdf.PdfFont("BMHANNAPro")});
             // wijmo.grid.pdf.FlexGridPdfConverter.draw(wtab03Grid, doc, 400,400,{ embeddedFonts: [
@@ -819,14 +881,13 @@
         }    
 
 //
-        function drawEmployee(doc, employee) {
-            let tot = 0; //employee.expenses.totals;
-            // console.log('employee');
-            // console.log(employee);
-            let expenses = employee;
-            let font_url = "https://assets.codepen.io/975719/UnDotum.ttf";
-            // 
-            let minDate = employee[0].misdate, maxDate = employee[expenses.length -1].misdate, columns = [
+        function drawSales(doc, salesdata) {
+            let tot = 0; //salesdata.expenses.totals;
+            // console.log('salesdata');
+            // console.log(salesdata);
+            let expenses = salesdata;
+            let font_url = "https://assets.codepen.io/975719/UnDotum.ttf"; 
+            let minDate = expenses.misdate, maxDate = salesdata.misdate, columns = [
                 { header: '순번', binding: 'rownum', width: 105 , align : "center"},
                 { header: '주문일자', binding: 'misdate', format: 'c', width: 105, align : "center" },
                 { header: '품목', binding: 'pname', format: 'c', width: 105, align : "left" },
@@ -842,10 +903,39 @@
             //
             let flexGrid, footer;
             //
+            ll_sumqty = 0; ll_sumsamt = 0; ll_sumaddamt = 0; ll_sumamt = 0
+            var lsMisdate = salesdata.misdate    
+            var lsMisnum =  salesdata.misnum    
+            var lsMiscltcd =  salesdata.cltcd   
+            var lsMisgubun =  salesdata.misgubun  
+            // console.log(lsMisdate + '/' + lsMisnum + '/' + lsMiscltcd);
+            //상세매출조회     
+            $.ajax({
+                url: '/app01m/index14/listprtdetail',  
+                type:"POST",
+                data: { 
+                    "misdatearr"  : lsMisdate,  
+                    "misnumarr"   : lsMisnum   ,  
+                    "cltcdarr"  : lsMiscltcd     , 
+                    "gubunarr"  : lsMisgubun     , 
+                    "mflag"  : 'AA'   ,  
+                }, 
+                async:false,
+                success:function(data){  
+                    tabD_grid(data);  
+                    // misdateArr.pop() 
+                },error:function(e){
+                    console.log("error");
+                    // alert(data.code);
+                    // alert(data.message);
+                }
+            }).done(function(fragment){           
+
+            })  
             try {
                 // * setup FlexGrid *
                 //flexGrid =  new wijmo.grid.FlexGrid('#wtab03Grid_div');
-                console.log(view_p01tab03page)
+                // console.log(view_p01tab03page)
                 footer = new wijmo.grid.FlexGrid('#flexGridFooter');
                 // console.log(view_p01tab03page)
                 wtab03Grid.initialize({
@@ -887,21 +977,8 @@
                 footer.cells.setCellData(0, 'uamt', '', false);
                 footer.cells.setCellData(0, 'samt', ll_sumsamt, false);
                 footer.cells.setCellData(0, 'addamt', ll_sumaddamt, false);
-                footer.cells.setCellData(0, 'amt', ll_sumamt, false); 
-
-                // footer.cells.rows[0].allowMerging = true; 
-
-    // // * draw captions *
-    // doc.drawText('Purpose: ', null, null, { font: bold, continued: true });
-    // doc.drawText(ls_eeacorp);
-    // //
-    // doc.drawText('From: ', 380, 0, { font: bold, continued: true });
-    // doc.drawText(wijmo.changeType(minDate, wijmo.DataType.String, 'd'));
-    // //
-    // doc.drawText('To: ', 470, 0, { font: bold, continued: true });
-    // doc.drawText(wijmo.changeType(maxDate, wijmo.DataType.String, 'd'));
-    // //
-    // doc.moveDown(2);
+                footer.cells.setCellData(0, 'amt', ll_sumamt, false);  
+                // footer.cells.rows[0].allowMerging = true;  
                 let y = doc.y;
                 doc.moveDown(2);
                 // * draw captions *
@@ -1016,16 +1093,16 @@
                 }
                 //
                 if (footer) {
-                footer.dispose();
+                     footer.dispose();
                 }
             }
         }
         
-        function checkLineAvailable(doc) {
-        if (doc.height - doc.y < doc.lineHeight() + doc.lineGap) {
-            doc.addPage();
-        }
-        }
+        // function checkLineAvailable(doc) {
+        //     if (doc.height - doc.y < doc.lineHeight() + doc.lineGap) {
+        //         doc.addPage();
+        //     }
+        // }
       
         //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 모달 검색@@@@@@@@@@@@@@@@@@@@@@@@@@@
         //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
@@ -1088,7 +1165,7 @@
                         return ;               
                     }   
 
-                    //출력화면 조회     
+                    //선택된 매출그룹조회     
                     $.ajax({
                         url: '/app01m/index14/listprt',  
                         type:"POST",
@@ -1102,9 +1179,9 @@
                         }, 
                         async:false,
                         success:function(data){ 
-                            tabD_grid(data);
+                            tabE_grid(data); 
                             print_rtn(data)
-                            misdateArr.pop() 
+                            // misdateArr.pop() 
                         },error:function(e){
                             console.log("error");
                             // alert(data.code);
@@ -1310,6 +1387,53 @@
         }
             
       
+        function tabE_grid(data){
+            var wtab05Dto  = data;  
+            var cnt = 1;
+            var bfixflag = false 
+            ll_sumqty = 0; ll_sumsamt = 0; ll_sumaddamt = 0; ll_sumamt= 0; wtab05_data = [];
+            for (var i = 0; i < wtab05Dto.length; i++) { 
+                ls_acorp = wtab05Dto[i]["acorp"]; 
+                ls_eeacorp = wtab05Dto[i]["eeacorp"];
+                ls_eeasano = wtab05Dto[i]["eeasano"];
+                ls_eeaname = wtab05Dto[i]["eeaname"];
+                ls_eeupte = wtab05Dto[i]["eeupte"];
+                ls_eeajong = wtab05Dto[i]["eeajong"];
+                ls_eeajuso = wtab05Dto[i]["eeajuso"];
+                ls_eeatelno = wtab05Dto[i]["eeatelno"];
+                
+                ls_misdate = wtab05Dto[i]["misdate"];
+                ls_misnum = wtab05Dto[i]["misnum"];
+                ls_misdatetxt = wtab05Dto[i]["misdatetxt"]; 
+                // ll_sumqty = ll_sumqty + wtab05Dto[i]["qty"]
+                // ll_sumsamt = ll_sumsamt + wtab05Dto[i]["samt"]
+                // ll_sumaddamt = ll_sumaddamt + wtab05Dto[i]["addamt"]
+                // ll_sumamt = ll_sumamt + wtab05Dto[i]["amt"]
+                wtab05_data.push({
+                    id: i, 
+                    index: cnt,
+                    select: false,
+                    misdate: wtab05Dto[i]["misdate"],
+                    misnum: wtab05Dto[i]["misnum"],   
+                    acorp: wtab05Dto[i]["acorp"],      
+                    qty: wtab05Dto[i]["qty"],    
+                    samt: wtab05Dto[i]["samt"],  
+                    addamt: wtab05Dto[i]["addamt"], 
+                    amt: wtab05Dto[i]["amt"],   
+                    rownum: wtab05Dto[i]["rownum"],      
+                    acorp: wtab05Dto[i]["acorp"],      
+                    eeacorp: wtab05Dto[i]["eeacorp"],      
+                    eeasano: wtab05Dto[i]["eeasano"],      
+                    eeaname: wtab05Dto[i]["eeaname"],      
+                    eeupte: wtab05Dto[i]["eeupte"],      
+                    eeajong: wtab05Dto[i]["eeajong"],      
+                    eeajuso: wtab05Dto[i]["eeajuso"],            
+                });
+                cnt++;
+            }   
+ 
+        }
+
         function tabD_grid(data){
             var wtab03Dto  = data;  
             var cnt = 1;
