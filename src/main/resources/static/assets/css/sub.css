@@ -260,7 +260,7 @@ input[type="time"]::-webkit-calendar-picker-indicator {
     width: 100%;
     color: #262626;
     margin-bottom: 20px;
-    padding-top: 60px;
+    padding-top: 0px;
 }
 .content.flex .con .header_top{
     display: flex;

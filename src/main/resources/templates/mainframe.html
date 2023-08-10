@@ -54,7 +54,7 @@ function chk(){
         </div>
     </div>
     <div class="con"> 
-        <div class="header_top">
+        <!-- <div class="header_top">
             <ul class="left">
                 <li>
                     <div class="logo">
@@ -77,14 +77,9 @@ function chk(){
                     <a href="#">
                         <img src="/images/in2.png" onclick="logout()">
                     </a>
-                </li>
-                <!-- <li>
-                    <button id="userinfo"> 
-                        <img src="/images/i_user.png" alt="">
-                    </button>
-                </li> -->
+                </li> 
             </ul>
-        </div>
+        </div> -->
         <div class="infor_bar type2">
             <ul class="right">
                 <li>
@@ -123,45 +118,7 @@ function chk(){
                     </div>
                 </div>
             </div> 
-        </div>
-        <!-- <div class="section section2">
-            <div class="sec_con" style="width: 33.3333%;">
-                <div class="sec_con_tit">
-                    <span>당월계약만료현장</span>
-                </div>
-                <div class="box_wrap with_tit" style="padding: 0px;">
-                    <div class="container-fluid" style="padding: 0px;">
-                        <div id="nGrid_div" ></div>
-                        <div id="tabPager02"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="sec_con" style="width: 33.3333%;">
-                <div class="sec_con_tit">
-                    <span>익월계약만료현장</span>
-                </div>
-                <div class="box_wrap with_tit" style="padding: 0px;">
-                    <div class="container-fluid" style="padding: 0px;">
-                        <div id="bGrid_div" ></div>
-                        <div id="tabPager03"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="sec_con" style="width: 33.3333%;">  
-                <div class="container-fluid">
-                    <div id="chart"></div>
-                  </div>
-                <div class="sec_con_tit">
-                    <span>당월 현장별/호기별 고장접수 현황</span>
-                </div>
-                <div class="box_wrap with_tit" style="padding: 0px;">
-                    <div class="container-fluid" style="padding: 0px;">
-                        <div id="vGrid_div" ></div>
-                        <div id="tabPager04"></div>
-                    </div>
-                </div>
-            </div>
-        </div> -->
+        </div> 
     </div>
 
 
@@ -521,6 +478,9 @@ function chk(){
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////onload 끝
 
     $(document).ready(function() {
+        
+        window.location.href = '/app01/index14';  
+        return 
         getToday() 
         $("#actninputdatez").change(function(e){
             // console.log("달력클릭");
