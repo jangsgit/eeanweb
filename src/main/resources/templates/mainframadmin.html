@@ -2,13 +2,41 @@
 <html lang="ko">
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head th:replace="layouts/APPHeader/apphead :: headFragment" />
+ 
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
     <title>ACTAS Elevator 고객센터 관리자화면</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>  
+    <style type="text/css">
+        .border_out {font-family: 굴림;border: 3px double black;} 
+        .border_in {border-width:1px; border-color:black; border-style:solid none solid solid;}
+        .l_dot {border-style:dotted; border-width:0 0 0 1px; border-color:#4C4C4C;}
+        .lb_dot {border-style:dotted; border-width:0 0 1px 1px; border-color:#6C6C6C;}
+        .tl_dot {border-style:solid solid solid dotted; border-width:1px 0px 1px 1px; border-color:black black black #6C6C6C;}
+        #command_bar {
+          font-size: 10pt;
+          background-color: #FEFFD2;
+          border: 1px solid #AF9E29;
+          padding: 5px;
+          margin-bottom: 10px;
+        }
+        .sign_area {
+          position: relative;
+        }
+        .sign_img {
+          position: absolute;
+          top: 15px;
+          left: 190px;
+        }
+    </style>
 </head>
+
 <body style="background: #f5f9fa">
 <input type="hidden"  name="actuseridz" id="actuseridz" th:value="${userFormDto.userid}" >
 <div class="content flex">
@@ -24,7 +52,7 @@
         </div>
     </div>
     <div class="con"> 
-        <div class="header_top">
+        <!-- <div class="header_top">
             <ul class="left">
                 <li>
                     <div class="logo">
@@ -47,14 +75,9 @@
                     <a href="#">
                         <img src="/images/in2.png" onclick="logout()">
                     </a>
-                </li>
-                <!-- <li>
-                    <button id="userinfo"> 
-                        <img src="/images/i_user.png" alt="">
-                    </button>
-                </li> -->
+                </li> 
             </ul>
-        </div>
+        </div> -->
 
         <div class="section section2">
             <div class="sec_con" style="width: 100%;">

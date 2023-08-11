@@ -1,8 +1,10 @@
 package com.dae.eean.controller;
 
+import com.dae.eean.DTO.App01.Index03Dto;
 import com.dae.eean.DTO.CommonDto;
 import com.dae.eean.DTO.Popup.PopupDto;
 import com.dae.eean.DTO.UserFormDto;
+import com.dae.eean.Service.App01.Index03Service;
 import com.dae.eean.Service.master.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.logging.Log;
@@ -26,11 +28,13 @@ import java.util.List;
 public class AuthController {
 
     private final AuthService authService;
+    private final Index03Service service03;
 
     PopupDto popParmDto = new PopupDto();
-
+    Index03Dto index03Dto = new Index03Dto();
 
     List<CommonDto> com750Dto;
+    List<Index03Dto> index03List = new ArrayList<>();
 
     protected Log log =  LogFactory.getLog(this.getClass());
 
@@ -81,7 +85,14 @@ public class AuthController {
             Date nowData = new Date();
             SimpleDateFormat endDate = new SimpleDateFormat("yyyyMMdd");
             String indate = endDate.format(nowData).toString();
-            return "mainframe";
+
+
+            index03Dto.setJpb_gubn("%");
+            index03List = service03.GetJBonsaCodeList(index03Dto);
+            model.addAttribute("index03List",index03List);
+
+            return "App01/index14";
+//            return "mainframe";
         } else if (userformDto == null) {
             model.addAttribute("msg", "로그인실패");
             return "/";
@@ -89,12 +100,16 @@ public class AuthController {
             Date nowData = new Date();
             SimpleDateFormat endDate = new SimpleDateFormat("yyyyMMdd");
             String indate = endDate.format(nowData).toString();
+            index03List = service03.GetJcustomCode(index03Dto);
+            model.addAttribute("index15List",index03List);
             return "App01/index150";
 //            return "mainframcustom";
         }  else if (ls_flag.equals("CC")) {
             Date nowData = new Date();
             SimpleDateFormat endDate = new SimpleDateFormat("yyyyMMdd");
             String indate = endDate.format(nowData).toString();
+            index03List = service03.GetJBonsaCodeList(index03Dto);
+            model.addAttribute("index03List",index03List);
             return "App01/index140";
 //            return "mainframbusiness";
         } else if (ls_flag.equals("ZZ")){
