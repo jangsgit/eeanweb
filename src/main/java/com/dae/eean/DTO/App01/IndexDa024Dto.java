@@ -52,6 +52,12 @@ public class IndexDa024Dto {
     private String eeatelno;
     private String[] itemcdArr;
     private String misdatetxt;
+    private String devflag;
+    private String eeacodetxt;
+    private String remark;
+    private String message;
+    private String payflag;
+
 
 
 }

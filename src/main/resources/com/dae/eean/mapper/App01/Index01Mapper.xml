@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- mapper >> interface 매핑 : id 값 중요 (interface 메소드) -->
+<mapper namespace="com.dae.eean.Mapper.App01.Index01Mapper">
+
+
+    <select id="getComCodeList"  parameterType="com.dae.eean.DTO.App01.Index01Dto" resultType="com.dae.eean.DTO.App01.Index01Dto">
+        <![CDATA[
+            select com_cls, com_cnam from TB_CA510  where com_code = '00' and isnull(com_cls,'') Like concat('%',#{com_cls},'%') order by com_cls
+        ]]>
+    </select>
+
+    <insert id="InsertComCode" parameterType="com.dae.eean.DTO.App01.Index01Dto" >
+        insert into TB_CA510 (com_cls, com_code, com_cnam ) values
+        (#{com_cls}, '00', #{com_cnam})
+    </insert>
+
+    <update id="UpdateComCode" parameterType="com.dae.eean.DTO.App01.Index01Dto">
+        UPDATE  TB_CA510 SET com_cnam = #{com_cnam} where com_cls   = #{com_cls} and com_code = '00'
+    </update>
+
+    <update id="DeleteComCode" parameterType="com.dae.eean.DTO.App01.Index01Dto">
+        DELETE  TB_CA510   where com_cls  = #{com_cls}
+    </update>
+
+    <select id="GetComcodeDetailList"  parameterType="com.dae.eean.DTO.App01.Index01Dto" resultType="com.dae.eean.DTO.App01.Index01Dto">
+        <![CDATA[
+            select * from TB_CA510  where com_code <> '00' and com_cls = #{com_cls}
+        ]]>
+    </select>
+
+    <select id="getWperidlist"  parameterType="com.dae.eean.DTO.App01.Index01Dto" resultType="com.dae.eean.DTO.App01.Index01Dto">
+        <![CDATA[
+            select
+            com_code as insano, com_rem1 as inname
+             from TB_CA510  where com_cls = '002'
+        ]]>
+    </select>
+
+    <insert id="InsertComCodeDetail" parameterType="com.dae.eean.DTO.App01.Index01Dto" >
+        insert into TB_CA510 (com_cls, com_code, com_cnam ,com_rem1, com_rem2, com_work) values
+        (#{com_cls}, #{com_code}, #{com_cnam},#{com_rem1}, #{com_rem2},#{com_work})
+    </insert>
+
+    <update id="UpdateComCodeDetail" parameterType="com.dae.eean.DTO.App01.Index01Dto">
+        <![CDATA[
+        UPDATE  TB_CA510 SET com_cnam = #{com_cnam} , com_rem1 = #{com_rem1} , com_rem2 = #{com_rem2} , com_work = #{com_work} , com_code = #{com_code}
+        where com_cls  = #{com_cls} and com_cnam = #{com_cnam} and com_code = #{com_code} and com_code <> '00'
+        ]]>
+    </update>
+
+    <update id="DeleteComCodeDetail" parameterType="com.dae.eean.DTO.App01.Index01Dto">
+        <![CDATA[
+        DELETE  TB_CA510   where com_cls  = #{com_cls} and com_cnam = #{com_cnam} and com_code = #{com_code} and com_code <> ('00')
+        ]]>
+    </update>
+
+    <select id="GetComCodeCheck" parameterType="com.dae.eean.DTO.App01.Index01Dto" resultType="String">
+        <![CDATA[
+        select   com_cls , com_code
+        from TB_CA510 WITH (NOLOCK)
+        WHERE isnull(com_cls,'')   = #{com_cls}
+        and isnull(com_code,'')   = #{com_code}
+        ORDER BY com_cls
+        ]]>
+    </select>
+
+
+</mapper>

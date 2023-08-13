@@ -450,12 +450,12 @@
                 return wactnm_data;                                          
             } 
 
-            setHeaderColumn2(false);
-            function setHeaderColumn2(headerOn) {
-                wtab01Grid.headersVisibility = headerOn
-                ? wijmo.grid.HeadersVisibility.All
-                : wijmo.grid.HeadersVisibility.Column; 
-            } 
+            // setHeaderColumn2(false);
+            // function setHeaderColumn2(headerOn) {
+            //     wtab01Grid.headersVisibility = headerOn
+            //     ? wijmo.grid.HeadersVisibility.All
+            //     : wijmo.grid.HeadersVisibility.Column; 
+            // } 
 
             // wtab03Grid = new wijmo.grid.FlexGrid('#wtab03Grid_div', {  
             //     autoGenerateColumns: false,
@@ -722,7 +722,7 @@
             if(arg2 == arg3){
                 return 
             }
-            if(arg3.length > 3){
+            if(arg3.length > 7){
                 return 
             }
             save_btn(arg1, arg2, arg3)

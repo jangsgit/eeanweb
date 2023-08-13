@@ -50,6 +50,9 @@ public class Index14Service {
     public List<IndexDa024Dto> SelectDa024ListPrtGroup(HashMap<String,String> parm) {
         return  appMapper.SelectDa024ListPrtGroup(parm);
     };
+    public List<IndexDa024Dto> SelectDa024ListDevGroup(HashMap<String,String> parm) {
+        return  appMapper.SelectDa024ListDevGroup(parm);
+    };
 
     public List<IndexDa024Dto> SelectDa026List(IndexDa024Dto parm){
         return  appMapper.SelectDa026List(parm);
@@ -94,6 +97,7 @@ public class Index14Service {
     public Boolean DeleteDA025(IndexDa024Dto parm){ return  appMapper.DeleteDA025(parm);}
     public Boolean DeleteDA026(IndexDa024Dto parm){ return  appMapper.DeleteDA026(parm);}
     public Boolean UpdateDA024(IndexDa024Dto parm){ return  appMapper.UpdateDA024(parm);}
+    public Boolean UpdateDA024Dev(IndexDa024Dto parm){ return  appMapper.UpdateDA024Dev(parm);}
     public Boolean UpdateDA026(IndexDa024Dto parm){ return  appMapper.UpdateDA026(parm);}
 
 

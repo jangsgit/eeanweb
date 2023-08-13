@@ -4,10 +4,7 @@ import com.dae.eean.DTO.App01.*;
 import com.dae.eean.DTO.CommonDto;
 import com.dae.eean.DTO.TBXuserMenuDTO;
 import com.dae.eean.DTO.UserFormDto;
-import com.dae.eean.Service.App01.Index02Service;
-import com.dae.eean.Service.App01.Index03Service;
-import com.dae.eean.Service.App01.Index04Service;
-import com.dae.eean.Service.App01.Index14Service;
+import com.dae.eean.Service.App01.*;
 import com.dae.eean.Service.master.AuthService;
 import com.dae.eean.controller.EncryptionController;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +27,7 @@ public class App01CrudController {
     private final AuthService authService;
     UserFormDto userformDto = new UserFormDto();
 
+    private final Index01Service service01;
     private final Index02Service service02;
     private final Index03Service service03;
     private final Index04Service service04;
@@ -49,6 +47,9 @@ public class App01CrudController {
     IndexDa024Dto indexDa024OrdDto = new IndexDa024Dto();
     IndexIa011Dto indexia011Dto = new IndexIa011Dto();
     IndexIa012Dto indexia012Dto = new IndexIa012Dto();
+
+    Index01Dto index01Dto = new Index01Dto();
+    List<Index01Dto> index01ListDto = new ArrayList<>();
 
     EncryptionController enc = new EncryptionController();
     protected Log log =  LogFactory.getLog(this.getClass());
@@ -1428,6 +1429,7 @@ public class App01CrudController {
                                   @RequestParam("todate") String todate,
                                   @RequestParam("acode") String acode,
                                   @RequestParam("fixflag") String fixflag,
+                                  @RequestParam("devflag") String devflag,
                                   @RequestParam("perid") String perid,
                                   @RequestParam("mflag") String mflag,
                                   Model model, HttpServletRequest request) throws Exception{
@@ -1451,6 +1453,7 @@ public class App01CrudController {
             indexDa024Dto.setTodate(todate);
             indexDa024Dto.setCltcd(acode);
             indexDa024Dto.setFixflag(fixflag);
+            indexDa024Dto.setDevflag(devflag);
             if(perid == null || perid.equals("")){
                 perid = "%";
             }
@@ -1528,6 +1531,51 @@ public class App01CrudController {
         return indexDa024ListDto;
     }
 
+    //주문현황 리스트
+    @GetMapping(value="/index14/listdev")
+    public Object App14ListDev_index(@RequestParam(value = "misdatearr[]") List<String> misdatearr
+            ,@RequestParam( value =  "misnumarr[]") List<String> misnumarr
+            ,@RequestParam( value =  "seqarr[]") List<String> seqarr
+            ,@RequestParam( value =  "cltcdarr[]") List<String> cltcdarr
+            ,@RequestParam( value =  "gubunarr[]") List<String> gubunarr
+            ,Model model, HttpServletRequest request) throws Exception{
+        CommDto.setMenuTitle("주문등록");
+        CommDto.setMenuUrl("주문등록>주문현황");
+        CommDto.setMenuCode("index14");
+        HttpSession session = request.getSession();
+        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        model.addAttribute("userformDto",userformDto);
+
+        try {
+            HashMap hm = new HashMap();
+            String[] itemString =new String[misdatearr.size()];
+            String ls_tempItem = "";
+            Integer ll_count = 0;
+            if( misdatearr.size() > 0){
+                for(int i = 0; i < misdatearr.size(); i++){
+                    String year = misdatearr.get(i).substring(0,4);
+                    String month = misdatearr.get(i).substring(5,7);
+                    String day = misdatearr.get(i).substring(8,10);
+                    String ls_misdate = year + month + day ;
+                    if(ls_tempItem.equals( ls_misdate + misnumarr.get(i)  + cltcdarr.get(i))){
+                        continue;
+                    }
+                    itemString[ll_count] = ls_misdate + misnumarr.get(i)  + cltcdarr.get(i);
+                    ll_count++;
+                    ls_tempItem = ls_misdate + misnumarr.get(i)  + cltcdarr.get(i);
+//                    log.info("itemString =====>" + ls_misdate + misnumarr.get(i) + seqarr.get(i) + cltcdarr.get(i));
+                }
+                hm.put("itemcdArr", itemString);
+                indexDa024ListDto = service14.SelectDa024ListDevGroup(hm);
+
+            }
+
+        } catch (Exception ex) {
+            log.info("App14List_index Exception =====>" + ex.toString());
+        }
+
+        return indexDa024ListDto;
+    }
 
     //주문현황 리스트
     @GetMapping(value="/index14/listprtdetail")
@@ -1999,14 +2047,20 @@ public class App01CrudController {
                     indexDa024Dto.setSeq(seqarr.get(i));
                     indexDa024Dto.setCltcd(cltcdarr.get(i));
                     indexDa024Dto.setMisgubun(gubunarr.get(i));
-                    indexDa024Dto.setFixflag("1");
+                    if (mflag.equals("AA")){
+                        indexDa024Dto.setFixflag("1");
+                        result = service14.UpdateDA024(indexDa024Dto);
+                    }else{
+                        indexDa024Dto.setDevflag("1");
+                        result = service14.UpdateDA024Dev(indexDa024Dto);
+                    }
+
                     //출력(확정)취소는 없앰. 7.23
 //                    if(fixflagarr.get(i).equals("0")){
 //                        indexDa024Dto.setFixflag("1");
 //                    }else{
 //                        indexDa024Dto.setFixflag("0");
 //                    }
-                    result = service14.UpdateDA024(indexDa024Dto);
                     if (!result){
                         return "error";
                     }
@@ -2132,6 +2186,187 @@ public class App01CrudController {
         }
         return "success";
     }
+
+
+    @RequestMapping(value="/comcodesave")
+    public String App01ComCodeSave_index(  @RequestParam("com_cls") String com_cls,
+                                           @RequestParam("com_cnam") String com_cnam,
+                                           Model model,   HttpServletRequest request){
+        HttpSession session = request.getSession();
+        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        model.addAttribute("userformDto",userformDto);
+
+        Boolean result = false;
+        index01Dto.setCom_cls(com_cls);
+        index01Dto.setCom_cnam(com_cnam);
+        index01ListDto = service01.getComCodeList(index01Dto);
+        if(index01ListDto.isEmpty() || index01ListDto.size() == 0){
+            result = service01.InsertComCode(index01Dto);
+        }else{
+            result = service01.UpdateComCode(index01Dto);
+        }
+        if (!result) {
+            return "error";
+        }
+        return "success";
+    }
+
+    @RequestMapping(value="/comcodedel")
+    public String App01ComCodeDel_index(  @RequestParam("com_cls") String com_cls,
+                                          @RequestParam("com_cnam") String com_cnam,
+                                          Model model,   HttpServletRequest request){
+        HttpSession session = request.getSession();
+        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        model.addAttribute("userformDto",userformDto);
+
+        Boolean result = false;
+        index01Dto.setCom_cls(com_cls);
+        index01Dto.setCom_cnam(com_cnam);
+        index01ListDto = service01.getComCodeList(index01Dto);
+        result = service01.DeleteComCode(index01Dto);
+        if (!result) {
+            return "error";
+        }
+        return "success";
+    }
+
+    //업체분류현황
+    @GetMapping(value="/comcodelist")
+    public Object App01ComCodeList_index(@RequestParam("searchtxt") String searchtxt,
+                                         Model model, HttpServletRequest request) throws Exception{
+        try {
+
+            if(searchtxt == null || searchtxt.equals("")){
+                searchtxt = "%";
+            }
+            index01Dto.setCom_cls(searchtxt);
+            index01ListDto = service01.getComCodeList(index01Dto);
+
+            model.addAttribute("comcodeList",index01ListDto);
+
+        } catch (Exception ex) {
+//                dispatchException = ex;
+            log.info("insalist Exception =====>" + ex.toString());
+//            log.debug("Exception =====>" + ex.toString() );
+        }
+
+        return index01ListDto;
+    }
+
+    //업체분류현황
+    @GetMapping(value="/comcodelists")
+    public Object App01ComCodeLists_index(@RequestParam("searchtxt") String searchtxt,
+                                          Model model, HttpServletRequest request) throws Exception{
+        try {
+
+            if(searchtxt == null || searchtxt.equals("")){
+                searchtxt = "%";
+            }
+            index01Dto.setCom_cls(searchtxt);
+            index01ListDto = service01.getComCodeLists(index01Dto);
+
+            model.addAttribute("comcodeLists",index01ListDto);
+
+        } catch (Exception ex) {
+//                dispatchException = ex;
+            log.info("insalist Exception =====>" + ex.toString());
+//            log.debug("Exception =====>" + ex.toString() );
+        }
+
+        return index01ListDto;
+    }
+
+    @RequestMapping(value="/comcodedetailsave")
+    public String App01ComCodeDetailSave_index(  @RequestParam("com_cls") String com_cls,
+                                                 @RequestParam("com_cnam") String com_cnam,
+                                                 @RequestParam("com_code") String com_code,
+                                                 @RequestParam("com_rem1") String com_rem1,
+                                                 @RequestParam("com_rem2") String com_rem2,
+                                                 @RequestParam("com_work") String com_work,
+                                                 Model model,   HttpServletRequest request){
+        HttpSession session = request.getSession();
+        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        model.addAttribute("userformDto",userformDto);
+
+        Boolean result = false;
+        index01Dto.setCom_cls(com_cls);
+        index01Dto.setCom_cnam(com_cnam);
+        index01Dto.setCom_code(com_code);
+        index01Dto.setCom_rem1(com_rem1);
+        index01Dto.setCom_rem2(com_rem2);
+        index01Dto.setCom_work(com_work);
+        String ls_comcode = service01.GetComCodeCheck(index01Dto);
+        if(ls_comcode == null || ls_comcode.equals("")){
+            result = service01.InsertComCodeDetail(index01Dto);
+        }else{
+            result = service01.UpdateComCodeDetail(index01Dto);
+        }
+        if (!result) {
+            return "error";
+        }
+        return "success";
+    }
+
+    @RequestMapping(value="/comcodedetaildel")
+    public String App01ComCodeDetailDel_index(  @RequestParam("com_cls") String com_cls,
+                                                @RequestParam("com_cnam") String com_cnam,
+                                                @RequestParam("com_code") String com_code,
+                                                Model model,   HttpServletRequest request){
+        HttpSession session = request.getSession();
+        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        model.addAttribute("userformDto",userformDto);
+
+        Boolean result = false;
+        index01Dto.setCom_cls(com_cls);
+        index01Dto.setCom_cnam(com_cnam);
+        index01Dto.setCom_code(com_code);
+        //index01ListDto = service01.getComCodeDetailList(index01Dto);
+        result = service01.DeleteComCodeDetail(index01Dto);
+        if (!result) {
+            return "error";
+        }
+        return "success";
+    }
+
+    @GetMapping(value="/comcodedetaillist")
+    public Object App01ComdodeDetailList_index(@RequestParam("searchtxt") String searchtxt,
+                                               @RequestParam("com_cls") String com_cls,
+                                               Model model, HttpServletRequest request) throws Exception{
+        CommDto.setMenuTitle("공통코드등록");
+        CommDto.setMenuUrl("기준정보>공통코드등록");
+        CommDto.setMenuCode("index01");
+        HttpSession session = request.getSession();
+        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        model.addAttribute("userformDto",userformDto);
+
+        try {
+            if(searchtxt == null || searchtxt.equals("")){
+                searchtxt = "%";
+            }
+            if(com_cls == null || com_cls.equals("")){
+                com_cls = "%";
+            }
+            log.debug("searchtxt =====>" + searchtxt );
+
+            index01Dto.setCom_cls(com_cls);
+            index01Dto.setCom_cnam(searchtxt);;
+            index01ListDto = service01.GetComcodeDetailList(index01Dto);
+            model.addAttribute("index01ListDto",index01ListDto);
+
+        } catch (Exception ex) {
+            log.info("App01ComdodeDetailList_index Exception =====>" + ex.toString());
+        }
+
+        return index01ListDto;
+    }
+
+
+
+
+
+
+
+
 
     public String GetMaxNum(String agDate){
 

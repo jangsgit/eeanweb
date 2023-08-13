@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <th:block layout:fragment="leftNavComm">
   <ul class="nav">
-    <li>
+    <!-- <li>
       <button type="button"><img th:src="@{/assets/images/header_icon1.png}" alt=""></button>
       <div class="depth2">
         <div class="dep_main">
@@ -13,7 +13,7 @@
           </a>
         </div>
       </div>
-    </li> 
+    </li>  -->
 
     <li>
       <button type="button"><img th:src="@{/assets/images/header_icon7.png}" alt=""></button>
@@ -26,7 +26,7 @@
           </a>
         </div>
         <ul>
-          <li><a th:href="@{/app01/index13}"><i><img class="dot1" th:src="@{/assets/images/i_dot_header.png}" alt=""><img class="dot2" th:src="@{/assets/images/i_dot_header2.png}" alt=""></i>기초코드</a></li>
+          <li><a th:href="@{/app01/index01}"><i><img class="dot1" th:src="@{/assets/images/i_dot_header.png}" alt=""><img class="dot2" th:src="@{/assets/images/i_dot_header2.png}" alt=""></i>기초코드</a></li>
           <li><a th:href="@{/app01/index02}"><i><img class="dot1" th:src="@{/assets/images/i_dot_header.png}" alt=""><img class="dot2" th:src="@{/assets/images/i_dot_header2.png}" alt=""></i>거래처등록</a></li>
           <li><a th:href="@{/app01/index03}"><i><img class="dot1" th:src="@{/assets/images/i_dot_header.png}" alt=""><img class="dot2" th:src="@{/assets/images/i_dot_header2.png}" alt=""></i>품목등록</a></li>          
           <li><a th:href="@{/admin/index01}"><i><img class="dot1" src="/images/i_dot_header.png" alt=""><img class="dot2" src="/images/i_dot_header2.png" alt=""></i>본사사용자관리</a></li>
@@ -37,10 +37,26 @@
         </ul>
       </div>
     </li>
+    <li>
+      <button type="button"><img th:src="@{/assets/images/check_on.png}" alt=""></button>
+      <div class="depth2 on">
+          <div class="dep_main">   
+              <button id="logout" onclick="logout()">
+                  로그아웃
+              </button>  
+          </div> 
+      </div>
+  </li> 
   </ul>
 </th:block>
 
 <script>
 
+  function logout(){   
+                    if (!confirm("로그아웃하시겠습니까?") ){
+                    return    
+                    }
+                    location.href = "/" ;
+            }  
 </script>
 </html>

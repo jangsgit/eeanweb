@@ -83,13 +83,29 @@
                             <div class="card-body bg-light">
                                 <ul class="nav nav-tabs">
                                     <li class="nav-item">
-                                      <a class="nav-link active" data-toggle="tab" href="#step01" onclick="tabchk_rtn('A')">주문출력</a>
+                                      <a class="nav-link active" data-toggle="tab" href="#step01" onclick="tabchk_rtn('A')">
+                                        <span style ="display:inline-block;  font-weight:bold;">주문출력</span>
+                                      </a>
                                     </li>
                                     <li class="nav-item">
-                                      <a class="nav-link" data-toggle="tab" href="#step02"  onclick="tabchk_rtn('B')">예약확정</a>
+                                      <a class="nav-link" data-toggle="tab" href="#step02"  onclick="tabchk_rtn('B')">                                        
+                                        <span style ="display:inline-block;  font-weight:bold;">예약확정</span>
+                                      </a>
                                     </li>
                                     <li class="nav-item">
-                                      <a class="nav-link" data-toggle="tab" href="#step03"  onclick="tabchk_rtn('C')">출력양식</a>
+                                      <a class="nav-link" data-toggle="tab" href="#step03"  onclick="tabchk_rtn('C')">
+                                        <span style ="display:inline-block; color:lightgrey;  ">출력양식</span>
+                                      </a>
+                                    </li>
+                                    <li class="nav-item">
+                                      <a class="nav-link" data-toggle="tab" href="#step04"  onclick="tabchk_rtn('D')">                                        
+                                        <span style ="display:inline-block; color:lightgrey;  ">발송양식</span>
+                                      </a>
+                                    </li>
+                                    <li class="nav-item">
+                                      <a class="nav-link" data-toggle="tab" href="#step05"  onclick="tabchk_rtn('D')">                                                                              
+                                        <span style ="display:inline-block;  font-weight:bold;">발송업로드</span>
+                                      </a>
                                     </li>
                                     <input type="hidden" id="tabvalue" value="A">
                                   </ul>
@@ -117,12 +133,20 @@
                                                     
                                                 </div>
                                             </div>
-                                            <div class="col-2 col-sm-2">
+                                            <div class="col-1 col-sm-1">
                                                 <select class="form-select form-select-sm" id="misfixflag" aria-label=".form-select-sm example">
                                                     <option selected="">출력구분</option>
                                                     <option value="%">전체</option>
                                                     <option value="1">출력</option>
                                                     <option value="0">미출력</option>
+                                                  </select> 
+                                            </div>  
+                                            <div class="col-1 col-sm-1">
+                                                <select class="form-select form-select-sm" id="misdevflag" aria-label=".form-select-sm example">
+                                                    <option selected="">발송구분</option>
+                                                    <option value="%">전체</option>
+                                                    <option value="1">발송</option>
+                                                    <option value="0">미발송</option>
                                                   </select> 
                                             </div>  
                                             <div class="col-1 col-sm-1">  
@@ -131,6 +155,10 @@
                                             </div> 
                                             <div class="col-1 col-sm-1">  
                                                 <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="saveBtn01" type="button"  >주문출력
+                                                </button>
+                                            </div> 
+                                            <div class="col-1 col-sm-1">  
+                                                <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="saveBtn03" type="button"  >발송출력
                                                 </button>
                                             </div> 
                                             <!-- <div class="col-2 col-sm-1">  
@@ -142,7 +170,7 @@
                                             <p>
                                                현재 <b><span id="checked-count">0</span></b> 개의 항목이 선택되었습니다.
                                             </p>  
-                                            <div id="wtab02Grid_div"  style="overflow:scroll;   height:600px;    margin:0 auto; "></div>  
+                                            <div id="wtab02Grid_div"  style="overflow:scroll;   height:700px;    margin:0 auto; "></div>  
                                             <!-- <div id="tab02Pager"></div> -->
                                           </div>
                                     </div>
@@ -188,13 +216,40 @@
                                             <p>
                                                현재 <b><span id="checked-count02">0</span></b> 개의 항목이 선택되었습니다.
                                             </p>
-                                            <div id="wtab04Grid_div"  style="overflow:scroll;   height:600px;    margin:0 auto; "></div>  
+                                            <div id="wtab04Grid_div"  style="overflow:scroll;   height:700px;    margin:0 auto; "></div>  
                                             <!-- <div id="tab02Pager"></div> -->
                                           </div>
                                     </div> 
                                     <div class="tab-pane fade" id="step03">  
                                         <div class="container-fluid"> 
-                                            <div id="wtab03Grid_div"  style="overflow:scroll;   height:600px;    margin:0 auto; "></div> 
+                                            <div id="wtab03Grid_div"  style="overflow:scroll;   height:800px;    margin:0 auto; "></div> 
+                                            <div id="flexGridFooter" class="gridFooter"></div> 
+                                            <!-- <div id="tab02Pager"></div> -->
+                                          </div>
+                                    </div> 
+                                    <div class="tab-pane fade" id="step04">  
+                                        <div class="container-fluid"> 
+                                            <div id="wtab05Grid_div"  style="overflow:scroll;   height:800px;    margin:0 auto; "></div> 
+                                            <div id="flexGridFooter" class="gridFooter"></div> 
+                                            <!-- <div id="tab02Pager"></div> -->
+                                          </div>
+                                    </div> 
+                                    <div class="tab-pane fade" id="step05">  
+                                        <div class="row gx-3" style="  margin: 10px 10px 10px;">   
+                                            <div class="col-2 col-sm-3">
+                                                <input type="file" class="form-control" id="importFile" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />                                               
+                                            </div>
+                                            <div class="col-2 col-sm-1"> 
+                                                <button class="btn btn-falcon-primary me-1 mb-1 btn-sm" type="button" id="loadXlsx">엑셀적용
+                                                </button> 
+                                            </div>  
+                                            <div class="col-2 col-sm-1"> 
+                                                <button class="btn btn-falcon-primary me-1 mb-1 btn-sm" type="button" id="saveBtn04">저장
+                                                </button> 
+                                            </div>  
+                                        </div>
+                                        <div class="container-fluid"> 
+                                            <div id="wtab06Grid_div"  style="overflow:scroll;   height:800px;    margin:0 auto; "></div> 
                                             <div id="flexGridFooter" class="gridFooter"></div> 
                                             <!-- <div id="tab02Pager"></div> -->
                                           </div>
@@ -266,11 +321,15 @@
          var view_p01tab02page;
          var view_p01tab03page; 
          var view_p01tab04page; 
+         var view_p01tab05page; 
+         var view_p01tab06page; 
          var view_innamepage; 
          var wtab01Grid;
          var wtab02Grid;
          var wtab03Grid; 
          var wtab04Grid; 
+         var wtab05Grid; 
+         var wtab06Grid; 
          var winnameGrid; 
 
          var misdateArr = new Array();
@@ -356,6 +415,7 @@
                     { binding: 'uamt', header: '단가', align: "center", width: 100 },  
                     { binding: 'samt', header: '금액', align: "center", width: 150 },  
                     { binding: 'fixflag', header: '출력', align: "center", width: 150, cssClass: 'switch'   },  
+                    { binding: 'devflag', header: '발송', align: "center", width: 150, cssClass: 'switch'   },  
                     
                 ], 
                 itemsSource: view_p01tab02page, 
@@ -533,6 +593,109 @@
                 : wijmo.grid.HeadersVisibility.Column; 
             }
 
+            
+            //////////////////////////////////////////////////////////////////////////////////////////////////////////    
+            //////////////////////////////////////////////////////////////////////////////////////////////////////////
+            view_p01tab05page = new wijmo.collections.CollectionView(getData_wlist());    
+            setGroups(true); 
+            wtab05Grid = new wijmo.grid.FlexGrid('#wtab05Grid_div', { 
+                deferResizing: true,
+                showMarquee: true,
+                alternatingRowStep: 0,
+                selectionMode: 'MultiRange',
+                allowSorting: 'MultiColumn',
+                autoGenerateColumns: false,
+                columns: [     
+                    // { binding: 'active', header: '선택', align: "center", width: 80  ,dataType:3,allowSorting: false, dataType: wijmo.DataType.Boolean  }, 
+                    { binding: 'acorp', header: '상호', align: "center", width: 120 },  
+                    { binding: 'atelno', header: '연락처', align: "center", width: 150 },   
+                    { binding: 'ajuso', header: '주소', align: "center", width: 120 },  
+                    { binding: 'aascodetxt', header: '우편번호', align: "center", width: 100 },  
+                    { binding: 'pname', header: '품목', align: "center", width: 100 },  
+                    { binding: 'qty', header: '수량', align: "center", width: 100 },  
+                    { binding: 'remark', header: '비고', align: "center", width: 80 },  
+                    { binding: 'message', header: '메세지', align: "center", width: 100 },  
+                    { binding: 'payflag', header: '선불/착불', align: "center", width: 150 },  
+                    { binding: 'eeacorp', header: '상호', align: "center", width: 150 },  
+                    { binding: 'eeatelno', header: '연락처', align: "center", width: 150 },  
+                    { binding: 'eeacodetxt', header: '우편번호', align: "center", width: 150 },  
+                    { binding: 'eeajuso', header: '주소', align: "center", width: 150 },  
+                ], 
+                itemsSource: view_p01tab05page, 
+            }); 
+
+            // 헤더 열 전환
+            setHeaderColumn05(false); 
+            function setHeaderColumn05(headerOn) {
+                wtab05Grid.headersVisibility = headerOn
+                ? wijmo.grid.HeadersVisibility.All
+                : wijmo.grid.HeadersVisibility.Column; 
+            }
+            new FlexGridContextMenu(wtab05Grid); 
+            wtab05Grid.focus();
+            
+            //////////////////////////////////////////////////////////////////////////////////////////////////////////    
+            //////////////////////////////////////////////////////////////////////////////////////////////////////////
+            view_p01tab06page = new wijmo.collections.CollectionView(getData_wlist());    
+            setGroups(true); 
+            wtab06Grid = new wijmo.grid.FlexGrid('#wtab06Grid_div', { 
+                deferResizing: true,
+                showMarquee: true,
+                alternatingRowStep: 0,
+                selectionMode: 'MultiRange',
+                allowSorting: 'MultiColumn',
+                autoGenerateColumns: false,
+                columns: [     
+                    // { binding: 'active', header: '선택', align: "center", width: 80  ,dataType:3,allowSorting: false, dataType: wijmo.DataType.Boolean  }, 
+                    { binding: 'no', header: 'NO', align: "center", width: 80 },  
+                    { binding: 'num01', header: '번호', align: "center", width: 80 },   
+                    { binding: 'num02', header: '주문상태', align: "center", width: 100 },  
+                    { binding: 'num03', header: '운송장번호', align: "center", width: 100 },  
+                    { binding: 'num04', header: '주문번호', align: "center", width: 100 },  
+                    { binding: 'num05', header: '쇼핑몰명', align: "center", width: 100 },  
+                    { binding: 'num06', header: '주문자', align: "center", width: 100 },  
+                    { binding: 'num07', header: '수하인명', align: "center", width: 100 },  
+                    { binding: 'num08', header: '수하인전번', align: "center", width: 100 },  
+                    { binding: 'num09', header: '상품코드', align: "center", width: 100 },  
+                    { binding: 'num10', header: '상품명', align: "center", width: 100 },  
+                    { binding: 'num11', header: '상품상세', align: "center", width: 100 },  
+                    { binding: 'num12', header: '수량', align: "center", width: 100 },  
+                    { binding: 'num13', header: '운임구분', align: "center", width: 100 },  
+                    { binding: 'num14', header: '합계운임', align: "center", width: 100 },  
+                    { binding: 'num15', header: '관리번호', align: "center", width: 100 },  
+                    { binding: 'num16', header: '집하일자', align: "center", width: 100 },  
+                    { binding: 'num17', header: '수하인휴번', align: "center", width: 100 },  
+                    { binding: 'num18', header: '수하인기본주소', align: "center", width: 100 },  
+                    { binding: 'num19', header: '수하인상세주소', align: "center", width: 100 },  
+                    { binding: 'num20', header: '합포장키', align: "center", width: 100 },  
+                    { binding: 'num21', header: '내품수량', align: "center", width: 100 },  
+                    { binding: 'num22', header: '배달메시지내용', align: "center", width: 100 },  
+                    { binding: 'num23', header: '터미널명', align: "center", width: 100 },  
+                    { binding: 'num24', header: '최초지시일자', align: "center", width: 100 },  
+                    { binding: 'num25', header: '송하인명', align: "center", width: 100 },  
+                    { binding: 'num26', header: '송하인TEL', align: "center", width: 100 },  
+                    { binding: 'num27', header: '송하인휴번', align: "center", width: 100 },  
+                    { binding: 'num28', header: '송하인기본주소', align: "center", width: 100 },  
+                    { binding: 'num29', header: '송하인상세주소', align: "center", width: 100 },  
+                    { binding: 'num30', header: '원송장번호', align: "center", width: 100 },  
+                    { binding: 'num31', header: '업무거래처코드', align: "center", width: 100 },  
+                    { binding: 'num32', header: '수하인우편번호', align: "center", width: 100 },  
+                    { binding: 'num33', header: '송하인우편번호', align: "center", width: 100 },  
+                    { binding: 'num34', header: '고객메세지내용', align: "center", width: 100 },  
+                    { binding: 'num35', header: '도서추가운임', align: "center", width: 100 },   
+                ], 
+                itemsSource: view_p01tab06page, 
+            }); 
+
+            // 헤더 열 전환
+            setHeaderColumn06(false); 
+            function setHeaderColumn06(headerOn) {
+                wtab05Grid.headersVisibility = headerOn
+                ? wijmo.grid.HeadersVisibility.All
+                : wijmo.grid.HeadersVisibility.Column; 
+            }
+            new FlexGridContextMenu(wtab06Grid); 
+            wtab05Grid.focus();
             //////////////////////////////////////////////////////////////////////////////////////////////////////////    
             //////////////////////////////////////////////////////////////////////////////////////////////////////////
             //거래처현황 Modalㅁ
@@ -573,7 +736,8 @@
                     index: cnt,
                     jepm: '', 
                     ijaego_su1:  '', 
-                    fixflag: false
+                    fixflag: false, 
+                    devflag: false
                 });
                 cnt++;
             }     
@@ -618,7 +782,9 @@
 
         function save_btn(arg1, arg2, arg3){ 
             var ls_tab = document.getElementById('tabvalue').value; 
-
+            if (arg1 == "D"){
+                ls_tab = "D";
+            }
             
             switch(ls_tab){
                 case 'A': 
@@ -670,7 +836,7 @@
                         success:function(data){   
                             if(data == "success"){
                                 alert("처리되었습니다.")
-                                searchList_rtn(ls_tab);   
+                                searchList_rtn(ls_tab, "PRT");   
                                 return true;
                                 // clear_rtn(ls_tab);        
                             }else{                       
@@ -740,7 +906,7 @@
                         success:function(data){   
                             if(data == "success"){
                                 alert("처리되었습니다.") 
-                                searchList_rtn(ls_tab);
+                                searchList_rtn(ls_tab, "listBtn");
                                 // misdateArr.pop() 
                                 return true;  
                                 // clear_rtn(ls_tab);        
@@ -758,7 +924,78 @@
 
                     })   
 
-                    break;                                  
+                    break;   
+                    
+
+                case 'D': 
+                    if (!confirm("발송출력 하시겠습니까?")) { 
+                        return false; 
+                    }     
+                    while (misdateArr.length > 0) {
+                        misdateArr.pop();
+                        misnumArr.pop();
+                        seqArr.pop();
+                        cltcdArr.pop();
+                        gubunArr.pop();
+                        fixflagArr.pop();
+                    }    
+                    for (var i = 0; i < chkTabA.length; i++) { 
+                        misdateArr[i]   = chkTabA[i]._data.misdate;
+                        misnumArr[i]   = chkTabA[i]._data.misnum;
+                        seqArr[i]  = chkTabA[i]._data.seq; 
+                        cltcdArr[i]  = chkTabA[i]._data.cltcd; 
+                        gubunArr[i]  = chkTabA[i]._data.misgubun; 
+                        fixflagArr[i]  = chkTabA[i]._data.fixflag; 
+                        // omisdateWArr[i]   = sel[i]._data.omisdate;
+                        // omisnumWArr[i]   = sel[i]._data.omisnum;
+                        // oseqWArr[i]  = sel[i]._data.oseq; 
+                        if(!fixflagArr[i]){
+                            fixflagArr[i] = "0";
+                        }else{
+                            fixflagArr[i] = "1";
+                        }
+                    }    
+                    if(misdateArr.length == null || misdateArr.length == 0){ 
+                        alert("발송할 내역을 선택하세요") 
+                        return ;               
+                    }  
+                    $.ajax({
+                        url: '/app01m/index16/save',  
+                        type:"POST",
+                        data: { 
+                            "misdatearr"  : misdateArr,  
+                            "misnumarr"   : misnumArr   , 
+                            "seqarr"  : seqArr     , 
+                            "cltcdarr"  : cltcdArr     , 
+                            "gubunarr"  : gubunArr     , 
+                            "fixflagarr"  : fixflagArr     , 
+                            "mflag"  : 'DD'   ,      
+                            "ordercd"  : 'AA'   , 
+                        }, 
+                        async:false,
+                        success:function(data){   
+                            if(data == "success"){
+                                alert("처리되었습니다.")
+                                ls_tab = "A";
+                                searchList_rtn(ls_tab, "DEV");   
+                                return true;
+                                // clear_rtn(ls_tab);        
+                            }else{                       
+                                alert("처리중 오류가 발생했습니다. 관리자에게 문의하세요.")
+                                // listUp();
+                                console.log(data); 
+                                return false; 
+                            }
+                        
+                        },error:function(e){
+                            console.log("error"); 
+                        }
+                    }).done(function(fragment){           
+
+                    })   
+
+                    break;                     
+
                 default:    
                     break;                
             } 
@@ -787,12 +1024,12 @@
         // tab01 검색   
         document.getElementById("listBtn").addEventListener("click",function(){  
             var ls_tab = document.getElementById('tabvalue').value;   
-            searchList_rtn(ls_tab);
+            searchList_rtn(ls_tab, "listBtn");
         })                         
         // tab02 검색   
         document.getElementById("listBtn02").addEventListener("click",function(){  
             var ls_tab = document.getElementById('tabvalue').value;   
-            searchList_rtn(ls_tab);
+            searchList_rtn(ls_tab, "listBtn");
         })                    
         // 주문확정 
         document.getElementById("saveBtn01").addEventListener("click",function(){ 
@@ -804,8 +1041,42 @@
         document.getElementById("saveBtn02").addEventListener("click",function(){
             var ls_tab = document.getElementById('tabvalue').value;     
             save_btn(ls_tab);
-        }) 
+        })            
+        // 발송등록 
+        document.getElementById("saveBtn03").addEventListener("click",function(){
+            var ls_tab = document.getElementById('tabvalue').value;     
+            save_btn("D");
+        })  
+        //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+         
+        // tab05 엑셀적용   
+        document.getElementById("loadXlsx").addEventListener("click",function(){  
+            let inputEle = document.querySelector('#importFile');
+            if (inputEle.files[0]) {
+            wijmo.grid.xlsx.FlexGridXlsxConverter.loadAsync(wtab06Grid, inputEle.files[0], { includeColumnHeaders: includeColumnHeader });
+            } 
+        })  
+        //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 인쇄 @@@@@@@@@@@@@@@@@@@@@@@@@@@
+        //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+     
 
+        function excel_rtn(getData){  
+            let today = new Date();   
+            let year = today.getFullYear(); // 년도
+            let month = today.getMonth() + 1;  // 월
+            let date = today.getDate();  // 날짜
+            var hh = today.getHours(); 
+            var min = ('0' + today.getMinutes()).slice(-2) 
+            let fileName = year + '/' + month + '/' + date  + ' ' + hh + ':' + min;
+            fileName = '택배업로드양식_' + fileName + '.xlsx';
+            wijmo.grid.xlsx.FlexGridXlsxConverter.saveAsync(wtab05Grid, {includeCellStyles: true, includeColumnHeaders: true}, fileName,
+                saved => {
+                gridView.pageSize = oldPgSize;
+                gridView.moveToPage(oldPgIndex);
+                grid.endUpdate();
+                }, null
+            );  
+        }
         //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 인쇄 @@@@@@@@@@@@@@@@@@@@@@@@@@@
         //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
      
@@ -1110,13 +1381,14 @@
                 CifSearchList_rtn("B"); 
             }
         });   
-        function searchList_rtn(arg1){ 
+        function searchList_rtn(arg1, arg2){ 
             switch(arg1){ 
                 case 'A': 
                     var ls_frdate = document.getElementById('frdate').value; 
                     var ls_todate = document.getElementById('todate').value;          
                     var ls_bacode   = document.getElementById('bacode').value; 
                     var ls_misfixflag = document.getElementById('misfixflag').value;  
+                    var ls_misdevflag = document.getElementById('misdevflag').value; 
                     if(ls_frdate == null || ls_frdate.length == 0 || ls_frdate == ""){ 
                         alert("조회일자를 등록하세요") 
                         document.getElementById("frdate").focus(); 
@@ -1129,6 +1401,9 @@
                     }   
                     if(ls_misfixflag == "출력구분"){ 
                         ls_misfixflag = "%";
+                    }   
+                    if(ls_misdevflag == "발송구분"){ 
+                        ls_misdevflag = "%";
                     }    
                     if(ls_bacode == null || ls_bacode.length == 0 || ls_bacode == ""){  
                         ls_bacode = "%";
@@ -1142,7 +1417,8 @@
                             "todate"      : ls_todate,
                             "acode"      : ls_bacode,   
                             "perid"      : ls_abonsadam1,  
-                            "fixflag"    : ls_misfixflag,
+                            "fixflag"    : ls_misfixflag, 
+                            "devflag"    : ls_misdevflag,
                             "mflag"  : 'AA'   ,  
                         }, 
                         async:false,
@@ -1161,32 +1437,63 @@
                         //alert("처리할 내역을 선택하세요") 
                         return ;               
                     }   
+                    if(arg2 == "listBtn"){
+                        return; 
+                    }
+                    if(arg2 == "PRT"){ 
+                        //선택된 매출그룹조회     
+                        $.ajax({
+                            url: '/app01m/index14/listprt',  
+                            type:"POST",
+                            data: { 
+                                "misdatearr"  : misdateArr,  
+                                "misnumarr"   : misnumArr   , 
+                                "seqarr"  : seqArr     , 
+                                "cltcdarr"  : cltcdArr     , 
+                                "gubunarr"  : gubunArr     , 
+                                "mflag"  : 'AA'   ,  
+                            }, 
+                            async:false,
+                            success:function(data){ 
+                                tabE_grid(data); 
+                                print_rtn(data)
+                                // misdateArr.pop() 
+                            },error:function(e){
+                                console.log("error");
+                                // alert(data.code);
+                                // alert(data.message);
+                            }
+                        }).done(function(fragment){           
 
-                    //선택된 매출그룹조회     
-                    $.ajax({
-                        url: '/app01m/index14/listprt',  
-                        type:"POST",
-                        data: { 
-                            "misdatearr"  : misdateArr,  
-                            "misnumarr"   : misnumArr   , 
-                            "seqarr"  : seqArr     , 
-                            "cltcdarr"  : cltcdArr     , 
-                            "gubunarr"  : gubunArr     , 
-                            "mflag"  : 'AA'   ,  
-                        }, 
-                        async:false,
-                        success:function(data){ 
-                            tabE_grid(data); 
-                            print_rtn(data)
-                            // misdateArr.pop() 
-                        },error:function(e){
-                            console.log("error");
-                            // alert(data.code);
-                            // alert(data.message);
-                        }
-                    }).done(function(fragment){           
+                        })  
+                    } 
+                    if(arg2 == "DEV"){ 
+                        //선택된 매출그룹조회   
+                        $.ajax({
+                            url: '/app01m/index14/listdev',  
+                            type:"POST",
+                            data: { 
+                                "misdatearr"  : misdateArr,  
+                                "misnumarr"   : misnumArr   , 
+                                "seqarr"  : seqArr     , 
+                                "cltcdarr"  : cltcdArr     , 
+                                "gubunarr"  : gubunArr     , 
+                                "mflag"  : 'AA'   ,  
+                            }, 
+                            async:false,
+                            success:function(data){  
+                                tabF_grid(data); 
+                                excel_rtn(wtab05_data)
+                                // misdateArr.pop() 
+                            },error:function(e){
+                                console.log("error");
+                                // alert(data.code);
+                                // alert(data.message);
+                            }
+                        }).done(function(fragment){           
 
-                    })   
+                        })  
+                    } 
 
                     break;
                 case 'B': 
@@ -1245,11 +1552,17 @@
             var wtab02_data = [];
             var cnt = 1;
             var bfixflag = false
+            var bdevflag = false
             for (var i = 0; i < wtab02Dto.length; i++) {
                 if(wtab02Dto[i]["fixflag"] == "1"){
                     bfixflag = true;
                 }else{
                     bfixflag = false;
+                }
+                if(wtab02Dto[i]["devflag"] == "1"){
+                    bdevflag = true;
+                }else{
+                    bdevflag = false;
                 }
                 wtab02_data.push({
                     id: i, 
@@ -1270,7 +1583,8 @@
                     cltcd: wtab02Dto[i]["cltcd"],  
                     inname: wtab02Dto[i]["inname"],       
                     misgubun: wtab02Dto[i]["misgubun"],       
-                    fixflag: bfixflag,                          
+                    fixflag: bfixflag,                       
+                    devflag: bdevflag,                           
                 });
                 cnt++;
             }   
@@ -1376,6 +1690,13 @@
             cols = new wijmo.grid.Column(); 
             cols.binding = 'fixflag'; 
             cols.header = '출력';
+            cols.align = "center";
+            cols.width = 100;  
+            cols.cssClass = 'switch'
+            wtab02Grid.columns.push(cols);    
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'devflag'; 
+            cols.header = '발송';
             cols.align = "center";
             cols.width = 100;  
             cols.cssClass = 'switch'
@@ -1623,10 +1944,154 @@
             cols.width = 120;  
             wtab03Grid.columns.push(cols);   
  
+        } 
+
+        function tabF_grid(data){ 
+            var wtab05Dto  = data;  
+            var cnt = 1;
+            var bfixflag = "신용" 
+            wtab05_data = [];
+            for (var i = 0; i < wtab05Dto.length; i++) { 
+                ls_acorp = wtab05Dto[i]["acorp"]; 
+                ls_atelno = wtab05Dto[i]["atelno"]; 
+                ls_ajuso = wtab05Dto[i]["ajuso"]; 
+                ls_aascodetxt = wtab05Dto[i]["aascodetxt"]; 
+                ls_pname = wtab05Dto[i]["pname"];
+                ls_qty = wtab05Dto[i]["qty"];
+                ls_remark = wtab05Dto[i]["remark"];
+                ls_message = wtab05Dto[i]["message"];
+                ls_payflag = wtab05Dto[i]["payflag"];
+                ls_eeacorp = wtab05Dto[i]["eeacorp"];
+                ls_eeasano = wtab05Dto[i]["eeasano"];
+                ls_eeaname = wtab05Dto[i]["eeaname"];
+                ls_eeupte = wtab05Dto[i]["eeupte"];
+                ls_eeajong = wtab05Dto[i]["eeajong"];
+                ls_eeajuso = wtab05Dto[i]["eeajuso"];
+                ls_eeacodetxt = wtab05Dto[i]["eeacodetxt"];
+                ls_eeatelno = wtab05Dto[i]["eeatelno"]; 
+                ls_misdate = wtab05Dto[i]["misdate"];
+                ls_misnum = wtab05Dto[i]["misnum"];
+                ls_misdatetxt = wtab05Dto[i]["misdatetxt"]; 
+                if(wtab05Dto[i]["payflag"] == "1"){
+                    bfixflag = "착불";
+                }else{
+                    bfixflag = "신용" 
+                } 
+                wtab05_data.push({
+                    id: i, 
+                    index: cnt,
+                    select: false,
+                    misdate: wtab05Dto[i]["misdate"],
+                    misnum: wtab05Dto[i]["misnum"],   
+                    acorp: wtab05Dto[i]["acorp"],     
+                    atelno: wtab05Dto[i]["atelno"],     
+                    ajuso: wtab05Dto[i]["ajuso"],     
+                    aascodetxt: wtab05Dto[i]["aascodetxt"],     
+                    pname: wtab05Dto[i]["pname"],     
+                    qty: wtab05Dto[i]["qty"],     
+                    remark: wtab05Dto[i]["remark"],     
+                    message: wtab05Dto[i]["message"],      
+                    payflag: bfixflag,      
+                    qty: wtab05Dto[i]["qty"],    
+                    samt: wtab05Dto[i]["samt"],  
+                    addamt: wtab05Dto[i]["addamt"], 
+                    amt: wtab05Dto[i]["amt"],   
+                    rownum: wtab05Dto[i]["rownum"],      
+                    acorp: wtab05Dto[i]["acorp"],      
+                    eeacorp: wtab05Dto[i]["eeacorp"],      
+                    eeasano: wtab05Dto[i]["eeasano"],      
+                    eeaname: wtab05Dto[i]["eeaname"],      
+                    eeupte: wtab05Dto[i]["eeupte"],      
+                    eeajong: wtab05Dto[i]["eeajong"],      
+                    eeajuso: wtab05Dto[i]["eeajuso"],         
+                    eeacodetxt: wtab05Dto[i]["eeacodetxt"],       
+                    eeatelno: wtab05Dto[i]["eeatelno"],        
+                });
+                cnt++;
+            }    
+            wtab05Grid.columns.clear();  
+            wtab05Grid.autoGenerateColumns = false; 
+            view_p01tab05page.sourceCollection  = wtab05_data; 
+            var cols = new wijmo.grid.Column(); 
+            cols.binding = 'acorp';
+            cols.header = '상호';
+            cols.align = "center";
+            cols.width = 150;  
+            wtab05Grid.columns.push(cols);  
+            cols = new wijmo.grid.Column();    
+            cols.binding = 'atelno';
+            cols.header = '연락처';
+            cols.align = "center";
+            cols.width = 150; 
+            wtab05Grid.columns.push(cols);    
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'ajuso';
+            cols.header = '주소';
+            cols.align = "left";
+            cols.width = 150;  
+            wtab05Grid.columns.push(cols);   
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'aascodetxt';
+            cols.header = '우편번호';
+            cols.align = "center";
+            cols.width = 120;  
+            wtab05Grid.columns.push(cols);   
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'pname';
+            cols.header = '품목';
+            cols.align = "left";
+            cols.width = 150;  
+            wtab05Grid.columns.push(cols);  
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'qty';
+            cols.header = '수량';
+            cols.align = "center";
+            cols.width = 80;  
+            wtab05Grid.columns.push(cols);   
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'remark';
+            cols.header = '비고';
+            cols.align = "center"; 
+            cols.width = 150;  
+            wtab05Grid.columns.push(cols);   
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'message';
+            cols.header = '메세지';
+            cols.align = "left";
+            cols.width = 150;  
+            wtab05Grid.columns.push(cols);     
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'payflag'; 
+            cols.header = '선불/착불';
+            cols.align = "center"; 
+            cols.width = 100;  
+            wtab05Grid.columns.push(cols);      
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'eeacorp'; 
+            cols.header = '상호';
+            cols.align = "center"; 
+            cols.width = 120;  
+            wtab05Grid.columns.push(cols);      
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'eeatelno'; 
+            cols.header = '연락처';
+            cols.align = "center"; 
+            cols.width = 120;  
+            wtab05Grid.columns.push(cols);     
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'eeacodetxt'; 
+            cols.header = '우편번호';
+            cols.align = "center"; 
+            cols.width = 80;  
+            wtab05Grid.columns.push(cols);     
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'eeajuso'; 
+            cols.header = '주소';
+            cols.align = "left"; 
+            cols.width = 120;  
+            wtab05Grid.columns.push(cols);  
+ 
         }
-
-
-
 
         function tabC_grid(data){
             var wtab04Dto  = data;    
@@ -1800,7 +2265,7 @@
                     }, 
                     async:false,
                     success:function(data){  
-                        searchList_rtn("B");
+                        searchList_rtn("B", "listBtn");
                     },error:function(e){
                         console.log("error");                            
                     }
@@ -1827,7 +2292,7 @@
                     }, 
                     async:false,
                     success:function(data){  
-                        searchList_rtn("C");
+                        searchList_rtn("C", "listBtn");
                     },error:function(e){
                         console.log("error");                            
                     }
@@ -2209,7 +2674,7 @@
                             grid.beginUpdate();
                             gridView.pageSize = 0;
 
-                            wijmo.grid.xlsx.FlexGridXlsxConverter.saveAsync(grid, {includeCellStyles: true, includeColumnHeaders: true}, 'FlexGrid.xlsx',
+                            wijmo.grid.xlsx.FlexGridXlsxConverter.saveAsync(grid, {includeCellStyles: true, includeColumnHeaders: true}, '주문출력.xlsx',
                                 saved => {
                                 gridView.pageSize = oldPgSize;
                                 gridView.moveToPage(oldPgIndex);

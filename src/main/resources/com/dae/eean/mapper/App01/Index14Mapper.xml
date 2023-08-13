@@ -44,7 +44,7 @@
     <select id="SelectDa024List"  parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" resultType="com.dae.eean.DTO.App01.IndexDa024Dto">
         <![CDATA[ select B.cltcd as cltcd, Left(B.misdate,4) + '-' + substring(B.misdate, 5,2)+ '-' + substring(B.misdate, 7,2) as misdate, B.misnum, B.seq,
                          B.pcode, B.pname, B.psize,    B.punit,  B.qty,  B.uamt, B.samt, B.addamt,
-                         B.amt, A.acorp, pbonsa, pmodel, pcolor , D.inname, B.misgubun, isnull(B.fixflag,'0') as fixflag, D.inname as pernm
+                         B.amt, A.acorp, pbonsa, pmodel, pcolor , D.inname, B.misgubun, isnull(B.fixflag,'0') as fixflag,isnull(B.devflag,'0') as devflag,   D.inname as pernm
            from  TB_DA024 B WITH (NOLOCK) , cif A WITH (NOLOCK) ,
                  TB_DA023 C WITH (NOLOCK) Left outer JOIN INSA D ON C.perid = D.insano
            where B.misdate + B.misnum = C.misdate + C.misnum AND B.misgubun = C.misgubun
@@ -56,6 +56,7 @@
              AND isnull(B.misgubun,'')  Like concat('%',#{misgubun},'%')
             AND B.misdate between #{frdate} and #{todate}
             AND Isnull(B.fixflag, '') Like concat('%',#{fixflag},'%')
+            AND Isnull(B.devflag, '') Like concat('%',#{devflag},'%')
             ORDER BY B.cltcd, B.misdate, B.misnum, B.seq
         ]]>
 
@@ -69,10 +70,13 @@
                          B.amt, A.acorp, pbonsa, pmodel, pcolor , D.inname, B.misgubun, isnull(B.fixflag,'0') as fixflag, D.inname as pernm,
                          ROW_NUMBER() OVER(ORDER BY (SELECT 1)) AS rownum,
                          A.acorp, A.asano1 + '-' + A.asano2 + '-' + A.asano3 as asano, A.aname, A.aupte, A.ajong, A.ajuso1 + ' ' + A.ajuso2 as ajuso, A.atelno,
-                         F.acorp as eeacorp, F.asano as eeasano, F.aname as eeaname, F.aupte as eeupte, F.ajong as eeajong, F.ajuso as eeajuso, F.atelno as eeatelno
+                         A.aascode1 + '-' + A.aascode2 as aascodetxt,
+                         F.acorp as eeacorp, F.asano as eeasano, F.aname as eeaname, F.aupte as eeupte, F.ajong as eeajong, F.ajuso as eeajuso, F.atelno as eeatelno,
+                         F.eeacodetxt as eeacodetxt
            from  TB_DA024 B WITH (NOLOCK) , cif A WITH (NOLOCK) ,
                  TB_DA023 C WITH (NOLOCK) Left outer JOIN INSA D ON C.perid = D.insano ,
-                 ( select acorp, atelno, asano1 + '-' + asano2 + '-' + asano3 as asano, aname, aupte, ajong, ajuso1 + ' ' + ajuso2 as ajuso
+                 ( select acorp, atelno, asano1 + '-' + asano2 + '-' + asano3 as asano, aname, aupte, ajong, ajuso1 + ' ' + ajuso2 as ajuso,
+                    aascode1 + '-' + aascode2 as eeacodetxt
                     from cif where acorp1 + acorp2 + acorp3 = '0000' ) F
            where B.misdate + B.misnum = C.misdate + C.misnum AND B.misgubun = C.misgubun
              AND B.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
@@ -105,7 +109,33 @@
         Group BY B.cltcd,  B.misdate, B.misnum, A.acorp
         ORDER BY B.cltcd,  B.misdate, B.misnum
     </select>
-
+    <select id="SelectDa024ListDevGroup"  parameterType="hashmap"  resultType="com.dae.eean.DTO.App01.IndexDa024Dto">
+        select B.cltcd as cltcd,  B.misdate as misdate, B.misnum,
+            substring(B.misdate, 1,4)+ '년 ' + substring(B.misdate, 5,2)+ '월 ' + substring(B.misdate, 7,2) + '일' as misdatetxt,
+            sum(B.qty) as qty,   sum(B.samt) as samt, sum(B.addamt) as addamt, sum(B.amt) as amt,
+            case when sum(B.qty) = 1 then  MAX(B.pname) else Max(B.pname) + ' 외' + cast(sum(B.qty) - 1 as varchar(100)) + '건' end  as pname,
+            A.acorp, max(A.atelno) as atelno, max(ajuso1) + ' ' + max(ajuso2) as ajuso , '안경원입니다.' as remark,
+            '안경원입니다! 인수자  서명 부탁드립니다.' as message, isnull(max(B.payflag), '0') AS payflag,
+            ROW_NUMBER() OVER(ORDER BY (SELECT 1)) AS rownum,
+            MAX(A.aascode1) + '-' + MAX(A.aascode2) as aascodetxt,
+            MAX(F.acorp) as eeacorp, MAX(F.asano) as eeasano, MAX(F.aname) as eeaname, MAX(F.aupte) as eeupte,
+            MAX(F.ajong) as eeajong, MAX(F.ajuso) as eeajuso, MAX(F.atelno) as eeatelno,  MAX(F.eeacodetxt) as eeacodetxt, MAX(F.eeatelno) as eeatelno
+        from  TB_DA024 B WITH (NOLOCK) , cif A WITH (NOLOCK) ,
+            TB_DA023 C WITH (NOLOCK) Left outer JOIN INSA D ON C.perid = D.insano ,
+            ( select acorp, atelno, asano1 + '-' + asano2 + '-' + asano3 as asano, aname, aupte, ajong,
+              ajuso1 + ' ' + ajuso2 as ajuso, aascode1 + '-' + aascode2 as eeacodetxt, atelno as eeatelno
+            from cif where acorp1 + acorp2 + acorp3 = '0000' ) F
+        where B.misdate + B.misnum = C.misdate + C.misnum AND B.misgubun = C.misgubun
+            AND B.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
+            AND C.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
+            AND B.misdate + B.misnum + B.cltcd in
+            <foreach collection="itemcdArr" item="itemcd"  open="(" close=")" separator=",">
+                #{itemcd}
+            </foreach>
+            AND isnull(B.devflag, '0') = '1'
+        Group BY B.cltcd,  B.misdate, B.misnum, A.acorp
+        ORDER BY B.cltcd,  B.misdate, B.misnum
+    </select>
 
     <select id="SelectDa026List"  parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" resultType="com.dae.eean.DTO.App01.IndexDa024Dto">
         <![CDATA[ select B.cltcd as cltcd, Left(B.misdate,4) + '-' + substring(B.misdate, 5,2)+ '-' + substring(B.misdate, 7,2) as misdate, B.misnum, B.seq,
@@ -388,6 +418,11 @@
         where misdate=#{misdate} and misnum=#{misnum} and  seq=#{seq} and cltcd = #{cltcd} and misgubun = #{misgubun}
     </update>
 
+    <update id="UpdateDA024Dev" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
+        UPDATE tb_da024 SET
+        devflag=#{devflag}
+        where misdate=#{misdate} and misnum=#{misnum} and  seq=#{seq} and cltcd = #{cltcd} and misgubun = #{misgubun}
+    </update>
 
     <update id="UpdateDA026" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
         UPDATE tb_da026 SET

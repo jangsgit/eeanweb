@@ -1,10 +1,12 @@
 package com.dae.eean.controller.app01;
 
+import com.dae.eean.DTO.App01.Index01Dto;
 import com.dae.eean.DTO.App01.Index02Dto;
 import com.dae.eean.DTO.App01.Index03Dto;
 import com.dae.eean.DTO.CommonDto;
 import com.dae.eean.DTO.Popup.PopupDto;
 import com.dae.eean.DTO.UserFormDto;
+import com.dae.eean.Service.App01.Index01Service;
 import com.dae.eean.Service.App01.Index02Service;
 import com.dae.eean.Service.App01.Index03Service;
 import com.dae.eean.Service.Appcom01Service;
@@ -30,6 +32,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping(value = "/app01", method = RequestMethod.POST)
 public class App01Controller {
+    private final Index01Service service01;
     private final Index02Service service02;
     private final Index03Service service03;
     private final PopupService svcpopup;
@@ -42,26 +45,31 @@ public class App01Controller {
     PopupDto popupDto = new PopupDto();
     List<PopupDto> popupListDto = new ArrayList<>();
 
+    Index01Dto index01Dto = new Index01Dto();
+    List<Index01Dto> index01ListDto = new ArrayList<>();
+
+
     protected Log log =  LogFactory.getLog(this.getClass());
     //사업장정보조회
     @GetMapping(value="/index01")
     public String App01_index(Model model, HttpServletRequest request) throws Exception{
-//        CommDto.setMenuTitle("사업장정보");
-//        CommDto.setMenuUrl("기준정보>사업장정보");
-//        CommDto.setMenuCode("appcom01");
-//
-//
-//        itemDtoList = appcom01Service.GetXa012List();
-//        itemDto.setSpjangcd(spcode);
-//        if(appcom01Service.Getbxa012Detail(itemDto) == null){
-//            model.addAttribute("itemDto", appcom01Service.GetTBXa012Blank());
-//        }else{
-//            model.addAttribute("itemDto", appcom01Service.Getbxa012Detail(itemDto));
-//        }
-//        log.debug("map check=====>" );
-//        model.addAttribute("itemDtoList", itemDtoList);
-//        model.addAttribute("itemDtoInput", itemDtoInput);
-        model.addAttribute("CommDto", CommDto);
+        CommDto.setMenuTitle("공통코드등록");
+        CommDto.setMenuUrl("기준정보>공통코드등록");
+        CommDto.setMenuCode("index01");
+        HttpSession session = request.getSession();
+        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        model.addAttribute("userformDto",userformDto);
+
+        try {
+            index01ListDto = service01.getComCodeList(index01Dto);
+
+            model.addAttribute("comcodeList",index01ListDto);
+        } catch (Exception ex) {
+//                dispatchException = ex;
+            log.info("App01_index Exception =============================");
+            log.info("Exception =====>" + ex.toString());
+//            log.debug("Exception =====>" + ex.toString() );
+        }
         return "App01/index01";
     }
 
@@ -432,5 +440,28 @@ public class App01Controller {
         return "App01/index11";
     }
 
+    //AS접수 배송현황
+    @GetMapping(value="/index110")
+    public String App110_index( Model model, HttpServletRequest request) throws Exception{
+        CommDto.setMenuTitle("통계관리");
+        CommDto.setMenuUrl("통계관리>AS접수배송현황");
+        CommDto.setMenuCode("index110");
+        HttpSession session = request.getSession();
+        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        model.addAttribute("userformDto",userformDto);
+
+        try {
+//            popupListDto = svcpopup.getCifCodeList(popupDto);
+
+            model.addAttribute("cifcodeList",popupListDto);
+        } catch (Exception ex) {
+//                dispatchException = ex;
+            log.info("App13_index Exception ================================================================");
+            log.info("Exception =====>" + ex.toString());
+//            log.debug("Exception =====>" + ex.toString() );
+        }
+
+        return "App01/index110";
+    }
 
 }
