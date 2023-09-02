@@ -514,15 +514,18 @@
                         return ;               
                     }   
 
-                    var gridrow = wtab01Grid.rows.length - 1; 
+                    var gridrow = wtab01Grid.rows.length ;
+   
                     for( i=0; i < gridrow; i++){
+                        console.log(wtab01Grid.rows[i]);
                             ls_pcode[i] =  wtab01Grid.rows[i]._ubv[3]; 
                             ll_qty[i]   =  parseInt(wtab01Grid.rows[i]._ubv[4]);  
                             if(!ls_pcode[i] ){
-                                ls_pcode[i] =  wtab01Grid.rows[i]._ubv.c; 
-                                ll_qty[i]   =  parseInt(wtab01Grid.rows[i]._ubv.d);
+                                ls_pcode[i] =  wtab01Grid.rows[i]._ubv.n;       //ubv.c
+                                ll_qty[i]   =  parseInt(wtab01Grid.rows[i]._ubv.o);   //_ubv.d
 
                             }  
+   
                             if(!ls_pcode[i] ){
                                 continue;
                             }
@@ -530,13 +533,12 @@
                                 alert("수량을 등록하세요") 
                                 return                                           
                             } 
-
                             if (!ls_jcode.includes(ls_pcode[i])) {
                                 ls_jcode[llCount] = ls_pcode[i]; 
                                 ll_jqty[llCount] =  ll_qty[i] ;   
                                 llCount++;
                             } 
-                    }    
+                    }   
                     if(llCount ==0 ){
                         alert("엑셀 자료를 등록하세요") 
                         return     

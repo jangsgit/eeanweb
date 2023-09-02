@@ -84,12 +84,12 @@
                                 <ul class="nav nav-tabs">
                                     <li class="nav-item">
                                       <a class="nav-link active" data-toggle="tab" href="#step01" onclick="tabchk_rtn('A')">
-                                        <span style ="display:inline-block;  font-weight:bold;">주문출력</span>
+                                        <span style ="display:inline-block;  font-weight:bold;">주문현황</span>
                                       </a>
                                     </li>
                                     <li class="nav-item">
                                       <a class="nav-link" data-toggle="tab" href="#step02"  onclick="tabchk_rtn('B')">                                        
-                                        <span style ="display:inline-block;  font-weight:bold;">예약확정</span>
+                                        <span style ="display:inline-block;  font-weight:bold;">예약현황</span>
                                       </a>
                                     </li>
                                     <li class="nav-item">
@@ -148,6 +148,15 @@
                                                     <option value="1">발송</option>
                                                     <option value="0">미발송</option>
                                                   </select> 
+                                            </div>   
+                                            <div class="col-1 col-sm-1">
+                                                <select class="form-select form-select-sm" id="misgubun" aria-label=".form-select-sm example">
+                                                    <option selected="">주문구분</option>
+                                                    <option value="%">전체</option>
+                                                    <option value="AA">본사</option>
+                                                    <option value="BB">거래처</option>
+                                                    <option value="CC">영업사원</option>
+                                                  </select> 
                                             </div>  
                                             <div class="col-1 col-sm-1">  
                                                 <button class="btn btn-falcon-primary me-1 mb-1 btn-sm" id="listBtn" type="button"  >조회
@@ -191,14 +200,23 @@
                                                     <input type="text"  class="form-control datetimepicker" id="todate02" autocomplete="off"  placeholder="Y-m-d"     >
                                                 </div>
                                             </div> 
-                                            <div class="col-2 col-sm-2">
+                                            <div class="col-2 col-sm-1">
                                                 <select class="form-select form-select-sm" id="wishfixflag" aria-label=".form-select-sm example">
-                                                    <option selected="">주문구분</option>
+                                                    <option selected="">상태구분</option>
                                                     <option value="%">전체</option>
                                                     <option value="1">주문</option>
                                                     <option value="0">예약</option>
                                                   </select> 
                                             </div>   
+                                            <div class="col-1 col-sm-1">
+                                                <select class="form-select form-select-sm" id="misgubunflag" aria-label=".form-select-sm example">
+                                                    <option selected="">주문구분</option>
+                                                    <option value="%">전체</option>
+                                                    <option value="AA">본사</option>
+                                                    <option value="BB">거래처</option>
+                                                    <option value="CC">영업사원</option>
+                                                  </select> 
+                                            </div>  
                                             <div class="col-1 col-sm-1">  
                                                 <button class="btn btn-falcon-primary me-1 mb-1 btn-sm" id="listBtn02" type="button"  >조회
                                                 </button>
@@ -289,8 +307,8 @@
                              </div>                             
                          </div>   
                          <div class="container-fluid"> 
-                             <div id="winnameGrid_div" ></div>
-                             <div id="thePager03"></div>
+                             <div id="winnameGrid_div"  style="overflow:scroll;   height:500px;   margin:0 auto; "></div> 
+                             <!-- <div id="thePager03"></div> -->
                          </div>   
                      </div>  
  
@@ -619,7 +637,8 @@
                     { binding: 'eeacorp', header: '상호', align: "center", width: 150 },  
                     { binding: 'eeatelno', header: '연락처', align: "center", width: 150 },  
                     { binding: 'eeacodetxt', header: '우편번호', align: "center", width: 150 },  
-                    { binding: 'eeajuso', header: '주소', align: "center", width: 150 },  
+                    { binding: 'eeajuso', header: '주소', align: "center", width: 150 },   
+                    { binding: 'miskey', header: '배송키', align: "center", width: 150 },  
                 ], 
                 itemsSource: view_p01tab05page, 
             }); 
@@ -700,14 +719,14 @@
             //////////////////////////////////////////////////////////////////////////////////////////////////////////
             //거래처현황 Modalㅁ
             view_innamepage = new wijmo.collections.CollectionView(getData_wlist2(), {
-                pageSize: 12
+               // pageSize: 12
             });
             // 거래처 페이지 이동
-            new wijmo.input.CollectionViewNavigator('#thePager03', {
-                byPage: true,
-                headerFormat: 'Page {currentPage:n0} of {pageCount:n0}',
-                cv: view_innamepage
-            });     
+            // new wijmo.input.CollectionViewNavigator('#thePager03', {
+            //     byPage: true,
+            //     headerFormat: 'Page {currentPage:n0} of {pageCount:n0}',
+            //     cv: view_innamepage
+            // });     
             winnameGrid = new wijmo.grid.FlexGrid('#winnameGrid_div', {  
                 autoGenerateColumns: false,
                 isReadOnly: false, 
@@ -726,7 +745,6 @@
             wijmo.toggleClass(winnameGrid.hostElement, 'highlightActive', true);
             winnameGrid.focus();
         } 
-
         function getData_wlist(){        
             var wactnm_data = [];
             var cnt = 1;
@@ -743,6 +761,14 @@
             }     
             return wactnm_data;                           
         } 
+        // 헤더 열 전환
+        // setHeaderColumn07(false); 
+        // function setHeaderColumn07(headerOn) {
+        //     winnameGrid.headersVisibility = headerOn
+        //     ? wijmo.grid.HeadersVisibility.All
+        //     : wijmo.grid.HeadersVisibility.Column; 
+        // }
+
   
         // 거래처 데이터 수집
         function getData_wlist2(){   
@@ -1387,8 +1413,11 @@
                     var ls_frdate = document.getElementById('frdate').value; 
                     var ls_todate = document.getElementById('todate').value;          
                     var ls_bacode   = document.getElementById('bacode').value; 
+                    var ls_bcifname   = document.getElementById('bcifname').value;  
                     var ls_misfixflag = document.getElementById('misfixflag').value;  
                     var ls_misdevflag = document.getElementById('misdevflag').value; 
+                    var ls_misgubun = document.getElementById('misgubun').value; 
+                    
                     if(ls_frdate == null || ls_frdate.length == 0 || ls_frdate == ""){ 
                         alert("조회일자를 등록하세요") 
                         document.getElementById("frdate").focus(); 
@@ -1405,7 +1434,10 @@
                     if(ls_misdevflag == "발송구분"){ 
                         ls_misdevflag = "%";
                     }    
-                    if(ls_bacode == null || ls_bacode.length == 0 || ls_bacode == ""){  
+                    if(ls_misgubun == "주문구분"){ 
+                        ls_misgubun = "%";
+                    }    
+                    if(ls_bcifname == null || ls_bcifname.length == 0 || ls_bcifname == ""){  
                         ls_bacode = "%";
                     }   
                     ls_abonsadam1 = "";
@@ -1419,6 +1451,7 @@
                             "perid"      : ls_abonsadam1,  
                             "fixflag"    : ls_misfixflag, 
                             "devflag"    : ls_misdevflag,
+                            "misgubun"    : ls_misgubun,
                             "mflag"  : 'AA'   ,  
                         }, 
                         async:false,
@@ -1501,8 +1534,13 @@
                     var ls_todate = document.getElementById('todate02').value;          
                     var ls_bacode   = document.getElementById('bacode').value; 
                     var ls_wishfixflag = document.getElementById('wishfixflag').value; 
-                    if(ls_wishfixflag == "주문구분"){ 
+                    var ls_misgubunflag = document.getElementById('misgubunflag').value; 
+                    
+                    if(ls_wishfixflag == "상태구분"){ 
                         ls_wishfixflag = "%";
+                    }  
+                    if(ls_misgubunflag == "주문구분"){ 
+                        ls_misgubunflag = "%";
                     }  
                     if(ls_frdate == null || ls_frdate.length == 0 || ls_frdate == ""){ 
                         alert("조회일자를 등록하세요") 
@@ -1526,7 +1564,8 @@
                             "todate"      : ls_todate,
                             "acode"      : ls_bacode,   
                             "perid"      : ls_abonsadam1,   
-                            "fixflag"    : ls_wishfixflag, 
+                            "fixflag"    : ls_wishfixflag,  
+                            "misgubun"    : ls_misgubunflag, 
                             "mflag"  : 'AA'   ,  
                         }, 
                         async:false,
@@ -1971,6 +2010,7 @@
                 ls_eeatelno = wtab05Dto[i]["eeatelno"]; 
                 ls_misdate = wtab05Dto[i]["misdate"];
                 ls_misnum = wtab05Dto[i]["misnum"];
+                ls_miskey = wtab05Dto[i]["misdate"] + wtab05Dto[i]["misnum"];
                 ls_misdatetxt = wtab05Dto[i]["misdatetxt"]; 
                 if(wtab05Dto[i]["payflag"] == "1"){
                     bfixflag = "착불";
@@ -1982,7 +2022,8 @@
                     index: cnt,
                     select: false,
                     misdate: wtab05Dto[i]["misdate"],
-                    misnum: wtab05Dto[i]["misnum"],   
+                    misnum: wtab05Dto[i]["misnum"], 
+                    miskey: ls_miskey,  
                     acorp: wtab05Dto[i]["acorp"],     
                     atelno: wtab05Dto[i]["atelno"],     
                     ajuso: wtab05Dto[i]["ajuso"],     
@@ -2088,6 +2129,12 @@
             cols.binding = 'eeajuso'; 
             cols.header = '주소';
             cols.align = "left"; 
+            cols.width = 120;  
+            wtab05Grid.columns.push(cols);    
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'miskey'; 
+            cols.header = '배송키';
+            cols.align = "center"; 
             cols.width = 120;  
             wtab05Grid.columns.push(cols);  
  
@@ -2391,19 +2438,20 @@
               
             var ls_tab = document.getElementById('tabvalue').value;    
             if(ls_tab == "A"){ 
-                document.getElementById('acorp1').value = arg1;  
-                document.getElementById('acorp2').value = arg2;  
-                document.getElementById('acorp3').value = arg3;  
-                document.getElementById('acode').value = arg4;  
-                document.getElementById('searchCode').value = arg5;
-                document.getElementById('cifname').value = arg5;  
-                if(arg1 == "02"){
-                    document.getElementById('jpbgubn').value = "P";
-                }else{
-                    document.getElementById('jpbgubn').value = "B";
-                } 
+                document.getElementById('bacorp1').value = arg1;  
+                document.getElementById('bacorp2').value = arg2;  
+                document.getElementById('bacorp3').value = arg3;  
+                document.getElementById('bacode').value = arg4;   
+                document.getElementById('bcifname').value = arg5;  
+                //document.getElementById('searchCode').value = arg5;
+                //document.getElementById('cifname').value = arg5;  
+                // if(arg1 == "02"){
+                //     document.getElementById('jpbgubn').value = "P";
+                // }else{
+                //     document.getElementById('jpbgubn').value = "B";
+                // } 
                 //품목조회 본사코드를 조건으로 추가하면서 막음 
-                retrieve_rtn()
+                searchList_rtn('A')
                 $("#winnamemodal_btn").trigger("click");
             }else{
                 document.getElementById('bacorp1').value = arg1;  

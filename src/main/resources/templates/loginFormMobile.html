@@ -111,6 +111,10 @@
         try {
           const response = await axios.get('https://api.ipify.org?format=json');
           document.getElementById('ipaddr').value = response.data.ip;
+          var lsUserid = window.localStorage.getItem("userid")
+          var lsFlag = window.localStorage.getItem("flag") 
+          document.getElementById('select').value = lsFlag
+          document.getElementById('loginid').value = lsUserid
           // console.log(response.data.ip);
           // console.log("----");
         } catch (error) {
@@ -151,9 +155,11 @@
                 //var ls_url = 'userid=' + ls_userid +'&username=' + ls_username +'&cltcd=' + ls_cltcd +'&dbnm=' + ls_dbnm +'&flag=' + ls_flag;
                 var ls_url = 'userid=' + ls_userid
                 var ls_useyn = userFormDto["useyn"]
-                var ls_wrongnum = userFormDto["wrongnum"]
+                var ls_wrongnum = userFormDto["wrongnum"] 
                 window.localStorage.setItem("perid",  userFormDto["perid"])
                 window.localStorage.setItem("pernm",  userFormDto["pernm"])
+                window.localStorage.setItem("userid",  userFormDto["userid"])
+                window.localStorage.setItem("flag",  userFormDto["flag"])
                 window.localStorage.setItem("custnm",  userFormDto["custnm"])
                 if(userFormDto == "" || userFormDto == null){
                   alert("사용자 구분을 확인하세요.");

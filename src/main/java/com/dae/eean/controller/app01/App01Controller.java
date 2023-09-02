@@ -229,6 +229,55 @@ public class App01Controller {
         return "App01/index150";
     }
 
+
+    //주문현황
+    @GetMapping(value="/index151")
+    public Object App151_index( Model model, HttpServletRequest request) throws Exception{
+        CommDto.setMenuTitle("주문현황");
+        CommDto.setMenuUrl("기준정보>주문현황");
+        CommDto.setMenuCode("index151");
+        HttpSession session = request.getSession();
+        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        model.addAttribute("userformDto",userformDto);
+
+        try {
+//            index03List = service03.GetJcustomCode(index03Dto);
+//            model.addAttribute("index15List",index03List);
+        } catch (Exception ex) {
+//                dispatchException = ex;
+            log.info("App151_index Exception ================================================================");
+            log.info("Exception =====>" + ex.toString());
+//            log.debug("Exception =====>" + ex.toString() );
+        }
+
+        return "App01/index151";
+    }
+
+
+    //예약현황
+    @GetMapping(value="/index152")
+    public Object App152_index( Model model, HttpServletRequest request) throws Exception{
+        CommDto.setMenuTitle("예약현황");
+        CommDto.setMenuUrl("기준정보>예약현황");
+        CommDto.setMenuCode("index152");
+        HttpSession session = request.getSession();
+        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        model.addAttribute("userformDto",userformDto);
+
+        try {
+//            index03List = service03.GetJcustomCode(index03Dto);
+//            model.addAttribute("index15List",index03List);
+        } catch (Exception ex) {
+//                dispatchException = ex;
+            log.info("App152_index Exception ================================================================");
+            log.info("Exception =====>" + ex.toString());
+//            log.debug("Exception =====>" + ex.toString() );
+        }
+
+        return "App01/index152";
+    }
+
+
     //주문등록
     @GetMapping(value="/index14")
     public String App14_index( Model model, HttpServletRequest request) throws Exception{
@@ -275,6 +324,54 @@ public class App01Controller {
         }
 
         return "App01/index140";
+    }
+
+
+    //주문등록
+    @GetMapping(value="/index141")
+    public String App141_index( Model model, HttpServletRequest request) throws Exception{
+        CommDto.setMenuTitle("주문현황");
+        CommDto.setMenuUrl("기준정보>주문현황");
+        CommDto.setMenuCode("index141");
+        HttpSession session = request.getSession();
+        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        model.addAttribute("userformDto",userformDto);
+
+        try {
+//            index03List = service03.GetJBonsaCodeList(index03Dto);
+//            model.addAttribute("index03List",index03List);
+        } catch (Exception ex) {
+//                dispatchException = ex;
+            log.info("App141_index Exception ================================================================");
+            log.info("Exception =====>" + ex.toString());
+//            log.debug("Exception =====>" + ex.toString() );
+        }
+
+        return "App01/index141";
+    }
+
+
+    //예약현황
+    @GetMapping(value="/index142")
+    public String App142_index( Model model, HttpServletRequest request) throws Exception{
+        CommDto.setMenuTitle("예약현황");
+        CommDto.setMenuUrl("기준정보>예약현황");
+        CommDto.setMenuCode("index142");
+        HttpSession session = request.getSession();
+        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        model.addAttribute("userformDto",userformDto);
+
+        try {
+//            index03List = service03.GetJBonsaCodeList(index03Dto);
+//            model.addAttribute("index03List",index03List);
+        } catch (Exception ex) {
+//                dispatchException = ex;
+            log.info("App142_index Exception ================================================================");
+            log.info("Exception =====>" + ex.toString());
+//            log.debug("Exception =====>" + ex.toString() );
+        }
+
+        return "App01/index142";
     }
 
 
@@ -351,6 +448,29 @@ public class App01Controller {
         return "App01/index16";
     }
 
+    //예약현황
+    @GetMapping(value="/index17")
+    public String App17_index( Model model, HttpServletRequest request) throws Exception{
+        CommDto.setMenuTitle("예약현황");
+        CommDto.setMenuUrl("기준정보>예약현황");
+        CommDto.setMenuCode("index14");
+        HttpSession session = request.getSession();
+        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        model.addAttribute("userformDto",userformDto);
+
+        try {
+//            index03Dto.setJpb_gubn("%");
+//            index03List = service03.GetJBonsaCodeList(index03Dto);
+//            model.addAttribute("index03List",index03List);
+        } catch (Exception ex) {
+//                dispatchException = ex;
+            log.info("App17_index Exception ================================================================");
+            log.info("Exception =====>" + ex.toString());
+//            log.debug("Exception =====>" + ex.toString() );
+        }
+
+        return "App01/index17";
+    }
 
     //사원별매출현황
     @GetMapping(value="/index06")

@@ -162,7 +162,16 @@
                                                     <input class="form-control form-control-sm" id="bjpbgubn" type="hidden"  /> 
                                                     
                                                 </div>
-                                            </div>
+                                            </div>  
+                                            <div class="col-1 col-sm-1">
+                                                <select class="form-select form-select-sm" id="misgubun" aria-label=".form-select-sm example">
+                                                    <option selected="">주문구분</option>
+                                                    <option value="%">전체</option>
+                                                    <option value="AA">본사</option>
+                                                    <option value="BB">거래처</option>
+                                                    <option value="CC">영업사원</option>
+                                                  </select> 
+                                            </div>  
                                             <div class="col-1 col-sm-1">  
                                                 <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="listBtn" type="button"  >조회
                                                 </button>
@@ -200,7 +209,16 @@
                                                     <input class="form-control form-control-sm" id="djpbgubn" type="hidden"  /> 
                                                     
                                                 </div>
-                                            </div>
+                                            </div> 
+                                            <div class="col-1 col-sm-1">
+                                                <select class="form-select form-select-sm" id="misgubunflag" aria-label=".form-select-sm example">
+                                                    <option selected="">주문구분</option>
+                                                    <option value="%">전체</option>
+                                                    <option value="AA">본사</option>
+                                                    <option value="BB">거래처</option>
+                                                    <option value="CC">영업사원</option>
+                                                  </select> 
+                                            </div>  
                                             <div class="col-1 col-sm-1">  
                                                 <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="listBtn02" type="button"  >조회
                                                 </button>
@@ -249,8 +267,8 @@
                         </div>                             
                     </div>   
                     <div class="container-fluid"> 
-                        <div id="winnameGrid_div" ></div>
-                        <div id="thePager03"></div>
+                        <div id="winnameGrid_div"  style="overflow:scroll;   height:500px;   margin:0 auto; "></div> 
+                        <!-- <div id="thePager03"></div> -->
                     </div>   
                 </div>  
 
@@ -657,14 +675,14 @@
 
             //거래처현황 Modalㅁ
             view_innamepage = new wijmo.collections.CollectionView(getData_wlist2(), {
-                pageSize: 12
+               // pageSize: 12
             });
             // 거래처 페이지 이동
-            new wijmo.input.CollectionViewNavigator('#thePager03', {
-                byPage: true,
-                headerFormat: 'Page {currentPage:n0} of {pageCount:n0}',
-                cv: view_innamepage
-            });     
+            // new wijmo.input.CollectionViewNavigator('#thePager03', {
+            //     byPage: true,
+            //     headerFormat: 'Page {currentPage:n0} of {pageCount:n0}',
+            //     cv: view_innamepage
+            // });     
             winnameGrid = new wijmo.grid.FlexGrid('#winnameGrid_div', {  
                 autoGenerateColumns: false,
                 isReadOnly: false, 
@@ -695,7 +713,13 @@
                     cnt++;
                 }    
                 return winname_data;                                      
-            }   
+            }  
+            setHeaderColumn4(false);
+            function setHeaderColumn4(headerOn) {
+                winnameGrid.headersVisibility = headerOn
+                ? wijmo.grid.HeadersVisibility.All
+                : wijmo.grid.HeadersVisibility.Column; 
+            }  
 
 
         } 
@@ -958,6 +982,7 @@
                     var ls_todate = document.getElementById('todate').value;          
                     var ls_bacode   = document.getElementById('bacode').value;   
                     var ls_bcifname   = document.getElementById('bcifname').value; 
+                    var ls_misgubun = document.getElementById('misgubun').value; 
                     if(ls_frdate == null || ls_frdate.length == 0 || ls_frdate == ""){ 
                         alert("조회일자를 등록하세요") 
                         document.getElementById("frdate").focus(); 
@@ -970,7 +995,10 @@
                     }   
                     if(ls_bcifname == null || ls_bcifname.length == 0 || ls_bcifname == ""){  
                         ls_bacode = "%";
-                    }   
+                    }      
+                    if(ls_misgubun == "주문구분"){ 
+                        ls_misgubun = "%";
+                    } 
                     ls_abonsadam1 = "";
                     $.ajax({
                         url: '/app01m/index14/list',  
@@ -978,11 +1006,13 @@
                         data: { 
                             "frdate"      : ls_frdate,
                             "todate"      : ls_todate,
-                            "acode"      : ls_bacode, 
+                            "acode"      : ls_bacode,   
+                            "perid"      : ls_abonsadam1,  
                             "fixflag"    : '%',
-                            "perid"      : ls_abonsadam1,    
+                            "devflag"    : '%',
+                            "misgubun"    : ls_misgubun,
                             "mflag"  : 'AA'   ,  
-                        }, 
+                        },  
                         async:false,
                         success:function(data){   
                             tabB_grid(data);
@@ -1000,6 +1030,7 @@
                     var ls_todate = document.getElementById('todate02').value;          
                     var ls_bacode   = document.getElementById('dacode').value;       
                     var ls_dcifname   = document.getElementById('dcifname').value; 
+                    var ls_misgubunflag = document.getElementById('misgubunflag').value; 
                     if(ls_frdate == null || ls_frdate.length == 0 || ls_frdate == ""){ 
                         alert("조회일자를 등록하세요") 
                         document.getElementById("frdate02").focus(); 
@@ -1013,6 +1044,9 @@
                     if(ls_dcifname == null || ls_dcifname.length == 0 || ls_dcifname == ""){  
                         ls_bacode = "%";
                     }   
+                    if(ls_misgubunflag == "주문구분"){ 
+                        ls_misgubunflag = "%";
+                    }  
                     ls_abonsadam1 = "";
                     $.ajax({
                         url: '/app01m/index14/listwish',  
@@ -1022,6 +1056,7 @@
                             "todate"      : ls_todate,
                             "acode"      : ls_bacode,   
                             "fixflag"    : '%',
+                            "misgubun"    : ls_misgubunflag, 
                             "perid"      : ls_abonsadam1,    
                             "mflag"  : 'AA'   ,  
                         }, 

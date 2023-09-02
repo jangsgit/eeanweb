@@ -53,10 +53,10 @@
              AND C.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
             AND A.acorp1 + CAST(A.acorp2 as varchar) Like concat('%',#{cltcd},'%')
              AND isnull(C.perid,'')  Like concat('%',#{perid},'%')
-             AND isnull(B.misgubun,'')  Like concat('%',#{misgubun},'%')
             AND B.misdate between #{frdate} and #{todate}
             AND Isnull(B.fixflag, '') Like concat('%',#{fixflag},'%')
             AND Isnull(B.devflag, '') Like concat('%',#{devflag},'%')
+            AND Isnull(C.misgubun, '') Like concat('%',#{misgubun},'%')
             ORDER BY B.cltcd, B.misdate, B.misnum, B.seq
         ]]>
 
@@ -151,7 +151,7 @@
             AND A.acorp1 + CAST(A.acorp2 as varchar) Like concat('%',#{cltcd},'%')
              AND isnull(C.perid,'')  Like concat('%',#{perid},'%')
             AND B.misdate between #{frdate} and #{todate}
-             AND isnull(B.misgubun,'')  Like concat('%',#{misgubun},'%')
+             AND isnull(C.misgubun,'')  Like concat('%',#{misgubun},'%')
              AND Isnull(B.fixflag, '') Like concat('%',#{fixflag},'%')
             ORDER BY B.misdate, B.misnum, B.seq
         ]]>

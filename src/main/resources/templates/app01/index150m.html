@@ -781,11 +781,13 @@
                         data: { 
                             "frdate"      : ls_frdate,
                             "todate"      : ls_todate,
-                            "acode"      : ls_bacode,  
-                            "fixflag"    : '%',   
-                            "perid"      : ls_perid,     
+                            "acode"      : ls_bacode,   
+                            "perid"      : ls_perid,  
+                            "fixflag"    : '%',
+                            "devflag"    : '%',
+                            "misgubun"    : '%',
                             "mflag"  : 'BB'   ,  
-                        }, 
+                        },    
                         async:false,
                         success:function(data){   
                             tabB_grid(data);
@@ -824,11 +826,12 @@
                         data: { 
                             "frdate"      : ls_frdate,
                             "todate"      : ls_todate,
-                            "acode"      : ls_bacode,  
-                            "fixflag"    : '%',  
-                            "perid"      : ls_perid,     
-                            "mflag"  : 'BB'   ,  
-                        }, 
+                            "acode"      : ls_bacode,   
+                            "fixflag"    : '%',
+                            "misgubun"    : '%', 
+                            "perid"      : ls_perid, 
+                            "mflag"  : 'CC'   ,     
+                        },   
                         async:false,
                         success:function(data){   
                             tabC_grid(data);

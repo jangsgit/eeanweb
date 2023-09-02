@@ -230,8 +230,8 @@
                              </div>                             
                          </div>   
                          <div class="container-fluid"> 
-                             <div id="winnameGrid_div" ></div>
-                             <div id="thePager03"></div>
+                             <div id="winnameGrid_div"  style="overflow:scroll;   height:500px;   margin:0 auto; "></div> 
+                             <!-- <div id="thePager03"></div> -->
                          </div>   
                      </div>  
  
@@ -369,14 +369,14 @@ aria-hidden="true">
 
             //거래처현황 Modalㅁ
             view_innamepage = new wijmo.collections.CollectionView(getData_wlist2(), {
-                pageSize: 12
+                //pageSize: 12
             });
             // 거래처 페이지 이동
-            new wijmo.input.CollectionViewNavigator('#thePager03', {
-                byPage: true,
-                headerFormat: 'Page {currentPage:n0} of {pageCount:n0}',
-                cv: view_innamepage
-            });     
+            // new wijmo.input.CollectionViewNavigator('#thePager03', {
+            //     byPage: true,
+            //     headerFormat: 'Page {currentPage:n0} of {pageCount:n0}',
+            //     cv: view_innamepage
+            // });     
             winnameGrid = new wijmo.grid.FlexGrid('#winnameGrid_div', {  
                 autoGenerateColumns: false,
                 isReadOnly: false, 
@@ -409,6 +409,13 @@ aria-hidden="true">
                 }    
                 return winname_data;                                      
             } 
+            setHeaderColumn3(false);
+            function setHeaderColumn3(headerOn) {
+                winnameGrid.headersVisibility = headerOn
+                ? wijmo.grid.HeadersVisibility.All
+                : wijmo.grid.HeadersVisibility.Column; 
+            } 
+ 
              
             //주문현황 popup list
             view_p01tab02page = new wijmo.collections.CollectionView(getData_wlist(), {
@@ -1260,7 +1267,7 @@ aria-hidden="true">
                     document.getElementById('acorp2').value = arg2;  
                     document.getElementById('acorp3').value = arg3;  
                     document.getElementById('acode').value = arg4;  
-                    document.getElementById('searchCode').value = arg5;
+                    //document.getElementById('searchCode').value = arg5;
                     document.getElementById('cifname').value = arg5;  
                     break;
                 case 'B':
@@ -1268,7 +1275,7 @@ aria-hidden="true">
                     document.getElementById('bacorp2').value = arg2;  
                     document.getElementById('bacorp3').value = arg3;  
                     document.getElementById('bacode').value = arg4;  
-                    document.getElementById('searchCode').value = arg5;
+                    //document.getElementById('searchCode').value = arg5;
                     document.getElementById('bcifname').value = arg5;  
                     break;                    
                 case 'C':
@@ -1276,7 +1283,7 @@ aria-hidden="true">
                     document.getElementById('dacorp2').value = arg2;  
                     document.getElementById('dacorp3').value = arg3;  
                     document.getElementById('dacode').value = arg4;  
-                    document.getElementById('searchCode').value = arg5;
+                    //document.getElementById('searchCode').value = arg5;
                     document.getElementById('dcifname').value = arg5;  
                     break;                    
                 default:

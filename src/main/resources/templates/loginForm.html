@@ -86,6 +86,12 @@
         } catch (error) {
           console.error(error);
         }
+        
+        var lsUserid = window.localStorage.getItem("userid")
+        var lsFlag = window.localStorage.getItem("flag") 
+        document.getElementById('select').value = lsFlag
+        document.getElementById('loginid').value = lsUserid
+        
       }
 
         
@@ -124,6 +130,8 @@
                 var ls_wrongnum = userFormDto["wrongnum"]
                 window.localStorage.setItem("perid",  userFormDto["perid"])
                 window.localStorage.setItem("pernm",  userFormDto["pernm"])
+                window.localStorage.setItem("userid",  userFormDto["userid"])
+                window.localStorage.setItem("flag",  userFormDto["flag"])
                 window.localStorage.setItem("custnm",  userFormDto["custnm"])
                 if(userFormDto == "" || userFormDto == null){
                   alert("사용자 구분을 확인하세요.");

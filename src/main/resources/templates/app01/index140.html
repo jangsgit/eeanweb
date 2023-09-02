@@ -1038,12 +1038,13 @@
                         data: { 
                             "frdate"      : ls_frdate,
                             "todate"      : ls_todate,
-                            "acode"      : ls_bacode,  
-                            "acode"      : ls_bacode,  
-                            "fixflag"    : '%',
+                            "acode"      : ls_bacode,   
                             "perid"      : ls_abonsadam1,  
-                            "mflag"  : 'CC'   ,     
-                        }, 
+                            "fixflag"    : '%',
+                            "devflag"    : '%',
+                            "misgubun"    : '%',
+                            "mflag"  : 'CC'   ,  
+                        },   
                         async:false,
                         success:function(data){   
                             tabB_grid(data);
@@ -1088,6 +1089,7 @@
                             "todate"      : ls_todate,
                             "acode"      : ls_bacode,   
                             "fixflag"    : '%',
+                            "misgubun"    : '%', 
                             "perid"      : ls_abonsadam1, 
                             "mflag"  : 'CC'   ,     
                         }, 
@@ -1601,7 +1603,7 @@
 
 
         function tabA_grid03(data){
-        console.log(data);
+        // console.log(data);
             var wtab03Dto  = data;    
             var wtab03_data = [];
             var cnt = 1;

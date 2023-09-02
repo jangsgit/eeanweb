@@ -1431,6 +1431,7 @@ public class App01CrudController {
                                   @RequestParam("fixflag") String fixflag,
                                   @RequestParam("devflag") String devflag,
                                   @RequestParam("perid") String perid,
+                                  @RequestParam("misgubun") String misgubun,
                                   @RequestParam("mflag") String mflag,
                                   Model model, HttpServletRequest request) throws Exception{
         CommDto.setMenuTitle("주문등록");
@@ -1460,20 +1461,23 @@ public class App01CrudController {
             switch (mflag){
                 case "AA" :
                     indexDa024Dto.setPerid(perid);
+                    indexDa024Dto.setMisgubun(misgubun);
                     mflag = "%";
                     break;
                 case "BB":
                     indexDa024Dto.setPerid(perid);
+                    indexDa024Dto.setMisgubun("BB");
                     break;
                 case "CC":
                     indexDa024Dto.setPerid(userformDto.getPerid());
+                    indexDa024Dto.setMisgubun("CC");
                     break;
                 default:
                     break;
             }
             indexDa024Dto.setPerid(perid);
-            indexDa024Dto.setMisgubun(mflag);
-            log.info("frdate =====>" + frdate);
+            //indexDa024Dto.setMisgubun(mflag);
+            //log.info("misgubun =====>" + misgubun);
             indexDa024ListDto = service14.SelectDa024List(indexDa024Dto);
             model.addAttribute("indexDa024ListDto",indexDa024ListDto);
 
@@ -1796,6 +1800,7 @@ public class App01CrudController {
                                   @RequestParam("acode") String acode,
                                   @RequestParam("fixflag") String fixflag,
                                   @RequestParam("perid") String perid,
+                                      @RequestParam("misgubun") String misgubun,
                                   @RequestParam("mflag") String mflag,
                                   Model model, HttpServletRequest request) throws Exception{
         CommDto.setMenuTitle("주문등록");
@@ -1824,18 +1829,21 @@ public class App01CrudController {
             switch (mflag){
                 case "AA" :
                     indexDa024Dto.setPerid(perid);
-                    mflag = "%";
+                    indexDa024Dto.setMisgubun(misgubun);
+                   //mflag = "%";
                     break;
                 case "BB":
                     indexDa024Dto.setPerid(perid);
+                    indexDa024Dto.setMisgubun("BB");
                     break;
                 case "CC":
                     indexDa024Dto.setPerid(userformDto.getPerid());
+                    indexDa024Dto.setMisgubun("CC");
                     break;
                 default:
                     break;
             }
-            indexDa024Dto.setMisgubun(mflag);
+            //indexDa024Dto.setMisgubun(mflag);
             indexDa024ListDto = service14.SelectDa026List(indexDa024Dto);
             model.addAttribute("indexDa024ListDto",indexDa024ListDto);
 
