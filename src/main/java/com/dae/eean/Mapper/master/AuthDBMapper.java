@@ -18,6 +18,7 @@ public interface AuthDBMapper {
 
     public UserFormDto GetCustInfo(UserFormDto userinfo);
     public UserFormDto GetAdminInfo(UserFormDto userinfo);
+    public UserFormDto GetFlagInfo(UserFormDto userinfo);
 
     public UserFormDto GetUserInfoDto(UserFormDto userinfo);
 

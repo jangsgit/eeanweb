@@ -256,8 +256,8 @@
                         </div>                             
                     </div>   
                     <div class="container-fluid"> 
-                        <div id="winnameGrid_div" ></div>
-                        <div id="thePager03"></div>
+                        <div id="winnameGrid_div"  style="overflow:scroll;   height:500px;    margin:0 auto; "></div> 
+                        <!-- <div id="thePager03"></div> -->
                     </div>   
                 </div>  
 
@@ -619,23 +619,7 @@
                 wtab04Grid.headersVisibility = headerOn
                 ? wijmo.grid.HeadersVisibility.All
                 : wijmo.grid.HeadersVisibility.Column; 
-            } 
-            // 선택기 생성
-            // selector = new wijmo.grid.selector.Selector(wtab04Grid, {
-            //     itemChecked: () => {
-            //         // showCheckedCount();
-            //     }
-            // }); 
-            // 헤더 열 전환
-            // setHeaderColumn(true);
-            // function setHeaderColumn(headerOn) {
-            //     wtab04Grid.headersVisibility = headerOn
-            //     ? wijmo.grid.HeadersVisibility.All
-            //     : wijmo.grid.HeadersVisibility.Column;
-            //     selector.column = headerOn
-            //     ? wtab04Grid.rowHeaders.columns[0]
-            //     : wtab04Grid.columns[0];
-            // } 
+            }  
             wtab04Grid.showMarquee = true; 
             wijmo.toggleClass(wtab04Grid.hostElement, 'highlightActive', true);
             wtab04Grid.focus();
@@ -662,14 +646,14 @@
 
             //거래처현황 Modalㅁ
             view_innamepage = new wijmo.collections.CollectionView(getData_wlist2(), {
-                pageSize: 12
+                //pageSize: 12
             });
             // 거래처 페이지 이동
-            new wijmo.input.CollectionViewNavigator('#thePager03', {
-                byPage: true,
-                headerFormat: 'Page {currentPage:n0} of {pageCount:n0}',
-                cv: view_innamepage
-            });     
+            // new wijmo.input.CollectionViewNavigator('#thePager03', {
+            //     byPage: true,
+            //     headerFormat: 'Page {currentPage:n0} of {pageCount:n0}',
+            //     cv: view_innamepage
+            // });     
             winnameGrid = new wijmo.grid.FlexGrid('#winnameGrid_div', {  
                 autoGenerateColumns: false,
                 isReadOnly: false, 
@@ -713,7 +697,7 @@
             document.getElementById('tabvalue').value = arg; 
         } 
 
-        function wOrderChk_a(arg1, arg2, arg3){  
+        function wOrderChk_a(arg1, arg2, arg3, argcol ){   
             // ls_jbonsa, ls_jmodel, ls_color 
             //  alert(arg1 + '/' + arg2 +  ' / ' + arg3 + ' : 1EA 주문등록' )
             if(arg1 == arg3){
@@ -722,7 +706,8 @@
             if(arg2 == arg3){
                 return 
             }
-            if(arg3.length > 7){
+            var pos1 = arg3.indexOf('(');
+            if (argcol <= 1){
                 return 
             }
             save_btn(arg1, arg2, arg3)
@@ -1461,6 +1446,7 @@
             if(searchCode == null || searchCode.length == 0 || searchCode == ""){ 
                 searchCode = "%"         ;
             } 
+             
             let ls_abonsadam1 = document.getElementById('abonsadam1').value;      
             let ls_conacorp1 = "%";  
             let ls_conagita = "%";   
@@ -1677,8 +1663,8 @@
                            if (isTimestamp == isPreTimestamp)  {
                                 return ;
                            }
-                        //    console.log(ls_color);
-                           wOrderChk_a( ls_jbonsa2, ls_jmodel, ls_color);
+                           console.log(ht._col);
+                           wOrderChk_a( ls_jbonsa2, ls_jmodel, ls_color, ht._col);
                             isPreTimestamp = isTimestamp; //이벤트중복발생 차단용                    
                         }
                     }  

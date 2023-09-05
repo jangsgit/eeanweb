@@ -24,6 +24,8 @@ public class AuthService {
     public void authInsert(UserFormDto parm){authMapper.TBXUSERS_Insert(parm);}
     public UserFormDto GetUserInfo(UserFormDto parm){return authMapper.GetUserInfo(parm);}
     public UserFormDto GetCustInfo(UserFormDto parm){return authMapper.GetUserInfo(parm);}
+    public UserFormDto GetFlagInfo(UserFormDto parm){return authMapper.GetFlagInfo(parm);}
+
     public UserFormDto GetAdminInfo(UserFormDto parm){return authMapper.GetAdminInfo(parm);}
     public List<UserFormDto> GetUserListDto(UserFormDto parm){return authMapper.GetUserListDto(parm);}
     public List<TBXLoginDTO> GetLogListDto(UserFormDto parm){return authMapper.GetLogListDto(parm);}

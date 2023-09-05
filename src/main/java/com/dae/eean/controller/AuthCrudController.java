@@ -132,7 +132,19 @@ public class AuthCrudController {
             , HttpServletRequest request) throws Exception{
         userformDto.setUserid(loginid);
         userformDto.setPasswd1(logpass);
-        userformDto.setFlag(select);
+
+
+        UserFormDto userFlagDto = authService.GetFlagInfo(userformDto);
+        if (userFlagDto == null){
+            return 0;
+        }else{
+            select = userFlagDto.getFlag();
+        }
+        userformDto.setFlag(userFlagDto.getFlag());
+
+        log.info("flag---->" + userformDto.getFlag());
+        log.info("getUserid---->" + userformDto.getUserid());
+        log.info("getPasswd1---->" + userformDto.getPasswd1());
         UserFormDto userReturnDto = authService.GetUserInfo(userformDto);
         if (userReturnDto == null){
             return 0;

@@ -168,8 +168,8 @@
                         </div>                             
                     </div>   
                     <div class="container-fluid"> 
-                        <div id="winnameGrid_div" ></div>
-                        <div id="thePager03"></div>
+                        <div id="winnameGrid_div"  style="overflow:scroll;   height:600px;    margin:0 auto; "></div> 
+                        <!-- <div id="thePager03"></div> -->
                     </div>   
                 </div>  
 
@@ -340,16 +340,16 @@
             wtab04Grid.focus(); 
 
             // // ################################################################  
-            //거래처현황 Modalㅁ
+            //품목현황 Modalㅁ
             view_innamepage = new wijmo.collections.CollectionView(getData_wlist2(), {
-                pageSize: 12
+                //pageSize: 12
             });
-            // 거래처 페이지 이동
-            new wijmo.input.CollectionViewNavigator('#thePager03', {
-                byPage: true,
-                headerFormat: 'Page {currentPage:n0} of {pageCount:n0}',
-                cv: view_innamepage
-            });     
+            // 품목 페이지 이동
+            // new wijmo.input.CollectionViewNavigator('#thePager03', {
+            //     byPage: true,
+            //     headerFormat: 'Page {currentPage:n0} of {pageCount:n0}',
+            //     cv: view_innamepage
+            // });     
             winnameGrid = new wijmo.grid.FlexGrid('#winnameGrid_div', {  
                 autoGenerateColumns: false,
                 isReadOnly: false, 

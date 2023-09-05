@@ -731,7 +731,7 @@
             document.getElementById('tabvalue').value = arg; 
         } 
 
-        function wOrderChk_a(arg1, arg2, arg3 ){  
+        function wOrderChk_a(arg1, arg2, arg3, argcol ){  
             // ls_jbonsa, ls_jbonsa2, ls_jmodel, ls_color 
             //  alert(arg1 + '/' + arg2 +  ' / ' + arg3 + ' : 1EA 주문등록' )
             if(arg1 == arg3){
@@ -740,9 +740,13 @@
             if(arg2 == arg3){
                 return 
             }
-            if(arg3.length > 7){ 
+            var pos1 = arg3.indexOf('(');            
+            if (argcol <= 1){
                 return 
             }
+            // if(arg3.length > 10){ 
+            //     return 
+            // }
             // console.log(arg3.length)
             // console.log(arg2)
             // console.log(arg3)
@@ -1640,8 +1644,9 @@
                            if (isTimestamp == isPreTimestamp)  {
                                 return ;
                            }
-                        //    console.log(ls_color);
-                           wOrderChk_a(   ls_jbonsa2, ls_jmodel, ls_color);
+                           //console.log('ht._col');
+                           //console.log(ht._col);
+                           wOrderChk_a(   ls_jbonsa2, ls_jmodel, ls_color, ht._col);
                             isPreTimestamp = isTimestamp; //이벤트중복발생 차단용     
                         }
                     }  

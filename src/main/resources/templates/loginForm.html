@@ -21,13 +21,13 @@
       <div class="login">
         <div class="tit">Login</div>
         <form action="/login" method="POST">
-          <div class="input_wrap"> 
+          <!-- <div class="input_wrap"> 
             <select name="select" id="select" class="select">
               <option value="AA">본사관리</option>
               <option value="BB">고객사용자</option>
               <option value="CC">영업사원</option>  
             </select> 
-          </div> 
+          </div>  -->
           <div class="input_wrap icon i_id">
             <input type="text" id="loginid" name="loginid">
             <input type="hidden" id="ipaddr" name="ipaddr">
@@ -72,23 +72,31 @@
 </div>
 
 <script>
-
+      var lsFlag = "";
+      var lsUserid  = "";
       window.onload = function() {  
         getIpClient();
       }
 
       async function getIpClient() {
-        try {
-          const response = await axios.get('https://api.ipify.org?format=json');
-          document.getElementById('ipaddr').value = response.data.ip;
-          // console.log(response.data.ip);
-          // console.log("----");
-        } catch (error) {
-          console.error(error);
-        }
+        // try {
+        //   const response = await axios.get('https://api.ipify.org?format=json');
+        //   document.getElementById('ipaddr').value = response.data.ip;
+        //   // console.log(response.data.ip);
+        //   // console.log("----");
+        // } catch (error) {
+        //   console.error(error);
+        // }
         
-        var lsUserid = window.localStorage.getItem("userid")
-        var lsFlag = window.localStorage.getItem("flag") 
+        lsUserid = window.localStorage.getItem("userid")
+        lsFlag = window.localStorage.getItem("flag") 
+        if(lsFlag == null || lsFlag.length == 0 || lsFlag == "" || lsFlag =="undefined"){ 
+          lsFlag = 'AA';            
+        }  
+        if(lsUserid == null || lsUserid.length == 0 || lsUserid == "" || lsUserid =="undefined"){ 
+          lsUserid = '';            
+        }  
+        
         document.getElementById('select').value = lsFlag
         document.getElementById('loginid').value = lsUserid
         
@@ -104,7 +112,7 @@
           var ls_loginid   = document.getElementById('loginid').value;
           var ls_logpass   = document.getElementById('logpass').value;
           var ls_ipaddr    = document.getElementById('ipaddr').value;
-          var ls_select  = document.getElementById('select').value;
+          var ls_select  = 'FF'; //document.getElementById('select').value;
           var ls_actcustcdz = "EEAN" ; //document.getElementById('actcustcdz').value;
           $.ajax({
               url: '/authcrud/login',
@@ -134,6 +142,7 @@
                 window.localStorage.setItem("flag",  userFormDto["flag"])
                 window.localStorage.setItem("custnm",  userFormDto["custnm"])
                 if(userFormDto == "" || userFormDto == null){
+                  document.getElementById('select').value = lsFlag
                   alert("사용자 구분을 확인하세요.");
                   return false;
                 }
@@ -164,11 +173,11 @@
      })
 
      function insertLogin(){
-      console.log("insertlogin start");
+      // console.log("insertlogin start");
       var ls_loginid   = document.getElementById('loginid').value;
       var ls_logpass   = document.getElementById('logpass').value;
       var ls_ipaddr    = document.getElementById('ipaddr').value;
-      console.log(ls_loginid, ls_logpass, ls_ipaddr);
+      // console.log(ls_loginid, ls_logpass, ls_ipaddr);
 
       $.ajax({
         url: '/authcrud/loginlog',

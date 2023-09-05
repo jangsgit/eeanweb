@@ -62,12 +62,12 @@
                         </div>
                         
                         <form action="/login" method="POST">
-                          <div class="input_wrap"> 
+                          <!-- <div class="input_wrap"> 
                             <select name="select" id="select" class="select">
                               <option value="BB">고객사용자</option>
                               <option value="CC">영업사원</option>  
                             </select> 
-                          </div> 
+                          </div>  -->
                           <div class="input_wrap icon i_id">
                             <input type="text" id="loginid" name="loginid">
                             <input type="hidden" id="ipaddr" name="ipaddr">
@@ -132,7 +132,7 @@
           var ls_loginid   = document.getElementById('loginid').value;
           var ls_logpass   = document.getElementById('logpass').value;
           var ls_ipaddr    = document.getElementById('ipaddr').value;
-          var ls_select  = document.getElementById('select').value;
+          var ls_select  = 'FF'; //document.getElementById('select').value;
           var ls_actcustcdz = "EEAN" ; //document.getElementById('actcustcdz').value;
           $.ajax({
               url: '/authcrud/login',
@@ -169,12 +169,12 @@
                 if(ls_wrongnum == 3 || ls_useyn == "N"){
                   wrongPasswd();
                 }else{
-                  insertLogin();
-                if(ls_select == "CC"){
-                   window.location.href = '/app01/index140m';
-                }else{
-                   window.location.href = '/app01/index150m'; 
-                }
+                  insertLogin(); 
+                  if(ls_flag == "CC"){
+                    window.location.href = '/app01/index140m';
+                  }else if(ls_flag == "BB"){
+                    window.location.href = '/app01/index150m'; 
+                  }
                   // if(data == "success"){
                   //     alert("등록 되었습니다.");
                   //     var ls_text = "<div style='color:red'><span class='badge badge-soft-danger'>가입되었습니다.</span></div>";

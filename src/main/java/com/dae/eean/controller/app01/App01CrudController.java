@@ -802,8 +802,14 @@ public class App01CrudController {
 
             index03Dto.setJcustomer_code(jcustcd);
             index03Dto.setJpum(searchtxt);
-            index03Dto.setFrdate("2000-01-01");
+            index03Dto.setFrdate("20000101");
+            String year = todate.substring(0,4) ;
+            String month = todate.substring(5,7) ;
+            String day   = todate.substring(8,10) ;
+            todate = year + month + day ;
             index03Dto.setTodate(todate);
+            log.debug("searchtxt =====>" + searchtxt );
+            log.debug("todate =====>" + todate );
             index03List = service03.GetJpumCustJaegoList(index03Dto);
             model.addAttribute("index03List",index03List);
 

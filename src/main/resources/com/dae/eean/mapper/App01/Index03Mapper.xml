@@ -50,7 +50,7 @@
                              convert(integer, DBO.DF_TB_PCODE_JQTY(jkey,  #{frdate},  #{todate}) ) as jqty
             from JCODE3 WITH (NOLOCK)
             WHERE isnull(jcustomer_code,'') Like concat('%',#{jcustomer_code},'%')
-             and  isnull(jpum,'') Like concat('%',#{jpum},'%')
+             and  isnull(jkey,'') Like concat('%',#{jpum},'%')
             ORDER BY jcustomer_code, jmodel_code, jpum
         ]]>
     </select>
