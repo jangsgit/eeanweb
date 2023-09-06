@@ -142,9 +142,6 @@ public class AuthCrudController {
         }
         userformDto.setFlag(userFlagDto.getFlag());
 
-        log.info("flag---->" + userformDto.getFlag());
-        log.info("getUserid---->" + userformDto.getUserid());
-        log.info("getPasswd1---->" + userformDto.getPasswd1());
         UserFormDto userReturnDto = authService.GetUserInfo(userformDto);
         if (userReturnDto == null){
             return 0;

@@ -81,7 +81,7 @@
                                               </td>
                                               <td class="align-top" style="padding-top:0; padding-bottom: 0px; padding-left: 0px; padding-right: 0px;">                                                         
                                                 <div class="container-fluid"  style="overflow:scroll;       margin:0 auto; " >                                                         
-                                                    <div id="btnDiv" class="btn_wrap"></div> 
+                                                    <div id="btnDiv" class="btn_wrap"></div>  
                                                  </div>  
                                               </td> 
                                             </tr>
@@ -828,9 +828,9 @@
                             "todate"      : ls_todate,
                             "acode"      : ls_bacode,   
                             "fixflag"    : '%',
-                            "misgubun"    : '%', 
                             "perid"      : ls_perid, 
-                            "mflag"  : 'CC'   ,     
+                            "misgubun"    : '%', 
+                            "mflag"  : 'BB'   ,     
                         },   
                         async:false,
                         success:function(data){   
@@ -882,14 +882,15 @@
                     $.ajax({
                         url: '/app01m/index14/list',  
                         type:"POST",
-                        data: { 
+                        data: {  
                             "frdate"      : ls_frdate,
                             "todate"      : ls_todate,
-                            "acode"      : ls_bacode,  
-                            "acode"      : ls_bacode,  
-                            "fixflag"    : '%',
+                            "acode"      : ls_bacode,   
                             "perid"      : ls_perid,  
-                            "mflag"  : 'BB'   ,     
+                            "fixflag"    : '%',
+                            "devflag"    : '%',
+                            "misgubun"    : '%',
+                            "mflag"  : 'BB'   ,      
                         }, 
                         async:false,
                         success:function(data){   
@@ -933,7 +934,8 @@
                             "acode"      : ls_bacode,   
                             "fixflag"    : '%',
                             "perid"      : ls_perid, 
-                            "mflag"  : 'BB'   ,     
+                            "misgubun"    : '%', 
+                            "mflag"  : 'BB'   
                         }, 
                         async:false,
                         success:function(data){   
