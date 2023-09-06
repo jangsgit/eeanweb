@@ -933,7 +933,7 @@ public class App01CrudController {
             if(ll_chulgoga > 0 ) {indexDa024Dto.setAddamt(ll_chulgoga / 10);};
             indexDa024Dto.setAmt(ll_chulgoga + (ll_chulgoga / 10));
             indexDa024Dto.setIndate(getToDate());
-            indexDa024Dto.setInperid(userformDto.getPernm());
+            indexDa024Dto.setInperid(userformDto.getPerid());
             indexDa024Dto.setPunit("EA");
             if (ls_chknull.length() == 0){
                 result = service14.InsertDa023(indexDa023Dto);
@@ -1068,7 +1068,7 @@ public class App01CrudController {
             if(ll_chulgoga > 0 ) {indexDa024Dto.setAddamt(ll_chulgoga / 10);};
             indexDa024Dto.setAmt(ll_chulgoga + (ll_chulgoga / 10));
             indexDa024Dto.setIndate(getToDate());
-            indexDa024Dto.setInperid(userformDto.getPernm());
+            indexDa024Dto.setInperid(userformDto.getPerid());
             indexDa024Dto.setPunit("EA");
             if (ls_chknull.length() == 0){
                 result = service14.InsertDa025(indexDa023Dto);
@@ -1197,7 +1197,7 @@ public class App01CrudController {
             };
 
             indexDa024Dto.setIndate(getToDate());
-            indexDa024Dto.setInperid(userformDto.getPernm());
+            indexDa024Dto.setInperid(userformDto.getPerid());
             indexDa024Dto.setPunit("EA");
             if (ls_chknull.length() == 0){
                 result = service14.InsertDa023(indexDa023Dto);
@@ -1409,7 +1409,7 @@ public class App01CrudController {
             };
 
             indexDa024Dto.setIndate(getToDate());
-            indexDa024Dto.setInperid(userformDto.getPernm());
+            indexDa024Dto.setInperid(userformDto.getPerid());
             indexDa024Dto.setPunit("EA");
             if (ls_chknull.length() == 0){
                 result = service14.InsertDa025(indexDa023Dto);

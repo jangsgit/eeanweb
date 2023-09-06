@@ -775,7 +775,7 @@
             var ll_jqty    =  []; 
             var llCount = 0;         
 
-            console.log(ls_bonsacd);
+     
             switch(ls_tab){
                 case 'A': 
                     if(Number(jqty) == 0){
@@ -791,7 +791,8 @@
                             alert("거래처를 등록하세요") 
                             document.getElementById("cifname").focus(); 
                             return ;               
-                        }   
+                        }                                                                                              
+
                         $.ajax({
                             url: '/app01m/index14/savewish',  
                             type:"POST",
@@ -839,7 +840,7 @@
                             alert("거래처를 등록하세요") 
                             document.getElementById("cifname").focus(); 
                             return ;               
-                        }   
+                        }         
                         $.ajax({
                             url: '/app01m/index14/save',  
                             type:"POST",
