@@ -234,9 +234,9 @@
                     { binding: 'acorp', header: '거래처', align: "center", width: 150 },  
                     { binding: 'pname', header: '품목', align: "center", width: 150 },   
                     { binding: 'psize', header: '규격', align: "center", width: 120 },  
-                    { binding: 'pbonsa', header: '코드', align: "center", width: 100 },  
-                    { binding: 'pmodel', header: '모델', align: "center", width: 100 },  
-                    { binding: 'pcolor', header: '컬러', align: "center", width: 100 },  
+                    // { binding: 'pbonsa', header: '코드', align: "center", width: 100 },  
+                    // { binding: 'pmodel', header: '모델', align: "center", width: 100 },  
+                    // { binding: 'pcolor', header: '컬러', align: "center", width: 100 },  
                     { binding: 'qty', header: '수량', align: "center", width: 80 },  
                     { binding: 'uamt', header: '단가', align: "center", width: 100 },  
                     { binding: 'samt', header: '금액', align: "center", width: 150 },    
@@ -469,18 +469,18 @@
             cols.align = "center";
             cols.width = 150; 
             wtab04Grid.columns.push(cols);  
-            cols = new wijmo.grid.Column(); 
-            cols.binding = 'misnum';
-            cols.header = '예약번호';
-            cols.align = "center";
-            cols.width = 80;  
-            wtab04Grid.columns.push(cols);  
-            cols = new wijmo.grid.Column(); 
-            cols.binding = 'seq';
-            cols.header = '순번';
-            cols.align = "center";
-            cols.width = 80;  
-            wtab04Grid.columns.push(cols);  
+            // cols = new wijmo.grid.Column(); 
+            // cols.binding = 'misnum';
+            // cols.header = '예약번호';
+            // cols.align = "center";
+            // cols.width = 80;  
+            // wtab04Grid.columns.push(cols);  
+            // cols = new wijmo.grid.Column(); 
+            // cols.binding = 'seq';
+            // cols.header = '순번';
+            // cols.align = "center";
+            // cols.width = 80;  
+            // wtab04Grid.columns.push(cols);  
             cols = new wijmo.grid.Column(); 
             cols.binding = 'inname';
             cols.header = '담당사원';
@@ -505,24 +505,24 @@
             cols.align = "center";
             cols.width = 120;  
             wtab04Grid.columns.push(cols);    
-            cols = new wijmo.grid.Column(); 
-            cols.binding = 'pbonsa';
-            cols.header = '코드';
-            cols.align = "center";
-            cols.width = 100;  
-            wtab04Grid.columns.push(cols);  
-            cols = new wijmo.grid.Column(); 
-            cols.binding = 'pmodel';
-            cols.header = '모델';
-            cols.align = "center";
-            cols.width = 100;  
-            wtab04Grid.columns.push(cols);  
-            cols = new wijmo.grid.Column(); 
-            cols.binding = 'pcolor';
-            cols.header = '컬러';
-            cols.align = "center";
-            cols.width = 100;  
-            wtab04Grid.columns.push(cols);   
+            // cols = new wijmo.grid.Column(); 
+            // cols.binding = 'pbonsa';
+            // cols.header = '코드';
+            // cols.align = "center";
+            // cols.width = 100;  
+            // wtab04Grid.columns.push(cols);  
+            // cols = new wijmo.grid.Column(); 
+            // cols.binding = 'pmodel';
+            // cols.header = '모델';
+            // cols.align = "center";
+            // cols.width = 100;  
+            // wtab04Grid.columns.push(cols);  
+            // cols = new wijmo.grid.Column(); 
+            // cols.binding = 'pcolor';
+            // cols.header = '컬러';
+            // cols.align = "center";
+            // cols.width = 100;  
+            // wtab04Grid.columns.push(cols);   
             cols = new wijmo.grid.Column(); 
             cols.binding = 'qty';
             cols.header = '수량';
@@ -744,6 +744,7 @@
     }
 
     function fn_egov_init_date(){
+         
         // var $frdate = $('#frdate');
         // var $todate = $('#todate');
         // $frdate.datetimepicker({

@@ -66,12 +66,12 @@
                                     <li class="nav-item">
                                       <a class="nav-link active" data-toggle="tab" href="#step01" onclick="tabchk_rtn('A')">주문등록</a>
                                     </li>
-                                    <li class="nav-item">
+                                    <!-- <li class="nav-item">
                                       <a class="nav-link" data-toggle="tab" href="#step02"  onclick="tabchk_rtn('B')">주문현황</a>
                                     </li>
                                     <li class="nav-item">
                                       <a class="nav-link" data-toggle="tab" href="#step03"  onclick="tabchk_rtn('C')">예약현황</a>
-                                    </li>
+                                    </li> -->
                                     <!-- <li class="nav-item">
                                       <a class="nav-link" data-toggle="tab" href="#step03"  onclick="tabchk_rtn('C')">재고현황</a>
                                     </li> -->
@@ -429,14 +429,14 @@ aria-hidden="true">
                 alternatingRowStep: 0,
                 columns: [     
                     { binding: 'misdate', header: '주문일자', align: "center", width: 120 }, 
-                    { binding: 'misnum', header: '주문번호', align: "center", width: 80 },  
-                    { binding: 'seq', header: '순번', align: "center", width: 80 },  
+                    // { binding: 'misnum', header: '주문번호', align: "center", width: 80 },  
+                    // { binding: 'seq', header: '순번', align: "center", width: 80 },  
                     { binding: 'acorp', header: '거래처', align: "center", width: 150 },  
                     { binding: 'pname', header: '품목', align: "center", width: 150 },   
                     { binding: 'psize', header: '규격', align: "center", width: 120 },  
-                    { binding: 'pbonsa', header: '코드', align: "center", width: 100 },  
-                    { binding: 'pmodel', header: '모델', align: "center", width: 100 },  
-                    { binding: 'pcolor', header: '컬러', align: "center", width: 100 },  
+                    // { binding: 'pbonsa', header: '코드', align: "center", width: 100 },  
+                    // { binding: 'pmodel', header: '모델', align: "center", width: 100 },  
+                    // { binding: 'pcolor', header: '컬러', align: "center", width: 100 },  
                     { binding: 'qty', header: '수량', align: "center", width: 80 },  
                     { binding: 'uamt', header: '단가', align: "center", width: 100 },  
                     { binding: 'samt', header: '금액', align: "center", width: 150 },    
@@ -499,14 +499,14 @@ aria-hidden="true">
                 alternatingRowStep: 0,
                 columns: [     
                     { binding: 'misdate', header: '예약일자', align: "center", width: 120 }, 
-                    { binding: 'misnum', header: '예약번호', align: "center", width: 80 },  
-                    { binding: 'seq', header: '순번', align: "center", width: 80 },  
+                    // { binding: 'misnum', header: '예약번호', align: "center", width: 80 },  
+                    // { binding: 'seq', header: '순번', align: "center", width: 80 },  
                     { binding: 'acorp', header: '거래처', align: "center", width: 150 },  
                     { binding: 'pname', header: '품목', align: "center", width: 150 },   
                     { binding: 'psize', header: '규격', align: "center", width: 120 },  
-                    { binding: 'pbonsa', header: '코드', align: "center", width: 100 },  
-                    { binding: 'pmodel', header: '모델', align: "center", width: 100 },  
-                    { binding: 'pcolor', header: '컬러', align: "center", width: 100 },  
+                    // { binding: 'pbonsa', header: '코드', align: "center", width: 100 },  
+                    // { binding: 'pmodel', header: '모델', align: "center", width: 100 },  
+                    // { binding: 'pcolor', header: '컬러', align: "center", width: 100 },  
                     { binding: 'qty', header: '수량', align: "center", width: 80 },  
                     { binding: 'uamt', header: '단가', align: "center", width: 100 },  
                     { binding: 'samt', header: '금액', align: "center", width: 150 },    
@@ -962,18 +962,6 @@ aria-hidden="true">
             cols.header = '주문일자';
             cols.align = "center";
             cols.width = 120; 
-            wtab02Grid.columns.push(cols);  
-            cols = new wijmo.grid.Column(); 
-            cols.binding = 'misnum';
-            cols.header = '주문번호';
-            cols.align = "center";
-            cols.width = 80;  
-            wtab02Grid.columns.push(cols);  
-            cols = new wijmo.grid.Column(); 
-            cols.binding = 'seq';
-            cols.header = '순번';
-            cols.align = "center";
-            cols.width = 80;  
             cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
                 text: '<b>${item.seq}</b>',
                 click: (e, ctx) => {
@@ -981,7 +969,26 @@ aria-hidden="true">
                     
                 }
             });
-            wtab02Grid.columns.push(cols);   
+            wtab02Grid.columns.push(cols);  
+            // cols = new wijmo.grid.Column(); 
+            // cols.binding = 'misnum';
+            // cols.header = '주문번호';
+            // cols.align = "center";
+            // cols.width = 80;  
+            // wtab02Grid.columns.push(cols);  
+            // cols = new wijmo.grid.Column(); 
+            // cols.binding = 'seq';
+            // cols.header = '순번';
+            // cols.align = "center";
+            // cols.width = 80;  
+            // cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
+            //     text: '<b>${item.seq}</b>',
+            //     click: (e, ctx) => {
+            //         wdelfun_a(ctx.item.misdate, ctx.item.misnum, ctx.item.seq, ctx.item.cltcd, ctx.item.misgubun, ctx.item.fixflag);                    
+                    
+            //     }
+            // });
+            // wtab02Grid.columns.push(cols);   
             cols = new wijmo.grid.Column(); 
             cols.binding = 'acorp';
             cols.header = '거래처';
@@ -1000,24 +1007,24 @@ aria-hidden="true">
             cols.align = "center";
             cols.width = 120;  
             wtab02Grid.columns.push(cols);    
-            cols = new wijmo.grid.Column(); 
-            cols.binding = 'pbonsa';
-            cols.header = '코드';
-            cols.align = "center";
-            cols.width = 100;  
-            wtab02Grid.columns.push(cols);  
-            cols = new wijmo.grid.Column(); 
-            cols.binding = 'pmodel';
-            cols.header = '모델';
-            cols.align = "center";
-            cols.width = 100;  
-            wtab02Grid.columns.push(cols);  
-            cols = new wijmo.grid.Column(); 
-            cols.binding = 'pcolor';
-            cols.header = '컬러';
-            cols.align = "center";
-            cols.width = 100;  
-            wtab02Grid.columns.push(cols);   
+            // cols = new wijmo.grid.Column(); 
+            // cols.binding = 'pbonsa';
+            // cols.header = '코드';
+            // cols.align = "center";
+            // cols.width = 100;  
+            // wtab02Grid.columns.push(cols);  
+            // cols = new wijmo.grid.Column(); 
+            // cols.binding = 'pmodel';
+            // cols.header = '모델';
+            // cols.align = "center";
+            // cols.width = 100;  
+            // wtab02Grid.columns.push(cols);  
+            // cols = new wijmo.grid.Column(); 
+            // cols.binding = 'pcolor';
+            // cols.header = '컬러';
+            // cols.align = "center";
+            // cols.width = 100;  
+            // wtab02Grid.columns.push(cols);   
             cols = new wijmo.grid.Column(); 
             cols.binding = 'qty';
             cols.header = '수량';
@@ -1090,18 +1097,6 @@ aria-hidden="true">
             cols.header = '예약일자';
             cols.align = "center";
             cols.width = 120; 
-            wtab03Grid.columns.push(cols);  
-            cols = new wijmo.grid.Column(); 
-            cols.binding = 'misnum';
-            cols.header = '예약번호';
-            cols.align = "center";
-            cols.width = 80;  
-            wtab03Grid.columns.push(cols);  
-            cols = new wijmo.grid.Column(); 
-            cols.binding = 'seq';
-            cols.header = '순번';
-            cols.align = "center";
-            cols.width = 80;  
             cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
                 text: '<b>${item.seq}</b>',
                 click: (e, ctx) => {
@@ -1109,7 +1104,26 @@ aria-hidden="true">
                     
                 }
             });
-            wtab03Grid.columns.push(cols);   
+            wtab03Grid.columns.push(cols);  
+            // cols = new wijmo.grid.Column(); 
+            // cols.binding = 'misnum';
+            // cols.header = '예약번호';
+            // cols.align = "center";
+            // cols.width = 80;  
+            // wtab03Grid.columns.push(cols);  
+            // cols = new wijmo.grid.Column(); 
+            // cols.binding = 'seq';
+            // cols.header = '순번';
+            // cols.align = "center";
+            // cols.width = 80;  
+            // cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
+            //     text: '<b>${item.seq}</b>',
+            //     click: (e, ctx) => {
+            //         wdelfunwish_a(ctx.item.misdate, ctx.item.misnum, ctx.item.seq, ctx.item.cltcd, ctx.item.misgubun, ctx.item.fixflag);                    
+                    
+            //     }
+            // });
+            // wtab03Grid.columns.push(cols);   
             cols = new wijmo.grid.Column(); 
             cols.binding = 'acorp';
             cols.header = '거래처';
@@ -1128,24 +1142,24 @@ aria-hidden="true">
             cols.align = "center";
             cols.width = 120;  
             wtab03Grid.columns.push(cols);    
-            cols = new wijmo.grid.Column(); 
-            cols.binding = 'pbonsa';
-            cols.header = '코드';
-            cols.align = "center";
-            cols.width = 100;  
-            wtab03Grid.columns.push(cols);  
-            cols = new wijmo.grid.Column(); 
-            cols.binding = 'pmodel';
-            cols.header = '모델';
-            cols.align = "center";
-            cols.width = 100;  
-            wtab03Grid.columns.push(cols);  
-            cols = new wijmo.grid.Column(); 
-            cols.binding = 'pcolor';
-            cols.header = '컬러';
-            cols.align = "center";
-            cols.width = 100;  
-            wtab03Grid.columns.push(cols);   
+            // cols = new wijmo.grid.Column(); 
+            // cols.binding = 'pbonsa';
+            // cols.header = '코드';
+            // cols.align = "center";
+            // cols.width = 100;  
+            // wtab03Grid.columns.push(cols);  
+            // cols = new wijmo.grid.Column(); 
+            // cols.binding = 'pmodel';
+            // cols.header = '모델';
+            // cols.align = "center";
+            // cols.width = 100;  
+            // wtab03Grid.columns.push(cols);  
+            // cols = new wijmo.grid.Column(); 
+            // cols.binding = 'pcolor';
+            // cols.header = '컬러';
+            // cols.align = "center";
+            // cols.width = 100;  
+            // wtab03Grid.columns.push(cols);   
             cols = new wijmo.grid.Column(); 
             cols.binding = 'qty';
             cols.header = '수량';

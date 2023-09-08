@@ -104,6 +104,35 @@ public class App01Controller {
         return "App01/index02";
     }
 
+    //거래처등록02
+    @GetMapping(value="/index020")
+    public String App020_index( Model model, HttpServletRequest request) throws Exception{
+        CommDto.setMenuTitle("거래처등록");
+        CommDto.setMenuUrl("기준정보>거래처정보");
+        CommDto.setMenuCode("index020");
+        HttpSession session = request.getSession();
+        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        model.addAttribute("userformDto",userformDto);
+//        userformDto.setPagetree01("거래처등록");
+//        userformDto.setPagenm("본사기준정보");
+//        model.addAttribute("CommDto", CommDto);
+
+        try {
+            index02Dto.setAcorp("%");
+            index02List = service02.GetCifList(index02Dto);
+            popupListDto = svcpopup.getCifCodeList(popupDto);
+
+            model.addAttribute("index02List",index02List);
+            model.addAttribute("cifcodeList",popupListDto);
+        } catch (Exception ex) {
+//                dispatchException = ex;
+            log.info("App03001Tab01Form Exception ================================================================");
+            log.info("Exception =====>" + ex.toString());
+//            log.debug("Exception =====>" + ex.toString() );
+        }
+
+        return "App01/index020";
+    }
 
     //제품등록
     @GetMapping(value="/index03")

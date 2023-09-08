@@ -12,7 +12,7 @@ $(document).ready(function(){
         }
     });
    
-    /*
+    
     $('.nav').hover(function() {
         if ($('.header').hasClass('on')) {
             $('.nav_bg').css('display','block');
@@ -25,7 +25,7 @@ $(document).ready(function(){
         }
     });
 
-     */
+      
     
     
     $('.nav_bg').hover(function() {

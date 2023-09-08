@@ -176,7 +176,7 @@
         <![CDATA[
         SELECT jbonsa_code, jbonsa_code2, jmodel_code,   jpb_gubn
         from JCODE3 WITH (NOLOCK)
-        WHERE isnull(jpb_gubn,'')   = #{jpb_gubn}
+        WHERE isnull(jpb_gubn,'') Like concat('%',#{jpb_gubn},'%')
          AND jsayong_gubn IN ( '1', '2','3')
          AND isnull(jbonsa_code,'') = #{jbonsa_code}
          GROUP BY jbonsa_code, jbonsa_code_seq, jbonsa_code2, jbonsa_code_seq2, jmodel_code, jpb_gubn

@@ -824,7 +824,11 @@
         function wbonsacodeChk_a(arg){  
 
             var searchCode = ""; 
+            var ls_cifname = document.getElementById('cifname').value ;
             var ls_jpbgubn = document.getElementById('jpbgubn').value ;
+            if(ls_cifname == null || ls_cifname.length == 0 || ls_cifname == ""){   
+                ls_jpbgubn = "%"; 
+            }    
             document.getElementById('jbonsacd').value = arg; 
             var ls_jcode = arg ;
             var ls_flag = "A";
