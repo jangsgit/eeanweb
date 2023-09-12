@@ -82,14 +82,14 @@
                                                     
                                                 </div>
                                             </div>
-                                            <div class="col-2 col-sm-2">
+                                            <!-- <div class="col-2 col-sm-2">
                                                 <select class="form-select form-select-sm" id="misfixflag" aria-label=".form-select-sm example">
                                                     <option selected="">출력구분</option>
                                                     <option value="%">전체</option>
                                                     <option value="1">출력</option>
                                                     <option value="0">미출력</option>
                                                     </select> 
-                                            </div>  
+                                            </div>   -->
                                             <div class="col-1 col-sm-1">  
                                                 <button class="btn btn-falcon-primary me-1 mb-1 btn-sm" id="listBtn" type="button"  >조회
                                                 </button>
@@ -119,14 +119,14 @@
                                                     
                                                 </div>
                                             </div>
-                                            <div class="col-2 col-sm-2">
+                                            <!-- <div class="col-2 col-sm-2">
                                                 <select class="form-select form-select-sm" id="wishfixflag" aria-label=".form-select-sm example">
                                                     <option selected="">출력구분</option>
                                                     <option value="%">전체</option>
                                                     <option value="1">출력</option>
                                                     <option value="0">미출력</option> 
                                                     </select> 
-                                            </div>   
+                                            </div>    -->
                                             <div class="col-1 col-sm-1">  
                                                 <button class="btn btn-falcon-primary me-1 mb-1 btn-sm" id="listBtn02" type="button"  >조회
                                                 </button>
@@ -405,7 +405,7 @@
                     { binding: 'qty', header: '수량', align: "center", width: 80 ,  aggregate: 'Sum'},  
                     { binding: 'uamt', header: '단가', align: "center", width: 100 },  
                     { binding: 'samt', header: '금액', align: "center", width: 150,  aggregate: 'Sum' },  
-                    { binding: 'fixflag', header: '확정', align: "center", width: 150, cssClass: 'switch'   },  
+                    // { binding: 'fixflag', header: '확정', align: "center", width: 150, cssClass: 'switch'   },  
 
                 ], 
                 itemsSource: view_p01tab04page
@@ -704,7 +704,7 @@
                     var ls_todate = document.getElementById('todate').value;          
                     var ls_abonsadam1   = document.getElementById('abonsadam1').value; 
                     var ls_inname01   = document.getElementById('inname01').value; 
-                    var ls_misfixflag = document.getElementById('misfixflag').value; 
+                    // var ls_misfixflag = document.getElementById('misfixflag').value; 
                     if(ls_frdate == null || ls_frdate.length == 0 || ls_frdate == ""){ 
                         alert("조회일자를 등록하세요") 
                         document.getElementById("frdate").focus(); 
@@ -715,9 +715,10 @@
                         document.getElementById("todate").focus(); 
                         return ;               
                     }   
-                    if(ls_misfixflag == "확정구분"){ 
-                        ls_misfixflag = "%";
-                    }    
+                    ls_misfixflag = "%";
+                    // if(ls_misfixflag == "확정구분"){ 
+                    //     ls_misfixflag = "%";
+                    // }    
                     if(ls_inname01 == null || ls_inname01.length == 0 || ls_inname01 == ""){  
                         ls_abonsadam1 = "%";
                     }    
@@ -750,10 +751,12 @@
                     var ls_todate = document.getElementById('todate02').value; 
                     var ls_abonsadam2   = document.getElementById('abonsadam2').value; 
                     var ls_inname02   = document.getElementById('inname02').value; 
-                    var ls_wishfixflag = document.getElementById('wishfixflag').value; 
-                    if(ls_wishfixflag == "확정구분"){ 
-                        ls_wishfixflag = "%";
-                    }  
+                    // var ls_wishfixflag = document.getElementById('wishfixflag').value; 
+                    
+                    ls_wishfixflag = "%";
+                    // if(ls_wishfixflag == "확정구분"){ 
+                    //     ls_wishfixflag = "%";
+                    // }  
                     if(ls_frdate == null || ls_frdate.length == 0 || ls_frdate == ""){ 
                         alert("조회일자를 등록하세요") 
                         document.getElementById("frdate02").focus(); 
@@ -805,7 +808,7 @@
                         document.getElementById("todate").focus(); 
                         return ;               
                     }    
-                    ls_misfixflag = "1";
+                    ls_misfixflag = "%";
                      
                     if(ls_inname03 == null || ls_inname03.length == 0 || ls_inname03 == ""){  
                         ls_abonsadam3 = "%";
@@ -849,7 +852,7 @@
                         document.getElementById("todate").focus(); 
                         return ;               
                     }   
-                    ls_misfixflag = "1";
+                    ls_misfixflag = "%";
                     
                     if(ls_inname04 == null || ls_inname04.length == 0 || ls_inname04 == ""){  
                         ls_abonsadam4 = "%";
@@ -1186,13 +1189,13 @@
             cols.aggregate = 'Sum';
             cols.width = 120;  
             wtab04Grid.columns.push(cols);    
-            cols = new wijmo.grid.Column(); 
-            cols.binding = 'fixflag'; 
-            cols.header = '확정';
-            cols.align = "center";
-            cols.width = 100;  
-            cols.cssClass = 'switch'
-            wtab04Grid.columns.push(cols);  
+            // cols = new wijmo.grid.Column(); 
+            // cols.binding = 'fixflag'; 
+            // cols.header = '출력';
+            // cols.align = "center";
+            // cols.width = 100;  
+            // cols.cssClass = 'switch'
+            // wtab04Grid.columns.push(cols);  
  
         } 
            
@@ -1291,6 +1294,9 @@
             }
             if(arg == "C"){
                 insaText = document.getElementById('inname03').value;   
+            }
+            if(arg == "D"){
+                insaText = document.getElementById('inname04').value;   
             }
             
             $.ajax({
@@ -1439,8 +1445,8 @@
     }
 
     function fn_egov_init_date(){
-        document.getElementById('misfixflag').value = '1'; 
-        document.getElementById('wishfixflag').value = '1';
+        // document.getElementById('misfixflag').value = '1'; 
+        // document.getElementById('wishfixflag').value = '1';
         
         // var $frdate = $('#frdate');
         // var $todate = $('#todate');

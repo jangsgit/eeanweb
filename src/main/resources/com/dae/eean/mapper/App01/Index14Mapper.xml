@@ -277,7 +277,7 @@
                     AND B.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
                     AND C.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
                     AND A.acorp1 + CAST(A.acorp2 as varchar) Like concat('%',#{cltcd},'%')
-                    AND isnull(B.pcode,'')  Like concat('%',#{pcode},'%')
+                    AND isnull(C.perid,'')  Like concat('%',#{perid},'%')
                     AND isnull(B.misgubun,'')  Like concat('%',#{misgubun},'%')
                     AND B.misdate between #{frdate} and #{todate}
                     AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
