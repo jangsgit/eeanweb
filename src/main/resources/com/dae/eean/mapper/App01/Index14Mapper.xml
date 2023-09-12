@@ -292,19 +292,14 @@
     <select id="SelectDa024ListJpumArea"  parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" resultType="com.dae.eean.DTO.App01.IndexDa024Dto">
         <![CDATA[ select    count(*) as rownum, E.sidocd, E.sido, E.sidocd, B.pcode, B.pname, B.psize,
                             sum(B.qty) as qty, sum(B.samt) as samt, sum(B.addamt) as addamt, sum(B.amt) as amt
-                  from  TB_DA024 B WITH (NOLOCK) , cif A WITH (NOLOCK)  , cif_sido E WITH (NOLOCK),
+                  from  TB_DA024 B WITH (NOLOCK) , cif A WITH (NOLOCK)  Left outer JOIN cif_sido e ON LEFT(A.apost1,3) = E.postcd,
                       TB_DA023 C WITH (NOLOCK) Left outer JOIN INSA D ON C.perid = D.insano
                   where B.misdate + B.misnum = C.misdate + C.misnum AND B.misgubun = C.misgubun
-                    AND LEFT(A.apost1,2) = E.sidocd
                     AND isnull(C.delflag, '') <> 'Y'
                     AND B.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
                     AND C.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
-                    AND A.acorp1 + CAST(A.acorp2 as varchar) Like concat('%',#{cltcd},'%')
-                    AND isnull(B.pcode,'')  Like concat('%',#{pcode},'%')
-                    AND isnull(B.misgubun,'')  Like concat('%',#{misgubun},'%')
-                    AND B.misdate between #{frdate} and #{todate}
-                    AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
-                  Group by A.apost1, B.pcode, B.pname, B.psize,  E.sido, E.sidocd
+                     AND B.misdate between #{frdate} and #{todate}
+                  Group by B.pcode, B.pname, B.psize,  E.sido, E.sidocd
                   ORDER BY E.sidocd, sum(B.qty ) desc, B.pname
         ]]>
 
@@ -320,12 +315,8 @@
                     AND isnull(C.delflag, '') <> 'Y'
                     AND B.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
                     AND C.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
-                    AND A.acorp1 + CAST(A.acorp2 as varchar) Like concat('%',#{cltcd},'%')
-                    AND isnull(B.pcode,'')  Like concat('%',#{pcode},'%')
-                    AND isnull(B.misgubun,'')  Like concat('%',#{misgubun},'%')
                     AND B.misdate between #{frdate} and #{todate}
-                    AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
-                  Group by A.apost1, B.pcode, B.pname, B.psize,  E.sido, E.sidocd,E.gugun, E.postcd
+                  Group by B.pcode, B.pname, B.psize,  E.sido, E.sidocd,E.gugun, E.postcd
                   ORDER BY E.sidocd, E.postcd, sum(B.qty ) desc, B.pname
         ]]>
 
