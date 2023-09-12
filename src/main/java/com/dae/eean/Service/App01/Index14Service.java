@@ -60,17 +60,33 @@ public class Index14Service {
     public List<IndexDa024Dto> SelectDa024ListPerid(IndexDa024Dto parm){
         return  appMapper.SelectDa024ListPerid(parm);
     }
+    public List<IndexDa024Dto> SelectDa024ListPeridGroup(IndexDa024Dto parm){
+        return  appMapper.SelectDa024ListPeridGroup(parm);
+    }
+    public List<IndexDa024Dto> SelectDa024ListJpumArea(IndexDa024Dto parm){
+        return  appMapper.SelectDa024ListJpumArea(parm);
+    }
+    public List<IndexDa024Dto> SelectDa024ListJpumAreaGugun(IndexDa024Dto parm){
+        return  appMapper.SelectDa024ListJpumAreaGugun(parm);
+    }
+
     public List<IndexDa024Dto> SelectDa026ListPerid(IndexDa024Dto parm){
         return  appMapper.SelectDa026ListPerid(parm);
     }
     public List<IndexDa024Dto> SelectDa024ListCltcd(IndexDa024Dto parm){
         return  appMapper.SelectDa024ListCltcd(parm);
     }
+    public List<IndexDa024Dto> SelectDa024ListCltcdGroup(IndexDa024Dto parm){
+        return  appMapper.SelectDa024ListCltcdGroup(parm);
+    }
     public List<IndexDa024Dto> SelectDa026ListCltcd(IndexDa024Dto parm){
         return  appMapper.SelectDa026ListCltcd(parm);
     }
     public List<IndexDa024Dto> SelectDa024ListJpum(IndexDa024Dto parm){
         return  appMapper.SelectDa024ListJpum(parm);
+    }
+    public List<IndexDa024Dto> SelectDa024ListJpumGroup(IndexDa024Dto parm){
+        return  appMapper.SelectDa024ListJpumGroup(parm);
     }
     public List<IndexDa024Dto> SelectDa026ListJpum(IndexDa024Dto parm){
         return  appMapper.SelectDa026ListJpum(parm);

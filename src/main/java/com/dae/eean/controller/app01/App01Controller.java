@@ -565,6 +565,27 @@ public class App01Controller {
         return "App01/index08";
     }
 
+    //지역별매출현황
+    @GetMapping(value="/index09")
+    public String App09_index( Model model, HttpServletRequest request) throws Exception{
+        CommDto.setMenuTitle("지역별매출현황");
+        CommDto.setMenuUrl("기준정보>지역별매출현황");
+        CommDto.setMenuCode("index09");
+        HttpSession session = request.getSession();
+        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        model.addAttribute("userformDto",userformDto);
+
+        try {
+        } catch (Exception ex) {
+//                dispatchException = ex;
+            log.info("App08_index Exception ================================================================");
+            log.info("Exception =====>" + ex.toString());
+//            log.debug("Exception =====>" + ex.toString() );
+        }
+
+        return "App01/index09";
+    }
+
     //AS접수 배송현황
     @GetMapping(value="/index11")
     public String App11_index( Model model, HttpServletRequest request) throws Exception{

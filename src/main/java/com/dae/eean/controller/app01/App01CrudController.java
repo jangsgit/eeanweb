@@ -846,6 +846,8 @@ public class App01CrudController {
             String month = frdate.substring(5,7) ;
             String day   = frdate.substring(8,10) ;
             frdate = year + month + day ;
+            jmodel = "0" + jmodel;
+            jcolor = "0" + jcolor;
             index03Dto.setJmodel_code(jmodel);
             index03Dto.setJcolor_code(jcolor);
             index03Dto.setJbonsa_code(jbonsa);
@@ -979,6 +981,8 @@ public class App01CrudController {
             String month = frdate.substring(5,7) ;
             String day   = frdate.substring(8,10) ;
             frdate = year + month + day ;
+            jmodel = "0" + jmodel;
+            jcolor = "0" + jcolor;
             index03Dto.setJmodel_code(jmodel);
             index03Dto.setJcolor_code(jcolor);
             index03Dto.setJbonsa_code(jbonsa);
@@ -1617,7 +1621,7 @@ public class App01CrudController {
     }
 
 
-    //주문현황 리스트
+    //주문현황상세 리스트
     @GetMapping(value="/index14/listperid")
     public Object App14ListPerid_index(@RequestParam("frdate") String frdate,
                                   @RequestParam("todate") String todate,
@@ -1670,6 +1674,68 @@ public class App01CrudController {
 //            log.info("mflag =====>" + mflag);
 //            log.info("perid =====>" + perid);
             indexDa024ListDto = service14.SelectDa024ListPerid(indexDa024Dto);
+            model.addAttribute("indexDa024ListDto",indexDa024ListDto);
+
+        } catch (Exception ex) {
+            log.info("App14List_index Exception =====>" + ex.toString());
+        }
+
+        return indexDa024ListDto;
+    }
+
+    //주문현황집계 리스트
+    @GetMapping(value="/index14/listperidgroup")
+    public Object App14ListPeridGroup_index(@RequestParam("frdate") String frdate,
+                                       @RequestParam("todate") String todate,
+                                       @RequestParam("acode") String acode,
+                                       @RequestParam("fixflag") String fixflag,
+                                       @RequestParam("perid") String perid,
+                                       @RequestParam("mflag") String mflag,
+                                       Model model, HttpServletRequest request) throws Exception{
+        CommDto.setMenuTitle("주문등록");
+        CommDto.setMenuUrl("주문등록>주문현황");
+        CommDto.setMenuCode("index14");
+        HttpSession session = request.getSession();
+        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        model.addAttribute("userformDto",userformDto);
+
+        try {
+            String year = frdate.substring(0,4) ;
+            String month = frdate.substring(5,7) ;
+            String day   = frdate.substring(8,10) ;
+            frdate = year + month + day ;
+            year = todate.substring(0,4) ;
+            month = todate.substring(5,7) ;
+            day   = todate.substring(8,10) ;
+            todate = year + month + day ;
+            indexDa024Dto.setFrdate(frdate);
+            indexDa024Dto.setTodate(todate);
+            indexDa024Dto.setCltcd(acode);
+            indexDa024Dto.setFixflag(fixflag);
+            if(perid == null || perid.equals("")){
+                perid = "%";
+            }
+            switch (mflag){
+                case "AA" :
+                    indexDa024Dto.setPerid(perid);
+                    mflag = "%";
+                    break;
+                case "BB":
+                    indexDa024Dto.setPerid(perid);
+                    break;
+                case "CC":
+                    indexDa024Dto.setPerid(userformDto.getPerid());
+                    break;
+                default:
+                    break;
+            }
+            indexDa024Dto.setPerid(perid);
+            indexDa024Dto.setMisgubun(mflag);
+//            log.info("frdate =====>" + frdate);
+//            log.info("fixflag =====>" + fixflag);
+//            log.info("mflag =====>" + mflag);
+//            log.info("perid =====>" + perid);
+            indexDa024ListDto = service14.SelectDa024ListPeridGroup(indexDa024Dto);
             model.addAttribute("indexDa024ListDto",indexDa024ListDto);
 
         } catch (Exception ex) {
@@ -1738,6 +1804,66 @@ public class App01CrudController {
         return indexDa024ListDto;
     }
 
+
+    //주문현황 거래처별주문현황 리스트
+    @GetMapping(value="/index14/listcltcdgroup")
+    public Object App14ListCltcdGroup_index(@RequestParam("frdate") String frdate,
+                                       @RequestParam("todate") String todate,
+                                       @RequestParam("acode") String acode,
+                                       @RequestParam("fixflag") String fixflag,
+                                       @RequestParam("perid") String perid,
+                                       @RequestParam("mflag") String mflag,
+                                       Model model, HttpServletRequest request) throws Exception{
+        CommDto.setMenuTitle("주문등록");
+        CommDto.setMenuUrl("주문등록>주문현황");
+        CommDto.setMenuCode("index14");
+        HttpSession session = request.getSession();
+        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        model.addAttribute("userformDto",userformDto);
+
+        try {
+            String year = frdate.substring(0,4) ;
+            String month = frdate.substring(5,7) ;
+            String day   = frdate.substring(8,10) ;
+            frdate = year + month + day ;
+            year = todate.substring(0,4) ;
+            month = todate.substring(5,7) ;
+            day   = todate.substring(8,10) ;
+            todate = year + month + day ;
+            indexDa024Dto.setFrdate(frdate);
+            indexDa024Dto.setTodate(todate);
+            indexDa024Dto.setCltcd(acode);
+            indexDa024Dto.setFixflag(fixflag);
+            if(perid == null || perid.equals("")){
+                perid = "%";
+            }
+            switch (mflag){
+                case "AA" :
+                    indexDa024Dto.setPerid(perid);
+                    mflag = "%";
+                    break;
+                case "BB":
+                    indexDa024Dto.setPerid(perid);
+                    break;
+                case "CC":
+                    indexDa024Dto.setPerid(userformDto.getPerid());
+                    break;
+                default:
+                    break;
+            }
+            indexDa024Dto.setPerid(perid);
+            indexDa024Dto.setMisgubun(mflag);
+            indexDa024ListDto = service14.SelectDa024ListCltcdGroup(indexDa024Dto);
+            model.addAttribute("indexDa024ListDto",indexDa024ListDto);
+
+        } catch (Exception ex) {
+            log.info("App14List_index Exception =====>" + ex.toString());
+        }
+
+        return indexDa024ListDto;
+    }
+
+
     //주문현황 리스트
     @GetMapping(value="/index14/listjkey")
     public Object App14ListJkey_index(@RequestParam("frdate") String frdate,
@@ -1793,6 +1919,183 @@ public class App01CrudController {
 
         } catch (Exception ex) {
             log.info("App14List_index Exception =====>" + ex.toString());
+        }
+
+        return indexDa024ListDto;
+    }
+
+
+    //주문현황 품목별집계 리스트
+    @GetMapping(value="/index14/listjkeygroup")
+    public Object App14ListJkeyGroup_index(@RequestParam("frdate") String frdate,
+                                      @RequestParam("todate") String todate,
+                                      @RequestParam("acode") String acode,
+                                      @RequestParam("jkey") String jkey,
+                                      @RequestParam("fixflag") String fixflag,
+                                      @RequestParam("perid") String perid,
+                                      @RequestParam("mflag") String mflag,
+                                      Model model, HttpServletRequest request) throws Exception{
+        CommDto.setMenuTitle("주문등록");
+        CommDto.setMenuUrl("주문등록>주문현황");
+        CommDto.setMenuCode("index14");
+        HttpSession session = request.getSession();
+        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        model.addAttribute("userformDto",userformDto);
+
+        try {
+            String year = frdate.substring(0,4) ;
+            String month = frdate.substring(5,7) ;
+            String day   = frdate.substring(8,10) ;
+            frdate = year + month + day ;
+            year = todate.substring(0,4) ;
+            month = todate.substring(5,7) ;
+            day   = todate.substring(8,10) ;
+            todate = year + month + day ;
+            indexDa024Dto.setFrdate(frdate);
+            indexDa024Dto.setTodate(todate);
+            indexDa024Dto.setCltcd(acode);
+            indexDa024Dto.setFixflag(fixflag);
+            if(perid == null || perid.equals("")){
+                perid = "%";
+            }
+            switch (mflag){
+                case "AA" :
+                    indexDa024Dto.setPerid(perid);
+                    mflag = "%";
+                    break;
+                case "BB":
+                    indexDa024Dto.setPerid(perid);
+                    break;
+                case "CC":
+                    indexDa024Dto.setPerid(userformDto.getPerid());
+                    break;
+                default:
+                    break;
+            }
+            indexDa024Dto.setPerid(perid);
+            indexDa024Dto.setMisgubun(mflag);
+            indexDa024Dto.setPcode(jkey);
+            indexDa024ListDto = service14.SelectDa024ListJpumGroup(indexDa024Dto);
+            model.addAttribute("indexDa024ListDto",indexDa024ListDto);
+
+        } catch (Exception ex) {
+            log.info("App14ListJkeyGroup_index Exception =====>" + ex.toString());
+        }
+
+        return indexDa024ListDto;
+    }
+
+    //지역별현황 시도 품목별집계 리스트
+    @GetMapping(value="/index14/listsido")
+    public Object App14ListSido_index(@RequestParam("frdate") String frdate,
+                                           @RequestParam("todate") String todate,
+                                           @RequestParam("acode") String acode,
+                                           @RequestParam("fixflag") String fixflag,
+                                           @RequestParam("perid") String perid,
+                                           @RequestParam("mflag") String mflag,
+                                           Model model, HttpServletRequest request) throws Exception{
+        CommDto.setMenuTitle("주문등록");
+        CommDto.setMenuUrl("주문등록>지역별통계");
+        CommDto.setMenuCode("index14");
+        HttpSession session = request.getSession();
+        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        model.addAttribute("userformDto",userformDto);
+
+        try {
+            String year = frdate.substring(0,4) ;
+            String month = frdate.substring(5,7) ;
+            String day   = frdate.substring(8,10) ;
+            frdate = year + month + day ;
+            year = todate.substring(0,4) ;
+            month = todate.substring(5,7) ;
+            day   = todate.substring(8,10) ;
+            todate = year + month + day ;
+            indexDa024Dto.setFrdate(frdate);
+            indexDa024Dto.setTodate(todate);
+            indexDa024Dto.setCltcd(acode);
+            indexDa024Dto.setFixflag(fixflag);
+            if(perid == null || perid.equals("")){
+                perid = "%";
+            }
+            switch (mflag){
+                case "AA" :
+                    indexDa024Dto.setPerid(perid);
+                    mflag = "%";
+                    break;
+                case "BB":
+                    indexDa024Dto.setPerid(perid);
+                    break;
+                case "CC":
+                    indexDa024Dto.setPerid(userformDto.getPerid());
+                    break;
+                default:
+                    break;
+            }
+            indexDa024Dto.setPerid(perid);
+            indexDa024Dto.setMisgubun(mflag);
+            indexDa024ListDto = service14.SelectDa024ListJpumArea(indexDa024Dto);
+            model.addAttribute("indexDa024ListDto",indexDa024ListDto);
+
+        } catch (Exception ex) {
+            log.info("App14ListSido_index Exception =====>" + ex.toString());
+        }
+
+        return indexDa024ListDto;
+    }
+
+    //지역별현황 시도 품목별집계 리스트
+    @GetMapping(value="/index14/listgugun")
+    public Object App14ListGugun_index(@RequestParam("frdate") String frdate,
+                                      @RequestParam("todate") String todate,
+                                      @RequestParam("acode") String acode,
+                                      @RequestParam("fixflag") String fixflag,
+                                      @RequestParam("perid") String perid,
+                                      @RequestParam("mflag") String mflag,
+                                      Model model, HttpServletRequest request) throws Exception{
+        CommDto.setMenuTitle("주문등록");
+        CommDto.setMenuUrl("주문등록>지역별통계");
+        CommDto.setMenuCode("index14");
+        HttpSession session = request.getSession();
+        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        model.addAttribute("userformDto",userformDto);
+
+        try {
+            String year = frdate.substring(0,4) ;
+            String month = frdate.substring(5,7) ;
+            String day   = frdate.substring(8,10) ;
+            frdate = year + month + day ;
+            year = todate.substring(0,4) ;
+            month = todate.substring(5,7) ;
+            day   = todate.substring(8,10) ;
+            todate = year + month + day ;
+            indexDa024Dto.setFrdate(frdate);
+            indexDa024Dto.setTodate(todate);
+            indexDa024Dto.setCltcd(acode);
+            indexDa024Dto.setFixflag(fixflag);
+            if(perid == null || perid.equals("")){
+                perid = "%";
+            }
+            switch (mflag){
+                case "AA" :
+                    indexDa024Dto.setPerid(perid);
+                    mflag = "%";
+                    break;
+                case "BB":
+                    indexDa024Dto.setPerid(perid);
+                    break;
+                case "CC":
+                    indexDa024Dto.setPerid(userformDto.getPerid());
+                    break;
+                default:
+                    break;
+            }
+            indexDa024Dto.setPerid(perid);
+            indexDa024Dto.setMisgubun(mflag);
+            indexDa024ListDto = service14.SelectDa024ListJpumAreaGugun(indexDa024Dto);
+            model.addAttribute("indexDa024ListDto",indexDa024ListDto);
+
+        } catch (Exception ex) {
+            log.info("App14ListGugun_index Exception =====>" + ex.toString());
         }
 
         return indexDa024ListDto;

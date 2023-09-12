@@ -174,7 +174,7 @@
 
     <select id="GetGanListBonsa01" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
         <![CDATA[
-        SELECT jbonsa_code, jbonsa_code2, jmodel_code,   jpb_gubn
+        SELECT jbonsa_code, jbonsa_code2, substring (jmodel_code,2,4) as jmodel_code,   jpb_gubn
         from JCODE3 WITH (NOLOCK)
         WHERE isnull(jpb_gubn,'') Like concat('%',#{jpb_gubn},'%')
          AND jsayong_gubn IN ( '1', '2','3')
@@ -187,7 +187,7 @@
 
     <select id="GetGanListBonsa02" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
         <![CDATA[
-        SELECT jbonsa_code, jbonsa_code2, jmodel_code,   jpb_gubn, jcolor_code, jkey,
+        SELECT jbonsa_code, jbonsa_code2, substring (jmodel_code,2,4) as jmodel_code,   jpb_gubn, substring (jcolor_code,2,2) as jcolor_code, jkey,
                convert(integer, DBO.DF_TB_PCODE_JQTY(jkey,  #{frdate},  #{todate}) ) as jqty
         from JCODE3 WITH (NOLOCK)
         WHERE isnull(jpb_gubn,'')   = #{jpb_gubn}
