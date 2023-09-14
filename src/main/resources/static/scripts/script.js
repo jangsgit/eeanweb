@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-    // 햄버거버튼
+    // 햄버거버튼 
     $('.ham').click(function(){
         if ($('.header').hasClass('on')) {
             $('.header').removeClass('on');
@@ -27,18 +27,18 @@ $(document).ready(function(){
 
     */
     
-    
-    $('.nav_bg').hover(function() {
-        if ($('.header').hasClass('on')) {
-            $('.nav_bg').css('display','block');
-            $('.depth2').css('display','block');
-        }
-    }, function(){
-        if ($('.header').hasClass('on')) {
-            $('.nav_bg').css('display','none');
-            $('.depth2').css('display','none');
-        }
-    });    
+     
+    // $('.nav_bg').hover(function() {
+    //     if ($('.header').hasClass('on')) {
+    //         $('.nav_bg').css('display','block');
+    //         $('.depth2').css('display','block');
+    //     }
+    // }, function(){
+    //     if ($('.header').hasClass('on')) {
+    //         $('.nav_bg').css('display','none');
+    //         $('.depth2').css('display','none');
+    //     }
+    // });    
 
 
     $('.toggle').click(function(){
