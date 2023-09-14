@@ -13,7 +13,7 @@ $(document).ready(function(){
     });
    
     
-    $('.nav').click(function() {
+    $('.pnav').click(function() {
         if ($('.header').hasClass('on')) {
             $('.header').removeClass('on');
             $('.depth2').css('display','block');

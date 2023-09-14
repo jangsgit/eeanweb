@@ -138,25 +138,25 @@
     z-index: -1;
     top: 60px;
 }
-.content.flex .header.on .left > ul.nav > li > .depth2 > ul > li a{
+.content.flex .header.on .left > ul.pnav > li > .depth2 > ul > li a{
     color: #fff !important;
 }
-.content.flex .header.on .left > ul.nav > li > .depth2 > ul > li a:hover{
+.content.flex .header.on .left > ul.pnav > li > .depth2 > ul > li a:hover{
     color: #5dd6ec !important;
 }
-.content.flex .header.on .left > ul.nav > li > .depth2 .dep_main button{
+.content.flex .header.on .left > ul.pnav > li > .depth2 .dep_main button{
     color:  #fff !important;
 }
-.content.flex .header.on .left > ul.nav > li > .depth2.on .dep_main button{
+.content.flex .header.on .left > ul.pnav > li > .depth2.on .dep_main button{
     color:  #5dd6ec !important;
 }
-.content.flex .header.on .left > ul.nav > li > .depth2 > ul > li.on a{
+.content.flex .header.on .left > ul.pnav > li > .depth2 > ul > li.on a{
     color: #5dd6ec !important;
 }
-.content.flex .header.on .left > ul.nav > li > .depth2 > ul > li a i img.dot1{
+.content.flex .header.on .left > ul.pnav > li > .depth2 > ul > li a i img.dot1{
     display: none;
 }
-.content.flex .header.on .left > ul.nav > li > .depth2 > ul > li a i img.dot2{
+.content.flex .header.on .left > ul.pnav > li > .depth2 > ul > li a i img.dot2{
     display: block;
 }
 
@@ -164,7 +164,7 @@
 .content.flex .header.on .nav_bg{
     display: none;
 }
-.content.flex .header.on .left > ul.nav > li > .depth2{
+.content.flex .header.on .left > ul.pnav > li > .depth2{
     display: none;
 }
 
@@ -191,49 +191,49 @@
     justify-content: center;
 }
 
-.content.flex .header .left > ul.nav{
+.content.flex .header .left > ul.pnav{
     margin: 64px 0;
 }
-.content.flex .header .left > ul.nav > li{
+.content.flex .header .left > ul.pnav > li{
     text-align: center;
     margin-bottom: 35px;
     display: flex;
     align-items: flex-start;
     width: 216px;
 }
-.content.flex .header .left > ul.nav > li > button{
+.content.flex .header .left > ul.pnav > li > button{
     padding: 0 16px;
 }
-.content.flex .header .left > ul.nav > li > .depth2{
+.content.flex .header .left > ul.pnav > li > .depth2{
     /* position: absolute; */
     /* position: relative; */
     text-align: left;
     padding-left: 20px;
     flex: none;
 }
-.content.flex .header .left > ul.nav > li > .depth2 .dep_main button{
+.content.flex .header .left > ul.pnav > li > .depth2 .dep_main button{
     font-size: 15px;
     font-weight: bold;
     color: #084661;
 }
-.content.flex .header .left > ul.nav > li > .depth2 > ul > li{
+.content.flex .header .left > ul.pnav > li > .depth2 > ul > li{
     margin-top: 15px;
 }
-.content.flex .header .left > ul.nav > li > .depth2 > ul > li a{
+.content.flex .header .left > ul.pnav > li > .depth2 > ul > li a{
     display: flex;
     align-items: center;
     color: #6c6c6c;
 }
-.content.flex .header .left > ul.nav > li > .depth2 > ul > li a:hover{
+.content.flex .header .left > ul.pnav > li > .depth2 > ul > li a:hover{
     color: #082f40;
 }
-.content.flex .header .left > ul.nav > li > .depth2 > ul > li.on a{
+.content.flex .header .left > ul.pnav > li > .depth2 > ul > li.on a{
     color: #084661;
 }
-.content.flex .header .left > ul.nav > li > .depth2 > ul > li a i{
+.content.flex .header .left > ul.pnav > li > .depth2 > ul > li a i{
     margin-right: 6px;
 }
-.content.flex .header .left > ul.nav > li > .depth2 > ul > li a i img.dot2{
+.content.flex .header .left > ul.pnav > li > .depth2 > ul > li a i img.dot2{
     display: none;
 }
 .content.flex .header .right{
