@@ -577,7 +577,7 @@
            
         function CifSearchList_rtn(arg){   
             var searchCode = ""; 
-            
+            var ls_jpbgubn = document.getElementById('bjpbgubn').value; 
             if(arg == "M"){
                 searchCode = document.getElementById('searchCode').value;   
             } 
@@ -587,6 +587,9 @@
             if(searchCode == null || searchCode.length == 0 || searchCode == ""){ 
                 searchCode = "%"         ;
             }      
+            if(ls_jpbgubn == null || ls_jpbgubn.length == 0 || ls_jpbgubn == ""){ 
+                ls_jpbgubn = "%"         ;
+            } 
             let ls_conacorp1 = "%";  
             let ls_conagita = "%";   
             let ls_abonsadam1 = "%";
@@ -598,6 +601,7 @@
                         "conacorp" :searchCode, 
                         "conagita" :ls_conagita, 
                         "abonsadam1" :ls_abonsadam1, 
+                        "jpbgubn" :ls_jpbgubn,  
                     }, 
                     async:false,
                     success:function(data){  
@@ -745,6 +749,14 @@
 
     function fn_egov_init_date(){
          
+        lsUserid = window.localStorage.getItem("userid")
+        if (lsUserid == "pvadmin"){ 
+            document.getElementById('bjpbgubn').value = "P";  
+        }else if(lsUserid == "bladmin"){ 
+            document.getElementById('bjpbgubn').value = "B";  
+        }else{ 
+            document.getElementById('bjpbgubn').value = "%"; 
+        }
         // var $frdate = $('#frdate');
         // var $todate = $('#todate');
         // $frdate.datetimepicker({

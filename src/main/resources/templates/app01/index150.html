@@ -1216,6 +1216,8 @@ aria-hidden="true">
             let ls_conacorp1 = "%";  
             let ls_conagita = "%";   
             let ls_abonsadam1 = "%";
+            let ls_jpbgubn = "%";
+
             $.ajax({
                         url: '/app01m/index02/listtot',  
                     type:"POST",
@@ -1224,6 +1226,7 @@ aria-hidden="true">
                         "conacorp" :searchCode, 
                         "conagita" :ls_conagita, 
                         "abonsadam1" :ls_abonsadam1, 
+                        "jpbgubn" :ls_jpbgubn,  
                     }, 
                     async:false,
                     success:function(data){  

@@ -89,6 +89,7 @@ public class App01CrudController {
                                      @RequestParam("conacorp") String conacorp,
                                      @RequestParam("conagita") String conagita,
                                      @RequestParam("abonsadam1") String abonsadam1,
+                                     @RequestParam("jpbgubn") String jpbgubn,
                                   Model model, HttpServletRequest request) throws Exception{
         CommDto.setMenuTitle("거래처등록");
         CommDto.setMenuUrl("기준정보>거래처정보");
@@ -115,6 +116,13 @@ public class App01CrudController {
             index02Dto.setAcorp(conacorp);
             index02Dto.setAgita(conagita);
             index02Dto.setAbonsadam1(abonsadam1);
+            if (jpbgubn.equals("P")){
+                index02Dto.setAcorp1("02");
+            }else if(jpbgubn.equals("B")){
+                index02Dto.setAcorp1("03");
+            }else{
+                index02Dto.setAcorp1("%");
+            }
             index02List = service02.GetCifListTot(index02Dto);
             model.addAttribute("index02List",index02List);
 
@@ -846,10 +854,8 @@ public class App01CrudController {
             String month = frdate.substring(5,7) ;
             String day   = frdate.substring(8,10) ;
             frdate = year + month + day ;
-            jmodel = "0" + jmodel;
-            jcolor = "0" + jcolor;
-            index03Dto.setJmodel_code(jmodel);
-            index03Dto.setJcolor_code(jcolor);
+            index03Dto.setJmodel_code2(jmodel);
+            index03Dto.setJcolor_code2(jcolor);
             index03Dto.setJbonsa_code(jbonsa);
             index03Dto.setJbonsa_code2(jbonsa2);
             index03Dto.setJpb_gubn(jpbgubn);
@@ -857,6 +863,10 @@ public class App01CrudController {
             index02Dto = service02.GetCifListAcode(index02Dto);  //거래처정보
             index02BonsaDto = service02.GetCifBonsa(index02BonsaDto);
             index03Dto = service03.GetJpumOrderJkey(index03Dto); //품목정보
+            if(index03Dto == null){
+                log.info("error Exception =====> GetJpumOrderJkey NULL" );
+                return "error";
+            }
             indexDa023Dto.setCltcd(acode);
             indexDa023Dto.setMisgubun(mflag);
             indexDa023Dto.setMisdate(frdate);
@@ -981,10 +991,8 @@ public class App01CrudController {
             String month = frdate.substring(5,7) ;
             String day   = frdate.substring(8,10) ;
             frdate = year + month + day ;
-            jmodel = "0" + jmodel;
-            jcolor = "0" + jcolor;
-            index03Dto.setJmodel_code(jmodel);
-            index03Dto.setJcolor_code(jcolor);
+            index03Dto.setJmodel_code2(jmodel);
+            index03Dto.setJcolor_code2(jcolor);
             index03Dto.setJbonsa_code(jbonsa);
             index03Dto.setJbonsa_code2(jbonsa2);
             index03Dto.setJpb_gubn(jpbgubn);
@@ -992,6 +1000,13 @@ public class App01CrudController {
             index02Dto = service02.GetCifListAcode(index02Dto);  //거래처정보
             index02BonsaDto = service02.GetCifBonsa(index02BonsaDto);
             index03Dto = service03.GetJpumOrderJkey(index03Dto); //품목정보
+            log.info("jmodel =====>  " + jmodel );
+            log.info("jcolor =====>  " + jcolor );
+            if(index03Dto == null){
+                log.info("error Exception =====> WISH GetJpumOrderJkey NULL" );
+                return "error";
+            }
+
             indexDa023Dto.setCltcd(acode);
             indexDa023Dto.setMisdate(frdate);
             indexDa023Dto.setMisgubun(mflag);

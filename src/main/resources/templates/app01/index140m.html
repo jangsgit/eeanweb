@@ -1306,7 +1306,7 @@
         function CifSearchList_rtn(arg){  
 
             var searchCode = ""; 
-            
+            var ls_jpbgubn = document.getElementById('bjpbgubn').value; 
             if(arg == "M"){
                 searchCode = document.getElementById('searchCode').value;   
             }
@@ -1321,6 +1321,9 @@
             } 
             if(searchCode == null || searchCode.length == 0 || searchCode == ""){ 
                 searchCode = "%"         ;
+            } 
+            if(ls_jpbgubn == null || ls_jpbgubn.length == 0 || ls_jpbgubn == ""){ 
+                ls_jpbgubn = "%"         ;
             } 
             let ls_abonsadam1 = document.getElementById('abonsadam1').value;      
             let ls_conacorp1 = "%";  
@@ -1338,7 +1341,8 @@
                         "conacorp1" :ls_conacorp1, 
                         "conacorp" :searchCode, 
                         "conagita" :ls_conagita, 
-                        "abonsadam1" :ls_abonsadam1,  
+                        "abonsadam1" :ls_abonsadam1, 
+                        "jpbgubn" :ls_jpbgubn,   
                     }, 
                     async:false,
                     success:function(data){  
@@ -1823,6 +1827,20 @@
             const ls_pernm = window.localStorage.getItem("pernm");
             document.getElementById('abonsadam1').value = ls_perid;
             document.getElementById('pernm').value = ls_pernm; 
+            lsUserid = window.localStorage.getItem("userid")
+            if (lsUserid == "pvadmin"){
+                document.getElementById('jpbgubn').value = "P"; 
+                document.getElementById('djpbgubn').value = "P"; 
+                document.getElementById('bjpbgubn').value = "P";  
+            }else if(lsUserid == "bladmin"){
+                document.getElementById('jpbgubn').value = "B"; 
+                document.getElementById('djpbgubn').value = "B"; 
+                document.getElementById('bjpbgubn').value = "B";  
+            }else{
+                document.getElementById('jpbgubn').value = "%"; 
+                document.getElementById('djpbgubn').value = "%"; 
+                document.getElementById('bjpbgubn').value = "%"; 
+            }
 
         }
    

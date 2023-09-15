@@ -115,6 +115,7 @@
                                                     <input class="form-control form-control-sm" id="bacorp2" type="hidden"  />
                                                     <input class="form-control form-control-sm" id="bacorp3" type="hidden"  />
                                                     <input class="form-control form-control-sm" id="bacode" type="hidden"  />  
+                                                    <input class="form-control form-control-sm" id="bjpbgubn" type="hidden"  /> 
                                                     
                                                 </div>
                                             </div>
@@ -159,6 +160,7 @@
                                                     <input class="form-control form-control-sm" id="dacorp2" type="hidden"  />
                                                     <input class="form-control form-control-sm" id="dacorp3" type="hidden"  />
                                                     <input class="form-control form-control-sm" id="dacode" type="hidden"  />  
+                                                    <input class="form-control form-control-sm" id="djpbgubn" type="hidden"  /> 
                                                     
                                                 </div>
                                             </div>
@@ -544,13 +546,18 @@
                 searchCode = document.getElementById('searchCode').value;   
             } 
             if(arg == "A"){
-                searchCode = document.getElementById('bcifname').value;   
+                searchCode = document.getElementById('bcifname').value; 
+                ls_jpbgubn = document.getElementById('bjpbgubn').value;   
             } 
             if(arg == "B"){
-                searchCode = document.getElementById('dcifname').value;   
+                searchCode = document.getElementById('dcifname').value; 
+                ls_jpbgubn = document.getElementById('djpbgubn').value;   
             } 
             if(searchCode == null || searchCode.length == 0 || searchCode == ""){ 
                 searchCode = "%"         ;
+            }   
+            if(ls_jpbgubn == null || ls_jpbgubn.length == 0 || ls_jpbgubn == ""){ 
+                ls_jpbgubn = "%"         ;
             }     
             let ls_conacorp1 = "%";  
             let ls_conagita = "%";   
@@ -563,6 +570,7 @@
                         "conacorp" :searchCode, 
                         "conagita" :ls_conagita, 
                         "abonsadam1" :ls_abonsadam1, 
+                        "jpbgubn" :ls_jpbgubn,  
                     }, 
                     async:false,
                     success:function(data){  
@@ -976,7 +984,18 @@
             return time;  
         }
 
-        function fn_egov_init_date(){
+        function fn_egov_init_date(){ 
+            lsUserid = window.localStorage.getItem("userid")
+            if (lsUserid == "pvadmin"){
+                document.getElementById('djpbgubn').value = "P"; 
+                document.getElementById('bjpbgubn').value = "P";  
+            }else if(lsUserid == "bladmin"){
+                document.getElementById('djpbgubn').value = "B"; 
+                document.getElementById('bjpbgubn').value = "B";  
+            }else{
+                document.getElementById('djpbgubn').value = "%"; 
+                document.getElementById('bjpbgubn').value = "%"; 
+            }
             // var $frdate = $('#frdate');
             // var $todate = $('#todate');
             // $frdate.datetimepicker({

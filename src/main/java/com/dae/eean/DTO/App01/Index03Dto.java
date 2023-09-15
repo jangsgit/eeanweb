@@ -12,6 +12,8 @@ public class Index03Dto {
     private String jdan_code;
     private String jmodel_code;
     private String jcolor_code;
+    private String jmodel_code2;
+    private String jcolor_code2;
     private String jcustomer_code;
     private String jbonsa_code;
     private String jbonsa_code2;

@@ -153,7 +153,6 @@
             AND B.misdate between #{frdate} and #{todate}
              AND isnull(C.misgubun,'')  Like concat('%',#{misgubun},'%')
              AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
-             AND Len(ISNULL(D.inname,'')) > 0
             ORDER BY B.misdate, B.misnum, B.seq
         ]]>
 

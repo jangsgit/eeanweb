@@ -58,13 +58,13 @@
 
     <select id="GetJpumOrderJkey" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
         <![CDATA[
-            select top 1  jkey, jpb_gubn, jgong_code,   jdan_code, jmodel_code, jcolor_code, jcustomer_code,
+            select top 1  jkey, jpb_gubn, jgong_code,   jdan_code, jmodel_code, jdan_code, jmodel_code2, jcolor_code2, jcustomer_code,
                      jbonsa_code, jbonsa_code2, jsayong_gubn, jpum, jgugek, jsize,    convert(int , jchgoga0)  AS jchgoga0, jbigo
             from JCODE3 WITH (NOLOCK)
-            WHERE isnull(jmodel_code,'') = #{jmodel_code}
+            WHERE isnull(jmodel_code2,'') = #{jmodel_code2}
              and  isnull(jbonsa_code,'') = #{jbonsa_code}
              and  isnull(jbonsa_code2,'') = #{jbonsa_code2}
-             and  isnull(jcolor_code,'') = #{jcolor_code}
+             and  isnull(jcolor_code2,'') = #{jcolor_code2}
               and  isnull(jpb_gubn,'') = #{jpb_gubn}
         ]]>
     </select>
@@ -174,20 +174,20 @@
 
     <select id="GetGanListBonsa01" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
         <![CDATA[
-        SELECT jbonsa_code, jbonsa_code2, substring (jmodel_code,2,4) as jmodel_code,   jpb_gubn
+        SELECT jbonsa_code, jbonsa_code2, jmodel_code2 as jmodel_code,   jpb_gubn
         from JCODE3 WITH (NOLOCK)
         WHERE isnull(jpb_gubn,'') Like concat('%',#{jpb_gubn},'%')
          AND jsayong_gubn IN ( '1', '2','3')
          AND isnull(jbonsa_code,'') = #{jbonsa_code}
-         GROUP BY jbonsa_code, jbonsa_code_seq, jbonsa_code2, jbonsa_code_seq2, jmodel_code, jpb_gubn
-         ORDER  BY  CONVERT(int, jbonsa_code_seq),  jbonsa_code2, CONVERT(int, jbonsa_code_seq2), jmodel_code, jpb_gubn
+         GROUP BY jbonsa_code, jbonsa_code_seq, jbonsa_code2, jbonsa_code_seq2, jmodel_code2, jpb_gubn
+         ORDER  BY  CONVERT(int, jbonsa_code_seq),  jbonsa_code2, CONVERT(int, jbonsa_code_seq2), jmodel_code2, jpb_gubn
         ]]>
     </select>
 
 
     <select id="GetGanListBonsa02" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
         <![CDATA[
-        SELECT jbonsa_code, jbonsa_code2, substring (jmodel_code,2,4) as jmodel_code,   jpb_gubn, substring (jcolor_code,2,2) as jcolor_code, jkey,
+        SELECT jbonsa_code, jbonsa_code2, jmodel_code2 as jmodel_code,   jpb_gubn, jcolor_code2 as jcolor_code, jkey,
                convert(integer, DBO.DF_TB_PCODE_JQTY(jkey,  #{frdate},  #{todate}) ) as jqty
         from JCODE3 WITH (NOLOCK)
         WHERE isnull(jpb_gubn,'')   = #{jpb_gubn}
@@ -195,7 +195,7 @@
           and isnull(jbonsa_code2,'')   = #{jbonsa_code2}
           and isnull(jmodel_code,'') Like concat('%',#{jmodel_code},'%')
           AND jsayong_gubn IN ( '1', '2','3')
-        ORDER  BY jmodel_code, jcolor_code, jkey
+        ORDER  BY jmodel_code2, jcolor_code2, jkey
         ]]>
     </select>
 

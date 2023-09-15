@@ -1366,6 +1366,7 @@
             let ls_conacorp = document.getElementById('conacorp').value;  
             let ls_abonsadam1 = "%";
             let ls_conagita = '%'; //document.getElementById('conagita').value;   
+            var ls_jpbgubn = "%";
             $.ajax({
                         url: '/app01m/index02/listtot',  
                         type:"POST",
@@ -1373,7 +1374,8 @@
                             "conacorp1" :ls_conacorp1, 
                             "conacorp" :ls_conacorp, 
                             "conagita" :ls_conagita,
-                            "abonsadam1" :ls_abonsadam1,  
+                            "abonsadam1" :ls_abonsadam1,
+                            "jpbgubn" :ls_jpbgubn,    
                         }, 
                         async:false,
                         success:function(data){  
