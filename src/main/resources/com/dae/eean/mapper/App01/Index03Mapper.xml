@@ -180,7 +180,7 @@
          AND jsayong_gubn IN ( '1', '2','3')
          AND isnull(jbonsa_code,'') = #{jbonsa_code}
          GROUP BY jbonsa_code, jbonsa_code_seq, jbonsa_code2, jbonsa_code_seq2, jmodel_code2, jpb_gubn
-         ORDER  BY  CONVERT(int, jbonsa_code_seq),  jbonsa_code2, CONVERT(int, jbonsa_code_seq2), jmodel_code2, jpb_gubn
+         ORDER  BY  CONVERT(int, jbonsa_code_seq),  CONVERT(int, jbonsa_code_seq2), jbonsa_code2, jmodel_code2, jpb_gubn
         ]]>
     </select>
 
