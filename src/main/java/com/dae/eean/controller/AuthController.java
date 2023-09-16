@@ -79,7 +79,7 @@ public class AuthController {
         userformDto.setPagetree01("관리자모드");
         userformDto.setPagenm("Dashboard");
         model.addAttribute("userFormDto", userformDto);
-
+        System.out.printf("ls_flag ===> " + ls_flag);
         if (ls_flag.equals("AA")){
 
             Date nowData = new Date();
@@ -100,6 +100,14 @@ public class AuthController {
             Date nowData = new Date();
             SimpleDateFormat endDate = new SimpleDateFormat("yyyyMMdd");
             String indate = endDate.format(nowData).toString();
+            String ls_acorp1 = userformDto.getPerid();
+//            System.out.printf("ls_acorp1 ===> " + ls_acorp1);
+//            System.out.printf("ls_acorp1 ===> " +  ls_acorp1.substring(0,2) );
+            if(ls_acorp1.substring(0,2).equals("02")){
+                index03Dto.setJpb_gubn("P");
+            }else{
+                index03Dto.setJpb_gubn("B");
+            }
             index03List = service03.GetJcustomCode(index03Dto);
             model.addAttribute("index15List",index03List);
             return "App01/index150";

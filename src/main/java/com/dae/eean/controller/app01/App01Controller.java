@@ -218,7 +218,7 @@ public class App01Controller {
         HttpSession session = request.getSession();
         UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
         model.addAttribute("userformDto",userformDto);
-
+        index03Dto.setJpb_gubn("%");
         try {
             index03List = service03.GetJcustomCode(index03Dto);
 
@@ -243,6 +243,18 @@ public class App01Controller {
         HttpSession session = request.getSession();
         UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
         model.addAttribute("userformDto",userformDto);
+        String ls_acorp1 = userformDto.getPerid();
+        String ls_flag = userformDto.getFlag();
+        if (ls_flag.equals("BB")){
+            log.debug("ls_acorp1 =====>" + ls_acorp1.substring(0,2) );
+            if(ls_acorp1.substring(0,2).equals("02")){
+                index03Dto.setJpb_gubn("P");
+            }else{
+                index03Dto.setJpb_gubn("B");
+            }
+        }else{
+            index03Dto.setJpb_gubn("%");
+        }
 
         try {
             index03List = service03.GetJcustomCode(index03Dto);
@@ -438,7 +450,18 @@ public class App01Controller {
         HttpSession session = request.getSession();
         UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
         model.addAttribute("userformDto",userformDto);
-
+        String ls_acorp1 = userformDto.getPerid();
+        String ls_flag = userformDto.getFlag();
+        if (ls_flag.equals("BB")){
+            log.debug("ls_acorp1 =====>" + ls_acorp1.substring(0,2) );
+            if(ls_acorp1.substring(0,2).equals("02")){
+                index03Dto.setJpb_gubn("P");
+            }else{
+                index03Dto.setJpb_gubn("B");
+            }
+        }else{
+            index03Dto.setJpb_gubn("%");
+        }
         try {
             index03List = service03.GetJcustomCode(index03Dto);
 

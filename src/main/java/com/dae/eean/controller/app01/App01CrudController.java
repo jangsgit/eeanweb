@@ -1112,6 +1112,8 @@ public class App01CrudController {
             @RequestParam("ipdate") String frdate
             ,@RequestParam("acode") String acode
             ,@RequestParam("jkey") String jkey
+            ,@RequestParam("jqty") Integer jqty
+            ,@RequestParam("jremark") String jremark
             ,@RequestParam("mflag") String mflag
             ,@RequestParam("ordercd") String ordercd
             , Model model
@@ -1172,8 +1174,8 @@ public class App01CrudController {
             indexDa023Dto.setBillkind("1");     //0 미발행 1 발행 2 역발행 3 타사이트발행
             indexDa023Dto.setTaxcls("0");       //0 부가세별도 1 부가세포함
             indexDa023Dto.setTaxgubun("001");   //001 과세 002 비과세
-            indexDa023Dto.setBigo("");
-            indexDa023Dto.setRemark("");
+            indexDa023Dto.setBigo(jremark);
+            indexDa023Dto.setRemark(jremark);
             indexDa023Dto.setVatemail(index02Dto.getAemail());  //계산서 메일주소
             indexDa023Dto.setVatpernm(index02Dto.getInname01());  //계산서 담당자
             indexDa023Dto.setSpjangnum(index02BonsaDto.getAcorp());
@@ -1202,7 +1204,7 @@ public class App01CrudController {
             indexDa024Dto.setPbonsa(index03Dto.getJbonsa_code());
             indexDa024Dto.setPmodel(index03Dto.getJmodel_code());
             indexDa024Dto.setPcolor(index03Dto.getJcolor_code());
-            indexDa024Dto.setQty(1);
+            indexDa024Dto.setQty(jqty);
             indexDa024Dto.setUamt(ll_chulgoga);
             indexDa024Dto.setSamt(ll_chulgoga);
             indexDa024Dto.setCltcd(indexDa023Dto.getCltcd());
@@ -1324,6 +1326,8 @@ public class App01CrudController {
             @RequestParam("ipdate") String frdate
             ,@RequestParam("acode") String acode
             ,@RequestParam("jkey") String jkey
+            ,@RequestParam("jqty") Integer jqty
+            ,@RequestParam("jremark") String jremark
             ,@RequestParam("mflag") String mflag
             ,@RequestParam("ordercd") String ordercd
             , Model model
@@ -1384,8 +1388,8 @@ public class App01CrudController {
             indexDa023Dto.setBillkind("1");     //0 미발행 1 발행 2 역발행 3 타사이트발행
             indexDa023Dto.setTaxcls("0");       //0 부가세별도 1 부가세포함
             indexDa023Dto.setTaxgubun("001");   //001 과세 002 비과세
-            indexDa023Dto.setBigo("");
-            indexDa023Dto.setRemark("");
+            indexDa023Dto.setBigo(jremark);
+            indexDa023Dto.setRemark(jremark);
             indexDa023Dto.setVatemail(index02Dto.getAemail());  //계산서 메일주소
             indexDa023Dto.setVatpernm(index02Dto.getInname01());  //계산서 담당자
             indexDa023Dto.setSpjangnum(index02BonsaDto.getAcorp());
@@ -1414,7 +1418,7 @@ public class App01CrudController {
             indexDa024Dto.setPbonsa(index03Dto.getJbonsa_code());
             indexDa024Dto.setPmodel(index03Dto.getJmodel_code());
             indexDa024Dto.setPcolor(index03Dto.getJcolor_code());
-            indexDa024Dto.setQty(1);
+            indexDa024Dto.setQty(jqty);
             indexDa024Dto.setUamt(ll_chulgoga);
             indexDa024Dto.setSamt(ll_chulgoga);
             indexDa024Dto.setCltcd(indexDa023Dto.getCltcd());

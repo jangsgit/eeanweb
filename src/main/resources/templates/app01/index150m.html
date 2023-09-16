@@ -217,6 +217,74 @@
      <!--------------------------------------------------------------------------------------->     
      
 
+     
+    <!--  주문 모달 처리 -->
+    <input class="form-control form-control-sm"  type="hidden" id="inorderbtn" data-bs-toggle="modal" data-bs-target="#ordermodal"  /> 
+    <!--------------------------------------------------------------------------------------->   
+    <div class="modal fade" id="ordermodal" data-bs-keyboard="false"
+    data-bs-backdrop="static" tabindex="-1" aria-labelledby="staticBackdropLabel"
+    aria-hidden="true">
+        <div class="modal-dialog modal-lg mt-6" role="document" id = "modalForm01"
+            style="max-width: 600px">
+            <div class="modal-content border-0"> 
+                <!-- <div class="modal_head" data-name='OrderTitle'>
+                    주문등록
+                </div> -->
+                <!-- <div class='row flex-nowrap  overflow-auto' data-name='OrderTitle02'> -->
+                <div class="modal-body p-0" > 
+                    <div class="rounded-top-lg py-3 ps-4 pe-6 bg-light">                            
+                        <div class="search">  
+                            <div class="row"  >
+                                <div class="col">
+                                    <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">품명</span> 
+                                        <input class="form-control form-control-sm" id="mjpumnm" type="text"    autocomplete="off"  placeholder=""     >
+                                        <input class="form-control form-control-sm" id="mjkey" type="hidden"  /> 
+                                        <input class="form-control form-control-sm" id="mgubun" type="hidden"  /> 
+                                        
+                                    </div>
+                                </div>   
+                            </div>                                   
+                            <div class="row"  >
+                                <div class="col">
+                                    <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">요청사항</span> 
+                                        <input class="form-control form-control-sm" id="mremark" type="text"    autocomplete="off"  placeholder=""     > 
+                                        
+                                    </div>
+                                </div> 
+                            </div>                                   
+                            <div class="row"  >
+                                <div class="col">
+                                    <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">주문수량</span> 
+                                        <input class="form-control form-control-sm" id="mjqty" type="number"    autocomplete="off"  placeholder=""     > 
+                                        
+                                    </div>
+                                </div>  
+                                <div class="col-md-auto"> 
+                                </div>
+                                <div class="col col-lg-2">
+                                    <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="OrderBtnSave" type="button"  >주문
+                                    </button>
+                                </div>  
+                            </div>  
+                        </div>                             
+                    </div>    
+                </div>   
+                <div class="modal-footer">
+                    <div class="row g-1">
+                        <div class="col-auto">
+                            <button class="badge-soft-primary dropdown-item rounded-1"
+                                type="button"  id="winordermodal_btn" data-bs-dismiss="modal">Close</button>
+                        </div> 
+                    </div>
+                </div>   
+
+            </div>
+        </div> 
+    </div>  
+<!--------------------------------------------------------------------------------------->     
+
+
+
      <input class="form-control form-control-sm"  type="hidden" id="imgbtn" data-bs-toggle="modal" data-bs-target="#imgmodal"  /> 
      <!--------------------------------------------------------------------------------------->   
      <div class="modal fade" id="imgmodal" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
@@ -556,7 +624,8 @@
 
         function jmodel_grid(data){  
             var DivHtml01 = " <div class='row flex-nowrap  overflow-auto' data-name='ListDiv'> ";  
-            var ls_imgurl = "https://www-prd-kr.gentlemonster.com/media/catalog/product/cache/6c6f229b8a7ab97f51028776641e27d1/1/1/";  //11001_1240442012214252104_01.jpg
+            // var ls_imgurl = "https://www-prd-kr.gentlemonster.com/media/catalog/product/cache/6c6f229b8a7ab97f51028776641e27d1/1/1/";  //11001_1240442012214252104_01.jpg
+            var ls_imgurl = "/images/11001_1240442012214252104/"
             for (var i = 0; i < data.length; i++) {
                 var ls_jkey = data[i]["jkey"]  
                 var ls_jcustomercode = data[i]["jcustomer_code"]  
@@ -578,9 +647,9 @@
                            
                         DivHtml01 = DivHtml01 +  " 		<a class='color-white' href=javascript:imgdetail('" + ls_imgurl + "11001_1240442012214252104');>					         ";  					
                                 DivHtml01 = DivHtml01 +  " 		  <div class='hoverbox rounded-3'  >						 "; 
-                                DivHtml01 = DivHtml01 +  " 		            <img class='img-fluid rounded' src='" + ls_imgurl + "11001_1240442012214252104_01.jpg' alt=''   />	 ";  
+                                DivHtml01 = DivHtml01 +  " 		            <img class='img-fluid rounded' src='" + ls_imgurl + "11001_1240442012214252104_01.png' alt=''   />	 ";  
                                 DivHtml01 = DivHtml01 +  " 		        <div class='hoverbox-content'>						 ";  
-                                DivHtml01 = DivHtml01 +  " 		            <img class='img-fluid rounded' src='" + ls_imgurl + "11001_1240442012214252104_02.jpg' alt=''  />	 ";  
+                                DivHtml01 = DivHtml01 +  " 		            <img class='img-fluid rounded' src='" + ls_imgurl + "11001_1240442012214252104_02.png' alt=''  />	 ";  
                                 DivHtml01 = DivHtml01 +  " 		        </div>									 ";  
                                 DivHtml01 = DivHtml01 +  " 		  </div>									 ";  
                         DivHtml01 = DivHtml01 +  " 		</a>										 ";
@@ -602,7 +671,7 @@
                                         DivHtml01 = DivHtml01 +  " 		<div class='d-flex flex-between-center px-3'>   ";                                             
                                         // DivHtml01 = DivHtml01 +  "      <div> <a class='btn btn-sm btn-outline-secondary border-300 d-lg-block me-2 me-lg-0' href='#!'><svg class='svg-inline--fa fa-heart fa-w-16' aria-hidden='true' focusable='false' data-prefix='far' data-icon='heart' role='img' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' data-fa-i2svg=''><path fill='currentColor' d='M458.4 64.3C400.6 15.7 311.3 23 256 79.3 200.7 23 111.4 15.6 53.6 64.3-21.6 127.6-10.6 230.8 43 285.5l175.4 178.7c10 10.2 23.4 15.9 37.6 15.9 14.3 0 27.6-5.6 37.6-15.8L469 285.6c53.5-54.7 64.7-157.9-10.6-221.3zm-23.6 187.5L259.4 430.5c-2.4 2.4-4.4 2.4-6.8 0L77.2 251.8c-36.5-37.2-43.9-107.6 7.3-150.7 38.9-32.7 98.9-27.8 136.5 10.5l35 35.7 35-35.7c37.8-38.5 97.8-43.2 136.5-10.6 51.1 43.1 43.5 113.9 7.3 150.8z'></path></svg><!-- <span class='far fa-heart'></span> Font Awesome fontawesome.com --><span class='ms-2 d-none d-md-inline-block'>요청사항등록</span></a> </div>";
                                         DivHtml01 = DivHtml01 +  " 		<div> ";
-                                        if(ls_jqty == 0 ){
+                                        if(ls_jqty <= 0 ){
                                             DivHtml01 = DivHtml01 +  "           <!-- <span class='far fa-heart'></span> Font Awesome fontawesome.com --></a><a class='btn btn-sm btn-falcon-default' href=javascript:wish_fnc(" + ls_argstr +  "); data-bs-toggle='tooltip' data-bs-placement='top' title='예약등록' data-bs-original-title='예약하기' aria-label='예약하기'><svg class='svg-inline--fa fa-heart fa-w-16' aria-hidden='true' focusable='false' data-prefix='fas' data-icon='heart' role='img' xmlns='http://www.w3.org/2000/svg'  onClick='order_fnc()' viewBox='0 0 576 512' data-fa-i2svg=''><path fill='currentColor' d='M458.4 64.3C400.6 15.7 311.3 23 256 79.3 200.7 23 111.4 15.6 53.6 64.3-21.6 127.6-10.6 230.8 43 285.5l175.4 178.7c10 10.2 23.4 15.9 37.6 15.9 14.3 0 27.6-5.6 37.6-15.8L469 285.6c53.5-54.7 64.7-157.9-10.6-221.3zm-23.6 187.5L259.4 430.5c-2.4 2.4-4.4 2.4-6.8 0L77.2 251.8c-36.5-37.2-43.9-107.6 7.3-150.7 38.9-32.7 98.9-27.8 136.5 10.5l35 35.7 35-35.7c37.8-38.5 97.8-43.2 136.5-10.6 51.1 43.1 43.5 113.9 7.3 150.8z'></path></svg><!-- <span class='far fa-heart'></span> Font Awesome fontawesome.com --></a></div> "; 
                                             // DivHtml01 = DivHtml01 +  "           <a class='btn btn-sm btn-falcon-default me-2' href='javascript:wish_fnc();' data-bs-toggle='tooltip' data-bs-placement='top' title='' data-bs-original-title='Add to Wish List' aria-label='Add to Wish List'><svg class='svg-inline--fa fa-heart fa-w-16' aria-hidden='true' focusable='false' data-prefix='far' data-icon='heart' role='img' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' data-fa-i2svg=''  onClick='wish_fnc(" + ls_argstr +  ")'><path fill='currentColor' d='M458.4 64.3C400.6 15.7 311.3 23 256 79.3 200.7 23 111.4 15.6 53.6 64.3-21.6 127.6-10.6 230.8 43 285.5l175.4 178.7c10 10.2 23.4 15.9 37.6 15.9 14.3 0 27.6-5.6 37.6-15.8L469 285.6c53.5-54.7 64.7-157.9-10.6-221.3zm-23.6 187.5L259.4 430.5c-2.4 2.4-4.4 2.4-6.8 0L77.2 251.8c-36.5-37.2-43.9-107.6 7.3-150.7 38.9-32.7 98.9-27.8 136.5 10.5l35 35.7 35-35.7c37.8-38.5 97.8-43.2 136.5-10.6 51.1 43.1 43.5 113.9 7.3 150.8z'></path></svg>";                                            
                                         }else{
@@ -750,6 +819,21 @@
         });  
 
 
+        //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 모달 주문등록@@@@@@@@@@@@@@@@@@@@@@@@@@@
+        //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$  
+        document.getElementById("OrderBtnSave").addEventListener("click",function(){  
+            var ls_mgubun = document.getElementById('mgubun').value; 
+            var arg1 = document.getElementById('mjpumnm').value; 
+            var arg2 = document.getElementById('mjkey').value; 
+            var arg3 = document.getElementById('mremark').value; 
+            var arg4 = document.getElementById('mjqty').value; 
+            if(ls_mgubun == "O"){
+                save_btn(arg1, arg2, arg3, arg4)
+            }else{
+                savewish_btn(arg1, arg2, arg3, arg4)
+            }  
+            $("#winordermodal_btn").trigger("click"); 
+        })  
 
         function searchList_rtn(arg1){ 
             switch(arg1){
@@ -1359,12 +1443,20 @@
             // var ls_frdate = '';
             // ls_frdate = document.getElementById('ipdate').value; 
             // // alert(ls_frdate + ' / ' + arg1 + ' : 1EA 주문등록' )
-            save_btn(arg1, arg2)
+            // save_btn(arg1, arg2) 
+            save_modal('O',arg1, arg2)
             
         }
 
+        function save_modal(arg0, arg1, arg2){  
+            document.getElementById('mjpumnm').value = arg1;
+            document.getElementById('mjkey').value = arg2;
+            document.getElementById('mjqty').value = 1;    
+            document.getElementById('mgubun').value = arg0;   
+            document.getElementById("inorderbtn").click(); 
+        }
         
-        function save_btn(arg1, arg2){  
+        function save_btn(arg1, arg2, arg3, arg4){  
             var ls_ipdate = document.getElementById('ipdate').value;          
             var ls_acode   = document.getElementById('acode').value;                                      
             // const warnning_grid = document.getElementById('inwarnning_grid'); 
@@ -1377,9 +1469,9 @@
             
             switch(ls_tab){
                 case 'A': 
-                    if (!confirm("품명: " + arg1 + "  주문 하시겠습니까?")) { 
-                        return false; 
-                    }   
+                    // if (!confirm("품명: " + arg1 + "  주문 하시겠습니까?")) { 
+                    //     return false; 
+                    // }   
                     if(ls_ipdate == null || ls_ipdate.length == 0 || ls_ipdate == ""){ 
                         alert("등록일자를 등록하세요") 
                         document.getElementById("ipdate").focus(); 
@@ -1390,14 +1482,23 @@
                         document.getElementById("cifname").focus(); 
                         return ;               
                     }     
-                    console.log(arg2);
+                    //요청사항 
+                    if(arg3 == null || arg3.length == 0 || arg3 == ""){ 
+                        arg3 = ""          ;
+                    }    
+                    //수량
+                    if(arg4 == null ){ 
+                        arg4 = 1         ;
+                    }  
                     $.ajax({
                         url: '/app01m/index14/savecust',  
                         type:"POST",
                         data: { 
                             "ipdate"  : ls_ipdate,  
                             "acode"   : ls_acode   , 
-                            "jkey"  : arg2     ,    
+                            "jkey"  : arg2     ,        
+                            "jremark"  : arg3     ,   
+                            "jqty"  : arg4     ,     
                             "mflag"  : 'BB'   ,      
                             "ordercd"  : 'BB'   , 
                         }, 
@@ -1430,12 +1531,13 @@
 
 
         function wish_fnc(arg1, arg2){
-            savewish_btn(arg1, arg2)
+            // savewish_btn(arg1, arg2) 
+            save_modal("R", arg1, arg2)
         }
 
 
 
-        function savewish_btn(arg1, arg2){  
+        function savewish_btn(arg1, arg2, arg3, arg4){  
             var ls_ipdate = document.getElementById('ipdate').value;          
             var ls_acode   = document.getElementById('acode').value;                                      
             // const warnning_grid = document.getElementById('inwarnning_grid'); 
@@ -1448,9 +1550,9 @@
             
             switch(ls_tab){
                 case 'A': 
-                    if (!confirm("품명: " + arg1 + "  예약 하시겠습니까?")) { 
-                        return false; 
-                    }   
+                    // if (!confirm("품명: " + arg1 + "  예약 하시겠습니까?")) { 
+                    //     return false; 
+                    // }   
                     if(ls_ipdate == null || ls_ipdate.length == 0 || ls_ipdate == ""){ 
                         alert("등록일자를 등록하세요") 
                         document.getElementById("ipdate").focus(); 
@@ -1461,13 +1563,23 @@
                         document.getElementById("cifname").focus(); 
                         return ;               
                     }   
+                    //요청사항 
+                    if(arg3 == null || arg3.length == 0 || arg3 == ""){ 
+                        arg3 = ""          ;
+                    }    
+                    //수량
+                    if(arg4 == null ){ 
+                        arg4 = 1         ;
+                    } 
                     $.ajax({
                         url: '/app01m/index14/savecustwish',  
                         type:"POST",
                         data: { 
                             "ipdate"  : ls_ipdate,  
                             "acode"   : ls_acode   , 
-                            "jkey"  : arg2     ,    
+                            "jkey"  : arg2     ,     
+                            "jremark"  : arg3     ,   
+                            "jqty"  : arg4     ,        
                             "mflag"  : 'BB'   ,      
                             "ordercd"  : 'BB'   , 
                         }, 
@@ -1503,8 +1615,8 @@
             ListDivs.remove();
 
             var DivHtml02 = " <div class='row flex-nowrap  overflow-auto' data-name='ListDiv02'> ";  
-                DivHtml02 = DivHtml02 + " <img class='img-thumbnail' src='" + arg1 + "_01.jpg' alt='' style='max-width: 50%'/> "; 
-                DivHtml02 = DivHtml02 + " <img class='img-thumbnail' src='" + arg1 + "_02.jpg' alt='' style='max-width: 50%' /> "; 
+                DivHtml02 = DivHtml02 + " <img class='img-thumbnail' src='" + arg1 + "_01.png' alt='' style='max-width: 50%'/> "; 
+                DivHtml02 = DivHtml02 + " <img class='img-thumbnail' src='" + arg1 + "_02.png' alt='' style='max-width: 50%' /> "; 
                 DivHtml02 = DivHtml02 +  "  </div>"; 
                 $('#btnDiv02').before(DivHtml02 );
                 document.getElementById("imgbtn").click(); 
