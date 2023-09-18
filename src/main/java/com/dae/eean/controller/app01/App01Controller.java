@@ -218,7 +218,27 @@ public class App01Controller {
         HttpSession session = request.getSession();
         UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
         model.addAttribute("userformDto",userformDto);
-        index03Dto.setJpb_gubn("%");
+        log.info("getFlag =====>" + userformDto.getFlag());
+        log.info("getUserid =====>" + userformDto.getUserid().substring(0,2));
+        log.info("getPerid =====>" + userformDto.getPerid().substring(0,2));
+        if(userformDto.getFlag().equals("AA")){
+            if(userformDto.getUserid().substring(0,2).equals("pv")){
+                index03Dto.setJpb_gubn("P");
+            }else if(userformDto.getUserid().substring(0,2).equals("bl")){
+                index03Dto.setJpb_gubn("B");
+            }else{
+                index03Dto.setJpb_gubn("%");
+            }
+        }else if(userformDto.getFlag().equals("BB")){
+            if(userformDto.getPerid().substring(0,2).equals("02")){
+                index03Dto.setJpb_gubn("P");
+            }else{
+                index03Dto.setJpb_gubn("B");
+            }
+        }else{
+            index03Dto.setJpb_gubn("%");
+        }
+
         try {
             index03List = service03.GetJcustomCode(index03Dto);
 

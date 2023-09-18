@@ -657,7 +657,7 @@ public class App01CrudController {
             model.addAttribute("index03GanList03",index03List);
 
         } catch (Exception ex) {
-            log.info("App03GanList01_index Exception =====>" + ex.toString());
+            log.info("App03GanList03_index Exception =====>" + ex.toString());
 //            log.debug("Exception =====>" + ex.toString() );
         }
 
