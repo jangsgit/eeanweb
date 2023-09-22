@@ -218,9 +218,6 @@ public class App01Controller {
         HttpSession session = request.getSession();
         UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
         model.addAttribute("userformDto",userformDto);
-        log.info("getFlag =====>" + userformDto.getFlag());
-        log.info("getUserid =====>" + userformDto.getUserid().substring(0,2));
-        log.info("getPerid =====>" + userformDto.getPerid().substring(0,2));
         if(userformDto.getFlag().equals("AA")){
             if(userformDto.getUserid().substring(0,2).equals("pv")){
                 index03Dto.setJpb_gubn("P");
