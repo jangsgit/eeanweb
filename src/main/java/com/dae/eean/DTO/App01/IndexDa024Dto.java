@@ -55,6 +55,8 @@ public class IndexDa024Dto {
     private String devflag;
     private String eeacodetxt;
     private String remark;
+    private String remarkaa;
+    private String remarkbb;
     private String message;
     private String payflag;
     private String sido;

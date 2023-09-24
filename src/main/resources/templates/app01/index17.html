@@ -239,7 +239,9 @@
                     // { binding: 'pcolor', header: '컬러', align: "center", width: 100 },  
                     { binding: 'qty', header: '수량', align: "center", width: 80 },  
                     { binding: 'uamt', header: '단가', align: "center", width: 100 },  
-                    { binding: 'samt', header: '금액', align: "center", width: 150 },    
+                    { binding: 'samt', header: '금액', align: "center", width: 150 },
+                    { binding: 'remarkaa', header: '본사비고', align: "center", width: 100 },  
+                    { binding: 'remarkbb', header: '영업점비고', align: "center", width: 100 },     
                     { binding: 'fixflag', header: '주문', align: "center", width: 150, cssClass: 'switch'   },  
                 ], 
                 itemsSource: view_p01tab04page
@@ -453,7 +455,9 @@
                     misgubun: wtab04Dto[i]["misgubun"],  
                     omisdate: wtab04Dto[i]["omisdate"],
                     omisnum: wtab04Dto[i]["omisnum"],     
-                    oseq: wtab04Dto[i]["oseq"],         
+                    oseq: wtab04Dto[i]["oseq"],      
+                    remarkaa: wtab04Dto[i]["remarkaa"],  
+                    remarkbb: wtab04Dto[i]["remarkbb"],       
                     fixflag: bfixflag,                                           
                 });
                 cnt++;
@@ -542,7 +546,19 @@
             cols.align = "center";
             cols.aggregate = 'Sum';
             cols.width = 150;  
-            wtab04Grid.columns.push(cols);   
+            wtab04Grid.columns.push(cols);       
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'remarkaa';
+            cols.header = '본사비고';
+            cols.align = "left"; 
+            cols.width = 200;  
+            wtab04Grid.columns.push(cols);     
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'remarkbb';
+            cols.header = '영업점비고';
+            cols.align = "left"; 
+            cols.width = 200;  
+            wtab04Grid.columns.push(cols);  
             // cols = new wijmo.grid.Column(); 
             // cols.binding = 'fixflag'; 
             // cols.header = '주문';

@@ -43,7 +43,11 @@ public interface Index14Mapper {
 
     public Boolean UpdateDA024(IndexDa024Dto parm) ;
     public Boolean UpdateDA024Dev(IndexDa024Dto parm) ;
+    public Boolean UpdateDA024rkaa(IndexDa024Dto parm) ;
+    public Boolean UpdateDA024rkbb(IndexDa024Dto parm) ;
     public Boolean UpdateDA026(IndexDa024Dto parm) ;
+    public Boolean UpdateDA026rkaa(IndexDa024Dto parm) ;
+    public Boolean UpdateDA026rkbb(IndexDa024Dto parm) ;
 
     public List<IndexDa024Dto> SelectDa024List(IndexDa024Dto parm) ;
 

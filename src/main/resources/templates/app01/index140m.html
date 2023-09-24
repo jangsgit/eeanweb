@@ -37,10 +37,10 @@
                                   <a class="nav-link active" data-toggle="tab" href="#step01" onclick="tabchk_rtn('A')">주문등록</a>
                                 </li>
                                 <li class="nav-item">
-                                  <a class="nav-link" data-toggle="tab" href="#step02"  onclick="tabchk_rtn('B')">주문현황</a>
+                                  <a class="nav-link" data-toggle="tab" href="#step02"  onclick="tabchk_rtn('B')">주문(요청등록)</a>
                                 </li>
                                 <li class="nav-item">
-                                  <a class="nav-link" data-toggle="tab" href="#step03"  onclick="tabchk_rtn('C')">예약현황</a>
+                                  <a class="nav-link" data-toggle="tab" href="#step03"  onclick="tabchk_rtn('C')">예약(요청등록)</a>
                                 </li>
                                 <input type="hidden" id="tabvalue" value="A">
                             </ul>
@@ -119,6 +119,10 @@
                                                 <input class="form-control form-control-sm" id="bacorp3" type="hidden"  />
                                                 <input class="form-control form-control-sm" id="bacode" type="hidden"  /> 
                                                 <input class="form-control form-control-sm" id="bjpbgubn" type="hidden"  /> 
+                                                <input class="form-control form-control-sm" id="bmisdate" type="hidden"  /> 
+                                                <input class="form-control form-control-sm" id="bmisnum" type="hidden"  /> 
+                                                <input class="form-control form-control-sm" id="bcltcd" type="hidden"  /> 
+                                                <input class="form-control form-control-sm" id="bseq" type="hidden"  /> 
                                                 
                                             </div>
                                         </div>
@@ -230,6 +234,70 @@
       
      <!--------------------------------------------------------------------------------------->     
      
+    <!--  주문 모달 처리 -->
+    <input class="form-control form-control-sm"  type="hidden" id="inorderbtn" data-bs-toggle="modal" data-bs-target="#ordermodal"  /> 
+    <!--------------------------------------------------------------------------------------->   
+    <div class="modal fade" id="ordermodal" data-bs-keyboard="false"
+    data-bs-backdrop="static" tabindex="-1" aria-labelledby="staticBackdropLabel"
+    aria-hidden="true">
+        <div class="modal-dialog modal-lg mt-6" role="document" id = "modalForm01"
+            style="max-width: 600px">
+            <div class="modal-content border-0"> 
+                <!-- <div class="modal_head" data-name='OrderTitle'>
+                    주문등록
+                </div> -->
+                <!-- <div class='row flex-nowrap  overflow-auto' data-name='OrderTitle02'> -->
+                <div class="modal-body p-0" > 
+                    <div class="rounded-top-lg py-3 ps-4 pe-6 bg-light">                            
+                        <div class="search">  
+                            <div class="row"  >
+                                <div class="col">
+                                    <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">품명</span> 
+                                        <input class="form-control form-control-sm" id="mjpumnm" type="text"    autocomplete="off"  placeholder=""     >
+                                        <input class="form-control form-control-sm" id="mjkey" type="hidden"  /> 
+                                        <input class="form-control form-control-sm" id="mgubun" type="hidden"  /> 
+                                        
+                                    </div>
+                                </div>   
+                            </div>                                   
+                            <div class="row"  >
+                                <div class="col">
+                                    <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">요청사항</span> 
+                                        <input class="form-control form-control-sm" id="mremark" type="text"    autocomplete="off"  placeholder="예) SF31번 코, DN01번 힌지나사"     > 
+                                        
+                                    </div>
+                                </div> 
+                            </div>                                   
+                            <div class="row"  >
+                                <div class="col">
+                                    <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">주문수량</span> 
+                                        <input class="form-control form-control-sm" id="mjqty" type="number"    autocomplete="off"  placeholder=""     > 
+                                        
+                                    </div>
+                                </div>  
+                                <div class="col-md-auto"> 
+                                </div>
+                                <div class="col col-lg-2">
+                                    <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="OrderBtnSave" type="button"  >저장
+                                    </button>
+                                </div>  
+                            </div>  
+                        </div>                             
+                    </div>    
+                </div>   
+                <div class="modal-footer">
+                    <div class="row g-1">
+                        <div class="col-auto">
+                            <button class="badge-soft-primary dropdown-item rounded-1"
+                                type="button"  id="winordermodal_btn" data-bs-dismiss="modal">Close</button>
+                        </div> 
+                    </div>
+                </div>   
+
+            </div>
+        </div> 
+    </div>  
+<!---------------------------------------------------------------------------------------> 
 
 
 
@@ -396,18 +464,19 @@
                 alternatingRowStep: 0,
                 columns: [     
                     { binding: 'misdate', header: '주문일자', align: "center", width: 120 }, 
-                    { binding: 'misnum', header: '주문번호', align: "center", width: 80 },  
-                    { binding: 'seq', header: '순번', align: "center", width: 80 },  
+                    // { binding: 'misnum', header: '주문번호', align: "center", width: 80 },  
+                    // { binding: 'seq', header: '순번', align: "center", width: 80 },  
                     { binding: 'acorp', header: '거래처', align: "center", width: 150 },  
                     { binding: 'pname', header: '품목', align: "center", width: 150 },   
                     { binding: 'psize', header: '규격', align: "center", width: 120 },  
-                    { binding: 'pbonsa', header: '코드', align: "center", width: 100 },  
-                    { binding: 'pmodel', header: '모델', align: "center", width: 100 },  
-                    { binding: 'pcolor', header: '컬러', align: "center", width: 100 },  
+                    // { binding: 'pbonsa', header: '코드', align: "center", width: 100 },  
+                    // { binding: 'pmodel', header: '모델', align: "center", width: 100 },  
+                    // { binding: 'pcolor', header: '컬러', align: "center", width: 100 },  
                     { binding: 'qty', header: '수량', align: "center", width: 80 },  
                     { binding: 'uamt', header: '단가', align: "center", width: 100 },  
-                    { binding: 'samt', header: '금액', align: "center", width: 150 },    
-                    { binding: 'fixflag', header: '확정', align: "center", width: 150, cssClass: 'switch'   },  
+                    { binding: 'samt', header: '금액', align: "center", width: 150 },  
+                    { binding: 'remark', header: '요청등록', align: "center", width: 300 },   
+                    // { binding: 'fixflag', header: '확정', align: "center", width: 150, cssClass: 'switch'   },  
                 ], 
                 itemsSource: view_p01tab02page
             });  
@@ -449,17 +518,18 @@
                 alternatingRowStep: 0,
                 columns: [     
                     { binding: 'misdate', header: '예약일자', align: "center", width: 120 }, 
-                    { binding: 'misnum', header: '예약번호', align: "center", width: 80 },  
-                    { binding: 'seq', header: '순번', align: "center", width: 80 },  
+                    // { binding: 'misnum', header: '예약번호', align: "center", width: 80 },  
+                    // { binding: 'seq', header: '순번', align: "center", width: 80 },  
                     { binding: 'acorp', header: '거래처', align: "center", width: 150 },  
                     { binding: 'pname', header: '품목', align: "center", width: 150 },   
                     { binding: 'psize', header: '규격', align: "center", width: 120 },  
-                    { binding: 'pbonsa', header: '코드', align: "center", width: 100 },  
-                    { binding: 'pmodel', header: '모델', align: "center", width: 100 },  
-                    { binding: 'pcolor', header: '컬러', align: "center", width: 100 },  
+                    // { binding: 'pbonsa', header: '코드', align: "center", width: 100 },  
+                    // { binding: 'pmodel', header: '모델', align: "center", width: 100 },  
+                    // { binding: 'pcolor', header: '컬러', align: "center", width: 100 },  
                     { binding: 'qty', header: '수량', align: "center", width: 80 },  
                     { binding: 'uamt', header: '단가', align: "center", width: 100 },  
-                    { binding: 'samt', header: '금액', align: "center", width: 150 },    
+                    { binding: 'samt', header: '금액', align: "center", width: 150 },   
+                    { binding: 'remark', header: '요청등록', align: "center", width: 300 },  
                     { binding: 'fixflag', header: '주문', align: "center", width: 150, cssClass: 'switch'   }, 
                 ], 
                 itemsSource: view_p01tab04page
@@ -584,6 +654,133 @@
             save_btn(arg1, arg2, arg3)
         }
 
+
+        function save_modal(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7){  
+            document.getElementById('mjpumnm').value = arg1;
+            document.getElementById('mjkey').value = arg2;
+            document.getElementById('mjqty').value = 1;    
+            document.getElementById('mgubun').value = arg0; 
+            document.getElementById('bmisdate').value = arg3; 
+            document.getElementById('bmisnum').value = arg4; 
+            document.getElementById('bseq').value = arg5;   
+            document.getElementById('bcltcd').value = arg6;   
+            if(arg7 != null && arg7.length > 0 && arg7 != "요청등록" ){  
+                document.getElementById('mremark').value = arg7; 
+            }else{
+                document.getElementById('mremark').value = ""; 
+            }      
+            document.getElementById("inorderbtn").click();        
+        }
+
+
+        function saveremark_btn(arg1, arg2, arg3, arg4){           
+            var ls_misdate   = document.getElementById('bmisdate').value;          
+            var ls_misnum   = document.getElementById('bmisnum').value;          
+            var ls_seq   = document.getElementById('bseq').value;                
+            var ls_cltcd   = document.getElementById('bcltcd').value;  //비고등록시 거래처코드
+            var ls_tabchk = document.getElementById('tabvalue').value;                               
+            // const warnning_grid = document.getElementById('inwarnning_grid'); 
+            var ls_pcode  =  [];        
+            var ll_qty    =  [];    
+            var ls_jcode  =  [];        
+            var ll_jqty    =  []; 
+            var llCount = 0;                     
+            //요청사항 
+            if(arg3 == null || arg3.length == 0 || arg3 == ""){ 
+                arg3 = ""          ;
+            }    
+            //수량
+            if(arg4 == null ){ 
+                arg4 = 1         ;
+            }   
+            // console.log(ls_misdate)
+            // console.log(ls_misnum)
+            // console.log(ls_seq)
+            // console.log(ls_cltcd)
+            // console.log(arg2)
+            // console.log(arg3)
+            // console.log(arg4)
+            if(ls_tabchk == "B"  ){   
+                $.ajax({
+                    url: '/app01m/index14/savecust',  
+                    type:"POST",
+                    data: { 
+                        "ipdate"  : ls_misdate,  
+                        "acode"   : ls_cltcd   , 
+                        "jkey"  : arg2     ,      
+                        "jremark"  : arg3     ,   
+                        "jqty"  : arg4     ,      
+                        "misdate"  : ls_misdate     ,      
+                        "misnum"  : ls_misnum     ,      
+                        "seq"  : ls_seq     ,       
+                        "mflag"  : 'CC'   ,      
+                        "ordercd"  : 'CC'   , 
+                    }, 
+                    async:false,
+                    success:function(data){   
+                        if(data == "success"){
+                            alert("저장되었습니다.") 
+                            searchList_rtn(ls_tabchk) 
+                            return true;
+                            // searchList_rtn(ls_tab);  
+                            // clear_rtn(ls_tab);        
+                        }else{                       
+                            alert("저장중 오류가 발생했습니다. 관리자에게 문의하세요.")
+                            // listUp();
+                            console.log(data); 
+                            return false; 
+                        }
+                        
+                    },error:function(e){
+                        alert("저장중 오류가 발생했습니다.")
+                        console.log("error"); 
+                    }
+                }).done(function(fragment){           
+
+                }) 
+            }else{ 
+                $.ajax({
+                        url: '/app01m/index14/savecustwish',  
+                        type:"POST",
+                        data: { 
+                            "ipdate"  : ls_misdate,  
+                            "acode"   : ls_cltcd   , 
+                            "jkey"  : arg2     ,     
+                            "jremark"  : arg3     ,   
+                            "jqty"  : arg4     , 
+                            "misdate"  : ls_misdate     ,      
+                            "misnum"  : ls_misnum     ,      
+                            "seq"      : ls_seq     ,              
+                            "mflag"  : 'CC'   ,      
+                            "ordercd"  : 'CC'   , 
+                        }, 
+                        async:false,
+                        success:function(data){   
+                            if(data == "success"){
+                                alert("저장되었습니다.") 
+                                searchList_rtn(ls_tabchk) 
+                                return true;
+                                // searchList_rtn(ls_tab);  
+                                // clear_rtn(ls_tab);        
+                            }else{                       
+                                alert("예약중 오류가 발생했습니다. 관리자에게 문의하세요.")
+                                // listUp();
+                                console.log(data); 
+                                return false; 
+                            }
+                           
+                        },error:function(e){                  
+                            alert("예약중 오류가 발생했습니다.")
+                            console.log("error"); 
+                        }
+                    }).done(function(fragment){           
+
+                    })                  
+            }           
+        }
+
+
+
         function save_btn(arg1, arg2, arg3){
             var words = arg3.split('(');
             var jqty = ""; 
@@ -600,7 +797,7 @@
             var ls_acode   = document.getElementById('acode').value;    
             var  ls_jpbgubn    = document.getElementById('jpbgubn').value;                         
             var ls_bonsacd =   document.getElementById('jbonsacd').value ;                                    
-            const warnning_grid = document.getElementById('inwarnning_grid'); 
+            const warnning_grid = document.getElementById('inwarnning_grid');   
             var ls_pcode  =  [];        
             var ll_qty    =  [];    
             var ls_jcode  =  [];        
@@ -858,6 +1055,19 @@
 
         }    
 
+
+        //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 모달 주문등록@@@@@@@@@@@@@@@@@@@@@@@@@@@
+        //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$  
+        document.getElementById("OrderBtnSave").addEventListener("click",function(){  
+            var ls_mgubun = document.getElementById('mgubun').value; 
+            var arg1 = document.getElementById('mjpumnm').value; 
+            var arg2 = document.getElementById('mjkey').value; 
+            var arg3 = document.getElementById('mremark').value; 
+            var arg4 = document.getElementById('mjqty').value;  
+            saveremark_btn(arg1, arg2, arg3, arg4) 
+            $("#winordermodal_btn").trigger("click"); 
+        })          
+
         function searchList_rtn(arg1){ 
             switch(arg1){
                 case 'A': 
@@ -983,6 +1193,10 @@
                 }else{
                     bfixflag = false;
                 }
+                ls_remark = wtab02Dto[i]["remarkbb"]
+                if(ls_remark == null || ls_remark.length == 0 || ls_remark == ""){  
+                    ls_remark = "요청등록"            
+                } 
                 wtab02_data.push({
                     id: i, 
                     index: cnt,
@@ -1000,7 +1214,9 @@
                     samt: wtab02Dto[i]["samt"],  
                     cltcd: wtab02Dto[i]["cltcd"],   
                     inname: wtab02Dto[i]["inname"],   
-                    misgubun: wtab02Dto[i]["misgubun"],         
+                    misgubun: wtab02Dto[i]["misgubun"],      
+                    pcode: wtab02Dto[i]["pcode"],      
+                    remark: ls_remark,                
                     fixflag: bfixflag,                                               
                 });
                 cnt++;
@@ -1016,25 +1232,25 @@
             cols.align = "center";
             cols.width = 120; 
             wtab02Grid.columns.push(cols);  
-            cols = new wijmo.grid.Column(); 
-            cols.binding = 'misnum';
-            cols.header = '주문번호';
-            cols.align = "center";
-            cols.width = 80;  
-            wtab02Grid.columns.push(cols);  
-            cols = new wijmo.grid.Column(); 
-            cols.binding = 'seq';
-            cols.header = '순번';
-            cols.align = "center";
-            cols.width = 80;  
-            cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
-                text: '<b>${item.seq}</b>',
-                click: (e, ctx) => {
-                    wdelfun_a(ctx.item.misdate, ctx.item.misnum, ctx.item.seq, ctx.item.cltcd, ctx.item.misgubun, ctx.item.fixflag);                    
+            // cols = new wijmo.grid.Column(); 
+            // cols.binding = 'misnum';
+            // cols.header = '주문번호';
+            // cols.align = "center";
+            // cols.width = 80;  
+            // wtab02Grid.columns.push(cols);  
+            // cols = new wijmo.grid.Column(); 
+            // cols.binding = 'seq';
+            // cols.header = '순번';
+            // cols.align = "center";
+            // cols.width = 80;  
+            // cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
+            //     text: '<b>${item.seq}</b>',
+            //     click: (e, ctx) => {
+            //         wdelfun_a(ctx.item.misdate, ctx.item.misnum, ctx.item.seq, ctx.item.cltcd, ctx.item.misgubun, ctx.item.fixflag);                    
                     
-                }
-            });
-            wtab02Grid.columns.push(cols);   
+            //     }
+            // });
+            // wtab02Grid.columns.push(cols);   
             cols = new wijmo.grid.Column(); 
             cols.binding = 'inname';
             cols.header = '담당사원';
@@ -1052,6 +1268,13 @@
             cols.header = '품목';
             cols.align = "center";
             cols.width = 150;  
+            cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
+                text: '<b>${item.pname}</b>',
+                click: (e, ctx) => {
+                    wdelfun_a(ctx.item.misdate, ctx.item.misnum, ctx.item.seq, ctx.item.cltcd, ctx.item.misgubun, ctx.item.fixflag);                    
+                    
+                }
+            });
             wtab02Grid.columns.push(cols);   
             cols = new wijmo.grid.Column(); 
             cols.binding = 'psize';
@@ -1059,24 +1282,24 @@
             cols.align = "center";
             cols.width = 120;  
             wtab02Grid.columns.push(cols);    
-            cols = new wijmo.grid.Column(); 
-            cols.binding = 'pbonsa';
-            cols.header = '코드';
-            cols.align = "center";
-            cols.width = 100;  
-            wtab02Grid.columns.push(cols);  
-            cols = new wijmo.grid.Column(); 
-            cols.binding = 'pmodel';
-            cols.header = '모델';
-            cols.align = "center";
-            cols.width = 100;  
-            wtab02Grid.columns.push(cols);  
-            cols = new wijmo.grid.Column(); 
-            cols.binding = 'pcolor';
-            cols.header = '컬러';
-            cols.align = "center";
-            cols.width = 100;  
-            wtab02Grid.columns.push(cols);   
+            // cols = new wijmo.grid.Column(); 
+            // cols.binding = 'pbonsa';
+            // cols.header = '코드';
+            // cols.align = "center";
+            // cols.width = 100;  
+            // wtab02Grid.columns.push(cols);  
+            // cols = new wijmo.grid.Column(); 
+            // cols.binding = 'pmodel';
+            // cols.header = '모델';
+            // cols.align = "center";
+            // cols.width = 100;  
+            // wtab02Grid.columns.push(cols);  
+            // cols = new wijmo.grid.Column(); 
+            // cols.binding = 'pcolor';
+            // cols.header = '컬러';
+            // cols.align = "center";
+            // cols.width = 100;  
+            // wtab02Grid.columns.push(cols);   
             cols = new wijmo.grid.Column(); 
             cols.binding = 'qty';
             cols.header = '수량';
@@ -1096,7 +1319,20 @@
             cols.align = "center";
             cols.aggregate = 'Sum';
             cols.width = 150;  
-            wtab02Grid.columns.push(cols);     
+            wtab02Grid.columns.push(cols);       
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'remark'; 
+            cols.header = '요청등록';
+            cols.align = "left";
+            cols.width = 300;    
+            cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
+                text: '<b>${item.remark}</b>',
+                click: (e, ctx) => {
+                    save_modal('O', ctx.item.pname,ctx.item.pcode, ctx.item.misdate, ctx.item.misnum, ctx.item.seq, ctx.item.cltcd, ctx.item.remark);                    
+                    
+                }
+            });
+            wtab02Grid.columns.push(cols);    
             cols = new wijmo.grid.Column(); 
             cols.binding = 'fixflag'; 
             cols.header = '확정';
@@ -1118,6 +1354,10 @@
                 }else{
                     bfixflag = false;
                 }
+                ls_remark = wtab04Dto[i]["remarkbb"]
+                if(ls_remark == null || ls_remark.length == 0 || ls_remark == ""){  
+                    ls_remark = "요청등록"            
+                }  
                 wtab04_data.push({
                     id: i, 
                     index: cnt,
@@ -1135,7 +1375,9 @@
                     samt: wtab04Dto[i]["samt"],  
                     cltcd: wtab04Dto[i]["cltcd"],     
                     inname: wtab04Dto[i]["inname"],    
-                    misgubun: wtab04Dto[i]["misgubun"],           
+                    misgubun: wtab04Dto[i]["misgubun"],    
+                    pcode: wtab04Dto[i]["pcode"],      
+                    remark: ls_remark,                      
                     fixflag: bfixflag,                                        
                 });
                 cnt++;
@@ -1151,25 +1393,25 @@
             cols.align = "center";
             cols.width = 120; 
             wtab04Grid.columns.push(cols);  
-            cols = new wijmo.grid.Column(); 
-            cols.binding = 'misnum';
-            cols.header = '예약번호';
-            cols.align = "center";
-            cols.width = 80;  
-            wtab04Grid.columns.push(cols);  
-            cols = new wijmo.grid.Column(); 
-            cols.binding = 'seq';
-            cols.header = '순번';
-            cols.align = "center";
-            cols.width = 80;  
-            cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
-                text: '<b>${item.seq}</b>',
-                click: (e, ctx) => {
-                    wdelfunwish_a(ctx.item.misdate, ctx.item.misnum, ctx.item.seq, ctx.item.cltcd, ctx.item.misgubun, ctx.item.fixflag);                    
+            // cols = new wijmo.grid.Column(); 
+            // cols.binding = 'misnum';
+            // cols.header = '예약번호';
+            // cols.align = "center";
+            // cols.width = 80;  
+            // wtab04Grid.columns.push(cols);  
+            // cols = new wijmo.grid.Column(); 
+            // cols.binding = 'seq';
+            // cols.header = '순번';
+            // cols.align = "center";
+            // cols.width = 80;  
+            // cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
+            //     text: '<b>${item.seq}</b>',
+            //     click: (e, ctx) => {
+            //         wdelfunwish_a(ctx.item.misdate, ctx.item.misnum, ctx.item.seq, ctx.item.cltcd, ctx.item.misgubun, ctx.item.fixflag);                    
                     
-                }
-            });
-            wtab04Grid.columns.push(cols);   
+            //     }
+            // });
+            // wtab04Grid.columns.push(cols);   
             cols = new wijmo.grid.Column(); 
             cols.binding = 'inname';
             cols.header = '담당사원';
@@ -1186,7 +1428,14 @@
             cols.binding = 'pname';
             cols.header = '품목';
             cols.align = "center";
-            cols.width = 150;  
+            cols.width = 150;   
+            cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
+                text: '<b>${item.pname}</b>',
+                click: (e, ctx) => {
+                    wdelfunwish_a(ctx.item.misdate, ctx.item.misnum, ctx.item.seq, ctx.item.cltcd, ctx.item.misgubun, ctx.item.fixflag);                    
+                    
+                }
+            });
             wtab04Grid.columns.push(cols);   
             cols = new wijmo.grid.Column(); 
             cols.binding = 'psize';
@@ -1194,24 +1443,24 @@
             cols.align = "center";
             cols.width = 120;  
             wtab04Grid.columns.push(cols);    
-            cols = new wijmo.grid.Column(); 
-            cols.binding = 'pbonsa';
-            cols.header = '코드';
-            cols.align = "center";
-            cols.width = 100;  
-            wtab04Grid.columns.push(cols);  
-            cols = new wijmo.grid.Column(); 
-            cols.binding = 'pmodel';
-            cols.header = '모델';
-            cols.align = "center";
-            cols.width = 100;  
-            wtab04Grid.columns.push(cols);  
-            cols = new wijmo.grid.Column(); 
-            cols.binding = 'pcolor';
-            cols.header = '컬러';
-            cols.align = "center";
-            cols.width = 100;  
-            wtab04Grid.columns.push(cols);   
+            // cols = new wijmo.grid.Column(); 
+            // cols.binding = 'pbonsa';
+            // cols.header = '코드';
+            // cols.align = "center";
+            // cols.width = 100;  
+            // wtab04Grid.columns.push(cols);  
+            // cols = new wijmo.grid.Column(); 
+            // cols.binding = 'pmodel';
+            // cols.header = '모델';
+            // cols.align = "center";
+            // cols.width = 100;  
+            // wtab04Grid.columns.push(cols);  
+            // cols = new wijmo.grid.Column(); 
+            // cols.binding = 'pcolor';
+            // cols.header = '컬러';
+            // cols.align = "center";
+            // cols.width = 100;  
+            // wtab04Grid.columns.push(cols);   
             cols = new wijmo.grid.Column(); 
             cols.binding = 'qty';
             cols.header = '수량';
@@ -1231,7 +1480,20 @@
             cols.align = "center";
             cols.aggregate = 'Sum';
             cols.width = 150;  
-            wtab04Grid.columns.push(cols);   
+            wtab04Grid.columns.push(cols);       
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'remark'; 
+            cols.header = '요청등록';
+            cols.align = "left";
+            cols.width = 300;    
+            cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
+                text: '<b>${item.remark}</b>',
+                click: (e, ctx) => {
+                    save_modal('R', ctx.item.pname,ctx.item.pcode, ctx.item.misdate, ctx.item.misnum, ctx.item.seq, ctx.item.cltcd, ctx.item.remark);                    
+                    
+                }
+            });
+            wtab04Grid.columns.push(cols); 
             cols = new wijmo.grid.Column(); 
             cols.binding = 'fixflag'; 
             cols.header = '주문';
@@ -1429,7 +1691,7 @@
                 document.getElementById('bacorp3').value = arg3;  
                 document.getElementById('bacode').value = arg4;   
                 document.getElementById('bcifname').value = arg5;  
-                $("#winnamemodal_btn").trigger("click"); 
+                $("#winnamemodal_btn").trigger("click");  
             }else if(ls_tab == "C"){
                 document.getElementById('dacorp1').value = arg1;  
                 document.getElementById('dacorp2').value = arg2;  

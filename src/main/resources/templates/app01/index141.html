@@ -33,7 +33,7 @@
                 </div>
                 <div class="nav_bg"></div>
                 <!-- ################################ -->
-                <!-- ## Left navigator include -->
+                <!-- ## Left navigator include --> 
                 <th:block th:include="layouts/APPHeader/appbusileft" />
             </div>
             <div class="right">           
@@ -226,24 +226,25 @@
                 alternatingRowStep: 0,
                 columns: [     
                     { binding: 'misdate', header: '주문일자', align: "center", width: 120 }, 
-                    { binding: 'misnum', header: '주문번호', align: "center", width: 80 },  
-                    { binding: 'seq', header: '순번', align: "center", width: 80 },  
+                    // { binding: 'misnum', header: '주문번호', align: "center", width: 80 },  
+                    // { binding: 'seq', header: '순번', align: "center", width: 80 },  
                     { binding: 'acorp', header: '거래처', align: "center", width: 150 },  
                     { binding: 'pname', header: '품목', align: "center", width: 150 },   
                     { binding: 'psize', header: '규격', align: "center", width: 120 },  
-                    { binding: 'pbonsa', header: '코드', align: "center", width: 100 },  
-                    { binding: 'pmodel', header: '모델', align: "center", width: 100 },  
-                    { binding: 'pcolor', header: '컬러', align: "center", width: 100 },  
+                    // { binding: 'pbonsa', header: '코드', align: "center", width: 100 },  
+                    // { binding: 'pmodel', header: '모델', align: "center", width: 100 },  
+                    // { binding: 'pcolor', header: '컬러', align: "center", width: 100 },  
                     { binding: 'qty', header: '수량', align: "center", width: 80 },  
                     { binding: 'uamt', header: '단가', align: "center", width: 100 },  
-                    { binding: 'samt', header: '금액', align: "center", width: 150 },    
-                    { binding: 'fixflag', header: '확정', align: "center", width: 150, cssClass: 'switch'   },  
+                    { binding: 'samt', header: '금액', align: "center", width: 150 },     
+                    { binding: 'remark', header: '요청사항', align: "center", width: 150 },  
+                    // { binding: 'fixflag', header: '확정', align: "center", width: 150, cssClass: 'switch'   },  
                 ], 
                 itemsSource: view_p01tab02page
             });  
 
 
-            new FlexGridContextMenu(wtab02Grid);  
+            //new FlexGridContextMenu(wtab02Grid);  
             // 그룹 전환 
             setGroups02(true); 
             function setGroups02(groupsOn) {
@@ -466,7 +467,8 @@
                     samt: wtab02Dto[i]["samt"],  
                     cltcd: wtab02Dto[i]["cltcd"],   
                     inname: wtab02Dto[i]["inname"],   
-                    misgubun: wtab02Dto[i]["misgubun"],         
+                    misgubun: wtab02Dto[i]["misgubun"],                 
+                    remark: wtab02Dto[i]["remarkbb"],     
                     fixflag: bfixflag,                                               
                 });
                 cnt++;
@@ -482,18 +484,18 @@
             cols.align = "center";
             cols.width = 120; 
             wtab02Grid.columns.push(cols);  
-            cols = new wijmo.grid.Column(); 
-            cols.binding = 'misnum';
-            cols.header = '주문번호';
-            cols.align = "center";
-            cols.width = 80;  
-            wtab02Grid.columns.push(cols);  
-            cols = new wijmo.grid.Column(); 
-            cols.binding = 'seq';
-            cols.header = '순번';
-            cols.align = "center";
-            cols.width = 80;  
-            wtab02Grid.columns.push(cols);   
+            // cols = new wijmo.grid.Column(); 
+            // cols.binding = 'misnum';
+            // cols.header = '주문번호';
+            // cols.align = "center";
+            // cols.width = 80;  
+            // wtab02Grid.columns.push(cols);  
+            // cols = new wijmo.grid.Column(); 
+            // cols.binding = 'seq';
+            // cols.header = '순번';
+            // cols.align = "center";
+            // cols.width = 80;  
+            // wtab02Grid.columns.push(cols);   
             cols = new wijmo.grid.Column(); 
             cols.binding = 'inname';
             cols.header = '담당사원';
@@ -518,24 +520,24 @@
             cols.align = "center";
             cols.width = 120;  
             wtab02Grid.columns.push(cols);    
-            cols = new wijmo.grid.Column(); 
-            cols.binding = 'pbonsa';
-            cols.header = '코드';
-            cols.align = "center";
-            cols.width = 100;  
-            wtab02Grid.columns.push(cols);  
-            cols = new wijmo.grid.Column(); 
-            cols.binding = 'pmodel';
-            cols.header = '모델';
-            cols.align = "center";
-            cols.width = 100;  
-            wtab02Grid.columns.push(cols);  
-            cols = new wijmo.grid.Column(); 
-            cols.binding = 'pcolor';
-            cols.header = '컬러';
-            cols.align = "center";
-            cols.width = 100;  
-            wtab02Grid.columns.push(cols);   
+            // cols = new wijmo.grid.Column(); 
+            // cols.binding = 'pbonsa';
+            // cols.header = '코드';
+            // cols.align = "center";
+            // cols.width = 100;  
+            // wtab02Grid.columns.push(cols);  
+            // cols = new wijmo.grid.Column(); 
+            // cols.binding = 'pmodel';
+            // cols.header = '모델';
+            // cols.align = "center";
+            // cols.width = 100;  
+            // wtab02Grid.columns.push(cols);  
+            // cols = new wijmo.grid.Column(); 
+            // cols.binding = 'pcolor';
+            // cols.header = '컬러';
+            // cols.align = "center";
+            // cols.width = 100;  
+            // wtab02Grid.columns.push(cols);   
             cols = new wijmo.grid.Column(); 
             cols.binding = 'qty';
             cols.header = '수량';
@@ -555,14 +557,20 @@
             cols.align = "center";
             cols.aggregate = 'Sum';
             cols.width = 150;  
-            wtab02Grid.columns.push(cols);     
+            wtab02Grid.columns.push(cols);        
             cols = new wijmo.grid.Column(); 
-            cols.binding = 'fixflag'; 
-            cols.header = '확정';
-            cols.align = "center";
-            cols.width = 100;  
-            cols.cssClass = 'switch'
-            wtab02Grid.columns.push(cols);  
+            cols.binding = 'remark';
+            cols.header = '요청사항';
+            cols.align = "left"; 
+            cols.width = 200;  
+            wtab02Grid.columns.push(cols);    
+            // cols = new wijmo.grid.Column(); 
+            // cols.binding = 'fixflag'; 
+            // cols.header = '확정';
+            // cols.align = "center";
+            // cols.width = 100;  
+            // cols.cssClass = 'switch'
+            // wtab02Grid.columns.push(cols);  
  
         }
             

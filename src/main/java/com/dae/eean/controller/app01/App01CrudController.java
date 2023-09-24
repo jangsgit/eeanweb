@@ -1116,6 +1116,9 @@ public class App01CrudController {
             ,@RequestParam("jremark") String jremark
             ,@RequestParam("mflag") String mflag
             ,@RequestParam("ordercd") String ordercd
+            ,@RequestParam("misdate") String misdate
+            ,@RequestParam("misnum") String misnum
+            ,@RequestParam("seq") String seq
             , Model model
             , HttpServletRequest request){
 
@@ -1138,6 +1141,42 @@ public class App01CrudController {
 
             indexDa023Dto.setCltcd(acode);
             indexDa023Dto.setMisdate(frdate);
+            //비고업데이트
+            if (!misdate.equals("0000")){
+                year = misdate.substring(0,4) ;
+                month = misdate.substring(5,7) ;
+                day   = misdate.substring(8,10) ;
+                misdate = year + month + day ;
+                indexDa024Dto.setQty(jqty);
+                indexDa024Dto.setMisdate(misdate);
+                indexDa024Dto.setMisnum(misnum);
+                indexDa024Dto.setSeq(seq);
+                indexDa024Dto.setCltcd(acode);
+                indexDa024Dto.setMisgubun(mflag);
+                switch (mflag){
+                    case "AA" :
+                        indexDa024Dto.setRemarkaa(jremark);
+                        result = service14.UpdateDA024rkaa(indexDa024Dto);
+                        break;
+                    case "BB":
+                        indexDa024Dto.setRemarkbb(jremark);
+                        result = service14.UpdateDA024rkbb(indexDa024Dto);
+                        break;
+                    case "CC":
+                        indexDa024Dto.setRemarkbb(jremark);
+                        result = service14.UpdateDA024rkbb(indexDa024Dto);
+                        break;
+                    default:
+                        break;
+                }
+                if (!result){
+                    return "error";
+                }
+                return "success";
+            }
+            indexDa023Dto.setCltcd(acode);
+            indexDa023Dto.setMisgubun(mflag);
+            indexDa023Dto.setYyyymm(year + month);
             String ls_misnum = "";
             String ls_chknull = service14.SelectCheckMisnum(indexDa023Dto);
             if(ls_chknull == null){
@@ -1149,9 +1188,6 @@ public class App01CrudController {
                 ls_misnum = ls_chknull;
             }
             indexDa023Dto.setMisnum(ls_misnum);
-            indexDa023Dto.setCltcd(acode);
-            indexDa023Dto.setMisgubun(mflag);
-            indexDa023Dto.setYyyymm(year + month);
 
             switch (mflag){
                 case "AA" :
@@ -1330,6 +1366,9 @@ public class App01CrudController {
             ,@RequestParam("jremark") String jremark
             ,@RequestParam("mflag") String mflag
             ,@RequestParam("ordercd") String ordercd
+            ,@RequestParam("misdate") String misdate
+            ,@RequestParam("misnum") String misnum
+            ,@RequestParam("seq") String seq
             , Model model
             , HttpServletRequest request){
 
@@ -1350,8 +1389,44 @@ public class App01CrudController {
             index02BonsaDto = service02.GetCifBonsa(index02BonsaDto);
             index03Dto = service03.GetJpumOrderJkey02(index03Dto); //품목
 
+            //비고업데이트
+            if (!misdate.equals("0000")){
+                year = misdate.substring(0,4) ;
+                month = misdate.substring(5,7) ;
+                day   = misdate.substring(8,10) ;
+                misdate = year + month + day ;
+                indexDa024Dto.setQty(jqty);
+                indexDa024Dto.setMisdate(misdate);
+                indexDa024Dto.setMisnum(misnum);
+                indexDa024Dto.setSeq(seq);
+                indexDa024Dto.setCltcd(acode);
+                indexDa024Dto.setMisgubun(mflag);
+                switch (mflag){
+                    case "AA" :
+                        indexDa024Dto.setRemarkaa(jremark);
+                        result = service14.UpdateDA026rkaa(indexDa024Dto);
+                        break;
+                    case "BB":
+                        indexDa024Dto.setRemarkbb(jremark);
+                        result = service14.UpdateDA026rkbb(indexDa024Dto);
+                        break;
+                    case "CC":
+                        indexDa024Dto.setRemarkbb(jremark);
+                        result = service14.UpdateDA026rkbb(indexDa024Dto);
+                        break;
+                    default:
+                        break;
+                }
+                if (!result){
+                    return "error";
+                }
+                return "success";
+            }
+
+
             indexDa023Dto.setCltcd(acode);
             indexDa023Dto.setMisdate(frdate);
+            indexDa023Dto.setMisgubun(mflag);
             String ls_misnum = "";
             String ls_chknull = service14.SelectCheckMisnumWish(indexDa023Dto);
             if(ls_chknull == null){
@@ -1364,7 +1439,6 @@ public class App01CrudController {
             }
             indexDa023Dto.setMisnum(ls_misnum);
             indexDa023Dto.setCltcd(acode);
-            indexDa023Dto.setMisgubun(mflag);
             indexDa023Dto.setYyyymm(year + month);
 
             switch (mflag){

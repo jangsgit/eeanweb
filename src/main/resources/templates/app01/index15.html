@@ -66,12 +66,12 @@
                                     <li class="nav-item">
                                       <a class="nav-link active" data-toggle="tab" href="#step01" onclick="tabchk_rtn('A')">주문등록</a>
                                     </li>
-                                    <!-- <li class="nav-item">
-                                      <a class="nav-link" data-toggle="tab" href="#step02"  onclick="tabchk_rtn('B')">주문현황</a>
+                                    <li class="nav-item">
+                                      <a class="nav-link" data-toggle="tab" href="#step02"  onclick="tabchk_rtn('B')">주문(요청등록)</a>
                                     </li>
                                     <li class="nav-item">
-                                      <a class="nav-link" data-toggle="tab" href="#step03"  onclick="tabchk_rtn('C')">예약현황</a>
-                                    </li> -->
+                                      <a class="nav-link" data-toggle="tab" href="#step03"  onclick="tabchk_rtn('C')">예약(요청등록)</a>
+                                    </li>
                                     <!-- <li class="nav-item">
                                       <a class="nav-link" data-toggle="tab" href="#step03"  onclick="tabchk_rtn('C')">재고현황</a>
                                     </li> -->
@@ -142,6 +142,10 @@
                                                     <input class="form-control form-control-sm" id="bacorp3" type="hidden"  />
                                                     <input class="form-control form-control-sm" id="bacode" type="hidden"  /> 
                                                     <input class="form-control form-control-sm" id="bjpbgubn" type="hidden"  /> 
+                                                    <input class="form-control form-control-sm" id="bmisdate" type="hidden"  /> 
+                                                    <input class="form-control form-control-sm" id="bmisnum" type="hidden"  /> 
+                                                    <input class="form-control form-control-sm" id="bcltcd" type="hidden"  /> 
+                                                    <input class="form-control form-control-sm" id="bseq" type="hidden"  /> 
                                                     
                                                 </div>
                                             </div>
@@ -279,7 +283,7 @@
                             <div class="row"  >
                                 <div class="col">
                                     <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">요청사항</span> 
-                                        <input class="form-control form-control-sm" id="mremark" type="text"    autocomplete="off"  placeholder=""     > 
+                                        <input class="form-control form-control-sm" id="mremark" type="text"    autocomplete="off"  placeholder="예) SF31번 코, DN01번 힌지나사"     > 
                                         
                                     </div>
                                 </div> 
@@ -502,7 +506,8 @@ aria-hidden="true">
                     // { binding: 'pcolor', header: '컬러', align: "center", width: 100 },  
                     { binding: 'qty', header: '수량', align: "center", width: 80 },  
                     { binding: 'uamt', header: '단가', align: "center", width: 100 },  
-                    { binding: 'samt', header: '금액', align: "center", width: 150 },    
+                    { binding: 'samt', header: '금액', align: "center", width: 150 },  
+                    { binding: 'remark', header: '요청등록', align: "center", width: 300 },    
                     { binding: 'fixflag', header: '확정', align: "center", width: 150, cssClass: 'switch'   },  
                 ], 
                 itemsSource: view_p01tab02page
@@ -572,7 +577,8 @@ aria-hidden="true">
                     // { binding: 'pcolor', header: '컬러', align: "center", width: 100 },  
                     { binding: 'qty', header: '수량', align: "center", width: 80 },  
                     { binding: 'uamt', header: '단가', align: "center", width: 100 },  
-                    { binding: 'samt', header: '금액', align: "center", width: 150 },    
+                    { binding: 'samt', header: '금액', align: "center", width: 150 },  
+                    { binding: 'remark', header: '요청등록', align: "center", width: 300 },    
                     { binding: 'fixflag', header: '주문', align: "center", width: 150, cssClass: 'switch'   }, 
                 ], 
                 itemsSource: view_p01tab03page
@@ -662,6 +668,7 @@ aria-hidden="true">
                 success:function(data){  
                     jcust_grid(arg,data);
                 },error:function(e){
+                    alert("조회되지않았습니다. 재로그인해보세요");
                     console.log("error");                            
                 }
             }).done(function(fragment){           
@@ -686,6 +693,7 @@ aria-hidden="true">
                     success:function(data){  
                         jmodel_grid(data);
                     },error:function(e){
+                        alert("조회되지않았습니다. 재로그인해보세요");
                         console.log("error");                            
                     }
                 }).done(function(fragment){           
@@ -730,30 +738,39 @@ aria-hidden="true">
                         DivHtml01 = DivHtml01 +  " 		</a>										 ";
  
                                 DivHtml01 = DivHtml01 +  "    <div class='card-body'> "; 
-                                    DivHtml01 = DivHtml01 +  "    <h3 class='card-title'>" + ls_jpum + "</h3> "; 
-                                    DivHtml01 = DivHtml01 +  "    <p class='card-text'>" +ls_jgugek + " "  + ls_jsize +   "</p> "; 
-                                    DivHtml01 = DivHtml01 +  "        <div class='row'> "; 
-                                            DivHtml01 = DivHtml01 +  "      <div class='col-auto'><small class='text-muted'>재고수량: <strong class='text-success'>" + ls_jqty + "</strong></small> ₩ " + ls_jchgoga0 + " </div> "; 
+                                    if(ls_jqty <= 0 ){
+                                        DivHtml03 =    "           <!-- <span class='far fa-heart'></span> Font Awesome fontawesome.com --></a><a class='btn btn-sm btn-falcon-default' href=javascript:wish_fnc(" + ls_argstr +  "); data-bs-toggle='tooltip' data-bs-placement='top' title='예약등록' data-bs-original-title='예약하기' aria-label='예약하기'><svg class='svg-inline--fa fa-heart fa-w-16' aria-hidden='true' focusable='false' data-prefix='fas' data-icon='heart' role='img' xmlns='http://www.w3.org/2000/svg'  onClick='order_fnc()' viewBox='0 0 576 512' data-fa-i2svg=''><path fill='currentColor' d='M458.4 64.3C400.6 15.7 311.3 23 256 79.3 200.7 23 111.4 15.6 53.6 64.3-21.6 127.6-10.6 230.8 43 285.5l175.4 178.7c10 10.2 23.4 15.9 37.6 15.9 14.3 0 27.6-5.6 37.6-15.8L469 285.6c53.5-54.7 64.7-157.9-10.6-221.3zm-23.6 187.5L259.4 430.5c-2.4 2.4-4.4 2.4-6.8 0L77.2 251.8c-36.5-37.2-43.9-107.6 7.3-150.7 38.9-32.7 98.9-27.8 136.5 10.5l35 35.7 35-35.7c37.8-38.5 97.8-43.2 136.5-10.6 51.1 43.1 43.5 113.9 7.3 150.8z'></path></svg><!-- <span class='far fa-heart'></span> Font Awesome fontawesome.com --></a>"; 
+                                        // DivHtml01 = DivHtml01 +  "           <a class='btn btn-sm btn-falcon-default me-2' href='javascript:wish_fnc();' data-bs-toggle='tooltip' data-bs-placement='top' title='' data-bs-original-title='Add to Wish List' aria-label='Add to Wish List'><svg class='svg-inline--fa fa-heart fa-w-16' aria-hidden='true' focusable='false' data-prefix='far' data-icon='heart' role='img' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' data-fa-i2svg=''  onClick='wish_fnc(" + ls_argstr +  ")'><path fill='currentColor' d='M458.4 64.3C400.6 15.7 311.3 23 256 79.3 200.7 23 111.4 15.6 53.6 64.3-21.6 127.6-10.6 230.8 43 285.5l175.4 178.7c10 10.2 23.4 15.9 37.6 15.9 14.3 0 27.6-5.6 37.6-15.8L469 285.6c53.5-54.7 64.7-157.9-10.6-221.3zm-23.6 187.5L259.4 430.5c-2.4 2.4-4.4 2.4-6.8 0L77.2 251.8c-36.5-37.2-43.9-107.6 7.3-150.7 38.9-32.7 98.9-27.8 136.5 10.5l35 35.7 35-35.7c37.8-38.5 97.8-43.2 136.5-10.6 51.1 43.1 43.5 113.9 7.3 150.8z'></path></svg>";                                            
+                                    }else{
+                                        DivHtml03 =    "           <!-- <span class='far fa-heart'></span> Font Awesome fontawesome.com --></a><a class='btn btn-sm btn-falcon-default' href=javascript:wOrderChk_a(" + ls_argstr +  "); data-bs-toggle='tooltip' data-bs-placement='top' title='주문등록' data-bs-original-title='주문하기' aria-label='주문하기'><svg class='svg-inline--fa fa-cart-plus fa-w-18' aria-hidden='true' focusable='false' data-prefix='fas' data-icon='cart-plus' role='img' xmlns='http://www.w3.org/2000/svg'  onClick='order_fnc()' viewBox='0 0 576 512' data-fa-i2svg=''><path fill='currentColor' d='M504.717 320H211.572l6.545 32h268.418c15.401 0 26.816 14.301 23.403 29.319l-5.517 24.276C523.112 414.668 536 433.828 536 456c0 31.202-25.519 56.444-56.824 55.994-29.823-.429-54.35-24.631-55.155-54.447-.44-16.287 6.085-31.049 16.803-41.548H231.176C241.553 426.165 248 440.326 248 456c0 31.813-26.528 57.431-58.67 55.938-28.54-1.325-51.751-24.385-53.251-52.917-1.158-22.034 10.436-41.455 28.051-51.586L93.883 64H24C10.745 64 0 53.255 0 40V24C0 10.745 10.745 0 24 0h102.529c11.401 0 21.228 8.021 23.513 19.19L159.208 64H551.99c15.401 0 26.816 14.301 23.403 29.319l-47.273 208C525.637 312.246 515.923 320 504.717 320zM408 168h-48v-40c0-8.837-7.163-16-16-16h-16c-8.837 0-16 7.163-16 16v40h-48c-8.837 0-16 7.163-16 16v16c0 8.837 7.163 16 16 16h48v40c0 8.837 7.163 16 16 16h16c8.837 0 16-7.163 16-16v-40h48c8.837 0 16-7.163 16-16v-16c0-8.837-7.163-16-16-16z'></path></svg><!-- <span class='fas fa-cart-plus'></span> Font Awesome fontawesome.com --></a>  "; 
+                                    } 
+                                    DivHtml01 = DivHtml01 +  "    <h3 class='card-title'>" + ls_jpum + DivHtml03  + "</h3> "; 
+ 
+                                    DivHtml01 = DivHtml01 +  "    <p class='card-text'>" +ls_jgugek + " "  + ls_jsize +   "(재고: <strong class='text-success'>" +  ls_jqty  + "</strong>)</p> "; 
+                                    DivHtml01 = DivHtml01 +  "    <p class='card-text'>₩ " + ls_jchgoga0 + "</p> "; 
+                                    //DivHtml01 = DivHtml01 +  "    <div class='row'> "; 
+                                            //DivHtml01 = DivHtml01 +  "      <div class='col-auto'><small class='text-muted'>재고수량: <strong class='text-success'>" + ls_jqty + "</strong></small> ₩ " + ls_jchgoga0 + " </div> "; 
                                             // DivHtml01 = DivHtml01 +  "      <div class='col-auto'> ₩ " + ls_jchgoga0 + "  </div> ";                                         
-                                            DivHtml01 = DivHtml01 +  "      <div class='col-auto'>  ";
+                                             //DivHtml01 = DivHtml01 +  "      <div class='col-auto'>  ";
                                                 // DivHtml01 = DivHtml01 +  "      <div class='input-group'>  ";
                                                     // DivHtml01 = DivHtml01 +  "      <div class='input-group-text'>수량</div>  ";
                                                     // DivHtml01 = DivHtml01 +  "      <input class='form-control form-control-sm' id='inwinqt' type='number'  value = 1 placeholder=''  />    ";
                                                     // DivHtml01 = DivHtml01 +  "      </div>  ";
-                                        DivHtml01 = DivHtml01 +  "          </div> ";                                                                                     
-                                        DivHtml01 = DivHtml01 +  "    </div>             "; 
+                                            //DivHtml01 = DivHtml01 +  "          </div> ";                                                                                     
+                                        //DivHtml01 = DivHtml01 +  "            </div>             "; 
                                         
-                                        DivHtml01 = DivHtml01 +  " 		<div class='d-flex flex-between-center px-3'>   ";                                             
+                                        //DivHtml01 = DivHtml01 +  " 		<div class='d-flex flex-between-center px-3'>   ";                                             
                                         // DivHtml01 = DivHtml01 +  "      <div> <a class='btn btn-sm btn-outline-secondary border-300 d-lg-block me-2 me-lg-0' href='#!'><svg class='svg-inline--fa fa-heart fa-w-16' aria-hidden='true' focusable='false' data-prefix='far' data-icon='heart' role='img' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' data-fa-i2svg=''><path fill='currentColor' d='M458.4 64.3C400.6 15.7 311.3 23 256 79.3 200.7 23 111.4 15.6 53.6 64.3-21.6 127.6-10.6 230.8 43 285.5l175.4 178.7c10 10.2 23.4 15.9 37.6 15.9 14.3 0 27.6-5.6 37.6-15.8L469 285.6c53.5-54.7 64.7-157.9-10.6-221.3zm-23.6 187.5L259.4 430.5c-2.4 2.4-4.4 2.4-6.8 0L77.2 251.8c-36.5-37.2-43.9-107.6 7.3-150.7 38.9-32.7 98.9-27.8 136.5 10.5l35 35.7 35-35.7c37.8-38.5 97.8-43.2 136.5-10.6 51.1 43.1 43.5 113.9 7.3 150.8z'></path></svg><!-- <span class='far fa-heart'></span> Font Awesome fontawesome.com --><span class='ms-2 d-none d-md-inline-block'>요청사항등록</span></a> </div>";
-                                        DivHtml01 = DivHtml01 +  " 		<div> ";
-                                        if(ls_jqty <= 0 ){
-                                            DivHtml01 = DivHtml01 +  "           <!-- <span class='far fa-heart'></span> Font Awesome fontawesome.com --></a><a class='btn btn-sm btn-falcon-default' href=javascript:wish_fnc(" + ls_argstr +  "); data-bs-toggle='tooltip' data-bs-placement='top' title='예약등록' data-bs-original-title='예약하기' aria-label='예약하기'><svg class='svg-inline--fa fa-heart fa-w-16' aria-hidden='true' focusable='false' data-prefix='fas' data-icon='heart' role='img' xmlns='http://www.w3.org/2000/svg'  onClick='order_fnc()' viewBox='0 0 576 512' data-fa-i2svg=''><path fill='currentColor' d='M458.4 64.3C400.6 15.7 311.3 23 256 79.3 200.7 23 111.4 15.6 53.6 64.3-21.6 127.6-10.6 230.8 43 285.5l175.4 178.7c10 10.2 23.4 15.9 37.6 15.9 14.3 0 27.6-5.6 37.6-15.8L469 285.6c53.5-54.7 64.7-157.9-10.6-221.3zm-23.6 187.5L259.4 430.5c-2.4 2.4-4.4 2.4-6.8 0L77.2 251.8c-36.5-37.2-43.9-107.6 7.3-150.7 38.9-32.7 98.9-27.8 136.5 10.5l35 35.7 35-35.7c37.8-38.5 97.8-43.2 136.5-10.6 51.1 43.1 43.5 113.9 7.3 150.8z'></path></svg><!-- <span class='far fa-heart'></span> Font Awesome fontawesome.com --></a></div> "; 
-                                            // DivHtml01 = DivHtml01 +  "           <a class='btn btn-sm btn-falcon-default me-2' href='javascript:wish_fnc();' data-bs-toggle='tooltip' data-bs-placement='top' title='' data-bs-original-title='Add to Wish List' aria-label='Add to Wish List'><svg class='svg-inline--fa fa-heart fa-w-16' aria-hidden='true' focusable='false' data-prefix='far' data-icon='heart' role='img' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' data-fa-i2svg=''  onClick='wish_fnc(" + ls_argstr +  ")'><path fill='currentColor' d='M458.4 64.3C400.6 15.7 311.3 23 256 79.3 200.7 23 111.4 15.6 53.6 64.3-21.6 127.6-10.6 230.8 43 285.5l175.4 178.7c10 10.2 23.4 15.9 37.6 15.9 14.3 0 27.6-5.6 37.6-15.8L469 285.6c53.5-54.7 64.7-157.9-10.6-221.3zm-23.6 187.5L259.4 430.5c-2.4 2.4-4.4 2.4-6.8 0L77.2 251.8c-36.5-37.2-43.9-107.6 7.3-150.7 38.9-32.7 98.9-27.8 136.5 10.5l35 35.7 35-35.7c37.8-38.5 97.8-43.2 136.5-10.6 51.1 43.1 43.5 113.9 7.3 150.8z'></path></svg>";                                            
-                                        }else{
-                                            DivHtml01 = DivHtml01 +  "           <!-- <span class='far fa-heart'></span> Font Awesome fontawesome.com --></a><a class='btn btn-sm btn-falcon-default' href=javascript:wOrderChk_a(" + ls_argstr +  "); data-bs-toggle='tooltip' data-bs-placement='top' title='주문등록' data-bs-original-title='주문하기' aria-label='주문하기'><svg class='svg-inline--fa fa-cart-plus fa-w-18' aria-hidden='true' focusable='false' data-prefix='fas' data-icon='cart-plus' role='img' xmlns='http://www.w3.org/2000/svg'  onClick='order_fnc()' viewBox='0 0 576 512' data-fa-i2svg=''><path fill='currentColor' d='M504.717 320H211.572l6.545 32h268.418c15.401 0 26.816 14.301 23.403 29.319l-5.517 24.276C523.112 414.668 536 433.828 536 456c0 31.202-25.519 56.444-56.824 55.994-29.823-.429-54.35-24.631-55.155-54.447-.44-16.287 6.085-31.049 16.803-41.548H231.176C241.553 426.165 248 440.326 248 456c0 31.813-26.528 57.431-58.67 55.938-28.54-1.325-51.751-24.385-53.251-52.917-1.158-22.034 10.436-41.455 28.051-51.586L93.883 64H24C10.745 64 0 53.255 0 40V24C0 10.745 10.745 0 24 0h102.529c11.401 0 21.228 8.021 23.513 19.19L159.208 64H551.99c15.401 0 26.816 14.301 23.403 29.319l-47.273 208C525.637 312.246 515.923 320 504.717 320zM408 168h-48v-40c0-8.837-7.163-16-16-16h-16c-8.837 0-16 7.163-16 16v40h-48c-8.837 0-16 7.163-16 16v16c0 8.837 7.163 16 16 16h48v40c0 8.837 7.163 16 16 16h16c8.837 0 16-7.163 16-16v-40h48c8.837 0 16-7.163 16-16v-16c0-8.837-7.163-16-16-16z'></path></svg><!-- <span class='fas fa-cart-plus'></span> Font Awesome fontawesome.com --></a></div> "; 
-                                        }
-                                        // DivHtml01 = DivHtml01 +  "      <input class='form-control form-control-sm' id='inwinqt' type='number'  value = 1 placeholder=''  />    ";
-                                        DivHtml01 = DivHtml01 +  " 		</div> "; 
+                                            // DivHtml01 = DivHtml01 +  " 		        <div> ";
+                                            // if(ls_jqty <= 0 ){
+                                            //     DivHtml01 = DivHtml01 +  "           <!-- <span class='far fa-heart'></span> Font Awesome fontawesome.com --></a><a class='btn btn-sm btn-falcon-default' href=javascript:wish_fnc(" + ls_argstr +  "); data-bs-toggle='tooltip' data-bs-placement='top' title='예약등록' data-bs-original-title='예약하기' aria-label='예약하기'><svg class='svg-inline--fa fa-heart fa-w-16' aria-hidden='true' focusable='false' data-prefix='fas' data-icon='heart' role='img' xmlns='http://www.w3.org/2000/svg'  onClick='order_fnc()' viewBox='0 0 576 512' data-fa-i2svg=''><path fill='currentColor' d='M458.4 64.3C400.6 15.7 311.3 23 256 79.3 200.7 23 111.4 15.6 53.6 64.3-21.6 127.6-10.6 230.8 43 285.5l175.4 178.7c10 10.2 23.4 15.9 37.6 15.9 14.3 0 27.6-5.6 37.6-15.8L469 285.6c53.5-54.7 64.7-157.9-10.6-221.3zm-23.6 187.5L259.4 430.5c-2.4 2.4-4.4 2.4-6.8 0L77.2 251.8c-36.5-37.2-43.9-107.6 7.3-150.7 38.9-32.7 98.9-27.8 136.5 10.5l35 35.7 35-35.7c37.8-38.5 97.8-43.2 136.5-10.6 51.1 43.1 43.5 113.9 7.3 150.8z'></path></svg><!-- <span class='far fa-heart'></span> Font Awesome fontawesome.com --></a></div> "; 
+                                            //     // DivHtml01 = DivHtml01 +  "           <a class='btn btn-sm btn-falcon-default me-2' href='javascript:wish_fnc();' data-bs-toggle='tooltip' data-bs-placement='top' title='' data-bs-original-title='Add to Wish List' aria-label='Add to Wish List'><svg class='svg-inline--fa fa-heart fa-w-16' aria-hidden='true' focusable='false' data-prefix='far' data-icon='heart' role='img' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' data-fa-i2svg=''  onClick='wish_fnc(" + ls_argstr +  ")'><path fill='currentColor' d='M458.4 64.3C400.6 15.7 311.3 23 256 79.3 200.7 23 111.4 15.6 53.6 64.3-21.6 127.6-10.6 230.8 43 285.5l175.4 178.7c10 10.2 23.4 15.9 37.6 15.9 14.3 0 27.6-5.6 37.6-15.8L469 285.6c53.5-54.7 64.7-157.9-10.6-221.3zm-23.6 187.5L259.4 430.5c-2.4 2.4-4.4 2.4-6.8 0L77.2 251.8c-36.5-37.2-43.9-107.6 7.3-150.7 38.9-32.7 98.9-27.8 136.5 10.5l35 35.7 35-35.7c37.8-38.5 97.8-43.2 136.5-10.6 51.1 43.1 43.5 113.9 7.3 150.8z'></path></svg>";                                            
+                                            // }else{
+                                            //     DivHtml01 = DivHtml01 +  "           <!-- <span class='far fa-heart'></span> Font Awesome fontawesome.com --></a><a class='btn btn-sm btn-falcon-default' href=javascript:wOrderChk_a(" + ls_argstr +  "); data-bs-toggle='tooltip' data-bs-placement='top' title='주문등록' data-bs-original-title='주문하기' aria-label='주문하기'><svg class='svg-inline--fa fa-cart-plus fa-w-18' aria-hidden='true' focusable='false' data-prefix='fas' data-icon='cart-plus' role='img' xmlns='http://www.w3.org/2000/svg'  onClick='order_fnc()' viewBox='0 0 576 512' data-fa-i2svg=''><path fill='currentColor' d='M504.717 320H211.572l6.545 32h268.418c15.401 0 26.816 14.301 23.403 29.319l-5.517 24.276C523.112 414.668 536 433.828 536 456c0 31.202-25.519 56.444-56.824 55.994-29.823-.429-54.35-24.631-55.155-54.447-.44-16.287 6.085-31.049 16.803-41.548H231.176C241.553 426.165 248 440.326 248 456c0 31.813-26.528 57.431-58.67 55.938-28.54-1.325-51.751-24.385-53.251-52.917-1.158-22.034 10.436-41.455 28.051-51.586L93.883 64H24C10.745 64 0 53.255 0 40V24C0 10.745 10.745 0 24 0h102.529c11.401 0 21.228 8.021 23.513 19.19L159.208 64H551.99c15.401 0 26.816 14.301 23.403 29.319l-47.273 208C525.637 312.246 515.923 320 504.717 320zM408 168h-48v-40c0-8.837-7.163-16-16-16h-16c-8.837 0-16 7.163-16 16v40h-48c-8.837 0-16 7.163-16 16v16c0 8.837 7.163 16 16 16h48v40c0 8.837 7.163 16 16 16h16c8.837 0 16-7.163 16-16v-40h48c8.837 0 16-7.163 16-16v-16c0-8.837-7.163-16-16-16z'></path></svg><!-- <span class='fas fa-cart-plus'></span> Font Awesome fontawesome.com --></a></div> "; 
+                                            // }
+                                            // DivHtml01 = DivHtml01 +  "      <input class='form-control form-control-sm' id='inwinqt' type='number'  value = 1 placeholder=''  />    ";
+                                        //DivHtml01 = DivHtml01 +  " 		</div> "; //<div class='d-flex flex-between-center px-3'>     
+                             //DivHtml01 = DivHtml01 +  " 		</div> "; //<div class='row'>
 
                                 DivHtml01 = DivHtml01 +  "    </div> "; //<div class='card-body'> 
                     DivHtml01 = DivHtml01 +  "    </div> "; 
@@ -900,6 +917,8 @@ aria-hidden="true">
             var arg2 = document.getElementById('mjkey').value; 
             var arg3 = document.getElementById('mremark').value; 
             var arg4 = document.getElementById('mjqty').value; 
+            console.log("mjkey-->" + arg2)
+            console.log("ls_mgubun-->" + ls_mgubun)
             if(ls_mgubun == "O"){
                 save_btn(arg1, arg2, arg3, arg4)
             }else{
@@ -938,9 +957,11 @@ aria-hidden="true">
                             "frdate"      : ls_frdate,
                             "todate"      : ls_todate,
                             "acode"      : ls_bacode,   
-                            "fixflag"    : '%', 
-                            "perid"      : ls_perid,       
-                            "mflag"  : 'AA'   ,  
+                            "perid"      : ls_perid,  
+                            "fixflag"    : '%',
+                            "devflag"    : '%',
+                            "misgubun"    : '%',
+                            "mflag"  : 'AA'   
                         }, 
                         async:false,
                         success:function(data){   
@@ -1012,6 +1033,10 @@ aria-hidden="true">
                 }else{
                     bfixflag = false;
                 }
+                ls_remark = wtab02Dto[i]["remarkaa"]
+                if(ls_remark == null || ls_remark.length == 0 || ls_remark == ""){  
+                    ls_remark = "요청등록"            
+                }  
                 wtab02_data.push({
                     id: i, 
                     index: cnt,
@@ -1028,7 +1053,9 @@ aria-hidden="true">
                     uamt: wtab02Dto[i]["uamt"], 
                     samt: wtab02Dto[i]["samt"],  
                     cltcd: wtab02Dto[i]["cltcd"],   
-                    misgubun: wtab02Dto[i]["misgubun"],         
+                    pcode: wtab02Dto[i]["pcode"],  
+                    misgubun: wtab02Dto[i]["misgubun"],    
+                    remark: ls_remark,               
                     fixflag: bfixflag,                                             
                 });
                 cnt++;
@@ -1044,7 +1071,7 @@ aria-hidden="true">
             cols.align = "center";
             cols.width = 120; 
             cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
-                text: '<b>${item.seq}</b>',
+                text: '<b>${item.misdate}</b>',
                 click: (e, ctx) => {
                     wdelfun_a(ctx.item.misdate, ctx.item.misnum, ctx.item.seq, ctx.item.cltcd, ctx.item.misgubun, ctx.item.fixflag);                    
                     
@@ -1125,7 +1152,20 @@ aria-hidden="true">
             cols.align = "center";
             cols.aggregate = 'Sum';
             cols.width = 150;  
-            wtab02Grid.columns.push(cols);     
+            wtab02Grid.columns.push(cols);       
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'remark'; 
+            cols.header = '요청등록';
+            cols.align = "left";
+            cols.width = 300;    
+            cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
+                text: '<b>${item.remark}</b>',
+                click: (e, ctx) => {
+                    save_modal('O', ctx.item.pname,ctx.item.pcode, ctx.item.misdate, ctx.item.misnum, ctx.item.seq, ctx.item.cltcd, ctx.item.remark);                    
+                    
+                }
+            });
+            wtab02Grid.columns.push(cols);       
             cols = new wijmo.grid.Column(); 
             cols.binding = 'fixflag'; 
             cols.header = '확정';
@@ -1136,7 +1176,7 @@ aria-hidden="true">
  
         }     
         function tabC_grid(data){
-            console.log(data);
+            //console.log(data);
             var wtab03Dto  = data;    
             var wtab03_data = [];
             var cnt = 1;
@@ -1147,6 +1187,10 @@ aria-hidden="true">
                 }else{
                     bfixflag = false;
                 }
+                ls_remark = wtab03Dto[i]["remarkaa"]
+                if(ls_remark == null || ls_remark.length == 0 || ls_remark == ""){  
+                    ls_remark = "요청등록"            
+                }  
                 wtab03_data.push({
                     id: i, 
                     index: cnt,
@@ -1162,8 +1206,10 @@ aria-hidden="true">
                     qty: wtab03Dto[i]["qty"],    
                     uamt: wtab03Dto[i]["uamt"], 
                     samt: wtab03Dto[i]["samt"],  
-                    cltcd: wtab03Dto[i]["cltcd"],   
-                    misgubun: wtab03Dto[i]["misgubun"],        
+                    cltcd: wtab03Dto[i]["cltcd"],  
+                    pcode: wtab03Dto[i]["pcode"],   
+                    misgubun: wtab03Dto[i]["misgubun"],  
+                    remark: ls_remark,                  
                     fixflag: bfixflag,                                             
                 });
                 cnt++;
@@ -1260,6 +1306,19 @@ aria-hidden="true">
             cols.align = "center";
             cols.aggregate = 'Sum';
             cols.width = 150;  
+            wtab03Grid.columns.push(cols);     
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'remark'; 
+            cols.header = '요청등록';
+            cols.align = "left";
+            cols.width = 300;    
+            cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
+                text: '<b>${item.remark}</b>',
+                click: (e, ctx) => {
+                    save_modal('R', ctx.item.pname,ctx.item.pcode, ctx.item.misdate, ctx.item.misnum, ctx.item.seq, ctx.item.cltcd, ctx.item.remark);                    
+                    
+                }
+            });
             wtab03Grid.columns.push(cols);   
             cols = new wijmo.grid.Column(); 
             cols.binding = 'fixflag'; 
@@ -1302,6 +1361,7 @@ aria-hidden="true">
                     success:function(data){  
                         tabPop_grid(data, ls_tab);
                     },error:function(e){
+                        alert("조회되지않았습니다. 재로그인해보세요");
                         console.log("error");                            
                     }
                 }).done(function(fragment){           
@@ -1357,7 +1417,7 @@ aria-hidden="true">
         }
                 
         function wcifChk_a(arg1, arg2, arg3, arg4, arg5,arg6){   
-            console.log(arg6)  ;
+            //console.log(arg6)  ;
             switch(arg6){
                 case 'A':
                     document.getElementById('acorp1').value = arg1;  
@@ -1401,34 +1461,57 @@ aria-hidden="true">
             // var ls_frdate = '';
             // ls_frdate = document.getElementById('ipdate').value; 
             // // alert(ls_frdate + ' / ' + arg1 + ' : 1EA 주문등록' )
-            //save_btn(arg1, arg2)
-            save_modal('O',arg1, arg2)
+            save_btn(arg1, arg2, '', 1)
+            //save_modal('O',arg1, arg2)
             
         }
-        function save_modal(arg0, arg1, arg2){         
-            var ls_acode   = document.getElementById('acode').value;   
-            if(ls_acode == null || ls_acode.length == 0 || ls_acode == ""){ 
-                alert("거래처를 등록하세요") 
-                document.getElementById("cifname").focus(); 
-                return ;               
-            } 
+        function save_modal(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7){  
+                          //'O', pname,pcode, misdate, misnum, seq, cltcd, remark); 
+            var ls_tabchk = document.getElementById('tabvalue').value; 
+            var ls_acode   = document.getElementById('acode').value;                   
+            if(ls_tabchk == "A"){    
+                if(ls_acode == null || ls_acode.length == 0 || ls_acode == ""){ 
+                    alert("거래처를 등록하세요") 
+                    document.getElementById("cifname").focus(); 
+                    return ;               
+                } 
+            }   
             document.getElementById('mjpumnm').value = arg1;
             document.getElementById('mjkey').value = arg2;
             document.getElementById('mjqty').value = 1;    
-            document.getElementById('mgubun').value = arg0;   
-            document.getElementById("inorderbtn").click(); 
+            document.getElementById('mgubun').value = arg0; 
+            document.getElementById('bmisdate').value = arg3; 
+            document.getElementById('bmisnum').value = arg4; 
+            document.getElementById('bseq').value = arg5;   
+            document.getElementById('bcltcd').value = arg6;  
+            console.log('mjkey000---.' + arg2) 
+            if(arg7 != null && arg7.length > 0 && arg7 != "요청등록" ){  
+                document.getElementById('mremark').value = arg7; 
+            }else{
+                document.getElementById('mremark').value = ""; 
+            }      
+            document.getElementById("inorderbtn").click();        
         }
         function save_btn(arg1, arg2, arg3, arg4){  
             var ls_ipdate = document.getElementById('ipdate').value;          
-            var ls_acode   = document.getElementById('acode').value;                                      
+            var ls_acode   = document.getElementById('acode').value;     
+            var ls_misdate   = document.getElementById('bmisdate').value;          
+            var ls_misnum   = document.getElementById('bmisnum').value;          
+            var ls_seq   = document.getElementById('bseq').value;                
+            var ls_cltcd   = document.getElementById('bcltcd').value;  
+            var ls_tabchk = document.getElementById('tabvalue').value;                                            
             // const warnning_grid = document.getElementById('inwarnning_grid'); 
             var ls_pcode  =  [];        
             var ll_qty    =  [];    
             var ls_jcode  =  [];        
             var ll_jqty    =  []; 
-            var llCount = 0;         
+            var llCount = 0;                  
+            if(ls_tabchk == "B" ){
+                ls_acode = ls_cltcd    //비고등록시 거래처코드
+            }      
             ls_tab = "A";
             
+            console.log(ls_tab + '--->' + arg2);
             switch(ls_tab){
                 case 'A': 
                     // if (!confirm("품명: " + arg1 + "  주문 하시겠습니까?")) { 
@@ -1443,7 +1526,16 @@ aria-hidden="true">
                         alert("거래처를 등록하세요") 
                         document.getElementById("cifname").focus(); 
                         return ;               
-                    } 
+                    }  
+                    if(ls_misdate == null || ls_misdate.length == 0 || ls_misdate == ""){ 
+                        ls_misdate = "0000"
+                    }  
+                    if(ls_misnum == null || ls_misnum.length == 0 || ls_misnum == ""){ 
+                        ls_misnum = "0000"
+                    }  
+                    if(ls_seq == null || ls_seq.length == 0 || ls_seq == ""){ 
+                        ls_seq = "0000"
+                    }   
                     //요청사항 
                     if(arg3 == null || arg3.length == 0 || arg3 == ""){ 
                         arg3 = ""          ;
@@ -1451,7 +1543,7 @@ aria-hidden="true">
                     //수량
                     if(arg4 == null ){ 
                         arg4 = 1         ;
-                    } 
+                    }  
                     var  ls_jpbgubn    = document.getElementById('jpbgubn').value;   
                     console.log(arg2);
                     $.ajax({
@@ -1463,13 +1555,17 @@ aria-hidden="true">
                             "jkey"  : arg2     ,       
                             "jremark"  : arg3     ,   
                             "jqty"  : arg4     ,      
-                            "mflag"  : 'AA'   ,      
+                            "mflag"  : 'AA'   ,       
+                            "misdate"  : ls_misdate     ,      
+                            "misnum"  : ls_misnum     ,      
+                            "seq"  : ls_seq     ,         
                             "ordercd"  : 'AA'   , 
                         }, 
                         async:false,
                         success:function(data){   
                             if(data == "success"){
                                 alert("저장되었습니다.") 
+                                searchList_rtn(ls_tabchk) 
                                 return true;
                                 // searchList_rtn(ls_tab);  
                                 // clear_rtn(ls_tab);        
@@ -1494,22 +1590,29 @@ aria-hidden="true">
         } 
 
 
-        function wish_fnc(arg1, arg2){
-            //savewish_btn(arg1, arg2) 
-            save_modal("R", arg1, arg2)
+        function wish_fnc(arg1, arg2){ 
+            savewish_btn(arg1, arg2, '', 1) 
+            //save_modal("R", arg1, arg2)
         }
 
         function savewish_btn(arg1, arg2, arg3, arg4){  
             var ls_ipdate = document.getElementById('ipdate').value;          
-            var ls_acode   = document.getElementById('acode').value;                                      
+            var ls_acode   = document.getElementById('acode').value;       
+            var ls_misdate   = document.getElementById('bmisdate').value;          
+            var ls_misnum   = document.getElementById('bmisnum').value;          
+            var ls_seq   = document.getElementById('bseq').value;                  
+            var ls_cltcd   = document.getElementById('bcltcd').value; 
+            var ls_tabchk = document.getElementById('tabvalue').value;                                         
             // const warnning_grid = document.getElementById('inwarnning_grid'); 
             var ls_pcode  =  [];        
             var ll_qty    =  [];    
             var ls_jcode  =  [];        
             var ll_jqty    =  []; 
-            var llCount = 0;         
-            ls_tab = "A";
-            
+            var llCount = 0;                   
+            if(ls_tabchk == "C"){
+                ls_acode = ls_cltcd     //비고등록시 거래처코드
+            }              
+            ls_tab = "A"; 
             switch(ls_tab){
                 case 'A': 
                     // if (!confirm("품명: " + arg1 + "  예약 하시겠습니까?")) { 
@@ -1525,6 +1628,15 @@ aria-hidden="true">
                         document.getElementById("cifname").focus(); 
                         return ;               
                     }   
+                    if(ls_misdate == null || ls_misdate.length == 0 || ls_misdate == ""){ 
+                        ls_misdate = "0000"
+                    }  
+                    if(ls_misnum == null || ls_misnum.length == 0 || ls_misnum == ""){ 
+                        ls_misnum = "0000"
+                    }  
+                    if(ls_seq == null || ls_seq.length == 0 || ls_seq == ""){ 
+                        ls_seq = "0000"
+                    }  
                     //요청사항 
                     if(arg3 == null || arg3.length == 0 || arg3 == ""){ 
                         arg3 = ""          ;
@@ -1541,7 +1653,10 @@ aria-hidden="true">
                             "acode"   : ls_acode   , 
                             "jkey"  : arg2     ,     
                             "jremark"  : arg3     ,   
-                            "jqty"  : arg4     ,    
+                            "jqty"  : arg4     ,  
+                            "misdate"  : ls_misdate     ,      
+                            "misnum"  : ls_misnum     ,      
+                            "seq"      : ls_seq     ,         
                             "mflag"  : 'AA'   ,      
                             "ordercd"  : 'AA'   , 
                         }, 
@@ -1549,6 +1664,7 @@ aria-hidden="true">
                         success:function(data){   
                             if(data == "success"){
                                 alert("예약되었습니다.") 
+                                searchList_rtn(ls_tabchk) 
                                 return true;
                                 // searchList_rtn(ls_tab);  
                                 // clear_rtn(ls_tab);        
@@ -1577,8 +1693,8 @@ aria-hidden="true">
             ListDivs.remove();
 
             var DivHtml02 = " <div class='row flex-nowrap  overflow-auto' data-name='ListDiv02'> ";  
-                DivHtml02 = DivHtml02 + " <img class='img-thumbnail' src='" + arg1 + "_01.png' alt='' style='max-width: 50%'/> "; 
-                DivHtml02 = DivHtml02 + " <img class='img-thumbnail' src='" + arg1 + "_02.png' alt='' style='max-width: 50%' /> "; 
+                DivHtml02 = DivHtml02 + " <img class='img-thumbnail' src='" + arg1 + "_01.png' alt='' style='max-width: 45%'/> "; 
+                DivHtml02 = DivHtml02 + " <img class='img-thumbnail' src='" + arg1 + "_02.png' alt='' style='max-width: 45%' /> "; 
                 DivHtml02 = DivHtml02 +  "  </div>"; 
                 $('#btnDiv02').before(DivHtml02 );
                 document.getElementById("imgbtn").click(); 
