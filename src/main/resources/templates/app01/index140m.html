@@ -396,6 +396,11 @@
                 // selectionMode: 'RowRange',
                 allowSorting: 'MultiColumn',
                 alternatingRowStep: 0,
+                frozenRows: 0,
+                frozenColumns: 2,
+                beginningEdit: function (s, e) {
+                    e.cancel = true; 
+                },
                 columns: [     
                     { binding: 'jbonsa_code', header: '주문상세', align: "center",   width: 100 }, 
                     { binding: 'jmodel_code', header: '모델라인', align: "center",   width: 80},   
@@ -432,7 +437,15 @@
             // 첫번째 항목(정렬/그룹화한 후)을 선택
             wtab01Grid.select(new wijmo.grid.CellRange(0, 0), true);
             wijmo.toggleClass(wtab01Grid.hostElement, 'highlightActive', true);
-            wtab01Grid.focus();
+            wtab01Grid.focus(); 
+
+            setHeaderColumn4(false);
+            function setHeaderColumn4(headerOn) {
+                wtab01Grid.headersVisibility = headerOn
+                ? wijmo.grid.HeadersVisibility.All
+                : wijmo.grid.HeadersVisibility.Column; 
+            } 
+
 
             var rowCount = 50;
             var cellCount = 20;

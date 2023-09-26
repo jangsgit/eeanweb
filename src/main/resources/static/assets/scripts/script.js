@@ -12,10 +12,10 @@ $(document).ready(function(){
         }
     });
    
-    
+    // assets/ css/ sub.css
     $('.pnav').click(function() {
         if ($('.header').hasClass('on')) {
-            $('.header').removeClass('on');
+            $('.header').removeClass('on'); 
             $('.depth2').css('display','block');
         }else{
             $('.header').addClass('on');

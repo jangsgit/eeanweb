@@ -288,6 +288,43 @@ public class App01Controller {
     }
 
 
+    //주문등록
+    @GetMapping(value="/index150b")
+    public Object App150b_index( Model model, HttpServletRequest request) throws Exception{
+        CommDto.setMenuTitle("영업사원일반등록");
+        CommDto.setMenuUrl("기준정보>영업사원일반주문등록");
+        CommDto.setMenuCode("index15");
+        HttpSession session = request.getSession();
+        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        model.addAttribute("userformDto",userformDto);
+        String ls_acorp1 = userformDto.getPerid();
+        String ls_flag = userformDto.getFlag();
+        if (ls_flag.equals("CC")){
+            //log.debug("ls_acorp1 =====>" + ls_acorp1.substring(0,2) );
+            if(ls_acorp1.substring(0,2).equals("02")){
+                index03Dto.setJpb_gubn("P");
+            }else{
+                index03Dto.setJpb_gubn("B");
+            }
+        }else{
+            index03Dto.setJpb_gubn("%");
+        }
+
+        try {
+            index03List = service03.GetJcustomCode(index03Dto);
+
+            model.addAttribute("index15List",index03List);
+        } catch (Exception ex) {
+//                dispatchException = ex;
+            log.info("App15b_index Exception ================================================================");
+            log.info("Exception =====>" + ex.toString());
+//            log.debug("Exception =====>" + ex.toString() );
+        }
+
+        return "App01/index150b";
+    }
+
+
     //주문현황
     @GetMapping(value="/index151")
     public Object App151_index( Model model, HttpServletRequest request) throws Exception{

@@ -457,6 +457,9 @@
                 alternatingRowStep: 0,
                 frozenRows: 0,
                 frozenColumns: 2,
+                beginningEdit: function (s, e) {
+                    e.cancel = true; 
+                },
                 columns: [     
                     { binding: 'jbonsa_code', header: '주문상세', align: "center",   width: 100 }, 
                     { binding: 'jmodel_code', header: '모델라인', align: "center",   width: 80},   

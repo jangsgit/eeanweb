@@ -440,10 +440,15 @@
             wtab01Grid = new wijmo.grid.FlexGrid('#wtab01Grid_div', {  
                 autoGenerateColumns: false,
                 showMarquee: true,
-                isReadOnly: false, 
+                isReadOnly: true, 
                 // selectionMode: 'RowRange',
                 allowSorting: 'MultiColumn',
                 alternatingRowStep: 0,
+                frozenRows: 0,
+                frozenColumns: 2,
+                beginningEdit: function (s, e) {
+                    e.cancel = true; 
+                },
                 columns: [     
                     { binding: 'jbonsa_code', header: '주문상세', align: "center",   width: 100 }, 
                     { binding: 'jmodel_code', header: '모델라인', align: "center",   width: 80},   
@@ -518,12 +523,12 @@
                 return wactnm_data;                                          
             } 
 
-            // setHeaderColumn2(false);
-            // function setHeaderColumn2(headerOn) {
-            //     wtab01Grid.headersVisibility = headerOn
-            //     ? wijmo.grid.HeadersVisibility.All
-            //     : wijmo.grid.HeadersVisibility.Column; 
-            // } 
+            setHeaderColumn3(false);
+            function setHeaderColumn3(headerOn) {
+                wtab01Grid.headersVisibility = headerOn
+                ? wijmo.grid.HeadersVisibility.All
+                : wijmo.grid.HeadersVisibility.Column; 
+            } 
 
             // wtab03Grid = new wijmo.grid.FlexGrid('#wtab03Grid_div', {  
             //     autoGenerateColumns: false,

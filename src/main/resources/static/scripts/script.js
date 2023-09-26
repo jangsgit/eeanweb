@@ -33,7 +33,7 @@ $(document).ready(function(){
     //         $('.nav_bg').css('display','block');
     //         $('.depth2').css('display','block');
     //     }
-    // }, function(){
+    // }, function(){ 
     //     if ($('.header').hasClass('on')) {
     //         $('.nav_bg').css('display','none');
     //         $('.depth2').css('display','none');
