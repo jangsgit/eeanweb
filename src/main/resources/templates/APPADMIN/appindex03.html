@@ -82,8 +82,8 @@
                             <form action="">
                                  
                                 <div class="container-fluid"> 
-                                    <div id="mGrid_div" ></div>
-                                    <div id="thePager01"></div>
+                                    <div id="mGrid_div" style="overflow:scroll;   height:600px;    margin:0 auto; "></div>  
+                                    <!-- <div id="thePager01"></div> -->
                                 </div>   
 
                             </form>
@@ -194,14 +194,14 @@
 //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
     window.onload = function() { 
         view_Mmanualpage = new wijmo.collections.CollectionView(getData_wlist(), {
-            pageSize: 20
+           // pageSize: 20
         });  
         // 페이지 이동
-        new wijmo.input.CollectionViewNavigator('#thePager01', {
-            byPage: true,
-            headerFormat: 'Page {currentPage:n0} of {pageCount:n0}',
-            cv: view_Mmanualpage
-        });    
+        // new wijmo.input.CollectionViewNavigator('#thePager01', {
+        //     byPage: true,
+        //     headerFormat: 'Page {currentPage:n0} of {pageCount:n0}',
+        //     cv: view_Mmanualpage
+        // });    
         wapp04Grid = new wijmo.grid.FlexGrid('#mGrid_div', {  
             autoGenerateColumns: false, 
             selectionMode: 'RowRange',
