@@ -97,7 +97,7 @@
                                         </div> 
                                         <div class="container-fluid"> 
                                             <div id="wtab02Grid_div"  style="overflow:scroll;   height:750px;    margin:0 auto; "></div>   
-                                            </div>
+                                        </div>
                                     </div>
                                     
                                     <div class="tab-pane fade" id="step02"> 
@@ -139,7 +139,7 @@
                                     </div>
 
 
-                                    <div class="tab-pane fade" id="step03"> 
+                                    <div class="tab-pane fade" id="step03">  
                                         <div class="row gx-3" style="  margin: 10px 10px 10px;">   
                                             <div class="col-2 col-sm-2">
                                                 <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">조회일자</span>
@@ -151,7 +151,7 @@
                                                     <input type="text"  class="form-control datetimepicker" id="todate03" autocomplete="off"  placeholder="Y-m-d"     >
                                                 </div>
                                             </div> 
-                                            <div class="col-2 col-sm-2">
+                                            <div class="col-1 col-sm-2">
                                                 <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">사원명</span> 
                                                     <input type="text" name="inname03" id="inname03" placeholder="" disabled  > 
                                                     <input type="hidden" name="abonsadam3" id="abonsadam3" placeholder=""  >   
@@ -698,6 +698,7 @@
         });    
 
         function searchList_rtn(arg1){ 
+            var ls_makflag = "1" ;
             switch(arg1){ 
                 case 'A': 
                     var ls_frdate = document.getElementById('frdate').value; 
@@ -731,6 +732,7 @@
                             "acode"      : '%',   
                             "perid"      : ls_abonsadam1,  
                             "fixflag"    : ls_misfixflag,
+                            "makflag"    : ls_makflag,
                             "mflag"  : 'AA'   ,  
                         }, 
                         async:false,
@@ -779,6 +781,7 @@
                             "acode"      : '%',   
                             "perid"      : ls_abonsadam2,   
                             "fixflag"    : ls_wishfixflag, 
+                            "makflag"    : ls_makflag,
                             "mflag"  : 'AA'   ,  
                         }, 
                         async:false,
@@ -822,6 +825,7 @@
                             "acode"      : '%',   
                             "perid"      : ls_abonsadam3,  
                             "fixflag"    : ls_misfixflag,
+                            "makflag"    : ls_makflag,
                             "mflag"  : 'AA'   ,  
                         }, 
                         async:false,
@@ -867,6 +871,7 @@
                             "jkey"        : '%',                               
                             "perid"      : ls_abonsadam4,  
                             "fixflag"    : ls_misfixflag,
+                            "makflag"    : ls_makflag,
                             "mflag"  : 'AA'   ,  
                         }, 
                         async:false,

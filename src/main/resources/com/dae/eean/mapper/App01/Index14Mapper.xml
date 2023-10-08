@@ -43,7 +43,7 @@
 
     <select id="SelectDa024List"  parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" resultType="com.dae.eean.DTO.App01.IndexDa024Dto">
         <![CDATA[ select B.cltcd as cltcd, Left(B.misdate,4) + '-' + substring(B.misdate, 5,2)+ '-' + substring(B.misdate, 7,2) as misdate, B.misnum, B.seq,
-                         B.pcode, B.pname, B.psize,    B.punit,  B.qty,  B.uamt, B.samt, B.addamt, B.remarkaa, B.remarkbb,
+                         B.pcode, B.pname, B.psize,    B.punit,  B.qty,  B.uamt, B.samt, B.addamt, C.remarkaa, C.remarkbb, isnull(C.makflag, '0') as makflag,
                          B.amt, A.acorp, pbonsa, pmodel, pcolor , D.inname, B.misgubun, isnull(B.fixflag,'0') as fixflag,isnull(B.devflag,'0') as devflag,   D.inname as pernm
            from  TB_DA024 B WITH (NOLOCK) , cif A WITH (NOLOCK) ,
                  TB_DA023 C WITH (NOLOCK) Left outer JOIN INSA D ON C.perid = D.insano
@@ -57,6 +57,7 @@
             AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
             AND Isnull(B.devflag, '0') Like concat('%',#{devflag},'%')
             AND Isnull(C.misgubun, '') Like concat('%',#{misgubun},'%')
+            AND Isnull(C.makflag, '0') Like concat('%',#{makflag},'%')
             ORDER BY B.cltcd, B.misdate, B.misnum, B.seq
         ]]>
 
@@ -139,7 +140,7 @@
 
     <select id="SelectDa026List"  parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" resultType="com.dae.eean.DTO.App01.IndexDa024Dto">
         <![CDATA[ select B.cltcd as cltcd, Left(B.misdate,4) + '-' + substring(B.misdate, 5,2)+ '-' + substring(B.misdate, 7,2) as misdate, B.misnum, B.seq,
-                         B.pcode, B.pname, B.psize,    B.punit,  B.qty,  B.uamt, B.samt, B.addamt, B.remarkaa, B.remarkbb,
+                         B.pcode, B.pname, B.psize,    B.punit,  B.qty,  B.uamt, B.samt, B.addamt, C.remarkaa, C.remarkbb, isnull(C.makflag, '0') as makflag,
                          B.amt, A.acorp, pbonsa, pmodel, pcolor, D.inname, B.misgubun, isnull(B.fixflag,'0') as fixflag, D.inname as pernm,
                          B.omisdate, B.omisnum, B.oseq
            from  TB_DA026 B WITH (NOLOCK) , cif A WITH (NOLOCK) ,
@@ -153,6 +154,7 @@
             AND B.misdate between #{frdate} and #{todate}
              AND isnull(C.misgubun,'')  Like concat('%',#{misgubun},'%')
              AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
+             AND Isnull(C.makflag, '0') Like concat('%',#{makflag},'%')
             ORDER BY B.misdate, B.misnum, B.seq
         ]]>
 
@@ -173,6 +175,7 @@
              AND isnull(B.misgubun,'')  Like concat('%',#{misgubun},'%')
             AND B.misdate between #{frdate} and #{todate}
             AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
+             AND Isnull(C.makflag, '0') Like concat('%',#{makflag},'%')
              AND Len(ISNULL(D.inname,'')) > 0
             Group BY C.perid,  D.inname
             ORDER BY D.inname
@@ -196,6 +199,7 @@
                     AND isnull(B.misgubun,'')  Like concat('%',#{misgubun},'%')
                     AND B.misdate between #{frdate} and #{todate}
                     AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
+                    AND Isnull(C.makflag, '0') Like concat('%',#{makflag},'%')
                     AND Len(ISNULL(D.inname,'')) > 0
                   ORDER BY D.inname,  B.misdate, B.misnum, B.seq
         ]]>
@@ -218,6 +222,7 @@
              AND isnull(B.misgubun,'')  Like concat('%',#{misgubun},'%')
             AND B.misdate between #{frdate} and #{todate}
             AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
+            AND Isnull(C.makflag, '0') Like concat('%',#{makflag},'%')
             ORDER BY B.cltcd,  B.misdate, B.misnum, B.seq
         ]]>
 
@@ -239,6 +244,7 @@
                     AND isnull(B.misgubun,'')  Like concat('%',#{misgubun},'%')
                     AND B.misdate between #{frdate} and #{todate}
                     AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
+                    AND Isnull(C.makflag, '0') Like concat('%',#{makflag},'%')
                     AND Len(ISNULL(D.inname,'')) > 0
                   Group by B.cltcd,  D.inname, B.misgubun  , A.acorp, B.fixflag
                   ORDER BY D.inname, sum(B.qty ) desc, A.acorp
@@ -261,6 +267,7 @@
              AND isnull(B.misgubun,'')  Like concat('%',#{misgubun},'%')
             AND B.misdate between #{frdate} and #{todate}
             AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
+            AND Isnull(C.makflag, '0') Like concat('%',#{makflag},'%')
             ORDER BY B.pcode,  B.misdate, B.misnum, B.seq
         ]]>
 
@@ -280,6 +287,7 @@
                     AND isnull(B.misgubun,'')  Like concat('%',#{misgubun},'%')
                     AND B.misdate between #{frdate} and #{todate}
                     AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
+                    AND Isnull(C.makflag, '0') Like concat('%',#{makflag},'%')
                     AND Len(ISNULL(D.inname,'')) > 0
                   Group by B.cltcd, B.pcode, B.pname, B.psize, D.inname, B.misgubun  , A.acorp, B.fixflag
                   ORDER BY  D.inname, sum(B.qty ) desc
@@ -297,7 +305,8 @@
                     AND isnull(C.delflag, '') <> 'Y'
                     AND B.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
                     AND C.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
-                     AND B.misdate between #{frdate} and #{todate}
+                    AND B.misdate between #{frdate} and #{todate}
+                    AND Isnull(C.makflag, '0') Like concat('%',#{makflag},'%')
                   Group by B.pcode, B.pname, B.psize,  E.sido, E.sidocd
                   ORDER BY E.sidocd, sum(B.qty ) desc, B.pname
         ]]>
@@ -315,6 +324,7 @@
                     AND B.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
                     AND C.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
                     AND B.misdate between #{frdate} and #{todate}
+                    AND Isnull(C.makflag, '0') Like concat('%',#{makflag},'%')
                   Group by B.pcode, B.pname, B.psize,  E.sido, E.sidocd,E.gugun, E.postcd
                   ORDER BY E.sidocd, E.postcd, sum(B.qty ) desc, B.pname
         ]]>
@@ -339,6 +349,7 @@
             AND B.misdate between #{frdate} and #{todate}
              AND isnull(B.misgubun,'')  Like concat('%',#{misgubun},'%')
              AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
+             AND Isnull(C.makflag, '0') Like concat('%',#{makflag},'%')
             ORDER BY C.perid,  B.misdate, B.misnum, B.seq
         ]]>
 
@@ -360,6 +371,7 @@
             AND B.misdate between #{frdate} and #{todate}
              AND isnull(B.misgubun,'')  Like concat('%',#{misgubun},'%')
              AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
+             AND Isnull(C.makflag, '0') Like concat('%',#{makflag},'%')
             ORDER BY B.cltcd,  B.misdate, B.misnum, B.seq
         ]]>
 
@@ -381,6 +393,7 @@
             AND B.misdate between #{frdate} and #{todate}
              AND isnull(B.misgubun,'')  Like concat('%',#{misgubun},'%')
              AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
+             AND Isnull(C.makflag, '0') Like concat('%',#{makflag},'%')
             ORDER BY B.pcode,  B.misdate, B.misnum, B.seq
         ]]>
 
@@ -390,20 +403,20 @@
         insert into TB_DA023 (custcd, spjangcd, cltcd, misgubun, misdate, misnum,
         contamt, gubun, yyyymm, perid, amt, addamt, misamt, billkind,
         taxcls, taxgubun, tax_spdate, tax_spnum, remark, bigo, vatemail, vatpernm,
-        spjangnum, delflag, ggubun ) values
+        spjangnum, delflag, ggubun, makflag ) values
         ('EEAN', 'ZZ', #{cltcd}, #{misgubun}, #{misdate},    #{misnum},
          #{contamt}, #{gubun},    #{yyyymm},     #{perid},     #{amt},      #{addamt},  #{misamt},  #{billkind},
-         #{taxcls},  #{taxgubun}, '', '', #{remark},   #{bigo},    #{vatemail}, #{vatpernm}, #{spjangnum}, 'N', #{ggubun} )
+         #{taxcls},  #{taxgubun}, '', '', #{remark},   #{bigo},    #{vatemail}, #{vatpernm}, #{spjangnum}, 'N', #{ggubun}, '0' )
     </insert>
 
     <insert id="InsertDa025" parameterType="com.dae.eean.DTO.App01.IndexDa023Dto" >
         insert into TB_DA025 (custcd, spjangcd, cltcd, misgubun, misdate, misnum,
         contamt, gubun, yyyymm, perid, amt, addamt, misamt, billkind,
         taxcls, taxgubun, tax_spdate, tax_spnum, remark, bigo, vatemail, vatpernm,
-        spjangnum, delflag, ggubun  ) values
+        spjangnum, delflag, ggubun, makflag  ) values
         ('EEAN', 'ZZ', #{cltcd}, #{misgubun}, #{misdate},    #{misnum},
         #{contamt}, #{gubun},    #{yyyymm},     #{perid},     #{amt},      #{addamt},  #{misamt},  #{billkind},
-        #{taxcls},  #{taxgubun}, '', '', #{remark},   #{bigo},    #{vatemail}, #{vatpernm}, #{spjangnum}, 'N' , #{ggubun} )
+        #{taxcls},  #{taxgubun}, '', '', #{remark},   #{bigo},    #{vatemail}, #{vatpernm}, #{spjangnum}, 'N' , #{ggubun}, '0' )
     </insert>
 
 
@@ -513,15 +526,15 @@
     </delete>
 
     <update id="UpdateDA024rkaa" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
-        UPDATE tb_da024 SET
-        remarkaa=#{remarkaa}, qty=#{qty}
-        where misdate=#{misdate} and misnum=#{misnum} and  seq=#{seq} and cltcd = #{cltcd}
+        UPDATE tb_da023 SET
+        remarkaa=#{remarkaa} , makflag = '1'
+        where misdate=#{misdate} and misnum=#{misnum}   and cltcd = #{cltcd}
     </update>
 
     <update id="UpdateDA024rkbb" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
-        UPDATE tb_da024 SET
-        remarkbb=#{remarkbb}, qty=#{qty}
-        where misdate=#{misdate} and misnum=#{misnum} and  seq=#{seq} and cltcd = #{cltcd}
+        UPDATE tb_da023 SET
+        remarkbb=#{remarkbb} , makflag = '1'
+        where misdate=#{misdate} and misnum=#{misnum} and cltcd = #{cltcd}
     </update>
 
     <update id="UpdateDA024" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
@@ -544,15 +557,15 @@
 
 
     <update id="UpdateDA026rkaa" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
-        UPDATE tb_da026 SET
-        remarkaa=#{remarkaa}, qty=#{qty}
-        where misdate=#{misdate} and misnum=#{misnum} and  seq=#{seq} and cltcd = #{cltcd}
+        UPDATE tb_da025 SET
+        remarkaa=#{remarkaa} , makflag = '1'
+        where misdate=#{misdate} and misnum=#{misnum}  and cltcd = #{cltcd}
     </update>
 
     <update id="UpdateDA026rkbb" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
-        UPDATE tb_da026 SET
-        remarkbb=#{remarkbb}, qty=#{qty}
-        where misdate=#{misdate} and misnum=#{misnum} and  seq=#{seq} and cltcd = #{cltcd}
+        UPDATE tb_da025 SET
+        remarkbb=#{remarkbb}, makflag = '1'
+        where misdate=#{misdate} and misnum=#{misnum}  and cltcd = #{cltcd}
     </update>
 
 

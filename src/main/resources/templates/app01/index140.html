@@ -67,10 +67,10 @@
                                       <a class="nav-link active" data-toggle="tab" href="#step01" onclick="tabchk_rtn('A')">주문등록</a>
                                     </li>
                                     <li class="nav-item">
-                                      <a class="nav-link" data-toggle="tab" href="#step02"  onclick="tabchk_rtn('B')">주문(요청등록)</a>
+                                      <a class="nav-link" data-toggle="tab" href="#step02"  onclick="tabchk_rtn('B')">주문(장바구니)</a>
                                     </li>
                                     <li class="nav-item">
-                                      <a class="nav-link" data-toggle="tab" href="#step03"  onclick="tabchk_rtn('C')">예약(요청등록)</a>
+                                      <a class="nav-link" data-toggle="tab" href="#step03"  onclick="tabchk_rtn('C')">예약(장바구니)</a>
                                     </li>
                                     <input type="hidden" id="tabvalue" value="A">
                                   </ul>
@@ -174,8 +174,20 @@
                                                     
                                                 </div>
                                             </div>
+                                            <div class="col-2 col-sm-2">
+                                                <select class="form-select form-select-sm" id="makflag01" aria-label=".form-select-sm example">
+                                                    <option selected="">구분</option>
+                                                    <option value="%">전체</option>
+                                                    <option value="0">장바구니</option>
+                                                    <option value="1">주문완료</option>
+                                                  </select> 
+                                            </div>  
                                             <div class="col-1 col-sm-1">  
                                                 <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="listBtn" type="button"  >조회
+                                                </button>
+                                            </div> 
+                                            <div class="col-1 col-sm-1">  
+                                                <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="saveBtn01" type="button"  >주문등록
                                                 </button>
                                             </div> 
                                             <!-- <div class="col-2 col-sm-1">  
@@ -212,8 +224,20 @@
                                                     
                                                 </div>
                                             </div>
+                                            <div class="col-2 col-sm-2">
+                                                <select class="form-select form-select-sm" id="makflag02" aria-label=".form-select-sm example">
+                                                    <option selected="">구분</option>
+                                                    <option value="%">전체</option>
+                                                    <option value="0">장바구니</option>
+                                                    <option value="1">예약완료</option>
+                                                  </select> 
+                                            </div>  
                                             <div class="col-1 col-sm-1">  
                                                 <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="listBtn02" type="button"  >조회
+                                                </button>
+                                            </div> 
+                                            <div class="col-1 col-sm-1">  
+                                                <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="saveBtn02" type="button"  >예약등록
                                                 </button>
                                             </div> 
                                             <!-- <div class="col-2 col-sm-1">  
@@ -315,21 +339,21 @@
                                         
                                     </div>
                                 </div> 
+                                <div class="col-md-auto"> 
+                                </div>
+                                <div class="col col-lg-2">
+                                    <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="OrderBtnSave" type="button"  >주문
+                                    </button>
+                                </div>  
                             </div>                                   
-                            <div class="row"  >
+                            <!-- <div class="row"  >
                                 <div class="col">
                                     <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">주문수량</span> 
                                         <input class="form-control form-control-sm" id="mjqty" type="number"    autocomplete="off"  placeholder=""     > 
                                         
                                     </div>
                                 </div>  
-                                <div class="col-md-auto"> 
-                                </div>
-                                <div class="col col-lg-2">
-                                    <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="OrderBtnSave" type="button"  >저장
-                                    </button>
-                                </div>  
-                            </div>  
+                            </div>   -->
                         </div>                             
                     </div>    
                 </div>   
@@ -373,6 +397,14 @@
          var isTimestamp = "";
          var isPreTimestamp = "";
         var wseries_data = [0]; 
+         var chkTabA = [];
+         var chkTabB = [];
+         var misdateArr = new Array();
+         var misnumArr = new Array();
+         var seqArr    = new Array(); 
+         var cltcdArr    = new Array(); 
+         var gubunArr    = new Array(); 
+         var fixflagArr    = new Array(); 
         let includeColumnHeader = false;
         let Chknum = 0;
          window.onload = function() {  
@@ -619,7 +651,18 @@
                     // groups.push(new wijmo.collections.PropertyGroupDescription('pernm'), new wijmo.collections.PropertyGroupDescription('misdate'));
                 }
             }
-            setHeaderColumn1(false);
+            // 선택기 생성
+            let selector = new wijmo.grid.selector.Selector(wtab02Grid, {                
+                itemChecked: () => { 
+                     showCheckedCount();
+                }                
+            }); 
+            function showCheckedCount() {
+                let cnt = document.getElementById('checked-count'), sel = wtab02Grid.rows.filter(r => r.isSelected);
+                //cnt.textContent = sel.length.toString();  
+                chkTabA = sel;   
+            } 
+            setHeaderColumn1(true);
             function setHeaderColumn1(headerOn) {
                 wtab02Grid.headersVisibility = headerOn
                 ? wijmo.grid.HeadersVisibility.All
@@ -689,7 +732,18 @@
                     // groups.push(new wijmo.collections.PropertyGroupDescription('pernm'), new wijmo.collections.PropertyGroupDescription('misdate'));
                 }
             }
-            setHeaderColumn2(false);
+            // 선택기 생성
+            let selector02 = new wijmo.grid.selector.Selector(wtab04Grid, {                
+                itemChecked: () => { 
+                     showCheckedCount02();
+                }                
+            }); 
+            function showCheckedCount02() {
+                let cnt = document.getElementById('checked-count'), sel = wtab04Grid.rows.filter(r => r.isSelected);
+                //cnt.textContent = sel.length.toString();  
+                chkTabB = sel;  
+            } 
+            setHeaderColumn2(true);
             function setHeaderColumn2(headerOn) {
                 wtab04Grid.headersVisibility = headerOn
                 ? wijmo.grid.HeadersVisibility.All
@@ -792,7 +846,7 @@
         function save_modal(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7){  
             document.getElementById('mjpumnm').value = arg1;
             document.getElementById('mjkey').value = arg2;
-            document.getElementById('mjqty').value = 1;    
+            // document.getElementById('mjqty').value = 1;    
             document.getElementById('mgubun').value = arg0; 
             document.getElementById('bmisdate').value = arg3; 
             document.getElementById('bmisnum').value = arg4; 
@@ -825,16 +879,16 @@
                 arg3 = ""          ;
             }    
             //수량
-            if(arg4 == null ){ 
+            if(arg4 == null ){  
                 arg4 = 1         ;
             }   
-            console.log(ls_misdate)
-            console.log(ls_misnum)
-            console.log(ls_seq)
-            console.log(ls_cltcd)
-            console.log(arg2)
-            console.log(arg3)
-            console.log(arg4)
+            // console.log(ls_misdate)
+            // console.log(ls_misnum)
+            // console.log(ls_seq)
+            // console.log(ls_cltcd)
+            // console.log(arg2)
+            // console.log(arg3)
+            // console.log(arg4)
             if(ls_tabchk == "B"  ){   
                 $.ajax({
                     url: '/app01m/index14/savecust',  
@@ -844,7 +898,7 @@
                         "acode"   : ls_cltcd   , 
                         "jkey"  : arg2     ,      
                         "jremark"  : arg3     ,   
-                        "jqty"  : arg4     ,      
+                        "jqty"  : 1     ,      
                         "misdate"  : ls_misdate     ,      
                         "misnum"  : ls_misnum     ,      
                         "seq"  : ls_seq     ,       
@@ -882,7 +936,7 @@
                             "acode"   : ls_cltcd   , 
                             "jkey"  : arg2     ,     
                             "jremark"  : arg3     ,   
-                            "jqty"  : arg4     , 
+                            "jqty"  : 1     , 
                             "misdate"  : ls_misdate     ,      
                             "misnum"  : ls_misnum     ,      
                             "seq"      : ls_seq     ,              
@@ -943,7 +997,7 @@
             switch(ls_tab){
                 case 'A': 
                     if(Number(jqty) == 0){
-                        if (!confirm("코드상세: [" + arg1 + "]  모델라인: " + arg2 + " 컬러 : " + arg3 + "  예약 하시겠습니까?")) { 
+                        if (!confirm("코드상세: [" + arg1 + "]  모델라인: " + arg2 + " 컬러 : " + arg3 + "  장바구니에 담으시겠습니까?")) { 
                             return false; 
                         }   
                         if(ls_ipdate == null || ls_ipdate.length == 0 || ls_ipdate == ""){ 
@@ -991,7 +1045,7 @@
 
                         })  
                     }else{
-                        if (!confirm("코드상세: [" + arg1 + "]  모델라인: " + arg2 + " 컬러 : " + arg3 + "  주문하시겠습니까?")) { 
+                        if (!confirm("코드상세: [" + arg1 + "]  모델라인: " + arg2 + " 컬러 : " + arg3 + "  장바구니에 담으시겠습니까?")) { 
                             return false; 
                         }   
                         if(ls_ipdate == null || ls_ipdate.length == 0 || ls_ipdate == ""){ 
@@ -1122,14 +1176,85 @@
             
             var ls_tab = document.getElementById('tabvalue').value;   
             searchList_rtn(ls_tab);
-        })                         
-        // tab02 검색   
+        })       
+        // tab02 주문  
+        document.getElementById("saveBtn01").addEventListener("click",function(){  
+            if(chkTabA.length == 0){
+                alert("주문할 자료를 선택하세요")
+                return 
+            }
+            while (misdateArr.length > 0) {
+                misdateArr.pop();
+                misnumArr.pop();
+                seqArr.pop();
+                cltcdArr.pop();
+                gubunArr.pop();
+                fixflagArr.pop();
+            }  
+            for (var i = 0; i < chkTabA.length; i++) { 
+                misdateArr[i]   = chkTabA[i]._data.misdate;
+                misnumArr[i]   = chkTabA[i]._data.misnum;
+                seqArr[i]  = chkTabA[i]._data.seq; 
+                cltcdArr[i]  = chkTabA[i]._data.cltcd; 
+                gubunArr[i]  = chkTabA[i]._data.misgubun; 
+                if(chkTabA[i]._data.makflag == "1" ){
+                    alert("이미 주문되었습니다.")
+                    return 
+                }
+                if(i == 0) { 
+                    document.getElementById('mjpumnm').value = chkTabA[i]._data.pname; 
+                    document.getElementById('mjkey').value = chkTabA[i]._data.pcode;  
+                    document.getElementById('mgubun').value = "O"; 
+                    document.getElementById('bmisdate').value = chkTabA[i]._data.misdate; 
+                    document.getElementById('bmisnum').value = chkTabA[i]._data.misnum; 
+                    document.getElementById('bseq').value = chkTabA[i]._data.seq;    
+                    document.getElementById('bcltcd').value = chkTabA[i]._data.cltcd;     
+                } 
+            }    
+            document.getElementById("inorderbtn").click();        
+        })                                
+        // tab03 검색   
         document.getElementById("listBtn02").addEventListener("click",function(){ 
             
             var ls_tab = document.getElementById('tabvalue').value;   
             searchList_rtn(ls_tab);
         })   
-
+        // tab03 주문 
+        document.getElementById("saveBtn02").addEventListener("click",function(){ 
+            if(chkTabB.length == 0){
+                alert("예약할 자료를 선택하세요")
+                return 
+            }
+            while (misdateArr.length > 0) {
+                misdateArr.pop();
+                misnumArr.pop();
+                seqArr.pop();
+                cltcdArr.pop();
+                gubunArr.pop();
+                fixflagArr.pop();
+            }  
+            for (var i = 0; i < chkTabB.length; i++) { 
+                misdateArr[i]   = chkTabB[i]._data.misdate;
+                misnumArr[i]   = chkTabB[i]._data.misnum;
+                seqArr[i]  = chkTabB[i]._data.seq; 
+                cltcdArr[i]  = chkTabB[i]._data.cltcd; 
+                gubunArr[i]  = chkTabB[i]._data.misgubun; 
+                if(chkTabB[i]._data.makflag == "1" ){
+                    alert("이미 주문되었습니다.")
+                    return 
+                }
+                if(i == 0) { 
+                    document.getElementById('mjpumnm').value = chkTabB[i]._data.pname; 
+                    document.getElementById('mjkey').value = chkTabB[i]._data.pcode;  
+                    document.getElementById('mgubun').value = "R"; 
+                    document.getElementById('bmisdate').value = chkTabB[i]._data.misdate; 
+                    document.getElementById('bmisnum').value = chkTabB[i]._data.misnum; 
+                    document.getElementById('bseq').value = chkTabB[i]._data.seq;    
+                    document.getElementById('bcltcd').value = chkTabB[i]._data.cltcd;     
+                } 
+            }    
+            document.getElementById("inorderbtn").click();    
+        })      
         //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 모달 검색@@@@@@@@@@@@@@@@@@@@@@@@@@@
         //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
                 
@@ -1197,7 +1322,7 @@
             var arg1 = document.getElementById('mjpumnm').value; 
             var arg2 = document.getElementById('mjkey').value; 
             var arg3 = document.getElementById('mremark').value; 
-            var arg4 = document.getElementById('mjqty').value;  
+            var arg4 = 1; //document.getElementById('mjqty').value;  
             saveremark_btn(arg1, arg2, arg3, arg4) 
             $("#winordermodal_btn").trigger("click"); 
         })  
@@ -1212,7 +1337,8 @@
                     var ls_todate = document.getElementById('todate').value;          
                     var ls_bacode   = document.getElementById('bacode').value;    
                     var ls_bcifname   = document.getElementById('bcifname').value; 
-                    var ls_abonsadam1   = document.getElementById('abonsadam1').value; 
+                    var ls_abonsadam1   = document.getElementById('abonsadam1').value;    
+                    var ls_makflag   = document.getElementById('makflag01').value; 
                     
                     if(ls_frdate == null || ls_frdate.length == 0 || ls_frdate == ""){ 
                         alert("조회일자를 등록하세요") 
@@ -1237,6 +1363,9 @@
                     if(ls_bcifname == null || ls_bcifname.length == 0 || ls_bcifname == ""){  
                         ls_bacode = "%";
                     }   
+                    if(ls_makflag == null || ls_makflag.length == 0 || ls_makflag == "" || ls_makflag == "구분"){  
+                        ls_makflag = "%"               
+                    }  
                     $.ajax({
                         url: '/app01m/index14/list',  
                         type:"POST",
@@ -1248,6 +1377,7 @@
                             "fixflag"    : '%',
                             "devflag"    : '%',
                             "misgubun"    : '%',
+                            "makflag"    : ls_makflag,
                             "mflag"  : 'CC'   ,   
                         },   
                         async:false,
@@ -1267,7 +1397,8 @@
                     var ls_todate = document.getElementById('todate02').value;          
                     var ls_bacode   = document.getElementById('dacode').value;     
                     var ls_dcifname   = document.getElementById('dcifname').value; 
-                    var ls_abonsadam1   = document.getElementById('abonsadam1').value; 
+                    var ls_abonsadam1   = document.getElementById('abonsadam1').value;    
+                    var ls_makflag   = document.getElementById('makflag02').value; 
                     if(ls_frdate == null || ls_frdate.length == 0 || ls_frdate == ""){ 
                         alert("조회일자를 등록하세요") 
                         document.getElementById("frdate02").focus(); 
@@ -1286,6 +1417,9 @@
                     if(ls_dcifname == null || ls_dcifname.length == 0 || ls_dcifname == ""){  
                         ls_bacode = "%";
                     }   
+                    if(ls_makflag == null || ls_makflag.length == 0 || ls_makflag == "" || ls_makflag == "구분"){  
+                        ls_makflag = "%"               
+                    }  
                     $.ajax({
                         url: '/app01m/index14/listwish',  
                         type:"POST",
@@ -1296,6 +1430,7 @@
                             "fixflag"    : '%',
                             "misgubun"    : '%', 
                             "perid"      : ls_abonsadam1, 
+                            "makflag"    : ls_makflag,
                             "mflag"  : 'CC'   ,     
                         }, 
                         async:false,
@@ -1329,7 +1464,7 @@
                 }
                 ls_remark = wtab02Dto[i]["remarkbb"]
                 if(ls_remark == null || ls_remark.length == 0 || ls_remark == ""){  
-                    ls_remark = "요청등록"            
+                    //ls_remark = "요청등록"            
                 } 
                 wtab02_data.push({
                     id: i, 
@@ -1490,7 +1625,7 @@
                 }
                 ls_remark = wtab04Dto[i]["remarkbb"]
                 if(ls_remark == null || ls_remark.length == 0 || ls_remark == ""){  
-                    ls_remark = "요청등록"            
+                    //ls_remark = "요청등록"            
                 }  
                 wtab04_data.push({
                     id: i, 
@@ -2220,6 +2355,8 @@
             const ls_pernm = window.localStorage.getItem("pernm");
             document.getElementById('abonsadam1').value = ls_perid;
             document.getElementById('pernm').value = ls_pernm; 
+            document.getElementById('makflag01').value = "0";
+            document.getElementById('makflag02').value = "0";
             lsUserid = window.localStorage.getItem("userid")
             if (lsUserid == "pvadmin"){
                 document.getElementById('jpbgubn').value = "P"; 

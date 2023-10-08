@@ -451,7 +451,7 @@
             // showCheckedCount();
             function showCheckedCount() {
                 let cnt = document.getElementById('checked-count'), sel = wtab02Grid.rows.filter(r => r.isSelected);
-                cnt.textContent = sel.length.toString();  
+                //cnt.textContent = sel.length.toString();  
                 chkTabA = sel;          
                 // for (var i = 0; i < sel.length; i++) { 
                 //     misdateArr[i]   = sel[i]._data.misdate;
@@ -557,7 +557,7 @@
             showCheckedCount02();
             function showCheckedCount02() {
                 let cnt = document.getElementById('checked-count02'), sel = wtab04Grid.rows.filter(r => r.isSelected);
-                cnt.textContent = sel.length.toString();   
+                //cnt.textContent = sel.length.toString();   
                 chkTabB = sel;       
                 // for (var i = 0; i < sel.length; i++) { 
                 //     misdateWArr[i]   = sel[i]._data.misdate;
@@ -821,13 +821,13 @@
                     if (!confirm("주문출력 하시겠습니까?")) { 
                         return false; 
                     }   
-                    while (misdateWArr.length > 0) {
-                        misdateWArr.pop();
-                        misnumWArr.pop();
-                        seqWArr.pop();
-                        cltcdWArr.pop();
-                        gubunWArr.pop();
-                        fixflagWArr.pop();
+                    while (misdateArr.length > 0) {
+                        misdateArr.pop();
+                        misnumArr.pop();
+                        seqArr.pop();
+                        cltcdArr.pop();
+                        gubunArr.pop();
+                        fixflagArr.pop();
                     } 
                     for (var i = 0; i < chkTabA.length; i++) { 
                         misdateArr[i]   = chkTabA[i]._data.misdate;
@@ -1456,6 +1456,7 @@
                             "fixflag"    : ls_misfixflag, 
                             "devflag"    : ls_misdevflag,
                             "misgubun"    : ls_misgubun,
+                            "makflag"    : '1',
                             "mflag"  : 'AA'   ,  
                         }, 
                         async:false,
@@ -1570,6 +1571,7 @@
                             "perid"      : ls_abonsadam1,   
                             "fixflag"    : ls_wishfixflag,  
                             "misgubun"    : ls_misgubunflag, 
+                            "makflag"    : '1',
                             "mflag"  : 'AA'   ,  
                         }, 
                         async:false,
@@ -1596,6 +1598,8 @@
             var cnt = 1;
             var bfixflag = false
             var bdevflag = false
+            var ls_remark01 = "";
+            var ls_remark02 = "";
             for (var i = 0; i < wtab02Dto.length; i++) {
                 if(wtab02Dto[i]["fixflag"] == "1"){
                     bfixflag = true;
@@ -1607,6 +1611,16 @@
                 }else{
                     bdevflag = false;
                 }
+                if(wtab02Dto[i]["seq"] == "001"){
+                    ls_remark01 = wtab02Dto[i]["remarkaa"];
+                }else{
+                    ls_remark01 = "";
+                }  
+                if(wtab02Dto[i]["seq"] == "001"){
+                    ls_remark02 = wtab02Dto[i]["remarkbb"];
+                }else{
+                    ls_remark02 = "";
+                }     
                 wtab02_data.push({
                     id: i, 
                     index: cnt,
@@ -1626,8 +1640,8 @@
                     cltcd: wtab02Dto[i]["cltcd"],  
                     inname: wtab02Dto[i]["inname"],       
                     misgubun: wtab02Dto[i]["misgubun"],  
-                    remarkaa: wtab02Dto[i]["remarkaa"],  
-                    remarkbb: wtab02Dto[i]["remarkbb"],   
+                    remarkaa: ls_remark01,  
+                    remarkbb: ls_remark02,   
                     fixflag: bfixflag,                       
                     devflag: bdevflag,                           
                 });
@@ -2163,12 +2177,24 @@
             var wtab04_data = [];
             var cnt = 1;
             var bfixflag = false
+            var ls_remark01 = "";
+            var ls_remark02 = "";
             for (var i = 0; i < wtab04Dto.length; i++) {
                 if(wtab04Dto[i]["fixflag"] == "1"){
                     bfixflag = true;
                 }else{
                     bfixflag = false;
                 }
+                if(wtab04Dto[i]["seq"] == "001"){
+                    ls_remark01 = wtab04Dto[i]["remarkaa"];
+                }else{
+                    ls_remark01 = "";
+                }     
+                if(wtab04Dto[i]["seq"] == "001"){
+                    ls_remark02 = wtab04Dto[i]["remarkbb"];
+                }else{
+                    ls_remark02 = "";
+                }     
                 wtab04_data.push({
                     id: i, 
                     index: cnt,
@@ -2190,8 +2216,8 @@
                     omisdate: wtab04Dto[i]["omisdate"],
                     omisnum: wtab04Dto[i]["omisnum"],     
                     oseq: wtab04Dto[i]["oseq"],     
-                    remarkaa: wtab04Dto[i]["remarkaa"],  
-                    remarkbb: wtab04Dto[i]["remarkbb"],       
+                    remarkaa: ls_remark01,  
+                    remarkbb: ls_remark02,       
                     fixflag: bfixflag,                                           
                 });
                 cnt++;

@@ -1535,6 +1535,7 @@ public class App01CrudController {
                                   @RequestParam("devflag") String devflag,
                                   @RequestParam("perid") String perid,
                                   @RequestParam("misgubun") String misgubun,
+                                  @RequestParam("makflag") String makflag,
                                   @RequestParam("mflag") String mflag,
                                   Model model, HttpServletRequest request) throws Exception{
         CommDto.setMenuTitle("주문등록");
@@ -1558,6 +1559,7 @@ public class App01CrudController {
             indexDa024Dto.setCltcd(acode);
             indexDa024Dto.setFixflag(fixflag);
             indexDa024Dto.setDevflag(devflag);
+            indexDa024Dto.setMakflag(makflag);
             if(perid == null || perid.equals("")){
                 perid = "%";
             }
@@ -1722,6 +1724,7 @@ public class App01CrudController {
                                   @RequestParam("fixflag") String fixflag,
                                   @RequestParam("perid") String perid,
                                   @RequestParam("mflag") String mflag,
+                                  @RequestParam("makflag") String makflag,
                                   Model model, HttpServletRequest request) throws Exception{
         CommDto.setMenuTitle("주문등록");
         CommDto.setMenuUrl("주문등록>주문현황");
@@ -1743,6 +1746,7 @@ public class App01CrudController {
             indexDa024Dto.setTodate(todate);
             indexDa024Dto.setCltcd(acode);
             indexDa024Dto.setFixflag(fixflag);
+            indexDa024Dto.setMakflag(makflag);
             if(perid == null || perid.equals("")){
                 perid = "%";
             }
@@ -1784,6 +1788,7 @@ public class App01CrudController {
                                        @RequestParam("fixflag") String fixflag,
                                        @RequestParam("perid") String perid,
                                        @RequestParam("mflag") String mflag,
+                                       @RequestParam("makflag") String makflag,
                                        Model model, HttpServletRequest request) throws Exception{
         CommDto.setMenuTitle("주문등록");
         CommDto.setMenuUrl("주문등록>주문현황");
@@ -1805,6 +1810,7 @@ public class App01CrudController {
             indexDa024Dto.setTodate(todate);
             indexDa024Dto.setCltcd(acode);
             indexDa024Dto.setFixflag(fixflag);
+            indexDa024Dto.setMakflag(makflag);
             if(perid == null || perid.equals("")){
                 perid = "%";
             }
@@ -1847,6 +1853,7 @@ public class App01CrudController {
                                        @RequestParam("fixflag") String fixflag,
                                        @RequestParam("perid") String perid,
                                        @RequestParam("mflag") String mflag,
+                                       @RequestParam("makflag") String makflag,
                                        Model model, HttpServletRequest request) throws Exception{
         CommDto.setMenuTitle("주문등록");
         CommDto.setMenuUrl("주문등록>주문현황");
@@ -1868,6 +1875,7 @@ public class App01CrudController {
             indexDa024Dto.setTodate(todate);
             indexDa024Dto.setCltcd(acode);
             indexDa024Dto.setFixflag(fixflag);
+            indexDa024Dto.setMakflag(makflag);
             if(perid == null || perid.equals("")){
                 perid = "%";
             }
@@ -1906,6 +1914,7 @@ public class App01CrudController {
                                        @RequestParam("fixflag") String fixflag,
                                        @RequestParam("perid") String perid,
                                        @RequestParam("mflag") String mflag,
+                                       @RequestParam("makflag") String makflag,
                                        Model model, HttpServletRequest request) throws Exception{
         CommDto.setMenuTitle("주문등록");
         CommDto.setMenuUrl("주문등록>주문현황");
@@ -1927,6 +1936,7 @@ public class App01CrudController {
             indexDa024Dto.setTodate(todate);
             indexDa024Dto.setCltcd(acode);
             indexDa024Dto.setFixflag(fixflag);
+            indexDa024Dto.setMakflag(makflag);
             if(perid == null || perid.equals("")){
                 perid = "%";
             }
@@ -1966,6 +1976,7 @@ public class App01CrudController {
                                        @RequestParam("fixflag") String fixflag,
                                        @RequestParam("perid") String perid,
                                        @RequestParam("mflag") String mflag,
+                                       @RequestParam("makflag") String makflag,
                                        Model model, HttpServletRequest request) throws Exception{
         CommDto.setMenuTitle("주문등록");
         CommDto.setMenuUrl("주문등록>주문현황");
@@ -1987,6 +1998,7 @@ public class App01CrudController {
             indexDa024Dto.setTodate(todate);
             indexDa024Dto.setCltcd(acode);
             indexDa024Dto.setFixflag(fixflag);
+            indexDa024Dto.setMakflag(makflag);
             if(perid == null || perid.equals("")){
                 perid = "%";
             }
@@ -2027,6 +2039,7 @@ public class App01CrudController {
                                       @RequestParam("fixflag") String fixflag,
                                       @RequestParam("perid") String perid,
                                       @RequestParam("mflag") String mflag,
+                                      @RequestParam("makflag") String makflag,
                                       Model model, HttpServletRequest request) throws Exception{
         CommDto.setMenuTitle("주문등록");
         CommDto.setMenuUrl("주문등록>주문현황");
@@ -2048,6 +2061,7 @@ public class App01CrudController {
             indexDa024Dto.setTodate(todate);
             indexDa024Dto.setCltcd(acode);
             indexDa024Dto.setFixflag(fixflag);
+            indexDa024Dto.setMakflag(makflag);
             if(perid == null || perid.equals("")){
                 perid = "%";
             }
@@ -2086,6 +2100,7 @@ public class App01CrudController {
                                            @RequestParam("fixflag") String fixflag,
                                            @RequestParam("perid") String perid,
                                            @RequestParam("mflag") String mflag,
+                                           @RequestParam("makflag") String makflag,
                                            Model model, HttpServletRequest request) throws Exception{
         CommDto.setMenuTitle("주문등록");
         CommDto.setMenuUrl("주문등록>지역별통계");
@@ -2107,6 +2122,7 @@ public class App01CrudController {
             indexDa024Dto.setTodate(todate);
             indexDa024Dto.setCltcd(acode);
             indexDa024Dto.setFixflag(fixflag);
+            indexDa024Dto.setMakflag(makflag);
             if(perid == null || perid.equals("")){
                 perid = "%";
             }
@@ -2144,6 +2160,7 @@ public class App01CrudController {
                                       @RequestParam("fixflag") String fixflag,
                                       @RequestParam("perid") String perid,
                                       @RequestParam("mflag") String mflag,
+                                      @RequestParam("makflag") String makflag,
                                       Model model, HttpServletRequest request) throws Exception{
         CommDto.setMenuTitle("주문등록");
         CommDto.setMenuUrl("주문등록>지역별통계");
@@ -2165,6 +2182,7 @@ public class App01CrudController {
             indexDa024Dto.setTodate(todate);
             indexDa024Dto.setCltcd(acode);
             indexDa024Dto.setFixflag(fixflag);
+            indexDa024Dto.setMakflag(makflag);
             if(perid == null || perid.equals("")){
                 perid = "%";
             }
@@ -2202,7 +2220,8 @@ public class App01CrudController {
                                   @RequestParam("acode") String acode,
                                   @RequestParam("fixflag") String fixflag,
                                   @RequestParam("perid") String perid,
-                                      @RequestParam("misgubun") String misgubun,
+                                  @RequestParam("misgubun") String misgubun,
+                                  @RequestParam("makflag") String makflag,
                                   @RequestParam("mflag") String mflag,
                                   Model model, HttpServletRequest request) throws Exception{
         CommDto.setMenuTitle("주문등록");
@@ -2225,6 +2244,7 @@ public class App01CrudController {
             indexDa024Dto.setTodate(todate);
             indexDa024Dto.setCltcd(acode);
             indexDa024Dto.setFixflag(fixflag);
+            indexDa024Dto.setMakflag(makflag);
             if(perid == null || perid.equals("")){
                 perid = "%";
             }
@@ -2265,6 +2285,7 @@ public class App01CrudController {
                                       @RequestParam("fixflag") String fixflag,
                                       @RequestParam("perid") String perid,
                                       @RequestParam("mflag") String mflag,
+                                      @RequestParam("makflag") String makflag,
                                       Model model, HttpServletRequest request) throws Exception{
         CommDto.setMenuTitle("주문등록");
         CommDto.setMenuUrl("주문등록>예약현황");
@@ -2286,6 +2307,7 @@ public class App01CrudController {
             indexDa024Dto.setTodate(todate);
             indexDa024Dto.setCltcd(acode);
             indexDa024Dto.setFixflag(fixflag);
+            indexDa024Dto.setMakflag(makflag);
             if(perid == null || perid.equals("")){
                 perid = "%";
             }
@@ -2323,6 +2345,7 @@ public class App01CrudController {
                                            @RequestParam("fixflag") String fixflag,
                                            @RequestParam("perid") String perid,
                                            @RequestParam("mflag") String mflag,
+                                           @RequestParam("makflag") String makflag,
                                            Model model, HttpServletRequest request) throws Exception{
         CommDto.setMenuTitle("주문등록");
         CommDto.setMenuUrl("주문등록>예약현황");
@@ -2344,6 +2367,7 @@ public class App01CrudController {
             indexDa024Dto.setTodate(todate);
             indexDa024Dto.setCltcd(acode);
             indexDa024Dto.setFixflag(fixflag);
+            indexDa024Dto.setMakflag(makflag);
             if(perid == null || perid.equals("")){
                 perid = "%";
             }
@@ -2382,6 +2406,7 @@ public class App01CrudController {
                                            @RequestParam("fixflag") String fixflag,
                                            @RequestParam("perid") String perid,
                                            @RequestParam("mflag") String mflag,
+                                           @RequestParam("makflag") String makflag,
                                            Model model, HttpServletRequest request) throws Exception{
         CommDto.setMenuTitle("주문등록");
         CommDto.setMenuUrl("주문등록>예약현황");
@@ -2404,6 +2429,7 @@ public class App01CrudController {
             indexDa024Dto.setCltcd(acode);
             indexDa024Dto.setPcode(jkey);
             indexDa024Dto.setFixflag(fixflag);
+            indexDa024Dto.setMakflag(makflag);
             if(perid == null || perid.equals("")){
                 perid = "%";
             }

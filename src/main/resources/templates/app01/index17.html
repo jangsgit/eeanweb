@@ -392,6 +392,7 @@
                         ls_bacode = "%";
                     }   
                     ls_abonsadam1 = "";
+                    var ls_makflag = "1";
                     $.ajax({
                         url: '/app01m/index14/listwish',  
                         type:"POST",
@@ -402,6 +403,7 @@
                             "perid"      : ls_abonsadam1,   
                             "fixflag"    : '0',  
                             "misgubun"    : ls_misgubunflag, 
+                            "makflag"    : ls_makflag, 
                             "mflag"  : 'AA'   ,  
                         }, 
                         async:false,

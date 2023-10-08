@@ -63,5 +63,6 @@ public class IndexDa024Dto {
     private String sidocd;
     private String gugun;
     private String postcd;
+    private String makflag;
 
 }

@@ -31,5 +31,6 @@ public class IndexDa023Dto {
     private String ggubun;
     private String omisdate;
     private String omisnum;
+    private String makflag;
 
 }

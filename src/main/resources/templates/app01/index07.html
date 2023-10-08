@@ -483,6 +483,7 @@
         });   
 
         function searchList_rtn(arg1){ 
+            var ls_makflag = "1" ;
             switch(arg1){ 
                 case 'A': 
                     var ls_frdate = document.getElementById('frdate').value; 
@@ -519,6 +520,7 @@
                             "acode"      : ls_cifname,   
                             "perid"      : ls_abonsadam1,  
                             "fixflag"    : ls_misfixflag,
+                            "makflag"    : ls_makflag,
                             "mflag"  : 'AA'   ,  
                         }, 
                         async:false,
@@ -568,6 +570,7 @@
                             "acode"      : ls_bcifname,   
                             "perid"      : ls_abonsadam2,   
                             "fixflag"    : ls_wishfixflag, 
+                            "makflag"    : ls_makflag,
                             "mflag"  : 'AA'   ,  
                         }, 
                         async:false,

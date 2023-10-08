@@ -393,7 +393,8 @@
                     }   
                     if(ls_bcifname == null || ls_bcifname.length == 0 || ls_bcifname == ""){  
                         ls_bacode = "%";
-                    }    
+                    }   
+                    var ls_makflag = "1" ;
                     $.ajax({
                         url: '/app01m/index14/list',  
                         type:"POST",
@@ -405,6 +406,7 @@
                             "fixflag"    : '%',
                             "devflag"    : '%',
                             "misgubun"    : '%',
+                            "makflag"    : ls_makflag,
                             "mflag"  : 'BB'   ,  
                         },    
                         async:false,
@@ -432,11 +434,17 @@
             var wtab02_data = [];
             var cnt = 1;
             var bfixflag = false
+            var ls_remark = "";
             for (var i = 0; i < wtab02Dto.length; i++) {
                 if(wtab02Dto[i]["fixflag"] == "1"){
                     bfixflag = true;
                 }else{
                     bfixflag = false;
+                }
+                if(wtab02Dto[i]["seq"] == "001"){
+                    ls_remark = wtab02Dto[i]["remarkbb"];
+                }else{
+                    ls_remark = "";
                 }
                 wtab02_data.push({
                     id: i, 
@@ -456,7 +464,7 @@
                     cltcd: wtab02Dto[i]["cltcd"],   
                     inname: wtab02Dto[i]["inname"],   
                     misgubun: wtab02Dto[i]["misgubun"],      
-                    remark: wtab02Dto[i]["remarkbb"],     
+                    remark: ls_remark,     
                     fixflag: bfixflag,                                               
                 });
                 cnt++;
@@ -470,7 +478,7 @@
             cols.binding = 'misdate';
             cols.header = '주문일자';
             cols.align = "center";
-            cols.width = 120; 
+            cols.width = 200; 
             wtab02Grid.columns.push(cols);  
             // cols = new wijmo.grid.Column(); 
             // cols.binding = 'misnum';
