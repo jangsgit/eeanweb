@@ -195,6 +195,8 @@
          var omisnumWArr = new Array();
          var oseqWArr    = new Array(); 
         
+         var grandTotalsGroup  = "";
+
          var excelIOSheet;
          var typeMenu;  
          var treemap;
@@ -209,6 +211,9 @@
          window.onload = init; 
         function init() { 
             //일자별주문현황 popup list
+            grandTotalsGroup = new wijmo.collections.PropertyGroupDescription('합  계', function (item, propName) {
+                return '';
+            });
             view_p01tab02page = new wijmo.collections.CollectionView(getData_wlist2(), {
                 // pageSize: 100
             });    
@@ -245,7 +250,7 @@
                 let groups = view_p01tab02page.groupDescriptions;
                 groups.clear();
                 if (groupsOn) {
-                    groups.push(new wijmo.collections.PropertyGroupDescription('misdate'), new wijmo.collections.PropertyGroupDescription('acorp'));
+                    groups.push(new wijmo.collections.PropertyGroupDescription('misdate'));
                 }
             }
             // 헤더 열 전환
@@ -473,7 +478,13 @@
 
             wtab02Grid.columns.clear();  
             wtab02Grid.autoGenerateColumns = false; 
-            view_p01tab02page.sourceCollection  = wtab02_data;
+            //view_p01tab02page.sourceCollection  = wtab02_data;
+            wtab02Grid.itemsSource = new wijmo.collections.CollectionView(wtab02_data, {
+                    groupDescriptions: [
+                        grandTotalsGroup,
+                        'misdate'
+                    ]
+                })  
             var cols = new wijmo.grid.Column(); 
             cols.binding = 'misdate';
             cols.header = '주문일자';

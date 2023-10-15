@@ -57,18 +57,18 @@
                                 <button type="button" id="retrieveBtn" >검색</button>      
                             </div>                              
                             <!-- //여기서부터 그래프 -->
-                            <div class="table table_style2">
-                                <div class="card-body bg-light">    
-                                      <div class="tab-content" >                                        
-                                        <div class="tab-pane fade show active"  >  
-                                                <div class="container-fluid" id="op1" >
-                                                <div id="wtab01Grid_div"  style="overflow:scroll;   height:600px;    margin:0 auto; "></div>
-                                                <!-- <div style="display: flex; margin: 0 auto; " id="tab01Pager"></div> -->
-                                            </div>                                               
-                                        </div>                                        
-                                      </div>
-                                </div>
-                            </div>                       
+                            <!-- <div class="table table_style2"> -->
+                                    <!-- <div class="card-body bg-light">     -->
+                                        <div class="tab-content" >                                        
+                                            <div class="tab-pane fade show active"  >  
+                                                    <div class="container-fluid" id="op1" >
+                                                    <div id="wtab01Grid_div"  style="overflow:scroll;   height:600px;    margin:0 auto; "></div>
+                                                    <!-- <div style="display: flex; margin: 0 auto; " id="tab01Pager"></div> -->
+                                                </div>                                               
+                                            </div>                                        
+                                        </div>
+                                    <!-- </div> -->
+                            <!-- </div>                        -->
                                                         
                         </div>
                     </div>
@@ -351,62 +351,31 @@
             <div class="modal-dialog modal-lg mt-6" role="document" id ="modalForm01" style="max-width: 80%">
                 <div class="modal-content">                   
                     <div class="modal-body p-0" > 
-                        <div class="rounded-top-lg py-3 ps-4 pe-6 bg-light">
-
-                            <!-- <div class="search">
-                                <div class="input_wrap">
-                                    <input class="form-control form-control-sm" id="searchx5Code" type="text" onkeyup="if(window.event.keyCode==13){searchtxt9_rtn()}"
-                                    placeholder="거래처현황 " />                                      
+                        <div class="rounded-top-lg py-3 ps-4 pe-6 bg-light">  
+                            <div class="row gx-3" style="  margin: 10px 10px 10px;">   
+                                <div class="col-2 col-sm-2">
+                                    <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">업체구분</span>                                            
+                                        <select class="form-select" th:field="*{cifcodeList}" name="conacorp1" id="conacorp1">
+                                            <option value="">선택</option>
+                                            <option th:each="val : ${cifcodeList}" th:value="${val.cifcode}" th:text="${val.cifcodename}">
+                                        </select>
+                                    </div>
                                 </div>
-                                <button id="wgoBtn">
-                                    <img th:src="@{/assets/images/i_search.png}" alt=""> 
-                                </button>                            
-                            </div>   -->
-                            <div class="infor_bar type2">
-                                <div class="left">
-                                   거래처현황
-                                  </div>
-                                    <ul class="right">
-                                        <li>
-                                        <button type="button" class="color2" id="wciflistBtn">
-                                            <i><img th:src="@{/assets/images/i_search.png}" alt=""></i>조회
-                                        </button>
-                                        </li>                                   
-                                    </ul>
-                            </div>
-                            <div class="box_wrap">
-                                <ul class="search_box" style="width: 100%; margin: 17px 15px 55px;"  >                                   
-                                    <li style ="float:left; list-style-type:none; margin-left:300px;">
-                                        <div class="input-group mb-3">  
-                                            <span class="input-group-text" style="max-height:30px;">업체구분</span>                                            
-                                            <select class="form-select" th:field="*{cifcodeList}" name="conacorp1" id="conacorp1">
-                                                <option value="">선택</option>
-                                                <option th:each="val : ${cifcodeList}" th:value="${val.cifcode}" th:text="${val.cifcodename}">
-                                            </select>
-                                        </div>
-                                    </li>                                    
-                                    <!-- <li style ="float:left; list-style-type:none; margin-left:40px;">
-                                        <div class="input-group mb-3" >
-                                            <span class="input-group-text" style="max-height:30px;" >구분</span>
-                                            <select class="form-select" id="conagita"   >   
-                                                <option value="%">거래구분</option>
-                                                <option value="크레딧">크레딧</option>
-                                                <option value="비거래">비거래</option> 
-                                              </select>   
-                                        </div>
-                                    </li>                                       -->
-                                    <li style ="float:left; list-style-type:none; margin-left:40px;">
-                                        <div class="input-group mb-3"><span class="input-group-text" id="inputGroup-sizing-default">검색어</span>
-                                            <input class="form-control" type="text"   aria-describedby="inputGroup-sizing-default"  id="conacorp" placeholder="거래처명/ 거래처코드"/>
-                                        </div>
-                                    </li>                                   
-                                </ul>
-                           </div>                            
+                                <div class="col-2 col-sm-2">
+                                    <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">검색어</span> 
+                                        <input class="form-control form-control-sm" id="conacorp" type="text"    autocomplete="off" placeholder="거래처명/ 거래처코드"  > 
+                                    </div>
+                                </div> 
+                                <div class="col-2 col-sm-1"> 
+                                    <button class="btn btn-falcon-primary me-1 mb-1 btn-sm" type="button" id="wciflistBtn">검색
+                                    </button> 
+                                </div>  
+                            </div>  
                         </div>   
                         <div class="box_wrap with_tit" style="padding: 10px;">
                             <div class="container-fluid" style="padding: 10px;">
-                                <div id="wtab02Grid_div" ></div>
-                                <div  id="tab02Pager"></div>
+                                <div id="wtab02Grid_div"  style="overflow:scroll;   height:500px;    margin:0 auto; "></div>
+                                <!-- <div  id="tab02Pager"></div> -->
                             </div>   
                         </div>
                     </div>  
@@ -474,7 +443,7 @@
             columns: [     
                 {
                     binding: 'acode',
-                    width: '1*',
+                    width: 100,
                     header: '코드', 
                     align:"center",
                     cellTemplate: wijmo.grid.cellmaker.CellMaker.makeLink({ 
@@ -484,16 +453,17 @@
                         }
                     })
                 }, 
-                { binding: 'acorp', header: '거래처명', align: "center", width: '*' },  
-                { binding: 'atelno', header: '전화번호', align: "left", width: '*' },                      
-                { binding: 'aemail', header: '메일', align: "left", width: '*' },  
-                { binding: 'ajusotxt', header: '주소', align: "center", width: '*' },                     
+                { binding: 'acorp', header: '거래처명', align: "left", width: 160 },  
+                { binding: 'atelno', header: '전화번호', align: "center", width: 150 },                      
+                { binding: 'aemail', header: '메일', align: "left", width: 200 },  
+                { binding: 'ajusotxt', header: '주소', align: "center", width: 200 },   
+                { binding: 'inname01', header: '담당', align: "center", width: 80 },                    
                 
             ], 
             itemsSource: view_p01tab01page,  
         });        
  
-        
+         
             new FlexGridContextMenu(wtab01Grid);
             // 그룹 패널 생성
             // var theGroupPanel = new wijmo.grid.grouppanel.GroupPanel('#theGroupPanel', {
@@ -582,15 +552,15 @@
         // // ################################################################
 
         view_p01tab02page = new wijmo.collections.CollectionView(getData_tab02(), {
-            sortDescriptions: [new wijmo.collections.SortDescription("acode", false)],
-            pageSize: 18
+            // sortDescriptions: [new wijmo.collections.SortDescription("acode", false)],
+            // pageSize: 18
         });
        // tab02 grid page
-        new wijmo.input.CollectionViewNavigator('#tab02Pager', {
-            byPage: true,
-            headerFormat: 'Page {currentPage:n0} of {pageCount:n0}',
-            cv: view_p01tab02page
-        });      
+        // new wijmo.input.CollectionViewNavigator('#tab02Pager', {
+        //     byPage: true,
+        //     headerFormat: 'Page {currentPage:n0} of {pageCount:n0}',
+        //     cv: view_p01tab02page
+        // });      
         wtab02Grid = new wijmo.grid.FlexGrid('#wtab02Grid_div', {  
             autoGenerateColumns: false,
             showMarquee: true,
@@ -618,15 +588,15 @@
                 { binding: 'aname', header: '대표자', align: "center", width: 100 },  
                 { binding: 'aupte', header: '업태', align: "center", width: 80 },  
                 { binding: 'ajong', header: '업종', align: "center", width: 80 },  
-                { binding: 'atelno', header: '전화번호', align: "left", width: 130 },        
-                { binding: 'atelno2', header: '전화번호2', align: "left", width: 130 },        
+                { binding: 'atelno', header: '전화번호', align: "center", width: 130 },        
+                { binding: 'atelno2', header: '전화번호2', align: "center", width: 130 },        
                 { binding: 'ahand', header: '핸드폰', align: "left", width: 130 },                     
                 { binding: 'aemail', header: '메일', align: "left", width: 200 },   
                 { binding: 'apost1', header: '우편번호', align: "center", width: 80 },  
                 { binding: 'ajusotxt', header: '주소', align: "center", width: 200 },    
                 { binding: 'inname01', header: '담당(현)', align: "left", width: 100 },        
-                { binding: 'inname02', header: '담당', align: "left", width: 100 },        
-                { binding: 'inname03', header: '담당', align: "center", width: 100 },  
+                // { binding: 'inname02', header: '담당', align: "left", width: 100 },        
+                // { binding: 'inname03', header: '담당', align: "center", width: 100 },  
                 { binding: 'adomain', header: '홈페이지', align: "center", width: 200 },              
                 
             ], 
@@ -641,20 +611,20 @@
             //     grid: wtab02Grid
             // }); 
             // 선택기 생성
-            selector = new wijmo.grid.selector.Selector(wtab02Grid, {
-                itemChecked: () => {
-                    showCheckedCount();
-                }
-            }); 
+            // selector = new wijmo.grid.selector.Selector(wtab02Grid, {
+            //     itemChecked: () => {
+            //         showCheckedCount();
+            //     }
+            // }); 
             // 헤더 열 전환
-            setHeaderColumn02(true);
+            setHeaderColumn02(false);
             function setHeaderColumn02(headerOn) {
                 wtab02Grid.headersVisibility = headerOn
                 ? wijmo.grid.HeadersVisibility.All
                 : wijmo.grid.HeadersVisibility.Column;
-                selector.column = headerOn
-                ? wtab02Grid.rowHeaders.columns[0]
-                : wtab02Grid.columns[0];
+                // selector.column = headerOn
+                // ? wtab02Grid.rowHeaders.columns[0]
+                // : wtab02Grid.columns[0];
             } 
             wtab02Grid.showMarquee = true;
             wtab02Grid.focus();
@@ -858,13 +828,13 @@
         var ls_aemail = document.getElementById('aemail').value ; 
         var ls_ahand = document.getElementById('ahand').value; 
         var ls_abonsadam1 = document.getElementById('abonsadam1').value; 
-        var ls_abonsadam2 = document.getElementById('abonsadam2').value ; 
-        var ls_abonsadam3 = document.getElementById('abonsadam3').value; 
-        var ls_adomain = document.getElementById('adomain').value; 
-        var ls_afax = document.getElementById('afax').value ; 
+        var ls_abonsadam2 = ''; //document.getElementById('abonsadam2').value ; 
+        var ls_abonsadam3 = ''; //document.getElementById('abonsadam3').value; 
+        var ls_adomain = ''; //document.getElementById('adomain').value; 
+        var ls_afax = ''; //document.getElementById('afax').value ; 
         var ls_inname01 = document.getElementById('inname01').value ; 
-        var ls_inname02 = document.getElementById('inname02').value ; 
-        var ls_inname03 = document.getElementById('inname03').value;  
+        var ls_inname02 = ''; //document.getElementById('inname02').value ; 
+        var ls_inname03 = ''; //document.getElementById('inname03').value;  
              
         if(ls_inname01 == null || ls_inname01.length == 0 || ls_inname01 == ""){ 
             ls_abonsadam1 = "";
@@ -1057,20 +1027,20 @@
                 insaSearchList_rtn("A"); 
             }
         });    
-        document.getElementById("inname02").addEventListener("keyup", (e)=>{ 
-            if(e.keyCode === 13){ 
-                document.getElementById("innamebtn").click();
-                insaflag = "B"; 
-                insaSearchList_rtn("B"); 
-            }
-        });    
-        document.getElementById("inname03").addEventListener("keyup", (e)=>{ 
-            if(e.keyCode === 13){ 
-                document.getElementById("innamebtn").click();
-                insaflag = "C"; 
-                insaSearchList_rtn("C"); 
-            }
-        });    
+        // document.getElementById("inname02").addEventListener("keyup", (e)=>{ 
+        //     if(e.keyCode === 13){ 
+        //         document.getElementById("innamebtn").click();
+        //         insaflag = "B"; 
+        //         insaSearchList_rtn("B"); 
+        //     }
+        // });    
+        // document.getElementById("inname03").addEventListener("keyup", (e)=>{ 
+        //     if(e.keyCode === 13){ 
+        //         document.getElementById("innamebtn").click();
+        //         insaflag = "C"; 
+        //         insaSearchList_rtn("C"); 
+        //     }
+        // });    
  
         document.getElementById("winnameBtn").addEventListener("click",function(){   
             insaSearchList_rtn("M");  
@@ -1270,7 +1240,7 @@
                 cnt++;
             }   
 
-            console.log(wtab01_data);
+            //console.log(wtab01_data);
 
             wtab01Grid.columns.clear();  
             wtab01Grid.autoGenerateColumns = false; 
@@ -1301,7 +1271,7 @@
             cols.binding = 'atelno';
             cols.header = '전화번호';
             cols.align = "center";
-            cols.width = '*'; 
+            cols.width = 120; 
             cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
                 text: '<b>${item.atelno}</b>',
                 click: (e, ctx) => {
@@ -1314,14 +1284,21 @@
             cols.binding = 'aemail';
             cols.header = '메일';
             cols.align = "left";
-            cols.width = '*';                  
+            cols.width = 200;                  
             wtab01Grid.columns.push(cols);  
 
             cols = new wijmo.grid.Column(); 
             cols.binding = 'ajusotxt';
             cols.header = '주소';
             cols.align = "left";
-            cols.width = '*';           
+            cols.width = 200;           
+            wtab01Grid.columns.push(cols);
+
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'inname01';
+            cols.header = '담당';
+            cols.align = "center";
+            cols.width = 80;           
             wtab01Grid.columns.push(cols);
       
         }        
@@ -1356,23 +1333,26 @@
             document.getElementById('aemail').value = arg23;
             document.getElementById('ahand').value = arg24;
             document.getElementById('abonsadam1').value = arg25; 
-            document.getElementById('abonsadam2').value = arg26;
-            document.getElementById('abonsadam3').value = arg27;
-            document.getElementById('adomain').value = arg28;
-            document.getElementById('afax').value = arg29; 
+            // document.getElementById('abonsadam2').value = arg26;
+            // document.getElementById('abonsadam3').value = arg27;
+            // document.getElementById('adomain').value = arg28;
+            // document.getElementById('afax').value = arg29; 
             document.getElementById('inname01').value = arg30; 
-            document.getElementById('inname02').value = arg31; 
-            document.getElementById('inname03').value = arg32; 
+            // document.getElementById('inname02').value = arg31; 
+            // document.getElementById('inname03').value = arg32; 
         }      
 
 
         function searchListTot_rtn(){ 
                
             let ls_conacorp1 = document.getElementById('conacorp1').value;  
-            let ls_conacorp = document.getElementById('conacorp').value;  
+            let ls_conacorp = document.getElementById('conacorp').value;   
             let ls_abonsadam1 = "%";
             let ls_conagita = '%'; //document.getElementById('conagita').value;   
-            var ls_jpbgubn = "%";
+            var ls_jpbgubn = "%";  
+            if(ls_conacorp1 == null || ls_conacorp1.length == 0 || ls_conacorp1 == "선택"){  
+                ls_conacorp1 = "%"
+            }   
             $.ajax({
                         url: '/app01m/index02/listtot',  
                         type:"POST",
@@ -1559,24 +1539,24 @@
  
             cols = new wijmo.grid.Column(); 
             cols.binding = 'inname01';
-            cols.header = '담당(현)';
-            cols.align = "center";
-            cols.width = 100;           
-            wtab02Grid.columns.push(cols);
-
-            cols = new wijmo.grid.Column(); 
-            cols.binding = 'inname02';
             cols.header = '담당';
             cols.align = "center";
             cols.width = 100;           
             wtab02Grid.columns.push(cols);
 
-            cols = new wijmo.grid.Column(); 
-            cols.binding = 'inname03';
-            cols.header = '담당';
-            cols.align = "center";
-            cols.width = 100;           
-            wtab02Grid.columns.push(cols);
+            // cols = new wijmo.grid.Column(); 
+            // cols.binding = 'inname02';
+            // cols.header = '담당';
+            // cols.align = "center";
+            // cols.width = 100;           
+            // wtab02Grid.columns.push(cols);
+
+            // cols = new wijmo.grid.Column(); 
+            // cols.binding = 'inname03';
+            // cols.header = '담당';
+            // cols.align = "center";
+            // cols.width = 100;           
+            // wtab02Grid.columns.push(cols);
 
             cols = new wijmo.grid.Column(); 
             cols.binding = 'adomain';

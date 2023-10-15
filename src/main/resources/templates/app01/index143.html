@@ -290,6 +290,8 @@
          var omisnumWArr = new Array();
          var oseqWArr    = new Array(); 
         
+        var grandTotalsGroup  = "";
+        
          var excelIOSheet;
          var typeMenu;  
          var treemap;
@@ -305,6 +307,9 @@
         function init() {
             localStorage.setItem("setpage", "app03p001"); 
             //사원별매출집계 popup list
+            grandTotalsGroup = new wijmo.collections.PropertyGroupDescription('합  계', function (item, propName) {
+                return '';
+            });
             view_p01tab02page = new wijmo.collections.CollectionView(getData_wlist());    
             wtab02Grid = new wijmo.grid.FlexGrid('#wtab02Grid_div', { 
                 deferResizing: true,
@@ -419,7 +424,7 @@
                 groups.clear();
                 if (groupsOn) {
                     
-                    groups.push(new wijmo.collections.PropertyGroupDescription('pernm'));
+                    groups.push(new wijmo.collections.PropertyGroupDescription('misdate'));
                     // groups.push(new wijmo.collections.PropertyGroupDescription('pernm'), new wijmo.collections.PropertyGroupDescription('misdate'));
                 }
             }
@@ -473,7 +478,7 @@
                 let groups = view_p01tab03page.groupDescriptions;
                 groups.clear();
                 if (groupsOn) {
-                    groups.push(new wijmo.collections.PropertyGroupDescription('pernm'));
+                    groups.push(new wijmo.collections.PropertyGroupDescription('misdate'));
                     // groups.push(new wijmo.collections.PropertyGroupDescription('pernm'), new wijmo.collections.PropertyGroupDescription('misdate'));
                 }
             }
@@ -527,7 +532,7 @@
                 let groups = view_p01tab05page.groupDescriptions;
                 groups.clear();
                 if (groupsOn) {
-                    groups.push(new wijmo.collections.PropertyGroupDescription('pernm'));
+                    groups.push(new wijmo.collections.PropertyGroupDescription('misdate'));
                     // groups.push(new wijmo.collections.PropertyGroupDescription('pernm'), new wijmo.collections.PropertyGroupDescription('misdate'));
                 }
             }
@@ -915,7 +920,13 @@
             // { binding: 'active', header: '선택', align: "center", width: 80  ,dataType:3,allowSorting: false  },
             wtab02Grid.columns.clear();  
             wtab02Grid.autoGenerateColumns = false; 
-            view_p01tab02page.sourceCollection  = wtab02_data; 
+            //view_p01tab02page.sourceCollection  = wtab02_data;  
+            wtab02Grid.itemsSource = new wijmo.collections.CollectionView(wtab02_data, {
+                    groupDescriptions: [
+                        grandTotalsGroup,
+                        'pernm'
+                    ]
+                })  
             var cols = new wijmo.grid.Column();
             cols.binding = 'pernm';
             cols.header = '사원명';
@@ -1025,7 +1036,13 @@
             console.log(wtab03_data)
             wtab03Grid.columns.clear();  
             wtab03Grid.autoGenerateColumns = false; 
-            view_p01tab03page.sourceCollection  = wtab03_data; 
+            //view_p01tab03page.sourceCollection  = wtab03_data; 
+            wtab03Grid.itemsSource = new wijmo.collections.CollectionView(wtab03_data, {
+                    groupDescriptions: [
+                        grandTotalsGroup,
+                        'acorp'
+                    ]
+                })  
             var cols = new wijmo.grid.Column();
             cols.binding = 'pernm';
             cols.header = '사원명';
@@ -1100,7 +1117,13 @@
             wtab04Grid.columns.clear();  
             wtab04Grid.columns.clear();  
             wtab04Grid.autoGenerateColumns = false; 
-            view_p01tab04page.sourceCollection  = wtab04_data;
+            //view_p01tab04page.sourceCollection  = wtab04_data;
+            wtab04Grid.itemsSource = new wijmo.collections.CollectionView(wtab04_data, {
+                    groupDescriptions: [
+                        grandTotalsGroup,
+                        'misdate'
+                    ]
+                })  
             // var cols = new wijmo.grid.Column(); 
             // cols.binding = 'select';
             // cols.header = '선택';
@@ -1231,7 +1254,13 @@
             // { binding: 'active', header: '선택', align: "center", width: 80  ,dataType:3,allowSorting: false  },
             wtab05Grid.columns.clear();  
             wtab05Grid.autoGenerateColumns = false; 
-            view_p01tab05page.sourceCollection  = wtab05_data; 
+            //view_p01tab05page.sourceCollection  = wtab05_data; 
+            wtab05Grid.itemsSource = new wijmo.collections.CollectionView(wtab05_data, {
+                    groupDescriptions: [
+                        grandTotalsGroup,
+                        'pname'
+                    ]
+                })  
             var cols = new wijmo.grid.Column();
             cols.binding = 'pernm';
             cols.header = '사원명';

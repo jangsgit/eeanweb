@@ -76,6 +76,7 @@
                                                 <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">품명</span> 
                                                     <input class="form-control form-control-sm" id="jpumnm" type="text"    autocomplete="off"  placeholder=""     >
                                                     <input class="form-control form-control-sm" id="jkey" type="hidden"  /> 
+                                                    <input class="form-control form-control-sm" id="jpbgubn" type="hidden"  /> 
                                                     
                                                 </div>
                                             </div>
@@ -224,6 +225,8 @@
          var omisnumWArr = new Array();
          var oseqWArr    = new Array(); 
         
+         var grandTotalsGroup  = "";
+
          var excelIOSheet;
          var typeMenu;  
          var treemap;
@@ -238,6 +241,9 @@
          window.onload = init; 
         function init() { 
             //일자별주문현황 popup list
+            grandTotalsGroup = new wijmo.collections.PropertyGroupDescription('합  계', function (item, propName) {
+                return '';
+            });
             view_p01tab02page = new wijmo.collections.CollectionView(getData_wlist());    
             setGroups(true);
             wtab02Grid = new wijmo.grid.FlexGrid('#wtab02Grid_div', { 
@@ -258,7 +264,7 @@
                     { binding: 'ipsu', header: '입고수량', align: "center", width: 80 , aggregate: 'Sum'},  
                     { binding: 'chulsu', header: '출고수량', align: "center", width: 80 , aggregate: 'Sum'},  
                     
-                ], 
+                ],  
                 itemsSource: view_p01tab02page, 
             }); 
                  
@@ -268,7 +274,7 @@
                 let groups = view_p01tab02page.groupDescriptions;
                 groups.clear();
                 if (groupsOn) {
-                    groups.push(new wijmo.collections.PropertyGroupDescription('jdate'));
+                    groups.push(new wijmo.collections.PropertyGroupDescription('jdate')); 
                     // groups.push(new wijmo.collections.PropertyGroupDescription('pernm'), new wijmo.collections.PropertyGroupDescription('misdate'));
                 }
             }
@@ -476,6 +482,7 @@
                     var ls_todate = document.getElementById('todate').value;          
                     var ls_jpumnm   = document.getElementById('jpumnm').value; 
                     var ls_jkey  = document.getElementById('jkey').value; 
+                    var ls_jpbgubn    = document.getElementById('jpbgubn').value;  
                     // var ls_misfixflag = document.getElementById('misfixflag').value; 
                     if(ls_frdate == null || ls_frdate.length == 0 || ls_frdate == ""){ 
                         alert("조회일자를 등록하세요") 
@@ -503,6 +510,7 @@
                             "todate"      : ls_todate,
                             "searchtxt"      : ls_jpumnm,   
                             "mflag"  : 'AA'   ,  
+                            "jpbgubn" :ls_jpbgubn,  
                         }, 
                         async:false,
                         success:function(data){  
@@ -522,6 +530,7 @@
                     var ls_todate = document.getElementById('todate02').value; 
                     var ls_bjpumnm   = document.getElementById('bjpumnm').value; 
                     var ls_jkey  = document.getElementById('bjkey').value;  
+                    var ls_jpbgubn    = document.getElementById('jpbgubn').value; 
                     // var ls_wishfixflag = document.getElementById('wishfixflag').value;  
                     if(ls_frdate == null || ls_frdate.length == 0 || ls_frdate == ""){ 
                         alert("조회일자를 등록하세요") 
@@ -548,6 +557,7 @@
                             "todate"      : ls_todate,
                             "searchtxt"      : ls_bjpumnm,  
                             "mflag"  : 'AA'   ,  
+                            "jpbgubn" :ls_jpbgubn,  
                         }, 
                         async:false,
                         success:function(data){   
@@ -598,7 +608,12 @@
             // { binding: 'active', header: '선택', align: "center", width: 80  ,dataType:3,allowSorting: false  },
             wtab02Grid.columns.clear();  
             wtab02Grid.autoGenerateColumns = false; 
-            view_p01tab02page.sourceCollection  = wtab02_data; 
+            //view_p01tab02page.sourceCollection  = wtab02_data; 
+            wtab02Grid.itemsSource = new wijmo.collections.CollectionView(wtab02_data, {
+                    groupDescriptions: [
+                        grandTotalsGroup, 
+                    ]
+                })  
             var cols = new wijmo.grid.Column(); 
             cols.binding = 'flag';
             cols.header = '구분';
@@ -689,7 +704,13 @@
 
             wtab04Grid.columns.clear();  
             wtab04Grid.autoGenerateColumns = false; 
-            view_p01tab04page.sourceCollection  = wtab04_data;
+            //view_p01tab04page.sourceCollection  = wtab04_data;
+            wtab04Grid.itemsSource = new wijmo.collections.CollectionView(wtab04_data, {
+                    groupDescriptions: [
+                        grandTotalsGroup,
+                        'jpum'
+                    ]
+                })  
             var cols = new wijmo.grid.Column(); 
             cols.binding = 'flag';
             cols.header = '구분';
@@ -944,6 +965,14 @@
     }
 
     function fn_egov_init_date(){
+        const ls_perid = window.localStorage.getItem("perid");
+        if(ls_perid.substr(0,1) == "p"){
+            document.getElementById('jpbgubn').value = "P";
+        }else if(ls_perid.substr(0,1) == "b"){
+            document.getElementById('jpbgubn').value = "B";
+        }else{
+            document.getElementById('jpbgubn').value = "%";
+        }  
         // var $frdate = $('#frdate');
         // var $todate = $('#todate');
         // $frdate.datetimepicker({

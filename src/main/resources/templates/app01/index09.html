@@ -233,6 +233,8 @@
          var omisnumWArr = new Array();
          var oseqWArr    = new Array(); 
         
+         var grandTotalsGroup  = "";
+
          var excelIOSheet;
          var typeMenu;  
          var treemap;
@@ -248,7 +250,10 @@
         function init() { 
             //시도지역별 주문현황 popup list
             view_p01tab02page = new wijmo.collections.CollectionView(getData_wlist());    
-            setGroups(true);
+            // setGroups(true);
+            grandTotalsGroup = new wijmo.collections.PropertyGroupDescription('합  계', function (item, propName) {
+                return '';
+            });
             wtab02Grid = new wijmo.grid.FlexGrid('#wtab02Grid_div', { 
                 deferResizing: true,
                 showMarquee: true,
@@ -270,15 +275,15 @@
             }); 
                  
             // 그룹 전환 
-            setGroups(true); 
-            function setGroups(groupsOn) {
-                let groups = view_p01tab02page.groupDescriptions;
-                groups.clear();
-                if (groupsOn) {
-                    groups.push(new wijmo.collections.PropertyGroupDescription('sido'));
-                    // groups.push(new wijmo.collections.PropertyGroupDescription('pernm'), new wijmo.collections.PropertyGroupDescription('misdate'));
-                }
-            }
+            // setGroups(true); 
+            // function setGroups(groupsOn) {
+            //     let groups = view_p01tab02page.groupDescriptions;
+            //     groups.clear();
+            //     if (groupsOn) {
+            //         groups.push(new wijmo.collections.PropertyGroupDescription('sido'));
+            //         // groups.push(new wijmo.collections.PropertyGroupDescription('pernm'), new wijmo.collections.PropertyGroupDescription('misdate'));
+            //     }
+            // }
             // 헤더 열 전환
             setHeaderColumn(false); 
             function setHeaderColumn(headerOn) {
@@ -317,22 +322,28 @@
                     { binding: 'uamt', header: '단가', align: "center", width: 100 },  
                     { binding: 'samt', header: '금액', align: "center", width: 150,  aggregate: 'Sum' },       
                 ], 
-                itemsSource: view_p01tab04page
+                itemsSource: new wijmo.collections.CollectionView(getData_wlist(), {
+                    groupDescriptions: [
+                        grandTotalsGroup,
+                        'sido'
+                    ]
+                }) 
+                //itemsSource: view_p01tab04page
             });  
 
 
             new FlexGridContextMenu(wtab04Grid);  
             // 그룹 전환 
-            setGroups02(true); 
-            function setGroups02(groupsOn) {
-                let groups = view_p01tab04page.groupDescriptions;
-                groups.clear();
-                if (groupsOn) {
+            // setGroups02(true); 
+            // function setGroups02(groupsOn) {
+            //     let groups = view_p01tab04page.groupDescriptions;
+            //     groups.clear();
+            //     if (groupsOn) {
                     
-                    groups.push(new wijmo.collections.PropertyGroupDescription('sido'));
-                    // groups.push(new wijmo.collections.PropertyGroupDescription('pernm'), new wijmo.collections.PropertyGroupDescription('misdate'));
-                }
-            }
+            //         groups.push(new wijmo.collections.PropertyGroupDescription('sido'));
+            //         // groups.push(new wijmo.collections.PropertyGroupDescription('pernm'), new wijmo.collections.PropertyGroupDescription('misdate'));
+            //     }
+            // }
             // 헤더 열 전환
             setHeaderColumn02(false); 
             function setHeaderColumn02(headerOn) {
@@ -583,7 +594,13 @@
             // { binding: 'active', header: '선택', align: "center", width: 80  ,dataType:3,allowSorting: false  },
             wtab02Grid.columns.clear();  
             wtab02Grid.autoGenerateColumns = false; 
-            view_p01tab02page.sourceCollection  = wtab02_data; 
+            //view_p01tab02page.sourceCollection  = wtab02_data; 
+            wtab02Grid.itemsSource = new wijmo.collections.CollectionView(wtab02_data, {
+                    groupDescriptions: [
+                        grandTotalsGroup,
+                        'sido'
+                    ]
+                })  
             var cols = new wijmo.grid.Column();
             cols.binding = 'sido';
             cols.header = '시도';
@@ -651,7 +668,13 @@
 
             wtab04Grid.columns.clear();  
             wtab04Grid.autoGenerateColumns = false; 
-            view_p01tab04page.sourceCollection  = wtab04_data;
+            //view_p01tab04page.sourceCollection  = wtab04_data; 
+            wtab04Grid.itemsSource = new wijmo.collections.CollectionView(wtab04_data, {
+                    groupDescriptions: [
+                        grandTotalsGroup,
+                        'sido'
+                    ]
+                })  
             var cols = new wijmo.grid.Column(); 
             cols.binding = 'sido';
             cols.header = '시도';

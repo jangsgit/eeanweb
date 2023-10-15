@@ -224,6 +224,8 @@
          var omisnumWArr = new Array();
          var oseqWArr    = new Array(); 
         
+         var grandTotalsGroup  = "";
+
          var excelIOSheet;
          var typeMenu;  
          var treemap;
@@ -238,8 +240,11 @@
          window.onload = init; 
         function init() { 
             //일자별주문현황 popup list
-            view_p01tab02page = new wijmo.collections.CollectionView(getData_wlist());    
-            setGroups(true);
+            //view_p01tab02page = new wijmo.collections.CollectionView(getData_wlist());    
+            //setGroups(true);
+            grandTotalsGroup = new wijmo.collections.PropertyGroupDescription('합  계', function (item, propName) {
+                return '';
+            });
             wtab02Grid = new wijmo.grid.FlexGrid('#wtab02Grid_div', { 
                 deferResizing: true,
                 showMarquee: true,
@@ -265,19 +270,25 @@
                     { binding: 'fixflag', header: '확정', align: "center", width: 150, cssClass: 'switch'   },  
                     
                 ], 
-                itemsSource: view_p01tab02page, 
+                itemsSource: new wijmo.collections.CollectionView(getData_wlist(), {
+                    groupDescriptions: [
+                        grandTotalsGroup,
+                        'pname'
+                    ]
+                }) 
+                //itemsSource: view_p01tab02page, 
             }); 
                  
             // 그룹 전환 
-            setGroups(true); 
-            function setGroups(groupsOn) {
-                let groups = view_p01tab02page.groupDescriptions;
-                groups.clear();
-                if (groupsOn) {
-                    groups.push(new wijmo.collections.PropertyGroupDescription('pname'));
-                    // groups.push(new wijmo.collections.PropertyGroupDescription('pernm'), new wijmo.collections.PropertyGroupDescription('misdate'));
-                }
-            }
+            // setGroups(true); 
+            // function setGroups(groupsOn) {
+            //     let groups = view_p01tab02page.groupDescriptions;
+            //     groups.clear();
+            //     if (groupsOn) {
+            //         groups.push(new wijmo.collections.PropertyGroupDescription('pname'));
+            //         // groups.push(new wijmo.collections.PropertyGroupDescription('pernm'), new wijmo.collections.PropertyGroupDescription('misdate'));
+            //     }
+            // }
             // 헤더 열 전환
             setHeaderColumn(false); 
             function setHeaderColumn(headerOn) {
@@ -631,7 +642,13 @@
             // { binding: 'active', header: '선택', align: "center", width: 80  ,dataType:3,allowSorting: false  },
             wtab02Grid.columns.clear();  
             wtab02Grid.autoGenerateColumns = false; 
-            view_p01tab02page.sourceCollection  = wtab02_data;
+            //view_p01tab02page.sourceCollection  = wtab02_data;
+            wtab02Grid.itemsSource = new wijmo.collections.CollectionView(wtab02_data, {
+                    groupDescriptions: [
+                        grandTotalsGroup,
+                        'pname'
+                    ]
+                })  
             // var cols = new wijmo.grid.Column(); 
             // cols.binding = 'select';
             // cols.header = '선택';
@@ -776,7 +793,13 @@
 
             wtab04Grid.columns.clear();  
             wtab04Grid.autoGenerateColumns = false; 
-            view_p01tab04page.sourceCollection  = wtab04_data;
+            //view_p01tab04page.sourceCollection  = wtab04_data;
+            wtab04Grid.itemsSource = new wijmo.collections.CollectionView(wtab04_data, {
+                    groupDescriptions: [
+                        grandTotalsGroup,
+                        'pname'
+                    ]
+                })  
             var cols = new wijmo.grid.Column();   
             cols.binding = 'pname';
             cols.header = '품목';

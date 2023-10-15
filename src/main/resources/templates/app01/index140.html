@@ -117,7 +117,7 @@
                                                 <tr style="padding-top:0; padding-bottom: 0px; padding-left: 0px; padding-right: 0px;"> 
                                                   <td class="align-top" style="padding-top:0; padding-bottom: 0px; padding-left: 0px; padding-right: 0px;"> 
                                                     <div class="container-fluid">   
-                                                        <div id="wtab03Grid_div"  style="overflow:scroll;   height:680px;  width:150px; margin:0 auto; "></div> 
+                                                        <div id="wtab03Grid_div"  style="overflow:scroll;   height:680px;  width:100px; margin:0 auto; "></div> 
                                                         <!-- <div style="display: flex; margin: 0 auto; " id="tab01Pager"  ></div> -->
                                                     </div>  
                                                   </td>
@@ -424,7 +424,7 @@
                 columns: [       
                     {
                         binding: 'jbonsacode',
-                        width: 150,
+                        width: 80,
                         header: '주문코드', 
                         align:"center",
                         cellTemplate: wijmo.grid.cellmaker.CellMaker.makeLink({ 
@@ -2123,10 +2123,10 @@
             wtab01Grid.autoGenerateColumns = false; 
             wtab01Grid.itemsSource= wtab01_temp;
             var cols = new wijmo.grid.Column(); 
-            cols.binding = 'jbonsa_code2';  cols.header = '주문코드';cols.align = "center"; cols.allowMerging =  true;  cols.width = 120;   
+            cols.binding = 'jbonsa_code2';  cols.header = '코드';cols.align = "center"; cols.allowMerging =  true;  cols.width = 80;   
             wtab01Grid.columns.push(cols);
             cols = new wijmo.grid.Column();    
-            cols.binding = 'jmodel_code';  cols.header = '모델라인';cols.align = "center"; cols.allowMerging =  true;  cols.width = 100;   
+            cols.binding = 'jmodel_code';  cols.header = '모델';cols.align = "center"; cols.allowMerging =  true;  cols.width = 50;   
             wtab01Grid.columns.push(cols);  
             cols = new wijmo.grid.Column(); 
             cols.binding = 'A';  cols.header = 'A';cols.align = "center";  cols.width = 80; cols.cssClass = 'switch';

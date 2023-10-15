@@ -289,7 +289,9 @@
          var omisdateWArr = new Array();
          var omisnumWArr = new Array();
          var oseqWArr    = new Array(); 
-        
+         
+         var grandTotalsGroup  = "";
+
          var excelIOSheet;
          var typeMenu;  
          var treemap;
@@ -305,7 +307,12 @@
         function init() {
             localStorage.setItem("setpage", "app03p001"); 
             //사원별매출집계 popup list
-            view_p01tab02page = new wijmo.collections.CollectionView(getData_wlist());    
+            // create a group to show the grand totals
+            grandTotalsGroup = new wijmo.collections.PropertyGroupDescription('합  계', function (item, propName) {
+                return '';
+            });
+            //
+            //view_p01tab02page = new wijmo.collections.CollectionView(getData_wlist());    
             wtab02Grid = new wijmo.grid.FlexGrid('#wtab02Grid_div', { 
                 deferResizing: true,
                 showMarquee: true,
@@ -330,10 +337,23 @@
                     { binding: 'samt', header: '금액', align: "center", width: 150,  aggregate: 'Sum' },  
                     // { binding: 'fixflag', header: '확정', align: "center", width: 150, cssClass: 'switch'   },  
                     
-                ], 
-                itemsSource: view_p01tab02page, 
+                ],
+                itemsSource: new wijmo.collections.CollectionView(getData_wlist(), {
+                    groupDescriptions: [
+                        grandTotalsGroup,
+                        'pernm'
+                    ]
+                }) 
+                //itemsSource: view_p01tab02page 
             }); 
                 
+            // start collapsed
+            // wtab02Grid.collapseGroupsToLevel(1);
+            // create a group to show the grand totals
+            // var grandTotalsGroup = new wijmo.PropertyGroupDescription('Grand Total', function (item, propName) {
+            //     return '';
+            // });
+            //
             function showCheckedCount() {
                 let cnt = document.getElementById('checked-count'), sel = wtab02Grid.rows.filter(r => r.isSelected);
                 cnt.textContent = sel.length.toString();    
@@ -354,15 +374,16 @@
 
             } 
             // 그룹 전환 
-            setGroups(true); 
-            function setGroups(groupsOn) {
-                let groups = view_p01tab02page.groupDescriptions;
-                groups.clear();
-                if (groupsOn) {
-                    groups.push(new wijmo.collections.PropertyGroupDescription('pernm'));
-                    // groups.push(new wijmo.collections.PropertyGroupDescription('pernm'), new wijmo.collections.PropertyGroupDescription('misdate'));
-                }
-            }
+            // setGroups(true); 
+            // function setGroups(groupsOn) {
+            //     let groups = view_p01tab02page.groupDescriptions;
+            //     groups.clear();
+            //     if (groupsOn) { 
+            //         groups.push(new wijmo.collections.PropertyGroupDescription('pernm')); 
+                     
+            //         // groups.push(new wijmo.collections.PropertyGroupDescription('pernm'), new wijmo.collections.PropertyGroupDescription('misdate'));
+            //     }
+            // }
             // 헤더 열 전환
             setHeaderColumn(false); 
             function setHeaderColumn(headerOn) {
@@ -381,9 +402,9 @@
             //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
            //사원별매출상세  popup list
-           view_p01tab04page = new wijmo.collections.CollectionView(getData_wlist(), {
-                // pageSize: 100
-            });    
+        //    view_p01tab04page = new wijmo.collections.CollectionView(getData_wlist(), {
+        //         // pageSize: 100
+        //     });    
             wtab04Grid = new wijmo.grid.FlexGrid('#wtab04Grid_div', { 
                 deferResizing: true,
                 showMarquee: true,
@@ -408,21 +429,27 @@
                     // { binding: 'fixflag', header: '확정', align: "center", width: 150, cssClass: 'switch'   },  
 
                 ], 
-                itemsSource: view_p01tab04page
+                itemsSource: new wijmo.collections.CollectionView(getData_wlist(), {
+                    groupDescriptions: [
+                        grandTotalsGroup,
+                        'pernm'
+                    ]
+                }) 
+                //itemsSource: view_p01tab04page
             });  
 
 
             new FlexGridContextMenu(wtab04Grid);  
-            setGroups02(true); 
-            function setGroups02(groupsOn) {
-                let groups = view_p01tab04page.groupDescriptions;
-                groups.clear();
-                if (groupsOn) {
+            // setGroups02(true); 
+            // function setGroups02(groupsOn) {
+            //     let groups = view_p01tab04page.groupDescriptions;
+            //     groups.clear();
+            //     if (groupsOn) {
                     
-                    groups.push(new wijmo.collections.PropertyGroupDescription('pernm'));
-                    // groups.push(new wijmo.collections.PropertyGroupDescription('pernm'), new wijmo.collections.PropertyGroupDescription('misdate'));
-                }
-            }
+            //         groups.push(new wijmo.collections.PropertyGroupDescription('pernm'));
+            //         // groups.push(new wijmo.collections.PropertyGroupDescription('pernm'), new wijmo.collections.PropertyGroupDescription('misdate'));
+            //     }
+            // }
             // 헤더 열 전환
             setHeaderColumn02(false); 
             function setHeaderColumn02(headerOn) {
@@ -915,12 +942,19 @@
             // { binding: 'active', header: '선택', align: "center", width: 80  ,dataType:3,allowSorting: false  },
             wtab02Grid.columns.clear();  
             wtab02Grid.autoGenerateColumns = false; 
-            view_p01tab02page.sourceCollection  = wtab02_data; 
+            //wtab02Grid.itemsSource = wtab02_data; 
+            //view_p01tab02page.sourceCollection  = wtab02_data; 
+            wtab02Grid.itemsSource = new wijmo.collections.CollectionView(wtab02_data, {
+                    groupDescriptions: [
+                        grandTotalsGroup,
+                        'pernm'
+                    ]
+                })  
             var cols = new wijmo.grid.Column();
             cols.binding = 'pernm';
             cols.header = '사원명';
             cols.align = "center";
-            cols.width = 150; 
+            cols.width = 250; 
             cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
                 text: '<b>${item.pernm}</b>',
                 click: (e, ctx) => {
@@ -1021,11 +1055,16 @@
                     inname: wtab03Dto[i]["inname"]            
                 });
                 cnt++;
-            }     
-            console.log(wtab03_data)
+            }      
             wtab03Grid.columns.clear();  
             wtab03Grid.autoGenerateColumns = false; 
-            view_p01tab03page.sourceCollection  = wtab03_data; 
+            //view_p01tab03page.sourceCollection  = wtab03_data;             
+            wtab03Grid.itemsSource = new wijmo.collections.CollectionView(wtab03_data, {
+                    groupDescriptions: [
+                        grandTotalsGroup,
+                        'pernm'
+                    ]
+                })  
             var cols = new wijmo.grid.Column();
             cols.binding = 'pernm';
             cols.header = '사원명';
@@ -1099,8 +1138,14 @@
 
             wtab04Grid.columns.clear();  
             wtab04Grid.columns.clear();  
-            wtab04Grid.autoGenerateColumns = false; 
-            view_p01tab04page.sourceCollection  = wtab04_data;
+            wtab04Grid.autoGenerateColumns = false;  
+            wtab04Grid.itemsSource = new wijmo.collections.CollectionView(wtab04_data, {
+                    groupDescriptions: [
+                        grandTotalsGroup,
+                        'pernm'
+                    ]
+                })  
+            //view_p01tab04page.sourceCollection  = wtab04_data;
             // var cols = new wijmo.grid.Column(); 
             // cols.binding = 'select';
             // cols.header = '선택';
@@ -1231,7 +1276,13 @@
             // { binding: 'active', header: '선택', align: "center", width: 80  ,dataType:3,allowSorting: false  },
             wtab05Grid.columns.clear();  
             wtab05Grid.autoGenerateColumns = false; 
-            view_p01tab05page.sourceCollection  = wtab05_data; 
+            //view_p01tab05page.sourceCollection  = wtab05_data;             
+            wtab05Grid.itemsSource = new wijmo.collections.CollectionView(wtab05_data, {
+                    groupDescriptions: [
+                        grandTotalsGroup,
+                        'pernm'
+                    ]
+                })  
             var cols = new wijmo.grid.Column();
             cols.binding = 'pernm';
             cols.header = '사원명';
@@ -1450,63 +1501,7 @@
     }
 
     function fn_egov_init_date(){
-        
-        // const ls_flag = window.localStorage.setItem("flag")
-        // const ls_perid = window.localStorage.getItem("perid");
-        // const ls_pernm = window.localStorage.getItem("pernm");
-        // console.log(ls_flag)
-        // if(ls_flag == "CC"){
-        //     document.getElementById('abonsadam1').value = ls_perid;
-        //     document.getElementById('abonsadam2').value = ls_perid;
-        //     document.getElementById('abonsadam3').value = ls_perid;
-        //     document.getElementById('abonsadam4').value = ls_perid;
-        //     document.getElementById('inname01').value = ls_pernm; 
-        //     document.getElementById('inname02').value = ls_pernm; 
-        //     document.getElementById('inname03').value = ls_pernm; 
-        //     document.getElementById('inname04').value = ls_pernm; 
-        //     document.getElementById('inname01').disabled = true;
-        //     document.getElementById('inname02').disabled = true;
-        //     document.getElementById('inname03').disabled = true;
-        //     document.getElementById('inname04').disabled = true;
-        //     // lsUserid = window.localStorage.getItem("userid")
-        //     // if (lsUserid == "pvadmin"){ 
-        //     //     document.getElementById('bjpbgubn').value = "P";  
-        //     // }else if(lsUserid == "bladmin"){ 
-        //     //     document.getElementById('bjpbgubn').value = "B";  
-        //     // }else{ 
-        //     //     document.getElementById('bjpbgubn').value = "%"; 
-        //     // } 
-        // }
-        // document.getElementById('misfixflag').value = '1'; 
-        // document.getElementById('wishfixflag').value = '1';
-        
-        // var $frdate = $('#frdate');
-        // var $todate = $('#todate');
-        // $frdate.datetimepicker({
-        //     timepicker: false,
-        //     lang: 'ko',
-        //     format: 'Y-m-d',
-        //     scrollMonth: false,
-        //     scrollInput: false,
-        //     onShow: function (ct) {                                    
-        //         this.setOptions({
-        //             // maxDate: $frdate.val() ? $frdate.val() : false
-        //         })
-        //     },
-        // });
-
-        // $todate.datetimepicker({
-        //     timepicker: false,
-        //     lang: 'ko',
-        //     format: 'Y-m-d',    //'Y-m-d H:i',
-        //     scrollMonth: false,
-        //     scrollInput: false,
-        //     onShow: function (ct) {
-        //         this.setOptions({
-        //             // minDate: $todate.val() ? $todate.val() : false
-        //         })
-        //     }
-        // });
+         
 
     }
         

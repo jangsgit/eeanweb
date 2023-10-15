@@ -112,7 +112,7 @@ public class App01CrudController {
                 abonsadam1 = "%";
             }
             index02Dto.setAcorp1(conacorp1);
-//            log.info("conacorp1 =====>" + conacorp1);
+            //log.info("conacorp1 =====>" + conacorp1);
             index02Dto.setAcorp(conacorp);
             index02Dto.setAgita(conagita);
             index02Dto.setAbonsadam1(abonsadam1);
@@ -121,7 +121,7 @@ public class App01CrudController {
             }else if(jpbgubn.equals("B")){
                 index02Dto.setAcorp1("03");
             }else{
-                index02Dto.setAcorp1("%");
+                //index02Dto.setAcorp1("%");
             }
             index02List = service02.GetCifListTot(index02Dto);
             model.addAttribute("index02List",index02List);
@@ -312,6 +312,7 @@ public class App01CrudController {
     @GetMapping(value="/index03/subul01")
     public Object App03SubulList_index(@RequestParam("frdate") String frdate,
                                        @RequestParam("todate") String todate,
+                                       @RequestParam("jpbgubn") String jpbgubn,
                                        @RequestParam("searchtxt") String searchtxt,
                                   Model model, HttpServletRequest request) throws Exception{
         CommDto.setMenuTitle("제품등록");
@@ -330,6 +331,8 @@ public class App01CrudController {
             index03Dto.setFrdate(frdate);
             index03Dto.setTodate(todate);
             index03List = service03.GetJpumSubul02(index03Dto);
+            index03Dto.setJpb_gubn(jpbgubn);
+            log.info("jpbgubn Exception =====>" + jpbgubn);
             model.addAttribute("index03List",index03List);
 
         } catch (Exception ex) {
@@ -343,6 +346,7 @@ public class App01CrudController {
     @GetMapping(value="/index03/subul02")
     public Object App03SubulList02_index(@RequestParam("frdate") String frdate,
                                        @RequestParam("todate") String todate,
+                                         @RequestParam("jpbgubn") String jpbgubn,
                                        @RequestParam("searchtxt") String searchtxt,
                                        Model model, HttpServletRequest request) throws Exception{
         CommDto.setMenuTitle("제품등록");
@@ -360,7 +364,9 @@ public class App01CrudController {
             index03Dto.setJkey(searchtxt);
             index03Dto.setFrdate(frdate);
             index03Dto.setTodate(todate);
+            index03Dto.setJpb_gubn(jpbgubn);
             index03List = service03.GetJpumSubul02(index03Dto);
+            log.info("jpbgubn Exception =====>" + jpbgubn);
             model.addAttribute("index03List",index03List);
 
         } catch (Exception ex) {

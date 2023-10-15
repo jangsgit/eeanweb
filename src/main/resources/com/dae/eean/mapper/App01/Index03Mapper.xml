@@ -209,6 +209,7 @@
                 WHERE A.jepm = B.jkey
                 and A.key1 between #{frdate} and #{todate}
                 and  isnull(B.jkey,'') Like concat('%',#{jkey},'%')
+                and  isnull(B.jpb_gubn,'') Like concat('%',#{jpb_gubn},'%')
                 and a.ijaego_su1 <> 0
 
                 union
@@ -218,6 +219,7 @@
                 WHERE A.pcode = B.jkey
                 and A.misdate between #{frdate} and #{todate}
                 and  isnull(B.jkey,'') Like concat('%',#{jkey},'%')
+                and  isnull(B.jpb_gubn,'') Like concat('%',#{jpb_gubn},'%')
                 and A.qty <> 0
             ) P
             ORDER BY P.jdate, p.jkey, p.flag
@@ -234,6 +236,7 @@
                 WHERE A.jepm = B.jkey
                 and A.key1 between #{frdate} and #{todate}
                 and  isnull(B.jkey,'') Like concat('%',#{jkey},'%')
+                and  isnull(B.jpb_gubn,'') Like concat('%',#{jpb_gubn},'%')
                 and a.ijaego_su1 <> 0
 
                 union
@@ -243,6 +246,7 @@
                 WHERE A.pcode = B.jkey
                 and A.misdate between #{frdate} and #{todate}
                 and  isnull(B.jkey,'') Like concat('%',#{jkey},'%')
+                and  isnull(B.jpb_gubn,'') Like concat('%',#{jpb_gubn},'%')
                 and A.qty <> 0
             ) P
             ORDER BY  p.jkey, P.jdate, p.flag
