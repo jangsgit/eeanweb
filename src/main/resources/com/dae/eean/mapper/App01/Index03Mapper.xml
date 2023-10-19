@@ -196,7 +196,7 @@
           and isnull(jbonsa_code2,'')   = #{jbonsa_code2}
           and isnull(jmodel_code,'') Like concat('%',#{jmodel_code},'%')
           AND jsayong_gubn IN ( '1', '2','3')
-        ORDER  BY jmodel_code2, jcolor_code2, jkey
+        ORDER  BY jmodel_code2, CONVERT(float, jcolor_code3), jkey
         ]]>
     </select>
 
