@@ -194,7 +194,7 @@
         WHERE isnull(jpb_gubn,'')   = #{jpb_gubn}
           and isnull(jbonsa_code,'')   = #{jbonsa_code}
           and isnull(jbonsa_code2,'')   = #{jbonsa_code2}
-          and isnull(jmodel_code,'') Like concat('%',#{jmodel_code},'%')
+          and isnull(jmodel_code2,'') Like concat('%',#{jmodel_code},'%')
           AND jsayong_gubn IN ( '1', '2','3')
         ORDER  BY jmodel_code2, CONVERT(float, jcolor_code3), jkey
         ]]>

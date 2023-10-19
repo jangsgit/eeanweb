@@ -2213,8 +2213,13 @@
                      let  ls_jpbgubn    = wtab01Dto[row]["jpb_gubn"]; 
                      let  ls_jbonsacode = wtab01Dto[row]["jbonsa_code"]; 
                      let  ls_jbonsacode2 = wtab01Dto[row]["jbonsa_code2"]; 
-                     let  ls_jmodelcode = wtab01Dto[row]["jmodel_code"];  
-                       
+                     let  ls_jmodelcode = wtab01Dto[row]["jmodel_code"]; 
+                    //  if(ls_jbonsacode2 == 'GBS/G') {
+                    //    console.log(ls_jpbgubn)
+                    //    console.log(ls_jbonsacode)
+                    //    console.log(ls_jbonsacode2)
+                    //    console.log(ls_jmodelcode)
+                    //  }
                     wtab01Grid.setCellData(ll_row, 0, ls_jbonsacode2);
                     wtab01Grid.setCellData(ll_row, 1, ls_jmodelcode);
                     $.ajax({
@@ -2231,6 +2236,9 @@
                             success:function(data){   
                                         var wtab01Dto_S  = data; 
                                         // console.log(wtab01Dto_S);
+                     if(ls_jbonsacode2 == 'GBS/G') {
+                        // console.log(wtab01Dto_S);
+                     }
                                         var ll_col = 2;    
                                         for (var p = 0; p < wtab01Dto_S.length; p++) {
                                             let  ls_jcolorcode   = wtab01Dto_S[p]["jcolor_code"]; 
