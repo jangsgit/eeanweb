@@ -938,33 +938,45 @@
                 } 
             }   
             if(ls_ajumi1 != null && ls_ajumi1.length > 0 && ls_ajumi1 != ""){
-                if(ls_ajumi1.length != 6){
-                    alert("법인번호 첫번째 자리는 6자리로 입력해주세요")     
-                    document.getElementById("ajumi1").focus();  
-                    return ;                 
-                }
+                // if(ls_ajumi1.length != 6){
+                //     alert("법인번호 첫번째 자리는 6자리로 입력해주세요")     
+                //     document.getElementById("ajumi1").focus();  
+                //     return ;                 
+                // }
             }    
+            if(ls_ajumi1 == null || ls_ajumi1.length == 0 || ls_ajumi1 == ""){ 
+                ls_ajumi1 = ""             ;
+            }     
             if(ls_ajumi2 != null && ls_ajumi2.length > 0 && ls_ajumi2 != ""){
-                if(ls_ajumi2.length != 7){
-                    alert("법인번호 두번째 자리는 7자리로 입력해주세요")     
-                    document.getElementById("ajumi2").focus();  
-                    return ;                 
-                }
+                // if(ls_ajumi2.length != 7){
+                //     alert("법인번호 두번째 자리는 7자리로 입력해주세요")     
+                //     document.getElementById("ajumi2").focus();  
+                //     return ;                 
+                // }
             }      
+            if(ls_ajumi2 == null || ls_ajumi2.length == 0 || ls_ajumi2 == ""){ 
+                ls_ajumi2 = ""             ;
+            }                 
             if(ls_aascode1 != null && ls_aascode1.length > 0 && ls_aascode1 != ""){
-                if(ls_aascode1.length != 6){
-                    alert("주민번호 첫번째 자리는 6자리로 입력해주세요")     
-                    document.getElementById("aascode1").focus();  
-                    return ;                 
-                }
-            }    
+                // if(ls_aascode1.length != 6){
+                //     alert("주민번호 첫번째 자리는 6자리로 입력해주세요")     
+                //     document.getElementById("aascode1").focus();  
+                //     return ;                 
+                // }
+            }      
+            if(ls_aascode1 == null || ls_aascode1.length == 0 || ls_aascode1 == ""){ 
+                ls_aascode1 = ""             ;
+            }     
             if(ls_aascode2 != null && ls_aascode2.length > 0 && ls_aascode2 != ""){
-                if(ls_aascode2.length != 7){
-                    alert("주민번호 두번째 자리는 7자리로 입력해주세요")     
-                    document.getElementById("aascode2").focus();  
-                    return ;                 
-                }
-            }    
+                // if(ls_aascode2.length != 7){
+                //     alert("주민번호 두번째 자리는 7자리로 입력해주세요")     
+                //     document.getElementById("aascode2").focus();  
+                //     return ;                 
+                // }
+            }       
+            if(ls_aascode2 == null || ls_aascode2.length == 0 || ls_aascode2 == ""){ 
+                ls_aascode2 = ""             ;
+            }   
             
              
             var inputdata = {  
