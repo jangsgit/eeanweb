@@ -582,6 +582,8 @@ public class App01CrudController {
                                        @RequestParam("jcode") String jbonsacode,
                                      @RequestParam("flag") String flag,
                                      Model model, HttpServletRequest request) throws Exception{
+
+        Index03Dto index03Dto_S = new Index03Dto();
         CommDto.setMenuTitle("주문등록");
         CommDto.setMenuUrl("기준정보>주문등록");
         CommDto.setMenuCode("index14");
@@ -593,12 +595,14 @@ public class App01CrudController {
             if(jpbgubn == null || jpbgubn.equals("")){
                 jpbgubn = "%";
             }
-            index03Dto.setJbonsa_code(jbonsacode);
-            index03Dto.setJpb_gubn(jpbgubn);
-            index03List = service03.GetGanListBonsa01(index03Dto);
+            index03Dto_S.setJbonsa_code(jbonsacode);
+            index03Dto_S.setJpb_gubn(jpbgubn);
+            index03List = service03.GetGanListBonsa01(index03Dto_S);
             model.addAttribute("index03GanList01",index03List);
 
         } catch (Exception ex) {
+            log.info("jbonsacode =====>" + jbonsacode);
+            log.info("jpbgubn =====>" + jpbgubn);
             log.info("App03GanList01_index Exception =====>" + ex.toString());
 //            log.debug("Exception =====>" + ex.toString() );
         }
@@ -614,6 +618,7 @@ public class App01CrudController {
                                        @RequestParam("jmodelcode") String jmodelcode,
                                        @RequestParam("flag") String flag,
                                        Model model, HttpServletRequest request) throws Exception{
+        Index03Dto index03Dto_S = new Index03Dto();
         CommDto.setMenuTitle("주문등록");
         CommDto.setMenuUrl("기준정보>주문등록");
         CommDto.setMenuCode("index14");
@@ -625,16 +630,20 @@ public class App01CrudController {
             if(jpbgubn == null || jpbgubn.equals("")){
                 jpbgubn = "%";
             }
-            index03Dto.setJpb_gubn(jpbgubn);
-            index03Dto.setJbonsa_code(jbonsacode);
-            index03Dto.setJbonsa_code2(jbonsacode2);
-            index03Dto.setJmodel_code(jmodelcode);
-            index03Dto.setFrdate("20000101");
-            index03Dto.setTodate(getToDate());
-            index03List = service03.GetGanListBonsa02(index03Dto);
+            index03Dto_S.setJpb_gubn(jpbgubn);
+            index03Dto_S.setJbonsa_code(jbonsacode);
+            index03Dto_S.setJbonsa_code2(jbonsacode2);
+            index03Dto_S.setJmodel_code(jmodelcode);
+            index03Dto_S.setFrdate("20000101");
+            index03Dto_S.setTodate(getToDate());
+            index03List = service03.GetGanListBonsa02(index03Dto_S);
             model.addAttribute("index03GanList02",index03List);
 
         } catch (Exception ex) {
+            log.info("jpbgubn =====>" + jpbgubn);
+            log.info("jbonsacode =====>" + jbonsacode);
+            log.info("jbonsacode2 =====>" + jbonsacode2);
+            log.info("jmodelcode =====>" + jmodelcode);
             log.info("App03GanList01_index Exception =====>" + ex.toString());
 //            log.debug("Exception =====>" + ex.toString() );
         }
@@ -647,6 +656,7 @@ public class App01CrudController {
     public Object App03GanList03_index(@RequestParam("jpbgubn") String jpbgubn,
                                        @RequestParam("flag") String flag,
                                        Model model, HttpServletRequest request) throws Exception{
+        Index03Dto index03Dto_S = new Index03Dto();
         CommDto.setMenuTitle("주문등록");
         CommDto.setMenuUrl("기준정보>주문등록");
         CommDto.setMenuCode("index14");
@@ -658,8 +668,8 @@ public class App01CrudController {
             if(jpbgubn == null || jpbgubn.equals("")){
                 jpbgubn = "%";
             }
-            index03Dto.setJpb_gubn(jpbgubn);
-            index03List = service03.GetJBonsaCodeList(index03Dto);
+            index03Dto_S.setJpb_gubn(jpbgubn);
+            index03List = service03.GetJBonsaCodeList(index03Dto_S);
             model.addAttribute("index03GanList03",index03List);
 
         } catch (Exception ex) {
@@ -854,6 +864,7 @@ public class App01CrudController {
             HttpSession session = request.getSession();
             UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
             model.addAttribute("userformDto",userformDto);
+            //Index03Dto index03Dto_S = new Index03Dto();
 
             Boolean result = false;
             String year = frdate.substring(0,4) ;
@@ -1130,6 +1141,7 @@ public class App01CrudController {
 
         try {
 
+            //Index03Dto index03Dto_S = new Index03Dto();
             HttpSession session = request.getSession();
             UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
             model.addAttribute("userformDto",userformDto);
