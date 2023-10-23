@@ -66,12 +66,12 @@
                                     <li class="nav-item">
                                       <a class="nav-link active" data-toggle="tab" href="#step01" onclick="tabchk_rtn('A')">주문등록</a>
                                     </li>
-                                    <li class="nav-item">
+                                    <!-- <li class="nav-item">
                                       <a class="nav-link" data-toggle="tab" href="#step02"  onclick="tabchk_rtn('B')">주문(장바구니)</a>
                                     </li>
                                     <li class="nav-item">
                                       <a class="nav-link" data-toggle="tab" href="#step03"  onclick="tabchk_rtn('C')">예약(장바구니)</a>
-                                    </li>
+                                    </li> -->
                                     <!-- <li class="nav-item">
                                       <a class="nav-link" data-toggle="tab" href="#step03"  onclick="tabchk_rtn('C')">재고현황</a>
                                     </li> -->
@@ -100,6 +100,14 @@
                                                 <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="retrieveBtn"  type="button" onclick="retrieve_rtn()">조회
                                                 </button>
                                             </div>  
+                                            <div class="col-1 col-sm-1">  
+                                                <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="orderBtn" type="button" onclick="orderlist_rtn()">주문장바구니
+                                                </button>
+                                            </div> 
+                                            <div class="col-1 col-sm-1">  
+                                                <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="wishBtn" type="button" onclick="wishorderlist_rtn()">예약장바구니
+                                                </button>
+                                            </div>    
                                         </div> 
                                         <div class="table-responsive">
                                             <table class="table table-borderless" style="height: 100px; cellpadding:0px" > 
@@ -195,8 +203,8 @@
                                             </div>  -->
                                         </div> 
                                         <div class="container-fluid">
-                                            <div id="wtab02Grid_div"  style="overflow:scroll;   height:600px;    margin:0 auto; "></div>  
-                                            <div id="tab02Pager"></div>
+                                            <!-- <div id="wtab02Grid_div"  style="overflow:scroll;   height:600px;    margin:0 auto; "></div>  
+                                            <div id="tab02Pager"></div> -->
                                           </div>
                                     </div> 
                                     <div class="tab-pane fade" id="step03"> 
@@ -244,8 +252,8 @@
                                             </div>  -->
                                         </div> 
                                         <div class="container-fluid">
-                                            <div id="wtab03Grid_div"  style="overflow:scroll;   height:600px;    margin:0 auto; "></div>  
-                                            <div id="tab03Pager"></div>
+                                            <!-- <div id="wtab03Grid_div"  style="overflow:scroll;   height:600px;    margin:0 auto; "></div>  
+                                            <div id="tab03Pager"></div> -->
                                           </div>
                                     </div>
                                   </div>
@@ -260,8 +268,7 @@
 
     
     <!--  모달 처리 -->
-    <input class="form-control form-control-sm"  type="hidden" id="innamebtn" data-bs-toggle="modal" data-bs-target="#cifmodal"  /> 
-    <!--------------------------------------------------------------------------------------->   
+    <input class="form-control form-control-sm"  type="hidden" id="innamebtn" data-bs-toggle="modal" data-bs-target="#cifmodal"  />  
     <div class="modal fade" id="cifmodal" data-bs-keyboard="false"
     data-bs-backdrop="static" tabindex="-1" aria-labelledby="staticBackdropLabel"
     aria-hidden="true">
@@ -302,21 +309,131 @@
  
     <!--------------------------------------------------------------------------------------->     
 
+    
+    <!--  주문 모달 처리 -->
+    <input class="form-control form-control-sm"  type="hidden" id="inorderlistbtn" data-bs-toggle="modal" data-bs-target="#orderlistmodal"  /> 
+    <!--------------------------------------------------------------------------------------->   
+    <div class="modal fade" id="orderlistmodal" data-bs-keyboard="false"
+    data-bs-backdrop="static" tabindex="-1" aria-labelledby="staticBackdropLabel"
+    aria-hidden="true">
+        <div class="modal-dialog modal-lg mt-6" role="document" id = "modalForm01"
+            style="max-width: 1200px">
+            <div class="modal-content border-0">
+                <div class="modal-body p-0" > 
+                    <div class="rounded-top-lg py-3 ps-4 pe-6 bg-light">                            
+                        <div class="search">                            
+                       <!-- <div class="row"  >
+                                <div class="col">
+                                    <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">품명</span>  -->
+                                        <input class="form-control form-control-sm" id="mjpumnm" type="hidden"    autocomplete="off"  placeholder=""     >
+                                        <input class="form-control form-control-sm" id="mjkey" type="hidden"  /> 
+                                        <input class="form-control form-control-sm" id="mgubun" type="hidden"  />                                         
+                                    <!-- </div>
+                                </div>   
+                            </div>                                    -->
+                            <div class="row"  >
+                                <div class="col">
+                                    <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">요청사항</span> 
+                                        <input class="form-control form-control-sm" id="mremark" type="text"    autocomplete="off"  placeholder="예) SF31번 코, DN01번 힌지나사"     > 
+                                        
+                                    </div>
+                                </div>  
+                                <div class="col-md-auto"> 
+                                </div>
+                                <div class="col col-lg-2">
+                                    <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="OrderBtnSave" type="button"  >주문
+                                    </button>
+                                </div>  
+                            </div>     
+                        </div>                             
+                    </div>   
+                    <div class="container-fluid"> 
+                        <div id="wtab02Grid_div"  style="overflow:scroll;   height:500px;   margin:0 auto; "></div> 
+                        <!-- <div id="thePager03"></div> -->
+                    </div>   
+                </div>  
+
+                <div class="modal-footer">
+                    <div class="row g-1">
+                        <div class="col-auto">
+                            <button class="badge-soft-primary dropdown-item rounded-1"
+                                type="button"  id="winorderlistmodal_btn" data-bs-dismiss="modal">Close</button>
+                        </div> 
+                    </div>
+                </div>   
+
+            </div>
+        </div> 
+    </div>   
+    <!--------------------------------------------------------------------------------------->  
+    
+    
+    <!--  예약 주문 모달 처리 -->
+    <input class="form-control form-control-sm"  type="hidden" id="inwishlistbtn" data-bs-toggle="modal" data-bs-target="#wishlistmodal"  /> 
+    <!--------------------------------------------------------------------------------------->   
+    <div class="modal fade" id="wishlistmodal" data-bs-keyboard="false"
+    data-bs-backdrop="static" tabindex="-1" aria-labelledby="staticBackdropLabel"
+    aria-hidden="true">
+        <div class="modal-dialog modal-lg mt-6" role="document" id = "modalForm01"
+            style="max-width: 1200px">
+            <div class="modal-content border-0">
+                <div class="modal-body p-0" > 
+                    <div class="rounded-top-lg py-3 ps-4 pe-6 bg-light">                            
+                        <div class="search">                              
+                    <!-- <div class="row"  >
+                                <div class="col">
+                                    <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">품명</span>  -->
+                                        <input class="form-control form-control-sm" id="mjpumnm02" type="hidden"    autocomplete="off"  placeholder=""     >
+                                        <input class="form-control form-control-sm" id="mjkey02" type="hidden"  /> 
+                                        <input class="form-control form-control-sm" id="mgubun02" type="hidden"  />                                         
+                                    <!-- </div>
+                                </div>   
+                            </div>                                    -->
+                            <div class="row"  >
+                                <div class="col">
+                                    <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">요청사항</span> 
+                                        <input class="form-control form-control-sm" id="mremark02" type="text"    autocomplete="off"  placeholder="예) SF31번 코, DN01번 힌지나사"     > 
+                                        
+                                    </div>
+                                </div>  
+                                <div class="col-md-auto"> 
+                                </div>
+                                <div class="col col-lg-2">
+                                    <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="OrderBtnSave02" type="button"  >주문
+                                    </button>
+                                </div>  
+                            </div>     
+                        </div>                             
+                    </div>   
+                    <div class="container-fluid"> 
+                        <div id="wtab03Grid_div"  style="overflow:scroll;   height:500px;   margin:0 auto; "></div> 
+                        <!-- <div id="thePager03"></div> -->
+                    </div>   
+                </div>  
+
+                <div class="modal-footer">
+                    <div class="row g-1">
+                        <div class="col-auto">
+                            <button class="badge-soft-primary dropdown-item rounded-1"
+                                type="button"  id="winwishlistmodal_btn" data-bs-dismiss="modal">Close</button>
+                        </div> 
+                    </div>
+                </div>   
+
+            </div>
+        </div> 
+    </div>   
+    <!--------------------------------------------------------------------------------------->     
 
      
     <!--  주문 모달 처리 -->
-    <input class="form-control form-control-sm"  type="hidden" id="inorderbtn" data-bs-toggle="modal" data-bs-target="#ordermodal"  /> 
-    <!--------------------------------------------------------------------------------------->   
+    <!-- <input class="form-control form-control-sm"  type="hidden" id="inorderbtn" data-bs-toggle="modal" data-bs-target="#ordermodal"  />  
     <div class="modal fade" id="ordermodal" data-bs-keyboard="false"
     data-bs-backdrop="static" tabindex="-1" aria-labelledby="staticBackdropLabel"
     aria-hidden="true">
         <div class="modal-dialog modal-lg mt-6" role="document" id = "modalForm01"
             style="max-width: 600px">
-            <div class="modal-content border-0"> 
-                <!-- <div class="modal_head" data-name='OrderTitle'>
-                    주문등록
-                </div> -->
-                <!-- <div class='row flex-nowrap  overflow-auto' data-name='OrderTitle02'> -->
+            <div class="modal-content border-0">  
                 <div class="modal-body p-0" > 
                     <div class="rounded-top-lg py-3 ps-4 pe-6 bg-light">                            
                         <div class="search">  
@@ -343,21 +460,7 @@
                                     <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="OrderBtnSave" type="button"  >저장
                                     </button>
                                 </div>  
-                            </div>                                   
-                            <!-- <div class="row"  >
-                                <div class="col">
-                                    <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">주문수량</span> 
-                                        <input class="form-control form-control-sm" id="mjqty" type="number"    autocomplete="off"  placeholder=""     > 
-                                        
-                                    </div>
-                                </div>  
-                                <div class="col-md-auto"> 
-                                </div>
-                                <div class="col col-lg-2">
-                                    <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="OrderBtnSave" type="button"  >저장
-                                    </button>
-                                </div>  
-                            </div>   -->
+                            </div>       
                         </div>                             
                     </div>    
                 </div>   
@@ -372,7 +475,7 @@
 
             </div>
         </div> 
-    </div>  
+    </div>   -->
 <!--------------------------------------------------------------------------------------->     
 
 
@@ -743,7 +846,7 @@ aria-hidden="true">
 
         }    
 
-        function jcust_grid(arg, custdata){ 
+        function jcust_grid(arg, custdata){  
             var wactnm_data = [];          
             var cnt = 1;
             for (var i = 0; i < custdata.length; i++) {
@@ -943,40 +1046,9 @@ aria-hidden="true">
             searchList_rtn(ls_tab);
         })                
         // tab02 주문  
-        document.getElementById("saveBtn01").addEventListener("click",function(){  
-            if(chkTabA.length == 0){
-                alert("주문할 자료를 선택하세요")
-                return 
-            }
-            while (misdateArr.length > 0) {
-                misdateArr.pop();
-                misnumArr.pop();
-                seqArr.pop();
-                cltcdArr.pop();
-                gubunArr.pop();
-                fixflagArr.pop();
-            }  
-            for (var i = 0; i < chkTabA.length; i++) { 
-                misdateArr[i]   = chkTabA[i]._data.misdate;
-                misnumArr[i]   = chkTabA[i]._data.misnum;
-                seqArr[i]  = chkTabA[i]._data.seq; 
-                cltcdArr[i]  = chkTabA[i]._data.cltcd; 
-                gubunArr[i]  = chkTabA[i]._data.misgubun; 
-                if(chkTabA[i]._data.makflag == "1" ){
-                    alert("이미 주문되었습니다.")
-                    return 
-                }
-                if(i == 0) { 
-                    document.getElementById('mjpumnm').value = chkTabA[i]._data.pname; 
-                    document.getElementById('mjkey').value = chkTabA[i]._data.pcode;  
-                    document.getElementById('mgubun').value = "O"; 
-                    document.getElementById('bmisdate').value = chkTabA[i]._data.misdate; 
-                    document.getElementById('bmisnum').value = chkTabA[i]._data.misnum; 
-                    document.getElementById('bseq').value = chkTabA[i]._data.seq;    
-                    document.getElementById('bcltcd').value = chkTabA[i]._data.cltcd;     
-                } 
-            }    
-            document.getElementById("inorderbtn").click();        
+        document.getElementById("saveBtn01").addEventListener("click",function(){   
+            savechk_rtn()
+            document.getElementById("inorderbtn").click();                
         })      
         // tab03 검색   
         document.getElementById("listBtn02").addEventListener("click",function(){ 
@@ -986,39 +1058,8 @@ aria-hidden="true">
         })     
         // tab03 주문 
         document.getElementById("saveBtn02").addEventListener("click",function(){ 
-            if(chkTabB.length == 0){
-                alert("예약할 자료를 선택하세요")
-                return 
-            }
-            while (misdateArr.length > 0) {
-                misdateArr.pop();
-                misnumArr.pop();
-                seqArr.pop();
-                cltcdArr.pop();
-                gubunArr.pop();
-                fixflagArr.pop();
-            }  
-            for (var i = 0; i < chkTabB.length; i++) { 
-                misdateArr[i]   = chkTabB[i]._data.misdate;
-                misnumArr[i]   = chkTabB[i]._data.misnum;
-                seqArr[i]  = chkTabB[i]._data.seq; 
-                cltcdArr[i]  = chkTabB[i]._data.cltcd; 
-                gubunArr[i]  = chkTabB[i]._data.misgubun; 
-                if(chkTabB[i]._data.makflag == "1" ){
-                    alert("이미 주문되었습니다.")
-                    return 
-                }
-                if(i == 0) { 
-                    document.getElementById('mjpumnm').value = chkTabB[i]._data.pname; 
-                    document.getElementById('mjkey').value = chkTabB[i]._data.pcode;  
-                    document.getElementById('mgubun').value = "R"; 
-                    document.getElementById('bmisdate').value = chkTabB[i]._data.misdate; 
-                    document.getElementById('bmisnum').value = chkTabB[i]._data.misnum; 
-                    document.getElementById('bseq').value = chkTabB[i]._data.seq;    
-                    document.getElementById('bcltcd').value = chkTabB[i]._data.cltcd;     
-                } 
-            }    
-            document.getElementById("inorderbtn").click();    
+            savewishchk_rtn()
+            document.getElementById("inorderbtn").click();       
         })      
         //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 모달 검색@@@@@@@@@@@@@@@@@@@@@@@@@@@
         //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
@@ -1042,22 +1083,55 @@ aria-hidden="true">
                 CifSearchList_rtn("A"); 
             }
         });   
+        //주문장바구니 버튼 
+        function orderlist_rtn(){
+            searchList_rtn('B');
+            document.getElementById("inorderlistbtn").click();  
+        }
+        //예약장바구니 버튼 
+        function wishorderlist_rtn(){
+            searchList_rtn('C');
+            document.getElementById("inwishlistbtn").click();  
+        }
+
      
         //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 모달 주문등록@@@@@@@@@@@@@@@@@@@@@@@@@@@
-        //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$  
+        //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$   
         document.getElementById("OrderBtnSave").addEventListener("click",function(){  
             var ls_mgubun = document.getElementById('mgubun').value; 
             var arg1 = document.getElementById('mjpumnm').value; 
             var arg2 = document.getElementById('mjkey').value; 
             var arg3 = document.getElementById('mremark').value; 
-            var arg4 = '1' ; //document.getElementById('mjqty').value; 
-            if(ls_mgubun == "O"){
-                save_btn(arg1, arg2, arg3, arg4)
-            }else{
-                savewish_btn(arg1, arg2, arg3, arg4)
-            }  
+            var arg4 = 1; //document.getElementById('mjqty').value; 
+            savechk_rtn()
+            saveremark_btn(arg1, arg2, arg3, arg4, 'B')
             $("#winordermodal_btn").trigger("click"); 
         })  
+        //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 모달 예약등록@@@@@@@@@@@@@@@@@@@@@@@@@@@
+        //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$  
+        document.getElementById("OrderBtnSave02").addEventListener("click",function(){  
+            var ls_mgubun = document.getElementById('mgubun02').value; 
+            var arg1 = document.getElementById('mjpumnm02').value; 
+            var arg2 = document.getElementById('mjkey02').value; 
+            var arg3 = document.getElementById('mremark02').value; 
+            var arg4 = 1; //document.getElementById('mjqty').value; 
+            savewishchk_rtn()
+            saveremark_btn(arg1, arg2, arg3, arg4, 'C')
+            $("#winwishmodal_btn").trigger("click"); 
+        })  
+        // document.getElementById("OrderBtnSave").addEventListener("click",function(){  
+        //     var ls_mgubun = document.getElementById('mgubun').value; 
+        //     var arg1 = document.getElementById('mjpumnm').value; 
+        //     var arg2 = document.getElementById('mjkey').value; 
+        //     var arg3 = document.getElementById('mremark').value; 
+        //     var arg4 = '1' ; //document.getElementById('mjqty').value; 
+        //     if(ls_mgubun == "O"){
+        //         save_btn(arg1, arg2, arg3, arg4)
+        //     }else{
+        //         savewish_btn(arg1, arg2, arg3, arg4)
+        //     }  
+        //     $("#winordermodal_btn").trigger("click"); 
+        // })  
 
         function searchList_rtn(arg1){ 
             switch(arg1){
@@ -1066,7 +1140,7 @@ aria-hidden="true">
                 case 'B': 
                     var ls_frdate = document.getElementById('frdate').value; 
                     var ls_todate = document.getElementById('todate').value;          
-                    var ls_bacode   = document.getElementById('bacode').value;        
+                    var ls_bacode   = document.getElementById('acode').value;        
                     var ls_makflag   = document.getElementById('makflag01').value; 
                     if(ls_frdate == null || ls_frdate.length == 0 || ls_frdate == ""){ 
                         alert("조회일자를 등록하세요") 
@@ -1117,7 +1191,7 @@ aria-hidden="true">
                 case 'C': 
                     var ls_frdate = document.getElementById('frdate02').value; 
                     var ls_todate = document.getElementById('todate02').value;          
-                    var ls_bacode   = document.getElementById('dacode').value;     
+                    var ls_bacode   = document.getElementById('acode').value;     
                     var ls_makflag   = document.getElementById('makflag02').value;
                     if(ls_frdate == null || ls_frdate.length == 0 || ls_frdate == ""){ 
                         alert("조회일자를 등록하세요") 
@@ -1643,20 +1717,216 @@ aria-hidden="true">
         }
 
         function save_modal(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7){  
-            document.getElementById('mjpumnm').value = arg1;
-            document.getElementById('mjkey').value = arg2;
-            //document.getElementById('mjqty').value = 1;    
-            document.getElementById('mgubun').value = arg0; 
+            if(arg0 == 'O') {
+                document.getElementById('mjpumnm').value = arg1;
+                document.getElementById('mjkey').value = arg2;
+                // document.getElementById('mjqty').value = 1;    
+                document.getElementById('mgubun').value = arg0; 
+                if(arg7 != null && arg7.length > 0 && arg7 != "요청등록" ){  
+                    document.getElementById('mremark').value = arg7; 
+                }else{
+                    document.getElementById('mremark').value = ""; 
+                }      
+            }else{
+                document.getElementById('mjpumnm02').value = arg1;
+                document.getElementById('mjkey02').value = arg2;
+                // document.getElementById('mjqty').value = 1;    
+                document.getElementById('mgubun02').value = arg0; 
+                if(arg7 != null && arg7.length > 0 && arg7 != "요청등록" ){  
+                    document.getElementById('mremark02').value = arg7; 
+                }else{
+                    document.getElementById('mremark02').value = ""; 
+                }      
+            }
             document.getElementById('bmisdate').value = arg3; 
             document.getElementById('bmisnum').value = arg4; 
             document.getElementById('bseq').value = arg5;   
             document.getElementById('bcltcd').value = arg6;   
-            if(arg7 != null && arg7.length > 0 && arg7 != "요청등록" ){  
-                document.getElementById('mremark').value = arg7; 
-            }else{
-                document.getElementById('mremark').value = ""; 
-            }      
-            document.getElementById("inorderbtn").click();        
+            document.getElementById("inorderbtn").click();
+            // document.getElementById('mjpumnm').value = arg1;
+            // document.getElementById('mjkey').value = arg2;
+            //document.getElementById('mjqty').value = 1;    
+            // document.getElementById('mgubun').value = arg0; 
+            // if(arg7 != null && arg7.length > 0 && arg7 != "요청등록" ){  
+            //     document.getElementById('mremark').value = arg7; 
+            // }else{
+            //     document.getElementById('mremark').value = ""; 
+            // }              
+        }
+        function savechk_rtn(){
+            if(chkTabA.length == 0){
+                alert("주문할 자료를 선택하세요")
+                return 
+            }
+            while (misdateArr.length > 0) {
+                misdateArr.pop();
+                misnumArr.pop();
+                seqArr.pop();
+                cltcdArr.pop();
+                gubunArr.pop();
+                fixflagArr.pop();
+            }  
+            for (var i = 0; i < chkTabA.length; i++) { 
+                misdateArr[i]   = chkTabA[i]._data.misdate;
+                misnumArr[i]   = chkTabA[i]._data.misnum;
+                seqArr[i]  = chkTabA[i]._data.seq; 
+                cltcdArr[i]  = chkTabA[i]._data.cltcd; 
+                gubunArr[i]  = chkTabA[i]._data.misgubun; 
+                if(chkTabA[i]._data.makflag == "1" ){
+                    alert("이미 주문되었습니다.")
+                    return 
+                }
+                if(i == 0) { 
+                    document.getElementById('mjpumnm').value = chkTabA[i]._data.pname; 
+                    document.getElementById('mjkey').value = chkTabA[i]._data.pcode;  
+                    document.getElementById('mgubun').value = "O"; 
+                    document.getElementById('bmisdate').value = chkTabA[i]._data.misdate; 
+                    document.getElementById('bmisnum').value = chkTabA[i]._data.misnum; 
+                    document.getElementById('bseq').value = chkTabA[i]._data.seq;    
+                    document.getElementById('bcltcd').value = chkTabA[i]._data.cltcd;     
+                } 
+            }                
+        }
+        function savewishchk_rtn(){
+            if(chkTabB.length == 0){
+                alert("예약할 자료를 선택하세요")
+                return 
+            }
+            while (misdateArr.length > 0) {
+                misdateArr.pop();
+                misnumArr.pop();
+                seqArr.pop();
+                cltcdArr.pop();
+                gubunArr.pop();
+                fixflagArr.pop();
+            }  
+            for (var i = 0; i < chkTabB.length; i++) { 
+                misdateArr[i]   = chkTabB[i]._data.misdate;
+                misnumArr[i]   = chkTabB[i]._data.misnum;
+                seqArr[i]  = chkTabB[i]._data.seq; 
+                cltcdArr[i]  = chkTabB[i]._data.cltcd; 
+                gubunArr[i]  = chkTabB[i]._data.misgubun; 
+                if(chkTabB[i]._data.makflag == "1" ){
+                    alert("이미 주문되었습니다.")
+                    return 
+                }
+                if(i == 0) { 
+                    document.getElementById('mjpumnm02').value = chkTabB[i]._data.pname; 
+                    document.getElementById('mjkey02').value = chkTabB[i]._data.pcode;  
+                    document.getElementById('mgubun02').value = "R"; 
+                    document.getElementById('bmisdate').value = chkTabB[i]._data.misdate; 
+                    document.getElementById('bmisnum').value = chkTabB[i]._data.misnum; 
+                    document.getElementById('bseq').value = chkTabB[i]._data.seq;    
+                    document.getElementById('bcltcd').value = chkTabB[i]._data.cltcd;     
+                } 
+            }                
+        }
+        
+        function saveremark_btn(arg1, arg2, arg3, arg4, arg5){           
+            var ls_misdate   = document.getElementById('bmisdate').value;          
+            var ls_misnum   = document.getElementById('bmisnum').value;          
+            var ls_seq   = document.getElementById('bseq').value;                
+            var ls_cltcd   = document.getElementById('bcltcd').value;  //비고등록시 거래처코드
+            var ls_tabchk = document.getElementById('tabvalue').value;                               
+            // const warnning_grid = document.getElementById('inwarnning_grid'); 
+            var ls_pcode  =  [];        
+            var ll_qty    =  [];    
+            var ls_jcode  =  [];        
+            var ll_jqty    =  []; 
+            var llCount = 0;  
+            ls_tabchk = arg5;                  
+            //요청사항 
+            if(arg3 == null || arg3.length == 0 || arg3 == ""){ 
+                arg3 = ""          ;
+            }    
+            //수량
+            if(arg4 == null ){ 
+                arg4 = 1         ;
+            }   
+            // console.log(ls_misdate)
+            // console.log(ls_misnum)
+            // console.log(ls_seq)
+            // console.log(ls_cltcd)
+            // console.log(arg2)
+            // console.log(arg3)
+            // console.log(arg4)
+            if(ls_tabchk == "B"  ){   
+                $.ajax({
+                    url: '/app01m/index14/savecust',  
+                    type:"POST",
+                    data: { 
+                        "ipdate"  : ls_misdate,  
+                        "acode"   : ls_cltcd   , 
+                        "jkey"  : arg2     ,      
+                        "jremark"  : arg3     ,   
+                        "jqty"  : 1     ,      
+                        "misdate"  : ls_misdate     ,      
+                        "misnum"  : ls_misnum     ,      
+                        "seq"  : ls_seq     ,       
+                        "mflag"  : 'BB'   ,      
+                        "ordercd"  : 'BB'   , 
+                    }, 
+                    async:false,
+                    success:function(data){   
+                        if(data == "success"){
+                            alert("저장되었습니다.") 
+                            searchList_rtn(ls_tabchk) 
+                            return true;
+                            // searchList_rtn(ls_tab);  
+                            // clear_rtn(ls_tab);        
+                        }else{                       
+                            alert("저장중 오류가 발생했습니다. 관리자에게 문의하세요.")
+                            // listUp();
+                            console.log(data); 
+                            return false; 
+                        }
+                        
+                    },error:function(e){
+                        alert("저장중 오류가 발생했습니다.")
+                        console.log("error - savecust"); 
+                    }
+                }).done(function(fragment){           
+
+                }) 
+            }else{ 
+                $.ajax({
+                        url: '/app01m/index14/savecustwish',  
+                        type:"POST",
+                        data: { 
+                            "ipdate"  : ls_misdate,  
+                            "acode"   : ls_cltcd   , 
+                            "jkey"  : arg2     ,     
+                            "jremark"  : arg3     ,   
+                            "jqty"  : 1     , 
+                            "misdate"  : ls_misdate     ,      
+                            "misnum"  : ls_misnum     ,      
+                            "seq"      : ls_seq     ,              
+                            "mflag"  : 'BB'   ,      
+                            "ordercd"  : 'BB'   , 
+                        }, 
+                        async:false,
+                        success:function(data){   
+                            if(data == "success"){
+                                alert("저장되었습니다.") 
+                                searchList_rtn(ls_tabchk) 
+                                return true;
+                                // searchList_rtn(ls_tab);  
+                                // clear_rtn(ls_tab);        
+                            }else{                       
+                                alert("예약중 오류가 발생했습니다. 관리자에게 문의하세요.")
+                                // listUp();
+                                console.log(data); 
+                                return false; 
+                            }
+                           
+                        },error:function(e){                  
+                            alert("예약중 오류가 발생했습니다.")
+                            console.log("error - savecustwish"); 
+                        }
+                    }).done(function(fragment){           
+
+                    })                  
+            }           
         }
         function save_btn(arg1, arg2, arg3, arg4){  
             var ls_ipdate = document.getElementById('ipdate').value;          

@@ -321,18 +321,18 @@ public class App01CrudController {
         HttpSession session = request.getSession();
         UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
         model.addAttribute("userformDto",userformDto);
+        Index03Dto index03Dto_S = new Index03Dto();
 
         try {
 
             if(searchtxt == null || searchtxt.equals("")){
                 searchtxt = "%";
             }
-            index03Dto.setJkey(searchtxt);
-            index03Dto.setFrdate(frdate);
-            index03Dto.setTodate(todate);
-            index03List = service03.GetJpumSubul02(index03Dto);
-            index03Dto.setJpb_gubn(jpbgubn);
-            log.info("jpbgubn Exception =====>" + jpbgubn);
+            index03Dto_S.setJkey(searchtxt);
+            index03Dto_S.setFrdate(frdate);
+            index03Dto_S.setTodate(todate);
+            index03Dto_S.setJpb_gubn(jpbgubn);
+            index03List = service03.GetJpumSubul02(index03Dto_S);
             model.addAttribute("index03List",index03List);
 
         } catch (Exception ex) {
@@ -355,18 +355,18 @@ public class App01CrudController {
         HttpSession session = request.getSession();
         UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
         model.addAttribute("userformDto",userformDto);
+        Index03Dto index03Dto_S = new Index03Dto();
 
         try {
 
             if(searchtxt == null || searchtxt.equals("")){
                 searchtxt = "%";
             }
-            index03Dto.setJkey(searchtxt);
-            index03Dto.setFrdate(frdate);
-            index03Dto.setTodate(todate);
-            index03Dto.setJpb_gubn(jpbgubn);
-            index03List = service03.GetJpumSubul02(index03Dto);
-            log.info("jpbgubn Exception =====>" + jpbgubn);
+            index03Dto_S.setJkey(searchtxt);
+            index03Dto_S.setFrdate(frdate);
+            index03Dto_S.setTodate(todate);
+            index03Dto_S.setJpb_gubn(jpbgubn);
+            index03List = service03.GetJpumSubul02(index03Dto_S);
             model.addAttribute("index03List",index03List);
 
         } catch (Exception ex) {
@@ -389,6 +389,7 @@ public class App01CrudController {
         HttpSession session = request.getSession();
         UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
         model.addAttribute("userformDto",userformDto);
+        Index03Dto index03Dto_S = new Index03Dto();
 
         try {
             if(jpbgubn == null || jpbgubn.equals("")){
@@ -400,11 +401,11 @@ public class App01CrudController {
             if(conagita == null || conagita.equals("")){
                 conagita = "%";
             }
-            index03Dto.setJpb_gubn(jpbgubn);
+            index03Dto_S.setJpb_gubn(jpbgubn);
 //            log.info("jpbgubn =====>" + jpbgubn);
-            index03Dto.setJmodel_code(jmodelcode);
-            index03Dto.setJpum(conagita);
-            index03List = service03.GetJpumListTot(index03Dto);
+            index03Dto_S.setJmodel_code(jmodelcode);
+            index03Dto_S.setJpum(conagita);
+            index03List = service03.GetJpumListTot(index03Dto_S);
             model.addAttribute("index03List",index03List);
 
         } catch (Exception ex) {
@@ -427,17 +428,18 @@ public class App01CrudController {
         HttpSession session = request.getSession();
         UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
         model.addAttribute("userformDto",userformDto);
-
+        Index03Dto index03Dto_S = new Index03Dto();
         try {
 
             if(searchtxt == null || searchtxt.equals("")){
                 searchtxt = "%";
             }
-            index03Dto.setJcustomer_code(searchtxt);
-            index03List = service03.GetJpumCustList(index03Dto);
+            index03Dto_S.setJcustomer_code(searchtxt);
+            index03List = service03.GetJpumCustList(index03Dto_S);
             model.addAttribute("index03CustList",index03List);
 
         } catch (Exception ex) {
+            log.info("searchtxt  Exception =====>" + searchtxt);
             log.info("GetJpumCustList  Exception =====>" + ex.toString());
         }
 
@@ -455,20 +457,22 @@ public class App01CrudController {
         HttpSession session = request.getSession();
         UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
         model.addAttribute("userformDto",userformDto);
-
+        Index03Dto index03Dto_S = new Index03Dto();
         try {
 
             if(jcust == null || jcust.equals("")){
                 jcust = "%";
             }
-            index03Dto.setJcustomer_code(jcust);
-            index03Dto.setJmodel_code(jmodel);
-            index03Dto.setFrdate("20100101");
-            index03Dto.setTodate(getToDate());
-            index03List = service03.GetJpumModelList(index03Dto);
+            index03Dto_S.setJcustomer_code(jcust);
+            index03Dto_S.setJmodel_code(jmodel);
+            index03Dto_S.setFrdate("20100101");
+            index03Dto_S.setTodate(getToDate());
+            index03List = service03.GetJpumModelList(index03Dto_S);
             model.addAttribute("index03MdelList",index03List);
 
         } catch (Exception ex) {
+            log.info("jcust  Exception =====>" + jcust);
+            log.info("jmodel  Exception =====>" + jmodel);
             log.info("GetJpumModelList  Exception =====>" + ex.toString());
         }
 
@@ -1395,17 +1399,17 @@ public class App01CrudController {
             HttpSession session = request.getSession();
             UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
             model.addAttribute("userformDto",userformDto);
-
+            Index03Dto index03Dto_S = new Index03Dto();
             Boolean result = false;
             String year = frdate.substring(0,4) ;
             String month = frdate.substring(5,7) ;
             String day   = frdate.substring(8,10) ;
             frdate = year + month + day ;
             index02Dto.setAcode(acode);
-            index03Dto.setJkey(jkey);
+            index03Dto_S.setJkey(jkey);
             index02Dto = service02.GetCifListAcode(index02Dto);  //거래처정보
             index02BonsaDto = service02.GetCifBonsa(index02BonsaDto);
-            index03Dto = service03.GetJpumOrderJkey02(index03Dto); //품목
+            index03Dto_S = service03.GetJpumOrderJkey02(index03Dto_S); //품목
 
             //비고업데이트
             if (!misdate.equals("0000")){
@@ -1493,7 +1497,7 @@ public class App01CrudController {
                 ls_seq = GetMaxSeqWish(frdate);
             }
 
-            String ls_chulgoga = index03Dto.getJchgoga0();
+            String ls_chulgoga = index03Dto_S.getJchgoga0();
             Integer ll_chulgoga = Integer.parseInt(ls_chulgoga);
             if( ls_chulgoga == null ||  ll_chulgoga == 0 || ll_chulgoga == null ){
                 ls_chulgoga = "0";
@@ -1504,12 +1508,12 @@ public class App01CrudController {
             indexDa024Dto.setMisgubun(mflag);
 //            log.info("ls_misnum=============>");
 //            log.info(ls_misnum);
-            indexDa024Dto.setPcode(index03Dto.getJkey());
-            indexDa024Dto.setPname(index03Dto.getJpum());
-            indexDa024Dto.setPsize(index03Dto.getJgugek());
-            indexDa024Dto.setPbonsa(index03Dto.getJbonsa_code());
-            indexDa024Dto.setPmodel(index03Dto.getJmodel_code());
-            indexDa024Dto.setPcolor(index03Dto.getJcolor_code());
+            indexDa024Dto.setPcode(index03Dto_S.getJkey());
+            indexDa024Dto.setPname(index03Dto_S.getJpum());
+            indexDa024Dto.setPsize(index03Dto_S.getJgugek());
+            indexDa024Dto.setPbonsa(index03Dto_S.getJbonsa_code());
+            indexDa024Dto.setPmodel(index03Dto_S.getJmodel_code());
+            indexDa024Dto.setPcolor(index03Dto_S.getJcolor_code());
             indexDa024Dto.setQty(jqty);
             indexDa024Dto.setUamt(ll_chulgoga);
             indexDa024Dto.setSamt(ll_chulgoga);

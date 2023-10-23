@@ -56,11 +56,10 @@ public class App01Controller {
         CommDto.setMenuTitle("공통코드등록");
         CommDto.setMenuUrl("기준정보>공통코드등록");
         CommDto.setMenuCode("index01");
-        HttpSession session = request.getSession();
-        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
-        model.addAttribute("userformDto",userformDto);
-
         try {
+            HttpSession session = request.getSession();
+            UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+            model.addAttribute("userformDto",userformDto);
             index01ListDto = service01.getComCodeList(index01Dto);
 
             model.addAttribute("comcodeList",index01ListDto);
@@ -68,6 +67,7 @@ public class App01Controller {
 //                dispatchException = ex;
             log.info("App01_index Exception =============================");
             log.info("Exception =====>" + ex.toString());
+            return "redirect:http://eean.co.kr/";
 //            log.debug("Exception =====>" + ex.toString() );
         }
         return "App01/index01";
@@ -80,14 +80,13 @@ public class App01Controller {
         CommDto.setMenuTitle("거래처등록");
         CommDto.setMenuUrl("기준정보>거래처정보");
         CommDto.setMenuCode("index02");
-        HttpSession session = request.getSession();
-        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
-        model.addAttribute("userformDto",userformDto);
-//        userformDto.setPagetree01("거래처등록");
-//        userformDto.setPagenm("본사기준정보");
-//        model.addAttribute("CommDto", CommDto);
-
         try {
+            HttpSession session = request.getSession();
+            UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+            model.addAttribute("userformDto",userformDto);
+    //        userformDto.setPagetree01("거래처등록");
+    //        userformDto.setPagenm("본사기준정보");
+    //        model.addAttribute("CommDto", CommDto);
             index02Dto.setAcorp("%");
             index02List = service02.GetCifList(index02Dto);
             popupListDto = svcpopup.getCifCodeList(popupDto);
@@ -96,8 +95,9 @@ public class App01Controller {
             model.addAttribute("cifcodeList",popupListDto);
         } catch (Exception ex) {
 //                dispatchException = ex;
-            log.info("App03001Tab01Form Exception ================================================================");
+            log.info("App02_index Exception ================================================================");
             log.info("Exception =====>" + ex.toString());
+            return "redirect:http://eean.co.kr/";
 //            log.debug("Exception =====>" + ex.toString() );
         }
 
@@ -110,14 +110,13 @@ public class App01Controller {
         CommDto.setMenuTitle("거래처등록");
         CommDto.setMenuUrl("기준정보>거래처정보");
         CommDto.setMenuCode("index020");
-        HttpSession session = request.getSession();
-        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
-        model.addAttribute("userformDto",userformDto);
+        try {
+            HttpSession session = request.getSession();
+            UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+            model.addAttribute("userformDto",userformDto);
 //        userformDto.setPagetree01("거래처등록");
 //        userformDto.setPagenm("본사기준정보");
 //        model.addAttribute("CommDto", CommDto);
-
-        try {
             index02Dto.setAcorp("%");
             index02List = service02.GetCifList(index02Dto);
             popupListDto = svcpopup.getCifCodeList(popupDto);
@@ -125,10 +124,9 @@ public class App01Controller {
             model.addAttribute("index02List",index02List);
             model.addAttribute("cifcodeList",popupListDto);
         } catch (Exception ex) {
-//                dispatchException = ex;
-            log.info("App03001Tab01Form Exception ================================================================");
+            log.info("App020_index Exception ================================================================");
             log.info("Exception =====>" + ex.toString());
-//            log.debug("Exception =====>" + ex.toString() );
+            return "redirect:http://eean.co.kr/";
         }
 
         return "App01/index020";
@@ -140,20 +138,18 @@ public class App01Controller {
         CommDto.setMenuTitle("제품등록");
         CommDto.setMenuUrl("기준정보>제품정보");
         CommDto.setMenuCode("index03");
-        HttpSession session = request.getSession();
-        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
-        model.addAttribute("userformDto",userformDto);
-
         try {
+            HttpSession session = request.getSession();
+            UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+            model.addAttribute("userformDto",userformDto);
             index03Dto.setJpum("%");
             index03List = service03.GetJpumList(index03Dto);
 
             model.addAttribute("index03List",index03List);
         } catch (Exception ex) {
-//                dispatchException = ex;
-            log.info("App03001Tab01Form Exception ================================================================");
+            log.info("App03_index Exception ================================================================");
             log.info("Exception =====>" + ex.toString());
-//            log.debug("Exception =====>" + ex.toString() );
+            return "redirect:http://eean.co.kr/";
         }
 
         return "App01/index03";
@@ -166,18 +162,16 @@ public class App01Controller {
         CommDto.setMenuTitle("재고등록");
         CommDto.setMenuUrl("기준정보>재고등록");
         CommDto.setMenuCode("index04");
-        HttpSession session = request.getSession();
-        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
-        model.addAttribute("userformDto",userformDto);
-
         try {
+            HttpSession session = request.getSession();
+            UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+            model.addAttribute("userformDto",userformDto);
             index03List = service03.GetJcustomCodeTot(index03Dto);
             model.addAttribute("index04List",index03List);
         } catch (Exception ex) {
-//                dispatchException = ex;
-            log.info("App13_index Exception ================================================================");
+            log.info("App04_index Exception ================================================================");
             log.info("Exception =====>" + ex.toString());
-//            log.debug("Exception =====>" + ex.toString() );
+            return "redirect:http://eean.co.kr/";
         }
 
         return "App01/index04";
@@ -190,19 +184,17 @@ public class App01Controller {
         CommDto.setMenuTitle("기초코드");
         CommDto.setMenuUrl("기준정보>기초코드");
         CommDto.setMenuCode("index13");
-        HttpSession session = request.getSession();
-        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
-        model.addAttribute("userformDto",userformDto);
-
         try {
+            HttpSession session = request.getSession();
+            UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+            model.addAttribute("userformDto",userformDto);
             popupListDto = svcpopup.getCifCodeList(popupDto);
 
             model.addAttribute("cifcodeList",popupListDto);
         } catch (Exception ex) {
-//                dispatchException = ex;
             log.info("App13_index Exception ================================================================");
             log.info("Exception =====>" + ex.toString());
-//            log.debug("Exception =====>" + ex.toString() );
+            return "redirect:http://eean.co.kr/";
         }
 
         return "App01/index13";
@@ -215,36 +207,36 @@ public class App01Controller {
         CommDto.setMenuTitle("거래처주문등록");
         CommDto.setMenuUrl("기준정보>거래처주문등록");
         CommDto.setMenuCode("index15");
-        HttpSession session = request.getSession();
-        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
-        model.addAttribute("userformDto",userformDto);
-        if(userformDto.getFlag().equals("AA")){
-            if(userformDto.getUserid().substring(0,2).equals("pv")){
-                index03Dto.setJpb_gubn("P");
-            }else if(userformDto.getUserid().substring(0,2).equals("bl")){
-                index03Dto.setJpb_gubn("B");
+        try {
+            HttpSession session = request.getSession();
+            UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+            model.addAttribute("userformDto",userformDto);
+            if(userformDto.getFlag().equals("AA")){
+                if(userformDto.getUserid().substring(0,2).equals("pv")){
+                    index03Dto.setJpb_gubn("P");
+                }else if(userformDto.getUserid().substring(0,2).equals("bl")){
+                    index03Dto.setJpb_gubn("B");
+                }else{
+                    index03Dto.setJpb_gubn("%");
+                }
+            }else if(userformDto.getFlag().equals("BB")){
+                if(userformDto.getPerid().substring(0,2).equals("02")){
+                    index03Dto.setJpb_gubn("P");
+                }else{
+                    index03Dto.setJpb_gubn("B");
+                }
             }else{
                 index03Dto.setJpb_gubn("%");
             }
-        }else if(userformDto.getFlag().equals("BB")){
-            if(userformDto.getPerid().substring(0,2).equals("02")){
-                index03Dto.setJpb_gubn("P");
-            }else{
-                index03Dto.setJpb_gubn("B");
-            }
-        }else{
-            index03Dto.setJpb_gubn("%");
-        }
 
-        try {
+
             index03List = service03.GetJcustomCode(index03Dto);
 
             model.addAttribute("index15List",index03List);
         } catch (Exception ex) {
-//                dispatchException = ex;
             log.info("App15_index Exception ================================================================");
             log.info("Exception =====>" + ex.toString());
-//            log.debug("Exception =====>" + ex.toString() );
+            return "redirect:http://eean.co.kr/";
         }
 
         return "App01/index15";
@@ -257,31 +249,29 @@ public class App01Controller {
         CommDto.setMenuTitle("거래처주문등록");
         CommDto.setMenuUrl("기준정보>거래처주문등록");
         CommDto.setMenuCode("index15");
-        HttpSession session = request.getSession();
-        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
-        model.addAttribute("userformDto",userformDto);
-        String ls_acorp1 = userformDto.getPerid();
-        String ls_flag = userformDto.getFlag();
-        if (ls_flag.equals("BB")){
-            log.debug("ls_acorp1 =====>" + ls_acorp1.substring(0,2) );
-            if(ls_acorp1.substring(0,2).equals("02")){
-                index03Dto.setJpb_gubn("P");
-            }else{
-                index03Dto.setJpb_gubn("B");
-            }
-        }else{
-            index03Dto.setJpb_gubn("%");
-        }
-
         try {
+            HttpSession session = request.getSession();
+            UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+            model.addAttribute("userformDto",userformDto);
+            String ls_acorp1 = userformDto.getPerid();
+            String ls_flag = userformDto.getFlag();
+            if (ls_flag.equals("BB")){
+                log.debug("ls_acorp1 =====>" + ls_acorp1.substring(0,2) );
+                if(ls_acorp1.substring(0,2).equals("02")){
+                    index03Dto.setJpb_gubn("P");
+                }else{
+                    index03Dto.setJpb_gubn("B");
+                }
+            }else{
+                index03Dto.setJpb_gubn("%");
+            }
             index03List = service03.GetJcustomCode(index03Dto);
 
             model.addAttribute("index15List",index03List);
         } catch (Exception ex) {
-//                dispatchException = ex;
-            log.info("App15_index Exception ================================================================");
+            log.info("App150_index Exception ================================================================");
             log.info("Exception =====>" + ex.toString());
-//            log.debug("Exception =====>" + ex.toString() );
+            return "redirect:http://eean.co.kr/";
         }
 
         return "App01/index150";
@@ -294,31 +284,29 @@ public class App01Controller {
         CommDto.setMenuTitle("영업사원일반등록");
         CommDto.setMenuUrl("기준정보>영업사원일반주문등록");
         CommDto.setMenuCode("index15");
-        HttpSession session = request.getSession();
-        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
-        model.addAttribute("userformDto",userformDto);
-        String ls_acorp1 = userformDto.getPerid();
-        String ls_flag = userformDto.getFlag();
-        if (ls_flag.equals("CC")){
-            //log.debug("ls_acorp1 =====>" + ls_acorp1.substring(0,2) );
-            if(ls_acorp1.substring(0,2).equals("02")){
-                index03Dto.setJpb_gubn("P");
-            }else{
-                index03Dto.setJpb_gubn("B");
-            }
-        }else{
-            index03Dto.setJpb_gubn("%");
-        }
-
         try {
+            HttpSession session = request.getSession();
+            UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+            model.addAttribute("userformDto",userformDto);
+            String ls_acorp1 = userformDto.getPerid();
+            String ls_flag = userformDto.getFlag();
+            if (ls_flag.equals("CC")){
+                //log.debug("ls_acorp1 =====>" + ls_acorp1.substring(0,2) );
+                if(ls_acorp1.substring(0,2).equals("02")){
+                    index03Dto.setJpb_gubn("P");
+                }else{
+                    index03Dto.setJpb_gubn("B");
+                }
+            }else{
+                index03Dto.setJpb_gubn("%");
+            }
             index03List = service03.GetJcustomCode(index03Dto);
 
             model.addAttribute("index15List",index03List);
         } catch (Exception ex) {
-//                dispatchException = ex;
-            log.info("App15b_index Exception ================================================================");
+            log.info("App150b_index Exception ================================================================");
             log.info("Exception =====>" + ex.toString());
-//            log.debug("Exception =====>" + ex.toString() );
+            return "redirect:http://eean.co.kr/";
         }
 
         return "App01/index150b";
@@ -331,18 +319,16 @@ public class App01Controller {
         CommDto.setMenuTitle("주문현황");
         CommDto.setMenuUrl("기준정보>주문현황");
         CommDto.setMenuCode("index151");
-        HttpSession session = request.getSession();
-        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
-        model.addAttribute("userformDto",userformDto);
-
         try {
+            HttpSession session = request.getSession();
+            UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+            model.addAttribute("userformDto",userformDto);
 //            index03List = service03.GetJcustomCode(index03Dto);
 //            model.addAttribute("index15List",index03List);
         } catch (Exception ex) {
-//                dispatchException = ex;
             log.info("App151_index Exception ================================================================");
             log.info("Exception =====>" + ex.toString());
-//            log.debug("Exception =====>" + ex.toString() );
+            return "redirect:http://eean.co.kr/";
         }
 
         return "App01/index151";
@@ -355,18 +341,16 @@ public class App01Controller {
         CommDto.setMenuTitle("예약현황");
         CommDto.setMenuUrl("기준정보>예약현황");
         CommDto.setMenuCode("index152");
-        HttpSession session = request.getSession();
-        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
-        model.addAttribute("userformDto",userformDto);
-
         try {
+            HttpSession session = request.getSession();
+            UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+            model.addAttribute("userformDto",userformDto);
 //            index03List = service03.GetJcustomCode(index03Dto);
 //            model.addAttribute("index15List",index03List);
         } catch (Exception ex) {
-//                dispatchException = ex;
             log.info("App152_index Exception ================================================================");
             log.info("Exception =====>" + ex.toString());
-//            log.debug("Exception =====>" + ex.toString() );
+            return "redirect:http://eean.co.kr/";
         }
 
         return "App01/index152";
@@ -379,19 +363,17 @@ public class App01Controller {
         CommDto.setMenuTitle("주문등록");
         CommDto.setMenuUrl("기준정보>주문등록");
         CommDto.setMenuCode("index14");
-        HttpSession session = request.getSession();
-        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
-        model.addAttribute("userformDto",userformDto);
-
         try {
+            HttpSession session = request.getSession();
+            UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+            model.addAttribute("userformDto",userformDto);
             index03Dto.setJpb_gubn("%");
             index03List = service03.GetJBonsaCodeList(index03Dto);
             model.addAttribute("index03List",index03List);
         } catch (Exception ex) {
-//                dispatchException = ex;
             log.info("App14_index Exception ================================================================");
             log.info("Exception =====>" + ex.toString());
-//            log.debug("Exception =====>" + ex.toString() );
+            return "redirect:http://eean.co.kr/";
         }
 
         return "App01/index14";
@@ -403,19 +385,17 @@ public class App01Controller {
         CommDto.setMenuTitle("주문등록");
         CommDto.setMenuUrl("기준정보>주문등록");
         CommDto.setMenuCode("index14");
-        HttpSession session = request.getSession();
-        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
-        model.addAttribute("userformDto",userformDto);
-
         try {
+            HttpSession session = request.getSession();
+            UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+            model.addAttribute("userformDto",userformDto);
             index03List = service03.GetJBonsaCodeList(index03Dto);
 
             model.addAttribute("index03List",index03List);
         } catch (Exception ex) {
-//                dispatchException = ex;
             log.info("App140_index Exception ================================================================");
             log.info("Exception =====>" + ex.toString());
-//            log.debug("Exception =====>" + ex.toString() );
+            return "redirect:http://eean.co.kr/";
         }
 
         return "App01/index140";
@@ -428,18 +408,16 @@ public class App01Controller {
         CommDto.setMenuTitle("주문현황");
         CommDto.setMenuUrl("기준정보>주문현황");
         CommDto.setMenuCode("index141");
-        HttpSession session = request.getSession();
-        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
-        model.addAttribute("userformDto",userformDto);
-
         try {
+            HttpSession session = request.getSession();
+            UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+            model.addAttribute("userformDto",userformDto);
 //            index03List = service03.GetJBonsaCodeList(index03Dto);
 //            model.addAttribute("index03List",index03List);
         } catch (Exception ex) {
-//                dispatchException = ex;
             log.info("App141_index Exception ================================================================");
             log.info("Exception =====>" + ex.toString());
-//            log.debug("Exception =====>" + ex.toString() );
+            return "redirect:http://eean.co.kr/";
         }
 
         return "App01/index141";
@@ -452,18 +430,16 @@ public class App01Controller {
         CommDto.setMenuTitle("예약현황");
         CommDto.setMenuUrl("기준정보>예약현황");
         CommDto.setMenuCode("index142");
-        HttpSession session = request.getSession();
-        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
-        model.addAttribute("userformDto",userformDto);
-
         try {
+            HttpSession session = request.getSession();
+            UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+            model.addAttribute("userformDto",userformDto);
 //            index03List = service03.GetJBonsaCodeList(index03Dto);
 //            model.addAttribute("index03List",index03List);
         } catch (Exception ex) {
-//                dispatchException = ex;
             log.info("App142_index Exception ================================================================");
             log.info("Exception =====>" + ex.toString());
-//            log.debug("Exception =====>" + ex.toString() );
+            return "redirect:http://eean.co.kr/";
         }
 
         return "App01/index142";
@@ -476,18 +452,16 @@ public class App01Controller {
         CommDto.setMenuTitle("사원별매출현황");
         CommDto.setMenuUrl("기준정보>사원별매출현황");
         CommDto.setMenuCode("index143");
-        HttpSession session = request.getSession();
-        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
-        model.addAttribute("userformDto",userformDto);
-
         try {
+            HttpSession session = request.getSession();
+            UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+            model.addAttribute("userformDto",userformDto);
 //            index03List = service03.GetJBonsaCodeList(index03Dto);
 //            model.addAttribute("index03List",index03List);
         } catch (Exception ex) {
-//                dispatchException = ex;
             log.info("App143_index Exception ================================================================");
             log.info("Exception =====>" + ex.toString());
-//            log.debug("Exception =====>" + ex.toString() );
+            return "redirect:http://eean.co.kr/";
         }
 
         return "App01/index143";
@@ -500,19 +474,17 @@ public class App01Controller {
         CommDto.setMenuTitle("주문등록");
         CommDto.setMenuUrl("기준정보>주문등록");
         CommDto.setMenuCode("index140m");
-        HttpSession session = request.getSession();
-        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
-        model.addAttribute("userformDto",userformDto);
-
         try {
+            HttpSession session = request.getSession();
+            UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+            model.addAttribute("userformDto",userformDto);
             index03List = service03.GetJBonsaCodeList(index03Dto);
 
             model.addAttribute("index03List",index03List);
         } catch (Exception ex) {
-//                dispatchException = ex;
-            log.info("App140m_index Exception ================================================================");
+            log.info("index140m Exception ================================================================");
             log.info("Exception =====>" + ex.toString());
-//            log.debug("Exception =====>" + ex.toString() );
+            return "redirect:http://eean.co.kr/m";
         }
 
         return "App01/index140m";
@@ -525,30 +497,29 @@ public class App01Controller {
         CommDto.setMenuTitle("거래처주문등록");
         CommDto.setMenuUrl("기준정보>거래처주문등록");
         CommDto.setMenuCode("index150m");
-        HttpSession session = request.getSession();
-        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
-        model.addAttribute("userformDto",userformDto);
-        String ls_acorp1 = userformDto.getPerid();
-        String ls_flag = userformDto.getFlag();
-        if (ls_flag.equals("BB")){
-            log.debug("ls_acorp1 =====>" + ls_acorp1.substring(0,2) );
-            if(ls_acorp1.substring(0,2).equals("02")){
-                index03Dto.setJpb_gubn("P");
-            }else{
-                index03Dto.setJpb_gubn("B");
-            }
-        }else{
-            index03Dto.setJpb_gubn("%");
-        }
         try {
+            HttpSession session = request.getSession();
+            UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+            model.addAttribute("userformDto",userformDto);
+            String ls_acorp1 = userformDto.getPerid();
+            String ls_flag = userformDto.getFlag();
+            if (ls_flag.equals("BB")){
+                log.debug("ls_acorp1 =====>" + ls_acorp1.substring(0,2) );
+                if(ls_acorp1.substring(0,2).equals("02")){
+                    index03Dto.setJpb_gubn("P");
+                }else{
+                    index03Dto.setJpb_gubn("B");
+                }
+            }else{
+                index03Dto.setJpb_gubn("%");
+            }
             index03List = service03.GetJcustomCode(index03Dto);
 
             model.addAttribute("index15List",index03List);
         } catch (Exception ex) {
-//                dispatchException = ex;
-            log.info("index150m_index Exception ================================================================");
+            log.info("App150m_index Exception ================================================================");
             log.info("Exception =====>" + ex.toString());
-//            log.debug("Exception =====>" + ex.toString() );
+            return "redirect:http://eean.co.kr/m";
         }
 
         return "App01/index150m";
@@ -560,19 +531,17 @@ public class App01Controller {
         CommDto.setMenuTitle("주문확정");
         CommDto.setMenuUrl("기준정보>주문등록");
         CommDto.setMenuCode("index14");
-        HttpSession session = request.getSession();
-        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
-        model.addAttribute("userformDto",userformDto);
-
         try {
+            HttpSession session = request.getSession();
+            UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+            model.addAttribute("userformDto",userformDto);
             index03Dto.setJpb_gubn("%");
             index03List = service03.GetJBonsaCodeList(index03Dto);
             model.addAttribute("index03List",index03List);
         } catch (Exception ex) {
-//                dispatchException = ex;
             log.info("App16_index Exception ================================================================");
             log.info("Exception =====>" + ex.toString());
-//            log.debug("Exception =====>" + ex.toString() );
+            return "redirect:http://eean.co.kr";
         }
 
         return "App01/index16";
@@ -584,19 +553,17 @@ public class App01Controller {
         CommDto.setMenuTitle("예약현황");
         CommDto.setMenuUrl("기준정보>예약현황");
         CommDto.setMenuCode("index14");
-        HttpSession session = request.getSession();
-        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
-        model.addAttribute("userformDto",userformDto);
-
         try {
+            HttpSession session = request.getSession();
+            UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+            model.addAttribute("userformDto",userformDto);
 //            index03Dto.setJpb_gubn("%");
 //            index03List = service03.GetJBonsaCodeList(index03Dto);
 //            model.addAttribute("index03List",index03List);
         } catch (Exception ex) {
-//                dispatchException = ex;
             log.info("App17_index Exception ================================================================");
             log.info("Exception =====>" + ex.toString());
-//            log.debug("Exception =====>" + ex.toString() );
+            return "redirect:http://eean.co.kr";
         }
 
         return "App01/index17";
@@ -608,16 +575,14 @@ public class App01Controller {
         CommDto.setMenuTitle("사원별매출현황");
         CommDto.setMenuUrl("기준정보>사원별매출현황");
         CommDto.setMenuCode("index06");
-        HttpSession session = request.getSession();
-        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
-        model.addAttribute("userformDto",userformDto);
-
         try {
+            HttpSession session = request.getSession();
+            UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+            model.addAttribute("userformDto",userformDto);
         } catch (Exception ex) {
-//                dispatchException = ex;
             log.info("App06_index Exception ================================================================");
             log.info("Exception =====>" + ex.toString());
-//            log.debug("Exception =====>" + ex.toString() );
+            return "redirect:http://eean.co.kr";
         }
 
         return "App01/index06";
@@ -630,16 +595,14 @@ public class App01Controller {
         CommDto.setMenuTitle("거래별매출현황");
         CommDto.setMenuUrl("기준정보>사원별매출현황");
         CommDto.setMenuCode("index07");
-        HttpSession session = request.getSession();
-        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
-        model.addAttribute("userformDto",userformDto);
-
         try {
+            HttpSession session = request.getSession();
+            UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+            model.addAttribute("userformDto",userformDto);
         } catch (Exception ex) {
-//                dispatchException = ex;
             log.info("App07_index Exception ================================================================");
             log.info("Exception =====>" + ex.toString());
-//            log.debug("Exception =====>" + ex.toString() );
+            return "redirect:http://eean.co.kr";
         }
 
         return "App01/index07";
@@ -651,16 +614,14 @@ public class App01Controller {
         CommDto.setMenuTitle("제품별매출현황");
         CommDto.setMenuUrl("기준정보>제품별매출현황");
         CommDto.setMenuCode("index08");
-        HttpSession session = request.getSession();
-        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
-        model.addAttribute("userformDto",userformDto);
-
         try {
+            HttpSession session = request.getSession();
+            UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+            model.addAttribute("userformDto",userformDto);
         } catch (Exception ex) {
-//                dispatchException = ex;
             log.info("App08_index Exception ================================================================");
             log.info("Exception =====>" + ex.toString());
-//            log.debug("Exception =====>" + ex.toString() );
+            return "redirect:http://eean.co.kr";
         }
 
         return "App01/index08";
@@ -672,16 +633,14 @@ public class App01Controller {
         CommDto.setMenuTitle("지역별매출현황");
         CommDto.setMenuUrl("기준정보>지역별매출현황");
         CommDto.setMenuCode("index09");
-        HttpSession session = request.getSession();
-        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
-        model.addAttribute("userformDto",userformDto);
-
         try {
+            HttpSession session = request.getSession();
+            UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+            model.addAttribute("userformDto",userformDto);
         } catch (Exception ex) {
-//                dispatchException = ex;
-            log.info("App08_index Exception ================================================================");
+            log.info("App09_index Exception ================================================================");
             log.info("Exception =====>" + ex.toString());
-//            log.debug("Exception =====>" + ex.toString() );
+            return "redirect:http://eean.co.kr";
         }
 
         return "App01/index09";
@@ -693,19 +652,17 @@ public class App01Controller {
         CommDto.setMenuTitle("통계관리");
         CommDto.setMenuUrl("통계관리>AS접수배송현황");
         CommDto.setMenuCode("index11");
-        HttpSession session = request.getSession();
-        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
-        model.addAttribute("userformDto",userformDto);
-
         try {
+            HttpSession session = request.getSession();
+            UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+            model.addAttribute("userformDto",userformDto);
 //            popupListDto = svcpopup.getCifCodeList(popupDto);
 
             model.addAttribute("cifcodeList",popupListDto);
         } catch (Exception ex) {
-//                dispatchException = ex;
-            log.info("App13_index Exception ================================================================");
+            log.info("App11_index Exception ================================================================");
             log.info("Exception =====>" + ex.toString());
-//            log.debug("Exception =====>" + ex.toString() );
+            return "redirect:http://eean.co.kr";
         }
 
         return "App01/index11";
@@ -717,19 +674,17 @@ public class App01Controller {
         CommDto.setMenuTitle("통계관리");
         CommDto.setMenuUrl("통계관리>AS접수배송현황");
         CommDto.setMenuCode("index110");
-        HttpSession session = request.getSession();
-        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
-        model.addAttribute("userformDto",userformDto);
-
         try {
+            HttpSession session = request.getSession();
+            UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+            model.addAttribute("userformDto",userformDto);
 //            popupListDto = svcpopup.getCifCodeList(popupDto);
 
             model.addAttribute("cifcodeList",popupListDto);
         } catch (Exception ex) {
-//                dispatchException = ex;
-            log.info("App13_index Exception ================================================================");
+            log.info("App110_index Exception ================================================================");
             log.info("Exception =====>" + ex.toString());
-//            log.debug("Exception =====>" + ex.toString() );
+            return "redirect:http://eean.co.kr";
         }
 
         return "App01/index110";
