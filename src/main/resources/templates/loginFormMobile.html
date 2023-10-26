@@ -107,13 +107,13 @@
         getIpClient();
       }
 
-      async function getIpClient() {
+      function getIpClient() {
         try {
-          const response = await axios.get('https://api.ipify.org?format=json');
-          document.getElementById('ipaddr').value = response.data.ip;
+          // const response = await axios.get('https://api.ipify.org?format=json');
+          // document.getElementById('ipaddr').value = response.data.ip;
           var lsUserid = window.localStorage.getItem("userid")
-          var lsFlag = window.localStorage.getItem("flag") 
-          document.getElementById('select').value = lsFlag
+          //var lsFlag = window.localStorage.getItem("flag") 
+          //document.getElementById('select').value = lsFlag
           document.getElementById('loginid').value = lsUserid
           // console.log(response.data.ip);
           // console.log("----");

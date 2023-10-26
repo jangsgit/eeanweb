@@ -53,10 +53,15 @@
 <script>
 
   function logout(){   
-                    if (!confirm("로그아웃하시겠습니까?") ){
-                    return    
-                    }
-                    location.href = "/" ;
-            }  
+      if (!confirm("로그아웃하시겠습니까?") ){
+        return    
+      }
+      localStorage.removeItem("perid");
+      localStorage.removeItem("pernm");
+      localStorage.removeItem("userid");
+      localStorage.removeItem("flag");
+      localStorage.removeItem("custnm") ;
+      location.href = "/" ;
+  }  
 </script>
 </html>

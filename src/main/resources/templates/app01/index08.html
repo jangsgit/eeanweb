@@ -348,6 +348,7 @@
                     // groups.push(new wijmo.collections.PropertyGroupDescription('pernm'), new wijmo.collections.PropertyGroupDescription('misdate'));
                 }
             }
+  
             // 헤더 열 전환
             setHeaderColumn02(false); 
             function setHeaderColumn02(headerOn) {
@@ -518,7 +519,7 @@
                     }else{
                         ls_jpumnm = ls_jkey;
                     }   
-                    console.log(ls_jpumnm)
+                    //console.log(ls_jpumnm)
                     ls_cifname = "%"; 
                     ls_abonsadam1 = "%"; 
                     $.ajax({
@@ -749,6 +750,8 @@
             cols.width = 100;  
             cols.cssClass = 'switch'
             wtab02Grid.columns.push(cols);  
+            
+            wtab02Grid.collapseGroupsToLevel(1);
  
         }
             
@@ -911,6 +914,8 @@
             cols.align = "center";
             cols.width = 80;   
             wtab04Grid.columns.push(cols);   
+ 
+            wtab04Grid.collapseGroupsToLevel(1);
  
         } 
            

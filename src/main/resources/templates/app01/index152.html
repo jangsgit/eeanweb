@@ -395,11 +395,8 @@
                         alert("거래처를 등록하세요") 
                         document.getElementById("bcifname").focus(); 
                         return ;               
-                    }  
-                    if(ls_bcifname == null || ls_bcifname.length == 0 || ls_bcifname == ""){  
-                        ls_bacode = "%";
-                    }     
-                    var ls_makflag = "1" ;
+                    }      
+                    var ls_makflag = "1" ; 
                     $.ajax({
                         url: '/app01m/index14/listwish',  
                         type:"POST",
@@ -449,7 +446,7 @@
                 }else{
                     ls_remark = "";
                 }
-                console.log(wtab02Dto[i]["seq"])
+                //console.log(wtab02Dto[i]["seq"])
                 wtab02_data.push({
                     id: i, 
                     index: cnt,

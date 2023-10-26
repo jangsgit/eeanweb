@@ -1605,7 +1605,11 @@ public class App01CrudController {
             indexDa024Dto.setPerid(perid);
             //indexDa024Dto.setMisgubun(mflag);
             //log.info("misgubun =====>" + misgubun);
-            indexDa024ListDto = service14.SelectDa024List(indexDa024Dto);
+            if(acode.equals("%")){
+                indexDa024ListDto = service14.SelectDa024ListLike(indexDa024Dto);
+            }else{
+                indexDa024ListDto = service14.SelectDa024List(indexDa024Dto);
+            }
             model.addAttribute("indexDa024ListDto",indexDa024ListDto);
 
         } catch (Exception ex) {
@@ -2240,6 +2244,7 @@ public class App01CrudController {
     public Object App14ListWish_index(@RequestParam("frdate") String frdate,
                                   @RequestParam("todate") String todate,
                                   @RequestParam("acode") String acode,
+                                  @RequestParam("jcode") String jcode,
                                   @RequestParam("fixflag") String fixflag,
                                   @RequestParam("perid") String perid,
                                   @RequestParam("misgubun") String misgubun,
@@ -2267,6 +2272,7 @@ public class App01CrudController {
             indexDa024Dto.setCltcd(acode);
             indexDa024Dto.setFixflag(fixflag);
             indexDa024Dto.setMakflag(makflag);
+            indexDa024Dto.setPcode(jcode);
             if(perid == null || perid.equals("")){
                 perid = "%";
             }
@@ -2288,7 +2294,11 @@ public class App01CrudController {
                     break;
             }
             //indexDa024Dto.setMisgubun(mflag);
-            indexDa024ListDto = service14.SelectDa026List(indexDa024Dto);
+            if(acode.equals("%")){
+                indexDa024ListDto = service14.SelectDa026ListLike(indexDa024Dto);
+            }else{
+                indexDa024ListDto = service14.SelectDa026List(indexDa024Dto);
+            }
             model.addAttribute("indexDa024ListDto",indexDa024ListDto);
 
         } catch (Exception ex) {

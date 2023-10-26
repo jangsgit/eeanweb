@@ -195,13 +195,18 @@
                 document.getElementById('actpasswdz').focus();
             }
         }
-
+ 
         function logout(){   
-                if (!confirm("로그아웃하시겠습니까?") ){
+            if (!confirm("로그아웃하시겠습니까?") ){
                 return    
-                }
-                location.href = "/" ;
-         }  
+            }
+            localStorage.removeItem("perid");
+            localStorage.removeItem("pernm");
+            localStorage.removeItem("userid");
+            localStorage.removeItem("flag");
+            localStorage.removeItem("custnm") ;
+            location.href = "/" ;
+        }   
     </script>
 
 

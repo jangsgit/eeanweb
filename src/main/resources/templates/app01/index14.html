@@ -1504,7 +1504,7 @@
                         ls_misgubun = "%";
                     } 
                     if(ls_makflag == null || ls_makflag.length == 0 || ls_makflag == "" || ls_makflag == "구분"){  
-                        ls_makflag = "%"               
+                        ls_makflag = "%"                 
                     }  
                     // console.log('ls_frdate->' + ls_frdate)
                     // console.log('ls_todate->' + ls_todate)
@@ -2757,6 +2757,12 @@
 
         function fn_egov_init_date(){ 
             lsUserid = window.localStorage.getItem("userid")
+            //console.log('lsUserid==>' + lsUserid)
+            if(lsUserid == null || lsUserid.length == 0 || lsUserid == ""){ 
+                alert("로그인을 다시하세요") 
+                location.href = "/" ;
+                return ;               
+            }   
             if (lsUserid == "pvadmin"){
                 document.getElementById('jpbgubn').value = "P"; 
             }else if(lsUserid == "bladmin"){

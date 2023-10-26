@@ -155,7 +155,7 @@
         getIpClient();
       }
 
-      async function getIpClient() {
+      function getIpClient() {
         // try {
         //   const response = await axios.get('https://api.ipify.org?format=json');
         //   document.getElementById('ipaddr').value = response.data.ip;
@@ -165,16 +165,12 @@
         //   console.error(error);
         // }
         
-        lsUserid = window.localStorage.getItem("userid")
-        lsFlag = window.localStorage.getItem("flag") 
-        if(lsFlag == null || lsFlag.length == 0 || lsFlag == "" || lsFlag =="undefined"){ 
-          lsFlag = 'AA';            
-        }  
+        lsUserid = window.localStorage.getItem("userid") 
         if(lsUserid == null || lsUserid.length == 0 || lsUserid == "" || lsUserid =="undefined"){ 
           lsUserid = '';            
         }  
         
-        document.getElementById('select').value = lsFlag
+        //document.getElementById('select').value = lsFlag
         document.getElementById('loginid').value = lsUserid
         
       }

@@ -83,6 +83,13 @@
                                                     
                                                 </div>
                                             </div>
+                                            <div class="col-2 col-sm-2">
+                                                <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">품명</span> 
+                                                    <input class="form-control form-control-sm" id="jpumnm" type="text"    autocomplete="off"  placeholder=""     >
+                                                    <input class="form-control form-control-sm" id="jkey" type="hidden"  /> 
+                                                    
+                                                </div>
+                                            </div>
                                             <div class="col-1 col-sm-1">
                                                 <select class="form-select form-select-sm" id="misgubun" aria-label=".form-select-sm example">
                                                     <option selected="">주문구분</option>
@@ -164,10 +171,49 @@
             </div>
         </div> 
     </div>  
-      
- <!--------------------------------------------------------------------------------------->         
-  
+       
 
+    <!--  모달 처리 -->
+    <input class="form-control form-control-sm"  type="hidden" id="injpumbtn" data-bs-toggle="modal" data-bs-target="#jpummodal"  /> 
+    <!--------------------------------------------------------------------------------------->   
+    <div class="modal fade" id="jpummodal" data-bs-keyboard="false"
+    data-bs-backdrop="static" tabindex="-1" aria-labelledby="staticBackdropLabel"
+    aria-hidden="true">
+        <div class="modal-dialog modal-lg mt-6" role="document" id = "modalForm02"
+            style="max-width: 600px">
+            <div class="modal-content border-0">
+                <div class="modal-body p-0" > 
+                    <div class="rounded-top-lg py-3 ps-4 pe-6 bg-light">                            
+                        <div class="search">
+                            <div class="input_wrap">  
+                                <input class="form-control form-control-sm" id="searchJcodeCode" type="text"   onkeyup="if(window.event.keyCode==13){JpumSearchList_rtn('M')}"
+                                placeholder="품목명 "     />                                      
+                            </div>
+
+                            <button id="winjpumBtn">
+                                <img th:src="@{/assets/images/i_search.png}" alt=""> 
+                            </button>
+                        </div>                             
+                    </div>   
+                    <div class="container-fluid"> 
+                        <div id="winjpumGrid_div" ></div> 
+                    </div>   
+                </div>  
+
+                <div class="modal-footer">
+                    <div class="row g-1">
+                        <div class="col-auto">
+                            <button class="badge-soft-primary dropdown-item rounded-1"
+                                type="button"  id="winjpummodal_btn" data-bs-dismiss="modal">Close</button>
+                        </div> 
+                    </div>
+                </div>   
+
+            </div>
+        </div> 
+    </div>  
+      
+ <!--------------------------------------------------------------------------------------->       
 
 
 
@@ -180,11 +226,13 @@
          var view_p01tab03page; 
          var view_p01tab04page; 
          var view_innamepage; 
+         var view_injpumpage; 
          var wtab01Grid;
          var wtab02Grid;
          var wtab03Grid; 
          var wtab04Grid; 
          var winnameGrid; 
+         var winjpumGrid; 
 
          var misdateArr = new Array();
          var misnumArr = new Array();
@@ -319,6 +367,64 @@
                 return winname_data;                    
             }  
 
+
+
+            // // ################################################################  
+            //품목현황 Modalㅁ
+            view_injpumpage = new wijmo.collections.CollectionView(getData_wlist2(), {
+                //pageSize: 12
+            });
+            // 품목 페이지 이동
+            // new wijmo.input.CollectionViewNavigator('#thePager03', {
+            //     byPage: true,
+            //     headerFormat: 'Page {currentPage:n0} of {pageCount:n0}',
+            //     cv: view_innamepage
+            // });     
+            winjpumGrid = new wijmo.grid.FlexGrid('#winjpumGrid_div', {  
+                autoGenerateColumns: false,
+                isReadOnly: false, 
+                allowSorting: 'MultiColumn',
+                selectionMode: 'RowRange',
+                alternatingRowStep: 0,
+                columns: [     
+                    { binding: 'jkey', header: '코드', align: "center", width: '1*' },
+                    { binding: 'pname', header: '품목', align: "left", width: '1*' },
+                    { binding: 'psize', header: '규격', align: "left", width: '1*' },
+                    { binding: 'pbonsa', header: '코드', align: "center", width: '1*' },
+                    { binding: 'pmodel', header: '모델', align: "center", width: '1*' },
+                    { binding: 'pcolor', header: '컬러', align: "center", width: '1*' },
+                ], 
+                itemsSource: view_injpumpage
+            });  
+            
+            winjpumGrid.showMarquee = true; 
+            wijmo.toggleClass(winjpumGrid.hostElement, 'highlightActive', true);
+            winjpumGrid.focus();
+
+            // 거래처 데이터 수집
+            function getData_wlist2(){   
+                var winname_data = []; 
+                var cnt = 1;
+                for (var i = 0; i < 12; i++) {
+                    winname_data.push({
+                        id: i, 
+                        index: cnt,
+                        jkey:"",
+                        pname: "",   
+                        psize: "",  
+                        pbonsa: "",  
+                        pmodel: "",  
+                        pcolor: "",                           
+                    });
+                    cnt++;
+                }    
+                return winname_data;                                      
+            } 
+
+
+
+
+
         } 
 
         //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
@@ -332,6 +438,8 @@
                 case 'A': 
                     document.getElementById('cifcode').value = "";
                     document.getElementById('cifcodename').value = "";
+                    document.getElementById('jkey').value = "";
+                    document.getElementById('jpumnm').value = "";
                     break;
                 case 'B': 
                     
@@ -351,10 +459,6 @@
             var ls_tab = document.getElementById('tabvalue').value;   
             searchList_rtn(ls_tab);
         })    
-
-
-        
-
         //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 모달 검색@@@@@@@@@@@@@@@@@@@@@@@@@@@
         //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
                           
@@ -362,6 +466,12 @@
             if(e.keyCode === 13){  
                 document.getElementById("innamebtn").click(); 
                 CifSearchList_rtn("A"); 
+            }
+        });            
+        document.getElementById("jpumnm").addEventListener("keyup", (e)=>{ 
+            if(e.keyCode === 13){  
+                document.getElementById("injpumbtn").click(); 
+                JpumSearchList_rtn("A"); 
             }
         });     
 
@@ -372,6 +482,8 @@
                     var ls_todate = document.getElementById('todate').value;          
                     var ls_bacode   = document.getElementById('bacode').value;          
                     var ls_bcifname   = document.getElementById('bcifname').value; 
+                    var ls_jkey   = document.getElementById('jkey').value;    
+                    var ls_jpumnm   = document.getElementById('jpumnm').value;    
                     
                     var ls_misgubunflag = document.getElementById('misgubun').value; 
                      
@@ -391,7 +503,11 @@
                     if(ls_bcifname == null || ls_bcifname.length == 0 || ls_bcifname == ""){  
                         ls_bacode = "%";
                     }   
+                    if(ls_jpumnm == null || ls_jpumnm.length == 0 || ls_jpumnm == ""){  
+                        ls_jkey = "%";
+                    }   
                     ls_abonsadam1 = "";
+                    console.log(ls_jkey)
                     var ls_makflag = "1";
                     $.ajax({
                         url: '/app01m/index14/listwish',  
@@ -401,6 +517,7 @@
                             "todate"      : ls_todate,
                             "acode"      : ls_bacode,   
                             "perid"      : ls_abonsadam1,   
+                            "jcode"      : ls_jkey,   
                             "fixflag"    : '0',  
                             "misgubun"    : ls_misgubunflag, 
                             "makflag"    : ls_makflag, 
@@ -704,7 +821,128 @@
             }
             
         }   
-  
+           
+        function JpumSearchList_rtn(arg){  
+
+            var searchJcodeCode = ""; 
+
+            if(arg == "M"){
+                searchJcodeCode = document.getElementById('searchJcodeCode').value;   
+            }
+            if(arg == "A"){
+                searchJcodeCode = document.getElementById('jpumnm').value;   
+            }   
+            if(searchJcodeCode == null || searchJcodeCode.length == 0 || searchJcodeCode == ""){ 
+                searchJcodeCode = "%"         ;
+            }     
+            let ls_conacorp1 = "%";  
+            let ls_conagita = "%";   
+            let ls_abonsadam1 = "%";
+            $.ajax({
+                    url: '/app01m/index03/list',  
+                    type:"POST",
+                    data: { 
+                            "searchtxt" :searchJcodeCode, 
+                    }, 
+                    async:false,
+                    success:function(data){  
+                        tabPop_grid02(data, arg);
+                    },error:function(e){
+                        console.log("error");                            
+                    }
+                }).done(function(fragment){           
+
+                })    
+
+        }     
+        //  품목팝업 grid data 수집
+        function tabPop_grid02(data, arg){
+            // console.log(data);
+            var wtab02Dto  = data;    
+            var wtab02_data = [];
+            var cnt = 1;
+            for (var i = 0; i < wtab02Dto.length; i++) {
+                wtab02_data.push({
+                    id: i, 
+                    index: cnt, 
+                    id: i, 
+                    index: cnt, 
+                    jkey: wtab02Dto[i]["jkey"], 
+                    jpb_gubn: wtab02Dto[i]["jpb_gubn"], 
+                    jgong_code: wtab02Dto[i]["jgong_code"], 
+                    jdan_code: wtab02Dto[i]["jdan_code"], 
+                    jmodel_code: wtab02Dto[i]["jmodel_code"], 
+                    jcolor_code: wtab02Dto[i]["jcolor_code"], 
+                    jcustomer_code: wtab02Dto[i]["jcustomer_code"], 
+                    jbonsa_code: wtab02Dto[i]["jbonsa_code"], 
+                    jsayong_gubn: wtab02Dto[i]["jsayong_gubn"], 
+                    jpum: wtab02Dto[i]["jpum"], 
+                    jgugek: wtab02Dto[i]["jgugek"], 
+                    jsize: wtab02Dto[i]["jsize"], 
+                    jchgoga0: wtab02Dto[i]["jchgoga0"], 
+                    jchgoga0: wtab02Dto[i]["jchgoga0"],
+                    jbigo: wtab02Dto[i]["jbigo"],     
+                });
+                cnt++;
+            }   
+
+            // console.log(winnameGrid);
+
+            winjpumGrid.columns.clear();  
+            winjpumGrid.autoGenerateColumns = false; 
+            view_injpumpage.sourceCollection  = wtab02_data;
+
+            var cols = new wijmo.grid.Column(); 
+            cols.binding = 'jkey';
+            cols.header = '코드';
+            cols.align = "center";
+            cols.width = 180; 
+            cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
+                text: '<b>${item.jkey}</b>',
+                click: (e, ctx) => {
+                    wjpumChk_a(ctx.item.jkey, ctx.item.jpum, ctx.item.jgugek,  ctx.item.jsize, ctx.item.jmodel_code, ctx.item.jcolor_code,   ctx.item.jbonsa_code );                    
+                    
+                }
+            });
+            winjpumGrid.columns.push(cols);  
+
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'jpum';
+            cols.header = '품명'; 
+            cols.align = "left"; 
+            cols.width = 150;
+            winjpumGrid.columns.push(cols); 
+
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'jgugek';
+            cols.header = '규격'; 
+            cols.align = "center"; 
+            cols.width = 100;
+            winjpumGrid.columns.push(cols);  
+
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'jmodel_code';
+            cols.header = '모델라인'; 
+            cols.align = "center"; 
+            cols.width = 100;
+            winjpumGrid.columns.push(cols);  
+
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'jcolor_code';
+            cols.header = '모델칼라'; 
+            cols.align = "center"; 
+            cols.width = 100;
+            winjpumGrid.columns.push(cols); 
+        }
+
+        function wjpumChk_a(arg1, arg2, arg3, arg4, arg5){   
+            var ls_tab = document.getElementById('tabvalue').value;   
+            document.getElementById('jkey').value = arg1;   
+            document.getElementById('jpumnm').value = arg2;  
+            searchList_rtn(ls_tab)
+            $("#winjpummodal_btn").trigger("click");
+
+        }    
 
 
 //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
