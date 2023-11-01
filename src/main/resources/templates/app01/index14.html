@@ -649,7 +649,41 @@
                 //     groupDescriptions: ['jbonsa_code', 'jmodel_code']
                 // })
                 
-            });   
+            });  
+            
+            // 헤더와 "Diff" 열에 대한 커스텀 렌더링
+            wtab01Grid.formatItem.addHandler(function (s, e) {
+                // 열 헤더에 대한 중앙 정렬 
+                if (e.panel == s.columnHeaders) {
+                    e.cell.innerHTML = '<div class="v-center">' +
+                    e.cell.innerHTML + '</div>';
+                }
+                //  "Diff" 열에 대한 커스텀 렌더링
+                if (e.panel == s.cells) {
+                var col = s.columns[e.col];
+                if (e.row > 0 && (col.binding != 'jbonsa_code' && col.binding != 'jmodel_code')) {
+                    var vnow = s.getCellData(e.row, e.col);
+                    //console.log('vnow-->' + vnow);
+                    //셀 서식
+                    // var html = '<div class="diff-{cls}">' +
+                    //     '<span style="font-size:75%">{val}</span> ' +
+                    //     '<span style="font-size:120%" class="wj-glyph-{glyph}"></span>';
+                    // html = html.replace('{val}', wijmo.Globalize.format(diff, col.format));
+                    // if (diff < 0.01) {
+                    // html = html.replace('{cls}', 'down').replace('{glyph}', 'down');
+                    // }
+                    // else if (diff > 0.01) {
+                    // html = html.replace('{cls}', 'up').replace('{glyph}', 'up');
+                    // }
+                    // else {
+                    // html = html.replace('{cls}', 'none').replace('{glyph}', 'circle');
+                    // }
+                    // e.cell.innerHTML = html;
+                }
+                }
+            });            
+
+
             // 첫번째 항목(정렬/그룹화한 후)을 선택
             wtab01Grid.select(new wijmo.grid.CellRange(0, 0), true);
             wijmo.toggleClass(wtab01Grid.hostElement, 'highlightActive', true);
@@ -2419,9 +2453,11 @@
                                             let  ls_jeky         = wtab01Dto_S[p]["jkey"]; 
                                             let  ls_jqty         = wtab01Dto_S[p]["jqty"];  
                                             if (Number(ls_jqty) > 0){
-                                                wtab01Grid.setCellData(ll_row, ll_col,  ls_jcolorcode + "("  + ls_jqty +  ")" ) ; 
+                                                //wtab01Grid.setCellData(ll_row, ll_col,  ls_jcolorcode ) ;  
+                                                wtab01Grid.setCellData(ll_row, ll_col,  ls_jcolorcode + "("  + ls_jqty +  ")" ) ;   
+                                                 
                                             }else{
-                                                wtab01Grid.setCellData(ll_row, ll_col,  ls_jcolorcode  ) ; 
+                                                wtab01Grid.setCellData(ll_row, ll_col,  ls_jcolorcode  ) ;    
                                             }
                                             // wtab01Grid.formatItem.addHandler((s, e) => {
                                             //     // var val = s.getCellData(e.row, e.col); 
