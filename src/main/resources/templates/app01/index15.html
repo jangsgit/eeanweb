@@ -459,7 +459,7 @@
 <div class="modal fade" id="imgmodal" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"  role="dialog" 
 aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document" id = "modalForm02"
-        style="max-width: 1000px">
+        style="max-width: 50%">
         <div class="modal-content border-0">
             <div class="modal-body p-0" > 
                 <div class="rounded-top-lg py-3 ps-4 pe-6 bg-light">  
@@ -2093,7 +2093,7 @@ aria-hidden="true">
             const ListDivs = $('div[data-name="ListDiv02"]');
             ListDivs.remove();
 
-            var DivHtml02 = " <div class='row flex-nowrap  overflow-auto' data-name='ListDiv02'> ";  
+            var DivHtml02 = " <div class='row flex-nowrap  overflow-auto' data-name='ListDiv02'> ";                  
                 DivHtml02 = DivHtml02 + " <img class='img-thumbnail' src='" + arg1 + "_1.jpg' alt='' style='max-width: 40%'/> ";    //45%
                 DivHtml02 = DivHtml02 + " <img class='img-thumbnail' src='" + arg1 + "_2.jpg' alt='' style='max-width: 40%' /> ";   //45%
                 DivHtml02 = DivHtml02 +  "  </div>"; 
@@ -2113,7 +2113,7 @@ aria-hidden="true">
         })
 
         function test_rtn(arg1){
-            console.log(arg1);
+            //console.log(arg1);
             const disHtml = `
                 <div class="tab-pane fade show active" id=${arg1} role="tabpanel" aria-labelledby="profile-tab">${arg1}</div>`
             $('#btnDiv02').before(disHtml);
