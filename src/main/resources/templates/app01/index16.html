@@ -471,8 +471,9 @@
                     { binding: 'samt', header: '금액', align: "center", width: 150 },  
                     { binding: 'remarkaa', header: '본사비고', align: "center", width: 100 },  
                     { binding: 'remarkbb', header: '영업점비고', align: "center", width: 100 },  
-                    { binding: 'fixflag', header: '출력', align: "center", width: 150, cssClass: 'switch'   },  
-                    { binding: 'devflag', header: '발송', align: "center", width: 150, cssClass: 'switch'   },  
+                    { binding: 'unsongnum', header: '운송장번호', align: "center", width: 100 },  
+                    { binding: 'fixflag', header: '출력', align: "center", width: 80, cssClass: 'switch'   },  
+                    { binding: 'devflag', header: '발송', align: "center", width: 80, cssClass: 'switch'   },  
                     
                 ], 
                 itemsSource: view_p01tab02page, 
@@ -1112,40 +1113,40 @@
                         for( i=0; i < gridrow; i++){
                             //var ls_chk = wtab06Grid.rows[i]._ubv["2g"];
                             console.log(wtab06Grid.rows[i]._ubv);   
-                            if(wtab06Grid.rows[i]._ubv["2g"]){
+                            if(wtab06Grid.rows[i]._ubv["2g"]){ 
+                                devnum01[iCnt] = wtab06Grid.rows[i]._ubv["2l"];  //예약관리번호
+                                devnum02[iCnt] = wtab06Grid.rows[i]._ubv["2m"];  //운송장번호
+                                devnum03[iCnt] = wtab06Grid.rows[i]._ubv["2o"];  //주문관리번호
                                 //console.log(wtab06Grid.rows[i]._ubv["2g"]); 
-                                devnum01[iCnt] = wtab06Grid.rows[i]._ubv["2g"];  
-                                devnum02[iCnt] = wtab06Grid.rows[i]._ubv["2h"];  
-                                devnum03[iCnt] = wtab06Grid.rows[i]._ubv["2i"];  
-                                devnum04[iCnt] = wtab06Grid.rows[i]._ubv["2j"];  
-                                devnum05[iCnt] = '-'; //wtab06Grid.rows[i]._ubv["2k"];  
-                                devnum06[iCnt] = wtab06Grid.rows[i]._ubv["2l"];  
-                                devnum07[iCnt] = wtab06Grid.rows[i]._ubv["2m"];  
-                                devnum08[iCnt] = '-'; //wtab06Grid.rows[i]._ubv["2n"];  
-                                devnum09[iCnt] = wtab06Grid.rows[i]._ubv["2o"];  
-                                devnum10[iCnt] = wtab06Grid.rows[i]._ubv["2p"];  
-                                devnum11[iCnt] = wtab06Grid.rows[i]._ubv["2q"];  
-                                devnum12[iCnt] = wtab06Grid.rows[i]._ubv["2r"];  
-                                devnum13[iCnt] = wtab06Grid.rows[i]._ubv["2s"];  
-                                devnum14[iCnt] = wtab06Grid.rows[i]._ubv["2t"]; 
-                                devnum15[iCnt] = wtab06Grid.rows[i]._ubv["2u"];  
-                                devnum16[iCnt] = wtab06Grid.rows[i]._ubv["2v"];                                  
-                                devnum17[iCnt] = wtab06Grid.rows[i]._ubv["2y"];  
-                                devnum18[iCnt] = wtab06Grid.rows[i]._ubv["2z"];  
-                                devnum19[iCnt] = wtab06Grid.rows[i]._ubv["3a"];  
-                                devnum20[iCnt] = wtab06Grid.rows[i]._ubv["3b"];  
-                                devnum21[iCnt] = wtab06Grid.rows[i]._ubv["3c"];  
-                                devnum22[iCnt] = wtab06Grid.rows[i]._ubv["3d"];  
-                                devnum23[iCnt] = wtab06Grid.rows[i]._ubv["30"];  
-                                devnum24[iCnt] = wtab06Grid.rows[i]._ubv["31"];  
-                                devnum25[iCnt] = wtab06Grid.rows[i]._ubv["32"];  
-                                devnum26[iCnt] = wtab06Grid.rows[i]._ubv["33"];  
-                                devnum27[iCnt] = wtab06Grid.rows[i]._ubv["34"];  
-                                devnum28[iCnt] = wtab06Grid.rows[i]._ubv["35"];  
-                                devnum29[iCnt] = wtab06Grid.rows[i]._ubv["36"];  
-                                devnum30[iCnt] = wtab06Grid.rows[i]._ubv["37"];  
-                                devnum31[iCnt] = wtab06Grid.rows[i]._ubv["38"];  
-                                devnum32[iCnt] = wtab06Grid.rows[i]._ubv["39"];  
+                                // devnum01[iCnt] = wtab06Grid.rows[i]._ubv["2g"];  
+                                // devnum02[iCnt] = wtab06Grid.rows[i]._ubv["2h"];  
+                                // devnum03[iCnt] = wtab06Grid.rows[i]._ubv["2i"];  
+                                // devnum04[iCnt] = wtab06Grid.rows[i]._ubv["2j"];  
+                                // devnum05[iCnt] = '-'; //wtab06Grid.rows[i]._ubv["2k"]; 
+                                //devnum08[iCnt] = '-'; //wtab06Grid.rows[i]._ubv["2n"];  
+                                // devnum10[iCnt] = wtab06Grid.rows[i]._ubv["2p"];  
+                                // devnum11[iCnt] = wtab06Grid.rows[i]._ubv["2q"];  
+                                // devnum12[iCnt] = wtab06Grid.rows[i]._ubv["2r"];  
+                                // devnum13[iCnt] = wtab06Grid.rows[i]._ubv["2s"];  
+                                // devnum14[iCnt] = wtab06Grid.rows[i]._ubv["2t"]; 
+                                // devnum15[iCnt] = wtab06Grid.rows[i]._ubv["2u"];  
+                                // devnum16[iCnt] = wtab06Grid.rows[i]._ubv["2v"];                                  
+                                // devnum17[iCnt] = wtab06Grid.rows[i]._ubv["2y"];  
+                                // devnum18[iCnt] = wtab06Grid.rows[i]._ubv["2z"];  
+                                // devnum19[iCnt] = wtab06Grid.rows[i]._ubv["3a"];  
+                                // devnum20[iCnt] = wtab06Grid.rows[i]._ubv["3b"];  
+                                // devnum21[iCnt] = wtab06Grid.rows[i]._ubv["3c"];  
+                                // devnum22[iCnt] = wtab06Grid.rows[i]._ubv["3d"];  
+                                // devnum23[iCnt] = wtab06Grid.rows[i]._ubv["30"];  
+                                // devnum24[iCnt] = wtab06Grid.rows[i]._ubv["31"];  
+                                // devnum25[iCnt] = wtab06Grid.rows[i]._ubv["32"];  
+                                // devnum26[iCnt] = wtab06Grid.rows[i]._ubv["33"];  
+                                // devnum27[iCnt] = wtab06Grid.rows[i]._ubv["34"];  
+                                // devnum28[iCnt] = wtab06Grid.rows[i]._ubv["35"];  
+                                // devnum29[iCnt] = wtab06Grid.rows[i]._ubv["36"];  
+                                // devnum30[iCnt] = wtab06Grid.rows[i]._ubv["37"];  
+                                // devnum31[iCnt] = wtab06Grid.rows[i]._ubv["38"];  
+                                // devnum32[iCnt] = wtab06Grid.rows[i]._ubv["39"];  
                                 iCnt++;
                                 //console.log(iCnt);
                                 //console.log(devnum03);  
@@ -1168,36 +1169,7 @@
                         data: { 
                             "devnum01"  : devnum01,   
                             "devnum02"  : devnum02,  
-                            "devnum03"  : devnum03,  
-                            "devnum04"  : devnum04,  
-                            "devnum05"  : devnum05,  
-                            "devnum06"  : devnum06,  
-                            "devnum07"  : devnum07,  
-                            "devnum08"  : devnum08,  
-                            "devnum09"  : devnum09,  
-                            "devnum10"  : devnum10,  
-                            "devnum11"  : devnum11,    
-                            "devnum12"  : devnum12,  
-                            "devnum13"  : devnum13,  
-                            "devnum14"  : devnum14,  
-                            "devnum15"  : devnum15,  
-                            "devnum16"  : devnum16,  
-                            "devnum17"  : devnum17,  
-                            "devnum18"  : devnum18,  
-                            "devnum19"  : devnum19,  
-                            "devnum20"  : devnum20,  
-                            "devnum21"  : devnum21,    
-                            "devnum22"  : devnum22,  
-                            "devnum23"  : devnum23,  
-                            "devnum24"  : devnum24,  
-                            "devnum25"  : devnum25,  
-                            "devnum26"  : devnum26,  
-                            "devnum27"  : devnum27,  
-                            "devnum28"  : devnum28,  
-                            "devnum29"  : devnum29,  
-                            "devnum30"  : devnum30,  
-                            "devnum31"  : devnum31,  
-                            "devnum32"  : devnum32,  
+                            "devnum03"  : devnum03   
                         }, 
                         async:false,
                         success:function(data){   
@@ -1802,6 +1774,7 @@
             var bdevflag = false
             var ls_remark01 = "";
             var ls_remark02 = "";
+            var ls_unsongnum = "";
             for (var i = 0; i < wtab02Dto.length; i++) {
                 if(wtab02Dto[i]["fixflag"] == "1"){
                     bfixflag = true;
@@ -1822,6 +1795,11 @@
                     ls_remark02 = wtab02Dto[i]["remarkbb"];
                 }else{
                     ls_remark02 = "";
+                }  
+                if(wtab02Dto[i]["seq"] == "001"){
+                    ls_unsongnum = wtab02Dto[i]["unsongnum"];
+                }else{
+                    ls_unsongnum = "";
                 }     
                 wtab02_data.push({
                     id: i, 
@@ -1841,7 +1819,8 @@
                     samt: wtab02Dto[i]["samt"],  
                     cltcd: wtab02Dto[i]["cltcd"],  
                     inname: wtab02Dto[i]["inname"],       
-                    misgubun: wtab02Dto[i]["misgubun"],  
+                    misgubun: wtab02Dto[i]["misgubun"],    
+                    unsongnum: ls_unsongnum, 
                     remarkaa: ls_remark01,  
                     remarkbb: ls_remark02,   
                     fixflag: bfixflag,                       
@@ -1959,7 +1938,13 @@
             cols.header = '담당사원';
             cols.align = "center";
             cols.width = 100;  
-            wtab02Grid.columns.push(cols);       
+            wtab02Grid.columns.push(cols);     
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'unsongnum';
+            cols.header = '운송장번호';
+            cols.align = "center";
+            cols.width = 160;  
+            wtab02Grid.columns.push(cols);      
             cols = new wijmo.grid.Column(); 
             cols.binding = 'fixflag'; 
             cols.header = '출력';

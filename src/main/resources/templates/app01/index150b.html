@@ -1234,6 +1234,7 @@ aria-hidden="true">
             var wtab02_data = [];
             var cnt = 1;
             var bfixflag = false
+            var ls_unsongnum = "";
             for (var i = 0; i < wtab02Dto.length; i++) {
                 if(wtab02Dto[i]["fixflag"] == "1"){
                     bfixflag = true;
@@ -1243,6 +1244,11 @@ aria-hidden="true">
                 ls_remark = wtab02Dto[i]["remarkbb"]
                 if(ls_remark == null || ls_remark.length == 0 || ls_remark == ""){  
                     //ls_remark = "요청등록"            
+                }  
+                if(wtab02Dto[i]["seq"] == "001"){
+                    ls_unsongnum = wtab02Dto[i]["unsongnum"];
+                }else{
+                    ls_unsongnum = "";
                 }  
                 wtab02_data.push({
                     id: i, 
@@ -1261,7 +1267,8 @@ aria-hidden="true">
                     samt: wtab02Dto[i]["samt"],  
                     cltcd: wtab02Dto[i]["cltcd"],  
                     pcode: wtab02Dto[i]["pcode"],     
-                    misgubun: wtab02Dto[i]["misgubun"],   
+                    misgubun: wtab02Dto[i]["misgubun"],    
+                    unsongnum: ls_unsongnum,      
                     remark: ls_remark,        
                     fixflag: bfixflag,                                           
                 });
@@ -1365,7 +1372,13 @@ aria-hidden="true">
                     
                 }
             });
-            wtab02Grid.columns.push(cols);     
+            wtab02Grid.columns.push(cols);    
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'unsongnum';
+            cols.header = '운송장번호';
+            cols.align = "center";
+            cols.width = 160;  
+            wtab02Grid.columns.push(cols);      
             // cols = new wijmo.grid.Column(); 
             // cols.binding = 'fixflag'; 
             // cols.header = '확정';

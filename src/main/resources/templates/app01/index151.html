@@ -440,6 +440,7 @@
             var cnt = 1;
             var bfixflag = false
             var ls_remark = "";
+            var ls_unsongnum = "";
             for (var i = 0; i < wtab02Dto.length; i++) {
                 if(wtab02Dto[i]["fixflag"] == "1"){
                     bfixflag = true;
@@ -451,6 +452,11 @@
                 }else{
                     ls_remark = "";
                 }
+                if(wtab02Dto[i]["seq"] == "001"){
+                    ls_unsongnum = wtab02Dto[i]["unsongnum"];
+                }else{
+                    ls_unsongnum = "";
+                }  
                 wtab02_data.push({
                     id: i, 
                     index: cnt,
@@ -468,7 +474,8 @@
                     samt: wtab02Dto[i]["samt"],  
                     cltcd: wtab02Dto[i]["cltcd"],   
                     inname: wtab02Dto[i]["inname"],   
-                    misgubun: wtab02Dto[i]["misgubun"],      
+                    misgubun: wtab02Dto[i]["misgubun"],    
+                    unsongnum: ls_unsongnum,           
                     remark: ls_remark,     
                     fixflag: bfixflag,                                               
                 });
@@ -564,7 +571,13 @@
             cols.header = '요청사항';
             cols.align = "left"; 
             cols.width = 200;  
-            wtab02Grid.columns.push(cols);     
+            wtab02Grid.columns.push(cols);       
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'unsongnum';
+            cols.header = '운송장번호';
+            cols.align = "center";
+            cols.width = 160;  
+            wtab02Grid.columns.push(cols);   
             // cols = new wijmo.grid.Column(); 
             // cols.binding = 'fixflag'; 
             // cols.header = '확정';

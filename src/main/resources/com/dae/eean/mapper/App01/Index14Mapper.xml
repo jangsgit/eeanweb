@@ -44,7 +44,7 @@
     <select id="SelectDa024List"  parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" resultType="com.dae.eean.DTO.App01.IndexDa024Dto">
         <![CDATA[ select B.cltcd as cltcd, Left(B.misdate,4) + '-' + substring(B.misdate, 5,2)+ '-' + substring(B.misdate, 7,2) as misdate, B.misnum, B.seq,
                          B.pcode, B.pname, B.psize,    B.punit,  B.qty,  B.uamt, B.samt, B.addamt, isnull(C.remarkaa,'') as remarkaa, isnull(C.remarkbb,'') as remarkbb, isnull(C.makflag, '0') as makflag,
-                         B.amt, A.acorp, pbonsa, pmodel, pcolor , D.inname, B.misgubun, isnull(B.fixflag,'0') as fixflag,isnull(B.devflag,'0') as devflag,   D.inname as pernm
+                         B.amt, A.acorp, pbonsa, pmodel, pcolor , D.inname, B.misgubun, isnull(B.fixflag,'0') as fixflag,isnull(B.devflag,'0') as devflag,   D.inname as pernm , C.unsongnum as unsongnum
            from  TB_DA024 B WITH (NOLOCK) , cif A WITH (NOLOCK) ,
                  TB_DA023 C WITH (NOLOCK) Left outer JOIN INSA D ON C.perid = D.insano
            where B.misdate + B.misnum = C.misdate + C.misnum AND B.misgubun = C.misgubun
@@ -66,8 +66,8 @@
     <select id="SelectDa024ListLike"  parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" resultType="com.dae.eean.DTO.App01.IndexDa024Dto">
         <![CDATA[ select B.cltcd as cltcd, Left(B.misdate,4) + '-' + substring(B.misdate, 5,2)+ '-' + substring(B.misdate, 7,2) as misdate, B.misnum, B.seq,
                          B.pcode, B.pname, B.psize,    B.punit,  B.qty,  B.uamt, B.samt, B.addamt, isnull(C.remarkaa,'') as remarkaa, isnull(C.remarkbb,'') as remarkbb, isnull(C.makflag, '0') as makflag,
-                         B.amt, A.acorp, pbonsa, pmodel, pcolor , D.inname, B.misgubun, isnull(B.fixflag,'0') as fixflag,isnull(B.devflag,'0') as devflag,   D.inname as pernm
-           from  TB_DA024 B WITH (NOLOCK) , cif A WITH (NOLOCK) ,
+                         B.amt, A.acorp, pbonsa, pmodel, pcolor , D.inname, B.misgubun, isnull(B.fixflag,'0') as fixflag,isnull(B.devflag,'0') as devflag,   D.inname as pernm, C.unsongnum as unsongnum
+                  from  TB_DA024 B WITH (NOLOCK) , cif A WITH (NOLOCK) ,
                  TB_DA023 C WITH (NOLOCK) Left outer JOIN INSA D ON C.perid = D.insano
            where B.misdate + B.misnum = C.misdate + C.misnum AND B.misgubun = C.misgubun
              AND isnull(C.delflag, '') <> 'Y'
@@ -569,6 +569,13 @@
         delete from tb_da026
         where misdate = #{misdate} and misnum = #{misnum} and seq = #{seq} and cltcd = #{cltcd} and misgubun = #{misgubun}  and isnull(fixflag,'0') = '0'
     </delete>
+
+
+    <update id="UpdateDA023Unsong" parameterType="com.dae.eean.DTO.App01.IndexDa023Dto" >
+        UPDATE tb_da023 SET
+                            unsongnum=#{unsongnum} , reservnum =#{reservnum}
+        where misdate=#{misdate} and misnum=#{misnum} and cltcd = #{cltcd}
+    </update>
 
     <update id="UpdateDA024rkaa" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
         UPDATE tb_da023 SET

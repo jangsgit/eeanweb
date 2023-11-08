@@ -32,5 +32,7 @@ public class IndexDa023Dto {
     private String omisdate;
     private String omisnum;
     private String makflag;
+    private String reservnum;
+    private String unsongnum;
 
 }
