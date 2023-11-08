@@ -19,11 +19,11 @@
     </select>
 
     <select id="SelectMaxMisnum" parameterType="com.dae.eean.DTO.App01.IndexDa023Dto" resultType="String">
-        <![CDATA[  select  max(misnum)  from tb_da023 where misdate = #{misdate}    and misgubun = #{misgubun}    ]]>
+        <![CDATA[  select  max(misnum)  from tb_da023 where misdate = #{misdate}      ]]>
     </select>
 
     <select id="SelectMaxMisnumWish" parameterType="com.dae.eean.DTO.App01.IndexDa023Dto" resultType="String">
-        <![CDATA[  select  max(misnum)  from tb_da025 where misdate = #{misdate}   and misgubun = #{misgubun}    ]]>
+        <![CDATA[  select  max(misnum)  from tb_da025 where misdate = #{misdate}      ]]>
     </select>
 
     <select id="SelectMaxSeq" parameterType="com.dae.eean.DTO.App01.IndexDa023Dto" resultType="String">

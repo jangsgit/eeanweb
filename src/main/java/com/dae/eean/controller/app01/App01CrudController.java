@@ -2543,6 +2543,66 @@ public class App01CrudController {
         return "success";
     }
 
+    @RequestMapping(value="/index16/savedev")
+    public String index16SaveDev(@RequestParam(value = "devnum01[]") List<String> devnum01
+            ,@RequestParam( value =  "devnum02[]") List<String> devnum02
+            ,@RequestParam( value =  "devnum03[]") List<String> devnum03
+            ,@RequestParam( value =  "devnum04[]") List<String> devnum04
+            ,@RequestParam( value =  "devnum05[]") List<String> devnum05
+            ,@RequestParam( value =  "devnum06[]") List<String> devnum06
+            ,@RequestParam( value =  "devnum07[]") List<String> devnum07
+            ,@RequestParam( value =  "devnum08[]") List<String> devnum08
+            ,@RequestParam( value =  "devnum09[]") List<String> devnum09
+            ,@RequestParam( value =  "devnum10[]") List<String> devnum10
+            ,@RequestParam( value =  "devnum11[]") List<String> devnum11
+            ,@RequestParam( value =  "devnum12[]") List<String> devnum12
+            ,@RequestParam( value =  "devnum13[]") List<String> devnum13
+            ,@RequestParam( value =  "devnum14[]") List<String> devnum14
+            ,@RequestParam( value =  "devnum15[]") List<String> devnum15
+            ,@RequestParam( value =  "devnum16[]") List<String> devnum16
+            ,@RequestParam( value =  "devnum17[]") List<String> devnum17
+            ,@RequestParam( value =  "devnum18[]") List<String> devnum18
+            ,@RequestParam( value =  "devnum19[]") List<String> devnum19
+            ,@RequestParam( value =  "devnum20[]") List<String> devnum20
+            ,@RequestParam( value =  "devnum21[]") List<String> devnum21
+            ,@RequestParam( value =  "devnum22[]") List<String> devnum22
+            ,@RequestParam( value =  "devnum23[]") List<String> devnum23
+            ,@RequestParam( value =  "devnum24[]") List<String> devnum24
+            ,@RequestParam( value =  "devnum25[]") List<String> devnum25
+            ,@RequestParam( value =  "devnum26[]") List<String> devnum26
+            ,@RequestParam( value =  "devnum27[]") List<String> devnum27
+            ,@RequestParam( value =  "devnum28[]") List<String> devnum28
+            ,@RequestParam( value =  "devnum29[]") List<String> devnum29
+            ,@RequestParam( value =  "devnum30[]") List<String> devnum30
+            ,@RequestParam( value =  "devnum31[]") List<String> devnum31
+            ,@RequestParam( value =  "devnum32[]") List<String> devnum32
+            , Model model
+            , HttpServletRequest request){
+
+        try {
+            boolean result = false;
+            if( devnum01.size() > 0){
+                for(int i = 0; i < devnum01.size(); i++){
+                    log.info("devnum01 =====>" + devnum01.get(i));
+//                    log.info("devnum02 =====>" + devnum02.get(i));
+//                    log.info("devnum03 =====>" + devnum03.get(i));
+//                    log.info("devnum04 =====>" + devnum04.get(i));
+//                    log.info("devnum05 =====>" + devnum05.get(i));
+//                    log.info("devnum06 =====>" + devnum06.get(i));
+//                    log.info("devnum07 =====>" + devnum07.get(i));
+//                    log.info("devnum08 =====>" + devnum08.get(i));
+//                    log.info("devnum09 =====>" + devnum09.get(i));
+                }
+
+            }
+
+        }catch (IllegalStateException e){
+            model.addAttribute("index16Save errorMessage", e.getMessage());
+            return "error";
+        }
+        return "success";
+    }
+
     @RequestMapping(value="/index16/savewish")
     public String index16SaveWish(@RequestParam(value = "misdatearr[]") List<String> misdatearr
             ,@RequestParam( value =  "misnumarr[]") List<String> misnumarr

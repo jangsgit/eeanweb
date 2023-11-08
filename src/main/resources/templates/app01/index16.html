@@ -103,7 +103,7 @@
                                       </a>
                                     </li>
                                     <li class="nav-item">
-                                      <a class="nav-link" data-toggle="tab" href="#step05"  onclick="tabchk_rtn('D')">                                                                              
+                                      <a class="nav-link" data-toggle="tab" href="#step05"  onclick="tabchk_rtn('E')">                                                                              
                                         <span style ="display:inline-block;  font-weight:bold;">발송업로드</span>
                                       </a>
                                     </li>
@@ -366,6 +366,42 @@
          var omisdateWArr = new Array();
          var omisnumWArr = new Array();
          var oseqWArr    = new Array(); 
+
+         
+         var devnum01    = new Array(); 
+         var devnum02    = new Array(); 
+         var devnum03    = new Array(); 
+         var devnum04    = new Array(); 
+         var devnum05    = new Array(); 
+         var devnum06    = new Array(); 
+         var devnum07    = new Array(); 
+         var devnum08    = new Array(); 
+         var devnum09    = new Array(); 
+         var devnum10    = new Array(); 
+         var devnum11    = new Array(); 
+         var devnum12    = new Array(); 
+         var devnum13    = new Array(); 
+         var devnum14    = new Array(); 
+         var devnum15    = new Array(); 
+         var devnum16    = new Array(); 
+         var devnum17    = new Array(); 
+         var devnum18    = new Array(); 
+         var devnum19    = new Array(); 
+         var devnum20    = new Array(); 
+         var devnum21    = new Array(); 
+         var devnum22    = new Array(); 
+         var devnum23    = new Array(); 
+         var devnum24    = new Array(); 
+         var devnum25    = new Array(); 
+         var devnum26    = new Array(); 
+         var devnum27    = new Array(); 
+         var devnum28    = new Array(); 
+         var devnum29    = new Array(); 
+         var devnum30    = new Array(); 
+         var devnum31    = new Array(); 
+         var devnum32    = new Array(); 
+         var devnum33    = new Array(); 
+         var devnum34    = new Array(); 
         
          var excelIOSheet;
          var typeMenu;  
@@ -396,6 +432,7 @@
          var wtab05_data = [];
          var chkTabA = [];
          var chkTabB = [];
+         var chkTabC = [];
          var ll_sumqty = 0; 
          var ll_sumsamt = 0; 
          var ll_sumaddamt = 0; 
@@ -669,56 +706,95 @@
                 allowSorting: 'MultiColumn',
                 autoGenerateColumns: false,
                 columns: [     
-                    // { binding: 'active', header: '선택', align: "center", width: 80  ,dataType:3,allowSorting: false, dataType: wijmo.DataType.Boolean  }, 
                     { binding: 'no', header: 'NO', align: "center", width: 80 },  
-                    { binding: 'num01', header: '번호', align: "center", width: 80 },   
-                    { binding: 'num02', header: '주문상태', align: "center", width: 100 },  
-                    { binding: 'num03', header: '운송장번호', align: "center", width: 100 },  
-                    { binding: 'num04', header: '주문번호', align: "center", width: 100 },  
-                    { binding: 'num05', header: '쇼핑몰명', align: "center", width: 100 },  
-                    { binding: 'num06', header: '주문자', align: "center", width: 100 },  
-                    { binding: 'num07', header: '수하인명', align: "center", width: 100 },  
-                    { binding: 'num08', header: '수하인전번', align: "center", width: 100 },  
-                    { binding: 'num09', header: '상품코드', align: "center", width: 100 },  
-                    { binding: 'num10', header: '상품명', align: "center", width: 100 },  
-                    { binding: 'num11', header: '상품상세', align: "center", width: 100 },  
-                    { binding: 'num12', header: '수량', align: "center", width: 100 },  
-                    { binding: 'num13', header: '운임구분', align: "center", width: 100 },  
-                    { binding: 'num14', header: '합계운임', align: "center", width: 100 },  
-                    { binding: 'num15', header: '관리번호', align: "center", width: 100 },  
-                    { binding: 'num16', header: '집하일자', align: "center", width: 100 },  
-                    { binding: 'num17', header: '수하인휴번', align: "center", width: 100 },  
-                    { binding: 'num18', header: '수하인기본주소', align: "center", width: 100 },  
-                    { binding: 'num19', header: '수하인상세주소', align: "center", width: 100 },  
-                    { binding: 'num20', header: '합포장키', align: "center", width: 100 },  
-                    { binding: 'num21', header: '내품수량', align: "center", width: 100 },  
-                    { binding: 'num22', header: '배달메시지내용', align: "center", width: 100 },  
-                    { binding: 'num23', header: '터미널명', align: "center", width: 100 },  
-                    { binding: 'num24', header: '최초지시일자', align: "center", width: 100 },  
-                    { binding: 'num25', header: '송하인명', align: "center", width: 100 },  
-                    { binding: 'num26', header: '송하인TEL', align: "center", width: 100 },  
-                    { binding: 'num27', header: '송하인휴번', align: "center", width: 100 },  
-                    { binding: 'num28', header: '송하인기본주소', align: "center", width: 100 },  
-                    { binding: 'num29', header: '송하인상세주소', align: "center", width: 100 },  
-                    { binding: 'num30', header: '원송장번호', align: "center", width: 100 },  
-                    { binding: 'num31', header: '업무거래처코드', align: "center", width: 100 },  
-                    { binding: 'num32', header: '수하인우편번호', align: "center", width: 100 },  
-                    { binding: 'num33', header: '송하인우편번호', align: "center", width: 100 },  
-                    { binding: 'num34', header: '고객메세지내용', align: "center", width: 100 },  
-                    { binding: 'num35', header: '도서추가운임', align: "center", width: 100 },   
+                    { binding: 'num01', header: '구분', align: "center", width: 80 },   
+                    { binding: 'num02', header: '최초지시일', align: "center", width: 100 },  
+                    { binding: 'num03', header: '집하일자', align: "center", width: 100 },  
+                    { binding: 'num04', header: '쇼핑몰명', align: "center", width: 100 },  
+                    { binding: 'num05', header: '예약관리번호', align: "center", width: 100 },  
+                    { binding: 'num06', header: '운송장번호', align: "center", width: 100 },  
+                    { binding: 'num07', header: '원송장번호', align: "center", width: 100 },  
+                    { binding: 'num08', header: '주문번호', align: "center", width: 100 },  
+                    { binding: 'num09', header: '취소사유', align: "center", width: 100 },  
+                    { binding: 'num10', header: '화물상태', align: "center", width: 100 },  
+                    { binding: 'num11', header: '수하인명', align: "center", width: 100 },  
+                    { binding: 'num12', header: '주소', align: "center", width: 100 },  
+                    { binding: 'num13', header: '송하인명', align: "center", width: 100 },  
+                    { binding: 'num14', header: '주소', align: "center", width: 100 },  
+                    { binding: 'num15', header: '상품명', align: "center", width: 100 },  
+                    { binding: 'num16', header: '상품상세', align: "center", width: 100 },  
+                    { binding: 'num17', header: '상품옵션', align: "center", width: 100 },  
+                    { binding: 'num18', header: '배달메시지내용', align: "center", width: 100 },  
+                    { binding: 'num19', header: '운임구분', align: "center", width: 100 },   
+                    { binding: 'num20', header: '박스수량', align: "center", width: 100 },  
+                    { binding: 'num21', header: '배달일자', align: "center", width: 100 },  
+                    { binding: 'num22', header: '배달점소', align: "center", width: 100 },  
+                    { binding: 'num23', header: '배달사원', align: "center", width: 100 },  
+                    { binding: 'num24', header: '배달점전화', align: "center", width: 100 },  
+                    { binding: 'num25', header: '배달사원전화', align: "center", width: 100 },  
+                    { binding: 'num26', header: '배달관할지점', align: "center", width: 100 },  
+                    { binding: 'num27', header: '배달지점전화', align: "center", width: 100 },  
+                    { binding: 'num28', header: '집하장소', align: "center", width: 100 },  
+                    { binding: 'num29', header: '집하사원', align: "center", width: 100 },  
+                    { binding: 'num30', header: '집하점전화', align: "center", width: 100 },  
+                    { binding: 'num31', header: '집하사원전화', align: "center", width: 100 },  
+                    { binding: 'num32', header: '집하관할지점', align: "center", width: 100 },  
+                    { binding: 'num33', header: '집하지점전화', align: "center", width: 100 },  
+                    { binding: 'num34', header: '사고확인일시', align: "center", width: 100 },  
+                    //{ binding: 'num35', header: '도서추가운임', align: "center", width: 100 },   
+                    // { binding: 'active', header: '선택', align: "center", width: 80  ,dataType:3,allowSorting: false, dataType: wijmo.DataType.Boolean  }, 
+                    // { binding: 'no', header: 'NO', align: "center", width: 80 },  
+                    // { binding: 'num01', header: '번호', align: "center", width: 80 },   
+                    // { binding: 'num02', header: '주문상태', align: "center", width: 100 },  
+                    // { binding: 'num03', header: '운송장번호', align: "center", width: 100 },  
+                    // { binding: 'num04', header: '주문번호', align: "center", width: 100 },  
+                    // { binding: 'num05', header: '쇼핑몰명', align: "center", width: 100 },  
+                    // { binding: 'num06', header: '주문자', align: "center", width: 100 },  
+                    // { binding: 'num07', header: '수하인명', align: "center", width: 100 },  
+                    // { binding: 'num08', header: '수하인전번', align: "center", width: 100 },  
+                    // { binding: 'num09', header: '상품코드', align: "center", width: 100 },  
+                    // { binding: 'num10', header: '상품명', align: "center", width: 100 },  
+                    // { binding: 'num11', header: '상품상세', align: "center", width: 100 },  
+                    // { binding: 'num12', header: '수량', align: "center", width: 100 },  
+                    // { binding: 'num13', header: '운임구분', align: "center", width: 100 },  
+                    // { binding: 'num14', header: '합계운임', align: "center", width: 100 },  
+                    // { binding: 'num15', header: '관리번호', align: "center", width: 100 },  
+                    // { binding: 'num16', header: '집하일자', align: "center", width: 100 },  
+                    // { binding: 'num17', header: '수하인휴번', align: "center", width: 100 },  
+                    // { binding: 'num18', header: '수하인기본주소', align: "center", width: 100 },  
+                    // { binding: 'num19', header: '수하인상세주소', align: "center", width: 100 },  
+                    // { binding: 'num20', header: '합포장키', align: "center", width: 100 },  
+                    // { binding: 'num21', header: '내품수량', align: "center", width: 100 },  
+                    // { binding: 'num22', header: '배달메시지내용', align: "center", width: 100 },  
+                    // { binding: 'num23', header: '터미널명', align: "center", width: 100 },  
+                    // { binding: 'num24', header: '최초지시일자', align: "center", width: 100 },  
+                    // { binding: 'num25', header: '송하인명', align: "center", width: 100 },  
+                    // { binding: 'num26', header: '송하인TEL', align: "center", width: 100 },  
+                    // { binding: 'num27', header: '송하인휴번', align: "center", width: 100 },  
+                    // { binding: 'num28', header: '송하인기본주소', align: "center", width: 100 },  
+                    // { binding: 'num29', header: '송하인상세주소', align: "center", width: 100 },  
+                    // { binding: 'num30', header: '원송장번호', align: "center", width: 100 },  
+                    // { binding: 'num31', header: '업무거래처코드', align: "center", width: 100 },  
+                    // { binding: 'num32', header: '수하인우편번호', align: "center", width: 100 },  
+                    // { binding: 'num33', header: '송하인우편번호', align: "center", width: 100 },  
+                    // { binding: 'num34', header: '고객메세지내용', align: "center", width: 100 },  
+                    // { binding: 'num35', header: '도서추가운임', align: "center", width: 100 },   
                 ], 
                 itemsSource: view_p01tab06page, 
             }); 
 
+
+
             // 헤더 열 전환
             setHeaderColumn06(false); 
             function setHeaderColumn06(headerOn) {
-                wtab05Grid.headersVisibility = headerOn
+                wtab06Grid.headersVisibility = headerOn
                 ? wijmo.grid.HeadersVisibility.All
                 : wijmo.grid.HeadersVisibility.Column; 
             }
+ 
             new FlexGridContextMenu(wtab06Grid); 
-            wtab05Grid.focus();
+            wtab06Grid.focus();
             //////////////////////////////////////////////////////////////////////////////////////////////////////////    
             //////////////////////////////////////////////////////////////////////////////////////////////////////////
             //거래처현황 Modalㅁ
@@ -1026,6 +1102,126 @@
 
                     break;                     
 
+            case 'E': 
+                    if (!confirm("발송업로드 하시겠습니까?")) { 
+                        return false; 
+                    }      
+                    var gridrow = wtab06Grid.rows.length;                                    
+                    var iCnt = 0;
+                    try{    
+                        for( i=0; i < gridrow; i++){
+                            //var ls_chk = wtab06Grid.rows[i]._ubv["2g"];
+                            console.log(wtab06Grid.rows[i]._ubv);   
+                            if(wtab06Grid.rows[i]._ubv["2g"]){
+                                //console.log(wtab06Grid.rows[i]._ubv["2g"]); 
+                                devnum01[iCnt] = wtab06Grid.rows[i]._ubv["2g"];  
+                                devnum02[iCnt] = wtab06Grid.rows[i]._ubv["2h"];  
+                                devnum03[iCnt] = wtab06Grid.rows[i]._ubv["2i"];  
+                                devnum04[iCnt] = wtab06Grid.rows[i]._ubv["2j"];  
+                                devnum05[iCnt] = '-'; //wtab06Grid.rows[i]._ubv["2k"];  
+                                devnum06[iCnt] = wtab06Grid.rows[i]._ubv["2l"];  
+                                devnum07[iCnt] = wtab06Grid.rows[i]._ubv["2m"];  
+                                devnum08[iCnt] = '-'; //wtab06Grid.rows[i]._ubv["2n"];  
+                                devnum09[iCnt] = wtab06Grid.rows[i]._ubv["2o"];  
+                                devnum10[iCnt] = wtab06Grid.rows[i]._ubv["2p"];  
+                                devnum11[iCnt] = wtab06Grid.rows[i]._ubv["2q"];  
+                                devnum12[iCnt] = wtab06Grid.rows[i]._ubv["2r"];  
+                                devnum13[iCnt] = wtab06Grid.rows[i]._ubv["2s"];  
+                                devnum14[iCnt] = wtab06Grid.rows[i]._ubv["2t"]; 
+                                devnum15[iCnt] = wtab06Grid.rows[i]._ubv["2u"];  
+                                devnum16[iCnt] = wtab06Grid.rows[i]._ubv["2v"];                                  
+                                devnum17[iCnt] = wtab06Grid.rows[i]._ubv["2y"];  
+                                devnum18[iCnt] = wtab06Grid.rows[i]._ubv["2z"];  
+                                devnum19[iCnt] = wtab06Grid.rows[i]._ubv["3a"];  
+                                devnum20[iCnt] = wtab06Grid.rows[i]._ubv["3b"];  
+                                devnum21[iCnt] = wtab06Grid.rows[i]._ubv["3c"];  
+                                devnum22[iCnt] = wtab06Grid.rows[i]._ubv["3d"];  
+                                devnum23[iCnt] = wtab06Grid.rows[i]._ubv["30"];  
+                                devnum24[iCnt] = wtab06Grid.rows[i]._ubv["31"];  
+                                devnum25[iCnt] = wtab06Grid.rows[i]._ubv["32"];  
+                                devnum26[iCnt] = wtab06Grid.rows[i]._ubv["33"];  
+                                devnum27[iCnt] = wtab06Grid.rows[i]._ubv["34"];  
+                                devnum28[iCnt] = wtab06Grid.rows[i]._ubv["35"];  
+                                devnum29[iCnt] = wtab06Grid.rows[i]._ubv["36"];  
+                                devnum30[iCnt] = wtab06Grid.rows[i]._ubv["37"];  
+                                devnum31[iCnt] = wtab06Grid.rows[i]._ubv["38"];  
+                                devnum32[iCnt] = wtab06Grid.rows[i]._ubv["39"];  
+                                iCnt++;
+                                //console.log(iCnt);
+                                //console.log(devnum03);  
+                                //console.log(devnum05);     
+                                
+                            }else{
+                                break;                                
+                            }   
+                        }
+                    } catch(err){   
+                        console.log(err);   
+                        //break;
+                    }
+                    var gridrow = devnum01.length;  
+                    console.log(devnum03);   
+
+                    $.ajax({
+                        url: '/app01m/index16/savedev',  
+                        type:"POST",
+                        data: { 
+                            "devnum01"  : devnum01,   
+                            "devnum02"  : devnum02,  
+                            "devnum03"  : devnum03,  
+                            "devnum04"  : devnum04,  
+                            "devnum05"  : devnum05,  
+                            "devnum06"  : devnum06,  
+                            "devnum07"  : devnum07,  
+                            "devnum08"  : devnum08,  
+                            "devnum09"  : devnum09,  
+                            "devnum10"  : devnum10,  
+                            "devnum11"  : devnum11,    
+                            "devnum12"  : devnum12,  
+                            "devnum13"  : devnum13,  
+                            "devnum14"  : devnum14,  
+                            "devnum15"  : devnum15,  
+                            "devnum16"  : devnum16,  
+                            "devnum17"  : devnum17,  
+                            "devnum18"  : devnum18,  
+                            "devnum19"  : devnum19,  
+                            "devnum20"  : devnum20,  
+                            "devnum21"  : devnum21,    
+                            "devnum22"  : devnum22,  
+                            "devnum23"  : devnum23,  
+                            "devnum24"  : devnum24,  
+                            "devnum25"  : devnum25,  
+                            "devnum26"  : devnum26,  
+                            "devnum27"  : devnum27,  
+                            "devnum28"  : devnum28,  
+                            "devnum29"  : devnum29,  
+                            "devnum30"  : devnum30,  
+                            "devnum31"  : devnum31,  
+                            "devnum32"  : devnum32,  
+                        }, 
+                        async:false,
+                        success:function(data){   
+                            if(data == "success"){
+                                alert("처리되었습니다.")
+                                ls_tab = "A";
+                                //searchList_rtn(ls_tab, "DEV");   
+                                return true;
+                                // clear_rtn(ls_tab);        
+                            }else{                       
+                                alert("처리중 오류가 발생했습니다. 관리자에게 문의하세요.")
+                                // listUp();
+                                console.log(data); 
+                                return false; 
+                            }
+                        
+                        },error:function(e){
+                            console.log("error"); 
+                        }
+                    }).done(function(fragment){           
+
+                    })  
+                    break;               
+
                 default:    
                     break;                
             } 
@@ -1072,11 +1268,17 @@
             var ls_tab = document.getElementById('tabvalue').value;     
             save_btn(ls_tab);
         })            
-        // 발송등록 
+        // 발송출력
         document.getElementById("saveBtn03").addEventListener("click",function(){
             var ls_tab = document.getElementById('tabvalue').value;     
             save_btn("D");
+        })           
+        // 배송등록 
+        document.getElementById("saveBtn04").addEventListener("click",function(){
+            var ls_tab = document.getElementById('tabvalue').value;     
+            save_btn("E");
         })  
+        
         //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
          
         // tab05 엑셀적용   
@@ -2024,6 +2226,7 @@
             wtab05_data = [];
             for (var i = 0; i < wtab05Dto.length; i++) { 
                 ls_acorp = wtab05Dto[i]["acorp"]; 
+                ls_cltcd = wtab05Dto[i]["cltcd"]; 
                 ls_atelno = wtab05Dto[i]["atelno"]; 
                 ls_ajuso = wtab05Dto[i]["ajuso"]; 
                 ls_aascodetxt = wtab05Dto[i]["aascodetxt"]; 
@@ -2042,7 +2245,7 @@
                 ls_eeatelno = wtab05Dto[i]["eeatelno"]; 
                 ls_misdate = wtab05Dto[i]["misdate"];
                 ls_misnum = wtab05Dto[i]["misnum"];
-                ls_miskey = wtab05Dto[i]["misdate"] + wtab05Dto[i]["misnum"];
+                ls_miskey = wtab05Dto[i]["misdate"] + wtab05Dto[i]["misnum"] + wtab05Dto[i]["cltcd"];
                 ls_misdatetxt = wtab05Dto[i]["misdatetxt"]; 
                 if(wtab05Dto[i]["payflag"] == "1"){
                     bfixflag = "착불";
