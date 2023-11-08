@@ -888,7 +888,7 @@ aria-hidden="true">
                 var ls_jqty = data[i]["jqty"]   
                 var ls_argstr = "'" + ls_jpum + "','" + ls_jkey + "'";
                 // console.log(ls_jchgoga0);
-                //ls_jkey = '11001_1240442012214252104';  
+                ls_jkey = '11001_1240442012214252104';  
                 //---------------------------------------------------------------------------------- 
                 DivHtml01 = DivHtml01 +  "    <div class='col-2'  > "; 
                 DivHtml01 = DivHtml01 +  "    <div class='card card-block'  > ";                 
@@ -2104,8 +2104,8 @@ aria-hidden="true">
             ListDivs.remove();
 
             var DivHtml02 = " <div class='row flex-nowrap  overflow-auto' data-name='ListDiv02'> ";                  
-                DivHtml02 = DivHtml02 + " <img class='img-thumbnail' src='" + arg1 + "_1.jpg' alt='' style='max-width: 40%'/> ";    //45%
-                DivHtml02 = DivHtml02 + " <img class='img-thumbnail' src='" + arg1 + "_2.jpg' alt='' style='max-width: 40%' /> ";   //45%
+                DivHtml02 = DivHtml02 + " <img class='img-thumbnail' src='" + arg1 + "_1.jpg' alt='' style='max-width: 40%;  display: block;  margin-left: auto; margin-right: auto'/> ";    //45%  style='height:180px; width:180px; display: block;  margin-left: auto; margin-right: auto'
+                DivHtml02 = DivHtml02 + " <img class='img-thumbnail' src='" + arg1 + "_2.jpg' alt='' style='max-width: 40%;  display: block;  margin-left: auto; margin-right: auto' /> ";   //45%
                 DivHtml02 = DivHtml02 +  "  </div>"; 
                 $('#btnDiv02').before(DivHtml02 );
                 document.getElementById("imgbtn").click(); 
