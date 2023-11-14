@@ -8,6 +8,8 @@
         select   jbonsa_code as jbonsa_code
         from JCODE3 WITH (NOLOCK)
          WHERE isnull(jpb_gubn,'') Like concat('%',#{jpb_gubn},'%')
+           and jsayong_gubn <> '4'
+           AND LEN(jbonsa_code) > 0
         Group by jbonsa_code, jbonsa_code_seq
         ORDER BY CONVERT(int, jbonsa_code_seq)
         ]]>
@@ -18,6 +20,7 @@
         from JCODE3 WITH (NOLOCK)
         WHERE isnull(jcustomer_code,'')   NOT IN ('X')
         AND isnull(jpb_gubn,'') Like concat('%',#{jpb_gubn},'%')
+        and jsayong_gubn <> '4'
         Group by jcustomer_code, jcustomer_code_seq, jpb_gubn
         ORDER BY CONVERT(int, jcustomer_code_seq)
         ]]>
@@ -27,6 +30,8 @@
         <![CDATA[
         select   jcustomer_code as jcustomer_code
         from JCODE3 WITH (NOLOCK)
+        WHERE jsayong_gubn <> '4'
+          AND LEN(jcustomer_code) > 0
         Group by jcustomer_code
         ORDER BY jcustomer_code
         ]]>
@@ -38,6 +43,8 @@
             select   jcustomer_code, jmodel_code
             from JCODE3 WITH (NOLOCK)
             WHERE isnull(jcustomer_code,'')   = #{jcustomer_code}
+              and jsayong_gubn <> '4'
+              AND LEN(jcustomer_code) > 0
             Group by jcustomer_code, jmodel_code
             ORDER BY jcustomer_code, jmodel_code
         ]]>
@@ -52,6 +59,7 @@
             from JCODE3 WITH (NOLOCK)
             WHERE isnull(jcustomer_code,'') Like concat('%',#{jcustomer_code},'%')
              and  isnull(jkey,'') Like concat('%',#{jpum},'%')
+              and jsayong_gubn <> '4'
             ORDER BY jcustomer_code, jmodel_code, jpum
         ]]>
     </select>
@@ -67,6 +75,7 @@
              and  isnull(jbonsa_code2,'') = #{jbonsa_code2}
              and  isnull(jcolor_code2,'') = #{jcolor_code2}
               and  isnull(jpb_gubn,'') = #{jpb_gubn}
+              and jsayong_gubn <> '4'
         ]]>
     </select>
 
@@ -76,6 +85,7 @@
                      jbonsa_code, jsayong_gubn, jpum, jgugek, jsize,   convert(int , isnull(jchgoga0,0))  AS jchgoga0, jbigo
             from JCODE3 WITH (NOLOCK)
             WHERE isnull(jkey,'') = #{jkey}
+              and jsayong_gubn <> '4'
         ]]>
     </select>
 
@@ -87,6 +97,7 @@
                  convert(integer, DBO.DF_TB_PCODE_JQTY(jkey,  #{frdate},  #{todate}) )   as jqty
         from JCODE3 WITH (NOLOCK)
         WHERE isnull(jmodel_code,'')   = #{jmodel_code} and isnull(jcustomer_code,'')   = #{jcustomer_code}
+          and jsayong_gubn <> '4'
         ORDER BY jmodel_code, jkey
         ]]>
     </select>
@@ -109,6 +120,7 @@
             from JCODE3 WITH (NOLOCK)
             LEFT OUTER JOIN jcifcode E WITH(NOLOCK) ON (JCODE3.jmodel_code = E.jcifcode)
             WHERE isnull(jpum,'') Like concat('%',#{jpum},'%') and isnull(delflag,'0')  = '0'
+              and jsayong_gubn <> '4'
             ORDER BY jkey
         ]]>
     </select>
@@ -124,6 +136,7 @@
           and isnull(delflag,'0')  = '0'
           and isnull(jpb_gubn,'') Like concat('%',#{jpb_gubn},'%')
           and isnull(jmodel_code,'') Like concat('%',#{jmodel_code},'%')
+          and jsayong_gubn <> '4'
         ORDER BY jpum
         ]]>
     </select>
@@ -180,6 +193,7 @@
         WHERE isnull(jpb_gubn,'') Like concat('%',#{jpb_gubn},'%')
          AND jsayong_gubn IN ( '1', '2','3')
          AND isnull(jbonsa_code,'') = #{jbonsa_code}
+          and jsayong_gubn <> '4'
          GROUP BY jbonsa_code, jbonsa_code_seq, jbonsa_code2, jbonsa_code_seq2, jmodel_code2, jpb_gubn
          ORDER  BY  CONVERT(int, jbonsa_code_seq),  CONVERT(int, jbonsa_code_seq2), jbonsa_code2, jmodel_code2, jpb_gubn
         ]]>
@@ -196,6 +210,7 @@
           and isnull(jbonsa_code2,'')   = #{jbonsa_code2}
           and isnull(jmodel_code2,'') Like concat('%',#{jmodel_code},'%')
           AND jsayong_gubn IN ( '1', '2','3')
+          and jsayong_gubn <> '4'
         ORDER  BY jmodel_code2, CONVERT(float, jcolor_code3), jkey
         ]]>
     </select>
