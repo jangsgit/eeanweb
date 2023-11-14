@@ -21,6 +21,7 @@
         WHERE isnull(jcustomer_code,'')   NOT IN ('X')
         AND isnull(jpb_gubn,'') Like concat('%',#{jpb_gubn},'%')
         and jsayong_gubn <> '4'
+        AND LEN(jcustomer_code) > 0
         Group by jcustomer_code, jcustomer_code_seq, jpb_gubn
         ORDER BY CONVERT(int, jcustomer_code_seq)
         ]]>
