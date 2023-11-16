@@ -487,6 +487,9 @@ aria-hidden="true">
             <div class="modal-footer">
                 <div class="row g-1">
                     <div class="col-auto">
+                        <span class='badge badge-soft-primary'><h6> 사용환경에따라 칼라감이 다를수 있습니다. </span> 
+                    </div> 
+                    <div class="col-auto">
                         <button class="badge-soft-primary dropdown-item rounded-1"
                             type="button"  id="imgmodal_btn" data-bs-dismiss="modal">Close</button>
                     </div> 
@@ -2120,7 +2123,7 @@ aria-hidden="true">
             let day = today.getDay();  // 요일
             if(month > 0 && month < 10) {month = "0" + month};
             if(date > 0 && date < 10) {date = "0" + date};
-            let ls_frday = year + '-' + month + '-01' 
+            let ls_frday = year + '-' + month + '-' + date 
             let ls_today = year + '-' + month + '-' + date 
             document.getElementById('frdate').value = ls_frday;
             document.getElementById('todate').value = ls_today;

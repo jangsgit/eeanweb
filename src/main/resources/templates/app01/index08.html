@@ -625,6 +625,7 @@
                     misnum: wtab02Dto[i]["misnum"],     
                     seq: wtab02Dto[i]["seq"],    
                     acorp: wtab02Dto[i]["acorp"],    
+                    pcode: wtab02Dto[i]["pcode"],    
                     pname: wtab02Dto[i]["pname"],    
                     psize: wtab02Dto[i]["psize"],    
                     pbonsa: wtab02Dto[i]["pbonsa"],    
@@ -656,8 +657,14 @@
             // cols.align = "center";
             // cols.width = 80; 
             // cols.cssClass= 'switch'
-            // wtab02Grid.columns.push(cols);  
-            var cols = new wijmo.grid.Column();  
+            // wtab02Grid.columns.push(cols);   
+            var cols = new wijmo.grid.Column(); 
+            cols.binding = 'pcode';
+            cols.header = '코드';
+            cols.align = "center";
+            cols.width = 180;  
+            wtab02Grid.columns.push(cols);  
+            cols = new wijmo.grid.Column();  
             cols.binding = 'pname';
             cols.header = '품목';
             cols.align = "left";
@@ -774,6 +781,7 @@
                     misnum: wtab04Dto[i]["misnum"],     
                     seq: wtab04Dto[i]["seq"],    
                     acorp: wtab04Dto[i]["acorp"],    
+                    pcode: wtab02Dto[i]["pcode"],    
                     pname: wtab04Dto[i]["pname"],    
                     psize: wtab04Dto[i]["psize"],    
                     pbonsa: wtab04Dto[i]["pbonsa"],    
@@ -803,7 +811,13 @@
                         'pname'
                     ]
                 })  
-            var cols = new wijmo.grid.Column();   
+            var cols = new wijmo.grid.Column(); 
+            cols.binding = 'pcode';
+            cols.header = '코드';
+            cols.align = "center";
+            cols.width = 180;  
+            wtab02Grid.columns.push(cols);  
+            cols = new wijmo.grid.Column();   
             cols.binding = 'pname';
             cols.header = '품목';
             cols.align = "left";
@@ -1092,7 +1106,7 @@
         let day = today.getDay();  // 요일
         if(month > 0 && month < 10) {month = "0" + month};
         if(date > 0 && date < 10) {date = "0" + date};
-        let ls_frday = year + '-' + month + '-01' 
+        let ls_frday = year + '-' + month + '-' + date 
         let ls_today = year + '-' + month + '-' + date 
         document.getElementById('frdate').value = ls_frday;
         document.getElementById('todate').value = ls_today; 

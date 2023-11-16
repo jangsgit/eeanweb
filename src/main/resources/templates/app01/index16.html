@@ -1113,10 +1113,14 @@
                         for( i=0; i < gridrow; i++){
                             //var ls_chk = wtab06Grid.rows[i]._ubv["2g"];
                             console.log(wtab06Grid.rows[i]._ubv);   
-                            if(wtab06Grid.rows[i]._ubv["2g"]){ 
-                                devnum01[iCnt] = wtab06Grid.rows[i]._ubv["2l"];  //예약관리번호
-                                devnum02[iCnt] = wtab06Grid.rows[i]._ubv["2m"];  //운송장번호
-                                devnum03[iCnt] = wtab06Grid.rows[i]._ubv["2o"];  //주문관리번호
+                            console.log(wtab06Grid.rows[i]);   
+                            if(wtab06Grid.rows[i]._ubv["2p"]){ 
+                                devnum01[iCnt] = wtab06Grid.rows[i]._ubv["2m"];  //예약관리번호
+                                devnum02[iCnt] = wtab06Grid.rows[i]._ubv["2n"];  //운송장번호
+                                devnum03[iCnt] = wtab06Grid.rows[i]._ubv["2p"];  //주문관리번호
+                                if(devnum02[iCnt].length > 15){
+                                    devnum02[iCnt] = substring(devnum02[iCnt], 0, 15);
+                                }
                                 //console.log(wtab06Grid.rows[i]._ubv["2g"]); 
                                 // devnum01[iCnt] = wtab06Grid.rows[i]._ubv["2g"];  
                                 // devnum02[iCnt] = wtab06Grid.rows[i]._ubv["2h"];  
@@ -2752,7 +2756,7 @@
         let day = today.getDay();  // 요일
         if(month > 0 && month < 10) {month = "0" + month};
         if(date > 0 && date < 10) {date = "0" + date};
-        let ls_frday = year + '-' + month + '-01' 
+        let ls_frday = year + '-' + month + '-' + date 
         let ls_today = year + '-' + month + '-' + date 
         document.getElementById('frdate').value = ls_frday;
         document.getElementById('todate').value = ls_today;
