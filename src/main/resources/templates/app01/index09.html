@@ -65,6 +65,7 @@
                                             <div class="col-2 col-sm-2">
                                                 <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">조회일자</span>
                                                     <input type="text"  class="form-control datetimepicker" id="frdate" autocomplete="off"  placeholder="Y-m-d"     >
+                                                    <input class="form-control form-control-sm" id="jpbgubn" type="hidden"  /> 
                                                 </div> 
                                             </div>   
                                             <div class="col-2 col-sm-2"> 
@@ -481,6 +482,7 @@
 
         function searchList_rtn(arg1){ 
             var ls_makflag = "1" ;
+            var ls_jpbgubn    = document.getElementById('jpbgubn').value;  
             switch(arg1){ 
                 case 'A': 
                     var ls_frdate = document.getElementById('frdate').value; 
@@ -509,7 +511,8 @@
                             "perid"      : ls_abonsadam1,  
                             "fixflag"    : ls_misfixflag,
                             "makflag"    : ls_makflag,
-                            "mflag"  : 'AA'   ,  
+                            "mflag"  : 'AA'   ,   
+                            "jpbgubn" :ls_jpbgubn  
                         }, 
                         async:false,
                         success:function(data){  
@@ -550,7 +553,8 @@
                             "perid"      : ls_abonsadam2,   
                             "fixflag"    : ls_wishfixflag, 
                             "makflag"    : ls_makflag,
-                            "mflag"  : 'AA'   ,  
+                            "mflag"  : 'AA'   ,   
+                            "jpbgubn" :ls_jpbgubn  
                         }, 
                         async:false,
                         success:function(data){   
@@ -876,7 +880,7 @@
 
         let year = today.getFullYear(); // 년도
         let month = today.getMonth() + 1;  // 월
-        let date = today.getDate();  // 날짜
+        let date = today.getDate();  // 날짜 
         let day = today.getDay();  // 요일
         if(month > 0 && month < 10) {month = "0" + month};
         if(date > 0 && date < 10) {date = "0" + date};
@@ -902,6 +906,14 @@
     }
 
     function fn_egov_init_date(){ 
+        const ls_perid = window.localStorage.getItem("perid");
+        if(ls_perid.substr(0,1) == "p"){
+            document.getElementById('jpbgubn').value = "P";
+        }else if(ls_perid.substr(0,1) == "b"){
+            document.getElementById('jpbgubn').value = "B";
+        }else{
+            document.getElementById('jpbgubn').value = "%";
+        }  
         // var $frdate = $('#frdate');
         // var $todate = $('#todate');
         // $frdate.datetimepicker({

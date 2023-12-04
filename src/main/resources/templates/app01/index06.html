@@ -79,6 +79,7 @@
                                                 <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">사원명</span> 
                                                     <input type="text" name="inname01" id="inname01" placeholder=""   > 
                                                     <input type="hidden" name="abonsadam1" id="abonsadam1" placeholder=""  >   
+                                                    <input class="form-control form-control-sm" id="jpbgubn" type="hidden"  /> 
                                                     
                                                 </div>
                                             </div>
@@ -726,6 +727,7 @@
 
         function searchList_rtn(arg1){ 
             var ls_makflag = "1" ;
+            var ls_jpbgubn = document.getElementById('jpbgubn').value; 
             switch(arg1){ 
                 case 'A': 
                     var ls_frdate = document.getElementById('frdate').value; 
@@ -760,7 +762,8 @@
                             "perid"      : ls_abonsadam1,  
                             "fixflag"    : ls_misfixflag,
                             "makflag"    : ls_makflag,
-                            "mflag"  : 'AA'   ,  
+                            "mflag"  : 'AA'   ,   
+                            "jpbgubn" :ls_jpbgubn 
                         }, 
                         async:false,
                         success:function(data){  
@@ -809,7 +812,8 @@
                             "perid"      : ls_abonsadam2,   
                             "fixflag"    : ls_wishfixflag, 
                             "makflag"    : ls_makflag,
-                            "mflag"  : 'AA'   ,  
+                            "mflag"  : 'AA'   ,   
+                            "jpbgubn" :ls_jpbgubn  
                         }, 
                         async:false,
                         success:function(data){   
@@ -853,7 +857,8 @@
                             "perid"      : ls_abonsadam3,  
                             "fixflag"    : ls_misfixflag,
                             "makflag"    : ls_makflag,
-                            "mflag"  : 'AA'   ,  
+                            "mflag"  : 'AA'   ,   
+                            "jpbgubn" :ls_jpbgubn   
                         }, 
                         async:false,
                         success:function(data){  
@@ -899,7 +904,8 @@
                             "perid"      : ls_abonsadam4,  
                             "fixflag"    : ls_misfixflag,
                             "makflag"    : ls_makflag,
-                            "mflag"  : 'AA'   ,  
+                            "mflag"  : 'AA'   ,   
+                            "jpbgubn" :ls_jpbgubn   
                         }, 
                         async:false,
                         success:function(data){  
@@ -1501,6 +1507,17 @@
     }
 
     function fn_egov_init_date(){
+        lsUserid = window.localStorage.getItem("userid")
+        if (lsUserid == "pvadmin"){
+            document.getElementById('jpbgubn').value = "P"; 
+            document.getElementById('bjpbgubn').value = "P";  
+        }else if(lsUserid == "bladmin"){
+            document.getElementById('jpbgubn').value = "B"; 
+            document.getElementById('bjpbgubn').value = "B";  
+        }else{
+            document.getElementById('jpbgubn').value = "%"; 
+            document.getElementById('bjpbgubn').value = "%"; 
+        }
          
 
     }

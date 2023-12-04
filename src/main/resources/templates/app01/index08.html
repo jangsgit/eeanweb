@@ -76,6 +76,7 @@
                                                 <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">품명</span> 
                                                     <input class="form-control form-control-sm" id="jpumnm" type="text"    autocomplete="off"  placeholder=""     >
                                                     <input class="form-control form-control-sm" id="jkey" type="hidden"  /> 
+                                                    <input class="form-control form-control-sm" id="jpbgubn" type="hidden"  /> 
                                                     
                                                 </div>
                                             </div>
@@ -494,6 +495,7 @@
 
         function searchList_rtn(arg1){ 
             var ls_makflag = "1" ;
+            var ls_jpbgubn    = document.getElementById('jpbgubn').value;  
             switch(arg1){ 
                 case 'A': 
                     var ls_frdate = document.getElementById('frdate').value; 
@@ -509,7 +511,7 @@
                     if(ls_todate == null || ls_todate.length == 0 || ls_todate == ""){ 
                         alert("조회일자를 등록하세요") 
                         document.getElementById("todate").focus(); 
-                        return ;               
+                        return ;                
                     }   
                     if(ls_misfixflag == "확정구분"){ 
                         ls_misfixflag = "%";
@@ -533,7 +535,8 @@
                             "perid"      : ls_abonsadam1,  
                             "fixflag"    : ls_misfixflag,
                             "makflag"    : ls_makflag,
-                            "mflag"  : 'AA'   ,  
+                            "mflag"  : 'AA'   ,   
+                            "jpbgubn" :ls_jpbgubn  
                         }, 
                         async:false,
                         success:function(data){  
@@ -585,7 +588,8 @@
                             "perid"      : ls_abonsadam2,   
                             "fixflag"    : ls_wishfixflag, 
                             "makflag"    : ls_makflag,
-                            "mflag"  : 'AA'   ,  
+                            "mflag"  : 'AA'   ,   
+                            "jpbgubn" :ls_jpbgubn   
                         }, 
                         async:false,
                         success:function(data){   
@@ -1128,6 +1132,14 @@
     }
 
     function fn_egov_init_date(){
+        const ls_perid = window.localStorage.getItem("perid");
+        if(ls_perid.substr(0,1) == "p"){
+            document.getElementById('jpbgubn').value = "P";
+        }else if(ls_perid.substr(0,1) == "b"){
+            document.getElementById('jpbgubn').value = "B";
+        }else{
+            document.getElementById('jpbgubn').value = "%";
+        }  
         // var $frdate = $('#frdate');
         // var $todate = $('#todate');
         // $frdate.datetimepicker({

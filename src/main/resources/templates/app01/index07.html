@@ -502,6 +502,7 @@
                     var ls_cifname   = document.getElementById('cifname').value; 
                     var ls_acode  = document.getElementById('acode').value; 
                     var ls_misfixflag = document.getElementById('misfixflag').value; 
+                    var ls_jpbgubn = document.getElementById('jpbgubn').value; 
                     if(ls_frdate == null || ls_frdate.length == 0 || ls_frdate == ""){ 
                         alert("조회일자를 등록하세요") 
                         document.getElementById("frdate").focus(); 
@@ -532,7 +533,8 @@
                             "perid"      : ls_abonsadam1,  
                             "fixflag"    : ls_misfixflag,
                             "makflag"    : ls_makflag,
-                            "mflag"  : 'AA'   ,  
+                            "mflag"  : 'AA'   ,   
+                            "jpbgubn" :ls_jpbgubn 
                         }, 
                         async:false,
                         success:function(data){  
@@ -553,6 +555,7 @@
                     var ls_bcifname   = document.getElementById('bcifname').value; 
                     var ls_acode  = document.getElementById('bacode').value; 
                     var ls_wishfixflag = document.getElementById('wishfixflag').value; 
+                    var ls_bjpbgubn = document.getElementById('bjpbgubn').value; 
                     if(ls_wishfixflag == "주문구분"){ 
                         ls_wishfixflag = "%";
                     }  
@@ -582,7 +585,8 @@
                             "perid"      : ls_abonsadam2,   
                             "fixflag"    : ls_wishfixflag, 
                             "makflag"    : ls_makflag,
-                            "mflag"  : 'AA'   ,  
+                            "mflag"  : 'AA'   ,   
+                            "jpbgubn"    :ls_bjpbgubn 
                         }, 
                         async:false,
                         success:function(data){   

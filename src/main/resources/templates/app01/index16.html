@@ -1112,8 +1112,12 @@
                     try{    
                         for( i=0; i < gridrow; i++){
                             //var ls_chk = wtab06Grid.rows[i]._ubv["2g"];
+                            console.log(wtab06Grid.rows[i]);
                             console.log(wtab06Grid.rows[i]._ubv);   
-                            console.log(wtab06Grid.rows[i]);   
+                        
+                            console.log(wtab06Grid.rows[i]._ubv[4]);  
+                            console.log(wtab06Grid.rows[i]._ubv[5]);  
+                            console.log(wtab06Grid.rows[i]._ubv[6]);  
                             if(wtab06Grid.rows[i]._ubv["2p"]){ 
                                 devnum01[iCnt] = wtab06Grid.rows[i]._ubv["2m"];  //예약관리번호
                                 devnum02[iCnt] = wtab06Grid.rows[i]._ubv["2n"];  //운송장번호
@@ -1745,7 +1749,8 @@
                         data: { 
                             "frdate"      : ls_frdate,
                             "todate"      : ls_todate,
-                            "acode"      : ls_bacode,   
+                            "acode"      : ls_bacode,     
+                            "jcode"    : '%',     
                             "perid"      : ls_abonsadam1,   
                             "fixflag"    : ls_wishfixflag,  
                             "misgubun"    : ls_misgubunflag, 

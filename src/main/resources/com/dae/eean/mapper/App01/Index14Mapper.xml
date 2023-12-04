@@ -209,18 +209,20 @@
     <select id="SelectDa024ListPeridGroup"  parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" resultType="com.dae.eean.DTO.App01.IndexDa024Dto">
         <![CDATA[ select count(*) as rownum,  sum(B.qty) as qty,  sum(B.samt) as samt, sum(B.addamt) as addamt,
                          sum(B.amt) as amt,   D.inname as pernm, C.perid
-           from  TB_DA024 B WITH (NOLOCK) , cif A WITH (NOLOCK) ,
+           from  TB_DA024 B WITH (NOLOCK) , cif A WITH (NOLOCK) , jcode3 E WITH (NOLOCK) ,
                  TB_DA023 C WITH (NOLOCK) Left outer JOIN INSA D ON C.perid = D.insano
            where B.misdate + B.misnum = C.misdate + C.misnum AND B.misgubun = C.misgubun
              AND isnull(C.delflag, '') <> 'Y'
              AND B.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
              AND C.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
+             AND B.pcode = E.jkey
             AND A.acorp1 + CAST(A.acorp2 as varchar) Like concat('%',#{cltcd},'%')
              AND isnull(C.perid,'')  Like concat('%',#{perid},'%')
              AND isnull(B.misgubun,'')  Like concat('%',#{misgubun},'%')
             AND B.misdate between #{frdate} and #{todate}
             AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
              AND Isnull(C.makflag, '0') Like concat('%',#{makflag},'%')
+             and isnull(E.jpb_gubn,'') Like concat('%',#{jpbgubn},'%')
              AND Len(ISNULL(D.inname,'')) > 0
             Group BY C.perid,  D.inname
             ORDER BY D.inname
@@ -233,18 +235,20 @@
         <![CDATA[ select B.cltcd as cltcd, Left(B.misdate,4) + '-' + substring(B.misdate, 5,2)+ '-' + substring(B.misdate, 7,2) as misdate, B.misnum, B.seq,
                       B.pcode, B.pname, B.psize,    B.punit,  B.qty,  B.uamt, B.samt, B.addamt,
                       B.amt, A.acorp, pbonsa, pmodel, pcolor , D.inname, B.misgubun, isnull(B.fixflag,'0') as fixflag, D.inname as pernm
-                  from  TB_DA024 B WITH (NOLOCK) , cif A WITH (NOLOCK) ,
+                  from  TB_DA024 B WITH (NOLOCK) , cif A WITH (NOLOCK) , jcode3 E WITH (NOLOCK) ,
                       TB_DA023 C WITH (NOLOCK) Left outer JOIN INSA D ON C.perid = D.insano
                   where B.misdate + B.misnum = C.misdate + C.misnum AND B.misgubun = C.misgubun
                     AND isnull(C.delflag, '') <> 'Y'
                     AND B.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
                     AND C.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
+                    AND B.pcode = E.jkey
                     AND A.acorp1 + CAST(A.acorp2 as varchar) Like concat('%',#{cltcd},'%')
                     AND isnull(C.perid,'')  Like concat('%',#{perid},'%')
                     AND isnull(B.misgubun,'')  Like concat('%',#{misgubun},'%')
                     AND B.misdate between #{frdate} and #{todate}
                     AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
                     AND Isnull(C.makflag, '0') Like concat('%',#{makflag},'%')
+                    and isnull(E.jpb_gubn,'') Like concat('%',#{jpbgubn},'%')
                     AND Len(ISNULL(D.inname,'')) > 0
                   ORDER BY D.inname,  B.misdate, B.misnum, B.seq
         ]]>
@@ -256,18 +260,20 @@
         <![CDATA[ select B.cltcd as cltcd, Left(B.misdate,4) + '-' + substring(B.misdate, 5,2)+ '-' + substring(B.misdate, 7,2) as misdate, B.misnum, B.seq,
                          B.pcode, B.pname, B.psize,    B.punit,  B.qty,  B.uamt, B.samt, B.addamt,
                          B.amt, A.acorp, pbonsa, pmodel, pcolor , D.inname, B.misgubun, isnull(B.fixflag,'0') as fixflag, D.inname as pernm
-           from  TB_DA024 B WITH (NOLOCK) , cif A WITH (NOLOCK) ,
+           from  TB_DA024 B WITH (NOLOCK) , cif A WITH (NOLOCK) , jcode3 E WITH (NOLOCK) ,
                  TB_DA023 C WITH (NOLOCK) Left outer JOIN INSA D ON C.perid = D.insano
            where B.misdate + B.misnum = C.misdate + C.misnum AND B.misgubun = C.misgubun
              AND isnull(C.delflag, '') <> 'Y'
              AND B.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
              AND C.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
+             AND B.pcode = E.jkey
             AND A.acorp1 + CAST(A.acorp2 as varchar) Like concat('%',#{cltcd},'%')
              AND isnull(C.perid,'')  Like concat('%',#{perid},'%')
              AND isnull(B.misgubun,'')  Like concat('%',#{misgubun},'%')
             AND B.misdate between #{frdate} and #{todate}
             AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
             AND Isnull(C.makflag, '0') Like concat('%',#{makflag},'%')
+             and isnull(E.jpb_gubn,'') Like concat('%',#{jpbgubn},'%')
             ORDER BY B.cltcd,  B.misdate, B.misnum, B.seq
         ]]>
 
@@ -278,18 +284,20 @@
         <![CDATA[ select B.cltcd as cltcd, count(*) as rownum,
                         sum(B.qty) as qty, sum(B.samt) as samt, sum(B.addamt) as addamt,
                       sum(B.amt) as amt, A.acorp, D.inname, B.misgubun, isnull(B.fixflag,'0') as fixflag, D.inname as pernm
-                  from  TB_DA024 B WITH (NOLOCK) , cif A WITH (NOLOCK) ,
+                  from  TB_DA024 B WITH (NOLOCK) , cif A WITH (NOLOCK) , jcode3 E WITH (NOLOCK) ,
                       TB_DA023 C WITH (NOLOCK) Left outer JOIN INSA D ON C.perid = D.insano
                   where B.misdate + B.misnum = C.misdate + C.misnum AND B.misgubun = C.misgubun
                     AND isnull(C.delflag, '') <> 'Y'
                     AND B.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
                     AND C.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
+                    AND B.pcode = E.jkey
                     AND A.acorp1 + CAST(A.acorp2 as varchar) Like concat('%',#{cltcd},'%')
                     AND isnull(C.perid,'')  Like concat('%',#{perid},'%')
                     AND isnull(B.misgubun,'')  Like concat('%',#{misgubun},'%')
                     AND B.misdate between #{frdate} and #{todate}
                     AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
                     AND Isnull(C.makflag, '0') Like concat('%',#{makflag},'%')
+                    and isnull(E.jpb_gubn,'') Like concat('%',#{jpbgubn},'%')
                     AND Len(ISNULL(D.inname,'')) > 0
                   Group by B.cltcd,  D.inname, B.misgubun  , A.acorp, B.fixflag
                   ORDER BY D.inname, sum(B.qty ) desc, A.acorp
@@ -301,18 +309,20 @@
         <![CDATA[ select B.cltcd as cltcd, Left(B.misdate,4) + '-' + substring(B.misdate, 5,2)+ '-' + substring(B.misdate, 7,2) as misdate, B.misnum, B.seq,
                          B.pcode, B.pname, B.psize,    B.punit,  B.qty,  B.uamt, B.samt, B.addamt,
                          B.amt, A.acorp, pbonsa, pmodel, pcolor , D.inname, B.misgubun, isnull(B.fixflag,'0') as fixflag, D.inname as pernm
-           from  TB_DA024 B WITH (NOLOCK) , cif A WITH (NOLOCK) ,
+           from  TB_DA024 B WITH (NOLOCK) , cif A WITH (NOLOCK) , jcode3 E WITH (NOLOCK) ,
                  TB_DA023 C WITH (NOLOCK) Left outer JOIN INSA D ON C.perid = D.insano
            where B.misdate + B.misnum = C.misdate + C.misnum AND B.misgubun = C.misgubun
              AND isnull(C.delflag, '') <> 'Y'
              AND B.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
              AND C.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
+             AND B.pcode = E.jkey
             AND A.acorp1 + CAST(A.acorp2 as varchar) Like concat('%',#{cltcd},'%')
              AND isnull(B.pcode,'')  Like concat('%',#{pcode},'%')
              AND isnull(B.misgubun,'')  Like concat('%',#{misgubun},'%')
             AND B.misdate between #{frdate} and #{todate}
             AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
             AND Isnull(C.makflag, '0') Like concat('%',#{makflag},'%')
+            and isnull(E.jpb_gubn,'') Like concat('%',#{jpbgubn},'%')
             ORDER BY B.pcode,  B.misdate, B.misnum, B.seq
         ]]>
 
@@ -321,18 +331,20 @@
     <select id="SelectDa024ListJpumGroup"  parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" resultType="com.dae.eean.DTO.App01.IndexDa024Dto">
         <![CDATA[ select    B.pcode, B.pname, B.psize, sum(B.qty) as qty, sum(B.samt) as samt, sum(B.addamt) as addamt,  count(*) as rownum,
                             sum(B.amt) as amt, A.acorp, D.inname, B.misgubun, isnull(B.fixflag,'0') as fixflag, D.inname as pernm
-                  from  TB_DA024 B WITH (NOLOCK) , cif A WITH (NOLOCK) ,
+                  from  TB_DA024 B WITH (NOLOCK) , cif A WITH (NOLOCK) , jcode3 E WITH (NOLOCK) ,
                       TB_DA023 C WITH (NOLOCK) Left outer JOIN INSA D ON C.perid = D.insano
                   where B.misdate + B.misnum = C.misdate + C.misnum AND B.misgubun = C.misgubun
                     AND isnull(C.delflag, '') <> 'Y'
                     AND B.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
                     AND C.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
+                    AND B.pcode = E.jkey
                     AND A.acorp1 + CAST(A.acorp2 as varchar) Like concat('%',#{cltcd},'%')
                     AND isnull(C.perid,'')  Like concat('%',#{perid},'%')
                     AND isnull(B.misgubun,'')  Like concat('%',#{misgubun},'%')
                     AND B.misdate between #{frdate} and #{todate}
                     AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
                     AND Isnull(C.makflag, '0') Like concat('%',#{makflag},'%')
+                    and isnull(E.jpb_gubn,'') Like concat('%',#{jpbgubn},'%')
                     AND Len(ISNULL(D.inname,'')) > 0
                   Group by B.cltcd, B.pcode, B.pname, B.psize, D.inname, B.misgubun  , A.acorp, B.fixflag
                   ORDER BY  D.inname, sum(B.qty ) desc
@@ -345,14 +357,17 @@
         <![CDATA[ select    count(*) as rownum, E.sidocd, E.sido, E.sidocd, B.pcode, B.pname, B.psize,
                             sum(B.qty) as qty, sum(B.samt) as samt, sum(B.addamt) as addamt, sum(B.amt) as amt
                   from  TB_DA024 B WITH (NOLOCK) , cif A WITH (NOLOCK)  Left outer JOIN cif_sido e ON LEFT(A.apost1,3) = E.postcd,
-                      TB_DA023 C WITH (NOLOCK) Left outer JOIN INSA D ON C.perid = D.insano
+                      TB_DA023 C WITH (NOLOCK) Left outer JOIN INSA D ON C.perid = D.insano,
+                      jcode3 F WITH (NOLOCK)
                   where B.misdate + B.misnum = C.misdate + C.misnum AND B.misgubun = C.misgubun
                     AND isnull(C.delflag, '') <> 'Y'
                     AND B.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
                     AND C.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
+                    AND B.pcode = F.jkey
                     AND B.misdate between #{frdate} and #{todate}
                     AND Isnull(C.makflag, '0') Like concat('%',#{makflag},'%')
-                  Group by B.pcode, B.pname, B.psize,  E.sido, E.sidocd
+                    and isnull(F.jpb_gubn,'') Like concat('%',#{jpbgubn},'%')
+                  Group by B.pcode, B.pname, B.psize,  E.sido, E.sidocd, F.jpb_gubn
                   ORDER BY E.sidocd, sum(B.qty ) desc, B.pname
         ]]>
 
@@ -362,15 +377,18 @@
         <![CDATA[ select    count(*) as rownum, E.sido,E.gugun, E.postcd, B.pcode, B.pname, B.psize,
                             sum(B.qty) as qty, sum(B.samt) as samt, sum(B.addamt) as addamt, sum(B.amt) as amt
                   from  TB_DA024 B WITH (NOLOCK) , cif A WITH (NOLOCK)  , cif_sido E WITH (NOLOCK),
-                      TB_DA023 C WITH (NOLOCK) Left outer JOIN INSA D ON C.perid = D.insano
+                      TB_DA023 C WITH (NOLOCK) Left outer JOIN INSA D ON C.perid = D.insano,
+                      jcode3 F WITH (NOLOCK)
                   where B.misdate + B.misnum = C.misdate + C.misnum AND B.misgubun = C.misgubun
                     AND LEFT(A.apost1,3) = E.postcd
                     AND isnull(C.delflag, '') <> 'Y'
                     AND B.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
                     AND C.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
+                    AND B.pcode = F.jkey
                     AND B.misdate between #{frdate} and #{todate}
                     AND Isnull(C.makflag, '0') Like concat('%',#{makflag},'%')
-                  Group by B.pcode, B.pname, B.psize,  E.sido, E.sidocd,E.gugun, E.postcd
+                    and isnull(F.jpb_gubn,'') Like concat('%',#{jpbgubn},'%')
+                  Group by B.pcode, B.pname, B.psize,  E.sido, E.sidocd,E.gugun, E.postcd, F.jpb_gubn
                   ORDER BY E.sidocd, E.postcd, sum(B.qty ) desc, B.pname
         ]]>
 
@@ -405,18 +423,20 @@
                          B.pcode, B.pname, B.psize,    B.punit,  B.qty,  B.uamt, B.samt, B.addamt,
                          B.amt, A.acorp, pbonsa, pmodel, pcolor, D.inname, B.misgubun, isnull(B.fixflag,'0') as fixflag, D.inname as pernm,
                          B.omisdate, B.omisnum, B.oseq
-           from  TB_DA026 B WITH (NOLOCK) , cif A WITH (NOLOCK) ,
+           from  TB_DA026 B WITH (NOLOCK) , cif A WITH (NOLOCK) , jcode3 E WITH (NOLOCK) ,
                  TB_DA025 C WITH (NOLOCK)  Left outer JOIN INSA D ON C.perid = D.insano
            where B.misdate + B.misnum = C.misdate + C.misnum AND B.misgubun = C.misgubun
              AND isnull(C.delflag, '') <> 'Y'
              AND B.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
              AND C.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
+             AND B.pcode = E.jkey
             AND A.acorp1 + CAST(A.acorp2 as varchar) Like concat('%',#{cltcd},'%')
              AND isnull(C.perid,'')  Like concat('%',#{perid},'%')
             AND B.misdate between #{frdate} and #{todate}
              AND isnull(B.misgubun,'')  Like concat('%',#{misgubun},'%')
              AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
              AND Isnull(C.makflag, '0') Like concat('%',#{makflag},'%')
+             and isnull(E.jpb_gubn,'') Like concat('%',#{jpbgubn},'%')
             ORDER BY B.cltcd,  B.misdate, B.misnum, B.seq
         ]]>
 
@@ -427,18 +447,21 @@
                          B.pcode, B.pname, B.psize,    B.punit,  B.qty,  B.uamt, B.samt, B.addamt,
                          B.amt, A.acorp, pbonsa, pmodel, pcolor, D.inname, B.misgubun, isnull(B.fixflag,'0') as fixflag, D.inname as pernm,
                          B.omisdate, B.omisnum, B.oseq
-           from  TB_DA026 B WITH (NOLOCK) , cif A WITH (NOLOCK) ,
+           from  TB_DA026 B WITH (NOLOCK) , cif A WITH (NOLOCK) , jcode3 E WITH (NOLOCK) ,
                  TB_DA025 C WITH (NOLOCK)  Left outer JOIN INSA D ON C.perid = D.insano
            where B.misdate + B.misnum = C.misdate + C.misnum AND B.misgubun = C.misgubun
              AND isnull(C.delflag, '') <> 'Y'
              AND B.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
              AND C.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
+             AND B.pcode = E.jkey
             AND A.acorp1 + CAST(A.acorp2 as varchar) Like concat('%',#{cltcd},'%')
              AND isnull(B.pcode,'')  Like concat('%',#{pcode},'%')
             AND B.misdate between #{frdate} and #{todate}
              AND isnull(B.misgubun,'')  Like concat('%',#{misgubun},'%')
              AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
              AND Isnull(C.makflag, '0') Like concat('%',#{makflag},'%')
+             and isnull(E.jpb_gubn,'') Like concat('%',#{jpbgubn},'%')
+
             ORDER BY B.pcode,  B.misdate, B.misnum, B.seq
         ]]>
 

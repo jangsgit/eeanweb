@@ -110,7 +110,7 @@
                                                 <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" type="button" onclick="save_btn()">주문등록
                                                 </button>
                                             </div>  -->
-                                        </div> 
+                                        </div>  
                                         
                                         <div class="table-responsive">
                                             <table class="table table-borderless" style="height: 100px; cellpadding:0px" >
@@ -486,14 +486,15 @@
             </div>
         </div> 
     </div>   -->
-<!---------------------------------------------------------------------------------------> 
-
-
-
-
-
-
-
+<!--------------------------------------------------------------------------------------->  
+<!-----------------------  SAVE TOAST DIV  ------------------------------------>  
+<!--------------------------------------------------------------------------------------->  
+<div class="alert alert-success border-2 d-flex align-items-center" role="alert" id="tost_message">
+    <div class="bg-success me-3 icon-item"><span class="fas fa-check-circle text-white fs-3"></span></div>
+    <p class="mb-0 flex-1">저장되었습니다.</p>
+    <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
+</div> 
+<!--------------------------------------------------------------------------------------->  
     <script type="text/javascript" th:inline="javascript">
          var view_p01tab01page;
          var view_p01tab02page;
@@ -1085,6 +1086,8 @@
             }                
         }
         function savewishchk_rtn(){
+            
+
             if(chkTabB.length == 0){
                 alert("예약할 자료를 선택하세요")
                 return 
@@ -1225,6 +1228,15 @@
             }           
         }
 
+        //토스트 메시지 노출-사라짐 함수 작성
+        function tostOn(){ 
+            let tostMessage = document.getElementById('tost_message');
+            tostMessage.classList.add('active');
+            setTimeout(function(){
+                tostMessage.classList.remove('active');
+            },5000);
+        }
+
         function save_btn(arg1, arg2, arg3 ){
             var words = arg3.split('(');
             var jqty = ""; 
@@ -1246,14 +1258,14 @@
             var ls_jcode  =  [];        
             var ll_jqty    =  []; 
             var llCount = 0;         
-
+ 
      
             switch(ls_tab){
                 case 'A': 
                     if(Number(jqty) == 0){
-                        if (!confirm("코드상세: [" + arg1 + "]  모델라인: " + arg2 + " 컬러 : " + arg3 + " 장바구니에 담으시겠습니까?")) { 
-                            return false; 
-                        }   
+                        // if (!confirm("코드상세: [" + arg1 + "]  모델라인: " + arg2 + " 컬러 : " + arg3 + " 장바구니에 담으시겠습니까?")) { 
+                        //     return false; 
+                        // }   
                         if(ls_ipdate == null || ls_ipdate.length == 0 || ls_ipdate == ""){ 
                             alert("등록일자를 등록하세요") 
                             document.getElementById("ipdate").focus(); 
@@ -1282,7 +1294,8 @@
                             async:false,
                             success:function(data){   
                                 if(data == "success"){
-                                    alert("저장되었습니다.") 
+                                    tostOn()
+                                   // alert("저장되었습니다.") 
                                     return true;
                                     // searchList_rtn(ls_tab);  
                                     // clear_rtn(ls_tab);        
@@ -1300,9 +1313,9 @@
 
                         })  
                     }else{
-                        if (!confirm("코드상세: [" + arg1 + "]  모델라인: " + arg2 + " 컬러 : " + arg3 + " 장바구니에 담으시겠습니까?")) { 
-                            return false; 
-                        }   
+                        // if (!confirm("코드상세: [" + arg1 + "]  모델라인: " + arg2 + " 컬러 : " + arg3 + " 장바구니에 담으시겠습니까?")) { 
+                        //     return false; 
+                        // }   
                         if(ls_ipdate == null || ls_ipdate.length == 0 || ls_ipdate == ""){ 
                             alert("등록일자를 등록하세요") 
                             document.getElementById("ipdate").focus(); 
@@ -1330,7 +1343,8 @@
                             async:false,
                             success:function(data){   
                                 if(data == "success"){
-                                    alert("저장되었습니다.") 
+                                    tostOn()
+                                    //alert("저장되었습니다.") 
                                     return true;
                                     // searchList_rtn(ls_tab);  
                                     // clear_rtn(ls_tab);        
@@ -1610,7 +1624,8 @@
                         data: { 
                             "frdate"      : ls_frdate,
                             "todate"      : ls_todate,
-                            "acode"      : ls_bacode,   
+                            "acode"      : ls_bacode,     
+                            "jcode"       : '%',
                             "fixflag"    : '%',
                             "misgubun"    : ls_misgubunflag, 
                             "perid"      : ls_abonsadam1,    

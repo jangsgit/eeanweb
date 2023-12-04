@@ -504,6 +504,15 @@ aria-hidden="true">
 
 <!--------------------------------------------------------------------------------------->     
 
+<!--------------------------------------------------------------------------------------->  
+<!-----------------------  SAVE TOAST DIV  ------------------------------------>  
+<!--------------------------------------------------------------------------------------->  
+<div class="alert alert-success border-2 d-flex align-items-center" role="alert" id="tost_message">
+    <div class="bg-success me-3 icon-item"><span class="fas fa-check-circle text-white fs-3"></span></div>
+    <p class="mb-0 flex-1">저장되었습니다.</p>
+    <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
+</div> 
+<!--------------------------------------------------------------------------------------->  
 
 
 
@@ -1207,7 +1216,8 @@ aria-hidden="true">
                         data: { 
                             "frdate"      : ls_frdate,
                             "todate"      : ls_todate,
-                            "acode"      : ls_bacode,   
+                            "acode"      : ls_bacode,     
+                            "jcode"    : '%',     
                             "fixflag"    : '%',
                             "perid"      : ls_abonsadam1, 
                             "makflag"    : ls_makflag,
@@ -1888,6 +1898,17 @@ aria-hidden="true">
                     })                  
             }           
         }
+
+        
+        //토스트 메시지 노출-사라짐 함수 작성
+        function tostOn(){ 
+            let tostMessage = document.getElementById('tost_message');
+            tostMessage.classList.add('active');
+            setTimeout(function(){
+                tostMessage.classList.remove('active');
+            },5000);
+        }
+
         function save_btn(arg1, arg2, arg3, arg4){  
             var ls_ipdate = document.getElementById('ipdate').value;          
             var ls_acode   = document.getElementById('acode').value;          
@@ -1949,14 +1970,15 @@ aria-hidden="true">
                             "jqty"  : arg4     ,      
                             "misdate"  : ls_misdate     ,      
                             "misnum"  : ls_misnum     ,      
-                            "seq"  : ls_seq     ,       
+                            "seq"  : ls_seq     ,        
                             "mflag"  : 'CC'   ,      
                             "ordercd"  : 'CC'   , 
                         }, 
                         async:false,
                         success:function(data){   
-                            if(data == "success"){
-                                alert("저장되었습니다.") 
+                            if(data == "success"){                                
+                                tostOn()
+                                //alert("저장되었습니다.") 
                                 searchList_rtn(ls_tabchk) 
                                 return true;
                                 // searchList_rtn(ls_tab);  
@@ -2057,7 +2079,8 @@ aria-hidden="true">
                         async:false,
                         success:function(data){   
                             if(data == "success"){
-                                alert("저장되었습니다.") 
+                                tostOn()
+                                //alert("저장되었습니다.") 
                                 searchList_rtn(ls_tabchk) 
                                 return true;
                                 // searchList_rtn(ls_tab);  

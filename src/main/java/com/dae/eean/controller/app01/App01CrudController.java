@@ -332,6 +332,8 @@ public class App01CrudController {
             index03Dto_S.setFrdate(frdate);
             index03Dto_S.setTodate(todate);
             index03Dto_S.setJpb_gubn(jpbgubn);
+
+            log.info("jpbgubn Exception 1111=====>" + jpbgubn);
             index03List = service03.GetJpumSubul02(index03Dto_S);
             model.addAttribute("index03List",index03List);
 
@@ -366,6 +368,9 @@ public class App01CrudController {
             index03Dto_S.setFrdate(frdate);
             index03Dto_S.setTodate(todate);
             index03Dto_S.setJpb_gubn(jpbgubn);
+
+            log.info("jpbgubn Exception 2222=====>" + jpbgubn);
+
             index03List = service03.GetJpumSubul02(index03Dto_S);
             model.addAttribute("index03List",index03List);
 
@@ -1751,6 +1756,7 @@ public class App01CrudController {
                                   @RequestParam("perid") String perid,
                                   @RequestParam("mflag") String mflag,
                                   @RequestParam("makflag") String makflag,
+                                  @RequestParam("jpbgubn") String jpbgubn,
                                   Model model, HttpServletRequest request) throws Exception{
         CommDto.setMenuTitle("주문등록");
         CommDto.setMenuUrl("주문등록>주문현황");
@@ -1792,6 +1798,7 @@ public class App01CrudController {
             }
             indexDa024Dto.setPerid(perid);
             indexDa024Dto.setMisgubun(mflag);
+            indexDa024Dto.setJpbgubn(jpbgubn);
 //            log.info("frdate =====>" + frdate);
 //            log.info("fixflag =====>" + fixflag);
 //            log.info("mflag =====>" + mflag);
@@ -1815,6 +1822,7 @@ public class App01CrudController {
                                        @RequestParam("perid") String perid,
                                        @RequestParam("mflag") String mflag,
                                        @RequestParam("makflag") String makflag,
+                                       @RequestParam("jpbgubn") String jpbgubn,
                                        Model model, HttpServletRequest request) throws Exception{
         CommDto.setMenuTitle("주문등록");
         CommDto.setMenuUrl("주문등록>주문현황");
@@ -1856,6 +1864,7 @@ public class App01CrudController {
             }
             indexDa024Dto.setPerid(perid);
             indexDa024Dto.setMisgubun(mflag);
+            indexDa024Dto.setJpbgubn(jpbgubn);
 //            log.info("frdate =====>" + frdate);
 //            log.info("fixflag =====>" + fixflag);
 //            log.info("mflag =====>" + mflag);
@@ -1880,6 +1889,7 @@ public class App01CrudController {
                                        @RequestParam("perid") String perid,
                                        @RequestParam("mflag") String mflag,
                                        @RequestParam("makflag") String makflag,
+                                       @RequestParam("jpbgubn") String jpbgubn,
                                        Model model, HttpServletRequest request) throws Exception{
         CommDto.setMenuTitle("주문등록");
         CommDto.setMenuUrl("주문등록>주문현황");
@@ -1921,6 +1931,7 @@ public class App01CrudController {
             }
             indexDa024Dto.setPerid(perid);
             indexDa024Dto.setMisgubun(mflag);
+            indexDa024Dto.setJpbgubn(jpbgubn);
             indexDa024ListDto = service14.SelectDa024ListCltcd(indexDa024Dto);
             model.addAttribute("indexDa024ListDto",indexDa024ListDto);
 
@@ -1941,6 +1952,7 @@ public class App01CrudController {
                                        @RequestParam("perid") String perid,
                                        @RequestParam("mflag") String mflag,
                                        @RequestParam("makflag") String makflag,
+                                       @RequestParam("jpbgubn") String jpbgubn,
                                        Model model, HttpServletRequest request) throws Exception{
         CommDto.setMenuTitle("주문등록");
         CommDto.setMenuUrl("주문등록>주문현황");
@@ -1982,6 +1994,7 @@ public class App01CrudController {
             }
             indexDa024Dto.setPerid(perid);
             indexDa024Dto.setMisgubun(mflag);
+            indexDa024Dto.setJpbgubn(jpbgubn);
             indexDa024ListDto = service14.SelectDa024ListCltcdGroup(indexDa024Dto);
             model.addAttribute("indexDa024ListDto",indexDa024ListDto);
 
@@ -2003,6 +2016,7 @@ public class App01CrudController {
                                        @RequestParam("perid") String perid,
                                        @RequestParam("mflag") String mflag,
                                        @RequestParam("makflag") String makflag,
+                                      @RequestParam("jpbgubn") String jpbgubn,
                                        Model model, HttpServletRequest request) throws Exception{
         CommDto.setMenuTitle("주문등록");
         CommDto.setMenuUrl("주문등록>주문현황");
@@ -2045,6 +2059,8 @@ public class App01CrudController {
             indexDa024Dto.setPerid(perid);
             indexDa024Dto.setMisgubun(mflag);
             indexDa024Dto.setPcode(jkey);
+            indexDa024Dto.setJpbgubn(jpbgubn);
+            log.info("jpbgubn 111=====>" + jpbgubn);
             indexDa024ListDto = service14.SelectDa024ListJpum(indexDa024Dto);
             model.addAttribute("indexDa024ListDto",indexDa024ListDto);
 
@@ -2066,6 +2082,7 @@ public class App01CrudController {
                                       @RequestParam("perid") String perid,
                                       @RequestParam("mflag") String mflag,
                                       @RequestParam("makflag") String makflag,
+                                      @RequestParam("jpbgubn") String jpbgubn,
                                       Model model, HttpServletRequest request) throws Exception{
         CommDto.setMenuTitle("주문등록");
         CommDto.setMenuUrl("주문등록>주문현황");
@@ -2108,6 +2125,7 @@ public class App01CrudController {
             indexDa024Dto.setPerid(perid);
             indexDa024Dto.setMisgubun(mflag);
             indexDa024Dto.setPcode(jkey);
+            indexDa024Dto.setJpbgubn(jpbgubn);
             indexDa024ListDto = service14.SelectDa024ListJpumGroup(indexDa024Dto);
             model.addAttribute("indexDa024ListDto",indexDa024ListDto);
 
@@ -2127,6 +2145,7 @@ public class App01CrudController {
                                            @RequestParam("perid") String perid,
                                            @RequestParam("mflag") String mflag,
                                            @RequestParam("makflag") String makflag,
+                                           @RequestParam("jpbgubn") String jpbgubn,
                                            Model model, HttpServletRequest request) throws Exception{
         CommDto.setMenuTitle("주문등록");
         CommDto.setMenuUrl("주문등록>지역별통계");
@@ -2168,6 +2187,7 @@ public class App01CrudController {
             }
             indexDa024Dto.setPerid(perid);
             indexDa024Dto.setMisgubun(mflag);
+            indexDa024Dto.setJpbgubn(jpbgubn);
             indexDa024ListDto = service14.SelectDa024ListJpumArea(indexDa024Dto);
             model.addAttribute("indexDa024ListDto",indexDa024ListDto);
 
@@ -2187,6 +2207,7 @@ public class App01CrudController {
                                       @RequestParam("perid") String perid,
                                       @RequestParam("mflag") String mflag,
                                       @RequestParam("makflag") String makflag,
+                                       @RequestParam("jpbgubn") String jpbgubn,
                                       Model model, HttpServletRequest request) throws Exception{
         CommDto.setMenuTitle("주문등록");
         CommDto.setMenuUrl("주문등록>지역별통계");
@@ -2228,6 +2249,7 @@ public class App01CrudController {
             }
             indexDa024Dto.setPerid(perid);
             indexDa024Dto.setMisgubun(mflag);
+            indexDa024Dto.setJpbgubn(jpbgubn);
             indexDa024ListDto = service14.SelectDa024ListJpumAreaGugun(indexDa024Dto);
             model.addAttribute("indexDa024ListDto",indexDa024ListDto);
 
@@ -2378,6 +2400,7 @@ public class App01CrudController {
                                            @RequestParam("perid") String perid,
                                            @RequestParam("mflag") String mflag,
                                            @RequestParam("makflag") String makflag,
+                                           @RequestParam("jpbgubn") String jpbgubn,
                                            Model model, HttpServletRequest request) throws Exception{
         CommDto.setMenuTitle("주문등록");
         CommDto.setMenuUrl("주문등록>예약현황");
@@ -2418,6 +2441,7 @@ public class App01CrudController {
                     break;
             }
             indexDa024Dto.setMisgubun(mflag);
+            indexDa024Dto.setJpbgubn(jpbgubn);
             indexDa024ListDto = service14.SelectDa026ListCltcd(indexDa024Dto);
             model.addAttribute("indexDa024ListDto",indexDa024ListDto);
 
@@ -2439,6 +2463,7 @@ public class App01CrudController {
                                            @RequestParam("perid") String perid,
                                            @RequestParam("mflag") String mflag,
                                            @RequestParam("makflag") String makflag,
+                                          @RequestParam("jpbgubn") String jpbgubn,
                                            Model model, HttpServletRequest request) throws Exception{
         CommDto.setMenuTitle("주문등록");
         CommDto.setMenuUrl("주문등록>예약현황");
@@ -2480,6 +2505,8 @@ public class App01CrudController {
                     break;
             }
             indexDa024Dto.setMisgubun(mflag);
+            indexDa024Dto.setJpbgubn(jpbgubn);
+            log.info("jpbgubn 222=====>" + jpbgubn);
             indexDa024ListDto = service14.SelectDa026ListJpum(indexDa024Dto);
             model.addAttribute("indexDa024ListDto",indexDa024ListDto);
 
