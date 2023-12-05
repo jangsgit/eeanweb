@@ -698,6 +698,7 @@
         function wcustcodeChk_a(arg){   
             var ls_tab = document.getElementById('tabvalue').value;
             var ls_todate = document.getElementById('todate').value; 
+            var ls_jpbgubn = document.getElementById('jpbgubn').value; 
             // console.log(arg)
             // console.log(ls_todate)
             $.ajax({
@@ -707,6 +708,7 @@
                     "searchtxt" : '%',
                     "jcustcd" :arg, 
                     "todate" :ls_todate, 
+                   "jpbgubn" :ls_jpbgubn,  
                 }, 
                 async:false,
                 success:function(data){  
