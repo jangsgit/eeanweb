@@ -2272,6 +2272,7 @@ public class App01CrudController {
                                   @RequestParam("misgubun") String misgubun,
                                   @RequestParam("makflag") String makflag,
                                   @RequestParam("mflag") String mflag,
+                                  @RequestParam("jpbgubn") String jpbgubn,
                                   Model model, HttpServletRequest request) throws Exception{
         CommDto.setMenuTitle("주문등록");
         CommDto.setMenuUrl("주문등록>예약현황");
@@ -2295,6 +2296,7 @@ public class App01CrudController {
             indexDa024Dto.setFixflag(fixflag);
             indexDa024Dto.setMakflag(makflag);
             indexDa024Dto.setPcode(jcode);
+            indexDa024Dto.setJpbgubn(jpbgubn);
             if(perid == null || perid.equals("")){
                 perid = "%";
             }
@@ -2316,6 +2318,7 @@ public class App01CrudController {
                     break;
             }
             //indexDa024Dto.setMisgubun(mflag);
+            log.info("jpbgubn Exception =====>" + indexDa024Dto.getJpbgubn());
             if(acode.equals("%")){
                 indexDa024ListDto = service14.SelectDa026ListLike(indexDa024Dto);
             }else{

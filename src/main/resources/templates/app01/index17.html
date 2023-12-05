@@ -483,8 +483,9 @@
                     var ls_bacode   = document.getElementById('bacode').value;          
                     var ls_bcifname   = document.getElementById('bcifname').value; 
                     var ls_jkey   = document.getElementById('jkey').value;    
-                    var ls_jpumnm   = document.getElementById('jpumnm').value;    
-                    
+                    var ls_jpumnm   = document.getElementById('jpumnm').value;  
+                    var ls_jpbgubn    = document.getElementById('bjpbgubn').value;   
+                    console.log(ls_jpbgubn)
                     var ls_misgubunflag = document.getElementById('misgubun').value; 
                      
                     if(ls_misgubunflag == "주문구분"){ 
@@ -502,7 +503,7 @@
                     }   
                     if(ls_bcifname == null || ls_bcifname.length == 0 || ls_bcifname == ""){  
                         ls_bacode = "%";
-                    }   
+                    }    
                     if(ls_jpumnm == null || ls_jpumnm.length == 0 || ls_jpumnm == ""){  
                         ls_jkey = "%";
                     }   
@@ -523,6 +524,7 @@
                             "misgubun"    : ls_misgubunflag, 
                             "makflag"    : ls_makflag, 
                             "mflag"  : 'AA'   ,  
+                            "jpbgubn" :ls_jpbgubn,  
                         }, 
                         async:false,
                         success:function(data){   
