@@ -9,7 +9,8 @@
                          B.jmodel_code as jmodel_code, B.jcolor_code as jcolor_code, B.jcustomer_code as jcustomer_code
            from JEGO_JEPMJANAK A WITH (NOLOCK) , JCODE3 B WITH (NOLOCK)
            where A.jepm = B.jkey
-           AND A.key1 = #{key1}   ]]>
+           AND A.key1 = #{key1}
+           AND isnull(B.jpb_gubn,'') Like concat('%',#{jpb_gubun},'%')    ]]>
     </select>
 
 

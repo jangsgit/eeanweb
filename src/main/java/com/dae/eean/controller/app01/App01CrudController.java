@@ -756,6 +756,7 @@ public class App01CrudController {
     //재고실사 리스트
     @GetMapping(value="/index04/list")
     public Object App04List_index(@RequestParam("ipdate") String searchtxt,
+                                  @RequestParam("jpbgubn") String jpbgubn,
                                   Model model, HttpServletRequest request) throws Exception{
         CommDto.setMenuTitle("거래처등록");
         CommDto.setMenuUrl("기준정보>재고등록");
@@ -771,6 +772,7 @@ public class App01CrudController {
             searchtxt = year + month + day ;
             log.debug("searchtxt =====>" + searchtxt );
             index04Dto.setKey1(searchtxt);
+            index04Dto.setJpb_gubun(jpbgubn);
             index04List = service04.SelectJegoIpgo(index04Dto);
             model.addAttribute("index04List",index04List);
 
@@ -816,6 +818,7 @@ public class App01CrudController {
     public Object App04JaegoCustList_index(@RequestParam("searchtxt") String searchtxt,
                                            @RequestParam("jcustcd") String jcustcd,
                                            @RequestParam("todate") String todate,
+                                           @RequestParam("jpbgubn") String jpbgubn,
                                        Model model, HttpServletRequest request) throws Exception{
         CommDto.setMenuTitle("거래처등록");
         CommDto.setMenuUrl("기준정보>재고현항");
@@ -831,18 +834,16 @@ public class App01CrudController {
             if(jcustcd == null || jcustcd.equals("")){
                 jcustcd = "%";
             }
-            log.debug("searchtxt =====>" + searchtxt );
 
             index03Dto.setJcustomer_code(jcustcd);
             index03Dto.setJpum(searchtxt);
             index03Dto.setFrdate("20000101");
+            index03Dto.setJpb_gubn(jpbgubn);
             String year = todate.substring(0,4) ;
             String month = todate.substring(5,7) ;
             String day   = todate.substring(8,10) ;
             todate = year + month + day ;
             index03Dto.setTodate(todate);
-            log.debug("searchtxt =====>" + searchtxt );
-            log.debug("todate =====>" + todate );
             index03List = service03.GetJpumCustJaegoList(index03Dto);
             model.addAttribute("index03List",index03List);
 

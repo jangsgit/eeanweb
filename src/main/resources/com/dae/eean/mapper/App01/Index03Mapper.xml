@@ -61,6 +61,7 @@
             WHERE isnull(jcustomer_code,'') Like concat('%',#{jcustomer_code},'%')
              and  isnull(jkey,'') Like concat('%',#{jpum},'%')
               and jsayong_gubn <> '4'
+              and isnull(jpb_gubn,'') Like concat('%',#{jpb_gubn},'%')
             ORDER BY jcustomer_code, jmodel_code, jpum
         ]]>
     </select>

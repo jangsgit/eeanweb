@@ -73,6 +73,7 @@
                                             <div class="col-2 col-sm-2">
                                                 <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">입고일자</span>
                                                     <input type="text"  class="form-control datetimepicker" id="frdate" autocomplete="off"  placeholder="Y-m-d"     >
+                                                    <input class="form-control form-control-sm" id="jpbgubn" type="hidden"  /> 
                                                 </div>
                                             </div>
                                             <div class="col-2 col-sm-1">  
@@ -943,7 +944,8 @@
             searchList_rtn(ls_tab);
         })   
 
-        function searchList_rtn(arg1){ 
+        function searchList_rtn(arg1){  
+            var ls_jpbgubn    = document.getElementById('jpbgubn').value;
             switch(arg1){
                 case 'A': 
                     break;
@@ -958,7 +960,8 @@
                         url: '/app01m/index04/list',  
                         type:"POST",
                         data: { 
-                            "ipdate"      : ls_ipdate,  
+                            "ipdate"      : ls_ipdate,   
+                            "jpbgubn" :ls_jpbgubn,  
                         }, 
                         async:false,
                         success:function(data){ 
@@ -986,7 +989,8 @@
                         data: { 
                             "searchtxt" : ls_jkey,
                             "jcustcd" :'%', 
-                            "todate" :ls_todate, 
+                            "todate" :ls_todate,  
+                            "jpbgubn" :ls_jpbgubn,   
                         }, 
                         async:false,
                         success:function(data){   
@@ -1412,6 +1416,20 @@
         }
 
         function fn_egov_init_date(){
+            lsUserid = window.localStorage.getItem("userid")
+            //console.log('lsUserid==>' + lsUserid)
+            if(lsUserid == null || lsUserid.length == 0 || lsUserid == ""){ 
+                alert("로그인을 다시하세요") 
+                location.href = "/" ;
+                return ;               
+            }   
+            if (lsUserid == "pvadmin"){
+                document.getElementById('jpbgubn').value = "P"; 
+            }else if(lsUserid == "bladmin"){
+                document.getElementById('jpbgubn').value = "B";  
+            }else{
+                document.getElementById('jpbgubn').value = "%"; 
+            }
             // var $frdate = $('#frdate');
             // var $todate = $('#todate');
             // $frdate.datetimepicker({
