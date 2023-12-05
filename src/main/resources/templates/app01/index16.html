@@ -1111,17 +1111,14 @@
                     var iCnt = 0;
                     try{    
                         for( i=0; i < gridrow; i++){
-                            //var ls_chk = wtab06Grid.rows[i]._ubv["2g"];
-                            console.log(wtab06Grid.rows[i]);
-                            console.log(wtab06Grid.rows[i]._ubv);   
-                        
-                            console.log(wtab06Grid.rows[i]._ubv[4]);  
-                            console.log(wtab06Grid.rows[i]._ubv[5]);  
-                            console.log(wtab06Grid.rows[i]._ubv[6]);  
-                            if(wtab06Grid.rows[i]._ubv["2p"]){ 
-                                devnum01[iCnt] = wtab06Grid.rows[i]._ubv["2m"];  //예약관리번호
-                                devnum02[iCnt] = wtab06Grid.rows[i]._ubv["2n"];  //운송장번호
-                                devnum03[iCnt] = wtab06Grid.rows[i]._ubv["2p"];  //주문관리번호
+                            var ls_chk = wtab06Grid.getCellData(i, 6, false) //wtab06Grid.rows[i]._ubv["2g"]; 
+                            if(ls_chk.length > 0){ 
+                                // devnum01[iCnt] = wtab06Grid.rows[i]._ubv["2m"];  //예약관리번호
+                                // devnum02[iCnt] = wtab06Grid.rows[i]._ubv["2n"];  //운송장번호
+                                // devnum03[iCnt] = wtab06Grid.rows[i]._ubv["2p"];  //주문관리번호
+                                devnum01[iCnt] = wtab06Grid.getCellData(i, 5, false);   //예약관리번호
+                                devnum02[iCnt] = wtab06Grid.getCellData(i, 6, false);   //운송장번호 
+                                devnum03[iCnt] = wtab06Grid.getCellData(i, 8, false);   //주문관리번호
                                 if(devnum02[iCnt].length > 15){
                                     devnum02[iCnt] = substring(devnum02[iCnt], 0, 15);
                                 }
