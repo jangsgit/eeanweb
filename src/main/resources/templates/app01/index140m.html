@@ -1250,6 +1250,28 @@
             } 
 
         }
+
+        function cell_color(){
+            wtab01Grid.refresh()
+            wtab01Grid.formatItem.addHandler(function(s,e){
+                if(true){
+                    if(e.panel === s.cells){ // 셀 영역이고
+                         if(s.columns[e.col].binding!=="jbonsa_code2" && s.columns[e.col].binding!=="jmodel_code"){
+                            var val = s.getCellData(e.row,e.col); 
+                            if(val.substring(0,1) == '△'){
+                                wijmo.addClass(e.cell, 'gold-cell'); //배경색 지정을 위한 클래스 추가
+                            }else{
+                                wijmo.addClass(e.cell, 'gray-cell'); //배경색 지정을 위한 클래스 추가
+                            } 
+                         }
+
+                    }
+                }
+
+            });            
+        }
+
+
         //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
                                      
         // tab01 검색   
@@ -1404,6 +1426,7 @@
                     async:false,
                     success:function(data){  
                         tabA_grid(data);
+                        cell_color()
                     },error:function(e){
                         console.log("error");                            
                     }
@@ -2196,6 +2219,9 @@
                             // let ls_jbonsa = wtab01Grid.getCellData(ht.row,0);
                             let ls_jbonsa2 = wtab01Grid.getCellData(ht.row,0);
                             let ls_jmodel = wtab01Grid.getCellData(ht.row,1); 
+                            if(ls_color.substring(0,1) == '△'){
+                                ls_color = ls_color.substring(1,ls_color.length);
+                            }
             
                             if(ls_color == null || ls_color.length == 0 || ls_color == ""){  
                                 return ;               
@@ -2391,7 +2417,7 @@
                                             let  ls_jeky         = wtab01Dto_S[p]["jkey"]; 
                                             let  ls_jqty         = wtab01Dto_S[p]["jqty"];  
                                             if (Number(ls_jqty) > 0){
-                                                wtab01Grid.setCellData(ll_row, ll_col,  ls_jcolorcode + "("  + ls_jqty +  ")" ) ; 
+                                                wtab01Grid.setCellData(ll_row, ll_col,  '△' + ls_jcolorcode ,false,false)
                                             }else{
                                                 wtab01Grid.setCellData(ll_row, ll_col,  ls_jcolorcode  ) ; 
                                             }

@@ -3,6 +3,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 
+/*wijimo 재고있는 cell 배경색*/
+.gold-cell{
+    background-color:gold !important;
+  } 
+.gray-cell{
+    background-color:rgb(241, 241, 241) !important;
+}
 
 /*토스트 메시지*/
 #tost_message {
