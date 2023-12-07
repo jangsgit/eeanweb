@@ -494,7 +494,8 @@
          var seqArr    = new Array(); 
          var cltcdArr    = new Array(); 
          var gubunArr    = new Array(); 
-         var fixflagArr    = new Array(); 
+         var fixflagArr    = new Array();  
+         var misqty    = new Array();
         let includeColumnHeader = false;
         let Chknum = 0;
          window.onload = function() {  
@@ -1230,7 +1231,7 @@
                     }   
                     ls_perid = "";
                     $.ajax({
-                        url: '/app01m/index14/listwish',  
+                        url: '/app01m/index14/listwish',   
                         type:"POST",
                         data: { 
                             "frdate"      : ls_frdate,
@@ -1770,6 +1771,7 @@
                 cltcdArr.pop();
                 gubunArr.pop();
                 fixflagArr.pop();
+                misqty.pop();
             }  
             for (var i = 0; i < chkTabA.length; i++) { 
                 misdateArr[i]   = chkTabA[i]._data.misdate;
@@ -1777,6 +1779,7 @@
                 seqArr[i]  = chkTabA[i]._data.seq; 
                 cltcdArr[i]  = chkTabA[i]._data.cltcd; 
                 gubunArr[i]  = chkTabA[i]._data.misgubun; 
+                misqty[i]  = chkTabA[i]._data.qty;
                 if(chkTabA[i]._data.makflag == "1" ){
                     alert("이미 주문되었습니다.")
                     return 
@@ -1804,6 +1807,7 @@
                 cltcdArr.pop();
                 gubunArr.pop();
                 fixflagArr.pop();
+                misqty.pop();
             }  
             for (var i = 0; i < chkTabB.length; i++) { 
                 misdateArr[i]   = chkTabB[i]._data.misdate;
@@ -1811,6 +1815,7 @@
                 seqArr[i]  = chkTabB[i]._data.seq; 
                 cltcdArr[i]  = chkTabB[i]._data.cltcd; 
                 gubunArr[i]  = chkTabB[i]._data.misgubun; 
+                misqty[i]  = chkTabB[i]._data.qty; 
                 if(chkTabB[i]._data.makflag == "1" ){
                     alert("이미 주문되었습니다.")
                     return 
@@ -1870,6 +1875,10 @@
                         "seq"  : ls_seq     ,       
                         "mflag"  : 'BB'   ,      
                         "ordercd"  : 'BB'   , 
+                        "misdateArr"  : misdateArr   ,      
+                        "misnumArr"  : misnumArr  ,      
+                        "seqArr"  : seqArr   ,      
+                        "misqty"  : misqty  
                     }, 
                     async:false,
                     success:function(data){   
@@ -1908,6 +1917,10 @@
                             "seq"      : ls_seq     ,              
                             "mflag"  : 'BB'   ,      
                             "ordercd"  : 'BB'   , 
+                            "misdateArr"  : misdateArr   ,      
+                            "misnumArr"  : misnumArr  ,      
+                            "seqArr"  : seqArr   ,      
+                            "misqty"  : misqty  
                         }, 
                         async:false,
                         success:function(data){   
@@ -1995,6 +2008,12 @@
                     if(arg4 == null ){ 
                         arg4 = 1         ;
                     }  
+                    if(misdateArr.length == 0){
+                        misdateArr[0] = '0000'
+                        misnumArr[0] = '0000'
+                        seqArr[0] = '0000'
+                        misqty[0] = '0'
+                    }
                     $.ajax({
                         url: '/app01m/index14/savecust',  
                         type:"POST",
@@ -2009,6 +2028,10 @@
                             "seq"  : ls_seq     ,          
                             "mflag"  : 'BB'   ,      
                             "ordercd"  : 'BB'   , 
+                            "misdateArr"  : misdateArr   ,      
+                            "misnumArr"  : misnumArr  ,      
+                            "seqArr"  : seqArr   ,      
+                            "misqty"  : misqty  
                         }, 
                         async:false,
                         success:function(data){   
@@ -2098,6 +2121,12 @@
                     if(arg4 == null ){ 
                         arg4 = 1         ;
                     } 
+                    if(misdateArr.length == 0){
+                        misdateArr[0] = '0000'
+                        misnumArr[0] = '0000'
+                        seqArr[0] = '0000'
+                        misqty[0] = '0'
+                    }
                     $.ajax({
                         url: '/app01m/index14/savecustwish',  
                         type:"POST",
@@ -2112,6 +2141,10 @@
                             "seq"      : ls_seq     ,           
                             "mflag"  : 'BB'   ,      
                             "ordercd"  : 'BB'   , 
+                            "misdateArr"  : misdateArr   ,      
+                            "misnumArr"  : misnumArr  ,      
+                            "seqArr"  : seqArr   ,      
+                            "misqty"  : misqty  
                         }, 
                         async:false,
                         success:function(data){   

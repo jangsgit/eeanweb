@@ -521,6 +521,7 @@ aria-hidden="true">
          var cltcdArr    = new Array(); 
          var gubunArr    = new Array(); 
          var fixflagArr    = new Array(); 
+         var misqty    = new Array();
         let includeColumnHeader = false;
 
          window.onload = function() {  
@@ -1750,6 +1751,7 @@ aria-hidden="true">
                 cltcdArr.pop();
                 gubunArr.pop();
                 fixflagArr.pop();
+                misqty.pop();
             }  
             for (var i = 0; i < chkTabA.length; i++) { 
                 misdateArr[i]   = chkTabA[i]._data.misdate;
@@ -1757,6 +1759,7 @@ aria-hidden="true">
                 seqArr[i]  = chkTabA[i]._data.seq; 
                 cltcdArr[i]  = chkTabA[i]._data.cltcd; 
                 gubunArr[i]  = chkTabA[i]._data.misgubun; 
+                misqty[i]  = chkTabA[i]._data.qty;
                 if(chkTabA[i]._data.makflag == "1" ){
                     alert("이미 주문되었습니다.")
                     return 
@@ -1784,6 +1787,7 @@ aria-hidden="true">
                 cltcdArr.pop();
                 gubunArr.pop();
                 fixflagArr.pop();
+                misqty.pop();
             }  
             for (var i = 0; i < chkTabB.length; i++) { 
                 misdateArr[i]   = chkTabB[i]._data.misdate;
@@ -1791,6 +1795,7 @@ aria-hidden="true">
                 seqArr[i]  = chkTabB[i]._data.seq; 
                 cltcdArr[i]  = chkTabB[i]._data.cltcd; 
                 gubunArr[i]  = chkTabB[i]._data.misgubun; 
+                misqty[i]  = chkTabB[i]._data.qty; 
                 if(chkTabB[i]._data.makflag == "1" ){
                     alert("이미 주문되었습니다.")
                     return 
@@ -1850,6 +1855,10 @@ aria-hidden="true">
                         "seq"  : ls_seq     ,       
                         "mflag"  : 'AA'   ,      
                         "ordercd"  : 'AA'   , 
+                        "misdateArr"  : misdateArr   ,      
+                        "misnumArr"  : misnumArr  ,      
+                        "seqArr"  : seqArr   ,      
+                        "misqty"  : misqty  
                     }, 
                     async:false,
                     success:function(data){   
@@ -1874,6 +1883,7 @@ aria-hidden="true">
 
                 }) 
             }else{ 
+                console.log('misdateArr->' + misdateArr)
                 $.ajax({
                         url: '/app01m/index14/savecustwish',  
                         type:"POST",
@@ -1888,6 +1898,10 @@ aria-hidden="true">
                             "seq"      : ls_seq     ,              
                             "mflag"  : 'AA'   ,      
                             "ordercd"  : 'AA'   , 
+                            "misdateArr"  : misdateArr   ,      
+                            "misnumArr"  : misnumArr  ,      
+                            "seqArr"  : seqArr   ,      
+                            "misqty"  : misqty  
                         }, 
                         async:false,
                         success:function(data){   
@@ -1942,9 +1956,7 @@ aria-hidden="true">
             if(ls_tabchk == "B" ){
                 ls_acode = ls_cltcd    //비고등록시 거래처코드
             }      
-            ls_tab = "A";
-            
-            console.log(ls_tab + '--->' + arg2);
+            ls_tab = "A"; 
             switch(ls_tab){
                 case 'A': 
                     // if (!confirm("품명: " + arg1 + "  장바구니에 담으시겠습니까?")) { 
@@ -1967,7 +1979,7 @@ aria-hidden="true">
                         ls_misnum = "0000"
                     }  
                     if(ls_seq == null || ls_seq.length == 0 || ls_seq == ""){ 
-                        ls_seq = "0000"
+                        ls_seq = "0000" 
                     }   
                     //요청사항 
                     if(arg3 == null || arg3.length == 0 || arg3 == ""){ 
@@ -1977,6 +1989,12 @@ aria-hidden="true">
                     if(arg4 == null ){ 
                         arg4 = 1         ;
                     }  
+                    if(misdateArr == null){
+                        misdateArr[0] = '0000'
+                        misnumArr[0] = '0000'
+                        seqArr[0] = '0000'
+                        misqty[0] = '0'
+                    }
                     var  ls_jpbgubn    = document.getElementById('jpbgubn').value;   
                     console.log(arg2);
                     $.ajax({
@@ -1993,6 +2011,10 @@ aria-hidden="true">
                             "misnum"  : ls_misnum     ,      
                             "seq"  : ls_seq     ,         
                             "ordercd"  : 'AA'   , 
+                            "misdateArr"  : misdateArr   ,      
+                            "misnumArr"  : misnumArr  ,      
+                            "seqArr"  : seqArr   ,      
+                            "misqty"  : misqty  
                         }, 
                         async:false,
                         success:function(data){   
@@ -2079,6 +2101,13 @@ aria-hidden="true">
                     if(arg4 == null ){ 
                         arg4 = 1         ;
                     } 
+                    if(misdateArr.length == 0){
+                        misdateArr[0] = '0000'
+                        misnumArr[0] = '0000'
+                        seqArr[0] = '0000'
+                        misqty[0] = '0'
+                    }
+                    console.log('misdateArr->' + misdateArr)
                     $.ajax({
                         url: '/app01m/index14/savecustwish',  
                         type:"POST",
@@ -2093,6 +2122,10 @@ aria-hidden="true">
                             "seq"      : ls_seq     ,         
                             "mflag"  : 'AA'   ,      
                             "ordercd"  : 'AA'   , 
+                            "misdateArr"  : misdateArr   ,      
+                            "misnumArr"  : misnumArr  ,      
+                            "seqArr"  : seqArr   ,      
+                            "misqty"  : misqty  
                         }, 
                         async:false,
                         success:function(data){   

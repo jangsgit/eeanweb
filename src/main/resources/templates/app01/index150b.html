@@ -542,6 +542,7 @@ aria-hidden="true">
          var cltcdArr    = new Array(); 
          var gubunArr    = new Array(); 
          var fixflagArr    = new Array(); 
+         var misqty    = new Array();
         let includeColumnHeader = false;
 
          window.onload = function() {  
@@ -1209,7 +1210,7 @@ aria-hidden="true">
                     }    
                     if(ls_makflag == null || ls_makflag.length == 0 || ls_makflag == "" || ls_makflag == "구분"){  
                         ls_makflag = "%"               
-                    }   
+                    }    
                     $.ajax({
                         url: '/app01m/index14/listwish',  
                         type:"POST",
@@ -1736,6 +1737,7 @@ aria-hidden="true">
                 cltcdArr.pop();
                 gubunArr.pop();
                 fixflagArr.pop();
+                misqty.pop();
             }  
             for (var i = 0; i < chkTabA.length; i++) { 
                 misdateArr[i]   = chkTabA[i]._data.misdate;
@@ -1743,6 +1745,7 @@ aria-hidden="true">
                 seqArr[i]  = chkTabA[i]._data.seq; 
                 cltcdArr[i]  = chkTabA[i]._data.cltcd; 
                 gubunArr[i]  = chkTabA[i]._data.misgubun; 
+                misqty[i]  = chkTabA[i]._data.qty;
                 if(chkTabA[i]._data.makflag == "1" ){
                     alert("이미 주문되었습니다.")
                     return 
@@ -1770,6 +1773,7 @@ aria-hidden="true">
                 cltcdArr.pop();
                 gubunArr.pop();
                 fixflagArr.pop();
+                misqty.pop();
             }  
             for (var i = 0; i < chkTabB.length; i++) { 
                 misdateArr[i]   = chkTabB[i]._data.misdate;
@@ -1777,6 +1781,7 @@ aria-hidden="true">
                 seqArr[i]  = chkTabB[i]._data.seq; 
                 cltcdArr[i]  = chkTabB[i]._data.cltcd; 
                 gubunArr[i]  = chkTabB[i]._data.misgubun; 
+                misqty[i]  = chkTabB[i]._data.qty; 
                 if(chkTabB[i]._data.makflag == "1" ){
                     alert("이미 주문되었습니다.")
                     return 
@@ -1836,6 +1841,10 @@ aria-hidden="true">
                         "seq"  : ls_seq     ,       
                         "mflag"  : 'CC'   ,      
                         "ordercd"  : 'CC'   , 
+                        "misdateArr"  : misdateArr   ,      
+                        "misnumArr"  : misnumArr  ,      
+                        "seqArr"  : seqArr   ,      
+                        "misqty"  : misqty  
                     }, 
                     async:false,
                     success:function(data){   
@@ -1874,6 +1883,10 @@ aria-hidden="true">
                             "seq"      : ls_seq     ,              
                             "mflag"  : 'CC'   ,      
                             "ordercd"  : 'CC'   , 
+                            "misdateArr"  : misdateArr   ,      
+                            "misnumArr"  : misnumArr  ,      
+                            "seqArr"  : seqArr   ,      
+                            "misqty"  : misqty  
                         }, 
                         async:false,
                         success:function(data){   
@@ -1959,7 +1972,13 @@ aria-hidden="true">
                     //수량
                     if(arg4 == null ){ 
                         arg4 = 1         ;
-                    }      
+                    }     
+                    if(misdateArr.length == 0){
+                        misdateArr[0] = '0000'
+                        misnumArr[0] = '0000'
+                        seqArr[0] = '0000'
+                        misqty[0] = '0'
+                    } 
                     $.ajax({
                         url: '/app01m/index14/savecust',  
                         type:"POST",
@@ -1974,6 +1993,10 @@ aria-hidden="true">
                             "seq"  : ls_seq     ,        
                             "mflag"  : 'CC'   ,      
                             "ordercd"  : 'CC'   , 
+                            "misdateArr"  : misdateArr   ,      
+                            "misnumArr"  : misnumArr  ,      
+                            "seqArr"  : seqArr   ,      
+                            "misqty"  : misqty  
                         }, 
                         async:false,
                         success:function(data){   
@@ -2062,6 +2085,12 @@ aria-hidden="true">
                     if(ls_seq == null || ls_seq.length == 0 || ls_seq == ""){ 
                         ls_seq = "0000"
                     }  
+                    if(misdateArr.length == 0){
+                        misdateArr[0] = '0000'
+                        misnumArr[0] = '0000'
+                        seqArr[0] = '0000'
+                        misqty[0] = '0'
+                    }
                     $.ajax({
                         url: '/app01m/index14/savecustwish',  
                         type:"POST",
@@ -2076,6 +2105,10 @@ aria-hidden="true">
                             "seq"      : ls_seq     ,              
                             "mflag"  : 'CC'   ,      
                             "ordercd"  : 'CC'   , 
+                            "misdateArr"  : misdateArr   ,      
+                            "misnumArr"  : misnumArr  ,      
+                            "seqArr"  : seqArr   ,      
+                            "misqty"  : misqty  
                         }, 
                         async:false,
                         success:function(data){   

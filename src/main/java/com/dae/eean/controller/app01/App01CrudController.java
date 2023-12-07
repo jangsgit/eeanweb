@@ -112,7 +112,6 @@ public class App01CrudController {
                 abonsadam1 = "%";
             }
             index02Dto.setAcorp1(conacorp1);
-            //log.info("conacorp1 =====>" + conacorp1);
             index02Dto.setAcorp(conacorp);
             index02Dto.setAgita(conagita);
             index02Dto.setAbonsadam1(abonsadam1);
@@ -123,6 +122,11 @@ public class App01CrudController {
             }else{
                 //index02Dto.setAcorp1("%");
             }
+//            log.info("001 =====>" + index02Dto.getAcorp1());
+//            log.info("002 =====>" + index02Dto.getAcorp());
+//            log.info("003 =====>" + index02Dto.getAgita());
+//            log.info("004 =====>" + index02Dto.getAbonsadam1());
+//            log.info("005 =====>" + jpbgubn);
             index02List = service02.GetCifListTot(index02Dto);
             model.addAttribute("index02List",index02List);
 
@@ -369,7 +373,7 @@ public class App01CrudController {
             index03Dto_S.setTodate(todate);
             index03Dto_S.setJpb_gubn(jpbgubn);
 
-            log.info("jpbgubn Exception 2222=====>" + jpbgubn);
+            //log.info("jpbgubn Exception 2222=====>" + jpbgubn);
 
             index03List = service03.GetJpumSubul02(index03Dto_S);
             model.addAttribute("index03List",index03List);
@@ -835,7 +839,7 @@ public class App01CrudController {
                 jcustcd = "%";
             }
 
-            index03Dto.setJcustomer_code(jcustcd);
+            //index03Dto.setJcustomer_code(jcustcd);
             index03Dto.setJpum(searchtxt);
             index03Dto.setFrdate("20000101");
             index03Dto.setJpb_gubn(jpbgubn);
@@ -848,7 +852,7 @@ public class App01CrudController {
             model.addAttribute("index03List",index03List);
 
         } catch (Exception ex) {
-            log.info("App04JaegoList_index Exception =====>" + ex.toString());
+            log.info("App04JaegoCustList_index Exception =====>" + ex.toString());
         }
 
         return index03List;
@@ -1142,10 +1146,13 @@ public class App01CrudController {
             ,@RequestParam("jqty") Integer jqty
             ,@RequestParam("jremark") String jremark
             ,@RequestParam("mflag") String mflag
-            ,@RequestParam("ordercd") String ordercd
             ,@RequestParam("misdate") String misdate
             ,@RequestParam("misnum") String misnum
             ,@RequestParam("seq") String seq
+            ,@RequestParam( value =  "misdateArr[]") List<String> misdateArr
+            ,@RequestParam( value =  "misnumArr[]") List<String> misnumArr
+            ,@RequestParam( value =  "seqArr[]") List<String> seqArr
+            ,@RequestParam( value =  "misqty[]") List<String> misqty
             , Model model
             , HttpServletRequest request){
 
@@ -1199,6 +1206,24 @@ public class App01CrudController {
                 }
                 if (!result){
                     return "error";
+                }
+                //수량업데이트
+                if( misdateArr.size() > 0){
+                    for(int i = 0; i < misdateArr.size(); i++){
+                        year = misdateArr.get(i).substring(0,4);
+                        month = misdateArr.get(i).substring(5,7);
+                        day = misdateArr.get(i).substring(8,10);
+                        String ls_misdate = year + month + day ;
+                        indexDa024Dto.setMisdate(ls_misdate);
+                        indexDa024Dto.setMisnum(misnumArr.get(i));
+                        indexDa024Dto.setSeq(seqArr.get(i));
+                        indexDa024Dto.setQty(Integer.parseInt(misqty.get(i)));
+
+                        result = service14.UpdateDA024Qty(indexDa024Dto);
+                        if (!result){
+                            return "error";
+                        }
+                    }
                 }
                 return "success";
             }
@@ -1393,10 +1418,13 @@ public class App01CrudController {
             ,@RequestParam("jqty") Integer jqty
             ,@RequestParam("jremark") String jremark
             ,@RequestParam("mflag") String mflag
-            ,@RequestParam("ordercd") String ordercd
             ,@RequestParam("misdate") String misdate
             ,@RequestParam("misnum") String misnum
             ,@RequestParam("seq") String seq
+            ,@RequestParam( value =  "misdateArr[]") List<String> misdateArr
+            ,@RequestParam( value =  "misnumArr[]") List<String> misnumArr
+            ,@RequestParam( value =  "seqArr[]") List<String> seqArr
+            ,@RequestParam( value =  "misqty[]") List<String> misqty
             , Model model
             , HttpServletRequest request){
 
@@ -1447,6 +1475,24 @@ public class App01CrudController {
                 }
                 if (!result){
                     return "error";
+                }
+                //수량업데이트
+                if( misdateArr.size() > 0){
+                    for(int i = 0; i < misdateArr.size(); i++){
+                        year = misdateArr.get(i).substring(0,4);
+                        month = misdateArr.get(i).substring(5,7);
+                        day = misdateArr.get(i).substring(8,10);
+                        String ls_misdate = year + month + day ;
+                        indexDa024Dto.setMisdate(ls_misdate);
+                        indexDa024Dto.setMisnum(misnumArr.get(i));
+                        indexDa024Dto.setSeq(seqArr.get(i));
+                        indexDa024Dto.setQty(Integer.parseInt(misqty.get(i)));
+
+                        result = service14.UpdateDA026Qty(indexDa024Dto);
+                        if (!result){
+                            return "error";
+                        }
+                    }
                 }
                 return "success";
             }

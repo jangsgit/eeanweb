@@ -523,6 +523,7 @@
          var cltcdArr    = new Array(); 
          var gubunArr    = new Array(); 
          var fixflagArr    = new Array(); 
+         var misqty    = new Array();
         let includeColumnHeader = false;
         let Chknum = 0;
          window.onload = function() {  
@@ -1064,6 +1065,7 @@
                 cltcdArr.pop();
                 gubunArr.pop();
                 fixflagArr.pop();
+                misqty.pop();
             }  
             for (var i = 0; i < chkTabA.length; i++) { 
                 misdateArr[i]   = chkTabA[i]._data.misdate;
@@ -1071,6 +1073,7 @@
                 seqArr[i]  = chkTabA[i]._data.seq; 
                 cltcdArr[i]  = chkTabA[i]._data.cltcd; 
                 gubunArr[i]  = chkTabA[i]._data.misgubun; 
+                misqty[i]  = chkTabA[i]._data.qty; 
                 if(chkTabA[i]._data.makflag == "1" ){
                     alert("이미 주문되었습니다.")
                     return 
@@ -1100,6 +1103,7 @@
                 cltcdArr.pop();
                 gubunArr.pop();
                 fixflagArr.pop();
+                misqty.pop();
             }  
             for (var i = 0; i < chkTabB.length; i++) { 
                 misdateArr[i]   = chkTabB[i]._data.misdate;
@@ -1107,6 +1111,7 @@
                 seqArr[i]  = chkTabB[i]._data.seq; 
                 cltcdArr[i]  = chkTabB[i]._data.cltcd; 
                 gubunArr[i]  = chkTabB[i]._data.misgubun; 
+                misqty[i]  = chkTabB[i]._data.qty; 
                 if(chkTabB[i]._data.makflag == "1" ){
                     alert("이미 주문되었습니다.")
                     return 
@@ -1143,7 +1148,11 @@
             if(arg4 == null ){ 
                 arg4 = 1         ;
             }   
-            // console.log(ls_misdate)
+            //  console.log(misdateArr)
+            //  console.log(misnumArr)
+            //  console.log(seqArr)
+            //  console.log(misqty)
+             
             // console.log(ls_misnum)
             // console.log(ls_seq)
             // console.log(ls_cltcd)
@@ -1164,7 +1173,10 @@
                         "misnum"  : ls_misnum     ,      
                         "seq"  : ls_seq     ,       
                         "mflag"  : 'AA'   ,      
-                        "ordercd"  : 'AA'   , 
+                        "misdateArr"  : misdateArr   ,      
+                        "misnumArr"  : misnumArr  ,      
+                        "seqArr"  : seqArr   ,      
+                        "misqty"  : misqty  
                     }, 
                     async:false,
                     success:function(data){   
@@ -1201,8 +1213,11 @@
                             "misdate"  : ls_misdate     ,      
                             "misnum"  : ls_misnum     ,      
                             "seq"      : ls_seq     ,              
-                            "mflag"  : 'AA'   ,      
-                            "ordercd"  : 'AA'   , 
+                            "mflag"  : 'AA'   ,     
+                            "misdateArr"  : misdateArr   ,      
+                            "misnumArr"  : misnumArr  ,      
+                            "seqArr"  : seqArr   ,      
+                            "misqty"  : misqty  
                         }, 
                         async:false,
                         success:function(data){   
@@ -1282,8 +1297,7 @@
                             alert("거래처를 등록하세요") 
                             document.getElementById("cifname").focus(); 
                             return ;               
-                        }                                                                                              
-
+                        }    
                         $.ajax({
                             url: '/app01m/index14/savewish',  
                             type:"POST",
@@ -2076,6 +2090,7 @@
             let ls_conacorp1 = "%";  
             let ls_conagita = "%";   
             let ls_abonsadam1 = "%";
+            console.log(searchCode);
             $.ajax({
                     url: '/app01m/index02/listtot',  
                     type:"POST",

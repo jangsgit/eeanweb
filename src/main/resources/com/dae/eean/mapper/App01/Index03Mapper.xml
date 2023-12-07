@@ -58,11 +58,10 @@
                              jmodel_code, jcolor_code, jcustomer_code,
                              convert(integer, DBO.DF_TB_PCODE_JQTY(jkey,  #{frdate},  #{todate}) ) as jqty
             from JCODE3 WITH (NOLOCK)
-            WHERE isnull(jcustomer_code,'') Like concat('%',#{jcustomer_code},'%')
-             and  isnull(jkey,'') Like concat('%',#{jpum},'%')
+            WHERE   isnull(jkey,'') Like concat('%',#{jpum},'%')
               and jsayong_gubn <> '4'
               and isnull(jpb_gubn,'') Like concat('%',#{jpb_gubn},'%')
-            ORDER BY jcustomer_code, jmodel_code, jpum
+            ORDER BY jkey,  jpum
         ]]>
     </select>
 
@@ -121,7 +120,7 @@
                    E.jcifcodename as jcifcodename
             from JCODE3 WITH (NOLOCK)
             LEFT OUTER JOIN jcifcode E WITH(NOLOCK) ON (JCODE3.jmodel_code = E.jcifcode)
-            WHERE isnull(jpum,'') Like concat('%',#{jpum},'%') and isnull(delflag,'0')  = '0'
+            WHERE (isnull(jpum,'') Like concat('%',#{jpum},'%')  or isnull(jkey,'') Like concat('%',#{jpum},'%'))   and isnull(delflag,'0')  = '0'
               and jsayong_gubn <> '4'
             ORDER BY jkey
         ]]>
@@ -134,7 +133,7 @@
                E.jcifcodename as jcifcodename
         from JCODE3 WITH (NOLOCK)
             LEFT OUTER JOIN jcifcode E WITH(NOLOCK) ON (JCODE3.jmodel_code = E.jcifcode)
-        WHERE isnull(jpum,'') Like concat('%',#{jpum},'%')
+        WHERE (isnull(jpum,'') Like concat('%',#{jpum},'%')   or isnull(jkey,'') Like concat('%',#{jpum},'%') )
           and isnull(delflag,'0')  = '0'
           and isnull(jpb_gubn,'') Like concat('%',#{jpb_gubn},'%')
           and isnull(jmodel_code,'') Like concat('%',#{jmodel_code},'%')
