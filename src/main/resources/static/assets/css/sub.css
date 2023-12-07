@@ -10,6 +10,9 @@
 .gray-cell{
     background-color:rgb(241, 241, 241) !important;
 }
+.white-cell{
+    background-color:rgb(255, 255, 255) !important;
+}
 
 /*토스트 메시지*/
 #tost_message {

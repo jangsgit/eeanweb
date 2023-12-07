@@ -1010,7 +1010,8 @@
             if(arg2 == arg3){
                 return 
             }
-            var pos1 = arg3.indexOf('(');            
+            var pos1 = arg3.indexOf('_'); 
+            console.log(pos1);           
             if (argcol <= 1){
                 return 
             }
@@ -1238,15 +1239,21 @@
         }
 
         function save_btn(arg1, arg2, arg3 ){
-            var words = arg3.split('(');
-            var jqty = ""; 
-            arg3 = words[0];
-            jqty = words[1];  //undefined 
-            if(jqty == undefined){
-                jqty = "0";
+            // var words = arg3.split('_');   //예약색상
+            // var jqty = ""; 
+            // arg3 = words[0];
+            // jqty = words[1];  //undefined 
+            // if(jqty == undefined){
+            //     jqty = "0";
+            // }else{
+            //     jqty = jqty.replace('_','');
+            // }   
+            if(arg3.substring(0,1) == '_'){
+                jqty = 0 
+                arg3 = arg3.substring(1,arg3.length); //color
             }else{
-                jqty = jqty.replace(')','');
-            }  
+                jqty = 1
+            }
             var ls_tab = document.getElementById('tabvalue').value;
             var ls_ipdate = document.getElementById('ipdate').value;          
             var ls_acode   = document.getElementById('acode').value;       
@@ -1395,10 +1402,10 @@
                     if(e.panel === s.cells){ // 셀 영역이고
                          if(s.columns[e.col].binding!=="jbonsa_code2" && s.columns[e.col].binding!=="jmodel_code"){
                             var val = s.getCellData(e.row,e.col); 
-                            if(val.substring(0,1) == '△'){
-                                wijmo.addClass(e.cell, 'gold-cell'); //배경색 지정을 위한 클래스 추가
-                            }else{
+                            if(val.substring(0,1) == '_'){
                                 wijmo.addClass(e.cell, 'gray-cell'); //배경색 지정을 위한 클래스 추가
+                            }else{
+                                wijmo.addClass(e.cell, 'white-cell'); //배경색 지정을 위한 클래스 추가
                             } 
                          }
 
@@ -2287,9 +2294,9 @@
                             // let ls_jbonsa = wtab01Grid.getCellData(ht.row,0);
                             let ls_jbonsa2 = wtab01Grid.getCellData(ht.row,0);
                             let ls_jmodel = wtab01Grid.getCellData(ht.row,1); 
-                            if(ls_color.substring(0,1) == '△'){
-                                ls_color = ls_color.substring(1,ls_color.length);
-                            }
+                            // if(ls_color.substring(0,1) == '_'){
+                            //     ls_color = ls_color.substring(1,ls_color.length);
+                            // }
                             if(ls_color == null || ls_color.length == 0 || ls_color == ""){  
                                 return ;               
                             }     
@@ -2490,11 +2497,11 @@
                                     let  ls_jeky         = wtab01Dto_S[p]["jkey"]; 
                                     let  ls_jqty         = wtab01Dto_S[p]["jqty"];  
                                     if (Number(ls_jqty) > 0){
-                                        wtab01Grid.setCellData(ll_row, ll_col,   '△' + ls_jcolorcode ,false,false)
+                                        wtab01Grid.setCellData(ll_row, ll_col,   ls_jcolorcode ,false,false)
                                         //wtab01Grid.setCellData(ll_row, ll_col,  ls_jcolorcode + "("  + ls_jqty +  ")" ) ;   
                                         var cols = new wijmo.grid.Column();  
                                     }else{
-                                        wtab01Grid.setCellData(ll_row, ll_col,  ls_jcolorcode  ) ;  
+                                        wtab01Grid.setCellData(ll_row, ll_col,  '_' + ls_jcolorcode  ) ;  
                                     }
                                     // wtab01Grid.formatItem.addHandler((s, e) => {
                                     //     // var val = s.getCellData(e.row, e.col); 
