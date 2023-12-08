@@ -140,11 +140,11 @@
                                             <table class="table table-borderless" style="height: 100px;" >
                                               <tbody>
                                                 <tr> 
-                                                  <td class="align-top" style="width: 20%;"> 
+                                                  <!-- <td class="align-top" style="width: 20%;"> 
                                                     <div class="container-fluid">   
                                                         <div id="wtab03Grid_div"  style="overflow:scroll;   height:750px;  width:300px; margin:0 auto; "></div>  
                                                     </div>  
-                                                  </td>
+                                                  </td> -->
                                                   <td class="align-top">                                                         
                                                     <div class="container-fluid"  >                                                         
                                                         <div id="wtab04Grid_div"  style="overflow:scroll;   height:750px;   margin:0 auto; "></div> 
@@ -433,52 +433,52 @@
             } 
               
 
-            // 재고현황 고객코드리스트 
-            view_p01tab03page = new wijmo.collections.CollectionView(getData_tab03(), {
-                pageSize: 100
-            }); 
-            wtab03Grid = new wijmo.grid.FlexGrid('#wtab03Grid_div', {  
-                autoGenerateColumns: false,
-                showMarquee: true,
-                isReadOnly: false, 
-                // selectionMode: 'RowRange',
-                allowSorting: 'MultiColumn',
-                alternatingRowStep: 0,
-                columns: [       
-                    {
-                        binding: 'jcustomercode',
-                        width: 250,
-                        header: '고객주문코드', 
-                        align:"center",
-                        cellTemplate: wijmo.grid.cellmaker.CellMaker.makeLink({ 
-                            text: '<b>${item.jcustomercode}</b>',
-                            click: (e, ctx) => {
-                                wcustcodeChk_a(ctx.item.jcustomercode );                    
-                            }
-                        })
-                    },                       
-                ], 
+            // // 재고현황 고객코드리스트 
+            // view_p01tab03page = new wijmo.collections.CollectionView(getData_tab03(), {
+            //     pageSize: 100
+            // }); 
+            // wtab03Grid = new wijmo.grid.FlexGrid('#wtab03Grid_div', {  
+            //     autoGenerateColumns: false,
+            //     showMarquee: true,
+            //     isReadOnly: false, 
+            //     // selectionMode: 'RowRange',
+            //     allowSorting: 'MultiColumn',
+            //     alternatingRowStep: 0,
+            //     columns: [       
+            //         {
+            //             binding: 'jcustomercode',
+            //             width: 250,
+            //             header: '고객주문코드', 
+            //             align:"center",
+            //             cellTemplate: wijmo.grid.cellmaker.CellMaker.makeLink({ 
+            //                 text: '<b>${item.jcustomercode}</b>',
+            //                 click: (e, ctx) => {
+            //                     wcustcodeChk_a(ctx.item.jcustomercode );                    
+            //                 }
+            //             })
+            //         },                       
+            //     ], 
                     
-                itemsSource: view_p01tab03page
+            //     itemsSource: view_p01tab03page
                 
-            });   
+            // });   
             // 첫번째 항목(정렬/그룹화한 후)을 선택
-            wtab03Grid.select(new wijmo.grid.CellRange(0, 0), true); 
-                // tab01검색 데이터 수집
-            function getData_tab03(){       
-                var wtab03Dto = [[${index04List}]];   
-                    var wactnm_data = [];          
-                var cnt = 1;
-                for (var i = 0; i < wtab03Dto.length; i++) {
-                    wactnm_data.push({
-                        id: i, 
-                        index: cnt,
-                        jcustomercode: wtab03Dto[i]["jcustomer_code"], 
-                    });
-                    cnt++;
-                }     
-                return wactnm_data;                                          
-            }         
+            // wtab03Grid.select(new wijmo.grid.CellRange(0, 0), true); 
+            //     // tab01검색 데이터 수집
+            // function getData_tab03(){       
+            //     var wtab03Dto = [[${index04List}]];   
+            //         var wactnm_data = [];          
+            //     var cnt = 1;
+            //     for (var i = 0; i < wtab03Dto.length; i++) {
+            //         wactnm_data.push({
+            //             id: i, 
+            //             index: cnt,
+            //             jcustomercode: wtab03Dto[i]["jcustomer_code"], 
+            //         });
+            //         cnt++;
+            //     }     
+            //     return wactnm_data;                                          
+            // }         
 
 
 
@@ -695,33 +695,33 @@
         } 
 
         //재고현황 선택     
-        function wcustcodeChk_a(arg){   
-            var ls_tab = document.getElementById('tabvalue').value;
-            var ls_todate = document.getElementById('todate').value; 
-            var ls_jpbgubn = document.getElementById('jpbgubn').value; 
-            // console.log(arg)
-            // console.log(ls_todate)
-            $.ajax({
-                url: '/app01m/index04/jaegocustlist',  
-                type:"POST",
-                data: { 
-                    "searchtxt" : '%',
-                    "jcustcd" :arg, 
-                    "todate" :ls_todate, 
-                   "jpbgubn" :ls_jpbgubn,  
-                }, 
-                async:false,
-                success:function(data){  
-                    // console.log(data);
-                    tabC_grid(data);
-                },error:function(e){
-                    console.log("error");                            
-                }
-            }).done(function(fragment){           
+        // function wcustcodeChk_a(arg){   
+        //     var ls_tab = document.getElementById('tabvalue').value;
+        //     var ls_todate = document.getElementById('todate').value; 
+        //     var ls_jpbgubn = document.getElementById('jpbgubn').value; 
+        //     // console.log(arg)
+        //     // console.log(ls_todate)
+        //     $.ajax({
+        //         url: '/app01m/index04/jaegocustlist',  
+        //         type:"POST",
+        //         data: { 
+        //             "searchtxt" : '%',
+        //             "jcustcd" :arg, 
+        //             "todate" :ls_todate, 
+        //            "jpbgubn" :ls_jpbgubn,  
+        //         }, 
+        //         async:false,
+        //         success:function(data){  
+        //             // console.log(data);
+        //             tabC_grid(data);
+        //         },error:function(e){
+        //             console.log("error");                            
+        //         }
+        //     }).done(function(fragment){           
 
-            })        
+        //     })        
 
-        }    
+        // }    
 
 
         function save_btn(arg){
