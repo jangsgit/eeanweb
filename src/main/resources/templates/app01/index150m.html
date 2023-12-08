@@ -299,6 +299,9 @@
                 <div class="modal-footer">
                     <div class="row g-1">
                         <div class="col-auto">
+                            <span class='badge badge-soft-danger'><h6>수량을 수정하실경우 수량을 먼저 수정한 후에 체크박스를 선택해야 적용됩니다. </span> 
+                        </div> 
+                        <div class="col-auto">
                             <button class="badge-soft-primary dropdown-item rounded-1"
                                 type="button"  id="winorderlistmodal_btn" data-bs-dismiss="modal">Close</button>
                         </div> 
@@ -356,6 +359,9 @@
 
                 <div class="modal-footer">
                     <div class="row g-1">
+                        <div class="col-auto">
+                            <span class='badge badge-soft-danger'><h6>수량을 수정하실경우 수량을 먼저 수정한 후에 체크박스를 선택해야 적용됩니다. </span> 
+                        </div> 
                         <div class="col-auto">
                             <button class="badge-soft-primary dropdown-item rounded-1"
                                 type="button"  id="winwishlistmodal_btn" data-bs-dismiss="modal">Close</button>
@@ -1677,7 +1683,7 @@
             console.log(arg6)  ;
             switch(arg6){
                 case 'A':
-                    document.getElementById('acorp1').value = arg1;  
+                    document.getElementById('acorp1').value = arg1;   
                     document.getElementById('acorp2').value = arg2;  
                     document.getElementById('acorp3').value = arg3;  
                     document.getElementById('acode').value = arg4;  

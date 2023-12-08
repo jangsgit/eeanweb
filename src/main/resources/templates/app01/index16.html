@@ -2563,7 +2563,8 @@
         function wdelfun_a(arg1, arg2, arg3, arg4, arg5){ 
             if (!confirm("주문일자 : " + arg1 + "-" +  arg2 + "(" + arg3 + ")   삭제하시겠습니까?")) {
                 return ; 
-            }       
+            }        
+            //출력이 안된 데이타 fixflag = '0'인것만 삭제
             // return 
             $.ajax({
                         url: '/app01m/index14/del',  

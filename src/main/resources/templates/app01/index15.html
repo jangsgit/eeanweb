@@ -332,6 +332,9 @@
                 <div class="modal-footer">
                     <div class="row g-1">
                         <div class="col-auto">
+                            <span class='badge badge-soft-danger'><h6>수량을 수정하실경우 수량을 먼저 수정한 후에 체크박스를 선택해야 적용됩니다. </span> 
+                        </div> 
+                        <div class="col-auto">
                             <button class="badge-soft-primary dropdown-item rounded-1"
                                 type="button"  id="winorderlistmodal_btn" data-bs-dismiss="modal">Close</button>
                         </div> 
@@ -389,6 +392,9 @@
 
                 <div class="modal-footer">
                     <div class="row g-1">
+                        <div class="col-auto">
+                            <span class='badge badge-soft-danger'><h6>수량을 수정하실경우 수량을 먼저 수정한 후에 체크박스를 선택해야 적용됩니다. </span> 
+                        </div> 
                         <div class="col-auto">
                             <button class="badge-soft-primary dropdown-item rounded-1"
                                 type="button"  id="winwishlistmodal_btn" data-bs-dismiss="modal">Close</button>
@@ -1104,7 +1110,7 @@ aria-hidden="true">
             var ls_mgubun = document.getElementById('mgubun').value; 
             var arg1 = document.getElementById('mjpumnm').value; 
             var arg2 = document.getElementById('mjkey').value; 
-            var arg3 = document.getElementById('mremark').value; 
+            var arg3 = document.getElementById('mremark').value;  
             var arg4 = 1; //document.getElementById('mjqty').value; 
             savechk_rtn()
             saveremark_btn(arg1, arg2, arg3, arg4, 'B')

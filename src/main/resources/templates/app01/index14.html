@@ -366,12 +366,14 @@
                 <div class="modal-footer">
                     <div class="row g-1">
                         <div class="col-auto">
+                            <span class='badge badge-soft-danger'><h6>수량을 수정하실경우 수량을 먼저 수정한 후에 체크박스를 선택해야 적용됩니다. </span> 
+                        </div> 
+                        <div class="col-auto">
                             <button class="badge-soft-primary dropdown-item rounded-1"
                                 type="button"  id="winorderlistmodal_btn" data-bs-dismiss="modal">Close</button>
                         </div> 
                     </div>
-                </div>   
-
+                </div>    
             </div>
         </div> 
     </div>   
@@ -423,6 +425,9 @@
 
                 <div class="modal-footer">
                     <div class="row g-1">
+                        <div class="col-auto">
+                            <span class='badge badge-soft-danger'><h6>수량을 수정하실경우 수량을 먼저 수정한 후에 체크박스를 선택해야 적용됩니다. </span> 
+                        </div> 
                         <div class="col-auto">
                             <button class="badge-soft-primary dropdown-item rounded-1"
                                 type="button"  id="winwishlistmodal_btn" data-bs-dismiss="modal">Close</button>
@@ -768,29 +773,32 @@
                 // pageSize: 100
             });    
             wtab02Grid = new wijmo.grid.FlexGrid('#wtab02Grid_div', {  
-                autoGenerateColumns: false,
-                isReadOnly: false, 
-                allowSorting: 'MultiColumn',
-                selectionMode: 'RowRange',
+                autoGenerateColumns: false, 
+                allowSorting: 'MultiColumn', 
                 alternatingRowStep: 0,
                 columns: [     
                     { binding: 'misdate', header: '주문일자', align: "center", width: 120 }, 
                     // { binding: 'misnum', header: '주문번호', align: "center", width: 80 },  
                     // { binding: 'seq', header: '순번', align: "center", width: 80 },  
-                    { binding: 'acorp', header: '거래처', align: "center", width: 150 },  
-                    { binding: 'pname', header: '품목', align: "center", width: 150 },   
-                    { binding: 'psize', header: '규격', align: "center", width: 120 },  
+                    { binding: 'acorp', header: '거래처', align: "center", width: 150  },  
+                    { binding: 'pname', header: '품목', align: "center", width: 150  },   
+                    { binding: 'psize', header: '규격', align: "center", width: 120  },  
                     // { binding: 'pbonsa', header: '코드', align: "center", width: 100 },  
                     // { binding: 'pmodel', header: '모델', align: "center", width: 100 },  
                     // { binding: 'pcolor', header: '컬러', align: "center", width: 100 },  
-                    { binding: 'qty', header: '수량', align: "center", width: 80 },  
-                    { binding: 'uamt', header: '단가', align: "center", width: 100 },  
-                    { binding: 'samt', header: '금액', align: "center", width: 150 },   
-                    { binding: 'remark', header: '요청등록', align: "center", width: 300 },  
+                    { binding: 'qty', header: '수량', align: "center", width: 80  },  
+                    { binding: 'uamt', header: '단가', align: "center", width: 100  },  
+                    { binding: 'samt', header: '금액', align: "center", width: 150  },   
+                    { binding: 'remark', header: '요청등록', align: "center", width: 300  },  
                     // { binding: 'fixflag', header: '확정', align: "center", width: 150, cssClass: 'switch'   },  
                 ], 
-                itemsSource: view_p01tab02page
-            });  
+                itemsSource: view_p01tab02page, 
+                beginningEdit: function (s, e) {
+                    if (e.data.type == 'keypress' ){         
+                        e.cancel = true;
+                    }
+                }
+            });   
 
 
             new FlexGridContextMenu(wtab02Grid); 
@@ -1743,7 +1751,7 @@
             cols.binding = 'misdate';
             cols.header = '주문일자';
             cols.align = "center";
-            cols.width = 120; 
+            cols.width = 120;             
             wtab02Grid.columns.push(cols);  
             // cols = new wijmo.grid.Column(); 
             // cols.binding = 'misnum';
@@ -1761,13 +1769,13 @@
             cols.binding = 'inname';
             cols.header = '담당';
             cols.align = "center";
-            cols.width = 80;  
+            cols.width = 80;              
             wtab02Grid.columns.push(cols);     
             cols = new wijmo.grid.Column(); 
             cols.binding = 'acorp';
             cols.header = '거래처';
             cols.align = "center";
-            cols.width = 150;  
+            cols.width = 150;              
             cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
                 text: '<b>${item.acorp}</b>',
                 click: (e, ctx) => {
@@ -1780,13 +1788,13 @@
             cols.binding = 'pname';
             cols.header = '품목';
             cols.align = "center";
-            cols.width = 150;  
+            cols.width = 150;              
             wtab02Grid.columns.push(cols);   
             cols = new wijmo.grid.Column(); 
             cols.binding = 'psize';
             cols.header = '규격';
             cols.align = "center";
-            cols.width = 120;  
+            cols.width = 120;              
             wtab02Grid.columns.push(cols);    
             // cols = new wijmo.grid.Column(); 
             // cols.binding = 'pbonsa';
@@ -1810,27 +1818,27 @@
             cols.binding = 'qty';
             cols.header = '수량';
             cols.align = "center";
-            cols.width = 50;   
+            cols.width = 50;    
             cols.aggregate = 'Sum';
             wtab02Grid.columns.push(cols);   
             cols = new wijmo.grid.Column(); 
             cols.binding = 'uamt';
             cols.header = '단가';
             cols.align = "center";
-            cols.width = 70;  
+            cols.width = 70;              
             wtab02Grid.columns.push(cols);     
             cols = new wijmo.grid.Column(); 
             cols.binding = 'samt'; 
             cols.header = '금액';
             cols.align = "center";
-            cols.width = 80;  
+            cols.width = 80;              
             cols.aggregate = 'Sum';
             wtab02Grid.columns.push(cols);      
             cols = new wijmo.grid.Column(); 
             cols.binding = 'remark'; 
             cols.header = '요청등록';
             cols.align = "left";
-            cols.width = 300;    
+            cols.width = 300;                
             cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
                 text: '<b>${item.remark}</b>',
                 click: (e, ctx) => {
