@@ -582,7 +582,7 @@
 
     <delete id="DeleteDA024" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
         delete from tb_da024
-        where misdate = #{misdate} and misnum = #{misnum} and seq = #{seq} and cltcd = #{cltcd} and misgubun = #{misgubun} and isnull(fixflag,'0') = '0'
+        where misdate = #{misdate} and misnum = #{misnum} and seq = #{seq} and cltcd = #{cltcd} and misgubun = #{misgubun}
     </delete>
 
     <delete id="DeleteDA023Ord" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
@@ -594,7 +594,7 @@
     <delete id="DeleteDA024Ord" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
         delete from tb_da024
         where  cltcd = #{cltcd} and misgubun = #{misgubun}
-          and  misdate + misnum + seq  = ( #{omisdate} + #{omisnum} + #{oseq} ) and isnull(fixflag,'0') = '0'
+          and  misdate + misnum + seq  = ( #{omisdate} + #{omisnum} + #{oseq} )
     </delete>
 
 
@@ -606,7 +606,7 @@
 
     <delete id="DeleteDA026" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
         delete from tb_da026
-        where misdate = #{misdate} and misnum = #{misnum} and seq = #{seq} and cltcd = #{cltcd} and misgubun = #{misgubun}  and isnull(fixflag,'0') = '0'
+        where misdate = #{misdate} and misnum = #{misnum} and seq = #{seq} and cltcd = #{cltcd} and misgubun = #{misgubun}
     </delete>
 
 
