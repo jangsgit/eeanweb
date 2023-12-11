@@ -1566,6 +1566,7 @@ aria-hidden="true">
 
             var searchCode = "";  
             var ls_tab = document.getElementById('tabvalue').value; 
+            var ls_jpbgubn = document.getElementById('jpbgubn').value ;
             if(arg == "M"){
                 searchCode = document.getElementById('searchCode').value;   
             }
@@ -1574,11 +1575,14 @@ aria-hidden="true">
             } 
             if(searchCode == null || searchCode.length == 0 || searchCode == ""){ 
                 searchCode = "%"         ;
-            }     
+            }      
+            if(ls_jpbgubn == null || ls_jpbgubn.length == 0 || ls_jpbgubn == ""){ 
+                ls_jpbgubn = "%"         ;
+            }  
             let ls_conacorp1 = "%";  
             let ls_conagita = "%";   
             let ls_abonsadam1 = "%"; 
-            let ls_jpbgubn = "%";
+            //let ls_jpbgubn = "%";
             $.ajax({
                         url: '/app01m/index02/listtot',  
                     type:"POST",
@@ -2224,8 +2228,21 @@ aria-hidden="true">
             return time;  
         }
 
-        function fn_egov_init_date(){ 
-
+        function fn_egov_init_date(){  
+            lsUserid = window.localStorage.getItem("userid")
+            //console.log('lsUserid==>' + lsUserid)
+            if(lsUserid == null || lsUserid.length == 0 || lsUserid == ""){ 
+                alert("로그인을 다시하세요") 
+                location.href = "/" ;
+                return ;               
+            }   
+            if (lsUserid == "pvadmin"){
+                document.getElementById('jpbgubn').value = "P"; 
+            }else if(lsUserid == "bladmin"){
+                document.getElementById('jpbgubn').value = "B";  
+            }else{
+                document.getElementById('jpbgubn').value = "%"; 
+            }
             document.getElementById('makflag01').value = "0";
             document.getElementById('makflag02').value = "0";
         }

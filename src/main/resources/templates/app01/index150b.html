@@ -1560,6 +1560,7 @@ aria-hidden="true">
         function CifSearchList_rtn(arg){  
 
             var searchCode = "";  
+            var ls_jpbgubn = document.getElementById('jpbgubn').value ;
             var ls_tab = document.getElementById('tabvalue').value; 
             if(arg == "M"){
                 searchCode = document.getElementById('searchCode').value;   
@@ -1570,10 +1571,13 @@ aria-hidden="true">
             if(searchCode == null || searchCode.length == 0 || searchCode == ""){ 
                 searchCode = "%"         ;
             }     
+            if(ls_jpbgubn == null || ls_jpbgubn.length == 0 || ls_jpbgubn == ""){ 
+                ls_jpbgubn = "%"         ;
+            }     
             let ls_conacorp1 = "%";  
             let ls_conagita = "%";   
             let ls_abonsadam1 = "%";
-            let ls_jpbgubn = "%";
+            //let ls_jpbgubn = "%";
 
             $.ajax({
                         url: '/app01m/index02/listtot',  
@@ -2224,7 +2228,7 @@ aria-hidden="true">
                 document.getElementById('jpbgubn').value = "B"; 
                 document.getElementById('djpbgubn').value = "B"; 
                 document.getElementById('bjpbgubn').value = "B";  
-            }else{
+            }else{ 
                 document.getElementById('jpbgubn').value = "%"; 
                 document.getElementById('djpbgubn').value = "%"; 
                 document.getElementById('bjpbgubn').value = "%"; 
