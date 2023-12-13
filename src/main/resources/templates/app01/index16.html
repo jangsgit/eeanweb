@@ -1378,7 +1378,7 @@
                 { header: '단가', binding: 'uamt', format: 'n0', width: 105, align : "right" },
                 //{ header: '금액', binding: 'samt', format: 'n0', width: 105, align : "right" },
                 //{ header: '부가세', binding: 'addamt', format: 'n0', width: 105, align : "right" },
-                { header: '합계', binding: 'amt', format: 'n0', width: 105, align : "right" } 
+                { header: '합계', binding: 'samt', format: 'n0', width: 105, align : "right" } 
             ], bold = new wijmo.pdf.PdfFont('BMHANNAPro', 10, 'normal', 'bold'), thinPen = new wijmo.pdf.PdfPen('#000000', 0.5);
             //
             let flexGrid, footer;
@@ -1449,7 +1449,7 @@
                 footer.cells.setCellData(0, 'uamt', '', false);
                 //footer.cells.setCellData(0, 'samt', ll_sumsamt, false);
                 //footer.cells.setCellData(0, 'addamt', ll_sumaddamt, false);
-                footer.cells.setCellData(0, 'amt', ll_sumamt, false);  
+                footer.cells.setCellData(0, 'samt', ll_sumamt, false);  
                 var ls_jpbgubn =  document.getElementById('bjpbgubn').value ;  
                 //블리스일경우 전화번호 및 주소 변경
                 if(ls_jpbgubn == "B") {  
@@ -1632,9 +1632,9 @@
                         ls_bacode = "%";
                     }   
                     ls_abonsadam1 = "";
-                    console.log(ls_misfixflag)
-                    console.log(ls_misdevflag)
-                    console.log(ls_misgubun)
+                    // console.log(ls_misfixflag)
+                    // console.log(ls_misdevflag)
+                    // console.log(ls_misgubun)
 
                     $.ajax({
                         url: '/app01m/index14/list',  
@@ -2061,7 +2061,7 @@
                 ll_sumqty = ll_sumqty + wtab03Dto[i]["qty"]
                 ll_sumsamt = ll_sumsamt + wtab03Dto[i]["samt"]
                 ll_sumaddamt = ll_sumaddamt + wtab03Dto[i]["addamt"]
-                ll_sumamt = ll_sumamt + wtab03Dto[i]["amt"]
+                ll_sumamt = ll_sumamt + wtab03Dto[i]["samt"]
                 wtab03_data.push({
                     id: i, 
                     index: cnt,
