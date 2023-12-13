@@ -1849,7 +1849,7 @@ aria-hidden="true">
             // console.log(ls_cltcd)
             // console.log(arg2)
             // console.log(arg3)
-            // console.log(arg4)
+             console.log(misdateArr.length)
             if(ls_tabchk == "B"  ){   
                 $.ajax({
                     url: '/app01m/index14/savecust',  
@@ -1893,7 +1893,12 @@ aria-hidden="true">
 
                 }) 
             }else{ 
-                console.log('misdateArr->' + misdateArr)
+                if(misdateArr.length == 0){
+                    misdateArr[0] = '0000'
+                    misnumArr[0] = '0000'
+                    seqArr[0] = '0000'
+                    misqty[0] = '0'
+                 }
                 $.ajax({
                         url: '/app01m/index14/savecustwish',  
                         type:"POST",
@@ -1999,14 +2004,14 @@ aria-hidden="true">
                     if(arg4 == null ){ 
                         arg4 = 1         ;
                     }  
-                    if(misdateArr == null){
+                    if(misdateArr.length == 0){
                         misdateArr[0] = '0000'
                         misnumArr[0] = '0000'
                         seqArr[0] = '0000'
                         misqty[0] = '0'
                     }
                     var  ls_jpbgubn    = document.getElementById('jpbgubn').value;   
-                    console.log(arg2);
+                    console.log(misdateArr);
                     $.ajax({
                         url: '/app01m/index14/savecust',  
                         type:"POST",
