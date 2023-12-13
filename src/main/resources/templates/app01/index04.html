@@ -976,15 +976,15 @@
                     })    
                     break;
                 case 'C':
-                    var ls_jkey = document.getElementById('jkey').value; 
+                    var ls_jkey = document.getElementById('jkey').value;  
                     var ls_jpumname = document.getElementById('jpumname').value; 
                     var ls_todate = document.getElementById('todate').value; 
                     
                     if(ls_jpumname == null || ls_jpumname.length == 0 || ls_jpumname == ""){ 
                         ls_jkey = '%';            
                     }    
-                    console.log(ls_todate)
-                    console.log(ls_jpumname)
+                    console.log(ls_jkey)
+                    console.log(ls_jpbgubn)
                     $.ajax({
                         url: '/app01m/index04/jaegocustlist',  
                         type:"POST",
