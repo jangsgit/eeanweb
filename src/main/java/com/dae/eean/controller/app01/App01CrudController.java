@@ -854,14 +854,14 @@ public class App01CrudController {
             log.info("003 ->" + _index03Dto.getTodate());
             log.info("004 ->" + _index03Dto.getJpb_gubn());
             _index03List = service03.GetJpumCustJaegoList(_index03Dto);
-            //log.info("004 ->" + index03List);
+            //log.info("004 ->" + _index03List);
             model.addAttribute("index03List",_index03List);
 
         } catch (Exception ex) {
             log.info("App04JaegoCustList_index Exception =====>" + ex.toString());
         }
 
-        return index03List;
+        return _index03List;
     }
 
 
