@@ -830,7 +830,8 @@ public class App01CrudController {
         HttpSession session = request.getSession();
         UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
         model.addAttribute("userformDto",userformDto);
-
+        Index03Dto _index03Dto = new Index03Dto();
+        List<Index03Dto> _index03List = new ArrayList<>();
         try {
             if(searchtxt == null || searchtxt.equals("")){
                 searchtxt = "%";
@@ -840,21 +841,21 @@ public class App01CrudController {
             }
 
             //index03Dto.setJcustomer_code(jcustcd);
-            index03Dto.setJpum(searchtxt);
-            index03Dto.setFrdate("20000101");
-            index03Dto.setJpb_gubn(jpbgubn);
+            _index03Dto.setJpum(searchtxt);
+            _index03Dto.setFrdate("20000101");
+            _index03Dto.setJpb_gubn(jpbgubn);
             String year = todate.substring(0,4) ;
             String month = todate.substring(5,7) ;
             String day   = todate.substring(8,10) ;
             todate = year + month + day ;
-            index03Dto.setTodate(todate);
-            log.info("001 ->" + index03Dto.getJpum());
-            log.info("002 ->" + index03Dto.getFrdate());
-            log.info("003 ->" + index03Dto.getTodate());
-            log.info("004 ->" + index03Dto.getJpb_gubn());
-            index03List = service03.GetJpumCustJaegoList(index03Dto);
-            log.info("004 ->" + index03List);
-            model.addAttribute("index03List",index03List);
+            _index03Dto.setTodate(todate);
+            log.info("001 ->" + _index03Dto.getJpum());
+            log.info("002 ->" + _index03Dto.getFrdate());
+            log.info("003 ->" + _index03Dto.getTodate());
+            log.info("004 ->" + _index03Dto.getJpb_gubn());
+            _index03List = service03.GetJpumCustJaegoList(_index03Dto);
+            //log.info("004 ->" + index03List);
+            model.addAttribute("index03List",_index03List);
 
         } catch (Exception ex) {
             log.info("App04JaegoCustList_index Exception =====>" + ex.toString());
