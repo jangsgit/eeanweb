@@ -884,6 +884,7 @@ public class App01CrudController {
             HttpSession session = request.getSession();
             UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
             model.addAttribute("userformDto",userformDto);
+            Index03Dto _index03Dto = new Index03Dto();
             //Index03Dto index03Dto_S = new Index03Dto();
 
             Boolean result = false;
@@ -891,16 +892,16 @@ public class App01CrudController {
             String month = frdate.substring(5,7) ;
             String day   = frdate.substring(8,10) ;
             frdate = year + month + day ;
-            index03Dto.setJmodel_code2(jmodel);
-            index03Dto.setJcolor_code2(jcolor);
-            index03Dto.setJbonsa_code(jbonsa);
-            index03Dto.setJbonsa_code2(jbonsa2);
-            index03Dto.setJpb_gubn(jpbgubn);
+            _index03Dto.setJmodel_code2(jmodel);
+            _index03Dto.setJcolor_code2(jcolor);
+            _index03Dto.setJbonsa_code(jbonsa);
+            _index03Dto.setJbonsa_code2(jbonsa2);
+            _index03Dto.setJpb_gubn(jpbgubn);
             index02Dto.setAcode(acode);
             index02Dto = service02.GetCifListAcode(index02Dto);  //거래처정보
             index02BonsaDto = service02.GetCifBonsa(index02BonsaDto);
-            index03Dto = service03.GetJpumOrderJkey(index03Dto); //품목정보
-            if(index03Dto == null){
+            _index03Dto = service03.GetJpumOrderJkey(_index03Dto); //품목정보
+            if(_index03Dto == null){
                 log.info("error Exception =====> GetJpumOrderJkey NULL" );
                 return "error";
             }
@@ -959,7 +960,7 @@ public class App01CrudController {
                 ls_seq = GetMaxSeq(frdate);
             }
 
-            String ls_chulgoga = index03Dto.getJchgoga0();
+            String ls_chulgoga = _index03Dto.getJchgoga0();
             if( ls_chulgoga == null ){
                 ls_chulgoga = "0";
             }
@@ -967,11 +968,11 @@ public class App01CrudController {
             indexDa024Dto.setSeq(ls_seq);
             indexDa024Dto.setMisdate(frdate);
             indexDa024Dto.setMisnum(ls_misnum);
-            indexDa024Dto.setPcode(index03Dto.getJkey());
-            indexDa024Dto.setPname(index03Dto.getJpum());
-            indexDa024Dto.setPsize(index03Dto.getJgugek());
+            indexDa024Dto.setPcode(_index03Dto.getJkey());
+            indexDa024Dto.setPname(_index03Dto.getJpum());
+            indexDa024Dto.setPsize(_index03Dto.getJgugek());
             indexDa024Dto.setPbonsa(jbonsa);
-            indexDa024Dto.setPbonsa2(index03Dto.getJbonsa_code2());
+            indexDa024Dto.setPbonsa2(_index03Dto.getJbonsa_code2());
             indexDa024Dto.setPmodel(jmodel);
             indexDa024Dto.setPcolor(jcolor);
             indexDa024Dto.setQty(1);
@@ -1022,24 +1023,25 @@ public class App01CrudController {
             HttpSession session = request.getSession();
             UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
             model.addAttribute("userformDto",userformDto);
+            Index03Dto _index03Dto = new Index03Dto();
 
             Boolean result = false;
             String year = frdate.substring(0,4) ;
             String month = frdate.substring(5,7) ;
             String day   = frdate.substring(8,10) ;
             frdate = year + month + day ;
-            index03Dto.setJmodel_code2(jmodel);
-            index03Dto.setJcolor_code2(jcolor);
-            index03Dto.setJbonsa_code(jbonsa);
-            index03Dto.setJbonsa_code2(jbonsa2);
-            index03Dto.setJpb_gubn(jpbgubn);
+            _index03Dto.setJmodel_code2(jmodel);
+            _index03Dto.setJcolor_code2(jcolor);
+            _index03Dto.setJbonsa_code(jbonsa);
+            _index03Dto.setJbonsa_code2(jbonsa2);
+            _index03Dto.setJpb_gubn(jpbgubn);
             index02Dto.setAcode(acode);
             index02Dto = service02.GetCifListAcode(index02Dto);  //거래처정보
             index02BonsaDto = service02.GetCifBonsa(index02BonsaDto);
-            index03Dto = service03.GetJpumOrderJkey(index03Dto); //품목정보
+            _index03Dto = service03.GetJpumOrderJkey(_index03Dto); //품목정보
             log.info("jmodel =====>  " + jmodel );
             log.info("jcolor =====>  " + jcolor );
-            if(index03Dto == null){
+            if(_index03Dto == null){
                 log.info("error Exception =====> WISH GetJpumOrderJkey NULL" );
                 return "error";
             }
@@ -1099,7 +1101,7 @@ public class App01CrudController {
                 ls_seq = GetMaxSeqWish(frdate);
             }
 
-            String ls_chulgoga = index03Dto.getJchgoga0();
+            String ls_chulgoga = _index03Dto.getJchgoga0();
             if( ls_chulgoga == null ){
                 ls_chulgoga = "0";
             }
@@ -1109,11 +1111,11 @@ public class App01CrudController {
             indexDa024Dto.setMisnum(ls_misnum);
             log.info("ls_misnum=============>");
             log.info(ls_misnum);
-            indexDa024Dto.setPcode(index03Dto.getJkey());
-            indexDa024Dto.setPname(index03Dto.getJpum());
-            indexDa024Dto.setPsize(index03Dto.getJgugek());
+            indexDa024Dto.setPcode(_index03Dto.getJkey());
+            indexDa024Dto.setPname(_index03Dto.getJpum());
+            indexDa024Dto.setPsize(_index03Dto.getJgugek());
             indexDa024Dto.setPbonsa(jbonsa);
-            indexDa024Dto.setPbonsa2(index03Dto.getJbonsa_code2());
+            indexDa024Dto.setPbonsa2(_index03Dto.getJbonsa_code2());
             indexDa024Dto.setPmodel(jmodel);
             indexDa024Dto.setPcolor(jcolor);
             indexDa024Dto.setQty(1);
@@ -1169,16 +1171,18 @@ public class App01CrudController {
             UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
             model.addAttribute("userformDto",userformDto);
 
+            Index03Dto _index03Dto = new Index03Dto();
+
             Boolean result = false;
             String year = frdate.substring(0,4) ;
             String month = frdate.substring(5,7) ;
             String day   = frdate.substring(8,10) ;
             frdate = year + month + day ;
             index02Dto.setAcode(acode);
-            index03Dto.setJkey(jkey);
+            _index03Dto.setJkey(jkey);
             index02Dto = service02.GetCifListAcode(index02Dto);  //거래처정보
             index02BonsaDto = service02.GetCifBonsa(index02BonsaDto);
-            index03Dto = service03.GetJpumOrderJkey02(index03Dto); //품목
+            _index03Dto = service03.GetJpumOrderJkey02(_index03Dto); //품목
 
             indexDa023Dto.setCltcd(acode);
             indexDa023Dto.setMisdate(frdate);
@@ -1282,7 +1286,7 @@ public class App01CrudController {
                 ls_seq = GetMaxSeq(frdate);
             }
 
-            String ls_chulgoga = index03Dto.getJchgoga0();
+            String ls_chulgoga = _index03Dto.getJchgoga0();
             if( ls_chulgoga == null ){
                 ls_chulgoga = "0";
             }
@@ -1293,12 +1297,12 @@ public class App01CrudController {
             indexDa024Dto.setMisgubun(mflag);
 //            log.info("ls_misnum=============>");
 //            log.info(ls_misnum);
-            indexDa024Dto.setPcode(index03Dto.getJkey());
-            indexDa024Dto.setPname(index03Dto.getJpum());
-            indexDa024Dto.setPsize(index03Dto.getJgugek());
-            indexDa024Dto.setPbonsa(index03Dto.getJbonsa_code());
-            indexDa024Dto.setPmodel(index03Dto.getJmodel_code());
-            indexDa024Dto.setPcolor(index03Dto.getJcolor_code());
+            indexDa024Dto.setPcode(_index03Dto.getJkey());
+            indexDa024Dto.setPname(_index03Dto.getJpum());
+            indexDa024Dto.setPsize(_index03Dto.getJgugek());
+            indexDa024Dto.setPbonsa(_index03Dto.getJbonsa_code());
+            indexDa024Dto.setPmodel(_index03Dto.getJmodel_code());
+            indexDa024Dto.setPcolor(_index03Dto.getJcolor_code());
             indexDa024Dto.setQty(jqty);
             indexDa024Dto.setUamt(ll_chulgoga);
             indexDa024Dto.setSamt(ll_chulgoga);
