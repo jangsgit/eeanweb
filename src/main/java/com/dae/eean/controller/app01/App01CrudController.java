@@ -848,7 +848,12 @@ public class App01CrudController {
             String day   = todate.substring(8,10) ;
             todate = year + month + day ;
             index03Dto.setTodate(todate);
+            log.info("001 ->" + index03Dto.getJpum());
+            log.info("002 ->" + index03Dto.getFrdate());
+            log.info("003 ->" + index03Dto.getTodate());
+            log.info("004 ->" + index03Dto.getJpb_gubn());
             index03List = service03.GetJpumCustJaegoList(index03Dto);
+            log.info("004 ->" + index03List);
             model.addAttribute("index03List",index03List);
 
         } catch (Exception ex) {
