@@ -102,6 +102,14 @@ public class Index14Service {
     public IndexDa024Dto SelectDa026Detail(IndexDa024Dto parm){
         return  appMapper.SelectDa026Detail(parm);
     }
+    public IndexDa024Dto SelectDa026Detail02(IndexDa024Dto parm){
+        return  appMapper.SelectDa026Detail02(parm);
+    }
+
+    public IndexDa024Dto SelectDa024Detail(IndexDa024Dto parm){
+        return  appMapper.SelectDa024Detail(parm);
+    }
+
     public Boolean InsertDa023(IndexDa023Dto parm){ return  appMapper.InsertDa023(parm);}
     public Boolean InsertDa024(IndexDa024Dto parm){ return  appMapper.InsertDa024(parm);}
     public Boolean InsertDa025(IndexDa023Dto parm){ return  appMapper.InsertDa025(parm);}

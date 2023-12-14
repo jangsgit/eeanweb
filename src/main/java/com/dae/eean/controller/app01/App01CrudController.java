@@ -1167,6 +1167,8 @@ public class App01CrudController {
         try {
 
             //Index03Dto index03Dto_S = new Index03Dto();
+
+            IndexDa024Dto _indexDa024Dto = new IndexDa024Dto();
             HttpSession session = request.getSession();
             UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
             model.addAttribute("userformDto",userformDto);
@@ -1229,6 +1231,29 @@ public class App01CrudController {
                         indexDa024Dto.setSeq(seqArr.get(i));
                         indexDa024Dto.setQty(Integer.parseInt(misqty.get(i)));
 
+                        _indexDa024Dto.setMisdate(indexDa024Dto.getMisdate());
+                        _indexDa024Dto.setMisnum(indexDa024Dto.getMisnum());
+                        _indexDa024Dto.setSeq(indexDa024Dto.getSeq());
+                        _indexDa024Dto.setCltcd(indexDa024Dto.getCltcd());
+                        _indexDa024Dto.setMisgubun(indexDa024Dto.getMisgubun());
+                        _indexDa024Dto = service14.SelectDa024Detail(_indexDa024Dto);
+                        Integer _ll_uamt = _indexDa024Dto.getUamt();
+                        Integer _ll_samt = 0;
+                        Integer _ll_addamt = 0;
+                        Integer _ll_amt = 0;
+                        Integer _ll_qty = indexDa024Dto.getQty();
+                        if(_ll_uamt > 0){
+                            _ll_samt = _ll_qty * _ll_uamt;
+                            _ll_addamt = _ll_samt / 10 ;
+                            _ll_amt = _ll_samt + _ll_addamt;
+                            indexDa024Dto.setSamt(_ll_samt);
+                            indexDa024Dto.setAddamt(_ll_addamt);
+                            indexDa024Dto.setAmt(_ll_amt);
+                        }else{
+                            indexDa024Dto.setSamt(0);
+                            indexDa024Dto.setAddamt(0);
+                            indexDa024Dto.setAmt(0);
+                        }
                         result = service14.UpdateDA024Qty(indexDa024Dto);
                         if (!result){
                             return "error";
@@ -1444,6 +1469,7 @@ public class App01CrudController {
             UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
             model.addAttribute("userformDto",userformDto);
             Index03Dto index03Dto_S = new Index03Dto();
+            IndexDa024Dto _indexDa024Dto = new IndexDa024Dto();
             Boolean result = false;
             String year = frdate.substring(0,4) ;
             String month = frdate.substring(5,7) ;
@@ -1497,6 +1523,32 @@ public class App01CrudController {
                         indexDa024Dto.setMisnum(misnumArr.get(i));
                         indexDa024Dto.setSeq(seqArr.get(i));
                         indexDa024Dto.setQty(Integer.parseInt(misqty.get(i)));
+
+
+                        _indexDa024Dto.setMisdate(indexDa024Dto.getMisdate());
+                        _indexDa024Dto.setMisnum(indexDa024Dto.getMisnum());
+                        _indexDa024Dto.setSeq(indexDa024Dto.getSeq());
+                        _indexDa024Dto.setCltcd(indexDa024Dto.getCltcd());
+                        _indexDa024Dto.setMisgubun(indexDa024Dto.getMisgubun());
+
+                        _indexDa024Dto = service14.SelectDa026Detail02(_indexDa024Dto);
+                        Integer _ll_uamt = _indexDa024Dto.getUamt();
+                        Integer _ll_samt = 0;
+                        Integer _ll_addamt = 0;
+                        Integer _ll_amt = 0;
+                        Integer _ll_qty = indexDa024Dto.getQty();
+                        if(_ll_uamt > 0){
+                            _ll_samt = _ll_qty * _ll_uamt;
+                            _ll_addamt = _ll_samt / 10 ;
+                            _ll_amt = _ll_samt + _ll_addamt;
+                            indexDa024Dto.setSamt(_ll_samt);
+                            indexDa024Dto.setAddamt(_ll_addamt);
+                            indexDa024Dto.setAmt(_ll_amt);
+                        }else{
+                            indexDa024Dto.setSamt(0);
+                            indexDa024Dto.setAddamt(0);
+                            indexDa024Dto.setAmt(0);
+                        }
 
                         result = service14.UpdateDA026Qty(indexDa024Dto);
                         if (!result){

@@ -1311,13 +1311,14 @@
                 },
                 footer: {
                     declarative: {
-                        text: 'EEAN Optic\t&[Page]\\&[Pages]',
+                        text: 'EEAN Optic',                             //text: 'EEAN Optic\t&[Page]\\&[Pages]',
                         font: new wijmo.pdf.PdfFont('times', 12),
                         brush: '#bfc1c2'
                     }
                 },
                 ended: (sender, args) => wijmo.pdf.saveBlob(args.blob, ls_misdate + '_' + '거래명세서.pdf')
             }) 
+            
             doc.registerFont({
                 source: "https://assets.codepen.io/975719/UnDotum.ttf",
                 name: "BMHANNAPro",
@@ -1326,7 +1327,7 @@
                 sansSerif: true
             });
             
-            doc.header.drawText("거 래 명 세 서", null, null, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 20), align: 1, baseline: 5, underline: false});   //align 1 center baseline 5 bottom
+            //doc.header.drawText("거 래 명 세 서", null, null, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 20), align: 1, baseline: 5, underline: false});   //align 1 center baseline 5 bottom
  
             getData.forEach((saledata, i, arr) => { 
                 drawSales(doc, saledata);
@@ -1458,6 +1459,8 @@
                 }
                 // footer.cells.rows[0].allowMerging = true;  
                 let y = doc.y;
+                doc.header.drawText("거 래 명 세 서", null, null, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 20), align: 1, baseline: 5, underline: false});   //align 1 center baseline 5 bottom
+
                 doc.moveDown(2);
                 // * draw captions *
                 doc.drawText('작성일자: ' + ls_misdatetxt, 10, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 14), align: 0, underline:false});
@@ -1491,6 +1494,7 @@
                 doc.drawText('대 표 자 : ' + ls_aname, 100, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11),  underline:false}); 
 
                 y = doc.y; 
+                ls_ajuso = ls_ajuso.substr(0, 34)
                 doc.drawText(ls_ajuso, 10, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro"), align: 0, underline:false});   //아래와 같이 공급합니다.
                 doc.drawText('업    태 : ' + ls_eeupte, 320, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11),   underline:false});
                 //
@@ -2045,7 +2049,7 @@
                 ls_aname = wtab03Dto[i]["aname"];
                 ls_aupte = wtab03Dto[i]["aupte"];
                 ls_ajong = wtab03Dto[i]["ajong"];
-                ls_ajuso = wtab03Dto[i]["ajuso"];
+                ls_ajuso = wtab03Dto[i]["ajuso"]; 
                 ls_eeacorp = wtab03Dto[i]["eeacorp"];
                 ls_eeasano = wtab03Dto[i]["eeasano"];
                 ls_eeaname = wtab03Dto[i]["eeaname"];
@@ -2232,7 +2236,7 @@
                 ls_acorp = wtab05Dto[i]["acorp"]; 
                 ls_cltcd = wtab05Dto[i]["cltcd"]; 
                 ls_atelno = wtab05Dto[i]["atelno"]; 
-                ls_ajuso = wtab05Dto[i]["ajuso"]; 
+                ls_ajuso = wtab05Dto[i]["ajuso"];  
                 ls_aascodetxt = wtab05Dto[i]["aascodetxt"]; 
                 ls_pname = wtab05Dto[i]["pname"];
                 ls_qty = wtab05Dto[i]["qty"];

@@ -65,6 +65,10 @@ public interface Index14Mapper {
     public List<IndexDa024Dto> SelectDa026ListLike(IndexDa024Dto parm) ;
 
     public IndexDa024Dto SelectDa026Detail(IndexDa024Dto parm) ;
+    public IndexDa024Dto SelectDa026Detail02(IndexDa024Dto parm) ;
+
+    public IndexDa024Dto SelectDa024Detail(IndexDa024Dto parm) ;
+
     public List<IndexDa024Dto> SelectDa024ListPerid(IndexDa024Dto parm) ;
     public List<IndexDa024Dto> SelectDa024ListPeridGroup(IndexDa024Dto parm) ;
     public List<IndexDa024Dto> SelectDa024ListJpumArea(IndexDa024Dto parm) ;

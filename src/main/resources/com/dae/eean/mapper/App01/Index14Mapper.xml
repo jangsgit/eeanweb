@@ -41,6 +41,20 @@
                    and cltcd = #{cltcd} and misgubun = #{misgubun}   AND ISNULL(omisdate  ,'') <> ''  ]]>
     </select>
 
+    <select id="SelectDa024Detail" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" resultType="com.dae.eean.DTO.App01.IndexDa024Dto">
+        <![CDATA[  select  uamt, samt, addamt, amt
+                   from tb_da024 WITH (NOLOCK)
+                   where misdate = #{misdate} and misnum = #{misnum} and seq = #{seq}
+                   and cltcd = #{cltcd} and misgubun = #{misgubun}    ]]>
+    </select>
+
+    <select id="SelectDa026Detail02" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" resultType="com.dae.eean.DTO.App01.IndexDa024Dto">
+        <![CDATA[  select  uamt, samt, addamt, amt
+                   from tb_da026 WITH (NOLOCK)
+                   where misdate = #{misdate} and misnum = #{misnum} and seq = #{seq}
+                   and cltcd = #{cltcd} and misgubun = #{misgubun}    ]]>
+    </select>
+
     <select id="SelectDa024List"  parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" resultType="com.dae.eean.DTO.App01.IndexDa024Dto">
         <![CDATA[ select B.cltcd as cltcd, Left(B.misdate,4) + '-' + substring(B.misdate, 5,2)+ '-' + substring(B.misdate, 7,2) as misdate, B.misnum, B.seq,
                          B.pcode, B.pname, B.psize,    B.punit,  B.qty,  B.uamt, B.samt, B.addamt, isnull(C.remarkaa,'') as remarkaa, isnull(C.remarkbb,'') as remarkbb, isnull(C.makflag, '0') as makflag,
@@ -641,7 +655,7 @@
     </update>
     <update id="UpdateDA024Qty" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
         UPDATE tb_da024 SET
-          qty=#{qty}
+          qty=#{qty}, samt=#{samt}, addamt=#{addamt}, amt=#{amt}
         where misdate=#{misdate} and misnum=#{misnum} and seq=#{seq} and cltcd = #{cltcd}
     </update>
 
@@ -666,7 +680,7 @@
 
     <update id="UpdateDA026Qty" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
         UPDATE tb_da026 SET
-            qty=#{qty}
+            qty=#{qty}, samt=#{samt}, addamt=#{addamt}, amt={amt}
         where misdate=#{misdate} and misnum=#{misnum} and seq=#{seq} and cltcd = #{cltcd}
     </update>
 
