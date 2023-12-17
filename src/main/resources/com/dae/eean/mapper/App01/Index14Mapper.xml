@@ -7,7 +7,11 @@
 
 
     <select id="SelectCheckMisnum" parameterType="com.dae.eean.DTO.App01.IndexDa023Dto" resultType="String">
-        <![CDATA[  select top 1 misnum  from tb_da023 where misdate = #{misdate} and cltcd=#{cltcd} and misgubun = #{misgubun}  order by misdate, misnum     ]]>
+        <![CDATA[  select top 1 misnum  from tb_da023 where misdate = #{misdate} and cltcd=#{cltcd} and misgubun = #{misgubun} and ( Len(isnull(makflag,'')) = 0 OR makflag = '0')   order by misdate, misnum     ]]>
+    </select>
+
+    <select id="SelectCheckMisnumMkflag" parameterType="com.dae.eean.DTO.App01.IndexDa023Dto" resultType="String">
+        <![CDATA[  select top 1 misnum  from tb_da023 where misdate = #{misdate} and cltcd=#{cltcd} and misgubun = #{misgubun} and  makflag = '1'    order by misdate, misnum desc     ]]>
     </select>
 
     <select id="SelectCheckMisnumOrd" parameterType="com.dae.eean.DTO.App01.IndexDa023Dto" resultType="String">
@@ -15,8 +19,13 @@
     </select>
 
     <select id="SelectCheckMisnumWish" parameterType="com.dae.eean.DTO.App01.IndexDa023Dto" resultType="String">
-        <![CDATA[  select top 1 misnum  from tb_da025 where misdate = #{misdate} and cltcd=#{cltcd}  and misgubun = #{misgubun}    order by misdate, misnum     ]]>
+        <![CDATA[  select top 1 misnum  from tb_da025 where misdate = #{misdate} and cltcd=#{cltcd}  and misgubun = #{misgubun}  and ( Len(isnull(makflag,'')) = 0 OR makflag = '0')    order by misdate, misnum     ]]>
     </select>
+
+    <select id="SelectCheckMisnumWishMkflag" parameterType="com.dae.eean.DTO.App01.IndexDa023Dto" resultType="String">
+        <![CDATA[  select top 1 misnum  from tb_da025 where misdate = #{misdate} and cltcd=#{cltcd}  and misgubun = #{misgubun}   and  makflag = '1'    order by misdate, misnum desc   ]]>
+    </select>
+
 
     <select id="SelectMaxMisnum" parameterType="com.dae.eean.DTO.App01.IndexDa023Dto" resultType="String">
         <![CDATA[  select  max(misnum)  from tb_da023 where misdate = #{misdate}      ]]>
@@ -615,7 +624,7 @@
     <delete id="DeleteDA025" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
         delete from tb_da025
         where misdate = #{misdate} and misnum = #{misnum} and cltcd = #{cltcd} and misgubun = #{misgubun}
-          and misdate + misnum not in (select misdate + misnum from tb_da026 where misdate = #{misdate} and misnum=#{misnum} and misgubun = #{misgubun} )
+          and misdate + misnum not in (select misdate + misnum from tb_da026 where misdate = #{misdate} and misnum=#{misnum} and misgubun = #{misgubun} and cltcd = #{cltcd} )
     </delete>
 
     <delete id="DeleteDA026" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
@@ -653,11 +662,26 @@
         devflag=#{devflag}
         where misdate=#{misdate} and misnum=#{misnum} and  seq=#{seq} and cltcd = #{cltcd} and misgubun = #{misgubun}
     </update>
+
     <update id="UpdateDA024Qty" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
         UPDATE tb_da024 SET
           qty=#{qty}, samt=#{samt}, addamt=#{addamt}, amt=#{amt}
         where misdate=#{misdate} and misnum=#{misnum} and seq=#{seq} and cltcd = #{cltcd}
     </update>
+
+
+    <delete id="DeleteDA024Mkflag" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
+        delete from tb_da024
+        where  cltcd = #{cltcd} and misgubun = #{misgubun}
+        and  misdate + misnum + seq  = ( #{misdate} + #{misnum} + #{seq} )
+    </delete>
+
+
+    <delete id="DeleteDA026Mkflag" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
+        delete from tb_da026
+        where  cltcd = #{cltcd} and misgubun = #{misgubun}
+        and  misdate + misnum + seq  = ( #{misdate} + #{misnum} + #{seq} )
+    </delete>
 
     <update id="UpdateDA026" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
         UPDATE tb_da026 SET
@@ -680,7 +704,7 @@
 
     <update id="UpdateDA026Qty" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
         UPDATE tb_da026 SET
-            qty=#{qty}, samt=#{samt}, addamt=#{addamt}, amt={amt}
+            qty=#{qty}, samt=#{samt}, addamt=#{addamt}, amt=#{amt}
         where misdate=#{misdate} and misnum=#{misnum} and seq=#{seq} and cltcd = #{cltcd}
     </update>
 

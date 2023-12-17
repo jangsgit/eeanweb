@@ -24,6 +24,10 @@ public class Index14Service {
     public String SelectCheckMisnum(IndexDa023Dto parm){
         return  appMapper.SelectCheckMisnum(parm);
     }
+    public String SelectCheckMisnumMkflag(IndexDa023Dto parm){
+        return  appMapper.SelectCheckMisnumMkflag(parm);
+    }
+
     public String SelectCheckMisnumOrd(IndexDa023Dto parm){
         return  appMapper.SelectCheckMisnumOrd(parm);
     }
@@ -31,6 +35,11 @@ public class Index14Service {
     public String SelectCheckMisnumWish(IndexDa023Dto parm){
         return  appMapper.SelectCheckMisnumWish(parm);
     }
+
+    public String SelectCheckMisnumWishMkflag(IndexDa023Dto parm){
+        return  appMapper.SelectCheckMisnumWishMkflag(parm);
+    }
+
     public String SelectMaxSeq(IndexDa023Dto parm){
         return  appMapper.SelectMaxSeq(parm);
     }
@@ -123,6 +132,8 @@ public class Index14Service {
     public Boolean DeleteDA024(IndexDa024Dto parm){ return  appMapper.DeleteDA024(parm);}
     public Boolean DeleteDA023Ord(IndexDa024Dto parm){ return  appMapper.DeleteDA023Ord(parm);}
     public Boolean DeleteDA024Ord(IndexDa024Dto parm){ return  appMapper.DeleteDA024Ord(parm);}
+    public Boolean DeleteDA024Mkflag(IndexDa024Dto parm){ return  appMapper.DeleteDA024Mkflag(parm);}
+    public Boolean DeleteDA026Mkflag(IndexDa024Dto parm){ return  appMapper.DeleteDA026Mkflag(parm);}
 
 
 

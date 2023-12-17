@@ -914,7 +914,20 @@ public class App01CrudController {
                 ls_chknull = "";
             }
             if(ls_chknull.length() == 0){
-                ls_misnum = "0001";
+                ls_misnum = service14.SelectCheckMisnumMkflag(indexDa023Dto);  //주문된 순번max 찾기
+                if(ls_misnum == null){
+                    ls_misnum = "0001";
+                }else{
+                    Integer ll_misnum = Integer.parseInt(ls_misnum) + 1;
+                    ls_misnum = ll_misnum.toString();
+                    if (ls_misnum.length() == 1){
+                        ls_misnum = "000" + ls_misnum;
+                    }else if(ls_misnum.length() == 2){
+                        ls_misnum = "00" + ls_misnum;
+                    }else {
+                        ls_misnum = "0" + ls_misnum;
+                    }
+                }
             }else{
                 ls_misnum = ls_chknull;
             }
@@ -1039,8 +1052,8 @@ public class App01CrudController {
             index02Dto = service02.GetCifListAcode(index02Dto);  //거래처정보
             index02BonsaDto = service02.GetCifBonsa(index02BonsaDto);
             _index03Dto = service03.GetJpumOrderJkey(_index03Dto); //품목정보
-            log.info("jmodel =====>  " + jmodel );
-            log.info("jcolor =====>  " + jcolor );
+//            log.info("jmodel =====>  " + jmodel );
+//            log.info("jcolor =====>  " + jcolor );
             if(_index03Dto == null){
                 log.info("error Exception =====> WISH GetJpumOrderJkey NULL" );
                 return "error";
@@ -1055,7 +1068,20 @@ public class App01CrudController {
                 ls_chknull = "";
             }
             if(ls_chknull.length() == 0){
-                ls_misnum = "0001";
+                ls_misnum = service14.SelectCheckMisnumWishMkflag(indexDa023Dto);  //주문된 순번max 찾기
+                if(ls_misnum == null){
+                    ls_misnum = "0001";
+                }else{
+                    Integer ll_misnum = Integer.parseInt(ls_misnum) + 1;
+                    ls_misnum = ll_misnum.toString();
+                    if (ls_misnum.length() == 1){
+                        ls_misnum = "000" + ls_misnum;
+                    }else if(ls_misnum.length() == 2){
+                        ls_misnum = "00" + ls_misnum;
+                    }else {
+                        ls_misnum = "0" + ls_misnum;
+                    }
+                }
             }else{
                 ls_misnum = ls_chknull;
             }
@@ -1109,8 +1135,6 @@ public class App01CrudController {
             indexDa024Dto.setSeq(ls_seq);
             indexDa024Dto.setMisdate(frdate);
             indexDa024Dto.setMisnum(ls_misnum);
-            log.info("ls_misnum=============>");
-            log.info(ls_misnum);
             indexDa024Dto.setPcode(_index03Dto.getJkey());
             indexDa024Dto.setPname(_index03Dto.getJpum());
             indexDa024Dto.setPsize(_index03Dto.getJgugek());
@@ -1271,7 +1295,20 @@ public class App01CrudController {
                 ls_chknull = "";
             }
             if(ls_chknull.length() == 0){
-                ls_misnum = "0001";
+                ls_misnum = service14.SelectCheckMisnumMkflag(indexDa023Dto);  //주문된 순번max 찾기
+                if(ls_misnum == null){
+                    ls_misnum = "0001";
+                }else{
+                    Integer ll_misnum = Integer.parseInt(ls_misnum) + 1;
+                    ls_misnum = ll_misnum.toString();
+                    if (ls_misnum.length() == 1){
+                        ls_misnum = "000" + ls_misnum;
+                    }else if(ls_misnum.length() == 2){
+                        ls_misnum = "00" + ls_misnum;
+                    }else {
+                        ls_misnum = "0" + ls_misnum;
+                    }
+                }
             }else{
                 ls_misnum = ls_chknull;
             }
@@ -1320,8 +1357,6 @@ public class App01CrudController {
             indexDa024Dto.setMisdate(frdate);
             indexDa024Dto.setMisnum(ls_misnum);
             indexDa024Dto.setMisgubun(mflag);
-//            log.info("ls_misnum=============>");
-//            log.info(ls_misnum);
             indexDa024Dto.setPcode(_index03Dto.getJkey());
             indexDa024Dto.setPname(_index03Dto.getJpum());
             indexDa024Dto.setPsize(_index03Dto.getJgugek());
@@ -1353,6 +1388,125 @@ public class App01CrudController {
             result = service14.InsertDa024(indexDa024Dto);
             if (!result){
                 return "error";
+            }
+
+        }catch (IllegalStateException e){
+            model.addAttribute("index14Save errorMessage", e.getMessage());
+            return "error";
+        }
+        return "success";
+    }
+
+
+    @RequestMapping(value="/index14/savecustdel")
+    public String index14SaveCustDel(
+            @RequestParam("ipdate") String frdate
+            ,@RequestParam("acode") String acode
+            ,@RequestParam("mflag") String mflag
+            ,@RequestParam("misdate") String misdate
+            ,@RequestParam( value =  "misdateArr[]") List<String> misdateArr
+            ,@RequestParam( value =  "misnumArr[]") List<String> misnumArr
+            ,@RequestParam( value =  "seqArr[]") List<String> seqArr
+            , Model model
+            , HttpServletRequest request){
+
+        try {
+            HttpSession session = request.getSession();
+            UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+            model.addAttribute("userformDto",userformDto);
+            Boolean result = false;
+            String year = frdate.substring(0,4) ;
+            String month = frdate.substring(5,7) ;
+            String day   = frdate.substring(8,10) ;
+            frdate = year + month + day ;
+            index02Dto.setAcode(acode);
+            indexDa023Dto.setMisgubun(mflag);
+            indexDa023Dto.setCltcd(acode);
+            indexDa023Dto.setMisdate(frdate);
+            //장바구니 삭제
+            if (!misdate.equals("0000")){
+                if( misdateArr.size() > 0){
+                    for(int i = 0; i < misdateArr.size(); i++){
+                        year = misdateArr.get(i).substring(0,4);
+                        month = misdateArr.get(i).substring(5,7);
+                        day = misdateArr.get(i).substring(8,10);
+                        String ls_misdate = year + month + day ;
+                        index02Dto.setAcode(acode);
+                        indexDa024Dto.setCltcd(acode);
+                        indexDa024Dto.setMisgubun(mflag);
+                        indexDa024Dto.setMisdate(ls_misdate);
+                        indexDa024Dto.setMisnum(misnumArr.get(i));
+                        indexDa024Dto.setSeq(seqArr.get(i));
+                        result = service14.DeleteDA024Mkflag(indexDa024Dto);
+                        if (!result){
+                            return "error";
+                        }
+                    }
+                }
+                result = service14.DeleteDA023(indexDa024Dto);
+                if (!result){
+                   return "error";
+                }
+                return "success";
+            }
+
+        }catch (IllegalStateException e){
+            model.addAttribute("index14Save errorMessage", e.getMessage());
+            return "error";
+        }
+        return "success";
+    }
+
+
+    @RequestMapping(value="/index14/savecustwishdel")
+    public String index14SaveCustWisDel(
+            @RequestParam("ipdate") String frdate
+            ,@RequestParam("acode") String acode
+            ,@RequestParam("mflag") String mflag
+            ,@RequestParam("misdate") String misdate
+            ,@RequestParam( value =  "misdateArr[]") List<String> misdateArr
+            ,@RequestParam( value =  "misnumArr[]") List<String> misnumArr
+            ,@RequestParam( value =  "seqArr[]") List<String> seqArr
+            , Model model
+            , HttpServletRequest request){
+
+        try {
+            HttpSession session = request.getSession();
+            UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+            model.addAttribute("userformDto",userformDto);
+            Boolean result = false;
+            String year = frdate.substring(0,4) ;
+            String month = frdate.substring(5,7) ;
+            String day   = frdate.substring(8,10) ;
+            frdate = year + month + day ;
+            index02Dto.setAcode(acode);
+            indexDa023Dto.setMisgubun(mflag);
+            indexDa023Dto.setCltcd(acode);
+            indexDa023Dto.setMisdate(frdate);
+            //장바구니 삭제
+            if (!misdate.equals("0000")){
+                if( misdateArr.size() > 0){
+                    for(int i = 0; i < misdateArr.size(); i++){
+                        year = misdateArr.get(i).substring(0,4);
+                        month = misdateArr.get(i).substring(5,7);
+                        day = misdateArr.get(i).substring(8,10);
+                        String ls_misdate = year + month + day ;
+                        indexDa024Dto.setCltcd(acode);
+                        indexDa024Dto.setMisgubun(mflag);
+                        indexDa024Dto.setMisdate(ls_misdate);
+                        indexDa024Dto.setMisnum(misnumArr.get(i));
+                        indexDa024Dto.setSeq(seqArr.get(i));
+                        result = service14.DeleteDA026Mkflag(indexDa024Dto);
+                        if (!result){
+                            return "error";
+                        }
+                    }
+                }
+                result = service14.DeleteDA025(indexDa024Dto);
+                if (!result){
+                    return "error";
+                }
+                return "success";
             }
 
         }catch (IllegalStateException e){
@@ -1569,7 +1723,20 @@ public class App01CrudController {
                 ls_chknull = "";
             }
             if(ls_chknull.length() == 0){
-                ls_misnum = "0001";
+                ls_misnum = service14.SelectCheckMisnumWishMkflag(indexDa023Dto);  //주문된 순번max 찾기
+                if(ls_misnum == null){
+                    ls_misnum = "0001";
+                }else{
+                    Integer ll_misnum = Integer.parseInt(ls_misnum) + 1;
+                    ls_misnum = ll_misnum.toString();
+                    if (ls_misnum.length() == 1){
+                        ls_misnum = "000" + ls_misnum;
+                    }else if(ls_misnum.length() == 2){
+                        ls_misnum = "00" + ls_misnum;
+                    }else {
+                        ls_misnum = "0" + ls_misnum;
+                    }
+                }
             }else{
                 ls_misnum = ls_chknull;
             }

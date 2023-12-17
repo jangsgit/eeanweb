@@ -325,6 +325,8 @@
                                 <div class="col col-lg-2">
                                     <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="OrderBtnSave" type="button"  >주문
                                     </button>
+                                    <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="DelBtnSave" type="button"  >삭제
+                                    </button>
                                 </div>  
                             </div>     
                         </div>                             
@@ -386,6 +388,8 @@
                                 <div class="col col-lg-2">
                                     <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="OrderBtnSave02" type="button"  >주문
                                     </button>
+                                    <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="DelBtnSave02" type="button"  >삭제
+                                    </button>
                                 </div>  
                             </div>     
                         </div>                             
@@ -394,7 +398,7 @@
                         <div id="wtab03Grid_div"  style="overflow:scroll;   height:500px;   margin:0 auto; "></div> 
                         <!-- <div id="thePager03"></div> -->
                     </div>   
-                </div>  
+                </div>   
 
                 <div class="modal-footer">
                     <div class="row g-1">
@@ -1088,6 +1092,29 @@ aria-hidden="true">
             saveremark_btn(arg1, arg2, arg3, arg4, 'C')
             $("#winwishmodal_btn").trigger("click"); 
         })  
+        //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$  
+        document.getElementById("DelBtnSave").addEventListener("click",function(){  
+            var ls_mgubun = document.getElementById('mgubun').value; 
+            var arg1 = document.getElementById('mjpumnm').value; 
+            var arg2 = document.getElementById('mjkey').value; 
+            var arg3 = document.getElementById('mremark').value; 
+            var arg4 = 1; //document.getElementById('mjqty').value; 
+            savechk_rtn()
+            delremark_btn(arg1, arg2, arg3, arg4, 'B')
+            $("#winordermodal_btn").trigger("click"); 
+        })  
+        //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 모달 예약등록@@@@@@@@@@@@@@@@@@@@@@@@@@@
+        //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$  
+        document.getElementById("DelBtnSave02").addEventListener("click",function(){  
+            var ls_mgubun = document.getElementById('mgubun02').value; 
+            var arg1 = document.getElementById('mjpumnm02').value; 
+            var arg2 = document.getElementById('mjkey02').value; 
+            var arg3 = document.getElementById('mremark02').value; 
+            var arg4 = 1; //document.getElementById('mjqty').value; 
+            savewishchk_rtn()
+            delremark_btn(arg1, arg2, arg3, arg4, 'C')
+            $("#winwishmodal_btn").trigger("click"); 
+        })  
         // document.getElementById("OrderBtnSave").addEventListener("click",function(){  
         //     var ls_mgubun = document.getElementById('mgubun').value; 
         //     var arg1 = document.getElementById('mjpumnm').value; 
@@ -1698,8 +1725,7 @@ aria-hidden="true">
             //argument :  ls_jpum , ls_jkey
             // var ls_frdate = '';
             // ls_frdate = document.getElementById('ipdate').value; 
-            // // alert(ls_frdate + ' / ' + arg1 + ' : 1EA 주문등록' )
-            console.log(arg2)
+            // // alert(ls_frdate + ' / ' + arg1 + ' : 1EA 주문등록' ) 
              save_btn(arg1, arg2, '', 1)
             //save_modal('O',arg1, arg2)
             
@@ -1867,6 +1893,19 @@ aria-hidden="true">
                     success:function(data){   
                         if(data == "success"){
                             alert("저장되었습니다.") 
+                            //초기화 
+                            misdateArr.length =0;
+                            misnumArr.length =0;
+                            seqArr.length =0;
+                            cltcdArr.length =0;
+                            gubunArr.length =0;
+                            fixflagArr.length =0;
+                            misqty.length =0;
+                            misdateArr[0] = '0000'
+                            misnumArr[0] = '0000'
+                            seqArr[0] = '0000'
+                            misqty[0] = '0'  
+                            document.getElementById('mremark').value = ""; 
                             searchList_rtn(ls_tabchk) 
                             return true;
                             // searchList_rtn(ls_tab);  
@@ -1909,7 +1948,20 @@ aria-hidden="true">
                         success:function(data){   
                             if(data == "success"){
                                 alert("저장되었습니다.") 
+                                //초기화 
+                                misdateArr.length =0;
+                                misnumArr.length =0;
+                                seqArr.length =0;
+                                cltcdArr.length =0;
+                                gubunArr.length =0;
+                                fixflagArr.length =0;
+                                misqty.length =0;
+                                misdateArr[0] = '0000'
+                                misnumArr[0] = '0000'
+                                seqArr[0] = '0000'
+                                misqty[0] = '0'  
                                 searchList_rtn(ls_tabchk) 
+                                document.getElementById('mremark02').value = ""; 
                                 return true;
                                 // searchList_rtn(ls_tab);  
                                 // clear_rtn(ls_tab);        
@@ -1931,13 +1983,136 @@ aria-hidden="true">
         }
 
 
+
+        function delremark_btn(arg1, arg2, arg3, arg4, arg5){           
+            var ls_misdate   = document.getElementById('bmisdate').value;          
+            var ls_misnum   = document.getElementById('bmisnum').value;          
+            var ls_seq   = document.getElementById('bseq').value;                
+            var ls_cltcd   = document.getElementById('bcltcd').value;  //비고등록시 거래처코드
+            var ls_tabchk = document.getElementById('tabvalue').value;                               
+            // const warnning_grid = document.getElementById('inwarnning_grid'); 
+            var ls_pcode  =  [];        
+            var ll_qty    =  [];    
+            var ls_jcode  =  [];        
+            var ll_jqty    =  []; 
+            var llCount = 0;  
+            ls_tabchk = arg5;  
+            
+            if (!confirm("삭제하시겠습니까?")) { 
+                return false; 
+            }                   
+            //요청사항 
+            if(arg3 == null || arg3.length == 0 || arg3 == ""){ 
+                arg3 = ""          ;
+            }    
+            //수량
+            if(arg4 == null ){ 
+                arg4 = 1         ;
+            }    
+            if(ls_tabchk == "B"  ){   
+                $.ajax({
+                    url: '/app01m/index14/savecustdel',  
+                    type:"POST",
+                    data: { 
+                        "ipdate"  : ls_misdate,  
+                        "acode"   : ls_cltcd   ,   
+                        "mflag"  : 'BB'   ,      
+                        "misdate"  : ls_misdate     , 
+                        "misdateArr"  : misdateArr   ,      
+                        "misnumArr"  : misnumArr  ,      
+                        "seqArr"  : seqArr   
+                    }, 
+                    async:false,
+                    success:function(data){   
+                        if(data == "success"){
+                            alert("삭제되었습니다.") 
+                            misdateArr.length =0;
+                            misnumArr.length =0;
+                            seqArr.length =0;
+                            cltcdArr.length =0;
+                            gubunArr.length =0;
+                            fixflagArr.length =0;
+                            misqty.length =0;
+                            misdateArr[0] = '0000'
+                            misnumArr[0] = '0000'
+                            seqArr[0] = '0000'
+                            misqty[0] = '0'  
+                            searchList_rtn(ls_tabchk) 
+                            return true;
+                            // searchList_rtn(ls_tab);  
+                            // clear_rtn(ls_tab);        
+                        }else{                       
+                            alert("저장중 오류가 발생했습니다. 관리자에게 문의하세요.")
+                            // listUp();
+                            console.log(data); 
+                            return false; 
+                        }
+                        
+                    },error:function(e){
+                        alert("저장중 오류가 발생했습니다.")
+                        console.log("error - savecust"); 
+                    }
+                }).done(function(fragment){           
+
+                }) 
+            }else{ 
+                console.log(ls_misdate)
+                console.log(misdateArr)
+                $.ajax({
+                        url: '/app01m/index14/savecustwishdel',  
+                        type:"POST",
+                        data: { 
+                            "ipdate"  : ls_misdate,  
+                            "acode"   : ls_cltcd   ,  
+                            "misdate"  : ls_misdate     ,  
+                            "mflag"  : 'BB'   ,      
+                            "misdateArr"  : misdateArr   ,      
+                            "misnumArr"  : misnumArr  ,      
+                            "seqArr"  : seqArr   
+                        }, 
+                        async:false,
+                        success:function(data){   
+                            if(data == "success"){
+                                alert("삭제되었습니다.") 
+                                misdateArr.length =0;
+                                misnumArr.length =0;
+                                seqArr.length =0;
+                                cltcdArr.length =0;
+                                gubunArr.length =0;
+                                fixflagArr.length =0;
+                                misqty.length =0;
+                                misdateArr[0] = '0000'
+                                misnumArr[0] = '0000'
+                                seqArr[0] = '0000'
+                                misqty[0] = '0'  
+                                searchList_rtn(ls_tabchk) 
+                                return true;
+                                // searchList_rtn(ls_tab);  
+                                // clear_rtn(ls_tab);        
+                            }else{                       
+                                alert("예약중 오류가 발생했습니다. 관리자에게 문의하세요.")
+                                // listUp();
+                                console.log(data); 
+                                return false; 
+                            }
+                           
+                        },error:function(e){                  
+                            alert("예약중 오류가 발생했습니다.")
+                            console.log("error - savecustwish"); 
+                        }
+                    }).done(function(fragment){           
+
+                    })                  
+            }           
+        }
+
         //토스트 메시지 노출-사라짐 함수 작성
-        function tostOn(){ 
+        function toastOn(){ 
             let tostMessage = document.getElementById('tost_message');
             tostMessage.classList.add('active');
             setTimeout(function(){
                 tostMessage.classList.remove('active');
-            },2000);
+            },1000);
         }
 
 
@@ -1973,14 +2148,20 @@ aria-hidden="true">
                         alert("거래처를 등록하세요") 
                         document.getElementById("cifname").focus(); 
                         return ;               
-                    }   
-                    if(ls_misdate == null || ls_misdate.length == 0 || ls_misdate == ""){ 
+                    }       
+                    if(misdateArr.length == 0){
+                        misdateArr[0] = '0000'
+                        misnumArr[0] = '0000'
+                        seqArr[0] = '0000'
+                        misqty[0] = '0'
+                    } 
+                    if(ls_misdate == null || ls_misdate.length == 0 || ls_misdate == "" ||  misdateArr[0] == '0000'){ 
                         ls_misdate = "0000"
                     }  
-                    if(ls_misnum == null || ls_misnum.length == 0 || ls_misnum == ""){ 
+                    if(ls_misnum == null || ls_misnum.length == 0 || ls_misnum == ""  ||  misdateArr[0] == '0000'){ 
                         ls_misnum = "0000"
                     }  
-                    if(ls_seq == null || ls_seq.length == 0 || ls_seq == ""){ 
+                    if(ls_seq == null || ls_seq.length == 0 || ls_seq == ""  ||  misdateArr[0] == '0000'){ 
                         ls_seq = "0000"
                     }                                          
                     //요청사항 
@@ -1990,13 +2171,7 @@ aria-hidden="true">
                     //수량
                     if(arg4 == null ){ 
                         arg4 = 1         ;
-                    }      
-                    if(misdateArr.length == 0){
-                        misdateArr[0] = '0000'
-                        misnumArr[0] = '0000'
-                        seqArr[0] = '0000'
-                        misqty[0] = '0'
-                    }
+                    }  
                     $.ajax({
                         url: '/app01m/index14/savecust',  
                         type:"POST",
@@ -2019,8 +2194,7 @@ aria-hidden="true">
                         async:false,
                         success:function(data){   
                             if(data == "success"){
-                                tostOn()
-                                //alert("저장되었습니다.") 
+                                toastOn() 
                                 searchList_rtn(ls_tabchk) 
                                 return true;
                                 // searchList_rtn(ls_tab);  
@@ -2094,21 +2268,21 @@ aria-hidden="true">
                     if(arg4 == null ){ 
                         arg4 = 1         ;
                     } 
-                    if(ls_misdate == null || ls_misdate.length == 0 || ls_misdate == ""){ 
-                        ls_misdate = "0000"
-                    }  
-                    if(ls_misnum == null || ls_misnum.length == 0 || ls_misnum == ""){ 
-                        ls_misnum = "0000"
-                    }  
-                    if(ls_seq == null || ls_seq.length == 0 || ls_seq == ""){ 
-                        ls_seq = "0000"
-                    }  
                     if(misdateArr.length == 0){
                         misdateArr[0] = '0000'
                         misnumArr[0] = '0000'
                         seqArr[0] = '0000'
                         misqty[0] = '0'
-                    }
+                    } 
+                    if(ls_misdate == null || ls_misdate.length == 0 || ls_misdate == ""  ||  misdateArr[0] == '0000'){ 
+                        ls_misdate = "0000"
+                    }  
+                    if(ls_misnum == null || ls_misnum.length == 0 || ls_misnum == ""  ||  misdateArr[0] == '0000'){ 
+                        ls_misnum = "0000"
+                    }  
+                    if(ls_seq == null || ls_seq.length == 0 || ls_seq == ""  ||  misdateArr[0] == '0000'){ 
+                        ls_seq = "0000"
+                    }  
                     $.ajax({
                         url: '/app01m/index14/savecustwish',  
                         type:"POST",
@@ -2131,7 +2305,7 @@ aria-hidden="true">
                         async:false,
                         success:function(data){   
                             if(data == "success"){
-                                tostOn()
+                                toastOn() 
                                 //alert("저장되었습니다.") 
                                 searchList_rtn(ls_tabchk) 
                                 return true;
