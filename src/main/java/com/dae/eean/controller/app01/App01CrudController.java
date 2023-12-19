@@ -133,11 +133,11 @@ public class App01CrudController {
             }else{
                 //index02Dto.setAcorp1("%");
             }
-//            log.info("001 =====>" + index02Dto.getAcorp1());
-//            log.info("002 =====>" + index02Dto.getAcorp());
-//            log.info("003 =====>" + index02Dto.getAgita());
-//            log.info("004 =====>" + index02Dto.getAbonsadam1());
-//            log.info("005 =====>" + jpbgubn);
+            log.info("001 =====>" + _index02Dto.getAcorp1());
+            log.info("002 =====>" + _index02Dto.getAcorp());
+            log.info("003 =====>" + _index02Dto.getAgita());
+            log.info("004 =====>" + _index02Dto.getAbonsadam1());
+            log.info("005 =====>" + jpbgubn);
             _index02List = service02.GetCifListTot(_index02Dto);
             model.addAttribute("index02List",_index02List);
 
@@ -146,7 +146,7 @@ public class App01CrudController {
 //            log.debug("Exception =====>" + ex.toString() );
         }
 
-        return _index02Dto;
+        return _index02List;
     }
 
 
