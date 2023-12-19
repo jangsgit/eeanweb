@@ -487,7 +487,12 @@
                                 clear_rtn(ls_tab);
                                 searchGrid(ls_tab);                                
                                 //wactnmChks(arg1,arg2);       
-                            }else{                       
+                            }else{   
+                                if(data == "relogin"){
+                                    alert("다시 로그인해주세요")
+                                    window.location.href='http://eean.co.kr';
+                                    return 
+                                }                    
                                 alert("저장중 오류가 발생했습니다. 관리자에게 문의하세요.")
                                 // listUp();
                                 console.log(data);  
@@ -530,6 +535,11 @@
                                 searchList_rtn(ls_tab);  
                                 clear_rtn(ls_tab);        
                             }else{                       
+                                if(data == "relogin"){
+                                    alert("다시 로그인해주세요")
+                                    window.location.href='http://eean.co.kr';
+                                    return 
+                                }       
                                 alert("저장중 오류가 발생했습니다. 관리자에게 문의하세요.")
                                 // listUp();
                                 console.log(data);  
@@ -607,6 +617,11 @@
                                 clear_rtn(ls_tab); 
                                 searchGrid(ls_tab);             
                             }else{                       
+                                if(data == "relogin"){
+                                    alert("다시 로그인해주세요")
+                                    window.location.href='http://eean.co.kr';
+                                    return 
+                                }       
                                 alert("삭제중 오류가 발생했습니다. 관리자에게 문의하세요.")  
                             }
                            
@@ -632,7 +647,12 @@
                                 alert("삭제되었습니다.") 
                                 searchList_rtn(ls_tab);  
                                 clear_rtn(ls_tab);             
-                            }else{                       
+                            }else{            
+                                if(data == "relogin"){
+                                    alert("다시 로그인해주세요")
+                                    window.location.href='http://eean.co.kr';
+                                    return 
+                                }                  
                                 alert("삭제중 오류가 발생했습니다. 관리자에게 문의하세요.")  
                             }
                            

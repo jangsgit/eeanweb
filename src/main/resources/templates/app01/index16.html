@@ -946,7 +946,12 @@
                                 searchList_rtn(ls_tab, "PRT");   
                                 return true;
                                 // clear_rtn(ls_tab);        
-                            }else{                       
+                            }else{
+                                if(data == "relogin"){
+                                    alert("다시 로그인해주세요")
+                                    window.location.href='http://eean.co.kr';
+                                    return 
+                                }                              
                                 alert("처리중 오류가 발생했습니다. 관리자에게 문의하세요.")
                                 // listUp();
                                 console.log(data); 
@@ -1017,7 +1022,12 @@
                                 // misdateArr.pop() 
                                 return true;  
                                 // clear_rtn(ls_tab);        
-                            }else{                       
+                            }else{ 
+                                if(data == "relogin"){
+                                    alert("다시 로그인해주세요")
+                                    window.location.href='http://eean.co.kr';
+                                    return 
+                                }                             
                                 alert("처리중 오류가 발생했습니다. 관리자에게 문의하세요.")
                                 // listUp();
                                 console.log(data); 
@@ -1087,7 +1097,12 @@
                                 searchList_rtn(ls_tab, "DEV");   
                                 return true;
                                 // clear_rtn(ls_tab);        
-                            }else{                       
+                            }else{       
+                                if(data == "relogin"){
+                                    alert("다시 로그인해주세요")
+                                    window.location.href='http://eean.co.kr';
+                                    return 
+                                }                       
                                 alert("처리중 오류가 발생했습니다. 관리자에게 문의하세요.")
                                 // listUp();
                                 console.log(data); 
@@ -1184,7 +1199,12 @@
                                 //searchList_rtn(ls_tab, "DEV");   
                                 return true;
                                 // clear_rtn(ls_tab);        
-                            }else{                       
+                            }else{    
+                                if(data == "relogin"){
+                                    alert("다시 로그인해주세요")
+                                    window.location.href='http://eean.co.kr';
+                                    return 
+                                }                          
                                 alert("처리중 오류가 발생했습니다. 관리자에게 문의하세요.")
                                 // listUp();
                                 console.log(data); 

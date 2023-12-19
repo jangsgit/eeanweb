@@ -64,6 +64,10 @@ public class App01CrudController {
         CommDto.setMenuCode("index02");
         HttpSession session = request.getSession();
         UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        if(userformDto == null){
+            log.info("App02List_index Exception =====> relogin userformDto null");
+            return "relogin";
+        }
         model.addAttribute("userformDto",userformDto);
 
         try {
@@ -96,6 +100,10 @@ public class App01CrudController {
         CommDto.setMenuCode("index02");
         HttpSession session = request.getSession();
         UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        if(userformDto == null){
+            log.info("App02ListTot_index Exception =====> relogin userformDto null");
+            return "relogin";
+        }
         model.addAttribute("userformDto",userformDto);
 
         try {
@@ -242,6 +250,10 @@ public class App01CrudController {
             });
             HttpSession session = request.getSession();
             UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+            if(userformDto == null){
+                log.info("index02Save Exception =====> relogin userformDto null");
+                return "relogin";
+            }
             model.addAttribute("userformDto",userformDto);
 
             String ls_acode = index02Dto.getAcode();
@@ -274,6 +286,10 @@ public class App01CrudController {
             Model model,   HttpServletRequest request){
         HttpSession session = request.getSession();
         UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        if(userformDto == null){
+            log.info("index02Delete Exception =====> relogin userformDto null");
+            return "relogin";
+        }
         model.addAttribute("userformDto",userformDto);
         index02Dto.setAcode(ascode);
         Boolean result = service02.DeleteCif(index02Dto);
@@ -294,6 +310,10 @@ public class App01CrudController {
         CommDto.setMenuCode("index03");
         HttpSession session = request.getSession();
         UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        if(userformDto == null){
+            log.info("App03List_index Exception =====> relogin userformDto null");
+            return "relogin";
+        }
         model.addAttribute("userformDto",userformDto);
 
         try {
@@ -324,6 +344,10 @@ public class App01CrudController {
         CommDto.setMenuCode("index03");
         HttpSession session = request.getSession();
         UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        if(userformDto == null){
+            log.info("App03SubulList_index Exception =====> relogin userformDto null");
+            return "relogin";
+        }
         model.addAttribute("userformDto",userformDto);
         Index03Dto index03Dto_S = new Index03Dto();
 
@@ -360,6 +384,10 @@ public class App01CrudController {
         CommDto.setMenuCode("index03");
         HttpSession session = request.getSession();
         UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        if(userformDto == null){
+            log.info("App03SubulList02_index Exception =====> relogin userformDto null");
+            return "relogin";
+        }
         model.addAttribute("userformDto",userformDto);
         Index03Dto index03Dto_S = new Index03Dto();
 
@@ -397,6 +425,10 @@ public class App01CrudController {
         CommDto.setMenuCode("index03");
         HttpSession session = request.getSession();
         UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        if(userformDto == null){
+            log.info("App03ListTot_index Exception =====> relogin userformDto null");
+            return "relogin";
+        }
         model.addAttribute("userformDto",userformDto);
         Index03Dto index03Dto_S = new Index03Dto();
 
@@ -436,6 +468,10 @@ public class App01CrudController {
         CommDto.setMenuCode("index03");
         HttpSession session = request.getSession();
         UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        if(userformDto == null){
+            log.info("App03CustList_index Exception =====> relogin userformDto null");
+            return "relogin";
+        }
         model.addAttribute("userformDto",userformDto);
         Index03Dto index03Dto_S = new Index03Dto();
         try {
@@ -465,6 +501,10 @@ public class App01CrudController {
         CommDto.setMenuCode("index03");
         HttpSession session = request.getSession();
         UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        if(userformDto == null){
+            log.info("App03ModelList_index Exception =====> relogin userformDto null");
+            return "relogin";
+        }
         model.addAttribute("userformDto",userformDto);
         Index03Dto index03Dto_S = new Index03Dto();
         try {
@@ -545,6 +585,10 @@ public class App01CrudController {
             });
             HttpSession session = request.getSession();
             UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+            if(userformDto == null){
+                log.info("index03Save Exception =====> relogin userformDto null");
+                return "relogin";
+            }
             model.addAttribute("userformDto",userformDto);
 
             String ls_acode = service03.GetJpumCheck(index03Dto);
@@ -579,6 +623,10 @@ public class App01CrudController {
                                   Model model,   HttpServletRequest request){
         HttpSession session = request.getSession();
         UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        if(userformDto == null){
+            log.info("index03Delete Exception =====> relogin userformDto null");
+            return "relogin";
+        }
         model.addAttribute("userformDto",userformDto);
         index03Dto.setJkey(ascode);
         Boolean result = service03.DeleteJpum(index03Dto);
@@ -602,6 +650,10 @@ public class App01CrudController {
         CommDto.setMenuCode("index14");
         HttpSession session = request.getSession();
         UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        if(userformDto == null){
+            log.info("App03GanList01_index Exception =====> relogin userformDto null");
+            return "relogin";
+        }
         model.addAttribute("userformDto",userformDto);
 
         try {
@@ -637,6 +689,10 @@ public class App01CrudController {
         CommDto.setMenuCode("index14");
         HttpSession session = request.getSession();
         UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        if(userformDto == null){
+            log.info("App03GanList02_index Exception =====> relogin userformDto null");
+            return "relogin";
+        }
         model.addAttribute("userformDto",userformDto);
 
         try {
@@ -675,6 +731,10 @@ public class App01CrudController {
         CommDto.setMenuCode("index14");
         HttpSession session = request.getSession();
         UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        if(userformDto == null){
+            log.info("App03GanList03_index Exception =====> relogin userformDto null");
+            return "relogin";
+        }
         model.addAttribute("userformDto",userformDto);
 
         try {
@@ -705,6 +765,10 @@ public class App01CrudController {
 
             HttpSession session = request.getSession();
             UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+            if(userformDto == null){
+                log.info("index04Save Exception =====> relogin userformDto null");
+                return "relogin";
+            }
             model.addAttribute("userformDto",userformDto);
 
             String year = frdate.substring(0,4) ;
@@ -743,6 +807,10 @@ public class App01CrudController {
                                   Model model,   HttpServletRequest request){
         HttpSession session = request.getSession();
         UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        if(userformDto == null){
+            log.info("index04Delete Exception =====> relogin userformDto null");
+            return "relogin";
+        }
         model.addAttribute("userformDto",userformDto);
         String year = ipdate.substring(0,4) ;
         String month = ipdate.substring(5,7) ;
@@ -767,6 +835,10 @@ public class App01CrudController {
         CommDto.setMenuCode("index04");
         HttpSession session = request.getSession();
         UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        if(userformDto == null){
+            log.info("App04List_index Exception =====> relogin userformDto null");
+            return "relogin";
+        }
         model.addAttribute("userformDto",userformDto);
 
         try {
@@ -796,6 +868,10 @@ public class App01CrudController {
         CommDto.setMenuCode("index04");
         HttpSession session = request.getSession();
         UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        if(userformDto == null){
+            log.info("App04JaegoList_index Exception =====> relogin userformDto null");
+            return "relogin";
+        }
         model.addAttribute("userformDto",userformDto);
 
         try {
@@ -829,6 +905,10 @@ public class App01CrudController {
         CommDto.setMenuCode("index04");
         HttpSession session = request.getSession();
         UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        if(userformDto == null){
+            log.info("App04JaegoCustList_index Exception =====> relogin userformDto null");
+            return "relogin";
+        }
         model.addAttribute("userformDto",userformDto);
         Index03Dto _index03Dto = new Index03Dto();
         List<Index03Dto> _index03List = new ArrayList<>();
@@ -883,6 +963,10 @@ public class App01CrudController {
 
             HttpSession session = request.getSession();
             UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+            if(userformDto == null){
+                log.info("index14Save Exception =====> relogin userformDto null");
+                return "relogin";
+            }
             model.addAttribute("userformDto",userformDto);
             Index03Dto _index03Dto = new Index03Dto();
             //Index03Dto index03Dto_S = new Index03Dto();
@@ -1035,6 +1119,10 @@ public class App01CrudController {
 
             HttpSession session = request.getSession();
             UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+            if(userformDto == null){
+                log.info("index14SaveWish Exception =====> relogin userformDto null");
+                return "relogin";
+            }
             model.addAttribute("userformDto",userformDto);
             Index03Dto _index03Dto = new Index03Dto();
 
@@ -1195,6 +1283,10 @@ public class App01CrudController {
             IndexDa024Dto _indexDa024Dto = new IndexDa024Dto();
             HttpSession session = request.getSession();
             UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+            if(userformDto == null){
+                log.info("index14SaveCust Exception =====> relogin userformDto null");
+                return "relogin";
+            }
             model.addAttribute("userformDto",userformDto);
 
             Index03Dto _index03Dto = new Index03Dto();
@@ -1413,6 +1505,10 @@ public class App01CrudController {
         try {
             HttpSession session = request.getSession();
             UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+            if(userformDto == null){
+                log.info("index14SaveCustDel Exception =====> relogin userformDto null");
+                return "relogin";
+            }
             model.addAttribute("userformDto",userformDto);
             Boolean result = false;
             String year = frdate.substring(0,4) ;
@@ -1473,6 +1569,10 @@ public class App01CrudController {
         try {
             HttpSession session = request.getSession();
             UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+            if(userformDto == null){
+                log.info("index14SaveCustWisDel Exception =====> relogin userformDto null");
+                return "relogin";
+            }
             model.addAttribute("userformDto",userformDto);
             Boolean result = false;
             String year = frdate.substring(0,4) ;
@@ -1529,6 +1629,10 @@ public class App01CrudController {
         CommDto.setMenuCode("index14");
         HttpSession session = request.getSession();
         UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        if(userformDto == null){
+            log.info("App14Del_index Exception =====> relogin userformDto null");
+            return "relogin";
+        }
         model.addAttribute("userformDto",userformDto);
 
         try {
@@ -1571,6 +1675,10 @@ public class App01CrudController {
         CommDto.setMenuCode("index14wish");
         HttpSession session = request.getSession();
         UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        if(userformDto == null){
+            log.info("App14DelWish_index Exception =====> relogin userformDto null");
+            return "relogin";
+        }
         model.addAttribute("userformDto",userformDto);
 
         try {
@@ -1621,6 +1729,10 @@ public class App01CrudController {
 
             HttpSession session = request.getSession();
             UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+            if(userformDto == null){
+                log.info("index14SaveCustWish Exception =====> relogin userformDto null");
+                return "relogin";
+            }
             model.addAttribute("userformDto",userformDto);
             Index03Dto index03Dto_S = new Index03Dto();
             IndexDa024Dto _indexDa024Dto = new IndexDa024Dto();
@@ -1846,6 +1958,10 @@ public class App01CrudController {
         CommDto.setMenuCode("index14");
         HttpSession session = request.getSession();
         UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        if(userformDto == null){
+            log.info("App14List_index Exception =====> relogin userformDto null");
+            return "relogin";
+        }
         model.addAttribute("userformDto",userformDto);
 
         try {
@@ -1914,6 +2030,10 @@ public class App01CrudController {
         CommDto.setMenuCode("index14");
         HttpSession session = request.getSession();
         UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        if(userformDto == null){
+            log.info("App14ListPrt_index Exception =====> relogin userformDto null");
+            return "relogin";
+        }
         model.addAttribute("userformDto",userformDto);
 
         try {
@@ -1960,6 +2080,10 @@ public class App01CrudController {
         CommDto.setMenuCode("index14");
         HttpSession session = request.getSession();
         UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        if(userformDto == null){
+            log.info("App14ListDev_index Exception =====> relogin userformDto null");
+            return "relogin";
+        }
         model.addAttribute("userformDto",userformDto);
 
         try {
@@ -2005,6 +2129,10 @@ public class App01CrudController {
         CommDto.setMenuCode("index14");
         HttpSession session = request.getSession();
         UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        if(userformDto == null){
+            log.info("App14ListPrtDetail_index Exception =====> relogin userformDto null");
+            return "relogin";
+        }
         model.addAttribute("userformDto",userformDto);
 
         try {
@@ -2039,6 +2167,10 @@ public class App01CrudController {
         CommDto.setMenuCode("index14");
         HttpSession session = request.getSession();
         UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        if(userformDto == null){
+            log.info("App14ListPerid_index Exception =====> relogin userformDto null");
+            return "relogin";
+        }
         model.addAttribute("userformDto",userformDto);
 
         try {
@@ -2105,6 +2237,10 @@ public class App01CrudController {
         CommDto.setMenuCode("index14");
         HttpSession session = request.getSession();
         UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        if(userformDto == null){
+            log.info("App14ListPeridGroup_index Exception =====> relogin userformDto null");
+            return "relogin";
+        }
         model.addAttribute("userformDto",userformDto);
 
         try {
@@ -2172,6 +2308,10 @@ public class App01CrudController {
         CommDto.setMenuCode("index14");
         HttpSession session = request.getSession();
         UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        if(userformDto == null){
+            log.info("App14ListCltcd_index Exception =====> relogin userformDto null");
+            return "relogin";
+        }
         model.addAttribute("userformDto",userformDto);
 
         try {
@@ -2235,6 +2375,10 @@ public class App01CrudController {
         CommDto.setMenuCode("index14");
         HttpSession session = request.getSession();
         UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        if(userformDto == null){
+            log.info("App14ListCltcdGroup_index Exception =====> relogin userformDto null");
+            return "relogin";
+        }
         model.addAttribute("userformDto",userformDto);
 
         try {
@@ -2299,6 +2443,10 @@ public class App01CrudController {
         CommDto.setMenuCode("index14");
         HttpSession session = request.getSession();
         UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        if(userformDto == null){
+            log.info("App14ListJkey_index Exception =====> relogin userformDto null");
+            return "relogin";
+        }
         model.addAttribute("userformDto",userformDto);
 
         try {
@@ -2365,6 +2513,10 @@ public class App01CrudController {
         CommDto.setMenuCode("index14");
         HttpSession session = request.getSession();
         UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        if(userformDto == null){
+            log.info("App14ListJkeyGroup_index Exception =====> relogin userformDto null");
+            return "relogin";
+        }
         model.addAttribute("userformDto",userformDto);
 
         try {
@@ -2428,6 +2580,10 @@ public class App01CrudController {
         CommDto.setMenuCode("index14");
         HttpSession session = request.getSession();
         UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        if(userformDto == null){
+            log.info("App14ListSido_index Exception =====> relogin userformDto null");
+            return "relogin";
+        }
         model.addAttribute("userformDto",userformDto);
 
         try {
@@ -2490,6 +2646,10 @@ public class App01CrudController {
         CommDto.setMenuCode("index14");
         HttpSession session = request.getSession();
         UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        if(userformDto == null){
+            log.info("App14ListGugun_index Exception =====> relogin userformDto null");
+            return "relogin";
+        }
         model.addAttribute("userformDto",userformDto);
 
         try {
@@ -2555,6 +2715,10 @@ public class App01CrudController {
         CommDto.setMenuCode("index14wish");
         HttpSession session = request.getSession();
         UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        if(userformDto == null){
+            log.info("App14ListWish_index Exception =====> relogin userformDto null");
+            return "relogin";
+        }
         model.addAttribute("userformDto",userformDto);
 
         try {
@@ -2625,6 +2789,10 @@ public class App01CrudController {
         CommDto.setMenuCode("index14wish");
         HttpSession session = request.getSession();
         UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        if(userformDto == null){
+            log.info("App14ListWishPerid_index Exception =====> relogin userformDto null");
+            return "relogin";
+        }
         model.addAttribute("userformDto",userformDto);
 
         try {
@@ -2686,6 +2854,10 @@ public class App01CrudController {
         CommDto.setMenuCode("index14wish");
         HttpSession session = request.getSession();
         UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        if(userformDto == null){
+            log.info("App14ListWishCltcd_index Exception =====> relogin userformDto null");
+            return "relogin";
+        }
         model.addAttribute("userformDto",userformDto);
 
         try {
@@ -2749,6 +2921,10 @@ public class App01CrudController {
         CommDto.setMenuCode("index14wish");
         HttpSession session = request.getSession();
         UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        if(userformDto == null){
+            log.info("App14ListWishJkey_index Exception =====> relogin userformDto null");
+            return "relogin";
+        }
         model.addAttribute("userformDto",userformDto);
 
         try {
@@ -3008,6 +3184,10 @@ public class App01CrudController {
                                            Model model,   HttpServletRequest request){
         HttpSession session = request.getSession();
         UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        if(userformDto == null){
+            log.info("App01ComCodeSave_index Exception =====> relogin userformDto null");
+            return "relogin";
+        }
         model.addAttribute("userformDto",userformDto);
 
         Boolean result = false;
@@ -3031,6 +3211,10 @@ public class App01CrudController {
                                           Model model,   HttpServletRequest request){
         HttpSession session = request.getSession();
         UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        if(userformDto == null){
+            log.info("App01ComCodeDel_index Exception =====> relogin userformDto null");
+            return "relogin";
+        }
         model.addAttribute("userformDto",userformDto);
 
         Boolean result = false;
@@ -3100,6 +3284,10 @@ public class App01CrudController {
                                                  Model model,   HttpServletRequest request){
         HttpSession session = request.getSession();
         UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        if(userformDto == null){
+            log.info("App01ComCodeDetailSave_index Exception =====> relogin userformDto null");
+            return "relogin";
+        }
         model.addAttribute("userformDto",userformDto);
 
         Boolean result = false;
@@ -3128,6 +3316,10 @@ public class App01CrudController {
                                                 Model model,   HttpServletRequest request){
         HttpSession session = request.getSession();
         UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        if(userformDto == null){
+            log.info("App01ComCodeDetailDel_index Exception =====> relogin userformDto null");
+            return "relogin";
+        }
         model.addAttribute("userformDto",userformDto);
 
         Boolean result = false;
@@ -3151,6 +3343,10 @@ public class App01CrudController {
         CommDto.setMenuCode("index01");
         HttpSession session = request.getSession();
         UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        if(userformDto == null){
+            log.info("App01ComdodeDetailList_index Exception =====> relogin userformDto null");
+            return "relogin";
+        }
         model.addAttribute("userformDto",userformDto);
 
         try {

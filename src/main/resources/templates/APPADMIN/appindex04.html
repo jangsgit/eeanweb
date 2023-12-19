@@ -318,6 +318,11 @@
                         // console.log("MOD", data); 
                         listUp();
                     }else{
+                        if(data == "relogin"){
+                            alert("다시 로그인해주세요")
+                            window.location.href='http://eean.co.kr';
+                            return 
+                        }       
                         alert("변경중 오류가 발생했습니다. 관리자에게 문의하세요.")
                     }
                 },error:function(e){
@@ -360,6 +365,11 @@
                         // console.log("MOD", data); 
                         listUp();
                     }else{
+                        if(data == "relogin"){
+                            alert("다시 로그인해주세요")
+                            window.location.href='http://eean.co.kr';
+                            return 
+                        }       
                         alert("변경중 오류가 발생했습니다. 관리자에게 문의하세요.")
                     }
                 },error:function(e){
@@ -513,6 +523,11 @@
                         // console.log("MOD", data); 
                         listUp();
                     }else{
+                        if(data == "relogin"){
+                            alert("다시 로그인해주세요")
+                            window.location.href='http://eean.co.kr';
+                            return 
+                        }       
                         alert("변경중 오류가 발생했습니다. 관리자에게 문의하세요.")
                     }
                 },error:function(e){

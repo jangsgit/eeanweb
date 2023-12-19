@@ -48,6 +48,10 @@ public class App02CrudController {
         CommDto.setMenuCode("index11");
         HttpSession session = request.getSession();
         UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        if(userformDto == null){
+            log.info("App02List_index Exception =====> relogin userformDto null");
+            return "relogin";
+        }
         model.addAttribute("userformDto",userformDto);
 
         try {
