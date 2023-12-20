@@ -457,7 +457,7 @@ public class App01CrudController {
             model.addAttribute("index03List",_index03List);
 
         } catch (Exception ex) {
-            log.info("App02ListTot_index Exception =====>" + ex.toString());
+            log.info("App03ListTot_index Exception =====>" + ex.toString());
 //            log.debug("Exception =====>" + ex.toString() );
         }
 

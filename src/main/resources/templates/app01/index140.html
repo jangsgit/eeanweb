@@ -2384,7 +2384,12 @@
                         "jpbgubn" :ls_jpbgubn, 
                     }, 
                     async:false,
-                    success:function(data){  
+                    success:function(data){        
+                        if(data == "relogin"){
+                            alert("다시 로그인해주세요")
+                            window.location.href='http://eean.co.kr';
+                            return 
+                        }     
                         tabPop_grid(data, arg);
                     },error:function(e){
                         console.log("error");                            
@@ -2495,7 +2500,12 @@
                         "flag" :ls_flag 
                     }, 
                     async:false,
-                    success:function(data){  
+                    success:function(data){        
+                        if(data == "relogin"){
+                            alert("다시 로그인해주세요")
+                            window.location.href='http://eean.co.kr';
+                            return 
+                        }     
                         tabA_grid03(data);
                     },error:function(e){
                         console.log("error");                            

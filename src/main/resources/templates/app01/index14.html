@@ -2221,7 +2221,12 @@
                         "mflag" :arg5, 
                     }, 
                     async:false,
-                    success:function(data){  
+                    success:function(data){        
+                        if(data == "relogin"){
+                            alert("다시 로그인해주세요")
+                            window.location.href='http://eean.co.kr';
+                            return 
+                        }     
                         searchList_rtn("B");
                     },error:function(e){
                         console.log("error");                            
@@ -2253,7 +2258,12 @@
                         "mflag" :arg5, 
                     }, 
                     async:false,
-                    success:function(data){  
+                    success:function(data){        
+                        if(data == "relogin"){
+                            alert("다시 로그인해주세요")
+                            window.location.href='http://eean.co.kr';
+                            return 
+                        }     
                         searchList_rtn("C");
                     },error:function(e){
                         console.log("error");                            
@@ -2301,7 +2311,12 @@
                         "jpbgubn" :ls_jpbgubn, 
                     }, 
                     async:false,
-                    success:function(data){  
+                    success:function(data){           
+                        if(data == "relogin"){
+                            alert("다시 로그인해주세요")
+                            window.location.href='http://eean.co.kr';
+                            return 
+                        }     
                         tabPop_grid(data, arg);
                     },error:function(e){
                         console.log("error");                            
@@ -2419,7 +2434,7 @@
                     document.getElementById("cifname").focus(); 
                     return ;               
             }    
-  
+   
             $.ajax({
                     url: '/app01m/index03/ganlist03',  
                     type:"POST",
@@ -2428,7 +2443,12 @@
                         "flag" :ls_flag 
                     }, 
                     async:false,
-                    success:function(data){  
+                    success:function(data){        
+                        if(data == "relogin"){
+                            alert("다시 로그인해주세요")
+                            window.location.href='http://eean.co.kr';
+                            return 
+                        }     
                         tabA_grid03(data);
                     },error:function(e){
                         console.log("error");                            

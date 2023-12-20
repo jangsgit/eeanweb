@@ -835,7 +835,12 @@ aria-hidden="true">
                     "searchtxt" :arg, 
                 }, 
                 async:false,
-                success:function(data){  
+                success:function(data){        
+                    if(data == "relogin"){
+                        alert("다시 로그인해주세요")
+                        window.location.href='http://eean.co.kr';
+                        return 
+                    }     
                     jcust_grid(arg,data);
                 },error:function(e){
                     console.log("error");                            
@@ -859,7 +864,12 @@ aria-hidden="true">
                         "jmodel" :ls_jmodel, 
                     }, 
                     async:false,
-                    success:function(data){  
+                    success:function(data){        
+                        if(data == "relogin"){
+                            alert("다시 로그인해주세요")
+                            window.location.href='http://eean.co.kr';
+                            return 
+                        }     
                         jmodel_grid(data);
                     },error:function(e){
                         console.log("error");                            
