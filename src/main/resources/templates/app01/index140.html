@@ -1145,6 +1145,7 @@
                             misqty[0] = '0'  
                             document.getElementById('mremark').value = ""; 
                             searchList_rtn(ls_tabchk) 
+                            $("#winorderlistmodal_btn").trigger("click");
                             return true;
                             // searchList_rtn(ls_tab);  
                             // clear_rtn(ls_tab);        
@@ -1205,6 +1206,7 @@
                                 misqty[0] = '0'  
                                 document.getElementById('mremark02').value = ""; 
                                 searchList_rtn(ls_tabchk) 
+                                $("#winwishlistmodal_btn").trigger("click");
                                 return true;
                                 // searchList_rtn(ls_tab);  
                                 // clear_rtn(ls_tab);        
@@ -1536,7 +1538,7 @@
                     document.getElementById("ipdate").focus(); 
                     return ;               
                 }   
-
+ 
                     $.ajax({
                         url: '/app01m/index04/del',  
                         type:"POST",

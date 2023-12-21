@@ -428,6 +428,7 @@
          var ls_atelno = "";
          var ls_eeatelno = ""; 
          var ls_misdatetxt = "" ;
+         var ls_remark = "" ;
          var wtab03_data = [];
          var wtab05_data = [];
          var chkTabA = [];
@@ -1564,7 +1565,12 @@
                 doc.moveDown(2);
                 
                 // * draw captions *
-                doc.drawText('합계금액 : ' + wijmo.changeType(ll_sumamt, wijmo.DataType.String, 'n0') + '원', 370, doc.y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 13), continue:true, underline:true, align:2}); 
+                if(ls_remark.length == null || ls_remark.length == 0){ 
+                    doc.drawText('합계금액 : ' + wijmo.changeType(ll_sumamt, wijmo.DataType.String, 'n0') + '원', 370, doc.y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 13), continue:true, underline:true, align:2}); 
+                }else{
+                    doc.drawText('합계금액 : ' + wijmo.changeType(ll_sumamt, wijmo.DataType.String, 'n0') + '원', 370, doc.y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 13), continue:true, underline:true, align:2});                     
+                    doc.drawText('비    고 : ' + ls_remark, 10, doc.y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11),   underline:false}); 
+                }
                 // doc.drawText(wijmo.changeType(ll_sumamt, wijmo.DataType.String, 'c'));
                 // let cz = doc.drawText('합계금액: ', 100, doc.y, {font: new wijmo.pdf.PdfFont("BMHANNAPro")}); 
                 // doc.paths.moveTo(cz.size.width, doc.y).lineTo(cz.size.width + 150, doc.y).stroke(thinPen);
@@ -2046,7 +2052,7 @@
                     eeaname: wtab05Dto[i]["eeaname"],      
                     eeupte: wtab05Dto[i]["eeupte"],      
                     eeajong: wtab05Dto[i]["eeajong"],      
-                    eeajuso: wtab05Dto[i]["eeajuso"],            
+                    eeajuso: wtab05Dto[i]["eeajuso"]         
                 });
                 cnt++;
             }   
@@ -2069,7 +2075,8 @@
                 ls_aname = wtab03Dto[i]["aname"];
                 ls_aupte = wtab03Dto[i]["aupte"];
                 ls_ajong = wtab03Dto[i]["ajong"];
-                ls_ajuso = wtab03Dto[i]["ajuso"]; 
+                ls_ajuso = wtab03Dto[i]["ajuso"];
+                ls_remark = wtab03Dto[i]["remark"]; 
                 ls_eeacorp = wtab03Dto[i]["eeacorp"];
                 ls_eeasano = wtab03Dto[i]["eeasano"];
                 ls_eeaname = wtab03Dto[i]["eeaname"];
@@ -2821,6 +2828,8 @@
     function fn_egov_init_date(){ 
         document.getElementById('misfixflag').value = "0";
         document.getElementById('wishfixflag').value = "0";
+        document.getElementById('misgubunflag').value = "%";
+        document.getElementById('misgubun').value = "%";
         
         lsUserid = window.localStorage.getItem("userid")
         if (lsUserid == "pvadmin"){ 

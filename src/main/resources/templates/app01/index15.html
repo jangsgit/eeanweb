@@ -1913,6 +1913,7 @@ aria-hidden="true">
                             misqty[0] = '0'  
                             document.getElementById('mremark').value = ""; 
                             searchList_rtn(ls_tabchk) 
+                            $("#winorderlistmodal_btn").trigger("click");
                             return true;
                             // searchList_rtn(ls_tab);  
                             // clear_rtn(ls_tab);        
@@ -1979,6 +1980,7 @@ aria-hidden="true">
                                 misqty[0] = '0'  
                                 document.getElementById('mremark02').value = ""; 
                                 searchList_rtn(ls_tabchk) 
+                                $("#winwishlistmodal_btn").trigger("click");
                                 return true;
                                 // searchList_rtn(ls_tab);  
                                 // clear_rtn(ls_tab);        
@@ -2373,7 +2375,7 @@ aria-hidden="true">
             } 
 
         } 
-        function imgdetail(arg1){   
+        function imgdetail(arg1){    
             // div 초기화 
             const ListDivs = $('div[data-name="ListDiv02"]');
             ListDivs.remove();

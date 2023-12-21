@@ -268,7 +268,7 @@
                     { binding: 'qty', header: '수량', align: "center", width: 80 ,  aggregate: 'Sum'},  
                     { binding: 'uamt', header: '단가', align: "center", width: 100 },  
                     { binding: 'samt', header: '금액', align: "center", width: 150 ,  aggregate: 'Sum'},  
-                    { binding: 'fixflag', header: '확정', align: "center", width: 150, cssClass: 'switch'   },  
+                    // { binding: 'fixflag', header: '확정', align: "center", width: 150, cssClass: 'switch'   },  
                     
                 ], 
                 itemsSource: new wijmo.collections.CollectionView(getData_wlist(), {
@@ -754,13 +754,13 @@
             cols.aggregate = 'Sum';
             cols.width = 120;  
             wtab02Grid.columns.push(cols);    
-            cols = new wijmo.grid.Column(); 
-            cols.binding = 'fixflag'; 
-            cols.header = '확정';
-            cols.align = "center";
-            cols.width = 100;  
-            cols.cssClass = 'switch'
-            wtab02Grid.columns.push(cols);  
+            // cols = new wijmo.grid.Column(); 
+            // cols.binding = 'fixflag'; 
+            // cols.header = '확정';
+            // cols.align = "center";
+            // cols.width = 100;  
+            // cols.cssClass = 'switch'
+            // wtab02Grid.columns.push(cols);  
             
             wtab02Grid.collapseGroupsToLevel(1);
  

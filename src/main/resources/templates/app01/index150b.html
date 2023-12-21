@@ -1894,6 +1894,7 @@ aria-hidden="true">
                             misqty[0] = '0'  
                             document.getElementById('mremark').value = ""; 
                             searchList_rtn(ls_tabchk) 
+                            $("#winorderlistmodal_btn").trigger("click");
                             return true;
                             // searchList_rtn(ls_tab);  
                             // clear_rtn(ls_tab);        
@@ -1954,6 +1955,7 @@ aria-hidden="true">
                                 misqty[0] = '0'  
                                 document.getElementById('mremark02').value = ""; 
                                 searchList_rtn(ls_tabchk) 
+                                $("#winwishlistmodal_btn").trigger("click");
                                 return true;
                                 // searchList_rtn(ls_tab);  
                                 // clear_rtn(ls_tab);        
@@ -2327,7 +2329,7 @@ aria-hidden="true">
                             }else{
                                 if(data == "relogin"){
                                     alert("다시 로그인해주세요")
-                                    window.location.href='http://eean.co.kr';
+                                    window.location.href='http://eean.co.kr'; 
                                     return 
                                 }                              
                                 alert("예약중 오류가 발생했습니다. 관리자에게 문의하세요.")

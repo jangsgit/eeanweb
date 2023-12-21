@@ -27,5 +27,6 @@ public class Index04Dto {
     private Integer jchgoga0;
     private String frdate;
     private String todate;
+    private String ipdate;
 
 }

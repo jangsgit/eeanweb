@@ -63,6 +63,7 @@ public class App01CrudController {
         CommDto.setMenuUrl("기준정보>거래처정보");
         CommDto.setMenuCode("index02");
         Index02Dto _index02Dto = new Index02Dto();
+        List<Index02Dto> _index02List = new ArrayList<>();
         HttpSession session = request.getSession();
         UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
         if(userformDto == null){
@@ -77,14 +78,14 @@ public class App01CrudController {
                 searchtxt = "%";
             }
             _index02Dto.setAcorp(searchtxt);
-            index02List = service02.GetCifList(_index02Dto);
-            model.addAttribute("index02List",_index02Dto);
+            _index02List = service02.GetCifList(_index02Dto);
+            model.addAttribute("index02List",_index02List);
 
         } catch (Exception ex) {
             log.info("App02List_index Exception =====>" + ex.toString());
         }
 
-        return _index02Dto;
+        return _index02List;
     }
 
 
@@ -334,7 +335,7 @@ public class App01CrudController {
             log.info("App02List_index Exception =====>" + ex.toString());
         }
 
-        return _index03Dto;
+        return _index03List;
     }
 
     //기간별수불현황
@@ -842,8 +843,10 @@ public class App01CrudController {
 
     //재고실사 리스트
     @GetMapping(value="/index04/list")
-    public Object App04List_index(@RequestParam("ipdate") String searchtxt,
+    public Object App04List_index(@RequestParam("ipfrdate") String ipfrdate,
+                                  @RequestParam("iptodate") String iptodate,
                                   @RequestParam("jpbgubn") String jpbgubn,
+                                  @RequestParam("jkey") String jkey,
                                   Model model, HttpServletRequest request) throws Exception{
         CommDto.setMenuTitle("거래처등록");
         CommDto.setMenuUrl("기준정보>재고등록");
@@ -859,12 +862,18 @@ public class App01CrudController {
         model.addAttribute("userformDto",userformDto);
 
         try {
-            String year = searchtxt.substring(0,4) ;
-            String month = searchtxt.substring(5,7) ;
-            String day   = searchtxt.substring(8,10) ;
-            searchtxt = year + month + day ;
-            _index04Dto.setKey1(searchtxt);
+            String year = ipfrdate.substring(0,4) ;
+            String month = ipfrdate.substring(5,7) ;
+            String day   = ipfrdate.substring(8,10) ;
+            ipfrdate = year + month + day ;
+            year = iptodate.substring(0,4) ;
+            month = iptodate.substring(5,7) ;
+            day   = iptodate.substring(8,10) ;
+            iptodate = year + month + day ;
+            _index04Dto.setFrdate(ipfrdate);
+            _index04Dto.setTodate(iptodate);
             _index04Dto.setJpb_gubun(jpbgubn);
+            _index04Dto.setJkey(jkey);
             _index04List = service04.SelectJegoIpgo(_index04Dto);
             model.addAttribute("index04List",_index04List);
 

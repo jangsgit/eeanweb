@@ -8,7 +8,7 @@
     background-color:gold !important;
   } 
 .gray-cell{
-    background-color:rgb(241, 241, 241) !important;
+    background-color:rgba(128, 126, 126, 0.452) !important;
 }
 .white-cell{
     background-color:rgb(255, 255, 255) !important;

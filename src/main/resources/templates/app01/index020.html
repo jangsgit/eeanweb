@@ -755,11 +755,7 @@
                     $("#retrieveBtn").trigger("click"); 
                     // listUp();   
                 }else{
-                    if(data == "relogin"){
-                        alert("다시 로그인해주세요")
-                        window.location.href='http://eean.co.kr';
-                        return 
-                    }       
+                    chkLogin(data)      
                     alert("삭제중 오류가 발생했습니다. 관리자에게 문의하세요.")                             
                 }   
             },error:function(e){
@@ -1003,12 +999,8 @@
                         alert("저장되었습니다.")
                         // console.log(formData);
                         searchList_rtn("%");              
-                    }else{  
-                        if(data == "relogin"){
-                            alert("다시 로그인해주세요")
-                            window.location.href='http://eean.co.kr';
-                            return 
-                        }                            
+                    }else{   
+                        chkLogin(data)                            
                         alert("저장중 오류가 발생했습니다. 관리자에게 문의하세요.")
                         // listUp();
                         console.log(data);  
@@ -1122,6 +1114,7 @@
             var wtab01Dto  = data;    
             var wtab01_data = [];
             var cnt = 1;
+            chkLogin(wtab01Dto)  
             for (var i = 0; i < wtab01Dto.length; i++) {
                 wtab01_data.push({
                     id: i, 
@@ -1205,9 +1198,9 @@
                             "searchtxt" :arg1, 
                         }, 
                         async:false,
-                        success:function(data){  
+                        success:function(data){ 
                             tabA_grid(data);
-                        },error:function(e){
+                        },error:function(e){ 
                             console.log("error");                            
                         }
                     }).done(function(fragment){           
@@ -1220,7 +1213,8 @@
         function tabA_grid(data){
             var wtab01Dto  = data;    
             var wtab01_data = [];
-            var cnt = 1;
+            var cnt = 1; 
+            chkLogin(wtab01Dto)  
             for (var i = 0; i < wtab01Dto.length; i++) {
                 wtab01_data.push({
                     id: i, 
@@ -1402,6 +1396,7 @@
             var wtab02Dto  = data;    
             var wtab02_data = [];
             var cnt = 1;
+            chkLogin(wtab02Dto)  
             for (var i = 0; i < wtab02Dto.length; i++) {
                 wtab02_data.push({
                     id: i, 
@@ -1667,6 +1662,14 @@ function sample4_execDaumPostcode() {
         //     var actarrivtimez = document.getElementById("#actarrivtimez").value;
         //     var actcomptimez = document.getElementById("#actcomptimez").value;
         // }
+        
+        function chkLogin(argdata){
+        if(argdata == "relogin"){
+                alert("다시 로그인해주세요")
+                window.location.href='http://eean.co.kr';
+                return 
+            }    
+        }
         function getToday(){
             let today = new Date();   
             let year = today.getFullYear(); // 년도

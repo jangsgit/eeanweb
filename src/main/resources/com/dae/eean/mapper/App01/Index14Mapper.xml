@@ -68,8 +68,9 @@
         <![CDATA[ select B.cltcd as cltcd, Left(B.misdate,4) + '-' + substring(B.misdate, 5,2)+ '-' + substring(B.misdate, 7,2) as misdate, B.misnum, B.seq,
                          B.pcode, B.pname, B.psize,    B.punit,  B.qty,  B.uamt, B.samt, B.addamt, isnull(C.remarkaa,'') as remarkaa, isnull(C.remarkbb,'') as remarkbb, isnull(C.makflag, '0') as makflag,
                          B.amt, A.acorp, pbonsa, pmodel, pcolor , D.inname, B.misgubun, isnull(B.fixflag,'0') as fixflag,isnull(B.devflag,'0') as devflag,   D.inname as pernm , C.unsongnum as unsongnum
-           from  TB_DA024 B WITH (NOLOCK) , cif A WITH (NOLOCK) ,
-                 TB_DA023 C WITH (NOLOCK) Left outer JOIN INSA D ON C.perid = D.insano
+           from  TB_DA024 B WITH (NOLOCK) ,
+                 cif A WITH (NOLOCK) Left outer JOIN INSA D ON  A.abonsadam1 = D.insano,
+                 TB_DA023 C WITH (NOLOCK)
            where B.misdate + B.misnum = C.misdate + C.misnum AND B.misgubun = C.misgubun
              AND isnull(C.delflag, '') <> 'Y'
              AND B.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
@@ -90,8 +91,9 @@
         <![CDATA[ select B.cltcd as cltcd, Left(B.misdate,4) + '-' + substring(B.misdate, 5,2)+ '-' + substring(B.misdate, 7,2) as misdate, B.misnum, B.seq,
                          B.pcode, B.pname, B.psize,    B.punit,  B.qty,  B.uamt, B.samt, B.addamt, isnull(C.remarkaa,'') as remarkaa, isnull(C.remarkbb,'') as remarkbb, isnull(C.makflag, '0') as makflag,
                          B.amt, A.acorp, pbonsa, pmodel, pcolor , D.inname, B.misgubun, isnull(B.fixflag,'0') as fixflag,isnull(B.devflag,'0') as devflag,   D.inname as pernm, C.unsongnum as unsongnum
-                  from  TB_DA024 B WITH (NOLOCK) , cif A WITH (NOLOCK) ,
-                 TB_DA023 C WITH (NOLOCK) Left outer JOIN INSA D ON C.perid = D.insano
+                  from  TB_DA024 B WITH (NOLOCK) ,
+                        cif A WITH (NOLOCK) Left outer JOIN INSA D ON A.abonsadam1 = D.insano,
+                        TB_DA023 C WITH (NOLOCK)
            where B.misdate + B.misnum = C.misdate + C.misnum AND B.misgubun = C.misgubun
              AND isnull(C.delflag, '') <> 'Y'
              AND B.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
@@ -110,6 +112,7 @@
 
     <select id="SelectDa024ListPrt"  parameterType="com.dae.eean.DTO.App01.IndexDa024Dto"  resultType="com.dae.eean.DTO.App01.IndexDa024Dto">
           select B.cltcd as cltcd,  substring(B.misdate, 5,2)+ '.' + substring(B.misdate, 7,2) as misdate, B.misnum, B.seq,
+                 (case when len(isnull(C.remarkaa,'')) > 0 then C.remarkaa  when len(isnull(C.remarkbb,'')) > 0 then C.remarkbb else '' END ) AS remark,
                          substring(B.misdate, 1,4)+ '년 ' + substring(B.misdate, 5,2)+ '월 ' + substring(B.misdate, 7,2) + '일' as misdatetxt,
                          B.pcode, B.pname, B.psize,    B.punit,  B.qty,  B.uamt, B.samt, B.addamt,
                          B.amt, A.acorp, pbonsa, pmodel, pcolor , D.inname, B.misgubun, isnull(B.fixflag,'0') as fixflag, D.inname as pernm,
@@ -118,8 +121,9 @@
                          A.aascode1 + '-' + A.aascode2 as aascodetxt,
                          F.acorp as eeacorp, F.asano as eeasano, F.aname as eeaname, F.aupte as eeupte, F.ajong as eeajong, F.ajuso as eeajuso, F.atelno as eeatelno,
                          F.eeacodetxt as eeacodetxt
-           from  TB_DA024 B WITH (NOLOCK) , cif A WITH (NOLOCK) ,
-                 TB_DA023 C WITH (NOLOCK) Left outer JOIN INSA D ON C.perid = D.insano ,
+           from  TB_DA024 B WITH (NOLOCK) ,
+                 cif A WITH (NOLOCK) Left outer JOIN INSA D ON A.abonsadam1 = D.insano,
+                 TB_DA023 C WITH (NOLOCK) ,
                  ( select acorp, atelno, asano1 + '-' + asano2 + '-' + asano3 as asano, aname, aupte, ajong, ajuso1 + ' ' + ajuso2 as ajuso,
                     aascode1 + '-' + aascode2 as eeacodetxt
                     from cif where acorp1 + acorp2 + acorp3 = '0000' ) F
@@ -134,13 +138,15 @@
 
     <select id="SelectDa024ListPrtGroup"  parameterType="hashmap"  resultType="com.dae.eean.DTO.App01.IndexDa024Dto">
         select B.cltcd as cltcd,  B.misdate as misdate, B.misnum,
-        substring(B.misdate, 1,4)+ '년 ' + substring(B.misdate, 5,2)+ '월 ' + substring(B.misdate, 7,2) + '일' as misdatetxt,
-        sum(B.qty) as qty,   sum(B.samt) as samt, sum(B.addamt) as addamt, sum(B.amt) as amt,
-        A.acorp, ROW_NUMBER() OVER(ORDER BY (SELECT 1)) AS rownum,
-        MAX(F.acorp) as eeacorp, MAX(F.asano) as eeasano, MAX(F.aname) as eeaname, MAX(F.aupte) as eeupte,
-        MAX(F.ajong) as eeajong, MAX(F.ajuso) as eeajuso, MAX(F.atelno) as eeatelno
-        from  TB_DA024 B WITH (NOLOCK) , cif A WITH (NOLOCK) ,
-        TB_DA023 C WITH (NOLOCK) Left outer JOIN INSA D ON C.perid = D.insano ,
+            (case when len(isnull(C.remarkaa,'')) > 0 then C.remarkaa  when len(isnull(C.remarkbb,'')) > 0 then C.remarkbb else '' END ) AS remark,
+            substring(B.misdate, 1,4)+ '년 ' + substring(B.misdate, 5,2)+ '월 ' + substring(B.misdate, 7,2) + '일' as misdatetxt,
+            sum(B.qty) as qty,   sum(B.samt) as samt, sum(B.addamt) as addamt, sum(B.amt) as amt,
+            A.acorp, ROW_NUMBER() OVER(ORDER BY (SELECT 1)) AS rownum,
+            MAX(F.acorp) as eeacorp, MAX(F.asano) as eeasano, MAX(F.aname) as eeaname, MAX(F.aupte) as eeupte,
+            MAX(F.ajong) as eeajong, MAX(F.ajuso) as eeajuso, MAX(F.atelno) as eeatelno
+        from  TB_DA024 B WITH (NOLOCK) ,
+              cif A WITH (NOLOCK) Left outer JOIN INSA D ON A.abonsadam1 = D.insano,
+              TB_DA023 C WITH (NOLOCK)  ,
         ( select acorp, atelno, asano1 + '-' + asano2 + '-' + asano3 as asano, aname, aupte, ajong, ajuso1 + ' ' + ajuso2 as ajuso
         from cif where acorp1 + acorp2 + acorp3 = '0000' ) F
         where B.misdate + B.misnum = C.misdate + C.misnum AND B.misgubun = C.misgubun
@@ -151,7 +157,7 @@
             #{itemcd}
         </foreach>
         AND B.fixflag = '1'
-        Group BY B.cltcd,  B.misdate, B.misnum, A.acorp
+        Group BY B.cltcd,  B.misdate, B.misnum, A.acorp, C.remarkaa, C.remarkbb
         ORDER BY B.cltcd,  B.misdate, B.misnum
     </select>
     <select id="SelectDa024ListDevGroup"  parameterType="hashmap"  resultType="com.dae.eean.DTO.App01.IndexDa024Dto">
@@ -187,8 +193,10 @@
                          B.pcode, B.pname, B.psize,    B.punit,  B.qty,  B.uamt, B.samt, B.addamt, isnull(C.remarkaa,'') as remarkaa, isnull(C.remarkbb,'') as remarkbb, isnull(C.makflag, '0') as makflag,
                          B.amt, A.acorp, pbonsa, pmodel, pcolor, D.inname, B.misgubun, isnull(B.fixflag,'0') as fixflag, D.inname as pernm,
                          B.omisdate, B.omisnum, B.oseq
-           from  TB_DA026 B WITH (NOLOCK) , cif A WITH (NOLOCK) , jcode3 E WITH (NOLOCK) ,
-                 TB_DA025 C WITH (NOLOCK)  Left outer JOIN INSA D ON C.perid = D.insano
+           from  TB_DA026 B WITH (NOLOCK) ,
+                 cif A WITH (NOLOCK) Left outer JOIN INSA D ON A.abonsadam1 = D.insano ,
+                 jcode3 E WITH (NOLOCK) ,
+                 TB_DA025 C WITH (NOLOCK)
            where B.misdate + B.misnum = C.misdate + C.misnum AND B.misgubun = C.misgubun
              AND isnull(C.delflag, '') <> 'Y'
              AND B.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
@@ -212,8 +220,10 @@
                          B.pcode, B.pname, B.psize,    B.punit,  B.qty,  B.uamt, B.samt, B.addamt, isnull(C.remarkaa,'') as remarkaa, isnull(C.remarkbb,'') as remarkbb, isnull(C.makflag, '0') as makflag,
                          B.amt, A.acorp, pbonsa, pmodel, pcolor, D.inname, B.misgubun, isnull(B.fixflag,'0') as fixflag, D.inname as pernm,
                          B.omisdate, B.omisnum, B.oseq
-           from  TB_DA026 B WITH (NOLOCK) , cif A WITH (NOLOCK) , jcode3 E WITH (NOLOCK) ,
-                 TB_DA025 C WITH (NOLOCK)  Left outer JOIN INSA D ON C.perid = D.insano
+           from  TB_DA026 B WITH (NOLOCK) ,
+                 cif A WITH (NOLOCK) Left outer JOIN INSA D ON A.abonsadam1 = D.insano ,
+                 jcode3 E WITH (NOLOCK) ,
+                 TB_DA025 C WITH (NOLOCK)
            where B.misdate + B.misnum = C.misdate + C.misnum AND B.misgubun = C.misgubun
              AND isnull(C.delflag, '') <> 'Y'
              AND B.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)

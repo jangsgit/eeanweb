@@ -1024,7 +1024,7 @@
                 return 
             }
             var pos1 = arg3.indexOf('_'); 
-            console.log(pos1);           
+            //console.log(pos1);           
             if (argcol <= 1){
                 return 
             }
@@ -1197,6 +1197,7 @@
                             misqty[0] = '0'  
                             document.getElementById('mremark').value = ""; 
                             searchList_rtn(ls_tabchk) 
+                            $("#winorderlistmodal_btn").trigger("click");
                             return true;
                             // searchList_rtn(ls_tab);  
                             // clear_rtn(ls_tab);        
@@ -1256,6 +1257,7 @@
                                 misqty[0] = '0'  
                                 document.getElementById('mremark02').value = ""; 
                                 searchList_rtn(ls_tabchk) 
+                                $("#winwishlistmodal_btn").trigger("click");
                                 return true;
                                 // searchList_rtn(ls_tab);  
                                 // clear_rtn(ls_tab);        
@@ -2299,7 +2301,7 @@
             let ls_conacorp1 = "%";  
             let ls_conagita = "%";   
             let ls_abonsadam1 = "%";
-            console.log(searchCode);
+            //console.log(searchCode);
             $.ajax({
                     url: '/app01m/index02/listtot',  
                     type:"POST",
@@ -2736,7 +2738,7 @@
                                         var cols = new wijmo.grid.Column();  
                                     }else{
                                         wtab01Grid.setCellData(ll_row, ll_col,  '_' + ls_jcolorcode  ) ;  
-                                    }
+                                    } 
                                     // wtab01Grid.formatItem.addHandler((s, e) => {
                                     //     // var val = s.getCellData(e.row, e.col); 
                                     //     if (e.panel === s.cells) { 

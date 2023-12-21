@@ -989,6 +989,13 @@
             })
         })
 
+        function chkLogin(argdata){
+        if(argdata == "relogin"){
+                alert("다시 로그인해주세요")
+                window.location.href='http://eean.co.kr';
+                return 
+            }    
+        }
         function test_rtn(arg1){
             console.log(arg1);
             const disHtml = `
