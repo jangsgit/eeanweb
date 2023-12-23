@@ -14,7 +14,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-    <title>이인옵틱수주시스템</title>
+    <title>이인옵틱수주시스템(직원)</title>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -471,7 +471,7 @@
                     qty: wtab02Dto[i]["qty"],    
                     uamt: wtab02Dto[i]["uamt"], 
                     samt: wtab02Dto[i]["samt"],  
-                    cltcd: wtab02Dto[i]["cltcd"],     
+                    cltcd: wtab02Dto[i]["cltcd"],      
                     inname: wtab02Dto[i]["inname"],    
                     misgubun: wtab02Dto[i]["misgubun"],              
                     remark: wtab02Dto[i]["remarkbb"],          
@@ -606,8 +606,13 @@
                 ls_jpbgubn = "%"         ;
             } 
             let ls_conacorp1 = "%";  
-            let ls_conagita = "%";   
-            let ls_abonsadam1 = "%";
+            let ls_conagita = "%";     
+            let ls_abonsadam1 = document.getElementById('abonsadam1').value;    
+            if(ls_abonsadam1 == null || ls_abonsadam1.length == 0 || ls_abonsadam1 == ""){ 
+                alert("로그인을 다시하세요.") 
+                document.getElementById("pernm").focus(); 
+                return ;               
+            }   
             $.ajax({
                         url: '/app01m/index02/listtot',  
                     type:"POST",

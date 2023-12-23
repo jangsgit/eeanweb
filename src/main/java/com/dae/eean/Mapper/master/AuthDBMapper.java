@@ -50,6 +50,8 @@ public interface AuthDBMapper {
     public List<TBXuserMenuDTO> GetXMenuList(TBXuserMenuDTO Parm);
 
     public int UpdateUserInfo(UserFormDto Parm);
+    public int UpdateUserInfoCC(UserFormDto Parm);
+
     public int UpdateUserMenuInfo(TBXuserMenuDTO Parm);
 
     public int Updatepushid(UserFormDto Parm);

@@ -86,6 +86,11 @@
                                         <input class="form-control" type="text"   id="actuserpwz" name="actuserpwz" aria-describedby="basic-addon1" />
                                     </div>  
                                 </div>  
+                                <div class="col-auto"> 
+                                    <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">사원번호</span>
+                                        <input class="form-control" type="text"   id="perid" name="perid" aria-describedby="basic-addon1" />
+                                    </div>  
+                                </div>  
                                 <div class="col-auto">  
                                     <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" type="button"  id="retrieveBtn" >조회
                                     </button> 
@@ -188,12 +193,13 @@
         listUp();
 
     })     
-    function menumodal_click(arg1, arg2, arg3, arg4, arg5){ 
+    function menumodal_click(arg1, arg2, arg3, arg4, arg5, arg6){ 
         document.getElementById('actseq').value = arg1;  
         document.getElementById('userid').value = arg2;  
         document.getElementById('actuseyn').value = arg3;  
         document.getElementById('actusernamez').value = arg4;  
         document.getElementById('actuserpwz').value = arg5;  
+        document.getElementById('perid').value = arg6;  
         // document.getElementById("actnmbtn").click();
         // document.getElementById('searchtext').value = arg1;  
         // listUp02(); 
@@ -243,7 +249,7 @@
             cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
                 text: '<b>${item.userid}</b>',
                 click: (e, ctx) => {
-                    menumodal_click(ctx.item.seq, ctx.item.userid, ctx.item.useyn, ctx.item.username, ctx.item.passwd1);
+                    menumodal_click(ctx.item.seq, ctx.item.userid, ctx.item.useyn, ctx.item.username, ctx.item.passwd1, ctx.item.perid);
                 }
             }); 
             wapp04Grid.columns.push(cols);  
@@ -280,6 +286,7 @@
             var ls_actuseyn = document.getElementById('actuseyn').value ;  
             var ls_actusernamez = document.getElementById('actusernamez').value;  
             var ls_actuserpwz = document.getElementById('actuserpwz').value;  
+            var ls_perid = document.getElementById('perid').value;  
         
             if (!confirm("수정하시겠습니까?")) {
                     return ; 
@@ -309,7 +316,8 @@
                     "actuseridz"    : ls_userid ,
                     "actuseynz"    : ls_actuseyn ,
                     "actusernmz"    : ls_actusernamez,
-                    "actuserpwz"    : ls_actuserpwz
+                    "actuserpwz"    : ls_actuserpwz,
+                    "perid"    : ls_perid
                 },
                 async:false,
                 success:function(data){

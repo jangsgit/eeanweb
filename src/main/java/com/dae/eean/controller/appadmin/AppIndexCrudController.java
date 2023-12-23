@@ -156,6 +156,7 @@ public class AppIndexCrudController {
             ,@RequestParam("actuseynz") String useyn
             ,@RequestParam("actusernmz") String usernm
             ,@RequestParam("actuserpwz") String userpw
+            ,@RequestParam("perid") String perid
             , Model model, HttpServletRequest request){
         try {
             HttpSession session = request.getSession();
@@ -169,9 +170,18 @@ public class AppIndexCrudController {
             appUserFormDto.setUseyn(useyn);
             appUserFormDto.setUsername(usernm);
             appUserFormDto.setPasswd1(userpw);
+            appUserFormDto.setPasswd2(userpw);
+            appUserFormDto.setPerid(perid);
+
+            log.info("id04mod   =====> " + userid.substring(0,2));
+            if(userid.substring(0,2).equals("bl") ){
+                appUserFormDto.setCustnm("블리스");
+            }else{
+                appUserFormDto.setCustnm("피오비노");
+            }
             appUserFormDto.setFlag("CC");
 
-            boolean result = service.UpdateUserInfo(appUserFormDto);
+            boolean result = service.UpdateUserInfoCC(appUserFormDto);
             if (!result) {
                 return "error";
             }else{

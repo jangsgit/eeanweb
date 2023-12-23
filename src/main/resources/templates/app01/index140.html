@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-    <title>이인옵틱수주시스템</title>
+    <title>이인옵틱수주시스템(직원)</title>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -102,7 +102,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-1 col-sm-1">  
-                                                <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="retrieveBtn" type="button" onclick="retrieve_rtn()">조회
+                                                <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="retrieveBtn" type="button" onclick="retrieveClick01()">조회
                                                 </button>
                                             </div> 
                                             <div class="col-1 col-sm-1">  
@@ -1708,7 +1708,7 @@
                 
         //거래처검색 
         document.getElementById("cifname").addEventListener("keyup", (e)=>{ 
-            if(e.keyCode === 13){  
+            if(e.keyCode === 13){   
                 document.getElementById("innamebtn").click(); 
                 CifSearchList_rtn("A"); 
             }
@@ -1724,7 +1724,11 @@
                 document.getElementById("innamebtn").click(); 
                 CifSearchList_rtn("C");  
             }
-        });    
+        });   
+        function retrieveClick01(){
+            document.getElementById("innamebtn").click(); 
+            CifSearchList_rtn("A");             
+        }          
         //주문장바구니 버튼 
         function orderlist_rtn(){
             searchList_rtn('B');

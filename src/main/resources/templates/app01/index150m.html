@@ -64,7 +64,7 @@
                                             </div>
                                         </div> 
                                         <div class="col-auto">  
-                                            <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="retrieveBtn" type="button" onclick="retrieve_rtn()">조회
+                                            <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="retrieveBtn" type="button" onclick="retrieveClick01()">조회
                                             </button>
                                         </div> 
                                         <div class="col-1 col-sm-1">  
@@ -1003,6 +1003,10 @@
                 CifSearchList_rtn("A"); 
             }
         });  
+        function retrieveClick01(){
+            document.getElementById("innamebtn").click(); 
+            CifSearchList_rtn("A");             
+        }
         //주문장바구니 버튼 
         function orderlist_rtn(){
             searchList_rtn('B');

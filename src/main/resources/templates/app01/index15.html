@@ -97,7 +97,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-1 col-sm-1">  
-                                                <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="retrieveBtn"  type="button" onclick="retrieve_rtn()">조회
+                                                <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="retrieveBtn"  type="button" onclick="retrieveClick01()">조회
                                                 </button>
                                             </div>  
                                             <div class="col-1 col-sm-1">  
@@ -1107,6 +1107,10 @@ aria-hidden="true">
             document.getElementById("inwishlistbtn").click();  
         }
  
+        function retrieveClick01(){
+            document.getElementById("innamebtn").click(); 
+            CifSearchList_rtn("A");             
+        }
 
         //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 모달 주문등록@@@@@@@@@@@@@@@@@@@@@@@@@@@
         //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$   

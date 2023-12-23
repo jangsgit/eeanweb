@@ -95,7 +95,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-1 col-sm-1">  
-                                                <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="retrieveBtn" type="button" onclick="retrieve_rtn()">조회
+                                                <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="retrieveBtn" type="button" onclick="retrieveClick01()">조회
                                                 </button>
                                             </div> 
                                             <div class="col-1 col-sm-1">  
@@ -1647,7 +1647,7 @@
                 document.getElementById("innamebtn").click(); 
                 CifSearchList_rtn("A"); 
             }
-        });   
+        });    
         document.getElementById("bcifname").addEventListener("keyup", (e)=>{ 
             if(e.keyCode === 13){  
                 document.getElementById("innamebtn").click(); 
@@ -1670,7 +1670,10 @@
             searchList_rtn('C');
             document.getElementById("inwishlistbtn").click();  
         }
-
+        function retrieveClick01(){
+            document.getElementById("innamebtn").click(); 
+            CifSearchList_rtn("A");             
+        }
         //본사주문코드 클릭시 조회
         function wbonsacodeChk_a(arg){  
             var searchCode = ""; 
@@ -2301,7 +2304,11 @@
             let ls_conacorp1 = "%";  
             let ls_conagita = "%";   
             let ls_abonsadam1 = "%";
-            //console.log(searchCode);
+            // console.log(ls_conacorp1);
+            // console.log(searchCode);
+            // console.log(ls_conagita);
+            // console.log(ls_abonsadam1);
+            // console.log(ls_abonsadam1);
             $.ajax({
                     url: '/app01m/index02/listtot',  
                     type:"POST",
@@ -2313,7 +2320,7 @@
                         "jpbgubn" :ls_jpbgubn, 
                     }, 
                     async:false,
-                    success:function(data){           
+                    success:function(data){  
                         if(data == "relogin"){
                             alert("다시 로그인해주세요")
                             window.location.href='http://eean.co.kr';

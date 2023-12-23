@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-    <title>이인옵틱수주시스템</title>
+    <title>이인옵틱수주시스템(직원)</title>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -105,7 +105,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-1 col-sm-1">  
-                                                <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="retrieveBtn"  type="button" onclick="retrieve_rtn()">조회
+                                                <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="retrieveBtn"  type="button" onclick="retrieveClick01()">조회
                                                 </button>
                                             </div>  
                                             <div class="col-1 col-sm-1">  
@@ -1071,7 +1071,7 @@ aria-hidden="true">
             if(e.keyCode === 13){  
                 document.getElementById("innamebtn").click(); 
                 CifSearchList_rtn("A"); 
-            }
+            } 
         });   
         document.getElementById("bcifname").addEventListener("keyup", (e)=>{ 
             if(e.keyCode === 13){  
@@ -1084,7 +1084,12 @@ aria-hidden="true">
                 document.getElementById("innamebtn").click(); 
                 CifSearchList_rtn("A"); 
             }
-        });   
+        });    
+        function retrieveClick01(){
+            document.getElementById("innamebtn").click(); 
+            CifSearchList_rtn("A");             
+        }
+
         //주문장바구니 버튼 
         function orderlist_rtn(){
             searchList_rtn('B');
@@ -1600,10 +1605,15 @@ aria-hidden="true">
             }     
             if(ls_jpbgubn == null || ls_jpbgubn.length == 0 || ls_jpbgubn == ""){ 
                 ls_jpbgubn = "%"         ;
-            }     
+            }         
+            let ls_abonsadam1 = document.getElementById('abonsadam1').value;    
+            if(ls_abonsadam1 == null || ls_abonsadam1.length == 0 || ls_abonsadam1 == ""){ 
+                alert("로그인을 다시하세요.") 
+                document.getElementById("pernm").focus(); 
+                return ;               
+            }   
             let ls_conacorp1 = "%";  
-            let ls_conagita = "%";   
-            let ls_abonsadam1 = "%";
+            let ls_conagita = "%";  
             //let ls_jpbgubn = "%";
 
             $.ajax({

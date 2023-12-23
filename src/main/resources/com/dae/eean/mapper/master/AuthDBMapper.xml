@@ -75,8 +75,13 @@
     </select>
 
     <update id="UpdateUserInfo" parameterType="com.dae.eean.DTO.UserFormDto"  >
-        UPDATE TB_XUSERS SET  userid=#{userid}, username=#{username}, custnm=#{username}, passwd1=#{passwd1}, passwd2=#{passwd2}, useyn=#{useyn}
+        UPDATE TB_XUSERS SET  userid=#{userid}, username=#{username}, passwd1=#{passwd1}, passwd2=#{passwd2}, useyn=#{useyn}, perid=#{perid}, custnm=#{username}
             from TB_XUSERS  where seq=#{seq} and flag = #{flag}
+    </update>
+
+    <update id="UpdateUserInfoCC" parameterType="com.dae.eean.DTO.UserFormDto"  >
+        UPDATE TB_XUSERS SET  userid=#{userid}, username=#{username}, passwd1=#{passwd1}, passwd2=#{passwd2}, useyn=#{useyn}, perid=#{perid}, custnm=#{custnm}
+        from TB_XUSERS  where seq=#{seq} and flag = #{flag}
     </update>
     <update id="UpdateUserMenuInfo" parameterType="com.dae.eean.DTO.TBXuserMenuDTO"  >
         UPDATE TB_XUSERMENU SET  visible=#{visible}
