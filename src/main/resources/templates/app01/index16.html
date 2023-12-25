@@ -157,31 +157,46 @@
                                                     <option value="BB">거래처</option>
                                                     <option value="CC">영업사원</option>
                                                   </select> 
-                                            </div>  
+                                            </div>   
                                             <div class="col-1 col-sm-1">  
-                                                <button class="btn btn-falcon-primary me-1 mb-1 btn-sm" id="listBtn" type="button"  >조회
-                                                </button>
-                                            </div> 
-                                            <div class="col-1 col-sm-1">  
-                                                <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="saveBtn01" type="button"  >주문출력
-                                                </button>
-                                            </div> 
-                                            <div class="col-1 col-sm-1">  
-                                                <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="saveBtn03" type="button"  >발송출력
-                                                </button>
-                                            </div> 
+                                                <table>
+                                                    <tr>
+                                                        <td>
+                                                            <button class="btn btn-falcon-primary me-1 mb-1 btn-sm" id="listBtn" type="button"  >조회
+                                                            </button>
+                                                        </td>
+                                                        <td>
+                                                            <button class="btn btn-info me-1 mb-1 btn-sm" id="modifyBtn01" type="button"  >수정
+                                                            </button>
+                                                        </td>
+                                                        <td>
+                                                            <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="delBtn01" type="button"  >삭제
+                                                            </button>
+                                                        </td>
+                                                        <td>
+                                                            <button class="btn btn-success me-1 mb-1 btn-sm" id="saveBtn01" type="button"  >주문출력
+                                                            </button>
+                                                        </td> 
+                                                        <td>
+                                                            <button class="btn btn-success me-1 mb-1 btn-sm" id="saveBtn03" type="button"  >발송출력
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                </table> 
+                                            </div>   
                                             <!-- <div class="col-2 col-sm-1">  
                                                 <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" type="button" onclick="delete_btn()">삭제
                                                 </button>
                                             </div>  -->
-                                        </div> 
+                                        </div>  
                                         <div class="container-fluid">
                                             <p>
-                                               현재 <b><span id="checked-count">0</span></b> 개의 항목이 선택되었습니다.
+                                                현재 <b><span id="checked-count">0</span></b> 개의 항목이 선택되었습니다. 
+                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>수량을 수정하실경우 수량을 먼저 수정한 후에 체크박스를 선택해야 적용됩니다. </b>
                                             </p>  
                                             <div id="wtab02Grid_div"  style="overflow:scroll;   height:700px;    margin:0 auto; "></div>  
                                             <!-- <div id="tab02Pager"></div> -->
-                                          </div>
+                                        </div>
                                     </div>
                                     <div class="tab-pane fade" id="step02"> 
                                         <div class="row gx-3" style="  margin: 10px 10px 10px;">   
@@ -217,13 +232,29 @@
                                                     <option value="CC">영업사원</option>
                                                   </select> 
                                             </div>  
-                                            <div class="col-1 col-sm-1">  
-                                                <button class="btn btn-falcon-primary me-1 mb-1 btn-sm" id="listBtn02" type="button"  >조회
-                                                </button>
+                                            <div class="col-1 col-sm-1">   
+                                                <table>
+                                                    <tr>
+                                                        <td>
+                                                            <button class="btn btn-falcon-primary me-1 mb-1 btn-sm" id="listBtn02" type="button"  >조회
+                                                            </button>
+                                                        </td>
+                                                        <td>
+                                                            <button class="btn btn-info me-1 mb-1 btn-sm" id="modifyBtn02" type="button"  >수정
+                                                            </button>
+                                                        </td>
+                                                        <td>
+                                                            <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="delBtn02" type="button"  >삭제
+                                                            </button>
+                                                        </td>
+                                                        <td> 
+                                                            <button class="btn btn-success me-1 mb-1 btn-sm" id="saveBtn02" type="button"  >주문등록/취소
+                                                            </button>
+                                                        </td> 
+                                                    </tr>
+                                                </table> 
                                             </div> 
-                                            <div class="col-1 col-sm-1">  
-                                                <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="saveBtn02" type="button"  >주문등록/취소
-                                                </button>
+                                            <div class="col-1 col-sm-1"> 
                                             </div> 
                                             <!-- <div class="col-2 col-sm-1">  
                                                 <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" type="button" onclick="delete_btn()">삭제
@@ -232,7 +263,8 @@
                                         </div> 
                                         <div class="container-fluid">
                                             <p>
-                                               현재 <b><span id="checked-count02">0</span></b> 개의 항목이 선택되었습니다.
+                                                현재 <b><span id="checked-count02">0</span></b> 개의 항목이 선택되었습니다. 
+                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>수량을 수정하실경우 수량을 먼저 수정한 후에 체크박스를 선택해야 적용됩니다. </b> 
                                             </p>
                                             <div id="wtab04Grid_div"  style="overflow:scroll;   height:700px;    margin:0 auto; "></div>  
                                             <!-- <div id="tab02Pager"></div> -->
@@ -356,16 +388,19 @@
          var cltcdArr    = new Array(); 
          var gubunArr    = new Array(); 
          var fixflagArr    = new Array(); 
+         var qtyArr    = new Array(); 
           
          var misdateWArr = new Array();
          var misnumWArr = new Array();
          var seqWArr    = new Array(); 
          var cltcdWArr    = new Array();
+         var gubunWArr    = new Array(); 
          var gubunWArr    = new Array();  
          var fixflagWArr    = new Array(); 
          var omisdateWArr = new Array();
          var omisnumWArr = new Array();
          var oseqWArr    = new Array(); 
+         var qtyWArr    = new Array(); 
 
          
          var devnum01    = new Array(); 
@@ -887,7 +922,267 @@
             save_btn(arg1, arg2, arg3)
         }
         
+        function modify_btn(arg1, arg2, arg3){ 
+            switch(arg1){
+                case 'AA': 
+                    //주문수정
+                    if (!confirm("수정 하시겠습니까?")) { 
+                        return false; 
+                    }   
+                    while (misdateArr.length > 0) {
+                        misdateArr.pop();
+                        misnumArr.pop();
+                        seqArr.pop();
+                        cltcdArr.pop();
+                        gubunArr.pop();
+                        fixflagArr.pop();
+                        qtyArr.pop();
+                    } 
+                    for (var i = 0; i < chkTabA.length; i++) { 
+                        misdateArr[i]   = chkTabA[i]._data.misdate;
+                        misnumArr[i]   = chkTabA[i]._data.misnum;
+                        seqArr[i]  = chkTabA[i]._data.seq; 
+                        cltcdArr[i]  = chkTabA[i]._data.cltcd; 
+                        gubunArr[i]  = chkTabA[i]._data.misgubun;   
+                        qtyArr[i]  = chkTabA[i]._data.qty;  
+                    }   
+                    if(misdateArr.length == null || misdateArr.length == 0){ 
+                        alert("수정할 내역을 선택하세요") 
+                        return ;               
+                    }   
+                    $.ajax({
+                        url: '/app01m/index16/modify',  
+                        type:"POST",
+                        data: { 
+                            "misdatearr"  : misdateArr,  
+                            "misnumarr"   : misnumArr   , 
+                            "seqarr"  : seqArr     , 
+                            "cltcdarr"  : cltcdArr     , 
+                            "gubunarr"  : gubunArr     ,  
+                            "qtyarr"  : qtyArr     , 
+                            "mflag"  : 'AA'   ,      
+                            "ordercd"  : 'AA'   , 
+                        }, 
+                        async:false,
+                        success:function(data){   
+                            if(data == "success"){
+                                alert("처리되었습니다.")
+                                searchList_rtn('A', "");   
+                                return true;
+                                // clear_rtn(ls_tab);        
+                            }else{
+                                if(data == "relogin"){
+                                    alert("다시 로그인해주세요")
+                                    window.location.href='http://eean.co.kr';
+                                    return 
+                                }                              
+                                alert("처리중 오류가 발생했습니다. 관리자에게 문의하세요.")
+                                // listUp();
+                                console.log(data); 
+                                return false; 
+                            }
+                        
+                        },error:function(e){
+                            console.log("error"); 
+                        }
+                    }).done(function(fragment){           
 
+                    })    
+                    break;  
+                case 'BB': 
+                    //주문 삭제
+                    if (!confirm("삭제 하시겠습니까?")) { 
+                        return false; 
+                    }   
+                    while (misdateArr.length > 0) {
+                        misdateArr.pop();
+                        misnumArr.pop();
+                        seqArr.pop();
+                        cltcdArr.pop();
+                        gubunArr.pop();
+                        fixflagArr.pop(); 
+                    } 
+                    for (var i = 0; i < chkTabA.length; i++) { 
+                        misdateArr[i]   = chkTabA[i]._data.misdate;
+                        misnumArr[i]   = chkTabA[i]._data.misnum;
+                        seqArr[i]  = chkTabA[i]._data.seq; 
+                        cltcdArr[i]  = chkTabA[i]._data.cltcd; 
+                        gubunArr[i]  = chkTabA[i]._data.misgubun;   
+                    }   
+                    if(misdateArr.length == null || misdateArr.length == 0){ 
+                        alert("삭제할 내역을 선택하세요") 
+                        return ;               
+                    }   
+                    $.ajax({
+                        url: '/app01m/index16/delarr',  
+                        type:"POST",
+                        data: { 
+                            "misdatearr"  : misdateArr,  
+                            "misnumarr"   : misnumArr   , 
+                            "seqarr"  : seqArr     , 
+                            "cltcdarr"  : cltcdArr     , 
+                            "gubunarr"  : gubunArr     ,  
+                            "mflag"  : 'AA'   ,      
+                            "ordercd"  : 'AA'   , 
+                        }, 
+                        async:false,
+                        success:function(data){   
+                            if(data == "success"){
+                                alert("처리되었습니다.")
+                                searchList_rtn('A', "");   
+                                return true;
+                                // clear_rtn(ls_tab);        
+                            }else{
+                                if(data == "relogin"){
+                                    alert("다시 로그인해주세요")
+                                    window.location.href='http://eean.co.kr';
+                                    return 
+                                }                              
+                                alert("처리중 오류가 발생했습니다. 관리자에게 문의하세요.")
+                                // listUp();
+                                console.log(data); 
+                                return false; 
+                            }
+                        
+                        },error:function(e){
+                            console.log("error"); 
+                        }
+                    }).done(function(fragment){           
+
+                    })    
+                    break;  
+                case 'CC': 
+                    //예약현황 수정
+                    if (!confirm("수정 하시겠습니까?")) { 
+                        return false; 
+                    }   
+                    while (misdateWArr.length > 0) {
+                        misdateWArr.pop();
+                        misnumWArr.pop();
+                        seqWArr.pop();
+                        cltcdWArr.pop();
+                        gubunWArr.pop();
+                        fixflagWArr.pop();
+                        qtyWArr.pop();
+                    } 
+                    console.log(chkTabB)
+                    for (var i = 0; i < chkTabB.length; i++) { 
+                        misdateWArr[i]   = chkTabB[i]._data.misdate;
+                        misnumWArr[i]   = chkTabB[i]._data.misnum;
+                        seqWArr[i]  = chkTabB[i]._data.seq; 
+                        cltcdWArr[i]  = chkTabB[i]._data.cltcd; 
+                        gubunWArr[i]  = chkTabB[i]._data.misgubun;   
+                        qtyWArr[i]  = chkTabB[i]._data.qty;  
+                    }   
+                    if(misdateWArr.length == null || misdateWArr.length == 0){ 
+                        alert("수정할 내역을 선택하세요") 
+                        return ;               
+                    }   
+                    $.ajax({
+                        url: '/app01m/index16/modifywish',  
+                        type:"POST",
+                        data: { 
+                            "misdatearr"  : misdateWArr,  
+                            "misnumarr"   : misnumWArr   , 
+                            "seqarr"  : seqWArr     , 
+                            "cltcdarr"  : cltcdWArr     , 
+                            "gubunarr"  : gubunWArr     ,  
+                            "qtyarr"  : qtyWArr     , 
+                            "mflag"  : 'AA'   ,      
+                            "ordercd"  : 'AA'   , 
+                        }, 
+                        async:false,
+                        success:function(data){   
+                            if(data == "success"){
+                                alert("처리되었습니다.")
+                                searchList_rtn('B', "");   
+                                return true;
+                                // clear_rtn(ls_tab);        
+                            }else{
+                                if(data == "relogin"){
+                                    alert("다시 로그인해주세요")
+                                    window.location.href='http://eean.co.kr';
+                                    return 
+                                }                              
+                                alert("처리중 오류가 발생했습니다. 관리자에게 문의하세요.")
+                                // listUp();
+                                console.log(data); 
+                                return false; 
+                            }
+                        
+                        },error:function(e){
+                            console.log("error"); 
+                        }
+                    }).done(function(fragment){           
+
+                    })    
+                    break;  
+                case 'DD': 
+                    //예약 삭제
+                    if (!confirm("삭제 하시겠습니까?")) { 
+                        return false; 
+                    }   
+                    while (misdateWArr.length > 0) {
+                        misdateWArr.pop();
+                        misnumWArr.pop();
+                        seqWArr.pop();
+                        cltcdWArr.pop();
+                        gubunWArr.pop();
+                        fixflagArr.pop(); 
+                    } 
+                    for (var i = 0; i < chkTabB.length; i++) { 
+                        misdateWArr[i]   = chkTabB[i]._data.misdate;
+                        misnumWArr[i]   = chkTabB[i]._data.misnum;
+                        seqWArr[i]  = chkTabB[i]._data.seq; 
+                        cltcdWArr[i]  = chkTabB[i]._data.cltcd; 
+                        gubunWArr[i]  = chkTabB[i]._data.misgubun;   
+                    }   
+                    if(misdateWArr.length == null || misdateWArr.length == 0){ 
+                        alert("삭제할 내역을 선택하세요") 
+                        return ;               
+                    }   
+                    $.ajax({
+                        url: '/app01m/index16/delarrwish',  
+                        type:"POST",
+                        data: { 
+                            "misdatearr"  : misdateWArr,  
+                            "misnumarr"   : misnumWArr   , 
+                            "seqarr"  : seqWArr     , 
+                            "cltcdarr"  : cltcdWArr     , 
+                            "gubunarr"  : gubunWArr     ,  
+                            "mflag"  : 'AA'   ,      
+                            "ordercd"  : 'AA'   , 
+                        }, 
+                        async:false,
+                        success:function(data){   
+                            if(data == "success"){
+                                alert("처리되었습니다.")
+                                searchList_rtn('B', "");   
+                                return true;
+                                // clear_rtn(ls_tab);        
+                            }else{
+                                if(data == "relogin"){
+                                    alert("다시 로그인해주세요")
+                                    window.location.href='http://eean.co.kr';
+                                    return 
+                                }                              
+                                alert("처리중 오류가 발생했습니다. 관리자에게 문의하세요.")
+                                // listUp();
+                                console.log(data); 
+                                return false; 
+                            }
+                        
+                        },error:function(e){
+                            console.log("error"); 
+                        }
+                    }).done(function(fragment){           
+
+                    })    
+                    break;  
+                default:    
+                    break;                
+            }   
+        }
         function save_btn(arg1, arg2, arg3){ 
             var ls_tab = document.getElementById('tabvalue').value; 
             if (arg1 == "D"){
@@ -1275,7 +1570,27 @@
         document.getElementById("saveBtn04").addEventListener("click",function(){
             var ls_tab = document.getElementById('tabvalue').value;     
             save_btn("E");
-        })  
+        })          
+        // 주문수정 
+        document.getElementById("modifyBtn01").addEventListener("click",function(){
+            var ls_tab = document.getElementById('tabvalue').value;     
+            modify_btn('AA');
+        })          
+        // 주문삭제 
+        document.getElementById("delBtn01").addEventListener("click",function(){
+            var ls_tab = document.getElementById('tabvalue').value;     
+            modify_btn('BB');
+        })        
+        // 예약수정 
+        document.getElementById("modifyBtn02").addEventListener("click",function(){
+            var ls_tab = document.getElementById('tabvalue').value;     
+            modify_btn('CC');
+        })          
+        // 예약삭제 
+        document.getElementById("delBtn02").addEventListener("click",function(){
+            var ls_tab = document.getElementById('tabvalue').value;     
+            modify_btn('DD');
+        }) 
         
         //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
          
@@ -1311,8 +1626,7 @@
         //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
      
 
-        function print_rtn(getData){ 
-            
+        function print_rtn(getData){  
             if(misdateArr.length == null || misdateArr.length == 0){  
                 return ;               
             }   
@@ -1337,7 +1651,7 @@
                         brush: '#bfc1c2'
                     }
                 },
-                ended: (sender, args) => wijmo.pdf.saveBlob(args.blob, ls_misdate + '_' + '거래명세서.pdf')
+                ended: (sender, args) => wijmo.pdf.saveBlob(args.blob, ls_misdate + '_거래명세서.pdf')
             }) 
             
             doc.registerFont({
@@ -1407,17 +1721,18 @@
             //
             ll_sumqty = 0; ll_sumsamt = 0; ll_sumaddamt = 0; ll_sumamt = 0
             var lsMisdate = salesdata.misdate    
-            var lsMisnum =  salesdata.misnum    
+            var lsMisnum =  salesdata.misnum   
             var lsMiscltcd =  salesdata.cltcd   
             var lsMisgubun =  salesdata.misgubun  
-            // console.log(lsMisdate + '/' + lsMisnum + '/' + lsMiscltcd);
+             console.log(lsMisdate + '/' + lsMisnum + '/'  + lsMiscltcd);
+              
             //상세매출조회     
             $.ajax({
                 url: '/app01m/index14/listprtdetail',  
                 type:"POST",
                 data: { 
                     "misdatearr"  : lsMisdate,  
-                    "misnumarr"   : lsMisnum   ,  
+                    "misnumarr"   : lsMisnum   ,   
                     "cltcdarr"  : lsMiscltcd     , 
                     "gubunarr"  : lsMisgubun     , 
                     "mflag"  : 'AA'   ,  
@@ -1604,7 +1919,8 @@
             }
             finally {
                 if (wtab03Grid) {
-                    wtab03Grid.dispose();
+                    // queryselector 오류로 막음
+                    //wtab03Grid.dispose();
                 }
                 //
                 if (footer) {
@@ -1681,7 +1997,12 @@
                             "mflag"  : 'AA'   ,  
                         }, 
                         async:false,
-                        success:function(data){   
+                        success:function(data){ 
+                            if(data == "relogin"){
+                                alert("다시 로그인해주세요")
+                                window.location.href='http://eean.co.kr';
+                                return 
+                            }    
                             tabB_grid(data);
                         },error:function(e){
                             console.log("error");
@@ -1696,9 +2017,10 @@
                         //alert("처리할 내역을 선택하세요") 
                         return ;               
                     }   
+                     console.log(arg2)
                     if(arg2 == "listBtn"){
                         return; 
-                    }
+                    } 
                     if(arg2 == "PRT"){ 
                         //선택된 매출그룹조회     
                         $.ajax({
@@ -1714,6 +2036,11 @@
                             }, 
                             async:false,
                             success:function(data){ 
+                                if(data == "relogin"){
+                                    alert("다시 로그인해주세요")
+                                    window.location.href='http://eean.co.kr';
+                                    return 
+                                }  
                                 tabE_grid(data); 
                                 print_rtn(data)
                                 // misdateArr.pop() 
@@ -1799,6 +2126,11 @@
                         }, 
                         async:false,
                         success:function(data){   
+                            if(data == "relogin"){
+                                alert("다시 로그인해주세요")
+                                window.location.href='http://eean.co.kr';
+                                return 
+                            }  
                             tabC_grid(data);
                         },error:function(e){
                             console.log("error");
@@ -2017,6 +2349,7 @@
             var cnt = 1;
             var bfixflag = false 
             ll_sumqty = 0; ll_sumsamt = 0; ll_sumaddamt = 0; ll_sumamt= 0; wtab05_data = [];
+            //console.log(wtab05Dto)
             for (var i = 0; i < wtab05Dto.length; i++) { 
                 ls_acorp = wtab05Dto[i]["acorp"]; 
                 ls_eeacorp = wtab05Dto[i]["eeacorp"];
@@ -2064,6 +2397,7 @@
             var cnt = 1;
             var bfixflag = false 
             ll_sumqty = 0; ll_sumsamt = 0; ll_sumaddamt = 0; ll_sumamt= 0; wtab03_data = [];
+            //console.log(wtab03Dto)
             for (var i = 0; i < wtab03Dto.length; i++) {
                 if(wtab03Dto[i]["fixflag"] == "1"){
                     bfixflag = true;

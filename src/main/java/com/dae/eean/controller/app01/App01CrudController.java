@@ -1567,7 +1567,7 @@ public class App01CrudController {
                 }
                 result = service14.DeleteDA023(indexDa024Dto);
                 if (!result){
-                   return "error";
+                   //return "error";
                 }
                 return "success";
             }
@@ -1678,7 +1678,7 @@ public class App01CrudController {
             }
             result = service14.DeleteDA023(indexDa024Dto);
             if (!result){
-                return "error";
+                //return "error";
             }
 
         } catch (Exception ex) {
@@ -2076,9 +2076,9 @@ public class App01CrudController {
                     if(ls_tempItem.equals( ls_misdate + misnumarr.get(i)  + cltcdarr.get(i))){
                         continue;
                     }
-                    itemString[ll_count] = ls_misdate + misnumarr.get(i)  + cltcdarr.get(i);
+                    itemString[ll_count] = ls_misdate   + cltcdarr.get(i);  //+ misnumarr.get(i)
                     ll_count++;
-                    ls_tempItem = ls_misdate + misnumarr.get(i)  + cltcdarr.get(i);
+                    ls_tempItem = ls_misdate  + cltcdarr.get(i);  //+ misnumarr.get(i)
 //                    log.info("itemString =====>" + ls_misdate + misnumarr.get(i) + seqarr.get(i) + cltcdarr.get(i));
                 }
                 hm.put("itemcdArr", itemString);
@@ -2784,7 +2784,7 @@ public class App01CrudController {
                     break;
             }
             //indexDa024Dto.setMisgubun(mflag);
-            log.info("jpbgubn Exception =====>" + indexDa024Dto.getJpbgubn());
+            //log.info("jpbgubn Exception =====>" + indexDa024Dto.getJpbgubn());
             if(acode.equals("%")){
                 indexDa024ListDto = service14.SelectDa026ListLike(indexDa024Dto);
             }else{
@@ -3051,6 +3051,112 @@ public class App01CrudController {
         return "success";
     }
 
+
+    @RequestMapping(value="/index16/modify")
+    public String index16Modify(@RequestParam(value = "misdatearr[]") List<String> misdatearr
+            ,@RequestParam( value =  "misnumarr[]") List<String> misnumarr
+            ,@RequestParam( value =  "seqarr[]") List<String> seqarr
+            ,@RequestParam( value =  "cltcdarr[]") List<String> cltcdarr
+            ,@RequestParam( value =  "gubunarr[]") List<String> gubunarr
+            ,@RequestParam( value =  "qtyarr[]") List<Integer> qtyarr
+            ,@RequestParam("mflag") String mflag
+            , Model model
+            , HttpServletRequest request){
+
+        try {
+            boolean result = false;
+
+            IndexDa024Dto _indexDa024Dto = new IndexDa024Dto();
+            if( misdatearr.size() > 0){
+                for(int i = 0; i < misdatearr.size(); i++){
+                    String year = misdatearr.get(i).substring(0,4);
+                    String month = misdatearr.get(i).substring(5,7);
+                    String day = misdatearr.get(i).substring(8,10);
+                    String ls_misdate = year + month + day ;
+                    indexDa024Dto.setMisdate(ls_misdate);
+                    indexDa024Dto.setMisnum(misnumarr.get(i));
+                    indexDa024Dto.setSeq(seqarr.get(i));
+                    indexDa024Dto.setCltcd(cltcdarr.get(i));
+                    indexDa024Dto.setMisgubun(gubunarr.get(i));
+                    indexDa024Dto.setQty(qtyarr.get(i));
+                    _indexDa024Dto = service14.SelectDa024Detail(indexDa024Dto);
+                    Integer _ll_uamt = _indexDa024Dto.getUamt();
+                    Integer _ll_samt = 0;
+                    Integer _ll_addamt = 0;
+                    Integer _ll_amt = 0;
+                    Integer _ll_qty = indexDa024Dto.getQty();
+                    if(_ll_uamt > 0){
+                        _ll_samt = _ll_qty * _ll_uamt;
+                        _ll_addamt = _ll_samt / 10 ;
+                        _ll_amt = _ll_samt + _ll_addamt;
+                        indexDa024Dto.setSamt(_ll_samt);
+                        indexDa024Dto.setAddamt(_ll_addamt);
+                        indexDa024Dto.setAmt(_ll_amt);
+                    }else{
+                        indexDa024Dto.setSamt(0);
+                        indexDa024Dto.setAddamt(0);
+                        indexDa024Dto.setAmt(0);
+                    }
+
+                    result = service14.UpdateDA024Qty(indexDa024Dto);
+
+                    if (!result){
+                        return "error";
+                    }
+                }
+
+            }
+
+        }catch (IllegalStateException e){
+            model.addAttribute("index16Save errorMessage", e.getMessage());
+            return "error";
+        }
+        return "success";
+    }
+
+    @RequestMapping(value="/index16/delarr")
+    public String index16DelArr(@RequestParam(value = "misdatearr[]") List<String> misdatearr
+            ,@RequestParam( value =  "misnumarr[]") List<String> misnumarr
+            ,@RequestParam( value =  "seqarr[]") List<String> seqarr
+            ,@RequestParam( value =  "cltcdarr[]") List<String> cltcdarr
+            ,@RequestParam( value =  "gubunarr[]") List<String> gubunarr
+            ,@RequestParam("mflag") String mflag
+            , Model model
+            , HttpServletRequest request){
+
+        try {
+            boolean result = false;
+
+            if( misdatearr.size() > 0){
+                for(int i = 0; i < misdatearr.size(); i++){
+                    String year = misdatearr.get(i).substring(0,4);
+                    String month = misdatearr.get(i).substring(5,7);
+                    String day = misdatearr.get(i).substring(8,10);
+                    String ls_misdate = year + month + day ;
+                    indexDa024Dto.setMisdate(ls_misdate);
+                    indexDa024Dto.setMisnum(misnumarr.get(i));
+                    indexDa024Dto.setSeq(seqarr.get(i));
+                    indexDa024Dto.setCltcd(cltcdarr.get(i));
+                    indexDa024Dto.setMisgubun(gubunarr.get(i));
+                    result = service14.DeleteDA024(indexDa024Dto);
+                    if (!result){
+                        return "error";
+                    }
+                    result = service14.DeleteDA023(indexDa024Dto);
+                    if (!result){
+                        //return "error";
+                    }
+                }
+
+            }
+
+        }catch (IllegalStateException e){
+            model.addAttribute("index16Save errorMessage", e.getMessage());
+            return "error";
+        }
+        return "success";
+    }
+
     @RequestMapping(value="/index16/savedev")
     public String index16SaveDev(@RequestParam(value = "devnum01[]") List<String> devnum01
             ,@RequestParam( value =  "devnum02[]") List<String> devnum02
@@ -3203,6 +3309,111 @@ public class App01CrudController {
         return "success";
     }
 
+
+    @RequestMapping(value="/index16/modifywish")
+    public String index16ModifyWish(@RequestParam(value = "misdatearr[]") List<String> misdatearr
+            ,@RequestParam( value =  "misnumarr[]") List<String> misnumarr
+            ,@RequestParam( value =  "seqarr[]") List<String> seqarr
+            ,@RequestParam( value =  "cltcdarr[]") List<String> cltcdarr
+            ,@RequestParam( value =  "gubunarr[]") List<String> gubunarr
+            ,@RequestParam( value =  "qtyarr[]") List<Integer> qtyarr
+            ,@RequestParam("mflag") String mflag
+            , Model model
+            , HttpServletRequest request){
+
+        try {
+            boolean result = false;
+
+            IndexDa024Dto _indexDa024Dto = new IndexDa024Dto();
+            if( misdatearr.size() > 0){
+                for(int i = 0; i < misdatearr.size(); i++){
+                    String year = misdatearr.get(i).substring(0,4);
+                    String month = misdatearr.get(i).substring(5,7);
+                    String day = misdatearr.get(i).substring(8,10);
+                    String ls_misdate = year + month + day ;
+                    indexDa024Dto.setMisdate(ls_misdate);
+                    indexDa024Dto.setMisnum(misnumarr.get(i));
+                    indexDa024Dto.setSeq(seqarr.get(i));
+                    indexDa024Dto.setCltcd(cltcdarr.get(i));
+                    indexDa024Dto.setMisgubun(gubunarr.get(i));
+                    indexDa024Dto.setQty(qtyarr.get(i));
+                    _indexDa024Dto = service14.SelectDa026Detail02(indexDa024Dto);
+                    Integer _ll_uamt = _indexDa024Dto.getUamt();
+                    Integer _ll_samt = 0;
+                    Integer _ll_addamt = 0;
+                    Integer _ll_amt = 0;
+                    Integer _ll_qty = indexDa024Dto.getQty();
+                    if(_ll_uamt > 0){
+                        _ll_samt = _ll_qty * _ll_uamt;
+                        _ll_addamt = _ll_samt / 10 ;
+                        _ll_amt = _ll_samt + _ll_addamt;
+                        indexDa024Dto.setSamt(_ll_samt);
+                        indexDa024Dto.setAddamt(_ll_addamt);
+                        indexDa024Dto.setAmt(_ll_amt);
+                    }else{
+                        indexDa024Dto.setSamt(0);
+                        indexDa024Dto.setAddamt(0);
+                        indexDa024Dto.setAmt(0);
+                    }
+                    result = service14.UpdateDA026Qty(indexDa024Dto);
+
+                    if (!result){
+                        return "error";
+                    }
+                }
+
+            }
+
+        }catch (IllegalStateException e){
+            model.addAttribute("index16Save errorMessage", e.getMessage());
+            return "error";
+        }
+        return "success";
+    }
+
+
+    @RequestMapping(value="/index16/delarrwish")
+    public String index16DelArrWish(@RequestParam(value = "misdatearr[]") List<String> misdatearr
+            ,@RequestParam( value =  "misnumarr[]") List<String> misnumarr
+            ,@RequestParam( value =  "seqarr[]") List<String> seqarr
+            ,@RequestParam( value =  "cltcdarr[]") List<String> cltcdarr
+            ,@RequestParam( value =  "gubunarr[]") List<String> gubunarr
+            ,@RequestParam("mflag") String mflag
+            , Model model
+            , HttpServletRequest request){
+
+        try {
+            boolean result = false;
+
+            if( misdatearr.size() > 0){
+                for(int i = 0; i < misdatearr.size(); i++){
+                    String year = misdatearr.get(i).substring(0,4);
+                    String month = misdatearr.get(i).substring(5,7);
+                    String day = misdatearr.get(i).substring(8,10);
+                    String ls_misdate = year + month + day ;
+                    indexDa024Dto.setMisdate(ls_misdate);
+                    indexDa024Dto.setMisnum(misnumarr.get(i));
+                    indexDa024Dto.setSeq(seqarr.get(i));
+                    indexDa024Dto.setCltcd(cltcdarr.get(i));
+                    indexDa024Dto.setMisgubun(gubunarr.get(i));
+                    result = service14.DeleteDA026(indexDa024Dto);
+                    if (!result){
+                        return "error";
+                    }
+                    result = service14.DeleteDA025(indexDa024Dto);
+                    if (!result){
+                        //return "error";
+                    }
+                }
+
+            }
+
+        }catch (IllegalStateException e){
+            model.addAttribute("index16Save errorMessage", e.getMessage());
+            return "error";
+        }
+        return "success";
+    }
 
     @RequestMapping(value="/comcodesave")
     public String App01ComCodeSave_index(  @RequestParam("com_cls") String com_cls,
