@@ -1744,7 +1744,14 @@ function sample4_execDaumPostcode() {
 
         }  
         
-        
+ 
+        function chkLogin(argdata){
+            if(argdata == "relogin"){
+                    alert("다시 로그인해주세요")
+                    window.location.href='http://eean.co.kr';
+                    return 
+            }    
+        }            
         
         
         // <!--######################################## 그리드 메뉴-->

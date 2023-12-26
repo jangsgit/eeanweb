@@ -415,7 +415,8 @@
                             "mflag"  : 'BB'   ,  
                         },    
                         async:false,
-                        success:function(data){   
+                        success:function(data){      
+                            chkLogin(data)       
                             tabA_grid(data);
                         },error:function(e){
                             console.log("error");
@@ -804,7 +805,14 @@
         // });
 
     }
-        
+
+    function chkLogin(argdata){
+        if(argdata == "relogin"){
+                alert("다시 로그인해주세요")
+                window.location.href='http://eean.co.kr';
+                return 
+        }    
+    }             
     class FlexGridContextMenu {
         constructor(grid) {
             let host = grid.hostElement, menu = this._buildMenu(grid);

@@ -2264,7 +2264,7 @@ public class App01CrudController {
         HttpSession session = request.getSession();
         UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
         if(userformDto == null){
-            log.info("App14ListPeridGroup_index Exception =====> relogin userformDto null");
+            log.info("App14ListPeridGroup_index  =====> relogin userformDto null");
             return "relogin";
         }
         model.addAttribute("userformDto",userformDto);

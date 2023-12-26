@@ -1738,7 +1738,8 @@
                     "mflag"  : 'AA'   ,  
                 }, 
                 async:false,
-                success:function(data){  
+                success:function(data){     
+                    chkLogin(data)       
                     tabD_grid(data);  
                     // misdateArr.pop() 
                 },error:function(e){
@@ -1997,12 +1998,8 @@
                             "mflag"  : 'AA'   ,  
                         }, 
                         async:false,
-                        success:function(data){ 
-                            if(data == "relogin"){
-                                alert("다시 로그인해주세요")
-                                window.location.href='http://eean.co.kr';
-                                return 
-                            }    
+                        success:function(data){     
+                            chkLogin(data)       
                             tabB_grid(data);
                         },error:function(e){
                             console.log("error");
@@ -2035,12 +2032,8 @@
                                 "mflag"  : 'AA'   ,  
                             }, 
                             async:false,
-                            success:function(data){ 
-                                if(data == "relogin"){
-                                    alert("다시 로그인해주세요")
-                                    window.location.href='http://eean.co.kr';
-                                    return 
-                                }  
+                            success:function(data){    
+                                chkLogin(data)       
                                 tabE_grid(data); 
                                 print_rtn(data)
                                 // misdateArr.pop() 
@@ -2067,7 +2060,8 @@
                                 "mflag"  : 'AA'   ,  
                             }, 
                             async:false,
-                            success:function(data){  
+                            success:function(data){     
+                                chkLogin(data)       
                                 tabF_grid(data); 
                                 excel_rtn(wtab05_data)
                                 // misdateArr.pop() 
@@ -2125,12 +2119,8 @@
                             "jpbgubn" :'%', 
                         }, 
                         async:false,
-                        success:function(data){   
-                            if(data == "relogin"){
-                                alert("다시 로그인해주세요")
-                                window.location.href='http://eean.co.kr';
-                                return 
-                            }  
+                        success:function(data){      
+                            chkLogin(data)       
                             tabC_grid(data);
                         },error:function(e){
                             console.log("error");
@@ -3202,7 +3192,14 @@
         // });
 
     }
-        
+
+    function chkLogin(argdata){
+        if(argdata == "relogin"){
+                alert("다시 로그인해주세요")
+                window.location.href='http://eean.co.kr';
+                return 
+        }    
+    }             
     class FlexGridContextMenu {
         constructor(grid) {
             let host = grid.hostElement, menu = this._buildMenu(grid);

@@ -972,7 +972,8 @@ aria-hidden="true">
                         "mflag" :arg5, 
                     }, 
                     async:false,
-                    success:function(data){  
+                    success:function(data){     
+                        chkLogin(data)       
                         searchList_rtn("B");
                     },error:function(e){
                         console.log("error");                            
@@ -1003,7 +1004,8 @@ aria-hidden="true">
                         "mflag" :arg5, 
                     }, 
                     async:false,
-                    success:function(data){  
+                    success:function(data){     
+                        chkLogin(data)       
                         searchList_rtn("C");
                     },error:function(e){
                         console.log("error");                            
@@ -1210,7 +1212,8 @@ aria-hidden="true">
                             "mflag"  : 'CC'   ,  
                         },    
                         async:false,
-                        success:function(data){   
+                        success:function(data){      
+                            chkLogin(data)       
                             tabB_grid(data);
                         },error:function(e){
                             console.log("error");
@@ -1265,7 +1268,8 @@ aria-hidden="true">
                             "jpbgubn" :'%',    
                         },  
                         async:false,
-                        success:function(data){   
+                        success:function(data){      
+                            chkLogin(data)       
                             tabC_grid(data);
                         },error:function(e){
                             console.log("error");
@@ -1887,7 +1891,8 @@ aria-hidden="true">
                         "misqty"  : misqty  
                     }, 
                     async:false,
-                    success:function(data){   
+                    success:function(data){      
+                        chkLogin(data)       
                         if(data == "success"){
                             alert("저장되었습니다.") 
                             //초기화 
@@ -1908,12 +1913,7 @@ aria-hidden="true">
                             return true;
                             // searchList_rtn(ls_tab);  
                             // clear_rtn(ls_tab);        
-                        }else{
-                                if(data == "relogin"){
-                                    alert("다시 로그인해주세요")
-                                    window.location.href='http://eean.co.kr';
-                                    return 
-                                }                              
+                        }else{                     
                             alert("저장중 오류가 발생했습니다. 관리자에게 문의하세요.")
                             // listUp();
                             console.log(data); 
@@ -1948,7 +1948,8 @@ aria-hidden="true">
                             "misqty"  : misqty  
                         }, 
                         async:false,
-                        success:function(data){   
+                        success:function(data){      
+                            chkLogin(data)       
                             if(data == "success"){
                                 alert("저장되었습니다.") 
                                 //초기화 
@@ -1969,12 +1970,7 @@ aria-hidden="true">
                                 return true;
                                 // searchList_rtn(ls_tab);  
                                 // clear_rtn(ls_tab);        
-                            }else{
-                                if(data == "relogin"){
-                                    alert("다시 로그인해주세요")
-                                    window.location.href='http://eean.co.kr';
-                                    return 
-                                }                              
+                            }else{                          
                                 alert("예약중 오류가 발생했습니다. 관리자에게 문의하세요.")
                                 // listUp();
                                 console.log(data); 
@@ -2033,7 +2029,8 @@ aria-hidden="true">
                         "seqArr"  : seqArr   
                     }, 
                     async:false,
-                    success:function(data){   
+                    success:function(data){      
+                        chkLogin(data)       
                         if(data == "success"){
                             alert("삭제되었습니다.") 
                             misdateArr.length =0;
@@ -2051,12 +2048,7 @@ aria-hidden="true">
                             return true;
                             // searchList_rtn(ls_tab);  
                             // clear_rtn(ls_tab);        
-                        }else{
-                            if(data == "relogin"){
-                                alert("다시 로그인해주세요")
-                                window.location.href='http://eean.co.kr';
-                                return 
-                            }                              
+                        }else{                          
                             alert("저장중 오류가 발생했습니다. 관리자에게 문의하세요.")
                             // listUp();
                             console.log(data); 
@@ -2084,7 +2076,8 @@ aria-hidden="true">
                             "seqArr"  : seqArr   
                         }, 
                         async:false,
-                        success:function(data){   
+                        success:function(data){      
+                            chkLogin(data)       
                             if(data == "success"){
                                 alert("삭제되었습니다.") 
                                 misdateArr.length =0;
@@ -2102,12 +2095,7 @@ aria-hidden="true">
                                 return true;
                                 // searchList_rtn(ls_tab);  
                                 // clear_rtn(ls_tab);        
-                            }else{
-                                if(data == "relogin"){
-                                    alert("다시 로그인해주세요")
-                                    window.location.href='http://eean.co.kr';
-                                    return 
-                                }                              
+                            }else{                           
                                 alert("예약중 오류가 발생했습니다. 관리자에게 문의하세요.")
                                 // listUp();
                                 console.log(data); 
@@ -2210,7 +2198,8 @@ aria-hidden="true">
                             "misqty"  : misqty  
                         }, 
                         async:false,
-                        success:function(data){   
+                        success:function(data){      
+                            chkLogin(data)       
                             if(data == "success"){                                
                                 toastOn()
                                 //alert("저장되었습니다.") 
@@ -2218,12 +2207,7 @@ aria-hidden="true">
                                 return true;
                                 // searchList_rtn(ls_tab);  
                                 // clear_rtn(ls_tab);        
-                            }else{
-                                if(data == "relogin"){
-                                    alert("다시 로그인해주세요")
-                                    window.location.href='http://eean.co.kr';
-                                    return 
-                                }                              
+                            }else{                           
                                 alert("저장중 오류가 발생했습니다. 관리자에게 문의하세요.")
                                 // listUp();
                                 console.log(data); 
@@ -2328,7 +2312,8 @@ aria-hidden="true">
                             "misqty"  : misqty  
                         }, 
                         async:false,
-                        success:function(data){   
+                        success:function(data){      
+                            chkLogin(data)       
                             if(data == "success"){
                                 toastOn()
                                 //alert("저장되었습니다.") 
@@ -2336,12 +2321,7 @@ aria-hidden="true">
                                 return true;
                                 // searchList_rtn(ls_tab);  
                                 // clear_rtn(ls_tab);        
-                            }else{
-                                if(data == "relogin"){
-                                    alert("다시 로그인해주세요")
-                                    window.location.href='http://eean.co.kr'; 
-                                    return 
-                                }                              
+                            }else{                          
                                 alert("예약중 오류가 발생했습니다. 관리자에게 문의하세요.")
                                 // listUp();
                                 console.log(data); 
@@ -2453,7 +2433,14 @@ aria-hidden="true">
             //     document.getElementById('jpbgubn').value = "B";
             // }  
         }
-  
+
+        function chkLogin(argdata){
+            if(argdata == "relogin"){
+                    alert("다시 로그인해주세요")
+                    window.location.href='http://eean.co.kr';
+                    return 
+            }    
+        }       
         class FlexGridContextMenu {
             constructor(grid) {
                 let host = grid.hostElement, menu = this._buildMenu(grid);

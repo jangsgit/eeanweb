@@ -76,7 +76,7 @@
              AND B.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
              AND C.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
             AND A.acorp1 + CAST(A.acorp2 as varchar) = #{cltcd}
-             AND isnull(C.perid,'')  Like concat('%',#{perid},'%')
+             AND isnull(A.abonsadam1,'')  Like concat('%',#{perid},'%')
             AND B.misdate between #{frdate} and #{todate}
             AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
             AND Isnull(B.devflag, '0') Like concat('%',#{devflag},'%')
@@ -99,7 +99,7 @@
              AND B.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
              AND C.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
             AND A.acorp1 + CAST(A.acorp2 as varchar) Like concat('%',#{cltcd},'%')
-             AND isnull(C.perid,'')  Like concat('%',#{perid},'%')
+             AND isnull(A.abonsadam1,'')  Like concat('%',#{perid},'%')
             AND B.misdate between #{frdate} and #{todate}
             AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
             AND Isnull(B.devflag, '0') Like concat('%',#{devflag},'%')
@@ -225,8 +225,9 @@
             MAX(A.aascode1) + '-' + MAX(A.aascode2) as aascodetxt,
             MAX(F.acorp) as eeacorp, MAX(F.asano) as eeasano, MAX(F.aname) as eeaname, MAX(F.aupte) as eeupte,
             MAX(F.ajong) as eeajong, MAX(F.ajuso) as eeajuso, MAX(F.atelno) as eeatelno,  MAX(F.eeacodetxt) as eeacodetxt, MAX(F.eeatelno) as eeatelno
-        from  TB_DA024 B WITH (NOLOCK) , cif A WITH (NOLOCK) ,
-            TB_DA023 C WITH (NOLOCK) Left outer JOIN INSA D ON C.perid = D.insano ,
+        from  TB_DA024 B WITH (NOLOCK) ,
+            TB_DA023 C WITH (NOLOCK)  ,
+            cif A WITH (NOLOCK) Left outer JOIN INSA D ON A.abonsadam1 = D.insano ,
             ( select acorp, atelno, asano1 + '-' + asano2 + '-' + asano3 as asano, aname, aupte, ajong,
               ajuso1 + ' ' + ajuso2 as ajuso, aascode1 + '-' + aascode2 as eeacodetxt, atelno as eeatelno
             from cif where acorp1 + acorp2 + acorp3 = '0000' ) F
@@ -257,7 +258,7 @@
              AND C.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
              AND B.pcode = E.jkey
             AND A.acorp1 + CAST(A.acorp2 as varchar) = #{cltcd}
-             AND isnull(C.perid,'')  Like concat('%',#{perid},'%')
+             AND isnull(A.abonsadam1,'')  Like concat('%',#{perid},'%')
             AND B.misdate between #{frdate} and #{todate}
              AND isnull(C.misgubun,'')  Like concat('%',#{misgubun},'%')
              AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
@@ -284,7 +285,7 @@
              AND C.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
              AND B.pcode = E.jkey
             AND A.acorp1 + CAST(A.acorp2 as varchar) Like concat('%',#{cltcd},'%')
-             AND isnull(C.perid,'')  Like concat('%',#{perid},'%')
+             AND isnull(A.abonsadam1,'')  Like concat('%',#{perid},'%')
             AND B.misdate between #{frdate} and #{todate}
              AND isnull(C.misgubun,'')  Like concat('%',#{misgubun},'%')
              AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
@@ -299,7 +300,7 @@
 
     <select id="SelectDa024ListPeridGroup"  parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" resultType="com.dae.eean.DTO.App01.IndexDa024Dto">
         <![CDATA[ select count(*) as rownum,  sum(B.qty) as qty,  sum(B.samt) as samt, sum(B.addamt) as addamt,
-                         sum(B.amt) as amt,   D.inname as pernm, C.perid
+                         sum(B.amt) as amt,   D.inname as pernm, A.abonsadam1 AS perid
            from  TB_DA024 B WITH (NOLOCK) ,  jcode3 E WITH (NOLOCK) ,
                  TB_DA023 C WITH (NOLOCK),
                  cif A WITH (NOLOCK)  Left outer JOIN INSA D ON A.abonsadam1 = D.insano
@@ -309,14 +310,14 @@
              AND C.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
              AND B.pcode = E.jkey
             AND A.acorp1 + CAST(A.acorp2 as varchar) Like concat('%',#{cltcd},'%')
-             AND isnull(C.perid,'')  Like concat('%',#{perid},'%')
+             AND isnull(A.abonsadam1,'')  Like concat('%',#{perid},'%')
              AND isnull(B.misgubun,'')  Like concat('%',#{misgubun},'%')
             AND B.misdate between #{frdate} and #{todate}
             AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
              AND Isnull(C.makflag, '0') Like concat('%',#{makflag},'%')
              and isnull(E.jpb_gubn,'') Like concat('%',#{jpbgubn},'%')
              AND Len(ISNULL(D.inname,'')) > 0
-            Group BY C.perid,  D.inname
+            Group BY A.abonsadam1,  D.inname
             ORDER BY D.inname
         ]]>
 
@@ -336,7 +337,7 @@
                     AND C.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
                     AND B.pcode = E.jkey
                     AND A.acorp1 + CAST(A.acorp2 as varchar) Like concat('%',#{cltcd},'%')
-                    AND isnull(C.perid,'')  Like concat('%',#{perid},'%')
+                    AND isnull(A.abonsadam1,'')  Like concat('%',#{perid},'%')
                     AND isnull(B.misgubun,'')  Like concat('%',#{misgubun},'%')
                     AND B.misdate between #{frdate} and #{todate}
                     AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
@@ -362,7 +363,7 @@
              AND C.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
              AND B.pcode = E.jkey
             AND A.acorp1 + CAST(A.acorp2 as varchar) Like concat('%',#{cltcd},'%')
-             AND isnull(C.perid,'')  Like concat('%',#{perid},'%')
+             AND isnull(A.abonsadam1,'')  Like concat('%',#{perid},'%')
              AND isnull(B.misgubun,'')  Like concat('%',#{misgubun},'%')
             AND B.misdate between #{frdate} and #{todate}
             AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
@@ -387,7 +388,7 @@
                     AND C.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
                     AND B.pcode = E.jkey
                     AND A.acorp1 + CAST(A.acorp2 as varchar) Like concat('%',#{cltcd},'%')
-                    AND isnull(C.perid,'')  Like concat('%',#{perid},'%')
+                    AND isnull(A.abonsadam1,'')  Like concat('%',#{perid},'%')
                     AND isnull(B.misgubun,'')  Like concat('%',#{misgubun},'%')
                     AND B.misdate between #{frdate} and #{todate}
                     AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
@@ -436,7 +437,7 @@
                     AND C.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
                     AND B.pcode = E.jkey
                     AND A.acorp1 + CAST(A.acorp2 as varchar) Like concat('%',#{cltcd},'%')
-                    AND isnull(C.perid,'')  Like concat('%',#{perid},'%')
+                    AND isnull(A.abonsadam1,'')  Like concat('%',#{perid},'%')
                     AND isnull(B.misgubun,'')  Like concat('%',#{misgubun},'%')
                     AND B.misdate between #{frdate} and #{todate}
                     AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
@@ -509,12 +510,12 @@
              AND B.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
              AND C.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
             AND A.acorp1 + CAST(A.acorp2 as varchar) Like concat('%',#{cltcd},'%')
-             AND isnull(C.perid,'')  Like concat('%',#{perid},'%')
+             AND isnull(A.abonsadam1,'')  Like concat('%',#{perid},'%')
             AND B.misdate between #{frdate} and #{todate}
              AND isnull(B.misgubun,'')  Like concat('%',#{misgubun},'%')
              AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
              AND Isnull(C.makflag, '0') Like concat('%',#{makflag},'%')
-            ORDER BY C.perid,  B.misdate, B.misnum, B.seq
+            ORDER BY A.abonsadam1,  B.misdate, B.misnum, B.seq
         ]]>
 
     </select>
@@ -533,7 +534,7 @@
              AND C.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
              AND B.pcode = E.jkey
             AND A.acorp1 + CAST(A.acorp2 as varchar) Like concat('%',#{cltcd},'%')
-             AND isnull(C.perid,'')  Like concat('%',#{perid},'%')
+             AND isnull(A.abonsadam1,'')  Like concat('%',#{perid},'%')
             AND B.misdate between #{frdate} and #{todate}
              AND isnull(B.misgubun,'')  Like concat('%',#{misgubun},'%')
              AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')

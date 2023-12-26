@@ -742,7 +742,8 @@
                         }, 
                         async:false,
                         success:function(data){  
-                            // console.log(data)
+                            // console.log(data)   
+                            chkLogin(data)       
                             tabA_grid(data);
                         },error:function(e){
                             console.log("error");
@@ -790,7 +791,8 @@
                             "mflag"  : 'AA'   ,  
                         }, 
                         async:false,
-                        success:function(data){   
+                        success:function(data){      
+                            chkLogin(data)       
                             tabC_grid(data);
                         },error:function(e){
                             console.log("error");
@@ -834,8 +836,8 @@
                             "mflag"  : 'AA'   ,  
                         }, 
                         async:false,
-                        success:function(data){  
-                            // console.log(data)
+                        success:function(data){     
+                            chkLogin(data)       
                             tabE_grid(data);
                         },error:function(e){
                             console.log("error");
@@ -881,7 +883,8 @@
                         }, 
                         async:false,
                         success:function(data){  
-                            // console.log(data)
+                            // console.log(data)   
+                            chkLogin(data)       
                             tabD_grid(data);
                         },error:function(e){
                             console.log("error");
@@ -1531,7 +1534,14 @@
         // });
 
     }
-        
+
+    function chkLogin(argdata){
+        if(argdata == "relogin"){
+                alert("다시 로그인해주세요")
+                window.location.href='http://eean.co.kr';
+                return 
+        }    
+    }             
     class FlexGridContextMenu {
         constructor(grid) {
             let host = grid.hostElement, menu = this._buildMenu(grid);
