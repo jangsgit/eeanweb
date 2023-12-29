@@ -995,6 +995,7 @@ public class App01CrudController {
             }
             model.addAttribute("userformDto",userformDto);
             Index03Dto _index03Dto = new Index03Dto();
+            Index02Dto _index02Dto = new Index02Dto();
             //Index03Dto index03Dto_S = new Index03Dto();
 
             Boolean result = false;
@@ -1007,8 +1008,8 @@ public class App01CrudController {
             _index03Dto.setJbonsa_code(jbonsa);
             _index03Dto.setJbonsa_code2(jbonsa2);
             _index03Dto.setJpb_gubn(jpbgubn);
-            index02Dto.setAcode(acode);
-            index02Dto = service02.GetCifListAcode(index02Dto);  //거래처정보
+            _index02Dto.setAcode(acode);
+            _index02Dto = service02.GetCifListAcode(_index02Dto);  //거래처정보
             index02BonsaDto = service02.GetCifBonsa(index02BonsaDto);
             _index03Dto = service03.GetJpumOrderJkey(_index03Dto); //품목정보
             if(_index03Dto == null){
@@ -1071,8 +1072,8 @@ public class App01CrudController {
             indexDa023Dto.setTaxgubun("001");   //001 과세 002 비과세
             indexDa023Dto.setBigo("");
             indexDa023Dto.setRemark("");
-            indexDa023Dto.setVatemail(index02Dto.getAemail());  //계산서 메일주소
-            indexDa023Dto.setVatpernm(index02Dto.getInname01());  //계산서 담당자
+            indexDa023Dto.setVatemail(_index02Dto.getAemail());  //계산서 메일주소
+            indexDa023Dto.setVatpernm(_index02Dto.getInname01());  //계산서 담당자
             indexDa023Dto.setSpjangnum(index02BonsaDto.getAcorp());
             indexDa023Dto.setGubun("");
             indexDa024Dto.setMisgubun(mflag);
@@ -1151,6 +1152,7 @@ public class App01CrudController {
             }
             model.addAttribute("userformDto",userformDto);
             Index03Dto _index03Dto = new Index03Dto();
+            Index02Dto _index02Dto = new Index02Dto();
 
             Boolean result = false;
             String year = frdate.substring(0,4) ;
@@ -1162,8 +1164,8 @@ public class App01CrudController {
             _index03Dto.setJbonsa_code(jbonsa);
             _index03Dto.setJbonsa_code2(jbonsa2);
             _index03Dto.setJpb_gubn(jpbgubn);
-            index02Dto.setAcode(acode);
-            index02Dto = service02.GetCifListAcode(index02Dto);  //거래처정보
+            _index02Dto.setAcode(acode);
+            _index02Dto = service02.GetCifListAcode(_index02Dto);  //거래처정보
             index02BonsaDto = service02.GetCifBonsa(index02BonsaDto);
             _index03Dto = service03.GetJpumOrderJkey(_index03Dto); //품목정보
 //            log.info("jmodel =====>  " + jmodel );
@@ -1229,8 +1231,8 @@ public class App01CrudController {
             indexDa023Dto.setTaxgubun("001");   //001 과세 002 비과세
             indexDa023Dto.setBigo("");
             indexDa023Dto.setRemark("");
-            indexDa023Dto.setVatemail(index02Dto.getAemail());  //계산서 메일주소
-            indexDa023Dto.setVatpernm(index02Dto.getInname01());  //계산서 담당자
+            indexDa023Dto.setVatemail(_index02Dto.getAemail());  //계산서 메일주소
+            indexDa023Dto.setVatpernm(_index02Dto.getInname01());  //계산서 담당자
             indexDa023Dto.setSpjangnum(index02BonsaDto.getAcorp());
             indexDa023Dto.setGubun("");
             indexDa024Dto.setMisgubun(mflag);
@@ -1316,15 +1318,16 @@ public class App01CrudController {
             model.addAttribute("userformDto",userformDto);
 
             Index03Dto _index03Dto = new Index03Dto();
+            Index02Dto _index02Dto = new Index02Dto();
 
             Boolean result = false;
             String year = frdate.substring(0,4) ;
             String month = frdate.substring(5,7) ;
             String day   = frdate.substring(8,10) ;
             frdate = year + month + day ;
-            index02Dto.setAcode(acode);
+            _index02Dto.setAcode(acode);
             _index03Dto.setJkey(jkey);
-            index02Dto = service02.GetCifListAcode(index02Dto);  //거래처정보
+            _index02Dto = service02.GetCifListAcode(_index02Dto);  //거래처정보
             index02BonsaDto = service02.GetCifBonsa(index02BonsaDto);
             _index03Dto = service03.GetJpumOrderJkey02(_index03Dto); //품목
 
@@ -1455,8 +1458,8 @@ public class App01CrudController {
             indexDa023Dto.setTaxgubun("001");   //001 과세 002 비과세
             indexDa023Dto.setBigo(jremark);
             indexDa023Dto.setRemark(jremark);
-            indexDa023Dto.setVatemail(index02Dto.getAemail());  //계산서 메일주소
-            indexDa023Dto.setVatpernm(index02Dto.getInname01());  //계산서 담당자
+            indexDa023Dto.setVatemail(_index02Dto.getAemail());  //계산서 메일주소
+            indexDa023Dto.setVatpernm(_index02Dto.getInname01());  //계산서 담당자
             indexDa023Dto.setSpjangnum(index02BonsaDto.getAcorp());
             indexDa023Dto.setGubun("");
             String ls_seq = "";
@@ -1536,12 +1539,13 @@ public class App01CrudController {
                 return "relogin";
             }
             model.addAttribute("userformDto",userformDto);
+            Index02Dto _index02Dto = new Index02Dto();
             Boolean result = false;
             String year = frdate.substring(0,4) ;
             String month = frdate.substring(5,7) ;
             String day   = frdate.substring(8,10) ;
             frdate = year + month + day ;
-            index02Dto.setAcode(acode);
+            _index02Dto.setAcode(acode);
             indexDa023Dto.setMisgubun(mflag);
             indexDa023Dto.setCltcd(acode);
             indexDa023Dto.setMisdate(frdate);
@@ -1553,7 +1557,7 @@ public class App01CrudController {
                         month = misdateArr.get(i).substring(5,7);
                         day = misdateArr.get(i).substring(8,10);
                         String ls_misdate = year + month + day ;
-                        index02Dto.setAcode(acode);
+                        _index02Dto.setAcode(acode);
                         indexDa024Dto.setCltcd(acode);
                         indexDa024Dto.setMisgubun(mflag);
                         indexDa024Dto.setMisdate(ls_misdate);
@@ -1600,12 +1604,13 @@ public class App01CrudController {
                 return "relogin";
             }
             model.addAttribute("userformDto",userformDto);
+            Index02Dto _index02Dto = new Index02Dto();
             Boolean result = false;
             String year = frdate.substring(0,4) ;
             String month = frdate.substring(5,7) ;
             String day   = frdate.substring(8,10) ;
             frdate = year + month + day ;
-            index02Dto.setAcode(acode);
+            _index02Dto.setAcode(acode);
             indexDa023Dto.setMisgubun(mflag);
             indexDa023Dto.setCltcd(acode);
             indexDa023Dto.setMisdate(frdate);
@@ -1762,14 +1767,15 @@ public class App01CrudController {
             model.addAttribute("userformDto",userformDto);
             Index03Dto index03Dto_S = new Index03Dto();
             IndexDa024Dto _indexDa024Dto = new IndexDa024Dto();
+            Index02Dto _index02Dto = new Index02Dto();
             Boolean result = false;
             String year = frdate.substring(0,4) ;
             String month = frdate.substring(5,7) ;
             String day   = frdate.substring(8,10) ;
             frdate = year + month + day ;
-            index02Dto.setAcode(acode);
+            _index02Dto.setAcode(acode);
             index03Dto_S.setJkey(jkey);
-            index02Dto = service02.GetCifListAcode(index02Dto);  //거래처정보
+            _index02Dto = service02.GetCifListAcode(_index02Dto);  //거래처정보
             index02BonsaDto = service02.GetCifBonsa(index02BonsaDto);
             index03Dto_S = service03.GetJpumOrderJkey02(index03Dto_S); //품목
 
@@ -1905,8 +1911,8 @@ public class App01CrudController {
             indexDa023Dto.setTaxgubun("001");   //001 과세 002 비과세
             indexDa023Dto.setBigo(jremark);
             indexDa023Dto.setRemark(jremark);
-            indexDa023Dto.setVatemail(index02Dto.getAemail());  //계산서 메일주소
-            indexDa023Dto.setVatpernm(index02Dto.getInname01());  //계산서 담당자
+            indexDa023Dto.setVatemail(_index02Dto.getAemail());  //계산서 메일주소
+            indexDa023Dto.setVatpernm(_index02Dto.getInname01());  //계산서 담당자
             indexDa023Dto.setSpjangnum(index02BonsaDto.getAcorp());
             indexDa023Dto.setGubun("");
             String ls_seq = "";
