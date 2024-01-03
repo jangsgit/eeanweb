@@ -907,9 +907,9 @@
 
         function delete_btn(arg){
             var ls_tab = document.getElementById('tabvalue').value;
-            var ls_ipdate = document.getElementById('ipdate').value; 
+            var ls_ipdate = document.getElementById('ipfrdate').value; 
         
-            if (!confirm("삭제하시겠습니까?")) {
+            if (!confirm("입고일자 : " + ls_ipdate + " 자료를 삭제하시겠습니까?")) {
                     return ; 
             }   
             
@@ -918,7 +918,7 @@
 
                 if(ls_ipdate == null || ls_ipdate.length == 0 || ls_ipdate == ""){ 
                     alert("입고일자를 등록하세요") 
-                    document.getElementById("ipdate").focus(); 
+                    document.getElementById("ipfrdate").focus(); 
                     return ;               
                 }   
 
