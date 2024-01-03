@@ -783,8 +783,9 @@
                                 continue;
                             }
                             if(!ll_qty[i] ){ 
-                                alert("수량을 등록하세요") 
-                                return                                           
+                                ll_qty[i] = 0;
+                                //alert("수량을 등록하세요") 
+                                //return                                           
                             } 
                             if (!ls_jcode.includes(ls_pcode[i])) {
                                 ls_jcode[llCount] = ls_pcode[i]; 
