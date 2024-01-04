@@ -1011,6 +1011,7 @@
                         }, 
                         async:false,
                         success:function(data){ 
+                            chkLogin(data)  
                             tabB_grid(data);
                         },error:function(e){
                             console.log("error");                            
@@ -1040,6 +1041,7 @@
                         }, 
                         async:false,
                         success:function(data){   
+                            chkLogin(data)  
                             tabC_grid(data);
                         },error:function(e){
                             console.log("error");
@@ -1154,7 +1156,7 @@
             var wtab03_data = [];
             var cnt = 1;
             for (var i = 0; i < wtab03Dto.length; i++) {
-                wtab03_data.push({
+                wtab03_data.push({ 
                     id: i, 
                     index: cnt,
                     jkey: wtab03Dto[i]["jkey"],
@@ -1526,6 +1528,13 @@
 
         }
   
+        function chkLogin(argdata){
+        if(argdata == "relogin"){
+                alert("다시 로그인해주세요")
+                window.location.href='http://eean.co.kr';
+                return 
+            }    
+        }
         class FlexGridContextMenu {
             constructor(grid) {
                 let host = grid.hostElement, menu = this._buildMenu(grid);

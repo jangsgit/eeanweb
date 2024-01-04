@@ -1017,12 +1017,16 @@
         function wOrderChk_a(arg1, arg2, arg3, argcol ){  
             // ls_jbonsa, ls_jbonsa2, ls_jmodel, ls_color 
             //  alert(arg1 + '/' + arg2 +  ' / ' + arg3 + ' : 1EA 주문등록' )
+            // console.log(arg1)
+            // console.log(arg2)
+            // console.log(arg3)
+            // console.log(argcol)
             if(arg1 == arg3){
                 return 
             }
-            if(arg2 == arg3){
-                return 
-            }
+            // if(arg2 == arg3){
+            //     return 
+            // }
             var pos1 = arg3.indexOf('_'); 
             //console.log(pos1);           
             if (argcol <= 1){
@@ -1031,9 +1035,6 @@
             // if(arg3.length > 10){ 
             //     return 
             // }
-            // console.log(arg3.length)
-            // console.log(arg2)
-            // console.log(arg3)
             save_btn(arg1, arg2, arg3 )
         }
 
@@ -1437,7 +1438,7 @@
             //     jqty = "0";
             // }else{
             //     jqty = jqty.replace('_','');
-            // }   
+            // }    
             if(arg3.substring(0,1) == '_'){
                 jqty = 0 
                 arg3 = arg3.substring(1,arg3.length); //color
@@ -1454,8 +1455,7 @@
             var ll_qty    =  [];    
             var ls_jcode  =  [];        
             var ll_jqty    =  []; 
-            var llCount = 0;         
- 
+            var llCount = 0;   
      
             switch(ls_tab){
                 case 'A': 
@@ -1526,7 +1526,7 @@
                             alert("거래처를 등록하세요") 
                             document.getElementById("cifname").focus(); 
                             return ;               
-                        }         
+                        }       
                         $.ajax({
                             url: '/app01m/index14/save',  
                             type:"POST",
