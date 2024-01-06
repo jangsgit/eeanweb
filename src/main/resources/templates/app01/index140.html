@@ -112,7 +112,13 @@
                                             <div class="col-1 col-sm-1">  
                                                 <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="wishBtn" type="button" onclick="wishorderlist_rtn()">예약장바구니
                                                 </button>
-                                            </div>         
+                                            </div>     
+                                            <div class="col-1 col-sm-3">  
+                                                <div class="input-group mb-3" >
+                                                    <span class="input-group-text" style="max-height:50px;" >비고</span>
+                                                    <input class="form-control" type="text"   aria-describedby="inputGroup-sizing-default"  id="abigo"  disabled=true/>
+                                                </div>
+                                            </div>          
                                             <!-- <div class="col-2 col-sm-1">  
                                                 <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" type="button" onclick="save_btn()">주문등록
                                                 </button>
@@ -1573,6 +1579,9 @@
                     if(e.panel === s.cells){ // 셀 영역이고
                          if(s.columns[e.col].binding!=="jbonsa_code2" && s.columns[e.col].binding!=="jmodel_code"){
                             var val = s.getCellData(e.row,e.col); 
+                            if(val == null || val.length == 0 || val == ""){ 
+                                return 
+                            } 
                             if(val.substring(0,1) == '_'){
                                 wijmo.addClass(e.cell, 'gray-cell'); //배경색 지정을 위한 클래스 추가
                             }else{
@@ -2399,7 +2408,8 @@
                     acorp2: wtab02Dto[i]["acorp2"], 
                     acorp3: wtab02Dto[i]["acorp3"],  
                     acode: wtab02Dto[i]["acode"], 
-                    acorp: wtab02Dto[i]["acorp"]      
+                    acorp: wtab02Dto[i]["acorp"]   , 
+                    abigo: wtab02Dto[i]["abigo"]   
                 });
                 cnt++;
             }   
@@ -2418,7 +2428,7 @@
             cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
                 text: '<b>${item.acode}</b>',
                 click: (e, ctx) => {
-                    wcifChk_a(ctx.item.acorp1, ctx.item.acorp2, ctx.item.acorp3, ctx.item.acode,   ctx.item.acorp  );                    
+                    wcifChk_a(ctx.item.acorp1, ctx.item.acorp2, ctx.item.acorp3, ctx.item.acode, ctx.item.acorp , ctx.item.abigo );                    
                     
                 }
             });
@@ -2430,9 +2440,16 @@
             cols.align = "left"; 
             cols.width = 200;
             winnameGrid.columns.push(cols); 
+
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'abigo';
+            cols.header = '비고'; 
+            cols.align = "left"; 
+            cols.width = 200;
+            winnameGrid.columns.push(cols); 
         }
                 
-        function wcifChk_a(arg1, arg2, arg3, arg4, arg5){  
+        function wcifChk_a(arg1, arg2, arg3, arg4, arg5, arg6){  
               
             var ls_tab = document.getElementById('tabvalue').value;    
             if(ls_tab == "A"){ 
@@ -2442,6 +2459,7 @@
                 document.getElementById('acode').value = arg4;  
                 document.getElementById('searchCode').value = arg5;
                 document.getElementById('cifname').value = arg5;  
+                document.getElementById('abigo').value = arg6;  
                 if(arg1 == "02"){
                     document.getElementById('jpbgubn').value = "P";
                 }else{
@@ -2561,8 +2579,8 @@
             wtab01Grid.collectionView.clearChanges(); 
             wtab01Grid.hostElement.addEventListener("click",function(e){
                 // console.log(e);
-                isTimestamp = e.timeStamp;
-            var ht = wtab01Grid.hitTest(e);
+                    isTimestamp = e.timeStamp;
+                    var ht = wtab01Grid.hitTest(e);
                     if(ht.cellType === wijmo.grid.CellType.Cell){
                         if(wtab01Grid.rows[ht.row].isSelected === true){
                            console.log("kk");

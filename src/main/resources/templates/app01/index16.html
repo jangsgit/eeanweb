@@ -388,7 +388,8 @@
          var cltcdArr    = new Array(); 
          var gubunArr    = new Array(); 
          var fixflagArr    = new Array(); 
-         var qtyArr    = new Array(); 
+         var qtyArr    = new Array();  
+         var uamtArr    = new Array(); 
           
          var misdateWArr = new Array();
          var misnumWArr = new Array();
@@ -401,6 +402,7 @@
          var omisnumWArr = new Array();
          var oseqWArr    = new Array(); 
          var qtyWArr    = new Array(); 
+         var uamtWArr    = new Array(); 
 
          
          var devnum01    = new Array(); 
@@ -937,6 +939,7 @@
                         gubunArr.pop();
                         fixflagArr.pop();
                         qtyArr.pop();
+                        uamtArr.pop();
                     } 
                     for (var i = 0; i < chkTabA.length; i++) { 
                         misdateArr[i]   = chkTabA[i]._data.misdate;
@@ -944,7 +947,8 @@
                         seqArr[i]  = chkTabA[i]._data.seq; 
                         cltcdArr[i]  = chkTabA[i]._data.cltcd; 
                         gubunArr[i]  = chkTabA[i]._data.misgubun;   
-                        qtyArr[i]  = chkTabA[i]._data.qty;  
+                        qtyArr[i]  = chkTabA[i]._data.qty;    
+                        uamtArr[i]  = chkTabA[i]._data.uamt;  
                     }   
                     if(misdateArr.length == null || misdateArr.length == 0){ 
                         alert("수정할 내역을 선택하세요") 
@@ -959,7 +963,8 @@
                             "seqarr"  : seqArr     , 
                             "cltcdarr"  : cltcdArr     , 
                             "gubunarr"  : gubunArr     ,  
-                            "qtyarr"  : qtyArr     , 
+                            "qtyarr"  : qtyArr     ,   
+                            "uamtarr"  : uamtArr     , 
                             "mflag"  : 'AA'   ,      
                             "ordercd"  : 'AA'   , 
                         }, 
@@ -1064,6 +1069,7 @@
                         gubunWArr.pop();
                         fixflagWArr.pop();
                         qtyWArr.pop();
+                        uamtWArr.pop();
                     } 
                     console.log(chkTabB)
                     for (var i = 0; i < chkTabB.length; i++) { 
@@ -1072,7 +1078,8 @@
                         seqWArr[i]  = chkTabB[i]._data.seq; 
                         cltcdWArr[i]  = chkTabB[i]._data.cltcd; 
                         gubunWArr[i]  = chkTabB[i]._data.misgubun;   
-                        qtyWArr[i]  = chkTabB[i]._data.qty;  
+                        qtyWArr[i]  = chkTabB[i]._data.qty;   
+                        uamtWArr[i]  = chkTabB[i]._data.uamt;  
                     }   
                     if(misdateWArr.length == null || misdateWArr.length == 0){ 
                         alert("수정할 내역을 선택하세요") 
@@ -1087,7 +1094,8 @@
                             "seqarr"  : seqWArr     , 
                             "cltcdarr"  : cltcdWArr     , 
                             "gubunarr"  : gubunWArr     ,  
-                            "qtyarr"  : qtyWArr     , 
+                            "qtyarr"  : qtyWArr     ,  
+                            "uamtarr"  : uamtWArr     , 
                             "mflag"  : 'AA'   ,      
                             "ordercd"  : 'AA'   , 
                         }, 

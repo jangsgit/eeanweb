@@ -730,7 +730,7 @@
 
     <update id="UpdateDA024Qty" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
         UPDATE tb_da024 SET
-          qty=#{qty}, samt=#{samt}, addamt=#{addamt}, amt=#{amt}
+          qty=#{qty}, samt=#{samt}, addamt=#{addamt}, amt=#{amt}, uamt=#{uamt}
         where misdate=#{misdate} and misnum=#{misnum} and seq=#{seq} and cltcd = #{cltcd}
     </update>
 
@@ -769,7 +769,7 @@
 
     <update id="UpdateDA026Qty" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
         UPDATE tb_da026 SET
-            qty=#{qty}, samt=#{samt}, addamt=#{addamt}, amt=#{amt}
+            qty=#{qty}, samt=#{samt}, addamt=#{addamt}, amt=#{amt}, uamt=#{uamt}
         where misdate=#{misdate} and misnum=#{misnum} and seq=#{seq} and cltcd = #{cltcd}
     </update>
 

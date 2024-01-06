@@ -116,7 +116,7 @@
     <select id="GetJpumList" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
         <![CDATA[
             select jkey, jpb_gubn, jgong_code, jdan_code, jmodel_code, jcolor_code, jcustomer_code,
-                   jbonsa_code, jsayong_gubn, jpum, jgugek, jsize,  convert ( MONEY , convert(int , jchgoga0) ) AS jchgoga0, jbigo,
+                   jbonsa_code, jsayong_gubn, jpum, jgugek, jsize,  convert ( numeric , convert(int , jchgoga0) ) AS jchgoga0, jbigo,
                    E.jcifcodename as jcifcodename
             from JCODE3 WITH (NOLOCK)
             LEFT OUTER JOIN jcifcode E WITH(NOLOCK) ON (JCODE3.jmodel_code = E.jcifcode)

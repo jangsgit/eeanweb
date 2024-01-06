@@ -134,11 +134,11 @@ public class App01CrudController {
             }else{
                 //index02Dto.setAcorp1("%");
             }
-            log.info("001 =====>" + _index02Dto.getAcorp1());
-            log.info("002 =====>" + _index02Dto.getAcorp());
-            log.info("003 =====>" + _index02Dto.getAgita());
-            log.info("004 =====>" + _index02Dto.getAbonsadam1());
-            log.info("005 =====>" + jpbgubn);
+//            log.info("001 =====>" + _index02Dto.getAcorp1());
+//            log.info("002 =====>" + _index02Dto.getAcorp());
+//            log.info("003 =====>" + _index02Dto.getAgita());
+//            log.info("004 =====>" + _index02Dto.getAbonsadam1());
+//            log.info("005 =====>" + jpbgubn);
             _index02List = service02.GetCifListTot(_index02Dto);
             model.addAttribute("index02List",_index02List);
 
@@ -3065,6 +3065,7 @@ public class App01CrudController {
             ,@RequestParam( value =  "cltcdarr[]") List<String> cltcdarr
             ,@RequestParam( value =  "gubunarr[]") List<String> gubunarr
             ,@RequestParam( value =  "qtyarr[]") List<Integer> qtyarr
+            ,@RequestParam( value =  "uamtarr[]") List<Integer> uamtarr
             ,@RequestParam("mflag") String mflag
             , Model model
             , HttpServletRequest request){
@@ -3085,8 +3086,9 @@ public class App01CrudController {
                     indexDa024Dto.setCltcd(cltcdarr.get(i));
                     indexDa024Dto.setMisgubun(gubunarr.get(i));
                     indexDa024Dto.setQty(qtyarr.get(i));
-                    _indexDa024Dto = service14.SelectDa024Detail(indexDa024Dto);
-                    Integer _ll_uamt = _indexDa024Dto.getUamt();
+                    indexDa024Dto.setUamt(uamtarr.get(i));
+                    //_indexDa024Dto = service14.SelectDa024Detail(indexDa024Dto);
+                    Integer _ll_uamt = indexDa024Dto.getUamt();
                     Integer _ll_samt = 0;
                     Integer _ll_addamt = 0;
                     Integer _ll_amt = 0;
@@ -3323,6 +3325,7 @@ public class App01CrudController {
             ,@RequestParam( value =  "cltcdarr[]") List<String> cltcdarr
             ,@RequestParam( value =  "gubunarr[]") List<String> gubunarr
             ,@RequestParam( value =  "qtyarr[]") List<Integer> qtyarr
+            ,@RequestParam( value =  "uamtarr[]") List<Integer> uamtarr
             ,@RequestParam("mflag") String mflag
             , Model model
             , HttpServletRequest request){
@@ -3343,8 +3346,9 @@ public class App01CrudController {
                     indexDa024Dto.setCltcd(cltcdarr.get(i));
                     indexDa024Dto.setMisgubun(gubunarr.get(i));
                     indexDa024Dto.setQty(qtyarr.get(i));
-                    _indexDa024Dto = service14.SelectDa026Detail02(indexDa024Dto);
-                    Integer _ll_uamt = _indexDa024Dto.getUamt();
+                    indexDa024Dto.setUamt(uamtarr.get(i));
+                    //_indexDa024Dto = service14.SelectDa026Detail02(indexDa024Dto);
+                    Integer _ll_uamt = indexDa024Dto.getUamt();
                     Integer _ll_samt = 0;
                     Integer _ll_addamt = 0;
                     Integer _ll_amt = 0;

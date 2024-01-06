@@ -112,7 +112,7 @@
                     <input class="form-control" type="password" placeholder="Password" id="logpass" name="logpass" />
                   </div>
                   <div class="row flex-between-center">
-                    <div class="col-auto">
+                    <div class="col-auto"> 
                       <div class="form-check mb-0">
                         <input class="form-check-input" type="checkbox" id="basic-checkbox" checked="checked" />
                         <!-- <label class="form-check-label mb-0" for="basic-checkbox">Remember me</label> -->
@@ -151,6 +151,7 @@
 <script>
       var lsFlag = "";
       var lsUserid  = "";
+      var lsUserpw  = "";
       window.onload = function() {  
         getIpClient();
       }
@@ -166,12 +167,13 @@
         // }
         
         lsUserid = window.localStorage.getItem("userid") 
+        lsUserpw = window.localStorage.getItem("userpw") 
         if(lsUserid == null || lsUserid.length == 0 || lsUserid == "" || lsUserid =="undefined"){ 
           lsUserid = '';            
-        }  
-        
+        }   
         //document.getElementById('select').value = lsFlag
         document.getElementById('loginid').value = lsUserid
+        document.getElementById('logpass').value = lsUserpw
         
       }
 
@@ -214,6 +216,7 @@
                 window.localStorage.setItem("userid",  userFormDto["userid"])
                 window.localStorage.setItem("flag",  userFormDto["flag"])
                 window.localStorage.setItem("custnm",  userFormDto["custnm"])
+                window.localStorage.setItem("userpw", ls_logpass)
                 if(userFormDto == "" || userFormDto == null){
                   document.getElementById('select').value = lsFlag
                   alert("사용자 구분을 확인하세요.");

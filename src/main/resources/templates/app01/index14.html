@@ -105,7 +105,13 @@
                                             <div class="col-1 col-sm-1">  
                                                 <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="wishBtn" type="button" onclick="wishorderlist_rtn()">예약장바구니
                                                 </button>
-                                            </div>                                             
+                                            </div>      
+                                            <div class="col-1 col-sm-3">  
+                                                <div class="input-group mb-3" >
+                                                    <span class="input-group-text" style="max-height:50px;" >비고</span>
+                                                    <input class="form-control" type="text"   aria-describedby="inputGroup-sizing-default"  id="abigo"  disabled=true/>
+                                                </div>
+                                            </div>                                         
                                             <!-- <div class="col-2 col-sm-1">  
                                                 <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" type="button" onclick="save_btn()">주문등록
                                                 </button>
@@ -2243,7 +2249,7 @@
                     async:false,
                     success:function(data){     
                         chkLogin(data)  
-                        searchList_rtn("B");
+                        searchList_rtn("B"); 
                     },error:function(e){
                         console.log("error");                            
                     }
@@ -2356,7 +2362,8 @@
                     acorp2: wtab02Dto[i]["acorp2"], 
                     acorp3: wtab02Dto[i]["acorp3"],  
                     acode: wtab02Dto[i]["acode"], 
-                    acorp: wtab02Dto[i]["acorp"]      
+                    acorp: wtab02Dto[i]["acorp"]  , 
+                    abigo: wtab02Dto[i]["abigo"]     
                 });
                 cnt++;
             }   
@@ -2375,7 +2382,7 @@
             cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
                 text: '<b>${item.acode}</b>',
                 click: (e, ctx) => {
-                    wcifChk_a(ctx.item.acorp1, ctx.item.acorp2, ctx.item.acorp3, ctx.item.acode,   ctx.item.acorp  );                    
+                    wcifChk_a(ctx.item.acorp1, ctx.item.acorp2, ctx.item.acorp3, ctx.item.acode, ctx.item.acorp, ctx.item.abigo   );                    
                     
                 }
             });
@@ -2387,9 +2394,16 @@
             cols.align = "left"; 
             cols.width = 200;
             winnameGrid.columns.push(cols); 
+
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'abigo';
+            cols.header = '비고'; 
+            cols.align = "left"; 
+            cols.width = 200;
+            winnameGrid.columns.push(cols); 
         }
                 
-        function wcifChk_a(arg1, arg2, arg3, arg4, arg5){  
+        function wcifChk_a(arg1, arg2, arg3, arg4, arg5, arg6){  
               
             var ls_tab = document.getElementById('tabvalue').value;    
             if(ls_tab == "A"){ 
@@ -2399,6 +2413,7 @@
                 document.getElementById('acode').value = arg4;  
                 document.getElementById('searchCode').value = arg5;
                 document.getElementById('cifname').value = arg5;  
+                document.getElementById('abigo').value = arg6;  
 
                 //첫 탭에서 선택한 거래처를 장바구니 거래처에 같이 표시 
                 document.getElementById('bacorp1').value = arg1;  
