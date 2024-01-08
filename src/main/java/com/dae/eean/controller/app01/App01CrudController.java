@@ -2082,9 +2082,9 @@ public class App01CrudController {
                     if(ls_tempItem.equals( ls_misdate + misnumarr.get(i)  + cltcdarr.get(i))){
                         continue;
                     }
-                    itemString[ll_count] = ls_misdate   + cltcdarr.get(i);  //+ misnumarr.get(i)
+                    itemString[ll_count] = ls_misdate + misnumarr.get(i)  + cltcdarr.get(i);  //
                     ll_count++;
-                    ls_tempItem = ls_misdate  + cltcdarr.get(i);  //+ misnumarr.get(i)
+                    ls_tempItem = ls_misdate  + misnumarr.get(i) + cltcdarr.get(i);  //
 //                    log.info("itemString =====>" + ls_misdate + misnumarr.get(i) + seqarr.get(i) + cltcdarr.get(i));
                 }
                 hm.put("itemcdArr", itemString);
