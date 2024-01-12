@@ -14,7 +14,11 @@ import java.util.List;
 public interface Index04Mapper {
 
     public List<Index04Dto> SelectJegoIpgo(Index04Dto parm) ;
+    public String SelectJegoCheck(Index04Dto parm) ;
+
     public Boolean InsertJegoIpgo(Index04Dto parm) ;
+    public Boolean UpdateJegoIpgo(Index04Dto parm) ;
+
     public Boolean DeleteJaegoIpgo(Index04Dto parm) ;
     public List<Index04Dto> SelectJegoList(Index04Dto parm) ;
 }

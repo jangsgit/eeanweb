@@ -20,8 +20,13 @@ public class Index04Service {
     public List<Index04Dto> SelectJegoIpgo(Index04Dto parm){
         return  appMapper.SelectJegoIpgo(parm);
     }
+    public String SelectJegoCheck(Index04Dto parm){
+        return  appMapper.SelectJegoCheck(parm);
+    }
+
     public Boolean InsertJegoIpgo(Index04Dto parm){ return  appMapper.InsertJegoIpgo(parm);}
     public Boolean DeleteJaegoIpgo(Index04Dto parm){ return  appMapper.DeleteJaegoIpgo(parm);}
+    public Boolean UpdateJegoIpgo(Index04Dto parm){ return  appMapper.UpdateJegoIpgo(parm);}
 
     public List<Index04Dto> SelectJegoList(Index04Dto parm){
         return  appMapper.SelectJegoList(parm);

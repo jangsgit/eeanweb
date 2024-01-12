@@ -799,10 +799,16 @@ public class App01CrudController {
                     _index04Dto.setJepm(jcode.get(i));
                     _index04Dto.setIjaego_su1(Integer.parseInt(jqty.get(i)));
                     _index04Dto.setJepm_size("00");
-//                    log.info("frdate Exception =====>" + frdate);
-//                    log.info("jcode  Exception =====>" + jcode.get(i));
-//                    log.info("jqty  Exception =====>" + jqty.get(i));
-                     result = service04.InsertJegoIpgo(_index04Dto);
+//                    log.info("frdate  =====>" + frdate);
+//                    log.info("jcode   =====>" + jcode.get(i));
+//                    log.info("jqty   =====>" + jqty.get(i));
+                    String ls_acorp = "";
+                    ls_acorp = service04.SelectJegoCheck(_index04Dto);
+                    if(ls_acorp.equals("00")){
+                        result = service04.UpdateJegoIpgo(_index04Dto);
+                    }else{
+                        result = service04.InsertJegoIpgo(_index04Dto);
+                    }
                     if (!result){
                         return "error";
                     }
@@ -955,10 +961,10 @@ public class App01CrudController {
             String day   = todate.substring(8,10) ;
             todate = year + month + day ;
             _index03Dto.setTodate(todate);
-            log.info("001 ->" + _index03Dto.getJpum());
-            log.info("002 ->" + _index03Dto.getFrdate());
-            log.info("003 ->" + _index03Dto.getTodate());
-            log.info("004 ->" + _index03Dto.getJpb_gubn());
+//            log.info("001 ->" + _index03Dto.getJpum());
+//            log.info("002 ->" + _index03Dto.getFrdate());
+//            log.info("003 ->" + _index03Dto.getTodate());
+//            log.info("004 ->" + _index03Dto.getJpb_gubn());
             _index03List = service03.GetJpumCustJaegoList(_index03Dto);
             //log.info("004 ->" + _index03List);
             model.addAttribute("index03List",_index03List);

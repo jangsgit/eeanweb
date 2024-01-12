@@ -28,11 +28,23 @@
         ]]>
     </select>
 
+
+    <select id="SelectJegoCheck"  parameterType="com.dae.eean.DTO.App01.Index04Dto" resultType="String">
+        <![CDATA[ select  B.acorp
+                  from  JEGO_JEPMJANAK B WITH (NOLOCK)
+                  where  isnull(B.jepm,'') = #{jepm} and B.key1 = #{key1}
+        ]]>
+    </select>
+
     <insert id="InsertJegoIpgo" parameterType="com.dae.eean.DTO.App01.Index04Dto" >
         insert into JEGO_JEPMJANAK (jepm, acorp, key1, jepm_size, ijaego_su1) values
                         (#{jepm}, #{acorp}, #{key1}, #{jepm_size}, #{ijaego_su1})
     </insert>
 
+
+    <update id="UpdateJegoIpgo" parameterType="com.dae.eean.DTO.App01.Index04Dto">
+        UPDATE  JEGO_JEPMJANAK SET ijaego_su1 = #{ijaego_su1} where jepm  = #{jepm} and key1  = #{key1}
+    </update>
 
     <delete id="DeleteJaegoIpgo" parameterType="com.dae.eean.DTO.App01.Index04Dto">
         DELETE  JEGO_JEPMJANAK  where key1  = #{key1}

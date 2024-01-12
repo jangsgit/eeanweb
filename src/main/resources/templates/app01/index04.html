@@ -767,8 +767,7 @@
                         return ;               
                     }   
 
-                    var gridrow = wtab01Grid.rows.length ;
-   
+                    var gridrow = wtab01Grid.rows.length ; 
                     for( i=0; i < gridrow; i++){
                         //console.log(wtab01Grid.rows[i]);
                             ls_pcode[i] =  wtab01Grid.getCellData(i, 0, false); 
@@ -792,7 +791,7 @@
                                 ll_jqty[llCount] =  ll_qty[i] ;   
                                 llCount++;
                             } 
-                    }   
+                    }    
                     if(llCount ==0 ){
                         alert("엑셀 자료를 등록하세요") 
                         return     
@@ -866,7 +865,7 @@
                 return ;               
             }   
             ls_jcode[0] = ls_bjkey;
-            ll_jqty[0] = ls_bjqty;
+            ll_jqty[0] = ls_bjqty; 
             $.ajax({
                 url: '/app01m/index04/save',  
                 type:"POST",
@@ -1028,8 +1027,6 @@
                     if(ls_jpumname == null || ls_jpumname.length == 0 || ls_jpumname == ""){ 
                         ls_jkey = '%';            
                     }    
-                    console.log(ls_jkey)
-                    console.log(ls_jpbgubn)
                     $.ajax({
                         url: '/app01m/index04/jaegocustlist',  
                         type:"POST",
@@ -1406,9 +1403,7 @@
                 $("#winnamemodal_btn").trigger("click");
             }else if(ls_tab == "B"){ 
                 document.getElementById('jkey02').value = arg1;   
-                document.getElementById('jpumname02').value = arg2;  
-                console.log(arg1)
-                console.log(arg2)
+                document.getElementById('jpumname02').value = arg2;   
                 searchList_rtn(ls_tab)
                 $("#winnamemodal_btn").trigger("click");
 
