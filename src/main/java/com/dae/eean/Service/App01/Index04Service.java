@@ -23,9 +23,13 @@ public class Index04Service {
     public String SelectJegoCheck(Index04Dto parm){
         return  appMapper.SelectJegoCheck(parm);
     }
+    public String SelectMaxSeqIpgo(Index04Dto parm){
+        return  appMapper.SelectMaxSeqIpgo(parm);
+    }
 
     public Boolean InsertJegoIpgo(Index04Dto parm){ return  appMapper.InsertJegoIpgo(parm);}
     public Boolean DeleteJaegoIpgo(Index04Dto parm){ return  appMapper.DeleteJaegoIpgo(parm);}
+    public Boolean DeleteJaegoIpgoAcorp(Index04Dto parm){ return  appMapper.DeleteJaegoIpgoAcorp(parm);}
     public Boolean UpdateJegoIpgo(Index04Dto parm){ return  appMapper.UpdateJegoIpgo(parm);}
 
     public List<Index04Dto> SelectJegoList(Index04Dto parm){

@@ -82,7 +82,7 @@
             AND Isnull(B.devflag, '0') Like concat('%',#{devflag},'%')
             AND Isnull(C.misgubun, '') Like concat('%',#{misgubun},'%')
             AND Isnull(C.makflag, '0') Like concat('%',#{makflag},'%')
-            ORDER BY B.cltcd, B.misdate, B.misnum, B.seq
+            ORDER BY B.misdate desc, B.misnum, B.seq
         ]]>
 
     </select>
@@ -105,7 +105,7 @@
             AND Isnull(B.devflag, '0') Like concat('%',#{devflag},'%')
             AND Isnull(C.misgubun, '') Like concat('%',#{misgubun},'%')
             AND Isnull(C.makflag, '0') Like concat('%',#{makflag},'%')
-            ORDER BY B.cltcd, B.misdate, B.misnum, B.seq
+            ORDER BY  B.misdate desc, B.misnum, B.seq
         ]]>
 
     </select>

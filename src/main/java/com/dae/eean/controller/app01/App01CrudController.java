@@ -803,12 +803,16 @@ public class App01CrudController {
 //                    log.info("jcode   =====>" + jcode.get(i));
 //                    log.info("jqty   =====>" + jqty.get(i));
                     String ls_acorp = "";
-                    ls_acorp = service04.SelectJegoCheck(_index04Dto);
-                    if(ls_acorp.equals("00")){
-                        result = service04.UpdateJegoIpgo(_index04Dto);
-                    }else{
+                    //일자별로 n개등록가능하므로 업데이트 막음.
+                    //ls_acorp = service04.SelectJegoCheck(_index04Dto);
+                    //if(ls_acorp == null ){
+                        ls_acorp = GetMaxSeqIpgo(_index04Dto);
+                        _index04Dto.setAcorp(ls_acorp);
                         result = service04.InsertJegoIpgo(_index04Dto);
-                    }
+                   // }else{
+                   //     _index04Dto.setAcorp(ls_acorp);
+                   //     result = service04.UpdateJegoIpgo(_index04Dto);
+                   // }
                     if (!result){
                         return "error";
                     }
@@ -825,6 +829,8 @@ public class App01CrudController {
 
     @RequestMapping(value="/index04/del")
     public String index04Delete(  @RequestParam("ipdate") String ipdate,
+                                  @RequestParam("acorp") String acorp,
+                                  @RequestParam("jepm") String jepm,
                                   Model model,   HttpServletRequest request){
         HttpSession session = request.getSession();
         UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
@@ -834,12 +840,15 @@ public class App01CrudController {
         }
         Index04Dto _index04Dto = new Index04Dto();
         model.addAttribute("userformDto",userformDto);
-        String year = ipdate.substring(0,4) ;
-        String month = ipdate.substring(5,7) ;
-        String day   = ipdate.substring(8,10) ;
-        ipdate = year + month + day ;
         _index04Dto.setKey1(ipdate);
-        Boolean result = service04.DeleteJaegoIpgo(_index04Dto);
+        _index04Dto.setAcorp(acorp);
+        _index04Dto.setJepm(jepm);
+        Boolean result = false;
+        if(jepm.length() > 0){
+            result = service04.DeleteJaegoIpgoAcorp(_index04Dto);
+        }else{
+            result = service04.DeleteJaegoIpgo(_index04Dto);
+        }
         if (!result) {
             return "error";
         }
@@ -3676,6 +3685,19 @@ public class App01CrudController {
             if (ls_seq.length() == 1){
                 ls_seq = "00" + ls_seq;
             }else if(ls_seq.length() == 2){
+                ls_seq = "0" + ls_seq;
+            }
+        }
+        return ls_seq;
+    }
+    public String GetMaxSeqIpgo(Index04Dto asDto){
+        String ls_seq = service04.SelectMaxSeqIpgo(asDto);
+        if(ls_seq == null || ls_seq.equals("00")){
+            ls_seq = "01";
+        }else{
+            Integer ll_seq = Integer.parseInt(ls_seq) + 1;
+            ls_seq = ll_seq.toString();
+            if (ls_seq.length() == 1){
                 ls_seq = "0" + ls_seq;
             }
         }

@@ -12,8 +12,8 @@
            where A.jepm = B.jkey
            AND A.key1 between #{frdate} and  #{todate}
            AND isnull(B.jpb_gubn,'') Like concat('%',#{jpb_gubun},'%')
-           AND isnull(A.jepm,'') Like concat('%',#{jkey},'%')
-           ORDER BY A.jepm
+           AND isnull(A.jepm,'') Like concat('%',#{jkey},'%') AND A.ijaego_su1 <> 0
+           ORDER BY   A.key1, A.acorp, A.jepm
         ]]>
     </select>
 
@@ -29,10 +29,17 @@
     </select>
 
 
-    <select id="SelectJegoCheck"  parameterType="com.dae.eean.DTO.App01.Index04Dto" resultType="String">
-        <![CDATA[ select  B.acorp
+    <select id="SelectMaxSeqIpgo"  parameterType="com.dae.eean.DTO.App01.Index04Dto" resultType="String">
+        <![CDATA[ select  ISNULL(MAX(B.acorp),'00') as acorp
                   from  JEGO_JEPMJANAK B WITH (NOLOCK)
                   where  isnull(B.jepm,'') = #{jepm} and B.key1 = #{key1}
+        ]]>
+    </select>
+
+    <select id="SelectJegoCheck"  parameterType="com.dae.eean.DTO.App01.Index04Dto" resultType="String">
+        <![CDATA[ select  isnull(B.acorp,'') as acorp
+                  from  JEGO_JEPMJANAK B WITH (NOLOCK)
+                  where  isnull(B.jepm,'') = #{jepm}  and B.key1 = #{key1}
         ]]>
     </select>
 
@@ -43,12 +50,15 @@
 
 
     <update id="UpdateJegoIpgo" parameterType="com.dae.eean.DTO.App01.Index04Dto">
-        UPDATE  JEGO_JEPMJANAK SET ijaego_su1 = #{ijaego_su1} where jepm  = #{jepm} and key1  = #{key1}
+        UPDATE  JEGO_JEPMJANAK SET ijaego_su1 = #{ijaego_su1} where jepm  = #{jepm} and key1  = #{key1} and acorp  = #{acorp}
     </update>
 
     <delete id="DeleteJaegoIpgo" parameterType="com.dae.eean.DTO.App01.Index04Dto">
         DELETE  JEGO_JEPMJANAK  where key1  = #{key1}
     </delete>
 
+    <delete id="DeleteJaegoIpgoAcorp" parameterType="com.dae.eean.DTO.App01.Index04Dto">
+        DELETE  JEGO_JEPMJANAK  where jepm  = #{jepm} and key1  = #{key1} and acorp  = #{acorp}
+    </delete>
 
 </mapper>

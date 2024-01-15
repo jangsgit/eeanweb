@@ -388,6 +388,7 @@
                 alternatingRowStep: 0,
                 columns: [     
                     { binding: 'ipdate', header: '입고일자', align: "center", width: '1*' }, 
+                    { binding: 'acorp', header: '순번', align: "center", width: '1*' }, 
                     { binding: 'jepm', header: '품목코드', align: "center", width: '1*' }, 
                     { binding: 'jepmnm', header: '품목', align: "center", width: '1*' }, 
                     { binding: 'jgugek', header: '규격', align: "center", width: '1*' }, 
@@ -408,6 +409,15 @@
             //         // showCheckedCount();
             //     }
             // }); 
+            // 그룹 전환 
+            setGroups02(true); 
+            function setGroups02(groupsOn) {
+                let groups = view_p01tab02page.groupDescriptions;
+                groups.clear();
+                if (groupsOn) {
+                    groups.push(new wijmo.collections.PropertyGroupDescription('ipdate') );
+                }
+            }
             // 헤더 열 전환
             setHeaderColumn2(false);
             function setHeaderColumn2(headerOn) {
@@ -920,12 +930,15 @@
                     document.getElementById("ipfrdate").focus(); 
                     return ;               
                 }   
-
+                    var ls_acorp = "";
+                    var ls_jepm = "";
                     $.ajax({
                         url: '/app01m/index04/del',  
                         type:"POST",
                         data: { 
-                            "ipdate"      : ls_ipdate,    
+                            "ipdate"      : ls_ipdate,   
+                            "acorp"       : ls_acorp,    
+                            "jepm"        : ls_jepm,    
                         }, 
                         async:false,
                         success:function(data){   
@@ -1065,6 +1078,7 @@
                     index: cnt,
                     key1: wtab02Dto[i]["key1"],
                     jepm: wtab02Dto[i]["jepm"],
+                    acorp: wtab02Dto[i]["acorp"],
                     jpumnm: wtab02Dto[i]["jpumnm"],
                     jgugek: wtab02Dto[i]["jgugek"], 
                     jsize: wtab02Dto[i]["jsize"], 
@@ -1090,10 +1104,24 @@
             wtab02Grid.columns.push(cols);  
 
             cols = new wijmo.grid.Column(); 
+            cols.binding = 'acorp';
+            cols.header = '순번';
+            cols.align = "center";
+            cols.width = 80; 
+            wtab02Grid.columns.push(cols); 
+
+            cols = new wijmo.grid.Column(); 
             cols.binding = 'jepm';
             cols.header = '코드';
             cols.align = "center";
             cols.width = 200; 
+            cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
+                text: '<b>${item.jepm}</b>',
+                click: (e, ctx) => {
+                    wdelfun_a(ctx.item.key1, ctx.item.acorp, ctx.item.jepm, ctx.item.jpumnm );                    
+                    
+                }
+            });
             wtab02Grid.columns.push(cols);  
 
             cols = new wijmo.grid.Column(); 
@@ -1144,6 +1172,7 @@
             cols.header = '입고수량';
             cols.align = "center";
             cols.width = 100;  
+            cols.aggregate = 'Sum';
             wtab02Grid.columns.push(cols);   
  
         }
@@ -1231,6 +1260,43 @@
  
         }         
         
+        function wdelfun_a(arg1, arg2, arg3, arg4 ){ 
+            if (!confirm("입고일자 : " + arg1 + " (" +  arg2 + ") : " + arg4 + "   삭제하시겠습니까?")) {
+                return ; 
+            }   
+            var ls_tab = document.getElementById('tabvalue').value; 
+            $.ajax({
+                url: '/app01m/index04/del',  
+                type:"POST",
+                data: { 
+                    "ipdate"      : arg1,    
+                    "acorp"       : arg2,    
+                    "jepm"        : arg3,    
+                }, 
+                async:false,
+                success:function(data){   
+                    if(data == "success"){
+                        alert("삭제되었습니다.") 
+                        searchList_rtn(ls_tab);  
+                        clear_rtn(ls_tab);             
+                    }else{  
+                        if(data == "relogin"){
+                            alert("다시 로그인해주세요")
+                            window.location.href='http://eean.co.kr';
+                            return 
+                        }                            
+                        alert("삭제중 오류가 발생했습니다. 관리자에게 문의하세요.")  
+                    }
+                
+                },error:function(e){
+                    console.log("error"); 
+                }
+            }).done(function(fragment){           
+
+            })  
+
+
+        }    
            
         function JpumSearchList_rtn(arg){  
 
@@ -1256,7 +1322,8 @@
                             "searchtxt" :searchCode, 
                     }, 
                     async:false,
-                    success:function(data){  
+                    success:function(data){   
+                        chkLogin(data)  
                         tabPop_grid(data, arg);
                     },error:function(e){
                         console.log("error");                            
