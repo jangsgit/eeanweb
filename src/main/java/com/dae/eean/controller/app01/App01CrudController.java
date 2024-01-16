@@ -2037,11 +2037,11 @@ public class App01CrudController {
                     break;
                 case "BB":
                     indexDa024Dto.setPerid(perid);
-                    indexDa024Dto.setMisgubun("BB");
+                    indexDa024Dto.setMisgubun("%");
                     break;
                 case "CC":
                     indexDa024Dto.setPerid(userformDto.getPerid());
-                    indexDa024Dto.setMisgubun("CC");
+                    indexDa024Dto.setMisgubun("%");
                     break;
                 default:
                     break;
@@ -2795,11 +2795,11 @@ public class App01CrudController {
                     break;
                 case "BB":
                     indexDa024Dto.setPerid(perid);
-                    indexDa024Dto.setMisgubun("BB");
+                    indexDa024Dto.setMisgubun("%");
                     break;
                 case "CC":
                     indexDa024Dto.setPerid(userformDto.getPerid());
-                    indexDa024Dto.setMisgubun("CC");
+                    indexDa024Dto.setMisgubun("%");
                     break;
                 default:
                     break;
