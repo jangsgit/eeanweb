@@ -133,7 +133,7 @@
         AND C.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
         AND B.misdate = #{misdate} and B.misnum = #{misnum}  and B.cltcd = #{cltcd}
         AND B.fixflag = '1'
-        ORDER BY B.cltcd,  B.misdate, B.misnum, B.seq
+        ORDER BY B.misdate desc, B.misnum, B.seq
     </select>
 
 <!--    <select id="SelectDa024ListPrt"  parameterType="com.dae.eean.DTO.App01.IndexDa024Dto"  resultType="com.dae.eean.DTO.App01.IndexDa024Dto">-->
@@ -211,7 +211,7 @@
         </foreach>
         AND B.fixflag = '1'
         Group BY B.cltcd,  B.misdate, B.misnum, A.acorp, C.remarkaa, C.remarkbb
-        ORDER BY B.cltcd,  B.misdate, B.misnum
+        ORDER BY B.misdate desc, B.misnum
     </select>
 
     <select id="SelectDa024ListDevGroup"  parameterType="hashmap"  resultType="com.dae.eean.DTO.App01.IndexDa024Dto">
@@ -240,7 +240,7 @@
             </foreach>
             AND isnull(B.devflag, '0') = '1'
         Group BY B.cltcd,  B.misdate, B.misnum, A.acorp
-        ORDER BY B.cltcd,  B.misdate, B.misnum
+        ORDER BY B.misdate desc, B.misnum
     </select>
 
     <select id="SelectDa026List"  parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" resultType="com.dae.eean.DTO.App01.IndexDa024Dto">
