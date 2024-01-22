@@ -1804,48 +1804,62 @@
                 // * draw captions *
                 doc.drawText('작성일자: ' + ls_misdatetxt + ' [' + ls_misnum + ']', 10, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 14), align: 0, underline:false});
                 //
-                doc.drawText('등록번호 : ' + ls_eeasano, 320, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11),  underline:false}); 
+                //doc.drawText('등록번호 : ' + ls_eeasano, 320, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11),  underline:false});         //이안옵틱             
                 //
-                doc.moveDown(1);
+                doc.moveDown(2);
                 //
                 y = doc.y; 
-                doc.drawText('등록번호 : ' + ls_asano , 10, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 14), underline:false});
-                doc.drawText('상 호(법인명) : ' + ls_eeacorp, 320, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11),  underline:false});
+                doc.drawText('공 급 받 는 자'  , 10, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11), underline:false});
+                //doc.drawText('등록번호 : ' + ls_asano , 10, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 14), underline:false});
+                //doc.drawText('상 호(법인명) : ' + ls_eeacorp, 320, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11),  underline:false});     //이안옵틱
                 //
-                doc.moveDown(1);
-                //
-                y = doc.y;
-                doc.drawText('상      호 : ' + ls_acorp , 10, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 14), underline:false}); 
-                //
-                doc.drawText('사업장주소 : '  , 320, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11),   underline:false});  
-                //
-                doc.drawText('대 표 자 : ' + ls_eeaname, 430, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11),  underline:false}); 
+                //doc.moveDown(1);
                 //
                 y = doc.y;
-                doc.drawText(ls_eeajuso , 320, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11),   underline:false}); 
+                doc.drawText('상           호 : ' + ls_acorp , 10, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11), underline:false}); 
+                //
+                //doc.drawText('대  표  자 : ' + ls_aname , 320, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11),   underline:false});  
+                //doc.drawText('사업장주소 : '  , 320, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11),   underline:false});  
+                //
+                //doc.drawText('대 표 자 : ' + ls_eeaname, 430, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11),  underline:false});  //이안옵틱
+                //
+                y = doc.y;
+                doc.drawText('대    표    자 : ' + ls_aname , 10, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11),   underline:false});  
+
+                y = doc.y;
+                doc.drawText('사 업 자 번 호 : ' + ls_asano , 10, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11),   underline:false});  
+
+                y = doc.y; 
+                doc.drawText('연    락    처 : ' + ls_atelno , 10, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11),   underline:false});  
+
+                //doc.drawText(ls_eeajuso , 320, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11),   underline:false});                  //이안옵틱
                 //
                 //doc.moveDown(1);
                 //
                 y = doc.y; 
                 //
-                doc.drawText('사업장주소   '  , 10, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11),   underline:false});  
-                //
-                doc.drawText('대 표 자 : ' + ls_aname, 100, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11),  underline:false}); 
+                doc.drawText('사 업 장 주 소 : ' + ls_ajuso  , 10, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11),   underline:false});  
+                // y = doc.y; 
+                // ls_ajuso = ls_ajuso.substr(0, 34)
+                // doc.drawText(ls_ajuso, 10, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro"), align: 0, underline:false});   //아래와 같이 공급합니다.
 
-                y = doc.y; 
-                ls_ajuso = ls_ajuso.substr(0, 34)
-                doc.drawText(ls_ajuso, 10, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro"), align: 0, underline:false});   //아래와 같이 공급합니다.
-                doc.drawText('업    태 : ' + ls_eeupte, 320, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11),   underline:false});
                 //
-                doc.drawText('종    목 : ' + ls_eeajong, 430, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11),  underline:false}); 
-                y = doc.y; 
+                // doc.drawText('대 표 자 : ' + ls_aname, 100, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11),  underline:false}); 
 
-                doc.moveDown(1);
-                //
-                y = doc.y;
-                doc.drawText('업    태 : ' + ls_aupte, 10, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11),   underline:false}); 
-                doc.drawText('종    목 : ' + ls_ajong, 100, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11),  underline:false}); 
-                doc.drawText('전화번호 : ' + ls_eeatelno, 320, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11),  underline:false}); 
+                // y = doc.y; 
+                // ls_ajuso = ls_ajuso.substr(0, 34)
+                // doc.drawText(ls_ajuso, 10, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro"), align: 0, underline:false});   //아래와 같이 공급합니다.
+                // doc.drawText('업    태 : ' + ls_eeupte, 320, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11),   underline:false});
+                
+                // doc.drawText('종    목 : ' + ls_eeajong, 430, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11),  underline:false}); 
+                // y = doc.y; 
+
+                // doc.moveDown(1);
+                 
+                // y = doc.y;
+                // doc.drawText('업    태 : ' + ls_aupte, 10, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11),   underline:false}); 
+                // doc.drawText('종    목 : ' + ls_ajong, 100, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11),  underline:false}); 
+                // doc.drawText('전화번호 : ' + ls_eeatelno, 320, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11),  underline:false}); 
                 doc.moveDown(1);
                 
                 // draw FlexGrid 
@@ -1881,15 +1895,29 @@
                 });
                 //
                 doc.moveDown(2);
-                
-                // * draw captions *
+                if(ls_jpbgubn == "B") {  
+                    ls_eeajuso = "서울 강동 양재대로85길17 2,3,4층";
+                    ls_eeatelno = "     블리스  02-472-0859";
+                }else if(ls_jpbgubn == "P") {  
+                   // ls_eeajuso = "서울 강동 양재대로85길17 2,3,4층";
+                    ls_eeatelno = "     피오비노  " + ls_eeatelno;
+                }else{
+                    ls_eeatelno = "     피오비노  02-482-1477   /   블리스  02-472-0859";                    
+                }
+
                 if(ls_remark.length == null || ls_remark.length == 0){ 
-                    doc.drawText('합계금액 : ' + wijmo.changeType(ll_sumamt, wijmo.DataType.String, 'n0') + '원', 370, doc.y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 13), continue:true, underline:true, align:2}); 
+                    //doc.drawText('합계금액 : ' + wijmo.changeType(ll_sumamt, wijmo.DataType.String, 'n0') + '원', 370, doc.y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 13), continue:true, underline:true, align:2}); 
                     //doc.drawText('순    번 : ' + ls_misnum, 10, doc.y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11),   underline:false}); 
                 }else{
-                    doc.drawText('합계금액 : ' + wijmo.changeType(ll_sumamt, wijmo.DataType.String, 'n0') + '원', 370, doc.y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 13), continue:true, underline:true, align:2});                     
+                    //doc.drawText('합계금액 : ' + wijmo.changeType(ll_sumamt, wijmo.DataType.String, 'n0') + '원', 370, doc.y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 13), continue:true, underline:true, align:2});                     
                     doc.drawText('비    고 : ' + ls_remark, 10, doc.y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11),   underline:false});  
                 }
+
+                y = doc.y; 
+                // * draw captions *
+                doc.drawText('사업자번호 : ' + ls_eeasano + '    /     대표이사 : ' + ls_eeaname, 150, doc.y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11),   underline:false});  
+                y = doc.y;  
+                doc.drawText(  ls_eeajuso + '    /' + ls_eeatelno, 10, doc.y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11),   underline:false});  
                 // doc.drawText(wijmo.changeType(ll_sumamt, wijmo.DataType.String, 'c'));
                 // let cz = doc.drawText('합계금액: ', 100, doc.y, {font: new wijmo.pdf.PdfFont("BMHANNAPro")}); 
                 // doc.paths.moveTo(cz.size.width, doc.y).lineTo(cz.size.width + 150, doc.y).stroke(thinPen);

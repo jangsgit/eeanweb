@@ -104,7 +104,7 @@
                                     <div class="tab-pane fade" id="step02"> 
                                         <div class="row gx-3" style="  margin: 10px 10px 10px;">   
                                             <div class="col-2 col-sm-2">
-                                                <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">예약기간</span>
+                                                <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">조회기간</span>
                                                     <input type="text"  class="form-control datetimepicker" id="frdate02" autocomplete="off"  placeholder="Y-m-d"     >
                                                 </div> 
                                             </div>   
@@ -746,7 +746,7 @@
                         return ;               
                     }   
                     ls_misfixflag = "%";
-                    ls_jpbgubn = "%";
+                    // ls_jpbgubn = "%";
                     // if(ls_misfixflag == "확정구분"){ 
                     //     ls_misfixflag = "%";
                     // }    
@@ -804,6 +804,7 @@
                     if(ls_inname02 == null || ls_inname02.length == 0 || ls_inname02 == ""){  
                         ls_abonsadam2 = "%";
                     }    
+                    console.log(ls_jpbgubn)
                     $.ajax({
                         url: '/app01m/index14/listperid',  
                         type:"POST",
@@ -1115,11 +1116,20 @@
             var wtab04_data = [];
             var cnt = 1;
             var bfixflag = false
+            var ls_remark = "";
             for (var i = 0; i < wtab04Dto.length; i++) {
                 if(wtab04Dto[i]["fixflag"] == "1"){
                     bfixflag = true;
                 }else{
                     bfixflag = false;
+                }  
+                if(wtab04Dto[i]["seq"] == '001'){
+                    ls_remark =  wtab04Dto[i]["remarkaa"];                
+                    if(ls_remark == null || ls_remark.length == 0 || ls_remark == ""){ 
+                        ls_remark =  wtab04Dto[i]["remarkbb"];  
+                    }  
+                }else{
+                    ls_remark = "";
                 }
                 wtab04_data.push({
                     id: i, 
@@ -1139,7 +1149,8 @@
                     samt: wtab04Dto[i]["samt"],  
                     cltcd: wtab04Dto[i]["cltcd"],  
                     inname: wtab04Dto[i]["inname"],       
-                    misgubun: wtab04Dto[i]["misgubun"],        
+                    misgubun: wtab04Dto[i]["misgubun"],    
+                    remark: ls_remark,    
                     fixflag: bfixflag,                                           
                 });
                 cnt++;
@@ -1175,12 +1186,12 @@
             cols.align = "center";
             cols.width = 150; 
             wtab04Grid.columns.push(cols); 
-            // cols = new wijmo.grid.Column(); 
-            // cols.binding = 'misnum';
-            // cols.header = '주문번호';
-            // cols.align = "center";
-            // cols.width = 80;  
-            // wtab04Grid.columns.push(cols);  
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'misnum';
+            cols.header = '주문번호';
+            cols.align = "center";
+            cols.width = 80;  
+            wtab04Grid.columns.push(cols);  
             // cols = new wijmo.grid.Column(); 
             // cols.binding = 'seq';
             // cols.header = '순번';
@@ -1248,6 +1259,12 @@
             cols.align = "center";
             cols.aggregate = 'Sum';
             cols.width = 120;  
+            wtab04Grid.columns.push(cols);   
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'remark';
+            cols.header = '비고';
+            cols.align = "left";
+            cols.width = 250;  
             wtab04Grid.columns.push(cols);    
             // cols = new wijmo.grid.Column(); 
             // cols.binding = 'fixflag'; 

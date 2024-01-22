@@ -327,7 +327,8 @@
     <select id="SelectDa024ListPerid"  parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" resultType="com.dae.eean.DTO.App01.IndexDa024Dto">
         <![CDATA[ select B.cltcd as cltcd, Left(B.misdate,4) + '-' + substring(B.misdate, 5,2)+ '-' + substring(B.misdate, 7,2) as misdate, B.misnum, B.seq,
                       B.pcode, B.pname, B.psize,    B.punit,  B.qty,  B.uamt, B.samt, B.addamt,
-                      B.amt, A.acorp, pbonsa, pmodel, pcolor , D.inname, B.misgubun, isnull(B.fixflag,'0') as fixflag, D.inname as pernm
+                      B.amt, A.acorp, pbonsa, pmodel, pcolor , D.inname, B.misgubun, isnull(B.fixflag,'0') as fixflag, D.inname as pernm,
+                      isnull(C.remarkaa,'') as remarkaa, isnull(C.remarkbb,'') as remarkbb
                   from  TB_DA024 B WITH (NOLOCK) ,  jcode3 E WITH (NOLOCK) ,
                         TB_DA023 C WITH (NOLOCK) ,
                         cif A WITH (NOLOCK)  Left outer JOIN INSA D ON A.abonsadam1 = D.insano
@@ -730,7 +731,7 @@
 
     <update id="UpdateDA024Qty" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
         UPDATE tb_da024 SET
-          qty=#{qty}, samt=#{samt}, addamt=#{addamt}, amt=#{amt}, uamt=#{uamt}
+          qty=#{qty}, samt=#{samt}, addamt=#{addamt}, amt=#{amt}
         where misdate=#{misdate} and misnum=#{misnum} and seq=#{seq} and cltcd = #{cltcd}
     </update>
 
@@ -769,7 +770,7 @@
 
     <update id="UpdateDA026Qty" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
         UPDATE tb_da026 SET
-            qty=#{qty}, samt=#{samt}, addamt=#{addamt}, amt=#{amt}, uamt=#{uamt}
+            qty=#{qty}, samt=#{samt}, addamt=#{addamt}, amt=#{amt}
         where misdate=#{misdate} and misnum=#{misnum} and seq=#{seq} and cltcd = #{cltcd}
     </update>
 
