@@ -671,6 +671,22 @@ aria-hidden="true">
                     { binding: 'remark', header: '요청등록', align: "center", width: 300 },    
                     { binding: 'fixflag', header: '확정', align: "center", width: 150, cssClass: 'switch'   },  
                 ], 
+                cellEditEnding: function (s, e) { 
+                    var col = s.columns[e.col];   
+                        if (col.binding == 'qty') {  
+                            var ll_qty = s.activeEditor.value;
+                            var ll_row = e.row; 
+                            if(!ll_qty){ll_qty = 0}  //수량
+                            if(ll_qty == 0){
+                                alert("수량이 없습니다.")
+                                return 
+                            } 
+                            var ll_uamt = e._p._rows[ll_row]._data.uamt ;
+                            if(!ll_uamt){ll_uamt = 0}  //단가
+                            var ll_samt = ll_qty * ll_uamt;
+                            wtab02Grid.setCellData(e.row,7,ll_samt);  
+                        }
+                },
                 itemsSource: view_p01tab02page
             });   
 
@@ -753,6 +769,22 @@ aria-hidden="true">
                     { binding: 'remark', header: '요청등록', align: "center", width: 300 },    
                     { binding: 'fixflag', header: '주문', align: "center", width: 150, cssClass: 'switch'   }, 
                 ], 
+                cellEditEnding: function (s, e) { 
+                    var col = s.columns[e.col];    
+                        if (col.binding == 'qty') {  
+                            var ll_qty = s.activeEditor.value;
+                            var ll_row = e.row; 
+                            if(!ll_qty){ll_qty = 0}  //수량
+                            if(ll_qty == 0){
+                                alert("수량이 없습니다.")
+                                return 
+                            } 
+                            var ll_uamt = e._p._rows[ll_row]._data.uamt ;
+                            if(!ll_uamt){ll_uamt = 0}  //단가
+                            var ll_samt = ll_qty * ll_uamt;
+                            wtab03Grid.setCellData(e.row,7,ll_samt);  
+                        }
+                },
                 itemsSource: view_p01tab03page
             });  
 

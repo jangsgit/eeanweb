@@ -25,6 +25,10 @@ label {
 }
  
 
+#theGridPrt.wj-flexgrid .wj-cell {
+  padding: 10px;
+}
+
 .highlightActive .wj-cells .wj-cell:focus {
   background: rgba(255,150,30,.75) !important;  
 }

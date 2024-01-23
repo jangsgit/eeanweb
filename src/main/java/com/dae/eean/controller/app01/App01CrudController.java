@@ -1087,8 +1087,8 @@ public class App01CrudController {
             indexDa023Dto.setTaxgubun("001");   //001 과세 002 비과세
             indexDa023Dto.setBigo("");
             indexDa023Dto.setRemark("");
-            indexDa023Dto.setVatemail(_index02Dto.getAemail());  //계산서 메일주소
-            indexDa023Dto.setVatpernm(_index02Dto.getInname01());  //계산서 담당자
+//            indexDa023Dto.setVatemail(_index02Dto.getAemail());  //계산서 메일주소
+//            indexDa023Dto.setVatpernm(_index02Dto.getInname01());  //계산서 담당자
             indexDa023Dto.setSpjangnum(index02BonsaDto.getAcorp());
             indexDa023Dto.setGubun("");
             indexDa024Dto.setMisgubun(mflag);
@@ -1246,8 +1246,8 @@ public class App01CrudController {
             indexDa023Dto.setTaxgubun("001");   //001 과세 002 비과세
             indexDa023Dto.setBigo("");
             indexDa023Dto.setRemark("");
-            indexDa023Dto.setVatemail(_index02Dto.getAemail());  //계산서 메일주소
-            indexDa023Dto.setVatpernm(_index02Dto.getInname01());  //계산서 담당자
+//            indexDa023Dto.setVatemail(_index02Dto.getAemail());  //계산서 메일주소
+//            indexDa023Dto.setVatpernm(_index02Dto.getInname01());  //계산서 담당자
             indexDa023Dto.setSpjangnum(index02BonsaDto.getAcorp());
             indexDa023Dto.setGubun("");
             indexDa024Dto.setMisgubun(mflag);
@@ -1473,8 +1473,8 @@ public class App01CrudController {
             indexDa023Dto.setTaxgubun("001");   //001 과세 002 비과세
             indexDa023Dto.setBigo(jremark);
             indexDa023Dto.setRemark(jremark);
-            indexDa023Dto.setVatemail(_index02Dto.getAemail());  //계산서 메일주소
-            indexDa023Dto.setVatpernm(_index02Dto.getInname01());  //계산서 담당자
+//            indexDa023Dto.setVatemail(_index02Dto.getAemail());  //계산서 메일주소
+//            indexDa023Dto.setVatpernm(_index02Dto.getInname01());  //계산서 담당자
             indexDa023Dto.setSpjangnum(index02BonsaDto.getAcorp());
             indexDa023Dto.setGubun("");
             String ls_seq = "";
@@ -1926,8 +1926,8 @@ public class App01CrudController {
             indexDa023Dto.setTaxgubun("001");   //001 과세 002 비과세
             indexDa023Dto.setBigo(jremark);
             indexDa023Dto.setRemark(jremark);
-            indexDa023Dto.setVatemail(_index02Dto.getAemail());  //계산서 메일주소
-            indexDa023Dto.setVatpernm(_index02Dto.getInname01());  //계산서 담당자
+//            indexDa023Dto.setVatemail(_index02Dto.getAemail());  //계산서 메일주소
+//            indexDa023Dto.setVatpernm(_index02Dto.getInname01());  //계산서 담당자
             indexDa023Dto.setSpjangnum(index02BonsaDto.getAcorp());
             indexDa023Dto.setGubun("");
             String ls_seq = "";
@@ -3121,7 +3121,7 @@ public class App01CrudController {
                         indexDa024Dto.setAmt(0);
                     }
 
-                    result = service14.UpdateDA024Qty(indexDa024Dto);
+                    result = service14.UpdateDA024Amt(indexDa024Dto);
 
                     if (!result){
                         return "error";
@@ -3380,7 +3380,7 @@ public class App01CrudController {
                         indexDa024Dto.setAddamt(0);
                         indexDa024Dto.setAmt(0);
                     }
-                    result = service14.UpdateDA026Qty(indexDa024Dto);
+                    result = service14.UpdateDA026Amt(indexDa024Dto);
 
                     if (!result){
                         return "error";

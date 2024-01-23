@@ -574,8 +574,8 @@
                 alternatingRowStep: 0,
                 columns: [     
                     { binding: 'misdate', header: '주문일자', align: "center", width: 120 }, 
-                    { binding: 'misnum', header: '주문번호', align: "center", width: 80 },  
-                    { binding: 'seq', header: '순번', align: "center", width: 80 },  
+                    // { binding: 'misnum', header: '주문번호', align: "center", width: 80 },  
+                    // { binding: 'seq', header: '순번', align: "center", width: 80 },  
                     { binding: 'acorp', header: '거래처', align: "center", width: 150 },  
                     { binding: 'pname', header: '품목', align: "center", width: 150 },   
                     { binding: 'psize', header: '규격', align: "center", width: 120 },  
@@ -588,6 +588,22 @@
                     { binding: 'remark', header: '요청등록', align: "center", width: 300 },  
                     // { binding: 'fixflag', header: '확정', align: "center", width: 150, cssClass: 'switch'   },  
                 ], 
+                cellEditEnding: function (s, e) { 
+                    var col = s.columns[e.col];   
+                        if (col.binding == 'qty') {  
+                            var ll_qty = s.activeEditor.value;
+                            var ll_row = e.row; 
+                            if(!ll_qty){ll_qty = 0}  //수량
+                            if(ll_qty == 0){
+                                alert("수량이 없습니다.")
+                                return 
+                            } 
+                            var ll_uamt = e._p._rows[ll_row]._data.uamt ;
+                            if(!ll_uamt){ll_uamt = 0}  //단가
+                            var ll_samt = ll_qty * ll_uamt;
+                            wtab02Grid.setCellData(e.row,6,ll_samt);  
+                        }
+                },
                 itemsSource: view_p01tab02page
             });   
 
@@ -639,8 +655,8 @@
                 alternatingRowStep: 0,
                 columns: [     
                     { binding: 'misdate', header: '예약일자', align: "center", width: 120 }, 
-                    { binding: 'misnum', header: '예약번호', align: "center", width: 80 },  
-                    { binding: 'seq', header: '순번', align: "center", width: 80 },  
+                    // { binding: 'misnum', header: '예약번호', align: "center", width: 80 },  
+                    // { binding: 'seq', header: '순번', align: "center", width: 80 },  
                     { binding: 'acorp', header: '거래처', align: "center", width: 150 },  
                     { binding: 'pname', header: '품목', align: "center", width: 150 },   
                     { binding: 'psize', header: '규격', align: "center", width: 120 },  
@@ -653,6 +669,22 @@
                     { binding: 'remark', header: '요청등록', align: "center", width: 300 },   
                     { binding: 'fixflag', header: '주문', align: "center", width: 150, cssClass: 'switch'   }, 
                 ], 
+                cellEditEnding: function (s, e) { 
+                    var col = s.columns[e.col];    
+                        if (col.binding == 'qty') {  
+                            var ll_qty = s.activeEditor.value;
+                            var ll_row = e.row; 
+                            if(!ll_qty){ll_qty = 0}  //수량
+                            if(ll_qty == 0){
+                                alert("수량이 없습니다.")
+                                return 
+                            } 
+                            var ll_uamt = e._p._rows[ll_row]._data.uamt ;
+                            if(!ll_uamt){ll_uamt = 0}  //단가
+                            var ll_samt = ll_qty * ll_uamt;
+                            wtab03Grid.setCellData(e.row,6,ll_samt);  
+                        }
+                },
                 itemsSource: view_p01tab03page
             });  
 
@@ -1363,26 +1395,26 @@
             cols.header = '주문일자';
             cols.align = "center";
             cols.width = 120; 
-            wtab02Grid.columns.push(cols);  
-            cols = new wijmo.grid.Column(); 
-            cols.binding = 'misnum';
-            cols.header = '주문번호';
-            cols.align = "center";
-            cols.width = 80;  
-            wtab02Grid.columns.push(cols);  
-            cols = new wijmo.grid.Column(); 
-            cols.binding = 'seq';
-            cols.header = '순번';
-            cols.align = "center";
-            cols.width = 80;  
             cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
-                text: '<b>${item.seq}</b>',
+                text: '<b>${item.misdate}</b>',
                 click: (e, ctx) => {
                     wdelfun_a(ctx.item.misdate, ctx.item.misnum, ctx.item.seq, ctx.item.cltcd, ctx.item.misgubun, ctx.item.fixflag);                    
                     
                 }
             });
-            wtab02Grid.columns.push(cols);   
+            wtab02Grid.columns.push(cols);  
+            // cols = new wijmo.grid.Column(); 
+            // cols.binding = 'misnum';
+            // cols.header = '주문번호';
+            // cols.align = "center";
+            // cols.width = 80;  
+            // wtab02Grid.columns.push(cols);  
+            // cols = new wijmo.grid.Column(); 
+            // cols.binding = 'seq';
+            // cols.header = '순번';
+            // cols.align = "center";
+            // cols.width = 80;  
+            // wtab02Grid.columns.push(cols);   
             cols = new wijmo.grid.Column(); 
             cols.binding = 'inname';
             cols.header = '담당사원';
@@ -1522,27 +1554,27 @@
             cols.binding = 'misdate';
             cols.header = '예약일자';
             cols.align = "center";
-            cols.width = 120; 
-            wtab03Grid.columns.push(cols);  
-            cols = new wijmo.grid.Column(); 
-            cols.binding = 'misnum';
-            cols.header = '예약번호';
-            cols.align = "center";
-            cols.width = 80;  
-            wtab03Grid.columns.push(cols);  
-            cols = new wijmo.grid.Column(); 
-            cols.binding = 'seq';
-            cols.header = '순번';
-            cols.align = "center";
-            cols.width = 80;  
+            cols.width = 120;  
             cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
-                text: '<b>${item.seq}</b>',
+                text: '<b>${item.misdate}</b>',
                 click: (e, ctx) => {
                     wdelfunwish_a(ctx.item.misdate, ctx.item.misnum, ctx.item.seq, ctx.item.cltcd, ctx.item.misgubun, ctx.item.fixflag);                    
                     
                 }
             });
-            wtab03Grid.columns.push(cols);   
+            wtab03Grid.columns.push(cols);  
+            // cols = new wijmo.grid.Column(); 
+            // cols.binding = 'misnum';
+            // cols.header = '예약번호';
+            // cols.align = "center";
+            // cols.width = 80;  
+            // wtab03Grid.columns.push(cols);  
+            // cols = new wijmo.grid.Column(); 
+            // cols.binding = 'seq';
+            // cols.header = '순번';
+            // cols.align = "center";
+            // cols.width = 80; 
+            // wtab03Grid.columns.push(cols);   
             cols = new wijmo.grid.Column(); 
             cols.binding = 'inname';
             cols.header = '담당사원';

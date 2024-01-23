@@ -266,7 +266,7 @@
                                     </div> 
                                     <div class="tab-pane fade" id="step03">  
                                         <div class="container-fluid"> 
-                                            <div id="wtab03Grid_div"  style="overflow:scroll;   height:800px;    margin:0 auto; "></div> 
+                                            <div id="theGridPrt_div"  style="overflow:scroll;   height:800px;    margin:0 auto; "></div> 
                                             <div id="flexGridFooter" class="gridFooter"></div> 
                                             <!-- <div id="tab02Pager"></div> -->
                                           </div>
@@ -370,7 +370,7 @@
          var view_innamepage; 
          var wtab01Grid;
          var wtab02Grid;
-         var wtab03Grid; 
+         var theGridPrt; 
          var wtab04Grid; 
          var wtab05Grid; 
          var wtab06Grid; 
@@ -655,7 +655,7 @@
             //////////////////////////////////////////////////////////////////////////////////////////////////////////
             view_p01tab03page = new wijmo.collections.CollectionView(getData_wlist());    
             setGroups(true);
-            wtab03Grid = new wijmo.grid.FlexGrid('#wtab03Grid_div', { 
+            theGridPrt = new wijmo.grid.FlexGrid('#theGridPrt_div', { 
                 deferResizing: true,
                 showMarquee: true,
                 alternatingRowStep: 0,
@@ -680,7 +680,7 @@
             // 헤더 열 전환
             setHeaderColumn03(false); 
             function setHeaderColumn03(headerOn) {
-                wtab03Grid.headersVisibility = headerOn
+                theGridPrt.headersVisibility = headerOn
                 ? wijmo.grid.HeadersVisibility.All
                 : wijmo.grid.HeadersVisibility.Column; 
             }
@@ -1642,7 +1642,7 @@
                     margins: {
                         left: 36,
                         right: 36,
-                        top: 50,
+                        top: 36,
                         bottom: 36
                     }
                 },
@@ -1677,7 +1677,7 @@
             //drawSales(doc, getData);
             // doc.drawText("바디", null, null, {font: new wijmo.pdf.PdfFont("BMHANNAPro")});
             // doc.footer.drawText('EEAN Optic \t&[Page]\\&[Pages]', null, null, {font: new wijmo.pdf.PdfFont("BMHANNAPro")});
-            // wijmo.grid.pdf.FlexGridPdfConverter.draw(wtab03Grid, doc, 400,400,{ embeddedFonts: [
+            // wijmo.grid.pdf.FlexGridPdfConverter.draw(theGridPrt, doc, 400,400,{ embeddedFonts: [
             //     {
             //     source: 'https://assets.codepen.io/975719/UnDotum.ttf',
             //     name: 'dotum',
@@ -1755,7 +1755,7 @@
             try { 
                 footer = new wijmo.grid.FlexGrid('#flexGridFooter');
                 // console.log(view_p01tab03page)
-                wtab03Grid.initialize({
+                theGridPrt.initialize({
                     autoGenerateColumns: false,
                     allowMerging: wijmo.grid.AllowMerging.All,
                     columns: columns,
@@ -1800,13 +1800,13 @@
                 let y = doc.y;
                 doc.header.drawText("거 래 명 세 서", null, null, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 20), align: 1, baseline: 5, underline: false});   //align 1 center baseline 5 bottom
 
-                doc.moveDown(2);
+                doc.moveDown(1);
                 // * draw captions *
-                doc.drawText('작성일자: ' + ls_misdatetxt + ' [' + ls_misnum + ']', 10, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 14), align: 0, underline:false});
+                doc.drawText('작성일자: ' + ls_misdatetxt + ' [' + ls_misnum + ']', 10, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11), align: 0, underline:false});
                 //
                 //doc.drawText('등록번호 : ' + ls_eeasano, 320, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11),  underline:false});         //이안옵틱             
                 //
-                doc.moveDown(2);
+                doc.moveDown(1);
                 //
                 y = doc.y; 
                 doc.drawText('공 급 받 는 자'  , 10, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11), underline:false});
@@ -1864,7 +1864,7 @@
                 
                 // draw FlexGrid 
                  
-                wijmo.grid.pdf.FlexGridPdfConverter.draw(wtab03Grid, doc, doc.width, null, { 
+                wijmo.grid.pdf.FlexGridPdfConverter.draw(theGridPrt, doc, doc.width, null, { 
                     //내장된 폰트 정보
                     embeddedFonts: [
                         {
@@ -1950,9 +1950,9 @@
                 // doc.paths.moveTo(300 + sz.size.width, doc.y).lineTo(300 + sz.size.width + 100, doc.y).stroke(thinPen);
             }
             finally {
-                if (wtab03Grid) {
+                if (theGridPrt) {
                     // queryselector 오류로 막음
-                    //wtab03Grid.dispose();
+                    //theGridPrt.dispose();
                 }
                 //
                 if (footer) {
@@ -2527,85 +2527,85 @@
                 cnt++;
                 }
             }
-            wtab03Grid.columns.clear();  
-            wtab03Grid.autoGenerateColumns = false; 
+            theGridPrt.columns.clear();  
+            theGridPrt.autoGenerateColumns = false; 
             view_p01tab03page.sourceCollection  = wtab03_data; 
             var cols = new wijmo.grid.Column(); 
             cols.binding = 'rownum';
             cols.header = '순번';
             cols.align = "center";
-            cols.width = 50;  
-            wtab03Grid.columns.push(cols);  
+            cols.width = 50;   
+            theGridPrt.columns.push(cols);  
             cols = new wijmo.grid.Column();    
             cols.binding = 'misdate';
             cols.header = '주문일자';
             cols.align = "center";
-            cols.width = 80; 
-            wtab03Grid.columns.push(cols);    
+            cols.width = 80;  
+            theGridPrt.columns.push(cols);    
             cols = new wijmo.grid.Column(); 
             cols.binding = 'pname';
             cols.header = '품목';
             cols.align = "center";
-            cols.width = 225;  
-            wtab03Grid.columns.push(cols);   
+            cols.width = 225;   
+            theGridPrt.columns.push(cols);   
             cols = new wijmo.grid.Column(); 
             cols.binding = 'psize';
             cols.header = '규격';
             cols.align = "center";
-            cols.width = 120;  
-            wtab03Grid.columns.push(cols);    
+            cols.width = 120;   
+            theGridPrt.columns.push(cols);    
             // cols = new wijmo.grid.Column(); 
             // cols.binding = 'pbonsa';
             // cols.header = '코드';
             // cols.align = "center";
             // cols.width = 100;  
-            // wtab03Grid.columns.push(cols);  
+            // theGridPrt.columns.push(cols);  
             // cols = new wijmo.grid.Column(); 
             // cols.binding = 'pmodel';
             // cols.header = '모델';
             // cols.align = "center";
             // cols.width = 100;  
-            // wtab03Grid.columns.push(cols);  
+            // theGridPrt.columns.push(cols);  
             // cols = new wijmo.grid.Column(); 
             // cols.binding = 'pcolor';
             // cols.header = '컬러';
             // cols.align = "center";
             // cols.width = 100;  
-            // wtab03Grid.columns.push(cols);   
+            // theGridPrt.columns.push(cols);   
             cols = new wijmo.grid.Column(); 
             cols.binding = 'qty';
             cols.header = '수량';
             cols.align = "center";
             cols.aggregate = 'Sum';
-            cols.width = 60;  
-            wtab03Grid.columns.push(cols);   
+            cols.width = 60;    
+            theGridPrt.columns.push(cols);   
             cols = new wijmo.grid.Column(); 
             cols.binding = 'uamt';
             cols.header = '단가';
             cols.align = "right";
-            cols.width = 80;  
-            wtab03Grid.columns.push(cols);     
+            cols.width = 80;   
+            theGridPrt.columns.push(cols);     
             cols = new wijmo.grid.Column(); 
             cols.binding = 'samt'; 
             cols.header = '금액';
             cols.align = "right";
             cols.aggregate = 'Sum';
-            cols.width = 120;  
-            wtab03Grid.columns.push(cols);      
+            cols.width = 120;    
+            theGridPrt.columns.push(cols);      
             cols = new wijmo.grid.Column(); 
             cols.binding = 'addamt'; 
             cols.header = '부가세';
             cols.align = "right";
             cols.aggregate = 'Sum';
-            cols.width = 120;  
-            wtab03Grid.columns.push(cols);      
+            cols.width = 120;   
+            theGridPrt.columns.push(cols);      
             cols = new wijmo.grid.Column(); 
             cols.binding = 'amt'; 
             cols.header = '합계';
             cols.align = "right";
             cols.aggregate = 'Sum';
-            cols.width = 120;  
-            wtab03Grid.columns.push(cols);   
+            cols.width = 120;   
+            theGridPrt.columns.push(cols);   
  
         } 
 
