@@ -677,26 +677,26 @@
                 }
                 //  "Diff" 열에 대한 커스텀 렌더링
                 if (e.panel == s.cells) {
-                var col = s.columns[e.col];
-                if (e.row > 0 && (col.binding != 'jbonsa_code' && col.binding != 'jmodel_code')) {
-                    var vnow = s.getCellData(e.row, e.col);
-                    //console.log('vnow-->' + vnow);
-                    //셀 서식
-                    // var html = '<div class="diff-{cls}">' +
-                    //     '<span style="font-size:75%">{val}</span> ' +
-                    //     '<span style="font-size:120%" class="wj-glyph-{glyph}"></span>';
-                    // html = html.replace('{val}', wijmo.Globalize.format(diff, col.format));
-                    // if (diff < 0.01) {
-                    // html = html.replace('{cls}', 'down').replace('{glyph}', 'down');
-                    // }
-                    // else if (diff > 0.01) {
-                    // html = html.replace('{cls}', 'up').replace('{glyph}', 'up');
-                    // }
-                    // else {
-                    // html = html.replace('{cls}', 'none').replace('{glyph}', 'circle');
-                    // }
-                    // e.cell.innerHTML = html;
-                }
+                    var col = s.columns[e.col];
+                    if (e.row > 0 && (col.binding != 'jbonsa_code' && col.binding != 'jmodel_code')) {
+                        var vnow = s.getCellData(e.row, e.col);
+                        //console.log('vnow-->' + vnow);
+                        //셀 서식
+                        // var html = '<div class="diff-{cls}">' +
+                        //     '<span style="font-size:75%">{val}</span> ' +
+                        //     '<span style="font-size:120%" class="wj-glyph-{glyph}"></span>';
+                        // html = html.replace('{val}', wijmo.Globalize.format(diff, col.format));
+                        // if (diff < 0.01) {
+                        // html = html.replace('{cls}', 'down').replace('{glyph}', 'down');
+                        // }
+                        // else if (diff > 0.01) {
+                        // html = html.replace('{cls}', 'up').replace('{glyph}', 'up');
+                        // }
+                        // else {
+                        // html = html.replace('{cls}', 'none').replace('{glyph}', 'circle');
+                        // }
+                        // e.cell.innerHTML = html;
+                    }
                 }
             });            
 
@@ -1637,13 +1637,16 @@
             wtab01Grid.formatItem.addHandler(function(s,e){
                 if(true){
                     if(e.panel === s.cells){ // 셀 영역이고
-                         if(s.columns[e.col].binding!=="jbonsa_code2" && s.columns[e.col].binding!=="jmodel_code"){
-                            var val = s.getCellData(e.row,e.col); 
-                            if(val.substring(0,1) == '_'){
-                                wijmo.addClass(e.cell, 'gray-cell'); //배경색 지정을 위한 클래스 추가
-                            }else{
-                                wijmo.addClass(e.cell, 'white-cell'); //배경색 지정을 위한 클래스 추가
-                            } 
+                          if(s.columns[e.col].binding!=="jbonsa_code2" && s.columns[e.col].binding!=="jmodel_code"){
+                             var val = s.getCellData(e.row,e.col); 
+                             if(val == null || val.length == 0 || val == ""){  
+                                return 
+                             } 
+                             if(val.substring(0,1) == '_'){
+                                 wijmo.addClass(e.cell, 'gray-cell'); //배경색 지정을 위한 클래스 추가
+                             }else{
+                                 wijmo.addClass(e.cell, 'white-cell'); //배경색 지정을 위한 클래스 추가
+                             } 
                          }
 
                     }
@@ -2792,7 +2795,7 @@
                                 for (var p = 0; p < wtab01Dto_S.length; p++) {
                                     let  ls_jcolorcode   = wtab01Dto_S[p]["jcolor_code"]; 
                                     let  ls_jeky         = wtab01Dto_S[p]["jkey"]; 
-                                    let  ls_jqty         = wtab01Dto_S[p]["jqty"];  
+                                    let  ls_jqty         = wtab01Dto_S[p]["jqty"];   
                                     if (Number(ls_jqty) > 0){
                                         wtab01Grid.setCellData(ll_row, ll_col,   ls_jcolorcode ,false,false)
                                         //wtab01Grid.setCellData(ll_row, ll_col,  ls_jcolorcode + "("  + ls_jqty +  ")" ) ;   
