@@ -2642,6 +2642,8 @@
                 }else{
                     bfixflag = "신용" 
                 } 
+                var ls_eeacodetxt = '05408';        //wtab05Dto[i]["eeacodetxt"]    
+                var ls_eeajuso    = '서울 강동구 성내동 440-4 만성재빌딩 4층'    //wtab05Dto[i]["eeajuso"]
                 wtab05_data.push({
                     id: i, 
                     index: cnt,
@@ -2669,8 +2671,8 @@
                     eeaname: wtab05Dto[i]["eeaname"],      
                     eeupte: wtab05Dto[i]["eeupte"],      
                     eeajong: wtab05Dto[i]["eeajong"],      
-                    eeajuso: wtab05Dto[i]["eeajuso"],         
-                    eeacodetxt: wtab05Dto[i]["eeacodetxt"],       
+                    eeajuso: ls_eeajuso,         
+                    eeacodetxt: ls_eeacodetxt,       
                     eeatelno: wtab05Dto[i]["eeatelno"],        
                 });
                 cnt++;
@@ -2755,7 +2757,7 @@
             cols.header = '주소';
             cols.align = "left"; 
             cols.width = 120;  
-            // wtab05Grid.columns.push(cols);    
+            wtab05Grid.columns.push(cols);    
             // cols = new wijmo.grid.Column(); 
             // cols.binding = 'miskey'; 
             // cols.header = '배송키';
