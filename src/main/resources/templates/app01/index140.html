@@ -1858,7 +1858,8 @@
                     break;
                 case 'B': 
                     var ls_frdate = document.getElementById('frdate').value; 
-                    var ls_todate = document.getElementById('todate').value;          
+                    var ls_todate = document.getElementById('todate').value;   
+                    var ls_ipdate = document.getElementById('ipdate').value;          
                     var ls_bacode   = document.getElementById('acode').value;    
                     var ls_bcifname   = document.getElementById('bcifname').value; 
                     var ls_abonsadam1   = document.getElementById('abonsadam1').value;    
@@ -1868,17 +1869,16 @@
                         alert("조회일자를 등록하세요") 
                         document.getElementById("frdate").focus(); 
                         return ;               
-                    }   
-                    if(ls_todate == null || ls_todate.length == 0 || ls_todate == ""){ 
-                        alert("조회일자를 등록하세요") 
-                        document.getElementById("todate").focus(); 
-                        return ;               
+                    }else{
+                        ls_frdate = ls_ipdate; //ls_frdate.substring(0,4) + '01-01'
                     }    
                     if(ls_todate == null || ls_todate.length == 0 || ls_todate == ""){ 
                         alert("조회일자를 등록하세요") 
                         document.getElementById("todate").focus(); 
                         return ;               
-                    }     
+                    }else{
+                        ls_todate = ls_ipdate; //ls_todate.substring(0,4) + '12-31'
+                    }      
                     if(ls_abonsadam1 == null || ls_abonsadam1.length == 0 || ls_abonsadam1 == ""){ 
                         alert("사원코드가 없습니다. 다시 로그인하세요.") 
                         document.getElementById("pernm").focus(); 
@@ -1919,7 +1919,8 @@
                     break;
                 case 'C': 
                     var ls_frdate = document.getElementById('frdate02').value; 
-                    var ls_todate = document.getElementById('todate02').value;          
+                    var ls_todate = document.getElementById('todate02').value;    
+                    var ls_ipdate = document.getElementById('ipdate').value;         
                     var ls_bacode   = document.getElementById('acode').value;     
                     var ls_dcifname   = document.getElementById('bcifname').value; 
                     var ls_abonsadam1   = document.getElementById('abonsadam1').value;    
@@ -1928,12 +1929,16 @@
                         alert("조회일자를 등록하세요") 
                         document.getElementById("frdate02").focus(); 
                         return ;               
-                    }   
+                    }else{
+                        ls_frdate = ls_ipdate; //ls_frdate.substring(0,4) + '01-01'
+                    }    
                     if(ls_todate == null || ls_todate.length == 0 || ls_todate == ""){ 
                         alert("조회일자를 등록하세요") 
                         document.getElementById("todate02").focus(); 
                         return ;               
-                    }     
+                    }else{
+                        ls_todate = ls_ipdate; //ls_todate.substring(0,4) + '12-31'
+                    }      
                     if(ls_abonsadam1 == null || ls_abonsadam1.length == 0 || ls_abonsadam1 == ""){ 
                         alert("사원코드가 없습니다. 다시 로그인하세요.") 
                         document.getElementById("pernm").focus(); 

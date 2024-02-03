@@ -1832,7 +1832,8 @@
                     break;
                 case 'B': 
                     var ls_frdate = document.getElementById('frdate').value; 
-                    var ls_todate = document.getElementById('todate').value;          
+                    var ls_todate = document.getElementById('todate').value;   
+                    var ls_ipdate = document.getElementById('ipdate').value;        
                     var ls_bacode   = document.getElementById('acode').value;   
                     var ls_bcifname   = document.getElementById('bcifname').value; 
                     var ls_misgubun = document.getElementById('misgubun').value;   
@@ -1841,11 +1842,15 @@
                         alert("조회일자를 등록하세요") 
                         document.getElementById("frdate").focus(); 
                         return ;               
+                    }else{
+                        ls_frdate = ls_ipdate; //ls_frdate.substring(0,4) + '01-01'
                     }   
                     if(ls_todate == null || ls_todate.length == 0 || ls_todate == ""){ 
                         alert("조회일자를 등록하세요") 
                         document.getElementById("todate").focus(); 
                         return ;               
+                    }else{
+                        ls_todate = ls_ipdate; //ls_todate.substring(0,4) + '12-31'
                     }   
                     if(ls_bcifname == null || ls_bcifname.length == 0 || ls_bcifname == ""){  
                         ls_bacode = "%";
@@ -1891,7 +1896,8 @@
                     break;
                 case 'C': 
                     var ls_frdate = document.getElementById('frdate02').value; 
-                    var ls_todate = document.getElementById('todate02').value;          
+                    var ls_todate = document.getElementById('todate02').value;  
+                    var ls_ipdate = document.getElementById('ipdate').value;           
                     var ls_bacode   = document.getElementById('acode').value;       
                     var ls_dcifname   = document.getElementById('bcifname').value; 
                     var ls_misgubunflag = document.getElementById('misgubunflag').value;   
@@ -1900,11 +1906,15 @@
                         alert("조회일자를 등록하세요") 
                         document.getElementById("frdate02").focus(); 
                         return ;               
+                    }else{
+                        ls_frdate = ls_ipdate; //ls_frdate.substring(0,4) + '0101'
                     }   
                     if(ls_todate == null || ls_todate.length == 0 || ls_todate == ""){ 
                         alert("조회일자를 등록하세요") 
                         document.getElementById("todate02").focus(); 
                         return ;               
+                    }else{
+                        ls_todate = ls_ipdate; //ls_todate.substring(0,4) + '1231'
                     }   
                     if(ls_dcifname == null || ls_dcifname.length == 0 || ls_dcifname == ""){  
                         ls_bacode = "%";

@@ -1216,19 +1216,24 @@ aria-hidden="true">
                     break;
                 case 'B': 
                     var ls_frdate = document.getElementById('frdate').value; 
-                    var ls_todate = document.getElementById('todate').value;          
+                    var ls_todate = document.getElementById('todate').value;   
+                    var ls_ipdate = document.getElementById('ipdate').value;          
                     var ls_bacode   = document.getElementById('acode').value; 
                     var ls_makflag   = document.getElementById('makflag01').value; 
                     if(ls_frdate == null || ls_frdate.length == 0 || ls_frdate == ""){ 
                         alert("조회일자를 등록하세요") 
                         document.getElementById("frdate").focus(); 
                         return ;               
+                    }else{
+                        ls_frdate = ls_ipdate; //ls_frdate.substring(0,4) + '01-01'
                     }   
                     if(ls_todate == null || ls_todate.length == 0 || ls_todate == ""){ 
                         alert("조회일자를 등록하세요") 
                         document.getElementById("todate").focus(); 
                         return ;               
-                    }   
+                    }else{
+                        ls_todate = ls_ipdate; //ls_todate.substring(0,4) + '12-31'
+                    }    
                     if(ls_bacode == null || ls_bacode.length == 0 || ls_bacode == ""){  
                         ls_bacode = "%";
                     }   
@@ -1266,19 +1271,24 @@ aria-hidden="true">
                     break;
                 case 'C': 
                     var ls_frdate = document.getElementById('frdate02').value; 
-                    var ls_todate = document.getElementById('todate02').value;          
+                    var ls_todate = document.getElementById('todate02').value;   
+                    var ls_ipdate = document.getElementById('ipdate').value;          
                     var ls_bacode   = document.getElementById('acode').value; 
                     var ls_makflag   = document.getElementById('makflag02').value; 
                     if(ls_frdate == null || ls_frdate.length == 0 || ls_frdate == ""){ 
                         alert("조회일자를 등록하세요") 
                         document.getElementById("frdate").focus(); 
                         return ;               
-                    }   
+                    }else{
+                        ls_frdate = ls_ipdate; //ls_frdate.substring(0,4) + '01-01'
+                    }    
                     if(ls_todate == null || ls_todate.length == 0 || ls_todate == ""){ 
                         alert("조회일자를 등록하세요") 
                         document.getElementById("todate").focus(); 
                         return ;               
-                    }   
+                    }else{
+                        ls_todate = ls_ipdate; //ls_todate.substring(0,4) + '12-31'
+                    }    
                     if(ls_bacode == null || ls_bacode.length == 0 || ls_bacode == ""){  
                         ls_bacode = "%";
                     }   
