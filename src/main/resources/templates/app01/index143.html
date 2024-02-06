@@ -646,7 +646,7 @@
         // tab01 검색   
         document.getElementById("listBtn").addEventListener("click",function(){  
             var ls_tab = document.getElementById('tabvalue').value;  
-            console.log(ls_tab) 
+            //console.log(ls_tab) 
             searchList_rtn(ls_tab);
         })                         
         // tab02 검색   
@@ -728,6 +728,7 @@
                     if(ls_inname01 == null || ls_inname01.length == 0 || ls_inname01 == ""){  
                         ls_abonsadam1 = "%";
                     }    
+                    
                     $.ajax({
                         url: '/app01m/index14/listperidgroup',  
                         type:"POST",
@@ -739,6 +740,7 @@
                             "fixflag"    : ls_misfixflag,
                             "makflag"    : ls_makflag,
                             "mflag"  : 'AA'   ,  
+                            "jpbgubn" : '%'
                         }, 
                         async:false,
                         success:function(data){  
@@ -789,6 +791,7 @@
                             "fixflag"    : ls_wishfixflag, 
                             "makflag"    : ls_makflag,
                             "mflag"  : 'AA'   ,  
+                            "jpbgubn"  : '%'   ,  
                         }, 
                         async:false,
                         success:function(data){      
@@ -834,6 +837,7 @@
                             "fixflag"    : ls_misfixflag,
                             "makflag"    : ls_makflag,
                             "mflag"  : 'AA'   ,  
+                            "jpbgubn"  : '%'   ,  
                         }, 
                         async:false,
                         success:function(data){     
@@ -880,6 +884,7 @@
                             "fixflag"    : ls_misfixflag,
                             "makflag"    : ls_makflag,
                             "mflag"  : 'AA'   ,  
+                            "jpbgubn"  : '%'   ,  
                         }, 
                         async:false,
                         success:function(data){  
@@ -1036,7 +1041,7 @@
                 });
                 cnt++;
             }     
-            console.log(wtab03_data)
+            
             wtab03Grid.columns.clear();  
             wtab03Grid.autoGenerateColumns = false; 
             //view_p01tab03page.sourceCollection  = wtab03_data; 

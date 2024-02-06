@@ -2531,7 +2531,7 @@ public class App01CrudController {
             indexDa024Dto.setMisgubun(mflag);
             indexDa024Dto.setPcode(jkey);
             indexDa024Dto.setJpbgubn(jpbgubn);
-            log.info("jpbgubn 111=====>" + jpbgubn);
+//            log.info("jpbgubn 111=====>" + jpbgubn);
             indexDa024ListDto = service14.SelectDa024ListJpum(indexDa024Dto);
             model.addAttribute("indexDa024ListDto",indexDa024ListDto);
 
