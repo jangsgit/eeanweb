@@ -563,14 +563,35 @@ public class App01CrudController {
                     case "jmodelcode":
                         _index03Dto.setJmodel_code(values.toString());
                         break;
+                    case "jmodelcode2":
+                        _index03Dto.setJmodel_code2(values.toString());
+                        break;
                     case "jcolorcode":
                         _index03Dto.setJcolor_code(values.toString());
+                        break;
+                    case "jcolorcode2":
+                        _index03Dto.setJcolor_code2(values.toString());
+                        break;
+                    case "jcolorcode3":
+                        _index03Dto.setJcolor_code3(values.toString());
                         break;
                     case "jcustomercode":
                         _index03Dto.setJcustomer_code(values.toString());
                         break;
+                    case "jcustomercodeseq":
+                        _index03Dto.setJcustomer_code_seq(values.toString());
+                        break;
                     case "jbonsacode":
                         _index03Dto.setJbonsa_code(values.toString());
+                        break;
+                    case "jbonsacode2":
+                        _index03Dto.setJbonsa_code2(values.toString());
+                        break;
+                    case "jbonsacodeseq":
+                        _index03Dto.setJbonsa_code_seq(values.toString());
+                        break;
+                    case "jbonsacodeseq2":
+                        _index03Dto.setJbonsa_code_seq2(values.toString());
                         break;
                     case "jsayonggubn":
                         _index03Dto.setJsayong_gubn(values.toString());

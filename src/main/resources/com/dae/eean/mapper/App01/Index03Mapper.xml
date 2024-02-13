@@ -115,21 +115,24 @@
 
     <select id="GetJpumList" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
         <![CDATA[
-            select jkey, jpb_gubn, jgong_code, jdan_code, jmodel_code, jcolor_code, jcustomer_code,
-                   jbonsa_code, jsayong_gubn, jpum, jgugek, jsize,  convert ( numeric , convert(int , jchgoga0) ) AS jchgoga0, jbigo,
+            select jkey, jpb_gubn, jgong_code, jdan_code, jmodel_code, jcolor_code, jcustomer_code, jcustomer_code_seq,
+                   jbonsa_code, jbonsa_code2, jbonsa_code_seq, jbonsa_code_seq2, jmodel_code2, jcolor_code2, delflag, jcolor_code3, isnull(jopt,'') as jopt,
+                   jsayong_gubn, jpum, jgugek, jsize,  convert ( numeric , convert(int , jchgoga0) ) AS jchgoga0, jbigo,
                    E.jcifcodename as jcifcodename
             from JCODE3 WITH (NOLOCK)
             LEFT OUTER JOIN jcifcode E WITH(NOLOCK) ON (JCODE3.jmodel_code = E.jcifcode)
             WHERE (isnull(jpum,'') Like concat('%',#{jpum},'%')  or isnull(jkey,'') Like concat('%',#{jpum},'%'))
               and jsayong_gubn <> '4'
+              and isnull(delflag,'0') = '0'
             ORDER BY jkey
         ]]>
     </select>
 
     <select id="GetJpumListTot" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
         <![CDATA[
-        select jkey, jpb_gubn, jgong_code, jdan_code, jmodel_code, jcolor_code, jcustomer_code,
-               jbonsa_code, jsayong_gubn, jpum, jgugek, jsize,  convert ( MONEY , convert(int , jchgoga0) ) AS jchgoga0, jbigo,
+        select jkey, jpb_gubn, jgong_code, jdan_code, jmodel_code, jcolor_code, jcustomer_code, jcustomer_code_seq,
+               jbonsa_code, jbonsa_code2, jbonsa_code_seq, jbonsa_code_seq2, jmodel_code2, jcolor_code2, delflag, jcolor_code3, jopt,
+               jsayong_gubn, jpum, jgugek, jsize,  convert ( numeric , convert(int , jchgoga0) ) AS jchgoga0, jbigo,
                E.jcifcodename as jcifcodename
         from JCODE3 WITH (NOLOCK)
             LEFT OUTER JOIN jcifcode E WITH(NOLOCK) ON (JCODE3.jmodel_code = E.jcifcode)
@@ -137,15 +140,16 @@
           and isnull(jpb_gubn,'') Like concat('%',#{jpb_gubn},'%')
           and isnull(jmodel_code,'') Like concat('%',#{jmodel_code},'%')
           and jsayong_gubn <> '4'
+          and isnull(delflag,'0') = '0'
         ORDER BY jpum
         ]]>
     </select>
 
     <insert id="InsertJpum" parameterType="com.dae.eean.DTO.App01.Index03Dto" >
-        insert into JCODE3 ( jkey, jpb_gubn, jgong_code, jdan_code, jmodel_code, jcolor_code, jcustomer_code,
-                             jbonsa_code, jsayong_gubn, jpum, jgugek, jsize, jchgoga0, jbigo, delflag) values
-                        (#{jkey}, #{jpb_gubn}, #{jgong_code}, #{jdan_code}, #{jmodel_code}, #{jcolor_code}, #{jcustomer_code},
-                         #{jbonsa_code}, #{jsayong_gubn}, #{jpum}, #{jgugek}, #{jsize}, #{jchgoga0}, #{jbigo},  '0')
+        insert into JCODE3 ( jkey, jpb_gubn, jgong_code, jdan_code, jmodel_code, jmodel_code2, jcolor_code, jcolor_code2, jcolor_code3, jcustomer_code, jcustomer_code_seq,
+                             jbonsa_code, jbonsa_code2, jbonsa_code_seq, jbonsa_code_seq2,         jsayong_gubn, jpum, jgugek, jsize, jchgoga0, jbigo, delflag) values
+                        (#{jkey}, #{jpb_gubn}, #{jgong_code}, #{jdan_code}, #{jmodel_code}, #{jmodel_code2}, #{jcolor_code},  #{jcolor_code2}, #{jcolor_code3}, #{jcustomer_code}, #{jcustomer_code_seq},
+                         #{jbonsa_code}, #{jbonsa_code2},  #{jbonsa_code_seq},  #{jbonsa_code_seq2},  #{jsayong_gubn}, #{jpum}, #{jgugek}, #{jsize}, #{jchgoga0}, #{jbigo},  '0')
     </insert>
 
 
@@ -160,12 +164,26 @@
         <if test="jdan_code != null">jdan_code=#{jdan_code}</if>
         <if test="jmodel_code != null ">,</if>
         <if test="jmodel_code != null">jmodel_code=#{jmodel_code}</if>
+        <if test="jmodel_code2 != null ">,</if>
+        <if test="jmodel_code2 != null">jmodel_code2=#{jmodel_code2}</if>
         <if test="jcolor_code != null ">,</if>
         <if test="jcolor_code != null">jcolor_code=#{jcolor_code}</if>
+        <if test="jcolor_code2 != null ">,</if>
+        <if test="jcolor_code2 != null">jcolor_code2=#{jcolor_code2}</if>
+        <if test="jcolor_code3 != null ">,</if>
+        <if test="jcolor_code3 != null">jcolor_code3=#{jcolor_code3}</if>
         <if test="jcustomer_code != null ">,</if>
         <if test="jcustomer_code != null">jcustomer_code=#{jcustomer_code}</if>
+        <if test="jcustomer_code_seq != null ">,</if>
+        <if test="jcustomer_code_seq != null">jcustomer_code_seq=#{jcustomer_code_seq}</if>
         <if test="jbonsa_code != null ">,</if>
         <if test="jbonsa_code != null">jbonsa_code=#{jbonsa_code}</if>
+        <if test="jbonsa_code2 != null ">,</if>
+        <if test="jbonsa_code2 != null">jbonsa_code2=#{jbonsa_code2}</if>
+        <if test="jbonsa_code_seq != null ">,</if>
+        <if test="jbonsa_code_seq != null">jbonsa_code_seq=#{jbonsa_code_seq}</if>
+        <if test="jbonsa_code_seq2 != null ">,</if>
+        <if test="jbonsa_code_seq2 != null">jbonsa_code_seq2=#{jbonsa_code_seq2}</if>
         <if test="jsayong_gubn != null ">,</if>
         <if test="jsayong_gubn != null">jsayong_gubn=#{jsayong_gubn}</if>
         <if test="jpum != null ">,</if>

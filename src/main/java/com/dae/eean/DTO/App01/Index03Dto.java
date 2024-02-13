@@ -14,9 +14,14 @@ public class Index03Dto {
     private String jcolor_code;
     private String jmodel_code2;
     private String jcolor_code2;
+    private String jcolor_code3;
+    private String jopt;
     private String jcustomer_code;
+    private String jcustomer_code_seq;
     private String jbonsa_code;
     private String jbonsa_code2;
+    private String jbonsa_code_seq;
+    private String jbonsa_code_seq2;
     private String jsayong_gubn;
     private String jpum;
     private String jgugek;

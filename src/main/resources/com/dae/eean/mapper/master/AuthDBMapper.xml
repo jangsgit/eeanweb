@@ -75,7 +75,7 @@
     </select>
 
     <update id="UpdateUserInfo" parameterType="com.dae.eean.DTO.UserFormDto"  >
-        UPDATE TB_XUSERS SET  userid=#{userid}, username=#{username}, passwd1=#{passwd1}, passwd2=#{passwd2}, useyn=#{useyn}, perid=#{perid}, custnm=#{username}
+        UPDATE TB_XUSERS SET  userid=#{userid}, username=#{username}, passwd1=#{passwd1}, passwd2=#{passwd2}, useyn=#{useyn}, perid=#{perid}, custnm=#{username}, pernm=#{username}
             from TB_XUSERS  where seq=#{seq} and flag = #{flag}
     </update>
 
