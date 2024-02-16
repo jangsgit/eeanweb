@@ -116,7 +116,8 @@
                                             <div class="col-1 col-sm-3">  
                                                 <div class="input-group mb-3" >
                                                     <span class="input-group-text" style="max-height:50px;" >비고</span>
-                                                    <input class="form-control" type="text"   aria-describedby="inputGroup-sizing-default"  id="abigo"  disabled=true/>
+                                                    <!-- <input class="form-control" type="text"   aria-describedby="inputGroup-sizing-default"  id="abigo"  disabled=true/> -->
+                                                    <textarea class="form-control"   rows="3" id="abigo"  disabled=true></textarea>
                                                 </div>
                                             </div>          
                                             <!-- <div class="col-2 col-sm-1">  
@@ -1769,10 +1770,10 @@
 
             var searchCode = ""; 
             var ls_cifname = document.getElementById('cifname').value ;
-            var ls_jpbgubn = document.getElementById('jpbgubn').value ;
-            if(ls_cifname == null || ls_cifname.length == 0 || ls_cifname == ""){   
-                ls_jpbgubn = "%"; 
-            }    
+            var ls_jpbgubn = document.getElementById('jpbgubn').value ; 
+            // if(ls_cifname == null || ls_cifname.length == 0 || ls_cifname == ""){   
+            //     ls_jpbgubn = "%"; 
+            // }    
             document.getElementById('jbonsacd').value = arg; 
             var ls_jcode = arg ;
             var ls_flag = "A";
@@ -2928,11 +2929,11 @@
             document.getElementById('makflag01').value = "0";
             document.getElementById('makflag02').value = "0";
             lsUserid = window.localStorage.getItem("userid")
-            if (lsUserid == "pvadmin"){
+            if (lsUserid == "pvadmin" || lsUserid.substring(0,1) == 'e'  || lsUserid.substring(0,1) == 'E' ){
                 document.getElementById('jpbgubn').value = "P"; 
                 document.getElementById('djpbgubn').value = "P"; 
                 document.getElementById('bjpbgubn').value = "P";  
-            }else if(lsUserid == "bladmin"){
+            }else if(lsUserid == "bladmin" || lsUserid.substring(0,1) == 'b'  || lsUserid.substring(0,1) == 'B' ){
                 document.getElementById('jpbgubn').value = "B"; 
                 document.getElementById('djpbgubn').value = "B"; 
                 document.getElementById('bjpbgubn').value = "B";  

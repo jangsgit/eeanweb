@@ -93,7 +93,8 @@
                                         <div class="col-1 col-sm-2">  
                                             <div class="input-group mb-3" >
                                                 <span class="input-group-text" style="max-height:50px;" >비고</span>
-                                                <input class="form-control" type="text"   aria-describedby="inputGroup-sizing-default"  id="abigo"  disabled=true/>
+                                                <!-- <input class="form-control" type="text"   aria-describedby="inputGroup-sizing-default"  id="abigo"  disabled=true/> -->
+                                                <textarea class="form-control"   rows="3" id="abigo"  disabled=true></textarea>
                                             </div>
                                         </div>      
                                     </div> <!----  <div class="row gx-3" style="  margin: 10px 10px 10px;">   --> 
@@ -1716,9 +1717,9 @@
        var searchCode = ""; 
        var ls_cifname = document.getElementById('cifname').value ;
        var ls_jpbgubn = document.getElementById('jpbgubn').value ;
-       if(ls_cifname == null || ls_cifname.length == 0 || ls_cifname == ""){   
-           ls_jpbgubn = "%"; 
-       }    
+    //    if(ls_cifname == null || ls_cifname.length == 0 || ls_cifname == ""){   
+    //        ls_jpbgubn = "%"; 
+    //    }    
        document.getElementById('jbonsacd').value = arg; 
        var ls_jcode = arg ;
        var ls_flag = "A";

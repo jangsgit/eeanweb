@@ -63,6 +63,7 @@ public interface Index14Mapper {
     public Boolean UpdateDA026Amt(IndexDa024Dto parm) ;
 
     public List<IndexDa024Dto> SelectDa024List(IndexDa024Dto parm) ;
+    public List<IndexDa024Dto> SelectDa024ListDel(IndexDa024Dto parm) ;
     public List<IndexDa024Dto> SelectDa024ListLike(IndexDa024Dto parm) ;
 
 
@@ -72,6 +73,7 @@ public interface Index14Mapper {
     public List<IndexDa024Dto> SelectDa024ListDevGroup(HashMap<String,String> parm) ;
 
     public List<IndexDa024Dto> SelectDa026List(IndexDa024Dto parm) ;
+    public List<IndexDa024Dto> SelectDa026ListDel(IndexDa024Dto parm) ;
     public List<IndexDa024Dto> SelectDa026ListLike(IndexDa024Dto parm) ;
 
     public IndexDa024Dto SelectDa026Detail(IndexDa024Dto parm) ;

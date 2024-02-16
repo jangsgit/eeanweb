@@ -49,6 +49,9 @@ public class Index14Service {
     public List<IndexDa024Dto> SelectDa024List(IndexDa024Dto parm){
         return  appMapper.SelectDa024List(parm);
     }
+    public List<IndexDa024Dto> SelectDa024ListDel(IndexDa024Dto parm){
+        return  appMapper.SelectDa024ListDel(parm);
+    }
     public List<IndexDa024Dto> SelectDa024ListLike(IndexDa024Dto parm){
         return  appMapper.SelectDa024ListLike(parm);
     }
@@ -69,6 +72,9 @@ public class Index14Service {
 
     public List<IndexDa024Dto> SelectDa026List(IndexDa024Dto parm){
         return  appMapper.SelectDa026List(parm);
+    }
+    public List<IndexDa024Dto> SelectDa026ListDel(IndexDa024Dto parm){
+        return  appMapper.SelectDa026ListDel(parm);
     }
     public List<IndexDa024Dto> SelectDa026ListLike(IndexDa024Dto parm){
         return  appMapper.SelectDa026ListLike(parm);

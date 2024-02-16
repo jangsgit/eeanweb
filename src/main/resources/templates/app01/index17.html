@@ -50,12 +50,12 @@
                                 <ul class="nav nav-tabs">
                                     <li class="nav-item">
                                       <a class="nav-link active" data-toggle="tab" href="#step01" onclick="tabchk_rtn('A')">예약현황</a>
+                                    </li> 
+                                    <li class="nav-item">
+                                      <a class="nav-link" data-toggle="tab" href="#step02"  onclick="tabchk_rtn('B')">주문삭제자료</a>
                                     </li>
                                     <!-- <li class="nav-item">
-                                      <a class="nav-link" data-toggle="tab" href="#step02"  onclick="tabchk_rtn('B')">품목별수불현황</a>
-                                    </li> -->
-                                    <!-- <li class="nav-item">
-                                      <a class="nav-link" data-toggle="tab" href="#step03"  onclick="tabchk_rtn('C')">예약현황</a>
+                                      <a class="nav-link" data-toggle="tab" href="#step03"  onclick="tabchk_rtn('C')">예약삭제자료</a>
                                     </li> -->
                                     <input type="hidden" id="tabvalue" value="A">
                                   </ul>
@@ -74,12 +74,12 @@
                                             </div> 
                                             <div class="col-2 col-sm-2">
                                                 <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">거래처</span> 
-                                                    <input class="form-control form-control-sm" id="bcifname" type="text"    autocomplete="off"  placeholder=""     >
-                                                    <input class="form-control form-control-sm" id="bacorp1" type="hidden"  />
-                                                    <input class="form-control form-control-sm" id="bacorp2" type="hidden"  />
-                                                    <input class="form-control form-control-sm" id="bacorp3" type="hidden"  />
-                                                    <input class="form-control form-control-sm" id="bacode" type="hidden"  /> 
-                                                    <input class="form-control form-control-sm" id="bjpbgubn" type="hidden"  /> 
+                                                    <input class="form-control form-control-sm" id="cifname" type="text"    autocomplete="off"  placeholder=""     >
+                                                    <input class="form-control form-control-sm" id="acorp1" type="hidden"  />
+                                                    <input class="form-control form-control-sm" id="acorp2" type="hidden"  />
+                                                    <input class="form-control form-control-sm" id="acorp3" type="hidden"  />
+                                                    <input class="form-control form-control-sm" id="acode" type="hidden"  /> 
+                                                    <input class="form-control form-control-sm" id="jpbgubn" type="hidden"  /> 
                                                     
                                                 </div>
                                             </div>
@@ -116,8 +116,83 @@
                                             <div id="wtab04Grid_div"  style="overflow:scroll;   height:750px;    margin:0 auto; "></div>   
                                           </div>
                                     </div>
-                                    <div class="tab-pane fade" id="step02">  
-
+                                    <div class="tab-pane fade" id="step02"> 
+                                        <div class="row gx-3" style="  margin: 10px 10px 10px;">   
+                                            <div class="col-2 col-sm-2">
+                                                <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">조회일자</span>
+                                                    <input type="text"  class="form-control datetimepicker" id="frdate02" autocomplete="off"  placeholder="Y-m-d"     >
+                                                </div> 
+                                            </div>   
+                                            <div class="col-2 col-sm-2"> 
+                                                <div class="input-group input-group-sm mb-3"> 
+                                                    <input type="text"  class="form-control datetimepicker" id="todate02" autocomplete="off"  placeholder="Y-m-d"     >
+                                                </div>
+                                            </div> 
+                                            <div class="col-2 col-sm-2">
+                                                <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">거래처</span> 
+                                                    <input class="form-control form-control-sm" id="bcifname" type="text"    autocomplete="off"  placeholder=""     >
+                                                    <input class="form-control form-control-sm" id="bacorp1" type="hidden"  />
+                                                    <input class="form-control form-control-sm" id="bacorp2" type="hidden"  />
+                                                    <input class="form-control form-control-sm" id="bacorp3" type="hidden"  />
+                                                    <input class="form-control form-control-sm" id="bacode" type="hidden"  /> 
+                                                    <input class="form-control form-control-sm" id="bjpbgubn" type="hidden"  /> 
+                                                    
+                                                </div>
+                                            </div>
+                                            <div class="col-2 col-sm-2">
+                                                <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">품명</span> 
+                                                    <input class="form-control form-control-sm" id="jpumnm02" type="text"    autocomplete="off"  placeholder=""     >
+                                                    <input class="form-control form-control-sm" id="jkey02" type="hidden"  /> 
+                                                    
+                                                </div>
+                                            </div> 
+                                            <div class="col-1 col-sm-1">  
+                                                <button class="btn btn-falcon-primary me-1 mb-1 btn-sm" id="listBtn02" type="button"  >조회
+                                                </button>
+                                            </div> 
+                                        </div> 
+                                        <div class="container-fluid"> 
+                                            <div id="wtab01Grid_div"  style="overflow:scroll;   height:750px;    margin:0 auto; "></div>   
+                                        </div> 
+                                    </div>
+                                    <div class="tab-pane fade" id="step03"> 
+                                        <div class="row gx-3" style="  margin: 10px 10px 10px;">   
+                                            <div class="col-2 col-sm-2">
+                                                <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">조회일자</span>
+                                                    <input type="text"  class="form-control datetimepicker" id="frdate03" autocomplete="off"  placeholder="Y-m-d"     >
+                                                </div> 
+                                            </div>   
+                                            <div class="col-2 col-sm-2"> 
+                                                <div class="input-group input-group-sm mb-3"> 
+                                                    <input type="text"  class="form-control datetimepicker" id="todate03" autocomplete="off"  placeholder="Y-m-d"     >
+                                                </div>
+                                            </div> 
+                                            <div class="col-2 col-sm-2">
+                                                <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">거래처</span> 
+                                                    <input class="form-control form-control-sm" id="ccifname" type="text"    autocomplete="off"  placeholder=""     >
+                                                    <input class="form-control form-control-sm" id="cacorp1" type="hidden"  />
+                                                    <input class="form-control form-control-sm" id="cacorp2" type="hidden"  />
+                                                    <input class="form-control form-control-sm" id="cacorp3" type="hidden"  />
+                                                    <input class="form-control form-control-sm" id="cacode" type="hidden"  /> 
+                                                    <input class="form-control form-control-sm" id="cjpbgubn" type="hidden"  /> 
+                                                    
+                                                </div>
+                                            </div>
+                                            <div class="col-2 col-sm-2">
+                                                <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">품명</span> 
+                                                    <input class="form-control form-control-sm" id="jpumnm03" type="text"    autocomplete="off"  placeholder=""     >
+                                                    <input class="form-control form-control-sm" id="jkey03" type="hidden"  /> 
+                                                    
+                                                </div>
+                                            </div> 
+                                            <div class="col-1 col-sm-1">  
+                                                <button class="btn btn-falcon-primary me-1 mb-1 btn-sm" id="listBtn03" type="button"  >조회
+                                                </button>
+                                            </div> 
+                                        </div> 
+                                        <div class="container-fluid"> 
+                                            <div id="wtab02Grid_div"  style="overflow:scroll;   height:750px;    margin:0 auto; "></div>   
+                                        </div> 
                                     </div>
                                     
                                   </div>
@@ -263,8 +338,7 @@
         let Chknum = 0; 
             localStorage.setItem("setpage", "app03p001"); 
          window.onload = init; 
-        function init() { 
-            //일자별주문현황 popup list
+        function init() {  
            //일자별예약현황 popup list
            view_p01tab04page = new wijmo.collections.CollectionView(getData_wlist(), {
                 // pageSize: 100
@@ -298,9 +372,57 @@
 
             new FlexGridContextMenu(wtab04Grid);  
             // 그룹 전환 
+            setGroups(true); 
+            function setGroups(groupsOn) {
+                let groups = view_p01tab04page.groupDescriptions;
+                groups.clear();
+                if (groupsOn) {
+                    groups.push(new wijmo.collections.PropertyGroupDescription('misdate'), new wijmo.collections.PropertyGroupDescription('acorp'));
+                }
+            }
+            // 헤더 열 전환
+            setHeaderColumn(false); 
+            function setHeaderColumn(headerOn) {
+                wtab04Grid.headersVisibility = headerOn
+                ? wijmo.grid.HeadersVisibility.All
+                : wijmo.grid.HeadersVisibility.Column; 
+            }
+
+ 
+            //////////////////////////////////////////////////////////////////////////////////////////////////////////  
+           //주문삭제현황 popup list
+           view_p01tab01page = new wijmo.collections.CollectionView(getData_wlist(), {
+                // pageSize: 100
+            });    
+            wtab01Grid = new wijmo.grid.FlexGrid('#wtab01Grid_div', { 
+                deferResizing: true,
+                showMarquee: true,
+                alternatingRowStep: 0,
+                allowSorting: 'MultiColumn',
+                autoGenerateColumns: false,
+                columns: [     
+                    { binding: 'misdate', header: '주문일자', align: "center", width: 120 }, 
+                    { binding: 'misnum', header: '주문번호', align: "center", width: 80 },  
+                    { binding: 'seq', header: '순번', align: "center", width: 80 },  
+                    { binding: 'acorp', header: '거래처', align: "center", width: 150 },  
+                    { binding: 'pname', header: '품목', align: "center", width: 150 },   
+                    { binding: 'psize', header: '규격', align: "center", width: 120 },  
+                    // { binding: 'pbonsa', header: '코드', align: "center", width: 100 },  
+                    // { binding: 'pmodel', header: '모델', align: "center", width: 100 },  
+                    // { binding: 'pcolor', header: '컬러', align: "center", width: 100 },  
+                    { binding: 'qty', header: '수량', align: "center", width: 80 },  
+                    { binding: 'uamt', header: '단가', align: "center", width: 100 },  
+                    { binding: 'samt', header: '금액', align: "center", width: 150 },
+                    { binding: 'delteim', header: '삭제일자', align: "center", width: 100 },         
+                ], 
+                itemsSource: view_p01tab01page
+            });  
+ 
+            new FlexGridContextMenu(wtab01Grid);  
+            // 그룹 전환 
             setGroups02(true); 
             function setGroups02(groupsOn) {
-                let groups = view_p01tab04page.groupDescriptions;
+                let groups = view_p01tab01page.groupDescriptions;
                 groups.clear();
                 if (groupsOn) {
                     groups.push(new wijmo.collections.PropertyGroupDescription('misdate'), new wijmo.collections.PropertyGroupDescription('acorp'));
@@ -309,19 +431,61 @@
             // 헤더 열 전환
             setHeaderColumn02(false); 
             function setHeaderColumn02(headerOn) {
-                wtab04Grid.headersVisibility = headerOn
+                wtab01Grid.headersVisibility = headerOn
                 ? wijmo.grid.HeadersVisibility.All
                 : wijmo.grid.HeadersVisibility.Column; 
-            }
-
- 
-            //////////////////////////////////////////////////////////////////////////////////////////////////////////    
+            } 
             //////////////////////////////////////////////////////////////////////////////////////////////////////////
+           //예약삭제현황 popup list
+           view_p01tab02page = new wijmo.collections.CollectionView(getData_wlist(), {
+                // pageSize: 100
+            });    
+            wtab02Grid = new wijmo.grid.FlexGrid('#wtab02Grid_div', { 
+                deferResizing: true,
+                showMarquee: true,
+                alternatingRowStep: 0,
+                allowSorting: 'MultiColumn',
+                autoGenerateColumns: false,
+                columns: [     
+                    { binding: 'misdate', header: '예약일자', align: "center", width: 120 }, 
+                    { binding: 'misnum', header: '예약번호', align: "center", width: 80 },  
+                    { binding: 'seq', header: '순번', align: "center", width: 80 },  
+                    { binding: 'acorp', header: '거래처', align: "center", width: 150 },  
+                    { binding: 'pname', header: '품목', align: "center", width: 150 },   
+                    { binding: 'psize', header: '규격', align: "center", width: 120 },  
+                    // { binding: 'pbonsa', header: '코드', align: "center", width: 100 },  
+                    // { binding: 'pmodel', header: '모델', align: "center", width: 100 },  
+                    // { binding: 'pcolor', header: '컬러', align: "center", width: 100 },  
+                    { binding: 'qty', header: '수량', align: "center", width: 80 },  
+                    { binding: 'uamt', header: '단가', align: "center", width: 100 },  
+                    { binding: 'samt', header: '금액', align: "center", width: 150 },
+                    { binding: 'delteim', header: '삭제일자', align: "center", width: 100 },         
+                ], 
+                itemsSource: view_p01tab02page
+            });  
  
+            new FlexGridContextMenu(wtab02Grid);  
+            // 그룹 전환 
+            setGroups03(true); 
+            function setGroups03(groupsOn) {
+                let groups = view_p01tab02page.groupDescriptions;
+                groups.clear();
+                if (groupsOn) {
+                    groups.push(new wijmo.collections.PropertyGroupDescription('misdate'), new wijmo.collections.PropertyGroupDescription('acorp'));
+                }
+            }
+            // 헤더 열 전환
+            setHeaderColumn03(false); 
+            function setHeaderColumn03(headerOn) {
+                wtab02Grid.headersVisibility = headerOn
+                ? wijmo.grid.HeadersVisibility.All
+                : wijmo.grid.HeadersVisibility.Column; 
+            }  
+            wtab02Grid.focus(); 
 
-            //new FlexGridContextMenu(wtab04Grid);   
-            wtab04Grid.focus(); 
+            //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+            
             // // ################################################################  
             //거래처현황 Modalㅁ
             view_innamepage = new wijmo.collections.CollectionView(getData_wlist(), {
@@ -442,9 +606,17 @@
                     document.getElementById('jpumnm').value = "";
                     break;
                 case 'B': 
+                    document.getElementById('bcifcode').value = "";
+                    document.getElementById('bcifcodename').value = "";
+                    document.getElementById('jkey02').value = "";
+                    document.getElementById('jpumnm02').value = "";
                     
                     break;
                 case 'C':
+                    document.getElementById('ccifcode').value = "";
+                    document.getElementById('ccifcodename').value = "";
+                    document.getElementById('jkey03').value = "";
+                    document.getElementById('jpumnm03').value = "";
                    
                     break;                
                 default:    
@@ -458,11 +630,21 @@
         document.getElementById("listBtn").addEventListener("click",function(){  
             var ls_tab = document.getElementById('tabvalue').value;   
             searchList_rtn(ls_tab);
-        })    
+        })          
+        // tab01 검색   
+        document.getElementById("listBtn02").addEventListener("click",function(){  
+            var ls_tab = document.getElementById('tabvalue').value;   
+            searchList_rtn(ls_tab);
+        })        
+        // tab01 검색   
+        document.getElementById("listBtn03").addEventListener("click",function(){  
+            var ls_tab = document.getElementById('tabvalue').value;   
+            searchList_rtn(ls_tab);
+        })  
         //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 모달 검색@@@@@@@@@@@@@@@@@@@@@@@@@@@
         //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
                           
-        document.getElementById("bcifname").addEventListener("keyup", (e)=>{ 
+        document.getElementById("cifname").addEventListener("keyup", (e)=>{ 
             if(e.keyCode === 13){  
                 document.getElementById("innamebtn").click(); 
                 CifSearchList_rtn("A"); 
@@ -473,18 +655,42 @@
                 document.getElementById("injpumbtn").click(); 
                 JpumSearchList_rtn("A"); 
             }
-        });     
+        });                  
+        document.getElementById("bcifname").addEventListener("keyup", (e)=>{ 
+            if(e.keyCode === 13){  
+                document.getElementById("innamebtn").click(); 
+                CifSearchList_rtn("B"); 
+            }
+        });            
+        document.getElementById("jpumnm02").addEventListener("keyup", (e)=>{ 
+            if(e.keyCode === 13){  
+                document.getElementById("injpumbtn").click(); 
+                JpumSearchList_rtn("B"); 
+            }
+        });                     
+        document.getElementById("ccifname").addEventListener("keyup", (e)=>{ 
+            if(e.keyCode === 13){  
+                document.getElementById("innamebtn").click(); 
+                CifSearchList_rtn("C"); 
+            }
+        });            
+        document.getElementById("jpumnm03").addEventListener("keyup", (e)=>{ 
+            if(e.keyCode === 13){  
+                document.getElementById("injpumbtn").click(); 
+                JpumSearchList_rtn("C"); 
+            }
+        });   
 
         function searchList_rtn(arg1){ 
             switch(arg1){ 
                 case 'A': 
-                var ls_frdate = document.getElementById('frdate').value; 
+                    var ls_frdate = document.getElementById('frdate').value; 
                     var ls_todate = document.getElementById('todate').value;          
-                    var ls_bacode   = document.getElementById('bacode').value;          
-                    var ls_bcifname   = document.getElementById('bcifname').value; 
+                    var ls_bacode   = document.getElementById('acode').value;          
+                    var ls_bcifname   = document.getElementById('cifname').value; 
                     var ls_jkey   = document.getElementById('jkey').value;    
                     var ls_jpumnm   = document.getElementById('jpumnm').value;  
-                    var ls_jpbgubn    = document.getElementById('bjpbgubn').value;   
+                    var ls_jpbgubn    = document.getElementById('jpbgubn').value;   
                     console.log(ls_jpbgubn)
                     var ls_misgubunflag = document.getElementById('misgubun').value; 
                      
@@ -516,8 +722,7 @@
                         data: { 
                             "frdate"      : ls_frdate,
                             "todate"      : ls_todate,
-                            "acode"      : ls_bacode,     
-                            "jcode"    : '%',     
+                            "acode"      : ls_bacode,    
                             "perid"      : ls_abonsadam1,   
                             "jcode"      : ls_jkey,   
                             "fixflag"    : '0',  
@@ -539,8 +744,126 @@
 
                     })     
                     break;
-                case 'B':  
-                    break;                
+                case 'B':   
+                    var ls_frdate = document.getElementById('frdate02').value; 
+                    var ls_todate = document.getElementById('todate02').value;          
+                    var ls_bacode   = document.getElementById('bacode').value;          
+                    var ls_bcifname   = document.getElementById('bcifname').value; 
+                    var ls_jkey   = document.getElementById('jkey02').value;    
+                    var ls_jpumnm   = document.getElementById('jpumnm02').value;  
+                    var ls_jpbgubn    = document.getElementById('bjpbgubn').value; 
+                        ls_misgubunflag = "%"; 
+                    if(ls_frdate == null || ls_frdate.length == 0 || ls_frdate == ""){ 
+                        alert("조회일자를 등록하세요") 
+                        document.getElementById("frdate02").focus(); 
+                        return ;               
+                    }   
+                    if(ls_todate == null || ls_todate.length == 0 || ls_todate == ""){ 
+                        alert("조회일자를 등록하세요") 
+                        document.getElementById("todate02").focus(); 
+                        return ;               
+                    }   
+                    if(ls_bcifname == null || ls_bcifname.length == 0 || ls_bcifname == ""){  
+                        ls_bacode = "%";
+                    }    
+                    if(ls_jpumnm == null || ls_jpumnm.length == 0 || ls_jpumnm == ""){  
+                        ls_jkey = "%";
+                    }   
+                    ls_abonsadam1 = "%";
+                    console.log(ls_bacode)
+                    var ls_makflag = "1";
+                    $.ajax({
+                        url: '/app01m/index14/listdel',  
+                        type:"POST",
+                        data: { 
+                            "frdate"      : ls_frdate,
+                            "todate"      : ls_todate,
+                            "acode"      : ls_bacode,   
+                            "perid"      : ls_abonsadam1,   
+                            "jcode"      : ls_jkey,   
+                            "fixflag"    : '%',  
+                            "misgubun"    : ls_misgubunflag, 
+                            "makflag"    : ls_makflag, 
+                            "mflag"  : 'AA'   ,  
+                            "jpbgubn" :ls_jpbgubn,  
+                        }, 
+                        async:false,
+                        success:function(data){      
+                            chkLogin(data)       
+                            tabB_grid(data);
+                        },error:function(e){
+                            console.log("error");
+                            // alert(data.code);
+                            // alert(data.message);
+                        }
+                    }).done(function(fragment){           
+
+                    })     
+                    break;  
+                case 'C':   
+                    var ls_frdate = document.getElementById('frdate03').value; 
+                    var ls_todate = document.getElementById('todate03').value;          
+                    var ls_bacode   = document.getElementById('cacode').value;          
+                    var ls_bcifname   = document.getElementById('ccifname').value; 
+                    var ls_jkey   = document.getElementById('jkey03').value;    
+                    var ls_jpumnm   = document.getElementById('jpumnm03').value;  
+                    var ls_jpbgubn    = document.getElementById('cjpbgubn').value;   
+                    //console.log(ls_jpbgubn)   
+                        ls_misgubunflag = "%"; 
+                    if(ls_frdate == null || ls_frdate.length == 0 || ls_frdate == ""){ 
+                        alert("조회일자를 등록하세요") 
+                        document.getElementById("frdate02").focus(); 
+                        return ;               
+                    }   
+                    if(ls_todate == null || ls_todate.length == 0 || ls_todate == ""){ 
+                        alert("조회일자를 등록하세요") 
+                        document.getElementById("todate02").focus(); 
+                        return ;               
+                    }   
+                    if(ls_bcifname == null || ls_bcifname.length == 0 || ls_bcifname == ""){  
+                        ls_bacode = "%";
+                    }    
+                    if(ls_jpumnm == null || ls_jpumnm.length == 0 || ls_jpumnm == ""){  
+                        ls_jkey = "%";
+                    }   
+                    ls_abonsadam1 = "%";
+                    var ls_makflag = "1";
+                    console.log(ls_frdate)
+                    console.log(ls_todate)
+                    console.log(ls_bacode)
+                    console.log(ls_abonsadam1)
+                    console.log(ls_jkey)
+                    console.log(ls_misgubunflag)
+                    console.log(ls_makflag)
+                    console.log(ls_jpbgubn) 
+                    $.ajax({
+                        url: '/app01m/index14/listwishdel',  
+                        type:"POST",
+                        data: { 
+                            "frdate"      : ls_frdate,
+                            "todate"      : ls_todate,
+                            "acode"      : ls_bacode,  
+                            "perid"      : ls_abonsadam1,   
+                            "jcode"      : ls_jkey,   
+                            "fixflag"    : '%',  
+                            "misgubun"    : ls_misgubunflag, 
+                            "makflag"    : ls_makflag, 
+                            "mflag"  : 'AA'   ,  
+                            "jpbgubn" :ls_jpbgubn,  
+                        }, 
+                        async:false,
+                        success:function(data){      
+                            chkLogin(data)       
+                            tabC_grid(data);
+                        },error:function(e){
+                            console.log("error");
+                            // alert(data.code);
+                            // alert(data.message);
+                        }
+                    }).done(function(fragment){           
+
+                    })     
+                    break;             
                 default:    
                     break;                
             }
@@ -710,7 +1033,234 @@
  
         }
             
+     
+        function tabB_grid(data){ 
+            var wtab01Dto  = data;    
+            var wtab01_data = [];
+            var cnt = 1;
+            var bfixflag = false
+            for (var i = 0; i < wtab01Dto.length; i++) {
+                if(wtab01Dto[i]["fixflag"] == "1"){
+                    bfixflag = true;
+                }else{
+                    bfixflag = false;
+                }
+                wtab01_data.push({
+                    id: i, 
+                    index: cnt,
+                    misdate: wtab01Dto[i]["misdate"],
+                    misnum: wtab01Dto[i]["misnum"],     
+                    seq: wtab01Dto[i]["seq"],    
+                    acorp: wtab01Dto[i]["acorp"],    
+                    pname: wtab01Dto[i]["pname"],    
+                    psize: wtab01Dto[i]["psize"],    
+                    pbonsa: wtab01Dto[i]["pbonsa"],    
+                    pmodel: wtab01Dto[i]["pmodel"],    
+                    pcolor: wtab01Dto[i]["pcolor"],    
+                    qty: wtab01Dto[i]["qty"],    
+                    uamt: wtab01Dto[i]["uamt"], 
+                    samt: wtab01Dto[i]["samt"],  
+                    cltcd: wtab01Dto[i]["cltcd"],  
+                    inname: wtab01Dto[i]["inname"],     
+                    misgubun: wtab01Dto[i]["misgubun"],  
+                    omisdate: wtab01Dto[i]["omisdate"],
+                    omisnum: wtab01Dto[i]["omisnum"],     
+                    oseq: wtab01Dto[i]["oseq"],  
+                    deltime: wtab01Dto[i]["deltime"],     
+                    remarkaa: wtab01Dto[i]["remarkaa"],  
+                    remarkbb: wtab01Dto[i]["remarkbb"],       
+                    fixflag: bfixflag,                                           
+                });
+                cnt++;
+            }   
+ 
+
+            wtab01Grid.columns.clear();  
+            wtab01Grid.autoGenerateColumns = false; 
+            view_p01tab01page.sourceCollection  = wtab01_data;
+            var cols = new wijmo.grid.Column(); 
+            cols.binding = 'misdate';
+            cols.header = '주문일자';
+            cols.align = "center";
+            cols.width = 150; 
+            wtab01Grid.columns.push(cols);  
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'misnum';
+            cols.header = '주문번호';
+            cols.align = "center";
+            cols.width = 80;  
+            wtab01Grid.columns.push(cols);  
+            // cols = new wijmo.grid.Column(); 
+            // cols.binding = 'seq';
+            // cols.header = '순번';
+            // cols.align = "center";
+            // cols.width = 80;  
+            // wtab01Grid.columns.push(cols);  
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'inname';
+            cols.header = '담당사원';
+            cols.align = "center";
+            cols.width = 100;  
+            wtab01Grid.columns.push(cols);     
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'acorp';
+            cols.header = '거래처';
+            cols.align = "center";
+            cols.width = 150;  
+            wtab01Grid.columns.push(cols);   
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'pname';
+            cols.header = '품목';
+            cols.align = "center";
+            cols.width = 150;  
+            wtab01Grid.columns.push(cols);   
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'psize';
+            cols.header = '규격';
+            cols.align = "center";
+            cols.width = 120;  
+            wtab01Grid.columns.push(cols);     
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'qty';
+            cols.header = '수량';
+            cols.align = "center";
+            cols.aggregate = 'Sum';
+            cols.width = 80;  
+            wtab01Grid.columns.push(cols);   
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'uamt';
+            cols.header = '단가';
+            cols.align = "center";
+            cols.width = 100;  
+            wtab01Grid.columns.push(cols);     
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'samt';
+            cols.header = '금액';
+            cols.align = "center";
+            cols.aggregate = 'Sum';
+            cols.width = 150;  
+            wtab01Grid.columns.push(cols);       
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'deltime';
+            cols.header = '삭제일자';
+            cols.align = "center"; 
+            cols.width = 200;  
+            wtab01Grid.columns.push(cols);    
+ 
+        }
+                    
         function tabC_grid(data){ 
+            var wtab02Dto  = data;    
+            var wtab02_data = [];
+            var cnt = 1;
+            var bfixflag = false 
+            for (var i = 0; i < wtab02Dto.length; i++) {
+                if(wtab02Dto[i]["fixflag"] == "1"){
+                    bfixflag = true;
+                }else{
+                    bfixflag = false;
+                }
+                wtab02_data.push({
+                    id: i, 
+                    index: cnt,
+                    misdate: wtab02Dto[i]["misdate"],
+                    misnum: wtab02Dto[i]["misnum"],     
+                    seq: wtab02Dto[i]["seq"],    
+                    acorp: wtab02Dto[i]["acorp"],    
+                    pname: wtab02Dto[i]["pname"],    
+                    psize: wtab02Dto[i]["psize"],    
+                    pbonsa: wtab02Dto[i]["pbonsa"],    
+                    pmodel: wtab02Dto[i]["pmodel"],    
+                    pcolor: wtab02Dto[i]["pcolor"],    
+                    qty: wtab02Dto[i]["qty"],    
+                    uamt: wtab02Dto[i]["uamt"], 
+                    samt: wtab02Dto[i]["samt"],  
+                    cltcd: wtab02Dto[i]["cltcd"],  
+                    inname: wtab02Dto[i]["inname"],     
+                    misgubun: wtab02Dto[i]["misgubun"],  
+                    omisdate: wtab02Dto[i]["omisdate"],
+                    omisnum: wtab02Dto[i]["omisnum"],     
+                    oseq: wtab02Dto[i]["oseq"],      
+                    deltime: wtab02Dto[i]["deltime"], 
+                    remarkaa: wtab02Dto[i]["remarkaa"],  
+                    remarkbb: wtab02Dto[i]["remarkbb"],       
+                    fixflag: bfixflag,                                           
+                });
+                cnt++;
+            }   
+ 
+
+            wtab02Grid.columns.clear();  
+            wtab02Grid.autoGenerateColumns = false; 
+            view_p01tab02page.sourceCollection  = wtab02_data;
+            var cols = new wijmo.grid.Column(); 
+            cols.binding = 'misdate';
+            cols.header = '예약일자';
+            cols.align = "center";
+            cols.width = 150; 
+            wtab02Grid.columns.push(cols);  
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'misnum';
+            cols.header = '예약번호';
+            cols.align = "center";
+            cols.width = 80;  
+            wtab02Grid.columns.push(cols);  
+            // cols = new wijmo.grid.Column(); 
+            // cols.binding = 'seq';
+            // cols.header = '순번';
+            // cols.align = "center";
+            // cols.width = 80;  
+            // wtab02Grid.columns.push(cols);  
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'inname';
+            cols.header = '담당사원';
+            cols.align = "center";
+            cols.width = 100;  
+            wtab02Grid.columns.push(cols);     
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'acorp';
+            cols.header = '거래처';
+            cols.align = "center";
+            cols.width = 150;  
+            wtab02Grid.columns.push(cols);   
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'pname';
+            cols.header = '품목';
+            cols.align = "center";
+            cols.width = 150;  
+            wtab02Grid.columns.push(cols);   
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'psize';
+            cols.header = '규격';
+            cols.align = "center";
+            cols.width = 120;  
+            wtab02Grid.columns.push(cols);    
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'qty';
+            cols.header = '수량';
+            cols.align = "center";
+            cols.aggregate = 'Sum';
+            cols.width = 80;  
+            wtab02Grid.columns.push(cols);   
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'uamt';
+            cols.header = '단가';
+            cols.align = "center";
+            cols.width = 100;  
+            wtab02Grid.columns.push(cols);     
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'samt';
+            cols.header = '금액';
+            cols.align = "center";
+            cols.aggregate = 'Sum';
+            cols.width = 150;  
+            wtab02Grid.columns.push(cols);       
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'deltime';
+            cols.header = '삭제일자';
+            cols.align = "center"; 
+            cols.width = 200;  
+            wtab02Grid.columns.push(cols);  
  
         } 
            
@@ -721,7 +1271,13 @@
                 searchCode = document.getElementById('searchCode').value;   
             } 
             if(arg == "A"){
+                searchCode = document.getElementById('cifname').value;   
+            } 
+            if(arg == "B"){
                 searchCode = document.getElementById('bcifname').value;   
+            } 
+            if(arg == "C"){
+                searchCode = document.getElementById('ccifname').value;   
             } 
             if(searchCode == null || searchCode.length == 0 || searchCode == ""){ 
                 searchCode = "%"         ;
@@ -807,20 +1363,29 @@
               
             var ls_tab = document.getElementById('tabvalue').value;    
             if(ls_tab == "A"){ 
+                document.getElementById('acorp1').value = arg1;  
+                document.getElementById('acorp2').value = arg2;  
+                document.getElementById('acorp3').value = arg3;  
+                document.getElementById('acode').value = arg4;   
+                document.getElementById('cifname').value = arg5;  
+                //품목조회 본사코드를 조건으로 추가하면서 막음 
+                searchList_rtn('A')
+                $("#winnamemodal_btn").trigger("click");
+            }else if(ls_tab == "B"){ 
                 document.getElementById('bacorp1').value = arg1;  
                 document.getElementById('bacorp2').value = arg2;  
                 document.getElementById('bacorp3').value = arg3;  
                 document.getElementById('bacode').value = arg4;   
                 document.getElementById('bcifname').value = arg5;  
                 //품목조회 본사코드를 조건으로 추가하면서 막음 
-                searchList_rtn('A')
-                $("#winnamemodal_btn").trigger("click");
+                searchList_rtn('B')
+                $("#winnamemodal_btn").trigger("click");    
             }else{
-                document.getElementById('bacorp1').value = arg1;  
-                document.getElementById('bacorp2').value = arg2;  
-                document.getElementById('bacorp3').value = arg3;  
-                document.getElementById('bacode').value = arg4;   
-                document.getElementById('bcifname').value = arg5;  
+                document.getElementById('cacorp1').value = arg1;  
+                document.getElementById('cacorp2').value = arg2;  
+                document.getElementById('cacorp3').value = arg3;  
+                document.getElementById('cacode').value = arg4;   
+                document.getElementById('ccifname').value = arg5;  
                 $("#winnamemodal_btn").trigger("click"); 
             }
             
@@ -835,6 +1400,12 @@
             }
             if(arg == "A"){
                 searchJcodeCode = document.getElementById('jpumnm').value;   
+            }   
+            if(arg == "B"){
+                searchJcodeCode = document.getElementById('jpumnm02').value;   
+            }   
+            if(arg == "C"){
+                searchJcodeCode = document.getElementById('jpumnm03').value;   
             }   
             if(searchJcodeCode == null || searchJcodeCode.length == 0 || searchJcodeCode == ""){ 
                 searchJcodeCode = "%"         ;
@@ -941,8 +1512,16 @@
 
         function wjpumChk_a(arg1, arg2, arg3, arg4, arg5){   
             var ls_tab = document.getElementById('tabvalue').value;   
-            document.getElementById('jkey').value = arg1;   
-            document.getElementById('jpumnm').value = arg2;  
+            if(ls_tab == "A"){
+                document.getElementById('jkey').value = arg1;   
+                document.getElementById('jpumnm').value = arg2;  
+            }else if(ls_tab =="B"){
+                document.getElementById('jkey02').value = arg1;   
+                document.getElementById('jpumnm02').value = arg2;  
+            }else {
+                document.getElementById('jkey03').value = arg1;   
+                document.getElementById('jpumnm03').value = arg2;  
+            }
             searchList_rtn(ls_tab)
             $("#winjpummodal_btn").trigger("click");
 
@@ -990,6 +1569,10 @@
         let ls_today = year + '-' + month + '-' + date 
         document.getElementById('frdate').value = ls_frday;
         document.getElementById('todate').value = ls_today; 
+        document.getElementById('frdate02').value = ls_frday;
+        document.getElementById('todate02').value = ls_today; 
+        document.getElementById('frdate03').value = ls_frday;
+        document.getElementById('todate03').value = ls_today; 
         // document.getElementById('frdate02').value = ls_frday;
         // document.getElementById('todate02').value = ls_today; 
         // document.getElementById('todate').value = ls_today;
