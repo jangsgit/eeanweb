@@ -26,6 +26,13 @@
         <![CDATA[  select top 1 misnum  from tb_da025 where misdate = #{misdate}  and  makflag = '1'    order by misdate, misnum desc   ]]>
     </select>
 
+    <select id="SelectCheckJpum024" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" resultType="com.dae.eean.DTO.App01.IndexDa024Dto">
+        <![CDATA[  select  seq, uamt, qty  from tb_da024 where pcode=#{pcode} and misdate = #{misdate} and misnum=#{misnum} and cltcd=#{cltcd} and misgubun = #{misgubun} and ( Len(isnull(makflag,'')) = 0 OR makflag = '0')   order by misdate, misnum     ]]>
+    </select>
+
+    <select id="SelectCheckJpum026" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" resultType="com.dae.eean.DTO.App01.IndexDa024Dto">
+        <![CDATA[  select  seq, uamt, qty  from tb_da026 where pcode=#{pcode} and misdate = #{misdate} and misnum=#{misnum} and cltcd=#{cltcd} and misgubun = #{misgubun} and ( Len(isnull(makflag,'')) = 0 OR makflag = '0')   order by misdate, misnum     ]]>
+    </select>
 
     <select id="SelectMaxMisnum" parameterType="com.dae.eean.DTO.App01.IndexDa023Dto" resultType="String">
         <![CDATA[  select  max(misnum)  from tb_da023 where misdate = #{misdate}      ]]>

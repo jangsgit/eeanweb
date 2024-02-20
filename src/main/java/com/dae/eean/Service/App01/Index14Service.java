@@ -40,6 +40,13 @@ public class Index14Service {
         return  appMapper.SelectCheckMisnumWishMkflag(parm);
     }
 
+    public IndexDa024Dto SelectCheckJpum024(IndexDa024Dto parm){
+        return  appMapper.SelectCheckJpum024(parm);
+    }
+    public IndexDa024Dto SelectCheckJpum026(IndexDa024Dto parm){
+        return  appMapper.SelectCheckJpum026(parm);
+    }
+
     public String SelectMaxSeq(IndexDa023Dto parm){
         return  appMapper.SelectMaxSeq(parm);
     }

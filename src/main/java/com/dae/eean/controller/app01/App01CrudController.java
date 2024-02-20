@@ -1032,7 +1032,7 @@ public class App01CrudController {
             model.addAttribute("userformDto",userformDto);
             Index03Dto _index03Dto = new Index03Dto();
             Index02Dto _index02Dto = new Index02Dto();
-            //Index03Dto index03Dto_S = new Index03Dto();
+            IndexDa024Dto _index024Dto = new IndexDa024Dto();
 
             Boolean result = false;
             String year = frdate.substring(0,4) ;
@@ -1113,19 +1113,6 @@ public class App01CrudController {
             indexDa023Dto.setSpjangnum(index02BonsaDto.getAcorp());
             indexDa023Dto.setGubun("");
             indexDa024Dto.setMisgubun(mflag);
-            String ls_seq = "";
-            if (ls_chknull.length() == 0 ){
-                ls_seq = "001";
-            }else{
-                ls_seq = GetMaxSeq(frdate);
-            }
-
-            String ls_chulgoga = _index03Dto.getJchgoga0();
-            if( ls_chulgoga == null ){
-                ls_chulgoga = "0";
-            }
-            Integer ll_chulgoga = Integer.parseInt(ls_chulgoga);
-            indexDa024Dto.setSeq(ls_seq);
             indexDa024Dto.setMisdate(frdate);
             indexDa024Dto.setMisnum(ls_misnum);
             indexDa024Dto.setPcode(_index03Dto.getJkey());
@@ -1135,10 +1122,59 @@ public class App01CrudController {
             indexDa024Dto.setPbonsa2(_index03Dto.getJbonsa_code2());
             indexDa024Dto.setPmodel(jmodel);
             indexDa024Dto.setPcolor(jcolor);
+            indexDa024Dto.setCltcd(indexDa023Dto.getCltcd());
+            String ls_seq = "";
+//            log.info("ls_chknull ======>" + ls_chknull);
+            //신규입력
+            if (ls_chknull.length() == 0 ){
+                ls_seq = "001";
+            }else{
+                //동일업체 동일일자 동일품목이 있는지 체크
+                _index024Dto = service14.SelectCheckJpum024(indexDa024Dto);  //주문된 순번max 찾기
+                if (_index024Dto != null){
+                    ls_seq = _index024Dto.getSeq();
+                    if (ls_seq.length() > 0 && ls_seq != null ){
+                        Integer _ll_qty = _index024Dto.getQty() + 1;
+                        Integer _ll_uamt = _index024Dto.getUamt();
+                        Integer _ll_samt = 0 ;
+                        Integer _ll_addamt = 0 ;
+                        Integer _ll_amt = 0;
+                        indexDa024Dto.setSeq(ls_seq);
+                        indexDa024Dto.setQty(_ll_qty);
+                        if(_ll_uamt > 0){
+                            _ll_samt = _ll_qty * _ll_uamt;
+                            _ll_addamt = _ll_samt / 10 ;
+                            _ll_amt = _ll_samt + _ll_addamt;
+                            indexDa024Dto.setSamt(_ll_samt);
+                            indexDa024Dto.setAddamt(_ll_addamt);
+                            indexDa024Dto.setAmt(_ll_amt);
+                        }else{
+                            indexDa024Dto.setSamt(0);
+                            indexDa024Dto.setAddamt(0);
+                            indexDa024Dto.setAmt(0);
+                        }
+                        result = service14.UpdateDA024Qty(indexDa024Dto);
+                        if (!result){
+                            return "error";
+                        }
+                        return "success";
+                    }else{
+                        ls_seq = GetMaxSeq(frdate);
+                    }
+                }else{
+                    ls_seq = GetMaxSeq(frdate);
+                }
+            }
+
+            String ls_chulgoga = _index03Dto.getJchgoga0();
+            if( ls_chulgoga == null ){
+                ls_chulgoga = "0";
+            }
+            Integer ll_chulgoga = Integer.parseInt(ls_chulgoga);
+            indexDa024Dto.setSeq(ls_seq);
             indexDa024Dto.setQty(1);
             indexDa024Dto.setUamt(ll_chulgoga);
             indexDa024Dto.setSamt(ll_chulgoga);
-            indexDa024Dto.setCltcd(indexDa023Dto.getCltcd());
             indexDa024Dto.setAddamt(0);
             if(ll_chulgoga > 0 ) {indexDa024Dto.setAddamt(ll_chulgoga / 10);};
             indexDa024Dto.setAmt(ll_chulgoga + (ll_chulgoga / 10));
@@ -1189,6 +1225,7 @@ public class App01CrudController {
             model.addAttribute("userformDto",userformDto);
             Index03Dto _index03Dto = new Index03Dto();
             Index02Dto _index02Dto = new Index02Dto();
+            IndexDa024Dto _index024Dto = new IndexDa024Dto();
 
             Boolean result = false;
             String year = frdate.substring(0,4) ;
@@ -1204,8 +1241,6 @@ public class App01CrudController {
             _index02Dto = service02.GetCifListAcode(_index02Dto);  //거래처정보
             index02BonsaDto = service02.GetCifBonsa(index02BonsaDto);
             _index03Dto = service03.GetJpumOrderJkey(_index03Dto); //품목정보
-//            log.info("jmodel =====>  " + jmodel );
-//            log.info("jcolor =====>  " + jcolor );
             if(_index03Dto == null){
                 log.info("error Exception =====> WISH GetJpumOrderJkey NULL" );
                 return "error";
@@ -1272,19 +1307,6 @@ public class App01CrudController {
             indexDa023Dto.setSpjangnum(index02BonsaDto.getAcorp());
             indexDa023Dto.setGubun("");
             indexDa024Dto.setMisgubun(mflag);
-            String ls_seq = "";
-            if (ls_chknull.length() == 0 ){
-                ls_seq = "001";
-            }else{
-                ls_seq = GetMaxSeqWish(frdate);
-            }
-
-            String ls_chulgoga = _index03Dto.getJchgoga0();
-            if( ls_chulgoga == null ){
-                ls_chulgoga = "0";
-            }
-            Integer ll_chulgoga = Integer.parseInt(ls_chulgoga);
-            indexDa024Dto.setSeq(ls_seq);
             indexDa024Dto.setMisdate(frdate);
             indexDa024Dto.setMisnum(ls_misnum);
             indexDa024Dto.setPcode(_index03Dto.getJkey());
@@ -1294,6 +1316,55 @@ public class App01CrudController {
             indexDa024Dto.setPbonsa2(_index03Dto.getJbonsa_code2());
             indexDa024Dto.setPmodel(jmodel);
             indexDa024Dto.setPcolor(jcolor);
+            String ls_seq = "";
+            //신규입력
+//            log.info("ls_chknull ======>" + ls_chknull);
+            if (ls_chknull.length() == 0 ){
+                ls_seq = "001";
+            }else{
+                //동일업체 동일일자 동일품목이 있는지 체크
+                _index024Dto = service14.SelectCheckJpum026(indexDa024Dto);  //주문된 순번max 찾기
+                if(_index024Dto != null){
+                    ls_seq = _index024Dto.getSeq();
+                    if (ls_seq.length() > 0 && ls_seq != null ){
+                        Integer _ll_qty = _index024Dto.getQty() + 1;
+                        Integer _ll_uamt = _index024Dto.getUamt();
+                        Integer _ll_samt = 0 ;
+                        Integer _ll_addamt = 0 ;
+                        Integer _ll_amt = 0;
+                        indexDa024Dto.setSeq(ls_seq);
+                        indexDa024Dto.setQty(_ll_qty);
+                        if(_ll_uamt > 0){
+                            _ll_samt = _ll_qty * _ll_uamt;
+                            _ll_addamt = _ll_samt / 10 ;
+                            _ll_amt = _ll_samt + _ll_addamt;
+                            indexDa024Dto.setSamt(_ll_samt);
+                            indexDa024Dto.setAddamt(_ll_addamt);
+                            indexDa024Dto.setAmt(_ll_amt);
+                        }else{
+                            indexDa024Dto.setSamt(0);
+                            indexDa024Dto.setAddamt(0);
+                            indexDa024Dto.setAmt(0);
+                        }
+                        result = service14.UpdateDA026Qty(indexDa024Dto);
+                        if (!result){
+                            return "error";
+                        }
+                        return "success";
+                    }else{
+                        ls_seq = GetMaxSeqWish(frdate);
+                    }
+                }else{
+                    ls_seq = GetMaxSeqWish(frdate);
+                }
+            }
+
+            String ls_chulgoga = _index03Dto.getJchgoga0();
+            if( ls_chulgoga == null ){
+                ls_chulgoga = "0";
+            }
+            Integer ll_chulgoga = Integer.parseInt(ls_chulgoga);
+            indexDa024Dto.setSeq(ls_seq);
             indexDa024Dto.setQty(1);
             indexDa024Dto.setUamt(ll_chulgoga);
             indexDa024Dto.setSamt(ll_chulgoga);

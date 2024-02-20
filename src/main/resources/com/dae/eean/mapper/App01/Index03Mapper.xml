@@ -7,9 +7,45 @@
         <![CDATA[
         select   jbonsa_code as jbonsa_code
         from JCODE3 WITH (NOLOCK)
+        WHERE isnull(jpb_gubn,'') Like concat('%',#{jpb_gubn},'%')
+          and jsayong_gubn <> '4'
+          AND LEN(jbonsa_code) > 0
+        Group by jbonsa_code, jbonsa_code_seq
+        ORDER BY CONVERT(int, jbonsa_code_seq)
+        ]]>
+    </select>
+    <select id="GetJBonsaCodeList_AA" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
+        <![CDATA[
+        select   jbonsa_code as jbonsa_code
+        from JCODE3 WITH (NOLOCK)
          WHERE isnull(jpb_gubn,'') Like concat('%',#{jpb_gubn},'%')
            and jsayong_gubn <> '4'
+           and jsayong_gubn in ('1', '2', '3')
            AND LEN(jbonsa_code) > 0
+        Group by jbonsa_code, jbonsa_code_seq
+        ORDER BY CONVERT(int, jbonsa_code_seq)
+        ]]>
+    </select>
+    <select id="GetJBonsaCodeList_BB" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
+        <![CDATA[
+        select   jbonsa_code as jbonsa_code
+        from JCODE3 WITH (NOLOCK)
+        WHERE isnull(jpb_gubn,'') Like concat('%',#{jpb_gubn},'%')
+          and jsayong_gubn <> '4'
+          and jsayong_gubn in ('1')
+          AND LEN(jbonsa_code) > 0
+        Group by jbonsa_code, jbonsa_code_seq
+        ORDER BY CONVERT(int, jbonsa_code_seq)
+        ]]>
+    </select>
+    <select id="GetJBonsaCodeList_CC" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
+        <![CDATA[
+        select   jbonsa_code as jbonsa_code
+        from JCODE3 WITH (NOLOCK)
+        WHERE isnull(jpb_gubn,'') Like concat('%',#{jpb_gubn},'%')
+          and jsayong_gubn <> '4'
+          and jsayong_gubn in ('1', '2')
+          AND LEN(jbonsa_code) > 0
         Group by jbonsa_code, jbonsa_code_seq
         ORDER BY CONVERT(int, jbonsa_code_seq)
         ]]>
@@ -22,6 +58,32 @@
         AND isnull(jpb_gubn,'') Like concat('%',#{jpb_gubn},'%')
         and jsayong_gubn <> '4'
         AND LEN(jcustomer_code) > 0
+        Group by jcustomer_code, jcustomer_code_seq, jpb_gubn
+        ORDER BY CONVERT(int, jcustomer_code_seq)
+        ]]>
+    </select>
+    <select id="GetJcustomCode_BB" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
+        <![CDATA[
+        select   jcustomer_code as jcustomer_code
+        from JCODE3 WITH (NOLOCK)
+        WHERE isnull(jcustomer_code,'')   NOT IN ('X')
+          AND isnull(jpb_gubn,'') Like concat('%',#{jpb_gubn},'%')
+          and jsayong_gubn <> '4'
+          and jsayong_gubn in ('1')
+          AND LEN(jcustomer_code) > 0
+        Group by jcustomer_code, jcustomer_code_seq, jpb_gubn
+        ORDER BY CONVERT(int, jcustomer_code_seq)
+        ]]>
+    </select>
+    <select id="GetJcustomCode_CC" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
+        <![CDATA[
+        select   jcustomer_code as jcustomer_code
+        from JCODE3 WITH (NOLOCK)
+        WHERE isnull(jcustomer_code,'')   NOT IN ('X')
+          AND isnull(jpb_gubn,'') Like concat('%',#{jpb_gubn},'%')
+          and jsayong_gubn <> '4'
+          and jsayong_gubn in ('1','2')
+          AND LEN(jcustomer_code) > 0
         Group by jcustomer_code, jcustomer_code_seq, jpb_gubn
         ORDER BY CONVERT(int, jcustomer_code_seq)
         ]]>

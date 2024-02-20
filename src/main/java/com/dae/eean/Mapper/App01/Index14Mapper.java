@@ -15,6 +15,8 @@ public interface Index14Mapper {
     public String SelectCheckMisnumMkflag(IndexDa023Dto parm) ;
 
     public String SelectCheckMisnumOrd(IndexDa023Dto parm) ;
+    public  IndexDa024Dto SelectCheckJpum024(IndexDa024Dto parm) ;
+    public  IndexDa024Dto SelectCheckJpum026(IndexDa024Dto parm) ;
 
     public String SelectMaxSeq(IndexDa023Dto parm) ;
     public String SelectMaxMisnumWish(IndexDa023Dto parm) ;

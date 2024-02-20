@@ -31,15 +31,22 @@ public class Index03Service {
     public List<Index03Dto> GetJcustomCode(Index03Dto parm){
         return  appMapper.GetJcustomCode(parm);
     }
+    public List<Index03Dto> GetJcustomCode_BB(Index03Dto parm){
+        return  appMapper.GetJcustomCode_BB(parm);
+    }
+    public List<Index03Dto> GetJcustomCode_CC(Index03Dto parm){
+        return  appMapper.GetJcustomCode_CC(parm);
+    }
     public List<Index03Dto> GetJcustomCodeTot(Index03Dto parm){
         return  appMapper.GetJcustomCodeTot(parm);
     }
     public List<Index03Dto> GetJpumCustList(Index03Dto parm){
         return  appMapper.GetJpumCustList(parm);
     }
-    public List<Index03Dto> GetJBonsaCodeList(Index03Dto parm){
-        return  appMapper.GetJBonsaCodeList(parm);
-    }
+    public List<Index03Dto> GetJBonsaCodeList(Index03Dto parm){ return  appMapper.GetJBonsaCodeList(parm);}
+    public List<Index03Dto> GetJBonsaCodeList_AA(Index03Dto parm){ return  appMapper.GetJBonsaCodeList_AA(parm);}
+    public List<Index03Dto> GetJBonsaCodeList_BB(Index03Dto parm){ return  appMapper.GetJBonsaCodeList_BB(parm);}
+    public List<Index03Dto> GetJBonsaCodeList_CC(Index03Dto parm){ return  appMapper.GetJBonsaCodeList_CC(parm);}
     public List<Index03Dto> GetJpumSubul01(Index03Dto parm){
         return  appMapper.GetJpumSubul01(parm);
     }

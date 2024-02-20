@@ -88,7 +88,7 @@ public class AuthController {
 
 
             index03Dto.setJpb_gubn("%");
-            index03List = service03.GetJBonsaCodeList(index03Dto);
+            index03List = service03.GetJBonsaCodeList_AA(index03Dto);
             model.addAttribute("index03List",index03List);
 
             return "App01/index14";
@@ -108,7 +108,7 @@ public class AuthController {
             }else{
                 index03Dto.setJpb_gubn("B");
             }
-            index03List = service03.GetJcustomCode(index03Dto);
+            index03List = service03.GetJcustomCode_BB(index03Dto);
             model.addAttribute("index15List",index03List);
             return "App01/index150";
 //            return "mainframcustom";
@@ -116,7 +116,7 @@ public class AuthController {
             Date nowData = new Date();
             SimpleDateFormat endDate = new SimpleDateFormat("yyyyMMdd");
             String indate = endDate.format(nowData).toString();
-            index03List = service03.GetJBonsaCodeList(index03Dto);
+            index03List = service03.GetJBonsaCodeList_CC(index03Dto);
             model.addAttribute("index03List",index03List);
             return "App01/index140";
 //            return "mainframbusiness";
