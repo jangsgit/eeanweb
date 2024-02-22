@@ -131,7 +131,8 @@
     <select id="GetJpumOrderJkey" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
         <![CDATA[
             select top 1  jkey, jpb_gubn, jgong_code,   jdan_code, jmodel_code, jdan_code, jmodel_code2, jcolor_code2, jcustomer_code,
-                     jbonsa_code, jbonsa_code2, jsayong_gubn, jpum, jgugek, jsize,    convert(int , isnull(jchgoga0,0))  AS jchgoga0, jbigo
+                     jbonsa_code, jbonsa_code2, jsayong_gubn, jpum, jgugek, jsize,    convert(int , isnull(jchgoga0,0))  AS jchgoga0, jbigo,
+                   convert(integer, DBO.DF_TB_PCODE_JQTY(jkey,  #{frdate},  #{todate}) ) as jqty
             from JCODE3 WITH (NOLOCK)
             WHERE isnull(jmodel_code2,'') = #{jmodel_code2}
              and  isnull(jbonsa_code,'') = #{jbonsa_code}
@@ -145,7 +146,8 @@
     <select id="GetJpumOrderJkey02" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
         <![CDATA[
             select top 1  jkey, jpb_gubn, jgong_code, jdan_code, jmodel_code, jcolor_code, jcustomer_code,jbonsa_code,
-                     jbonsa_code, jsayong_gubn, jpum, jgugek, jsize,   convert(int , isnull(jchgoga0,0))  AS jchgoga0, jbigo
+                     jbonsa_code, jsayong_gubn, jpum, jgugek, jsize,   convert(int , isnull(jchgoga0,0))  AS jchgoga0, jbigo,
+                     convert(integer, DBO.DF_TB_PCODE_JQTY(jkey,  #{frdate},  #{todate}) ) as jqty
             from JCODE3 WITH (NOLOCK)
             WHERE isnull(jkey,'') = #{jkey}
               and jsayong_gubn <> '4'

@@ -1038,19 +1038,34 @@ public class App01CrudController {
             String year = frdate.substring(0,4) ;
             String month = frdate.substring(5,7) ;
             String day   = frdate.substring(8,10) ;
+            Integer _ll_jqty = 0;
             frdate = year + month + day ;
             _index03Dto.setJmodel_code2(jmodel);
             _index03Dto.setJcolor_code2(jcolor);
             _index03Dto.setJbonsa_code(jbonsa);
             _index03Dto.setJbonsa_code2(jbonsa2);
             _index03Dto.setJpb_gubn(jpbgubn);
+            _index03Dto.setFrdate("20000101");
+            _index03Dto.setTodate(frdate);
             _index02Dto.setAcode(acode);
+
             _index02Dto = service02.GetCifListAcode(_index02Dto);  //거래처정보
             index02BonsaDto = service02.GetCifBonsa(index02BonsaDto);
             _index03Dto = service03.GetJpumOrderJkey(_index03Dto); //품목정보
             if(_index03Dto == null){
-                log.info("error Exception =====> GetJpumOrderJkey NULL" );
+                log.info("jfrdate =====> " + frdate );
+                log.info("jkey =====> " + _index03Dto.getJkey() );
+                log.info("jqty =====> " + _index03Dto.getJqty() );
+                log.info("error Exception index14Save=====> GetJpumOrderJkey NULL" );
                 return "error";
+            }
+            _ll_jqty = Integer.parseInt(_index03Dto.getJqty());
+            if(_ll_jqty == 0 || _ll_jqty == null){
+                log.info("jfrdate =====> " + frdate );
+                log.info("jkey =====> " + _index03Dto.getJkey() );
+                log.info("jqty =====> " + _index03Dto.getJqty() );
+                log.info("index14Save 재고 없음 =====> " + _index03Dto.getJqty() );
+                return "jaego";
             }
             indexDa023Dto.setCltcd(acode);
             indexDa023Dto.setMisgubun(mflag);
@@ -1123,6 +1138,11 @@ public class App01CrudController {
             indexDa024Dto.setPmodel(jmodel);
             indexDa024Dto.setPcolor(jcolor);
             indexDa024Dto.setCltcd(indexDa023Dto.getCltcd());
+
+            //재고체크 ------------------------------------------
+
+
+            //--------------------------------------------------
             String ls_seq = "";
 //            log.info("ls_chknull ======>" + ls_chknull);
             //신규입력
@@ -1431,12 +1451,27 @@ public class App01CrudController {
             String year = frdate.substring(0,4) ;
             String month = frdate.substring(5,7) ;
             String day   = frdate.substring(8,10) ;
+            Integer _ll_jqty = 0;
             frdate = year + month + day ;
             _index02Dto.setAcode(acode);
             _index03Dto.setJkey(jkey);
+            _index03Dto.setFrdate("20000101");
+            _index03Dto.setTodate(frdate);
             _index02Dto = service02.GetCifListAcode(_index02Dto);  //거래처정보
             index02BonsaDto = service02.GetCifBonsa(index02BonsaDto);
             _index03Dto = service03.GetJpumOrderJkey02(_index03Dto); //품목
+            if(_index03Dto == null){
+                log.info("jfrdate =====> " + frdate );
+                log.info("jkey =====> " + _index03Dto.getJkey() );
+                log.info("jqty =====> " + _index03Dto.getJqty() );
+                log.info("error Exception index14SaveCust =====> GetJpumOrderJkey NULL" );
+                return "error";
+            }
+            _ll_jqty = Integer.parseInt(_index03Dto.getJqty());
+            if(_ll_jqty == 0 || _ll_jqty == null){
+                log.info("재고 없음 index14SaveCust=====> " + _ll_jqty.toString() );
+                return "jaego";
+            }
 
             indexDa023Dto.setCltcd(acode);
             indexDa023Dto.setMisdate(frdate);

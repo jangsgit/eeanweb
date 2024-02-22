@@ -1197,7 +1197,11 @@
                             return true;
                             // searchList_rtn(ls_tab);  
                             // clear_rtn(ls_tab);        
-                        }else{                           
+                        }else{                                                        
+                            if(data == "jaego"){
+                                    alert("재고가 없습니다. 다른 제품을 선택해주세요.")
+                                    return 
+                            }                         
                             alert("저장중 오류가 발생했습니다. 관리자에게 문의하세요.")
                             // listUp();
                             console.log(data); 
@@ -1515,15 +1519,23 @@
                                 "ordercd"  : 'CC'   , 
                             }, 
                             async:false,
-                            success:function(data){      
-                                chkLogin(data)       
+                            success:function(data){    
+                                chkLogin(data)  
                                 if(data == "success"){
-                                    toastOn()
-                                    //alert("저장되었습니다.") 
+                                    toastOn() 
                                     return true;
                                     // searchList_rtn(ls_tab);  
                                     // clear_rtn(ls_tab);        
-                                }else{                            
+                                }else{  
+                                    if(data == "relogin"){
+                                        alert("다시 로그인해주세요")
+                                        window.location.href='http://eean.co.kr';
+                                        return 
+                                    }                         
+                                    if(data == "jaego"){
+                                        alert("재고가 없습니다.다른 제품을 선택해주세요.")
+                                        return 
+                                    }                        
                                     alert("저장중 오류가 발생했습니다. 관리자에게 문의하세요.")
                                     // listUp();
                                     console.log(data); 
