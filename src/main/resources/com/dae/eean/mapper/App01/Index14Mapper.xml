@@ -11,7 +11,7 @@
     </select>
 
     <select id="SelectCheckMisnumMkflag" parameterType="com.dae.eean.DTO.App01.IndexDa023Dto" resultType="String">
-        <![CDATA[  select top 1 misnum  from tb_da023 where misdate = #{misdate}   and  makflag = '1'    order by misdate, misnum desc     ]]>
+        <![CDATA[  select top 1 misnum  from tb_da023 where misdate = #{misdate}     order by misdate, misnum desc     ]]>
     </select>
 
     <select id="SelectCheckMisnumOrd" parameterType="com.dae.eean.DTO.App01.IndexDa023Dto" resultType="String">
@@ -23,7 +23,7 @@
     </select>
 
     <select id="SelectCheckMisnumWishMkflag" parameterType="com.dae.eean.DTO.App01.IndexDa023Dto" resultType="String">
-        <![CDATA[  select top 1 misnum  from tb_da025 where misdate = #{misdate}  and  makflag = '1'    order by misdate, misnum desc   ]]>
+        <![CDATA[  select top 1 misnum  from tb_da025 where misdate = #{misdate}     order by misdate, misnum desc   ]]>
     </select>
 
     <select id="SelectCheckJpum024" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" resultType="com.dae.eean.DTO.App01.IndexDa024Dto">
