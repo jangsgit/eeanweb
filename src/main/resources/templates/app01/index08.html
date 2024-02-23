@@ -82,10 +82,10 @@
                                             </div>
                                             <div class="col-2 col-sm-2">
                                                 <select class="form-select form-select-sm" id="misfixflag" aria-label=".form-select-sm example">
-                                                    <option selected="">확정구분</option>
+                                                    <option selected="">출력구분</option>
                                                     <option value="%">전체</option>
-                                                    <option value="1">확정</option>
-                                                    <option value="0">미확정</option>
+                                                    <option value="1">출력</option>
+                                                    <option value="0">미출력</option>
                                                   </select> 
                                             </div>  
                                             <div class="col-1 col-sm-1">  
@@ -268,7 +268,7 @@
                     { binding: 'qty', header: '수량', align: "center", width: 80 ,  aggregate: 'Sum'},  
                     { binding: 'uamt', header: '단가', align: "center", width: 100 },  
                     { binding: 'samt', header: '금액', align: "center", width: 150 ,  aggregate: 'Sum'},  
-                    // { binding: 'fixflag', header: '확정', align: "center", width: 150, cssClass: 'switch'   },  
+                    // { binding: 'fixflag', header: '출력', align: "center", width: 150, cssClass: 'switch'   },  
                     
                 ], 
                 itemsSource: new wijmo.collections.CollectionView(getData_wlist(), {
@@ -513,7 +513,7 @@
                         document.getElementById("todate").focus(); 
                         return ;                
                     }   
-                    if(ls_misfixflag == "확정구분"){ 
+                    if(ls_misfixflag == "출력구분"){ 
                         ls_misfixflag = "%";
                     }    
                     if(ls_jpumnm == null || ls_jpumnm.length == 0 || ls_jpumnm == ""){  
@@ -758,7 +758,7 @@
             wtab02Grid.columns.push(cols);    
             // cols = new wijmo.grid.Column(); 
             // cols.binding = 'fixflag'; 
-            // cols.header = '확정';
+            // cols.header = '출력';
             // cols.align = "center";
             // cols.width = 100;  
             // cols.cssClass = 'switch'
