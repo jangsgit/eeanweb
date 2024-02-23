@@ -309,11 +309,15 @@
                 and  isnull(B.jpb_gubn,'') Like concat('%',#{jpb_gubn},'%')
                 and a.ijaego_su1 <> 0
 
-                union
+                union all
 
                 Select '1' as flag, A.misdate as jdate,   B.jkey, B.jpum, isnull(B.jgugek, '') as jgugek, B.jbonsa_code, B.jcolor_code, B.jmodel_code, 0 as ipsu, A.qty as chulsu
-                from  tb_da024 A WITH (NOLOCK), jcode3 B WITH (NOLOCK)
+                from  tb_da024 A WITH (NOLOCK), jcode3 B WITH (NOLOCK) , TB_DA023 C WITH (NOLOCK)
                 WHERE A.pcode = B.jkey
+                and A.misdate = C.misdate
+                and A.misnum = C.misnum
+                AND isnull(C.makflag, '0') = '1'
+                and isnull(A.fixflag, '0') = '1'
                 and A.misdate between #{frdate} and #{todate}
                 and  isnull(B.jkey,'') Like concat('%',#{jkey},'%')
                 and  isnull(B.jpb_gubn,'') Like concat('%',#{jpb_gubn},'%')
@@ -336,11 +340,15 @@
                 and  isnull(B.jpb_gubn,'') Like concat('%',#{jpb_gubn},'%')
                 and a.ijaego_su1 <> 0
 
-                union
+                union all
 
                 Select '1' as flag, A.misdate as jdate,   B.jkey, B.jpum, isnull(B.jgugek, '') as jgugek, B.jbonsa_code, B.jcolor_code, B.jmodel_code, 0 as ipsu, A.qty as chulsu
-                from  tb_da024 A WITH (NOLOCK), jcode3 B WITH (NOLOCK)
+                from  tb_da024 A WITH (NOLOCK), jcode3 B WITH (NOLOCK), TB_DA023 C WITH (NOLOCK)
                 WHERE A.pcode = B.jkey
+                and A.misdate = C.misdate
+                and A.misnum = C.misnum
+                AND isnull(C.makflag, '0') = '1'
+                and isnull(A.fixflag, '0') = '1'
                 and A.misdate between #{frdate} and #{todate}
                 and  isnull(B.jkey,'') Like concat('%',#{jkey},'%')
                 and  isnull(B.jpb_gubn,'') Like concat('%',#{jpb_gubn},'%')

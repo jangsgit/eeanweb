@@ -726,6 +726,7 @@
         });    
 
         function searchList_rtn(arg1){ 
+            //주문완료
             var ls_makflag = "1" ;
             var ls_jpbgubn = document.getElementById('jpbgubn').value; 
             switch(arg1){ 
@@ -744,8 +745,8 @@
                         alert("조회일자를 등록하세요") 
                         document.getElementById("todate").focus(); 
                         return ;               
-                    }   
-                    ls_misfixflag = "%";
+                    }    
+                    ls_misfixflag = "1";
                     // ls_jpbgubn = "%";
                     // if(ls_misfixflag == "확정구분"){ 
                     //     ls_misfixflag = "%";

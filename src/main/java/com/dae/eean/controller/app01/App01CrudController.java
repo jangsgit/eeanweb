@@ -363,6 +363,14 @@ public class App01CrudController {
             if(searchtxt == null || searchtxt.equals("")){
                 searchtxt = "%";
             }
+            String year = frdate.substring(0,4) ;
+            String month = frdate.substring(5,7) ;
+            String day   = frdate.substring(8,10) ;
+            frdate = year + month + day ;
+                    year = todate.substring(0,4) ;
+                    month = todate.substring(5,7) ;
+                    day   = todate.substring(8,10) ;
+            todate = year + month + day ;
             index03Dto_S.setJkey(searchtxt);
             index03Dto_S.setFrdate(frdate);
             index03Dto_S.setTodate(todate);
@@ -403,12 +411,18 @@ public class App01CrudController {
             if(searchtxt == null || searchtxt.equals("")){
                 searchtxt = "%";
             }
+            String year = frdate.substring(0,4) ;
+            String month = frdate.substring(5,7) ;
+            String day   = frdate.substring(8,10) ;
+            frdate = year + month + day ;
+                    year = todate.substring(0,4) ;
+                    month = todate.substring(5,7) ;
+                    day   = todate.substring(8,10) ;
+            todate = year + month + day ;
             index03Dto_S.setJkey(searchtxt);
             index03Dto_S.setFrdate(frdate);
             index03Dto_S.setTodate(todate);
             index03Dto_S.setJpb_gubn(jpbgubn);
-
-            //log.info("jpbgubn Exception 2222=====>" + jpbgubn);
 
             _index03List = service03.GetJpumSubul02(index03Dto_S);
             model.addAttribute("index03List",_index03List);

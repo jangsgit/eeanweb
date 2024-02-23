@@ -514,7 +514,8 @@
                         }, 
                         async:false,
                         success:function(data){  
-                            //console.log(data)
+                            //console.log(data) 
+                            chkLogin(data)   
                             tabA_grid(data);
                         },error:function(e){
                             console.log("error");
@@ -560,7 +561,8 @@
                             "jpbgubn" :ls_jpbgubn,  
                         }, 
                         async:false,
-                        success:function(data){   
+                        success:function(data){                                
+                            chkLogin(data)     
                             tabC_grid(data);
                         },error:function(e){
                             console.log("error");
@@ -581,7 +583,7 @@
             var wtab02Dto  = data;    
             var wtab02_data = [];
             var cnt = 1;
-            var bfixflag = ""
+            var bfixflag = "" 
             for (var i = 0; i < wtab02Dto.length; i++) { 
                 if(wtab02Dto[i]["flag"] == "0"){
                     bfixflag = "입고";

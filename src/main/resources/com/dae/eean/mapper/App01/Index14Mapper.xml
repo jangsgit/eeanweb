@@ -54,7 +54,7 @@
         <![CDATA[  select omisdate , omisnum , oseq , misdate, misnum, seq, cltcd, misgubun
                    from tb_da026 WITH (NOLOCK)
                    where misdate = #{misdate} and misnum = #{misnum} and seq = #{seq}
-                   and cltcd = #{cltcd} and misgubun = #{misgubun}   AND ISNULL(omisdate  ,'') <> ''  ]]>
+                   and cltcd = #{cltcd}    AND ISNULL(omisdate  ,'') <> ''  ]]>
     </select>
 
     <select id="SelectDa024Detail" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" resultType="com.dae.eean.DTO.App01.IndexDa024Dto">
@@ -68,7 +68,7 @@
         <![CDATA[  select  uamt, samt, addamt, amt
                    from tb_da026 WITH (NOLOCK)
                    where misdate = #{misdate} and misnum = #{misnum} and seq = #{seq}
-                   and cltcd = #{cltcd} and misgubun = #{misgubun}    ]]>
+                   and cltcd = #{cltcd}      ]]>
     </select>
 
     <select id="SelectDa024List"  parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" resultType="com.dae.eean.DTO.App01.IndexDa024Dto">
@@ -472,6 +472,8 @@
              AND B.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
              AND C.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
              AND B.pcode = E.jkey
+             AND isnull(C.makflag, '0') = '1'
+             and isnull(B.fixflag, '0') = '1'
             AND A.acorp1 + CAST(A.acorp2 as varchar) Like concat('%',#{cltcd},'%')
              AND isnull(B.pcode,'')  Like concat('%',#{pcode},'%')
              AND isnull(B.misgubun,'')  Like concat('%',#{misgubun},'%')
@@ -574,6 +576,7 @@
              AND isnull(B.misgubun,'')  Like concat('%',#{misgubun},'%')
              AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
              AND Isnull(C.makflag, '0') Like concat('%',#{makflag},'%')
+             AND Isnull(C.pcode, '0') Like concat('%',#{pcode},'%')
             ORDER BY A.abonsadam1,  B.misdate, B.misnum, B.seq
         ]]>
 
@@ -678,7 +681,7 @@
             contamt, gubun, yyyymm, perid, amt, addamt, misamt, billkind,
             taxcls, taxgubun, tax_spdate, tax_spnum, remark, bigo, vatemail, vatpernm,
             spjangnum, delflag, ggubun
-        FROM TB_DA025 WHERE misdate = #{misdate} and misnum = #{misnum} and cltcd =#{cltcd} and misgubun = #{misgubun}
+        FROM TB_DA025 WHERE misdate = #{misdate} and misnum = #{misnum} and cltcd =#{cltcd}
     </insert>
 
 
@@ -689,7 +692,7 @@
         SELECT custcd, spjangcd, cltcd, misgubun, #{omisdate}, #{omisnum}, seq,
             pcode, pname, psize,    punit,  qty,  uamt, samt, addamt,
             amt, indate, inperid, pbonsa, pbonsa2, pmodel, pcolor, remarkaa, remarkbb
-        FROM TB_DA026 WHERE misdate=#{misdate} and misnum = #{misnum} and cltcd =#{cltcd} and misgubun = #{misgubun} and seq = #{seq}
+        FROM TB_DA026 WHERE misdate=#{misdate} and misnum = #{misnum} and cltcd =#{cltcd}  and seq = #{seq}
     </insert>
 
 
