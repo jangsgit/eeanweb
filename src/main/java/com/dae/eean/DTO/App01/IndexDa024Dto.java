@@ -67,6 +67,7 @@ public class IndexDa024Dto {
     private String unsongnum;
     private String jpbgubn;
     private String deltime;
+    private String fixdate;
 
 
 }

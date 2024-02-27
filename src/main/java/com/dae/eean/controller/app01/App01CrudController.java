@@ -3485,6 +3485,7 @@ public class App01CrudController {
                     indexDa024Dto.setSeq(seqarr.get(i));
                     indexDa024Dto.setCltcd(cltcdarr.get(i));
                     indexDa024Dto.setMisgubun(gubunarr.get(i));
+                    indexDa024Dto.setFixdate(getToDate());
                     if (mflag.equals("AA")){
                         indexDa024Dto.setFixflag("1");
                         result = service14.UpdateDA024(indexDa024Dto);

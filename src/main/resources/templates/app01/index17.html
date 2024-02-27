@@ -49,11 +49,11 @@
                             <div class="card-body bg-light">
                                 <ul class="nav nav-tabs">
                                     <li class="nav-item">
-                                      <a class="nav-link active" data-toggle="tab" href="#step01" onclick="tabchk_rtn('A')">예약현황</a>
+                                      <a class="nav-link active" data-toggle="tab" href="#step01" onclick="tabchk_rtn('A')">주문삭제자료</a>
                                     </li> 
-                                    <li class="nav-item">
-                                      <a class="nav-link" data-toggle="tab" href="#step02"  onclick="tabchk_rtn('B')">주문삭제자료</a>
-                                    </li>
+                                    <!-- <li class="nav-item">
+                                      <a class="nav-link" data-toggle="tab" href="#step02"  onclick="tabchk_rtn('B')">예약현황</a>
+                                    </li> -->
                                     <!-- <li class="nav-item">
                                       <a class="nav-link" data-toggle="tab" href="#step03"  onclick="tabchk_rtn('C')">예약삭제자료</a>
                                     </li> -->
@@ -62,6 +62,53 @@
                                   <div class="tab-content">
                                     <div class="tab-pane fade show active" id="step01"> 
                                         <div class="row gx-3" style="  margin: 10px 10px 10px;">   
+                                            <div class="col-2 col-sm-2">
+                                                <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">조회일자</span>
+                                                    <input type="text"  class="form-control datetimepicker" id="frdate02" autocomplete="off"  placeholder="Y-m-d"     >
+                                                </div> 
+                                            </div>   
+                                            <div class="col-2 col-sm-2"> 
+                                                <div class="input-group input-group-sm mb-3"> 
+                                                    <input type="text"  class="form-control datetimepicker" id="todate02" autocomplete="off"  placeholder="Y-m-d"     >
+                                                </div>
+                                            </div> 
+                                            <div class="col-2 col-sm-2">
+                                                <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">거래처</span> 
+                                                    <input class="form-control form-control-sm" id="bcifname" type="text"    autocomplete="off"  placeholder=""     >
+                                                    <input class="form-control form-control-sm" id="bacorp1" type="hidden"  />
+                                                    <input class="form-control form-control-sm" id="bacorp2" type="hidden"  />
+                                                    <input class="form-control form-control-sm" id="bacorp3" type="hidden"  />
+                                                    <input class="form-control form-control-sm" id="bacode" type="hidden"  /> 
+                                                    <input class="form-control form-control-sm" id="bjpbgubn" type="hidden"  /> 
+                                                    
+                                                </div>
+                                            </div>
+                                            <div class="col-2 col-sm-2">
+                                                <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">품명</span> 
+                                                    <input class="form-control form-control-sm" id="jpumnm02" type="text"    autocomplete="off"  placeholder=""     >
+                                                    <input class="form-control form-control-sm" id="jkey02" type="hidden"  /> 
+                                                    
+                                                </div>
+                                            </div>   
+                                            <!-- <div class="col-2 col-sm-2">
+                                                <select class="form-select form-select-sm" id="misfixflag" aria-label=".form-select-sm example">
+                                                    <option selected="">확정구분</option>
+                                                    <option value="%">전체</option>
+                                                    <option value="1">확정</option>
+                                                    <option value="0">미확정</option>
+                                                  </select> 
+                                            </div>   -->
+                                            <div class="col-1 col-sm-1">  
+                                                <button class="btn btn-falcon-primary me-1 mb-1 btn-sm" id="listBtn02" type="button"  >조회
+                                                </button>
+                                            </div> 
+                                        </div> 
+                                        <div class="container-fluid"> 
+                                            <div id="wtab01Grid_div"  style="overflow:scroll;   height:750px;    margin:0 auto; "></div>   
+                                        </div> 
+                                    </div>
+                                    <div class="tab-pane fade" id="step02"> 
+                                        <div class="row gx-3" style="  margin: 10px 10px 10px;"> 
                                             <div class="col-2 col-sm-2">
                                                 <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">조회일자</span>
                                                     <input type="text"  class="form-control datetimepicker" id="frdate" autocomplete="off"  placeholder="Y-m-d"     >
@@ -99,14 +146,6 @@
                                                     <option value="CC">영업사원</option>
                                                   </select> 
                                             </div>  
-                                            <!-- <div class="col-2 col-sm-2">
-                                                <select class="form-select form-select-sm" id="misfixflag" aria-label=".form-select-sm example">
-                                                    <option selected="">확정구분</option>
-                                                    <option value="%">전체</option>
-                                                    <option value="1">확정</option>
-                                                    <option value="0">미확정</option>
-                                                  </select> 
-                                            </div>   -->
                                             <div class="col-1 col-sm-1">  
                                                 <button class="btn btn-falcon-primary me-1 mb-1 btn-sm" id="listBtn" type="button"  >조회
                                                 </button>
@@ -115,45 +154,6 @@
                                         <div class="container-fluid"> 
                                             <div id="wtab04Grid_div"  style="overflow:scroll;   height:750px;    margin:0 auto; "></div>   
                                           </div>
-                                    </div>
-                                    <div class="tab-pane fade" id="step02"> 
-                                        <div class="row gx-3" style="  margin: 10px 10px 10px;">   
-                                            <div class="col-2 col-sm-2">
-                                                <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">조회일자</span>
-                                                    <input type="text"  class="form-control datetimepicker" id="frdate02" autocomplete="off"  placeholder="Y-m-d"     >
-                                                </div> 
-                                            </div>   
-                                            <div class="col-2 col-sm-2"> 
-                                                <div class="input-group input-group-sm mb-3"> 
-                                                    <input type="text"  class="form-control datetimepicker" id="todate02" autocomplete="off"  placeholder="Y-m-d"     >
-                                                </div>
-                                            </div> 
-                                            <div class="col-2 col-sm-2">
-                                                <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">거래처</span> 
-                                                    <input class="form-control form-control-sm" id="bcifname" type="text"    autocomplete="off"  placeholder=""     >
-                                                    <input class="form-control form-control-sm" id="bacorp1" type="hidden"  />
-                                                    <input class="form-control form-control-sm" id="bacorp2" type="hidden"  />
-                                                    <input class="form-control form-control-sm" id="bacorp3" type="hidden"  />
-                                                    <input class="form-control form-control-sm" id="bacode" type="hidden"  /> 
-                                                    <input class="form-control form-control-sm" id="bjpbgubn" type="hidden"  /> 
-                                                    
-                                                </div>
-                                            </div>
-                                            <div class="col-2 col-sm-2">
-                                                <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">품명</span> 
-                                                    <input class="form-control form-control-sm" id="jpumnm02" type="text"    autocomplete="off"  placeholder=""     >
-                                                    <input class="form-control form-control-sm" id="jkey02" type="hidden"  /> 
-                                                    
-                                                </div>
-                                            </div> 
-                                            <div class="col-1 col-sm-1">  
-                                                <button class="btn btn-falcon-primary me-1 mb-1 btn-sm" id="listBtn02" type="button"  >조회
-                                                </button>
-                                            </div> 
-                                        </div> 
-                                        <div class="container-fluid"> 
-                                            <div id="wtab01Grid_div"  style="overflow:scroll;   height:750px;    margin:0 auto; "></div>   
-                                        </div> 
                                     </div>
                                     <div class="tab-pane fade" id="step03"> 
                                         <div class="row gx-3" style="  margin: 10px 10px 10px;">   
@@ -683,15 +683,14 @@
 
         function searchList_rtn(arg1){ 
             switch(arg1){ 
-                case 'A': 
+                case 'B': 
                     var ls_frdate = document.getElementById('frdate').value; 
                     var ls_todate = document.getElementById('todate').value;          
                     var ls_bacode   = document.getElementById('acode').value;          
                     var ls_bcifname   = document.getElementById('cifname').value; 
                     var ls_jkey   = document.getElementById('jkey').value;    
                     var ls_jpumnm   = document.getElementById('jpumnm').value;  
-                    var ls_jpbgubn    = document.getElementById('jpbgubn').value;   
-                    console.log(ls_jpbgubn)
+                    var ls_jpbgubn    = document.getElementById('jpbgubn').value;    
                     var ls_misgubunflag = document.getElementById('misgubun').value; 
                      
                     if(ls_misgubunflag == "주문구분"){ 
@@ -713,8 +712,7 @@
                     if(ls_jpumnm == null || ls_jpumnm.length == 0 || ls_jpumnm == ""){  
                         ls_jkey = "%";
                     }   
-                    ls_abonsadam1 = "";
-                    console.log(ls_jkey)
+                    ls_abonsadam1 = ""; 
                     var ls_makflag = "1";
                     $.ajax({
                         url: '/app01m/index14/listwish',  
@@ -744,7 +742,7 @@
 
                     })     
                     break;
-                case 'B':   
+                case 'A':   
                     var ls_frdate = document.getElementById('frdate02').value; 
                     var ls_todate = document.getElementById('todate02').value;          
                     var ls_bacode   = document.getElementById('bacode').value;          
@@ -752,7 +750,7 @@
                     var ls_jkey   = document.getElementById('jkey02').value;    
                     var ls_jpumnm   = document.getElementById('jpumnm02').value;  
                     var ls_jpbgubn    = document.getElementById('bjpbgubn').value; 
-                        ls_misgubunflag = "%"; 
+                        ls_misgubunflag = "%";  
                     if(ls_frdate == null || ls_frdate.length == 0 || ls_frdate == ""){ 
                         alert("조회일자를 등록하세요") 
                         document.getElementById("frdate02").focus(); 

@@ -107,12 +107,8 @@
                     AND B.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
                     AND C.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
                     AND A.acorp1 + CAST(A.acorp2 as varchar) Like concat('%',#{cltcd},'%')
-                    AND isnull(A.abonsadam1,'')  Like concat('%',#{perid},'%')
                     AND B.misdate between #{frdate} and #{todate}
-                    AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
-                    AND Isnull(B.devflag, '0') Like concat('%',#{devflag},'%')
                     AND Isnull(C.misgubun, '') Like concat('%',#{misgubun},'%')
-                    AND Isnull(C.makflag, '0') Like concat('%',#{makflag},'%')
                   ORDER BY B.misdate desc, B.misnum, B.seq
         ]]>
 
@@ -780,7 +776,7 @@
 
     <update id="UpdateDA024" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
         UPDATE tb_da024 SET
-        fixflag=#{fixflag}
+        fixflag=#{fixflag}, fixdate=#{fixdate}, fixdatetime = getdate()
         where misdate=#{misdate} and misnum=#{misnum} and  seq=#{seq} and cltcd = #{cltcd} and misgubun = #{misgubun}
     </update>
 
