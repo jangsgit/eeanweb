@@ -2350,8 +2350,9 @@
                     uamt: wtab02Dto[i]["uamt"], 
                     samt: wtab02Dto[i]["samt"],  
                     cltcd: wtab02Dto[i]["cltcd"],  
-                    inname: wtab02Dto[i]["inname"],       
-                    misgubun: ls_misgubun,     
+                    inname: wtab02Dto[i]["inname"],        
+                    misgubun: wtab02Dto[i]["misgubun"],            
+                    misgubuntxt: ls_misgubun,     
                     fixdate: wtab02Dto[i]["fixdate"],   
                     fixdatetime: wtab02Dto[i]["fixdatetime"],  
                     unsongnum: ls_unsongnum, 
@@ -2462,7 +2463,7 @@
             cols.width = 120;  
             wtab02Grid.columns.push(cols);   
             cols = new wijmo.grid.Column(); 
-            cols.binding = 'misgubun'; 
+            cols.binding = 'misgubuntxt'; 
             cols.header = '구분';
             cols.align = "center"; 
             cols.width = 60;  

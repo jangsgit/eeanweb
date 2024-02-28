@@ -3450,7 +3450,7 @@ public class App01CrudController {
             }
             indexDa024Dto.setMisgubun(mflag);
             indexDa024Dto.setJpbgubn(jpbgubn);
-            log.info("jpbgubn 222=====>" + jpbgubn);
+            //log.info("jpbgubn 222=====>" + jpbgubn);
             indexDa024ListDto = service14.SelectDa026ListJpum(indexDa024Dto);
             model.addAttribute("indexDa024ListDto",indexDa024ListDto);
 
@@ -3487,6 +3487,13 @@ public class App01CrudController {
                     indexDa024Dto.setCltcd(cltcdarr.get(i));
                     indexDa024Dto.setMisgubun(gubunarr.get(i));
                     indexDa024Dto.setFixdate(getToDate());
+                    log.info("mflag  =====>" + mflag);
+                    log.info("getMisdate  =====>" + indexDa024Dto.getMisdate());
+                    log.info("getMisnum  =====>" + indexDa024Dto.getMisnum());
+                    log.info("getSeq  =====>" + indexDa024Dto.getSeq());
+                    log.info("getCltcd  =====>" + indexDa024Dto.getCltcd());
+                    log.info("getMisgubun  =====>" + indexDa024Dto.getMisgubun());
+                    log.info("setFixdate  =====>" + indexDa024Dto.getFixdate());
                     if (mflag.equals("AA")){
                         indexDa024Dto.setFixflag("1");
                         result = service14.UpdateDA024(indexDa024Dto);
@@ -3495,6 +3502,7 @@ public class App01CrudController {
                         result = service14.UpdateDA024Dev(indexDa024Dto);
                     }
 
+                    log.info("result  =====>" + result);
                     //출력(확정)취소는 없앰. 7.23
 //                    if(fixflagarr.get(i).equals("0")){
 //                        indexDa024Dto.setFixflag("1");
