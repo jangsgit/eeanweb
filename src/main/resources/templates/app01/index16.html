@@ -540,6 +540,7 @@
                 columns: [     
                     // { binding: 'active', header: '선택', align: "center", width: 80  ,dataType:3,allowSorting: false, dataType: wijmo.DataType.Boolean  }, 
                     { binding: 'misdate', header: '주문일자', align: "center", width: 120 }, 
+                    { binding: 'fixdate', header: '출력일자', align: "center", width: 120 }, 
                     { binding: 'misnum', header: '주문번호', align: "center", width: 80 },  
                     { binding: 'seq', header: '순번', align: "center", width: 80 },  
                     { binding: 'acorp', header: '거래처', align: "center", width: 150 , },  
@@ -2298,6 +2299,7 @@
             var ls_remark01 = "";
             var ls_remark02 = "";
             var ls_unsongnum = "";
+            var ls_misgubun = "";
             for (var i = 0; i < wtab02Dto.length; i++) {
                 if(wtab02Dto[i]["fixflag"] == "1"){
                     bfixflag = true;
@@ -2323,7 +2325,14 @@
                     ls_unsongnum = wtab02Dto[i]["unsongnum"];
                 }else{
                     ls_unsongnum = "";
-                }     
+                }    
+                if(wtab02Dto[i]["misgubun"] == "AA"){
+                    ls_misgubun = "본사";
+                }else if(wtab02Dto[i]["misgubun"] == "BB"){
+                    ls_misgubun = "거래처";
+                }else if(wtab02Dto[i]["misgubun"] == "CC"){
+                    ls_misgubun = "사원";
+                } 
                 wtab02_data.push({
                     id: i, 
                     index: cnt,
@@ -2342,7 +2351,9 @@
                     samt: wtab02Dto[i]["samt"],  
                     cltcd: wtab02Dto[i]["cltcd"],  
                     inname: wtab02Dto[i]["inname"],       
-                    misgubun: wtab02Dto[i]["misgubun"],    
+                    misgubun: ls_misgubun,     
+                    fixdate: wtab02Dto[i]["fixdate"],   
+                    fixdatetime: wtab02Dto[i]["fixdatetime"],  
                     unsongnum: ls_unsongnum, 
                     remarkaa: ls_remark01,  
                     remarkbb: ls_remark02,   
@@ -2369,6 +2380,12 @@
             cols.align = "center";
             cols.width = 150; 
             wtab02Grid.columns.push(cols); 
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'fixdatetime';
+            cols.header = '출력일자';
+            cols.align = "center";
+            cols.width = 200;  
+            wtab02Grid.columns.push(cols);  
             cols = new wijmo.grid.Column(); 
             cols.binding = 'misnum';
             cols.header = '주문번호';
@@ -2443,7 +2460,13 @@
             cols.align = "center";
             cols.aggregate = 'Sum';
             cols.width = 120;  
-            wtab02Grid.columns.push(cols);     
+            wtab02Grid.columns.push(cols);   
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'misgubun'; 
+            cols.header = '구분';
+            cols.align = "center"; 
+            cols.width = 60;  
+            wtab02Grid.columns.push(cols);         
             cols = new wijmo.grid.Column(); 
             cols.binding = 'remarkaa'; 
             cols.header = '본사비고';
@@ -2826,10 +2849,10 @@
             cols.width = 120;  
             wtab05Grid.columns.push(cols);   
             cols = new wijmo.grid.Column(); 
-            cols.binding = 'pname';
-            cols.header = '품목';
+            cols.binding = 'misnum';
+            cols.header = '전표번호';
             cols.align = "left";
-            cols.width = 150;  
+            cols.width = 100;  
             wtab05Grid.columns.push(cols);  
             cols = new wijmo.grid.Column(); 
             cols.binding = 'qty';
@@ -3424,7 +3447,7 @@
         document.getElementById('todate').value = ls_today;
         document.getElementById('ipdate').value = ls_today;
         document.getElementById('frdate02').value = ls_frday;
-        document.getElementById('todate02').value = ls_today; 
+        document.getElementById('todate02').value = ls_today;  
         // document.getElementById('todate').value = ls_today;
     }
 

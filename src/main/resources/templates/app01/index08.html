@@ -530,7 +530,7 @@
                         data: { 
                             "frdate"      : ls_frdate,
                             "todate"      : ls_todate,
-                            "acode"      : ls_cifname,  
+                            "acode"      : ls_cifname,   
                             "jkey"      : ls_jpumnm,   
                             "perid"      : ls_abonsadam1,  
                             "fixflag"    : ls_misfixflag,
@@ -642,7 +642,9 @@
                     samt: wtab02Dto[i]["samt"],  
                     cltcd: wtab02Dto[i]["cltcd"],  
                     inname: wtab02Dto[i]["inname"],       
-                    misgubun: wtab02Dto[i]["misgubun"],       
+                    misgubun: wtab02Dto[i]["misgubun"],     
+                    fixdate: wtab02Dto[i]["fixdate"],   
+                    fixdatetime: wtab02Dto[i]["fixdatetime"],       
                     fixflag: bfixflag,                          
                 });
                 cnt++;
@@ -705,6 +707,12 @@
             cols.header = '주문일자';
             cols.align = "center";
             cols.width = 150; 
+            wtab02Grid.columns.push(cols); 
+            cols = new wijmo.grid.Column();  
+            cols.binding = 'fixdatetime';
+            cols.header = '출력일자';
+            cols.align = "center";
+            cols.width = 200; 
             wtab02Grid.columns.push(cols); 
             // cols = new wijmo.grid.Column(); 
             // cols.binding = 'misnum';
@@ -1118,6 +1126,8 @@
         document.getElementById('todate').value = ls_today; 
         document.getElementById('frdate02').value = ls_frday;
         document.getElementById('todate02').value = ls_today; 
+        document.getElementById('misfixflag').value = "1"; 
+        
         // document.getElementById('todate').value = ls_today;
     }
 

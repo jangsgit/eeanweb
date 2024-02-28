@@ -68,6 +68,7 @@ public class IndexDa024Dto {
     private String jpbgubn;
     private String deltime;
     private String fixdate;
+    private String fixdatetime;
 
 
 }
