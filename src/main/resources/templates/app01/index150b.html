@@ -1210,6 +1210,7 @@ aria-hidden="true">
                     var ls_bcifname   = document.getElementById('bcifname').value; 
                     var ls_abonsadam1   = document.getElementById('abonsadam1').value;  
                     var ls_makflag   = document.getElementById('makflag01').value; 
+                    var ls_jpbgubn = document.getElementById('jpbgubn').value;
                     if(ls_frdate == null || ls_frdate.length == 0 || ls_frdate == ""){ 
                         alert("조회일자를 등록하세요") 
                         document.getElementById("frdate").focus(); 
@@ -1246,6 +1247,7 @@ aria-hidden="true">
                             "fixflag"    : '%',
                             "devflag"    : '%',
                             "misgubun"    : '%',
+                            "jpbgubn"    : ls_jpbgubn,
                             "makflag"    : ls_makflag,
                             "mflag"  : 'CC'   ,  
                         },    
@@ -1270,6 +1272,7 @@ aria-hidden="true">
                     var ls_dcifname   = document.getElementById('dcifname').value; 
                     var ls_abonsadam1   = document.getElementById('abonsadam1').value 
                     var ls_makflag   = document.getElementById('makflag02').value; 
+                    var ls_jpbgubn = document.getElementById('jpbgubn').value;
                     if(ls_frdate == null || ls_frdate.length == 0 || ls_frdate == ""){ 
                         alert("조회일자를 등록하세요") 
                         document.getElementById("frdate").focus(); 
@@ -1286,7 +1289,10 @@ aria-hidden="true">
                     }     
                     if(ls_dcifname == null || ls_dcifname.length == 0 || ls_dcifname == ""){  
                         ls_bacode = "%";
-                    }   
+                    }     
+                    if(ls_jpbgubn == null || ls_jpbgubn.length == 0 || ls_jpbgubn == ""){  
+                        ls_jpbgubn = "%";
+                    }  
                     if(ls_abonsadam1 == null || ls_abonsadam1.length == 0 || ls_abonsadam1 == ""){ 
                         alert("사원코드가 없습니다. 다시 로그인하세요.") 
                         document.getElementById("pernm").focus(); 
@@ -1308,7 +1314,7 @@ aria-hidden="true">
                             "makflag"    : ls_makflag,
                             "misgubun"    : '%', 
                             "mflag"  : 'CC'   ,    
-                            "jpbgubn" :'%',    
+                            "jpbgubn" :ls_jpbgubn,    
                         },  
                         async:false,
                         success:function(data){      

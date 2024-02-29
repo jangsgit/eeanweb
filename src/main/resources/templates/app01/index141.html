@@ -387,6 +387,7 @@
                     var ls_bacode   = document.getElementById('bacode').value;    
                     var ls_bcifname   = document.getElementById('bcifname').value; 
                     var ls_abonsadam1   = document.getElementById('abonsadam1').value; 
+                    var ls_bjpbgubn = document.getElementById('bjpbgubn').value;  
                     
                     if(ls_frdate == null || ls_frdate.length == 0 || ls_frdate == ""){ 
                         alert("조회일자를 등록하세요") 
@@ -423,6 +424,7 @@
                             "fixflag"    : '%',
                             "devflag"    : '%',
                             "misgubun"    : '%',
+                            "jpbgubn"    : ls_bjpbgubn,
                             "makflag"    : ls_makflag,
                             "mflag"  : 'CC'   ,  
                         },    

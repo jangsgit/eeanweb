@@ -2103,6 +2103,7 @@
                     var ls_misfixflag = document.getElementById('misfixflag').value;  
                     var ls_misdevflag = document.getElementById('misdevflag').value; 
                     var ls_misgubun = document.getElementById('misgubun').value; 
+                    var ls_bjpbgubn = document.getElementById('bjpbgubn').value;  
                     
                     if(ls_frdate == null || ls_frdate.length == 0 || ls_frdate == ""){ 
                         alert("조회일자를 등록하세요") 
@@ -2142,6 +2143,7 @@
                             "fixflag"    : ls_misfixflag, 
                             "devflag"    : ls_misdevflag,
                             "misgubun"    : ls_misgubun,
+                            "jpbgubn"    : ls_bjpbgubn,
                             "makflag"    : '1',
                             "mflag"  : 'AA'   ,  
                         }, 
@@ -2232,6 +2234,7 @@
                     var ls_misgubunflag = document.getElementById('misgubunflag').value; 
                     var ls_jkey = document.getElementById('jkey').value;  
                     var ls_jpumnm = document.getElementById('jpumnm').value; 
+                    var ls_bjpbgubn = document.getElementById('bjpbgubn').value;  
                     
                     if(ls_wishfixflag == "상태구분"){ 
                         ls_wishfixflag = "%";
@@ -2254,6 +2257,9 @@
                     }      
                     if(ls_jpumnm == null || ls_jpumnm.length == 0 || ls_jpumnm == ""){  
                         ls_jkey = "%";
+                    }      
+                    if(ls_bjpbgubn == null || ls_bjpbgubn.length == 0 || ls_bjpbgubn == ""){  
+                        ls_bjpbgubn = "%";
                     }  
                     ls_abonsadam1 = "";
                     $.ajax({
@@ -2269,7 +2275,7 @@
                             "misgubun"    : ls_misgubunflag, 
                             "makflag"    : '1',
                             "mflag"  : 'AA'   ,    
-                            "jpbgubn" :'%', 
+                            "jpbgubn" :ls_bjpbgubn, 
                         }, 
                         async:false,
                         success:function(data){      

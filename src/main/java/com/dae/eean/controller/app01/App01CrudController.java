@@ -2142,6 +2142,7 @@ public class App01CrudController {
                                   @RequestParam("devflag") String devflag,
                                   @RequestParam("perid") String perid,
                                   @RequestParam("misgubun") String misgubun,
+                                  @RequestParam("jpbgubn") String jpbgubn,
                                   @RequestParam("makflag") String makflag,
                                   @RequestParam("mflag") String mflag,
                                   Model model, HttpServletRequest request) throws Exception{
@@ -2165,12 +2166,16 @@ public class App01CrudController {
             month = todate.substring(5,7) ;
             day   = todate.substring(8,10) ;
             todate = year + month + day ;
+            if(jpbgubn == null || jpbgubn.equals("")){
+                jpbgubn = "%";
+            }
             indexDa024Dto.setFrdate(frdate);
             indexDa024Dto.setTodate(todate);
             indexDa024Dto.setCltcd(acode);
             indexDa024Dto.setFixflag(fixflag);
             indexDa024Dto.setDevflag(devflag);
             indexDa024Dto.setMakflag(makflag);
+            indexDa024Dto.setJpbgubn(jpbgubn);
             if(perid == null || perid.equals("")){
                 perid = "%";
             }

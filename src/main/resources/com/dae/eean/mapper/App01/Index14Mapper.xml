@@ -78,11 +78,13 @@
                          B.fixdate,  CONVERT(CHAR(19),B.fixdatetime,20) as fixdatetime
            from  TB_DA024 B WITH (NOLOCK) ,
                  cif A WITH (NOLOCK) Left outer JOIN INSA D ON  A.abonsadam1 = D.insano,
-                 TB_DA023 C WITH (NOLOCK)
+                 TB_DA023 C WITH (NOLOCK),
+                 jcode3 E WITH (NOLOCK)
            where B.misdate + B.misnum = C.misdate + C.misnum AND B.misgubun = C.misgubun
              AND isnull(C.delflag, '') <> 'Y'
              AND B.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
              AND C.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
+             AND B.pcode = E.jkey
             AND A.acorp1 + CAST(A.acorp2 as varchar) = #{cltcd}
              AND isnull(A.abonsadam1,'')  Like concat('%',#{perid},'%')
             AND B.misdate between #{frdate} and #{todate}
@@ -90,6 +92,7 @@
             AND Isnull(B.devflag, '0') Like concat('%',#{devflag},'%')
             AND Isnull(C.misgubun, '') Like concat('%',#{misgubun},'%')
             AND Isnull(C.makflag, '0') Like concat('%',#{makflag},'%')
+             and isnull(E.jpb_gubn,'') Like concat('%',#{jpbgubn},'%')
             ORDER BY B.misdate desc, B.misnum, B.seq
         ]]>
 
@@ -122,11 +125,13 @@
                          B.fixdate,  CONVERT(CHAR(19),B.fixdatetime,20) as fixdatetime
                   from  TB_DA024 B WITH (NOLOCK) ,
                         cif A WITH (NOLOCK) Left outer JOIN INSA D ON A.abonsadam1 = D.insano,
-                        TB_DA023 C WITH (NOLOCK)
+                        TB_DA023 C WITH (NOLOCK),
+                        jcode3 E WITH (NOLOCK)
            where B.misdate + B.misnum = C.misdate + C.misnum AND B.misgubun = C.misgubun
              AND isnull(C.delflag, '') <> 'Y'
              AND B.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
              AND C.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
+             AND B.pcode = E.jkey
             AND A.acorp1 + CAST(A.acorp2 as varchar) Like concat('%',#{cltcd},'%')
              AND isnull(A.abonsadam1,'')  Like concat('%',#{perid},'%')
             AND B.misdate between #{frdate} and #{todate}
@@ -134,6 +139,7 @@
             AND Isnull(B.devflag, '0') Like concat('%',#{devflag},'%')
             AND Isnull(C.misgubun, '') Like concat('%',#{misgubun},'%')
             AND Isnull(C.makflag, '0') Like concat('%',#{makflag},'%')
+             and isnull(E.jpb_gubn,'') Like concat('%',#{jpbgubn},'%')
             ORDER BY  B.misdate desc, B.misnum, B.seq
         ]]>
 

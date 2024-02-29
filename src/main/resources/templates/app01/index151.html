@@ -380,6 +380,7 @@
                     var ls_todate = document.getElementById('todate').value;          
                     var ls_bacode   = document.getElementById('bacode').value;    
                     var ls_bcifname   = document.getElementById('bcifname').value;  
+                    var ls_jpbgubn = document.getElementById('bjpbgubn').value;  
                     
                     if(ls_frdate == null || ls_frdate.length == 0 || ls_frdate == ""){ 
                         alert("조회일자를 등록하세요") 
@@ -411,6 +412,7 @@
                             "fixflag"    : '%',
                             "devflag"    : '%',
                             "misgubun"    : '%',
+                            "jpbgubn"    : ls_jpbgubn,
                             "makflag"    : ls_makflag,
                             "mflag"  : 'BB'   ,  
                         },    
@@ -771,9 +773,9 @@
             document.getElementById('bcifname').value = ls_custnm;   
             
             if(ls_perid.substr(0,2) == "02"){
-                document.getElementById('jpbgubn').value = "P";
+                document.getElementById('bjpbgubn').value = "P";
             }else{
-                document.getElementById('jpbgubn').value = "B";
+                document.getElementById('bjpbgubn').value = "B";
             }   
              
         // var $frdate = $('#frdate');

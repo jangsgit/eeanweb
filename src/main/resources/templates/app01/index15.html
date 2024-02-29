@@ -1220,6 +1220,7 @@ aria-hidden="true">
                     var ls_ipdate = document.getElementById('ipdate').value;          
                     var ls_bacode   = document.getElementById('acode').value; 
                     var ls_makflag   = document.getElementById('makflag01').value; 
+                    var ls_jpbgubn = document.getElementById('jpbgubn').value; 
                     if(ls_frdate == null || ls_frdate.length == 0 || ls_frdate == ""){ 
                         alert("조회일자를 등록하세요") 
                         document.getElementById("frdate").focus(); 
@@ -1253,6 +1254,7 @@ aria-hidden="true">
                             "fixflag"    : '%',
                             "devflag"    : '%',
                             "misgubun"    : '%',
+                            "jpbgubn"    : ls_jpbgubn,
                             "makflag"    : ls_makflag,
                             "mflag"  : 'AA'   
                         }, 
@@ -1275,6 +1277,7 @@ aria-hidden="true">
                     var ls_ipdate = document.getElementById('ipdate').value;          
                     var ls_bacode   = document.getElementById('acode').value; 
                     var ls_makflag   = document.getElementById('makflag02').value; 
+                    var ls_jpbgubn = document.getElementById('jpbgubn').value; 
                     if(ls_frdate == null || ls_frdate.length == 0 || ls_frdate == ""){ 
                         alert("조회일자를 등록하세요") 
                         document.getElementById("frdate").focus(); 
@@ -1295,7 +1298,10 @@ aria-hidden="true">
                     if(ls_makflag == null || ls_makflag.length == 0 || ls_makflag == "" || ls_makflag == "구분"){  
                         ls_makflag = "%"               
                     }  
-                    console.log("ls_bacode02-->" + ls_bacode)
+                    if(ls_jpbgubn == null || ls_jpbgubn.length == 0 || ls_jpbgubn == ""){  
+                        ls_jpbgubn = "%";
+                    }  
+                    //console.log("ls_bacode02-->" + ls_bacode)
                     ls_perid = "";
                     $.ajax({
                         url: '/app01m/index14/listwish',  
@@ -1310,7 +1316,7 @@ aria-hidden="true">
                             "makflag"    : ls_makflag,  
                             "mflag"  : 'AA'   ,  
                             "misgubun"    : '%',  
-                            "jpbgubn" :'%', 
+                            "jpbgubn" :ls_jpbgubn, 
                         }, 
                         async:false,
                         success:function(data){      
