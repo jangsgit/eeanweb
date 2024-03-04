@@ -738,8 +738,8 @@
             return ; 
         }               
         var ls_acode = document.getElementById('acode').value;                                        
-                 console.log('ls_acode') ;
-                 console.log(ls_acode) ;
+                 //console.log('ls_acode') ;
+                 //console.log(ls_acode) ;
 
         $.ajax({
             url: '/app01m/index02/del',   
@@ -750,9 +750,10 @@
             async:false,
             success:function(data){ 
                 if(data == "success"){  
-                    alert("삭제되었습니다.")
+                    alert("삭제되었습니다.")                    
                     // console.log("delete", data);                     
                     $("#retrieveBtn").trigger("click"); 
+                    clear_rtn()
                     // listUp();   
                 }else{
                     chkLogin(data)      
@@ -793,13 +794,13 @@
             document.getElementById('aemail').value = "";
             document.getElementById('ahand').value = "";
             document.getElementById('abonsadam1').value = "";
-            document.getElementById('abonsadam2').value = "";
-            document.getElementById('abonsadam3').value = "";
-            document.getElementById('adomain').value = "";
+            //document.getElementById('abonsadam2').value = "";
+            //document.getElementById('abonsadam3').value = "";
+            //document.getElementById('adomain').value = "";
             document.getElementById('afax').value = "";
             document.getElementById('inname01').value = "";
-            document.getElementById('inname02').value = "";
-            document.getElementById('inname03').value = "";  
+            //document.getElementById('inname02').value = "";
+            //document.getElementById('inname03').value = "";  
     }
     // <!-- 저장 스크립트 시작 -->
     function save_btn(){   
@@ -998,7 +999,8 @@
                     if(data == "success"){
                         alert("저장되었습니다.")
                         // console.log(formData);
-                        searchList_rtn("%");              
+                        searchList_rtn("%");    
+                        clear_rtn()          
                     }else{   
                         chkLogin(data)                            
                         alert("저장중 오류가 발생했습니다. 관리자에게 문의하세요.")
