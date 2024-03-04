@@ -71,6 +71,7 @@
                                             <div class="col-2 col-sm-2"> 
                                                 <div class="input-group input-group-sm mb-3"> 
                                                     <input type="text"  class="form-control datetimepicker" id="todate" autocomplete="off"  placeholder="Y-m-d"     >
+                                                    <input class="form-control form-control-sm" id="jpbgubn" type="hidden"  />
                                                 </div>
                                             </div> 
                                             <!-- <div class="col-2 col-sm-2">
@@ -748,9 +749,13 @@
             if(searchCode == null || searchCode.length == 0 || searchCode == ""){ 
                 searchCode = "%"         ;
             }     
+            ls_jpbgubn = document.getElementById('jpbgubn').value;
+            if(ls_jpbgubn == null || ls_jpbgubn.length == 0 || ls_jpbgubn == ""){ 
+                ls_jpbgubn = "%"         ;
+            }  
             let ls_conacorp1 = "%";  
             let ls_conagita = "%";   
-            let ls_abonsadam1 = "%";
+            let ls_abonsadam1 = "%"; 
             $.ajax({
                         url: '/app01m/index02/listtot',  
                     type:"POST",
@@ -759,6 +764,7 @@
                         "conacorp" :searchCode, 
                         "conagita" :ls_conagita, 
                         "abonsadam1" :ls_abonsadam1, 
+                        "jpbgubn" : ls_jpbgubn,   
                     }, 
                     async:false,
                     success:function(data){  
