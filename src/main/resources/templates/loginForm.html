@@ -227,7 +227,16 @@
                   wrongPasswd();
                 }else{
                   insertLogin(); 
-                    window.location.href = '/auth/emmsdashboard';  
+                    if(ls_flag == 'AA'){
+                      window.location.href = '/app01/index14';  
+                    }else if(ls_flag =='BB'){
+                      window.location.href = '/app01/index15';  
+                    }else if(ls_flag =='CC'){
+                      window.location.href = '/app01/index14';  
+                    }else{
+                      window.location.href = '/auth/emmsdashboard';  
+                    }
+                    
                 
                   // if(data == "success"){
                   //     alert("등록 되었습니다.");
