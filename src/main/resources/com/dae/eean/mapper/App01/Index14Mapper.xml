@@ -475,17 +475,13 @@
                  TB_DA023 C WITH (NOLOCK) ,
                  cif A WITH (NOLOCK)  Left outer JOIN INSA D ON A.abonsadam1 = D.insano
            where B.misdate  = C.misdate AND B.misnum = C.misnum AND B.misgubun = C.misgubun
-             AND isnull(C.delflag, '') <> 'Y'
              AND C.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
              AND B.pcode = E.jkey
              AND isnull(C.makflag, '0') = '1'
-             and isnull(B.fixflag, '0') = '1'
-            AND A.acorp1 + CAST(A.acorp2 as varchar) Like concat('%',#{cltcd},'%')
              AND isnull(B.pcode,'')  Like concat('%',#{pcode},'%')
              AND isnull(B.misgubun,'')  Like concat('%',#{misgubun},'%')
             AND B.misdate between #{frdate} and #{todate}
             AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
-            AND Isnull(C.makflag, '0') Like concat('%',#{makflag},'%')
             and isnull(E.jpb_gubn,'') Like concat('%',#{jpbgubn},'%')
             ORDER BY B.pcode,  B.misdate, B.misnum, B.seq
         ]]>
@@ -798,7 +794,7 @@
 
     <update id="UpdateDA024Qty" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
         UPDATE tb_da024 SET
-          qty=#{qty}, samt=#{samt}, addamt=#{addamt}, amt=#{amt}
+          qty=#{qty}, samt=#{samt}, addamt=#{addamt}, amt=#{amt},   makflag = '1'
         where misdate=#{misdate} and misnum=#{misnum} and seq=#{seq} and cltcd = #{cltcd}
     </update>
 

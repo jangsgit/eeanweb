@@ -1122,47 +1122,47 @@ aria-hidden="true">
         //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 모달 주문등록@@@@@@@@@@@@@@@@@@@@@@@@@@@
         //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$   
         document.getElementById("OrderBtnSave").addEventListener("click",function(){  
+            savechk_rtn()
             var ls_mgubun = document.getElementById('mgubun').value; 
             var arg1 = document.getElementById('mjpumnm').value; 
             var arg2 = document.getElementById('mjkey').value; 
             var arg3 = document.getElementById('mremark').value; 
             var arg4 = 1; //document.getElementById('mjqty').value; 
-            savechk_rtn()
             saveremark_btn(arg1, arg2, arg3, arg4, 'B')
             $("#winordermodal_btn").trigger("click"); 
         })  
         //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 모달 예약등록@@@@@@@@@@@@@@@@@@@@@@@@@@@
         //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$  
         document.getElementById("OrderBtnSave02").addEventListener("click",function(){  
+            savewishchk_rtn()
             var ls_mgubun = document.getElementById('mgubun02').value; 
             var arg1 = document.getElementById('mjpumnm02').value; 
             var arg2 = document.getElementById('mjkey02').value; 
             var arg3 = document.getElementById('mremark02').value; 
             var arg4 = 1; //document.getElementById('mjqty').value; 
-            savewishchk_rtn()
             saveremark_btn(arg1, arg2, arg3, arg4, 'C')
             $("#winwishmodal_btn").trigger("click"); 
         })  
         //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$  
         document.getElementById("DelBtnSave").addEventListener("click",function(){  
+            savechk_rtn()
             var ls_mgubun = document.getElementById('mgubun').value; 
             var arg1 = document.getElementById('mjpumnm').value; 
             var arg2 = document.getElementById('mjkey').value; 
             var arg3 = document.getElementById('mremark').value; 
             var arg4 = 1; //document.getElementById('mjqty').value; 
-            savechk_rtn()
             delremark_btn(arg1, arg2, arg3, arg4, 'B')
             $("#winordermodal_btn").trigger("click"); 
         })  
         //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 모달 예약등록@@@@@@@@@@@@@@@@@@@@@@@@@@@ 
         //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$  
         document.getElementById("DelBtnSave02").addEventListener("click",function(){  
+            savewishchk_rtn()
             var ls_mgubun = document.getElementById('mgubun02').value; 
             var arg1 = document.getElementById('mjpumnm02').value; 
             var arg2 = document.getElementById('mjkey02').value; 
             var arg3 = document.getElementById('mremark02').value; 
             var arg4 = 1; //document.getElementById('mjqty').value; 
-            savewishchk_rtn()
             delremark_btn(arg1, arg2, arg3, arg4, 'C')
             $("#winwishmodal_btn").trigger("click"); 
         })  

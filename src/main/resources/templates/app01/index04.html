@@ -1314,12 +1314,17 @@
             if(searchCode == null || searchCode.length == 0 || searchCode == ""){ 
                 searchCode = "%"         ;
             }     
+            var ls_jpbgubn = document.getElementById('jpbgubn').value;   
+            if(ls_jpbgubn == null || ls_jpbgubn.length == 0 || ls_jpbgubn == ""){ 
+                ls_jpbgubn = "%"         ;
+            }  
             //console.log(searchCode)
             $.ajax({
                     url: '/app01m/index03/list',  
                     type:"POST",
                     data: { 
                             "searchtxt" :searchCode, 
+                            "jpbgubn" :ls_jpbgubn, 
                     }, 
                     async:false,
                     success:function(data){   

@@ -272,7 +272,7 @@
                     { binding: 'uamt', header: '단가', align: "center", width: 100 },  
                     { binding: 'samt', header: '금액', align: "center", width: 150 ,  aggregate: 'Sum'},   
                     
-                ], 
+                ],  
                 itemsSource: view_p01tab02page, 
             }); 
                  
@@ -648,6 +648,7 @@
             cols.width = 120;  
             wtab02Grid.columns.push(cols);    
             cols = new wijmo.grid.Column();  
+            wtab02Grid.collapseGroupsToLevel(1);
         }
             
         function tabC_grid(data){
@@ -727,6 +728,7 @@
             cols.aggregate = 'Sum';
             cols.width = 150;  
             wtab04Grid.columns.push(cols);   
+            wtab04Grid.collapseGroupsToLevel(2);
  
         } 
            

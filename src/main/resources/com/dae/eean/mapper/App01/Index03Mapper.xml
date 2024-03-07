@@ -161,7 +161,8 @@
                  jbonsa_code, jsayong_gubn, jpum, jgugek, jsize,   convert(int , jchgoga0)  as jchgoga0, jbigo,
                  convert(integer, DBO.DF_TB_PCODE_JQTY(jkey,  #{frdate},  #{todate}) )   as jqty
         from JCODE3 WITH (NOLOCK)
-        WHERE isnull(jmodel_code,'')   = #{jmodel_code} and isnull(jcustomer_code,'')   = #{jcustomer_code}
+        WHERE isnull(jmodel_code,'')   = #{jmodel_code}
+          and isnull(jcustomer_code,'')   = #{jcustomer_code}
           and jsayong_gubn <> '4'
         ORDER BY jmodel_code, CONVERT(float, jcolor_code3),jkey
         ]]>
@@ -188,6 +189,7 @@
             WHERE (isnull(jpum,'') Like concat('%',#{jpum},'%')  or isnull(jkey,'') Like concat('%',#{jpum},'%'))
               and jsayong_gubn <> '4'
               and isnull(delflag,'0') = '0'
+              and isnull(jpb_gubn,'') Like concat('%',#{jpb_gubn},'%')
             ORDER BY jkey
         ]]>
     </select>

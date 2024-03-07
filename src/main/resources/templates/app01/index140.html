@@ -1874,9 +1874,10 @@
                     var ls_todate = document.getElementById('todate').value;   
                     var ls_ipdate = document.getElementById('ipdate').value;          
                     var ls_bacode   = document.getElementById('acode').value;    
-                    var ls_bcifname   = document.getElementById('bcifname').value; 
+                    var ls_bcifname   = document.getElementById('cifname').value; 
                     var ls_abonsadam1   = document.getElementById('abonsadam1').value;    
                     var ls_makflag   = document.getElementById('makflag01').value; 
+                    var ls_jpbgubn  = document.getElementById('jpbgubn').value ; 
                     
                     if(ls_frdate == null || ls_frdate.length == 0 || ls_frdate == ""){ 
                         alert("조회일자를 등록하세요") 
@@ -1916,6 +1917,7 @@
                             "misgubun"    : '%',
                             "makflag"    : ls_makflag,
                             "mflag"  : 'CC'   ,   
+                            "jpbgubn"  : ls_jpbgubn  ,  
                         },   
                         async:false,
                         success:function(data){     
@@ -1938,6 +1940,7 @@
                     var ls_dcifname   = document.getElementById('bcifname').value; 
                     var ls_abonsadam1   = document.getElementById('abonsadam1').value;    
                     var ls_makflag   = document.getElementById('makflag02').value; 
+                    var ls_jpbgubn  = document.getElementById('jpbgubn').value ; 
                     if(ls_frdate == null || ls_frdate.length == 0 || ls_frdate == ""){ 
                         alert("조회일자를 등록하세요") 
                         document.getElementById("frdate02").focus(); 
@@ -1976,7 +1979,7 @@
                             "perid"      : ls_abonsadam1, 
                             "makflag"    : ls_makflag,
                             "mflag"  : 'CC'   ,      
-                            "jpbgubn" :'%',  
+                            "jpbgubn" :ls_jpbgubn,  
                         }, 
                         async:false,
                         success:function(data){     

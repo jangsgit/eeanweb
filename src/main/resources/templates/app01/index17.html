@@ -1404,18 +1404,23 @@
             }   
             if(arg == "C"){
                 searchJcodeCode = document.getElementById('jpumnm03').value;   
-            }   
-            if(searchJcodeCode == null || searchJcodeCode.length == 0 || searchJcodeCode == ""){ 
-                searchJcodeCode = "%"         ;
             }     
+            var ls_jpbgubn = document.getElementById('bjpbgubn').value ; 
             let ls_conacorp1 = "%";  
             let ls_conagita = "%";   
             let ls_abonsadam1 = "%";
+            if(searchJcodeCode == null || searchJcodeCode.length == 0 || searchJcodeCode == ""){ 
+                searchJcodeCode = "%"         ;
+            }   
+            if(ls_jpbgubn == null || ls_jpbgubn.length == 0 || ls_jpbgubn == ""){ 
+                ls_jpbgubn = "%"         ;
+            }   
             $.ajax({
                     url: '/app01m/index03/list',  
                     type:"POST",
                     data: { 
                             "searchtxt" :searchJcodeCode, 
+                            "jpbgubn" :ls_jpbgubn, 
                     }, 
                     async:false,
                     success:function(data){  

@@ -308,6 +308,7 @@ public class App01CrudController {
     //제품등록
     @GetMapping(value="/index03/list")
     public Object App03List_index(@RequestParam("searchtxt") String searchtxt,
+                                  @RequestParam("jpbgubn") String jpbgubn,
                                   Model model, HttpServletRequest request) throws Exception{
         CommDto.setMenuTitle("제품등록");
         CommDto.setMenuUrl("기준정보>제품정보");
@@ -328,6 +329,7 @@ public class App01CrudController {
                 searchtxt = "%";
             }
             _index03Dto.setJpum(searchtxt);
+            _index03Dto.setJpb_gubn(jpbgubn);
             _index03List = service03.GetJpumList(_index03Dto);
             model.addAttribute("index03List",_index03List);
 
@@ -1505,6 +1507,7 @@ public class App01CrudController {
                 indexDa024Dto.setSeq(seq);
                 indexDa024Dto.setCltcd(acode);
                 indexDa024Dto.setMisgubun(mflag);
+                // 개별확정방식으로변경  장바구니에서 체크한것만 주문으로 넘어가도록 방식 변경 23.3.7
                 switch (mflag){
                     case "AA" :
                         indexDa024Dto.setRemarkaa(jremark);
@@ -1535,7 +1538,6 @@ public class App01CrudController {
                         indexDa024Dto.setMisnum(misnumArr.get(i));
                         indexDa024Dto.setSeq(seqArr.get(i));
                         indexDa024Dto.setQty(Integer.parseInt(misqty.get(i)));
-
                         _indexDa024Dto.setMisdate(indexDa024Dto.getMisdate());
                         _indexDa024Dto.setMisnum(indexDa024Dto.getMisnum());
                         _indexDa024Dto.setSeq(indexDa024Dto.getSeq());
@@ -2225,6 +2227,7 @@ public class App01CrudController {
                                   @RequestParam("misgubun") String misgubun,
                                   @RequestParam("makflag") String makflag,
                                   @RequestParam("mflag") String mflag,
+                                  @RequestParam("jpbgubn") String jpbgubn,
                                   Model model, HttpServletRequest request) throws Exception{
         CommDto.setMenuTitle("주문등록");
         CommDto.setMenuUrl("주문등록>주문현황");
@@ -2252,6 +2255,7 @@ public class App01CrudController {
             indexDa024Dto.setFixflag(fixflag);
             indexDa024Dto.setDevflag(devflag);
             indexDa024Dto.setMakflag(makflag);
+            indexDa024Dto.setJpbgubn(jpbgubn);
             if(perid == null || perid.equals("")){
                 perid = "%";
             }

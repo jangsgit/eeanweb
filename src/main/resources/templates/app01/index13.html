@@ -785,12 +785,16 @@
             if(arg == "B"){
                 searchCode = document.getElementById('bjpumnm').value;   
             } 
+            var ls_jpbgubn = document.getElementById('jpbgubn').value
             // if(arg == "C"){
             //     searchCode = document.getElementById('djpumnm').value;   
             // } 
             if(searchCode == null || searchCode.length == 0 || searchCode == ""){ 
                 searchCode = "%"         ;
             }     
+            if(ls_jpbgubn == null || ls_jpbgubn.length == 0 || ls_jpbgubn == ""){ 
+                ls_jpbgubn = "%"         ;
+            }   
             let ls_conacorp1 = "%";  
             let ls_conagita = "%";   
             let ls_abonsadam1 = "%";
@@ -799,6 +803,7 @@
                     type:"POST",
                     data: { 
                             "searchtxt" :searchCode, 
+                            "jpbgubn" :ls_jpbgubn, 
                     }, 
                     async:false,
                     success:function(data){  

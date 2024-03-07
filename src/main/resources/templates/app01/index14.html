@@ -1200,7 +1200,7 @@
             //수량
             if(arg4 == null ){ 
                 arg4 = 1         ;
-            }    
+            }     
             if(ls_tabchk == "B"  ){   
                 $.ajax({
                     url: '/app01m/index14/savecust',  
@@ -1845,9 +1845,10 @@
                     var ls_todate = document.getElementById('todate').value;   
                     var ls_ipdate = document.getElementById('ipdate').value;        
                     var ls_bacode   = document.getElementById('acode').value;   
-                    var ls_bcifname   = document.getElementById('bcifname').value; 
+                    var ls_bcifname   = document.getElementById('cifname').value; 
                     var ls_misgubun = document.getElementById('misgubun').value;   
                     var ls_makflag   = document.getElementById('makflag01').value; 
+                    var ls_jpbgubn  = document.getElementById('jpbgubn').value ; 
                     if(ls_frdate == null || ls_frdate.length == 0 || ls_frdate == ""){ 
                         alert("조회일자를 등록하세요") 
                         document.getElementById("frdate").focus(); 
@@ -1890,6 +1891,7 @@
                             "misgubun"    : ls_misgubun,
                             "makflag"    : ls_makflag,
                             "mflag"  : 'AA'   ,  
+                            "jpbgubn"  : ls_jpbgubn  ,  
                         },  
                         async:false,
                         success:function(data){     
@@ -1912,6 +1914,7 @@
                     var ls_dcifname   = document.getElementById('bcifname').value; 
                     var ls_misgubunflag = document.getElementById('misgubunflag').value;   
                     var ls_makflag   = document.getElementById('makflag02').value; 
+                    var ls_jpbgubn  = document.getElementById('jpbgubn').value ; 
                     if(ls_frdate == null || ls_frdate.length == 0 || ls_frdate == ""){ 
                         alert("조회일자를 등록하세요") 
                         document.getElementById("frdate02").focus(); 
@@ -1954,7 +1957,7 @@
                             "perid"      : ls_abonsadam1,    
                             "makflag"    : ls_makflag,
                             "mflag"  : 'AA'   ,  
-                            "jpbgubn" :'%', 
+                            "jpbgubn" :ls_jpbgubn, 
                         }, 
                         async:false,
                         success:function(data){     
