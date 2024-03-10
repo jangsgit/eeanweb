@@ -1690,6 +1690,7 @@ public class App01CrudController {
             ,@RequestParam( value =  "misdateArr[]") List<String> misdateArr
             ,@RequestParam( value =  "misnumArr[]") List<String> misnumArr
             ,@RequestParam( value =  "seqArr[]") List<String> seqArr
+            ,@RequestParam( value =  "cltcdArr[]") List<String> cltcdArr
             , Model model
             , HttpServletRequest request){
 
@@ -1720,7 +1721,7 @@ public class App01CrudController {
                         day = misdateArr.get(i).substring(8,10);
                         String ls_misdate = year + month + day ;
                         _index02Dto.setAcode(acode);
-                        indexDa024Dto.setCltcd(acode);
+                        indexDa024Dto.setCltcd(cltcdArr.get(i));
                         indexDa024Dto.setMisgubun(mflag);
                         indexDa024Dto.setMisdate(ls_misdate);
                         indexDa024Dto.setMisnum(misnumArr.get(i));
@@ -1729,11 +1730,11 @@ public class App01CrudController {
                         if (!result){
                             return "error";
                         }
+                        result = service14.DeleteDA023(indexDa024Dto);
+                        if (!result){
+                            //return "error";
+                        }
                     }
-                }
-                result = service14.DeleteDA023(indexDa024Dto);
-                if (!result){
-                   //return "error";
                 }
                 return "success";
             }
