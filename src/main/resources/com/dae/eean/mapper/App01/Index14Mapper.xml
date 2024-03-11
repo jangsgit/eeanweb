@@ -798,6 +798,12 @@
         where misdate=#{misdate} and misnum=#{misnum} and seq=#{seq} and cltcd = #{cltcd}
     </update>
 
+    <update id="UpdateDA024QtySame" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
+        UPDATE tb_da024 SET
+                qty=#{qty}, samt=#{samt}, addamt=#{addamt}, amt=#{amt}
+        where misdate=#{misdate} and misnum=#{misnum} and seq=#{seq} and cltcd = #{cltcd}
+    </update>
+
     <update id="UpdateDA024Amt" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
         UPDATE tb_da024 SET
                             qty=#{qty}, samt=#{samt}, addamt=#{addamt}, amt=#{amt}, uamt=#{uamt}

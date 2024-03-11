@@ -1193,7 +1193,7 @@ public class App01CrudController {
                             indexDa024Dto.setAddamt(0);
                             indexDa024Dto.setAmt(0);
                         }
-                        result = service14.UpdateDA024Qty(indexDa024Dto);
+                        result = service14.UpdateDA024QtySame(indexDa024Dto);
                         if (!result){
                             return "error";
                         }
