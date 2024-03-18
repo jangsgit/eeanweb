@@ -3110,8 +3110,8 @@ public class App01CrudController {
             }
             //indexDa024Dto.setMisgubun(mflag);
             //log.info("jpbgubn Exception =====>" + indexDa024Dto.getJpbgubn());
-            indexDa024Dto.setFrdate("20000101");
-            indexDa024Dto.setTodate(getToDate());
+            indexDa024Dto.setJfrdate("20000101");
+            indexDa024Dto.setJtodate(getToDate());
             if(acode.equals("%")){
                 indexDa024ListDto = service14.SelectDa026ListLike(indexDa024Dto);
             }else{

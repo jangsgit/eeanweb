@@ -28,6 +28,8 @@ public class IndexDa024Dto {
     private String pcolor;
     private String frdate;
     private String todate;
+    private String jfrdate;
+    private String jtodate;
     private String acorp;
     private String perid;
     private String pernm;
