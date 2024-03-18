@@ -15,6 +15,7 @@ public class IndexDa024Dto {
     private String psize;
     private String punit;
     private Integer qty;
+    private Integer jqty;
     private Integer uamt;
     private Integer samt;
     private Integer addamt;

@@ -637,7 +637,8 @@
                     // { binding: 'pbonsa', header: '코드', align: "center", width: 100 },  
                     // { binding: 'pmodel', header: '모델', align: "center", width: 100 },  
                     // { binding: 'pcolor', header: '컬러', align: "center", width: 100 },  
-                    { binding: 'qty', header: '수량', align: "center", width: 80 },  
+                    { binding: 'qty', header: '예약수량', align: "center", width: 80 },   
+                    { binding: 'jqty', header: '재고수량', align: "center", width: 80 },  
                     { binding: 'uamt', header: '단가', align: "center", width: 100 },  
                     { binding: 'samt', header: '금액', align: "center", width: 150 },    
                     { binding: 'remarkaa', header: '본사비고', align: "center", width: 100 },  
@@ -679,7 +680,14 @@
             function showCheckedCount02() {
                 let cnt = document.getElementById('checked-count02'), sel = wtab04Grid.rows.filter(r => r.isSelected);
                 //cnt.textContent = sel.length.toString();   
-                chkTabB = sel;       
+                let jqty = 0;
+                chkTabB = sel;    
+                for (var i = 0; i < sel.length; i++) { 
+                    jqty   = sel[i]._data.jqty; 
+                    if(jqty == 0){
+                        alert("재고수량을 확인하세요")
+                    }
+                }       
                 // for (var i = 0; i < sel.length; i++) { 
                 //     misdateWArr[i]   = sel[i]._data.misdate;
                 //     misnumWArr[i]   = sel[i]._data.misnum;
@@ -2961,7 +2969,8 @@
                     misgubun: wtab04Dto[i]["misgubun"],  
                     omisdate: wtab04Dto[i]["omisdate"],
                     omisnum: wtab04Dto[i]["omisnum"],     
-                    oseq: wtab04Dto[i]["oseq"],     
+                    oseq: wtab04Dto[i]["oseq"],       
+                    jqty: wtab04Dto[i]["jqty"],     
                     remarkaa: ls_remark01,  
                     remarkbb: ls_remark02,       
                     fixflag: bfixflag,                                           
@@ -3036,7 +3045,14 @@
             // wtab04Grid.columns.push(cols);   
             cols = new wijmo.grid.Column(); 
             cols.binding = 'qty';
-            cols.header = '수량';
+            cols.header = '예약수량';
+            cols.align = "center";
+            cols.aggregate = 'Sum';
+            cols.width = 80;  
+            wtab04Grid.columns.push(cols);   
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'jqty';
+            cols.header = '재고수량';
             cols.align = "center";
             cols.aggregate = 'Sum';
             cols.width = 80;  
