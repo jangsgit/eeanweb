@@ -728,37 +728,37 @@
 
     <delete id="DeleteDA023" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
         delete from tb_da023
-        where misdate = #{misdate} and misnum = #{misnum} and cltcd = #{cltcd} and misgubun = #{misgubun}
+        where misdate = #{misdate} and misnum = #{misnum} and cltcd = #{cltcd}
           and  (select count(*) as cnt  from tb_da024 with (NOLOCK) where misdate = #{misdate} and misnum=#{misnum} and misgubun = #{misgubun} and cltcd = #{cltcd} ) = 0
     </delete>
 
     <delete id="DeleteDA024" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
         delete from tb_da024
-        where misdate = #{misdate} and misnum = #{misnum} and seq = #{seq} and cltcd = #{cltcd} and misgubun = #{misgubun}
+        where misdate = #{misdate} and misnum = #{misnum} and seq = #{seq} and cltcd = #{cltcd}
     </delete>
 
     <delete id="DeleteDA023Ord" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
         delete from tb_da023
-        where  cltcd = #{cltcd} and misgubun = #{misgubun} and misdate = #{omisdate} and misnum=#{omisnum}
+        where  cltcd = #{cltcd}   and misdate = #{omisdate} and misnum=#{omisnum}
           and  (select count(*) as cnt  from tb_da024 with (NOLOCK) where misdate = #{omisdate} and misnum=#{omisnum} and misgubun = #{misgubun} and cltcd = #{cltcd} ) = 0
     </delete>
 
     <delete id="DeleteDA024Ord" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
         delete from tb_da024
-        where  cltcd = #{cltcd} and misgubun = #{misgubun}
+        where  cltcd = #{cltcd}
           and  misdate + misnum + seq  = ( #{omisdate} + #{omisnum} + #{oseq} )
     </delete>
 
 
     <delete id="DeleteDA025" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
         delete from tb_da025
-        where misdate = #{misdate} and misnum = #{misnum} and cltcd = #{cltcd} and misgubun = #{misgubun}
+        where misdate = #{misdate} and misnum = #{misnum} and cltcd = #{cltcd}
           and misdate + misnum not in (select misdate + misnum from tb_da026 where misdate = #{misdate} and misnum=#{misnum} and misgubun = #{misgubun} and cltcd = #{cltcd} )
     </delete>
 
     <delete id="DeleteDA026" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
         delete from tb_da026
-        where misdate = #{misdate} and misnum = #{misnum} and seq = #{seq} and cltcd = #{cltcd} and misgubun = #{misgubun}
+        where misdate = #{misdate} and misnum = #{misnum} and seq = #{seq} and cltcd = #{cltcd}
     </delete>
 
 
@@ -813,14 +813,13 @@
 
     <delete id="DeleteDA024Mkflag" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
         delete from tb_da024
-        where  cltcd = #{cltcd} and misgubun = #{misgubun}
-        and  misdate + misnum + seq  = ( #{misdate} + #{misnum} + #{seq} )
+        where  cltcd = #{cltcd}  and  misdate =#{misdate} and misnum =  #{misnum} and seq  =  #{seq}
     </delete>
 
 
     <delete id="DeleteDA026Mkflag" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
         delete from tb_da026
-        where  cltcd = #{cltcd} and misgubun = #{misgubun}
+        where  cltcd = #{cltcd}
         and  misdate + misnum + seq  = ( #{misdate} + #{misnum} + #{seq} )
     </delete>
 

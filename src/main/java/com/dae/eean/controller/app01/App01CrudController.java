@@ -1728,6 +1728,7 @@ public class App01CrudController {
                         indexDa024Dto.setSeq(seqArr.get(i));
                         result = service14.DeleteDA024Mkflag(indexDa024Dto);
                         if (!result){
+                            log.info("error  =====> " + result);
                             return "error";
                         }
                         result = service14.DeleteDA023(indexDa024Dto);
