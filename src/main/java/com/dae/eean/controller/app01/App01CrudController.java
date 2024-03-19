@@ -3721,8 +3721,8 @@ public class App01CrudController {
                     indexDa024Dto.setSeq(seqarr.get(i));
                     indexDa024Dto.setCltcd(cltcdarr.get(i));
                     indexDa024Dto.setMisgubun(gubunarr.get(i));
-//                    indexDa024Dto.setOmisdate(ls_omisdate);
-                    indexDa024Dto.setOmisnum(misnumarr.get(i));
+                    // indexDa024Dto.setOmisdate(ls_omisdate);
+                    //indexDa024Dto.setOmisnum(misnumarr.get(i));
                     indexDa024Dto.setOseq(seqarr.get(i));
 
                     indexDa023Dto.setMisdate(ls_misdate);
@@ -3746,21 +3746,20 @@ public class App01CrudController {
                         }
                         if(!ls_tempchk.equals(ls_getdata)){
                             ls_omisnum = GetMaxNum(ls_ipdate);
-                            indexDa024Dto.setOmisnum(ls_omisnum);
+                            indexDa024Dto.setOmisnum(ls_omisnum);  //신규매출번호
                             result = service14.InsertDa023Order(indexDa024Dto);
                             if (!result){
+                                log.info("error =====>InsertDa023Order" );
                                 return "error";
                             }
                         }else{
-                            //indexDa024Dto.setOmisnum(ls_chknull);
                         }
                         result = service14.InsertDa024Order(indexDa024Dto);
                         if (!result){
+                            log.info("error =====>InsertDa024Order" );
                             return "error";
                         }
                         ls_tempchk = ls_misdate + misnumarr.get(i) + cltcdarr.get(i);
-
-
                     }else{
                         indexDa024OrdDto.setOmisdate("");
                         indexDa024OrdDto.setOmisnum("");

@@ -86,6 +86,14 @@
                                         <input class="form-control" type="text"   id="actuserpwz" name="actuserpwz" aria-describedby="basic-addon1" />
                                     </div>  
                                 </div>  
+                                <div class="col-2 col-sm-1">
+                                    <select class="form-select form-select-sm" id="actrole" aria-label=".form-select-sm example">
+                                        <option selected="">구분</option>
+                                        <option value="%">전체</option>
+                                        <option value="P">피오비노</option>
+                                        <option value="B">블리스</option>
+                                      </select> 
+                                </div>   
                                 <div class="col-auto"> 
                                     <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">사원번호</span>
                                         <input class="form-control" type="text"   id="perid" name="perid" aria-describedby="basic-addon1" />
@@ -193,13 +201,14 @@
         listUp();
 
     })     
-    function menumodal_click(arg1, arg2, arg3, arg4, arg5, arg6){ 
+    function menumodal_click(arg1, arg2, arg3, arg4, arg5, arg6, arg7){ 
         document.getElementById('actseq').value = arg1;  
         document.getElementById('userid').value = arg2;  
         document.getElementById('actuseyn').value = arg3;  
         document.getElementById('actusernamez').value = arg4;  
         document.getElementById('actuserpwz').value = arg5;  
-        document.getElementById('perid').value = arg6;  
+        document.getElementById('perid').value = arg6;   
+        document.getElementById('actrole').value = arg7;  
         // document.getElementById("actnmbtn").click();
         // document.getElementById('searchtext').value = arg1;  
         // listUp02(); 
@@ -221,7 +230,9 @@
                     phone : wtab01Dto[i]["phone"] ,
                     perid : wtab01Dto[i]["perid"] ,
                     actnm : wtab01Dto[i]["actnm"] ,
-                    passwd1 : wtab01Dto[i]["passwd1"]                                    
+                    passwd1 : wtab01Dto[i]["passwd1"]    ,
+                    role : wtab01Dto[i]["role"]         ,
+                    custnm : wtab01Dto[i]["custnm"]                                  
                 });
                 cnt++;
             }    
@@ -237,7 +248,7 @@
             cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
                 text: '<b>${item.flag}</b>',
                 click: (e, ctx) => {
-                    wactnmChk_2(ctx.item.seq, ctx.item.userid, ctx.item.useyn, ctx.item.username, ctx.item.passwd1 );
+                    wactnmChk_2(ctx.item.seq, ctx.item.userid, ctx.item.useyn, ctx.item.username, ctx.item.passwd1, ctx.item.perid, ctx.item.role );
                 }
             });
             wapp04Grid.columns.push(cols);  
@@ -249,7 +260,7 @@
             cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
                 text: '<b>${item.userid}</b>',
                 click: (e, ctx) => {
-                    menumodal_click(ctx.item.seq, ctx.item.userid, ctx.item.useyn, ctx.item.username, ctx.item.passwd1, ctx.item.perid);
+                    menumodal_click(ctx.item.seq, ctx.item.userid, ctx.item.useyn, ctx.item.username, ctx.item.passwd1, ctx.item.perid, ctx.item.role);
                 }
             }); 
             wapp04Grid.columns.push(cols);  
@@ -276,6 +287,18 @@
             cols.header = '전화번호';
             cols.align = "center";
             cols.width = '*'; 
+            wapp04Grid.columns.push(cols); 
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'role';
+            cols.header = '구분';
+            cols.align = "center";
+            cols.width = '*'; 
+            wapp04Grid.columns.push(cols);
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'custnm';
+            cols.header = '구분명';
+            cols.align = "center";
+            cols.width = '*'; 
             wapp04Grid.columns.push(cols);
  
         }
@@ -287,6 +310,7 @@
             var ls_actusernamez = document.getElementById('actusernamez').value;  
             var ls_actuserpwz = document.getElementById('actuserpwz').value;  
             var ls_perid = document.getElementById('perid').value;  
+            var ls_role = document.getElementById('actrole').value;  
         
             if (!confirm("수정하시겠습니까?")) {
                     return ; 
@@ -307,6 +331,9 @@
                 alert("비밀번호를 등록 하세요")  
                 return ;               
             }   
+            if(ls_role == "구분" || ls_role == null || ls_role.length == 0 || ls_role == ""){ 
+                ls_role = "%";
+            }    
 
             $.ajax({
                 url: '/appadmod/id04mod',   
@@ -317,7 +344,8 @@
                     "actuseynz"    : ls_actuseyn ,
                     "actusernmz"    : ls_actusernamez,
                     "actuserpwz"    : ls_actuserpwz,
-                    "perid"    : ls_perid
+                    "perid"    : ls_perid,
+                    "role"    : ls_role
                 },
                 async:false,
                 success:function(data){
@@ -343,8 +371,8 @@
           listUp();
  
         }   
-        function wactnmChk_2(arg0, arg1, arg2, arg3, arg4){  
-            //ctx.item.seq, ctx.item.userid, ctx.item.useyn, ctx.item.username, ctx.item.passwd1 
+        function wactnmChk_2(arg0, arg1, arg2, arg3, arg4, arg5, arg6){  
+            //ctx.item.seq, ctx.item.userid, ctx.item.useyn, ctx.item.username, ctx.item.passwd1  
             if (arg2 == "Y"){
                 if (!confirm(arg3 + " : 미사용으로 변경하시겠습니까?")) {
                     return ;
@@ -364,8 +392,10 @@
                     "actuseridz"    : arg1 ,
                     "actuseynz"    : arg2 ,
                     "actusernmz"    : arg3,
-                    "actuserpwz"    : arg4
-                },
+                    "actuserpwz"    : arg4,
+                    "perid"    : arg5,
+                    "role"    : arg6
+                }, 
                 async:false,
                 success:function(data){
                     if(data == "success"){
@@ -572,7 +602,7 @@
                         cellTemplate: wijmo.grid.cellmaker.CellMaker.makeLink({ 
                             text: '<b>${item.flag}</b>',
                             click: (e, ctx) => {
-                                wactnmChk_2(ctx.item.seq, ctx.item.userid, ctx.item.useyn, ctx.item.username, ctx.item.passwd1 );
+                                wactnmChk_2(ctx.item.seq, ctx.item.userid, ctx.item.useyn, ctx.item.username, ctx.item.passwd1, ctx.item.perid, ctx.item.role );
                             }
                         })
                     },     
@@ -580,12 +610,13 @@
                         cellTemplate: wijmo.grid.cellmaker.CellMaker.makeLink({ 
                             text: '<b>${item.userid}</b>',
                             click: (e, ctx) => {
-                                menumodal_click(ctx.item.seq, ctx.item.userid, ctx.item.useyn, ctx.item.username, ctx.item.passwd1   );
+                                menumodal_click(ctx.item.seq, ctx.item.userid, ctx.item.useyn, ctx.item.username, ctx.item.passwd1, ctx.item.perid, ctx.item.role   );
                             }
                         })} , 
                 { binding: 'passwd1', header: '비밀번호', width: '*', format: '*' , align:"center", isReadOnly: true}, 
                 { binding: 'username', header: '사용자', width: '*', format: '*' , align:"center", isReadOnly: true},  
-                { binding: 'perid', header: '사원번호', width: '*', format: '*', align:"center", isReadOnly: true },   
+                { binding: 'role', header: '구분', width: '*', format: '*', align:"center", isReadOnly: true },    
+                { binding: 'custnm', header: '구분명', width: '*', format: '*', align:"center", isReadOnly: true },    
                 { binding: 'phone', header: '전화번호', width: '*', format: '*', align:"center", isReadOnly: true },  
             ], 
             itemsSource: view_Mmanualpage
@@ -617,7 +648,9 @@
                     flag : mapp04Dto[i]["flag"] ,
                     phone : mapp04Dto[i]["phone"] ,
                     perid : mapp04Dto[i]["perid"] ,
-                    passwd1 : mapp04Dto[i]["passwd1"]        
+                    passwd1 : mapp04Dto[i]["passwd1"]     ,
+                    role : mapp04Dto[i]["role"]     ,
+                    custnm : mapp04Dto[i]["custnm"]        
                 });
                 cnt++;
             }  

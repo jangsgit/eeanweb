@@ -2238,6 +2238,7 @@
                     var ls_frdate = document.getElementById('frdate02').value; 
                     var ls_todate = document.getElementById('todate02').value;          
                     var ls_bacode   = document.getElementById('bacode').value; 
+                    var ls_bcifname   = document.getElementById('bcifname').value;  
                     var ls_wishfixflag = document.getElementById('wishfixflag').value; 
                     var ls_misgubunflag = document.getElementById('misgubunflag').value; 
                     var ls_jkey = document.getElementById('jkey').value;  
@@ -2259,8 +2260,8 @@
                         alert("조회일자를 등록하세요") 
                         document.getElementById("todate02").focus(); 
                         return ;               
-                    }     
-                    if(ls_bacode == null || ls_bacode.length == 0 || ls_bacode == ""){  
+                    }       
+                    if(ls_bcifname == null || ls_bcifname.length == 0 || ls_bcifname == ""){  
                         ls_bacode = "%";
                     }      
                     if(ls_jpumnm == null || ls_jpumnm.length == 0 || ls_jpumnm == ""){  

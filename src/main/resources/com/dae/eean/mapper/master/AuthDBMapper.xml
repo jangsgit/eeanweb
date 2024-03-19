@@ -80,7 +80,7 @@
     </update>
 
     <update id="UpdateUserInfoCC" parameterType="com.dae.eean.DTO.UserFormDto"  >
-        UPDATE TB_XUSERS SET  userid=#{userid}, username=#{username}, passwd1=#{passwd1}, passwd2=#{passwd2}, useyn=#{useyn}, perid=#{perid}, custnm=#{custnm}
+        UPDATE TB_XUSERS SET  userid=#{userid}, username=#{username}, passwd1=#{passwd1}, passwd2=#{passwd2}, useyn=#{useyn}, perid=#{perid}, custnm=#{custnm}, role=#{role}
         from TB_XUSERS  where seq=#{seq} and flag = #{flag}
     </update>
     <update id="UpdateUserMenuInfo" parameterType="com.dae.eean.DTO.TBXuserMenuDTO"  >
