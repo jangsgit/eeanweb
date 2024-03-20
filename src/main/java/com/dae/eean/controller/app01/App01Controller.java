@@ -288,13 +288,17 @@ public class App01Controller {
             model.addAttribute("userformDto",userformDto);
             String ls_acorp1 = userformDto.getPerid();
             String ls_flag = userformDto.getFlag();
+            String ls_role = userformDto.getRole();
+            log.debug("ls_role =====>33333"  );
+            log.debug("ls_role =====>" + ls_role);
             if (ls_flag.equals("CC")){
+                index03Dto.setJpb_gubn(ls_role);
                 //log.debug("ls_acorp1 =====>" + ls_acorp1.substring(0,2) );
-                if(ls_acorp1.substring(0,2).equals("02")){
-                    index03Dto.setJpb_gubn("P");
-                }else{
-                    index03Dto.setJpb_gubn("B");
-                }
+//                if(ls_acorp1.substring(0,2).equals("02")){
+//                    index03Dto.setJpb_gubn("P");
+//                }else{
+//                    index03Dto.setJpb_gubn("B");
+//                }
             }else{
                 index03Dto.setJpb_gubn("%");
             }
