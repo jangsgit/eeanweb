@@ -735,7 +735,7 @@
                 ], 
                 itemsSource: view_p01tab03page, 
             }); 
-
+    
             // 헤더 열 전환
             setHeaderColumn03(false); 
             function setHeaderColumn03(headerOn) {
@@ -1843,7 +1843,7 @@
             var lsMisnum =  salesdata.misnum   
             var lsMiscltcd =  salesdata.cltcd   
             var lsMisgubun =  salesdata.misgubun  
-             console.log(lsMisdate + '/' + lsMisnum + '/'  + lsMiscltcd);
+            // console.log(lsMisdate + '/' + lsMisnum + '/'  + lsMiscltcd);
               
             //상세매출조회     
             $.ajax({
@@ -1860,6 +1860,7 @@
                 success:function(data){     
                     chkLogin(data)       
                     tabD_grid(data);  
+                    cell_style()
                     // misdateArr.pop() 
                 },error:function(e){
                     console.log("error");
@@ -1997,14 +1998,32 @@
                         altCellStyle: { backgroundColor: '#f9f9f9' },
                         groupCellStyle: { backgroundColor: '#dddddd' },
                         headerCellStyle: { backgroundColor: '#eaeaea' }
-                    } 
+                    } ,
+                    // PDF 특정 셀의 폰트 크기를 조정하는 부분
+                    formatItem: (args) => {
+                        // 특정 조건을 만족하는 셀에 대한 조건문
+                        // 예: 2번째 행의 3번째 열 셀의 폰트 크기를 변경 
+                        if(args._data != "품목" && args._data != "수량" ){
+                            if(args.col == 2){
+                                // console.log(args.row + '/' + args.col + '/' + args._data)
+                                // console.log(args.style.font)
+                                args.style.font._size = 13                                 
+                            }
+                            if(args.col == 4  ){ 
+                                args.style.font._size = 13 
+                                args.style.font._weight = 'bold' 
+                            }
+
+                        }
+                         
+                    }
                 });
                 
                 // draw footer
                 wijmo.grid.pdf.FlexGridPdfConverter.draw(footer, doc, doc.width, null, {
                     styles: {
                         cellStyle: {
-                        font: { weight: 'bold' },
+                        font: { weight: 'bold', size : 13 },
                         backgroundColor: '#dddddd',
                         borderColor: '#c6c6c6'
                         }
@@ -2172,7 +2191,7 @@
                         //alert("처리할 내역을 선택하세요") 
                         return ;               
                     }   
-                     console.log(arg2)
+                    //  console.log(arg2)
                     if(arg2 == "listBtn"){
                         return; 
                     } 
@@ -2706,8 +2725,7 @@
             cols.binding = 'pname';
             cols.header = '품목';
             cols.align = "center";
-            cols.width = 225;   
-            cols.cellTemplate = '<span style="font-size : 30pt;">${text}</span>'
+            cols.width = 225;    
             theGridPrt.columns.push(cols);   
             cols = new wijmo.grid.Column(); 
             cols.binding = 'psize';
@@ -2738,8 +2756,7 @@
             cols.header = '수량';
             cols.align = "center";
             cols.aggregate = 'Sum';
-            cols.width = 60;    
-            cols.cellTemplate = '<span style="font-size : 30pt;">${text}</span>'
+            cols.width = 60;  
             theGridPrt.columns.push(cols);   
             cols = new wijmo.grid.Column(); 
             cols.binding = 'uamt';
@@ -3435,6 +3452,27 @@
         }    
   
 
+        function cell_style(){
+            return ;
+            //화면에 보이는 cell의 스타일은 변화시키나 PDF는 변함없음. 
+            theGridPrt.refresh()
+            theGridPrt.formatItem.addHandler(function(s,e){
+                if(true){
+                    if(e.panel === s.cells){ // 셀 영역이고
+                          if(s.columns[e.col].binding!=="qty" || s.columns[e.col].binding!=="pname"){
+                             var val = s.getCellData(e.row,e.col); 
+                             if(val == null || val.length == 0 || val == ""){  
+                                return 
+                             }  
+                             console.log(val)
+                             e.cell.style.fontSize = '10px';
+                         }
+
+                    }
+                }
+
+            });            
+        }
 //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
    
 
