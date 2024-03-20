@@ -80,7 +80,6 @@
         select   jcustomer_code as jcustomer_code
         from JCODE3 WITH (NOLOCK)
         WHERE isnull(jcustomer_code,'')   NOT IN ('X')
-          AND isnull(jpb_gubn,'') Like concat('%',#{jpb_gubn},'%')
           and jsayong_gubn <> '4'
           and jsayong_gubn in ('1','2')
           AND LEN(jcustomer_code) > 0
@@ -108,6 +107,7 @@
             WHERE isnull(jcustomer_code,'')   = #{jcustomer_code}
               and jsayong_gubn <> '4'
               AND LEN(jcustomer_code) > 0
+              and isnull(jpb_gubn,'') Like concat('%',#{jpb_gubn},'%')
             Group by jcustomer_code, jmodel_code
             ORDER BY jcustomer_code, jmodel_code
         ]]>

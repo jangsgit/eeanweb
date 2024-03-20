@@ -872,12 +872,16 @@ aria-hidden="true">
             // div 초기화 
             const ListDivs = $('div[data-name="ListDiv"]');
             ListDivs.remove();
-
+            var ls_jpbgubn = document.getElementById('jpbgubn').value ; 
+            if(ls_jpbgubn == null || ls_jpbgubn.length == 0 || ls_jpbgubn == ""){ 
+                ls_jpbgubn = "%";
+            } 
             $.ajax({
                 url: '/app01m/index03/custlist',  
                 type:"POST",
                 data: { 
-                    "searchtxt" :arg, 
+                    "searchtxt" :arg,   
+                    "jpbgubn" : ls_jpbgubn
                 }, 
                 async:false,
                 success:function(data){  
