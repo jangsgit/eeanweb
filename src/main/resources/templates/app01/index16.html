@@ -724,12 +724,12 @@
                 columns: [     
                     // { binding: 'active', header: '선택', align: "center", width: 80  ,dataType:3,allowSorting: false, dataType: wijmo.DataType.Boolean  }, 
                     { binding: 'misdate', header: '주문일자', align: "center", width: 120 },  
-                    { binding: 'pname', header: '품목', align: "center", width: 150 },   
+                    { binding: 'pname', header: '품목', align: "center", width: 150,   cellTemplate: '<span style="font-size : 20pt;">${text}</span>'},   
                     { binding: 'psize', header: '규격', align: "center", width: 120 },  
                     // { binding: 'pbonsa', header: '코드', align: "center", width: 100 },  
                     // { binding: 'pmodel', header: '모델', align: "center", width: 100 },  
                     // { binding: 'pcolor', header: '컬러', align: "center", width: 100 },  
-                    { binding: 'qty', header: '수량', align: "center", width: 80 },  
+                    { binding: 'qty', header: '수량', align: "center", width: 80 ,  cellTemplate:  '<span style="font-size : 20pt;">${text}</span>' },  
                     { binding: 'uamt', header: '단가', align: "center", width: 100 },  
                     { binding: 'samt', header: '금액', align: "center", width: 150 },  
                 ], 
@@ -2707,6 +2707,7 @@
             cols.header = '품목';
             cols.align = "center";
             cols.width = 225;   
+            cols.cellTemplate = '<span style="font-size : 30pt;">${text}</span>'
             theGridPrt.columns.push(cols);   
             cols = new wijmo.grid.Column(); 
             cols.binding = 'psize';
@@ -2738,6 +2739,7 @@
             cols.align = "center";
             cols.aggregate = 'Sum';
             cols.width = 60;    
+            cols.cellTemplate = '<span style="font-size : 30pt;">${text}</span>'
             theGridPrt.columns.push(cols);   
             cols = new wijmo.grid.Column(); 
             cols.binding = 'uamt';

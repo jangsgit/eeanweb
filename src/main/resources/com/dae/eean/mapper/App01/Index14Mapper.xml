@@ -168,7 +168,7 @@
         AND C.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
         AND B.misdate = #{misdate} and B.misnum = #{misnum}  and B.cltcd = #{cltcd}
         AND B.fixflag = '1'
-        ORDER BY B.misdate desc, B.misnum, B.seq
+        ORDER BY B.pname, pcolor, B.misdate desc, B.misnum, B.seq
     </select>
 
 <!--    <select id="SelectDa024ListPrt"  parameterType="com.dae.eean.DTO.App01.IndexDa024Dto"  resultType="com.dae.eean.DTO.App01.IndexDa024Dto">-->
@@ -226,25 +226,25 @@
     <!-- 전표일자/순번 별로 출력  -->
     <select id="SelectDa024ListPrtGroup"  parameterType="hashmap"  resultType="com.dae.eean.DTO.App01.IndexDa024Dto">
         select B.cltcd as cltcd,  B.misdate as misdate, B.misnum,
-        (case when len(isnull(C.remarkaa,'')) > 0 then C.remarkaa  when len(isnull(C.remarkbb,'')) > 0 then C.remarkbb else '' END ) AS remark,
-        substring(B.misdate, 1,4)+ '년 ' + substring(B.misdate, 5,2)+ '월 ' + substring(B.misdate, 7,2) + '일' as misdatetxt,
-        sum(B.qty) as qty,   sum(B.samt) as samt, sum(B.addamt) as addamt, sum(B.amt) as amt,
-        A.acorp, ROW_NUMBER() OVER(ORDER BY (SELECT 1)) AS rownum,
-        MAX(F.acorp) as eeacorp, MAX(F.asano) as eeasano, MAX(F.aname) as eeaname, MAX(F.aupte) as eeupte,
-        MAX(F.ajong) as eeajong, MAX(F.ajuso) as eeajuso, MAX(F.atelno) as eeatelno
+            (case when len(isnull(C.remarkaa,'')) > 0 then C.remarkaa  when len(isnull(C.remarkbb,'')) > 0 then C.remarkbb else '' END ) AS remark,
+            substring(B.misdate, 1,4)+ '년 ' + substring(B.misdate, 5,2)+ '월 ' + substring(B.misdate, 7,2) + '일' as misdatetxt,
+            sum(B.qty) as qty,   sum(B.samt) as samt, sum(B.addamt) as addamt, sum(B.amt) as amt,
+            A.acorp, ROW_NUMBER() OVER(ORDER BY (SELECT 1)) AS rownum,
+            MAX(F.acorp) as eeacorp, MAX(F.asano) as eeasano, MAX(F.aname) as eeaname, MAX(F.aupte) as eeupte,
+            MAX(F.ajong) as eeajong, MAX(F.ajuso) as eeajuso, MAX(F.atelno) as eeatelno
         from  TB_DA024 B WITH (NOLOCK) ,
-        cif A WITH (NOLOCK) Left outer JOIN INSA D ON A.abonsadam1 = D.insano,
-        TB_DA023 C WITH (NOLOCK)  ,
-        ( select acorp, atelno, asano1 + '-' + asano2 + '-' + asano3 as asano, aname, aupte, ajong, ajuso1 + ' ' + ajuso2 as ajuso
-        from cif where acorp1 + acorp2 + acorp3 = '0000' ) F
+              cif A WITH (NOLOCK) Left outer JOIN INSA D ON A.abonsadam1 = D.insano,
+              TB_DA023 C WITH (NOLOCK)  ,
+            ( select acorp, atelno, asano1 + '-' + asano2 + '-' + asano3 as asano, aname, aupte, ajong, ajuso1 + ' ' + ajuso2 as ajuso
+            from cif where acorp1 + acorp2 + acorp3 = '0000' ) F
         where B.misdate + B.misnum = C.misdate + C.misnum AND B.misgubun = C.misgubun
-        AND B.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
-        AND C.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
-        AND B.misdate + B.misnum + B.cltcd in
+            AND B.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
+            AND C.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
+            AND B.misdate + B.misnum + B.cltcd in
         <foreach collection="itemcdArr" item="itemcd"  open="(" close=")" separator=",">
             #{itemcd}
         </foreach>
-        AND B.fixflag = '1'
+            AND B.fixflag = '1'
         Group BY B.cltcd,  B.misdate, B.misnum, A.acorp, C.remarkaa, C.remarkbb
         ORDER BY B.misdate desc, B.misnum
     </select>
