@@ -540,6 +540,7 @@
          var gubunArr    = new Array(); 
          var fixflagArr    = new Array(); 
          var misqty    = new Array();
+         var mjqty    = new Array();
         let includeColumnHeader = false;
         let Chknum = 0;
          window.onload = function() {  
@@ -1118,6 +1119,7 @@
                 gubunArr.pop();
                 fixflagArr.pop();
                 misqty.pop();
+                mjqty.pop();
             }  
             for (var i = 0; i < chkTabA.length; i++) { 
                 misdateArr[i]   = chkTabA[i]._data.misdate;
@@ -1126,10 +1128,15 @@
                 cltcdArr[i]  = chkTabA[i]._data.cltcd; 
                 gubunArr[i]  = chkTabA[i]._data.misgubun; 
                 misqty[i]  = chkTabA[i]._data.qty; 
+                mjqty[i]  = chkTabA[i]._data.jqty; 
                 if(chkTabA[i]._data.makflag == "1" ){
                     alert("이미 주문되었습니다.")
                     return 
                 }
+                if(chkTabA[i]._data.qty >chkTabA[i]._data.jqty){
+                    alert("재고수량을 초과했습니다. 주문수량을 확인하세요")
+                    return  
+                } 
                 if(i == 0) { 
                     //console.log("pcode->" + chkTabA[i]._data.pcode)
                     document.getElementById('mjpumnm').value = chkTabA[i]._data.pname; 
@@ -2012,7 +2019,8 @@
                     cltcd: wtab02Dto[i]["cltcd"],  
                     inname: wtab02Dto[i]["inname"],       
                     misgubun: wtab02Dto[i]["misgubun"],  
-                    pcode: wtab02Dto[i]["pcode"],      
+                    pcode: wtab02Dto[i]["pcode"],   
+                    jqty: wtab02Dto[i]["jqty"], 
                     remark: ls_remark,                 
                     fixflag: bfixflag,                                           
                 });
@@ -2096,6 +2104,12 @@
             cols.align = "center";
             cols.width = 50;    
             cols.aggregate = 'Sum';
+            wtab02Grid.columns.push(cols);    
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'jqty';
+            cols.header = '재고';
+            cols.align = "center";
+            cols.width = 50;     
             wtab02Grid.columns.push(cols);   
             cols = new wijmo.grid.Column(); 
             cols.binding = 'uamt';

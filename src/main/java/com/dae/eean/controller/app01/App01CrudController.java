@@ -2203,6 +2203,8 @@ public class App01CrudController {
                     break;
             }
             indexDa024Dto.setPerid(perid);
+            indexDa024Dto.setJfrdate("20000101");
+            indexDa024Dto.setJtodate(todate);
             //indexDa024Dto.setMisgubun(mflag);
             //log.info("misgubun =====>" + misgubun);
             if(acode.equals("%")){
@@ -2282,7 +2284,8 @@ public class App01CrudController {
             }
             indexDa024Dto.setPerid(perid);
             indexDa024Dto.setMisgubun(mflag);
-            //log.info("misgubun =====>" + misgubun);
+            indexDa024Dto.setJfrdate("20000101");
+            indexDa024Dto.setJtodate(todate);
             if(acode.equals("%")){
                 indexDa024ListDto = service14.SelectDa024ListLike(indexDa024Dto);
             }else{
