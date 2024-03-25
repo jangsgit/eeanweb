@@ -1002,7 +1002,7 @@
    function savechk_rtn(){
        if(chkTabA.length == 0){
            alert("주문할 자료를 선택하세요")
-           return 
+           return false
        }
        while (misdateArr.length > 0) {
            misdateArr.pop();
@@ -1024,11 +1024,11 @@
            mjqty[i]  = chkTabA[i]._data.jqty; 
            if(chkTabA[i]._data.makflag == "1" ){
                alert("이미 주문되었습니다.")
-               return 
+               return false
            }
            if(chkTabA[i]._data.qty >chkTabA[i]._data.jqty){
                 alert("재고수량을 초과했습니다. 주문수량을 확인하세요")
-                return  
+                return  false
            } 
            if(i == 0) { 
                document.getElementById('mjpumnm').value = chkTabA[i]._data.pname; 
@@ -1039,7 +1039,8 @@
                document.getElementById('bseq').value = chkTabA[i]._data.seq;    
                document.getElementById('bcltcd').value = chkTabA[i]._data.cltcd;     
            } 
-       }                
+       }    
+       return true            
    }
    function savewishchk_rtn(){
        if(chkTabB.length == 0){
@@ -1773,7 +1774,9 @@
    //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 모달 주문등록@@@@@@@@@@@@@@@@@@@@@@@@@@@
    //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$  
    document.getElementById("OrderBtnSave").addEventListener("click",function(){  
-       savechk_rtn()
+        if (!savechk_rtn()){
+            return 
+        }
        var ls_mgubun = document.getElementById('mgubun').value; 
        var arg1 = document.getElementById('mjpumnm').value; 
        var arg2 = document.getElementById('mjkey').value; 
