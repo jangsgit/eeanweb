@@ -14,12 +14,25 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+import java.util.HashMap;
 
 @Configuration
 @MapperScan(value="com.dae.eean.mapper", sqlSessionFactoryRef="masterSqlSessionFactory")
 @EnableTransactionManagement
 public class MasterDataBaseConfig {
+
+
+    @Bean("jdbcTemplate")
+    JdbcTemplate jdbcTemplate(DataSource dataSource) {
+        return new JdbcTemplate(dataSource);
+    }
 
     @Primary
     @Bean(name="masterDataSource")
@@ -44,4 +57,6 @@ public class MasterDataBaseConfig {
     public SqlSessionTemplate masterSqlSessionTemplate(SqlSessionFactory masterSqlSessionFactory) throws Exception{
         return new SqlSessionTemplate(masterSqlSessionFactory);
     }
+
+
 }

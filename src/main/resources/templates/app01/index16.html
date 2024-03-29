@@ -527,8 +527,12 @@
          window.onload = init; 
         function init() {
             localStorage.setItem("setpage", "app03p001"); 
+
             //일자별주문현황 popup list
             view_p01tab02page = new wijmo.collections.CollectionView(getData_wlist());    
+            
+            //주문 세부 정보를 ODataVirtualCollectionView
+            //view_p01tab02page = new wijmo.odata.ODataVirtualCollectionView(getData_wlist());
             setGroups(true);
             wtab02Grid = new wijmo.grid.FlexGrid('#wtab02Grid_div', { 
                 deferResizing: true,
@@ -560,6 +564,24 @@
                     
                 ], 
                 itemsSource: view_p01tab02page, 
+                // updatedView: function (s, e) {
+                //     rowCount.textContent = s.rows.length;
+                //     cellCount.textContent = s.hostElement.querySelectorAll('.wj-cell').length;
+                // },
+                scrollPositionChanged: function (s, e) {
+                // 만약 바닥에 가까우면, 20개의 아이템을 추가
+                    if (s.viewRange.bottomRow >= s.rows.length - 1) {
+                        let view = s.collectionView;
+                        let index = view.currentPosition; // 뷰가 정렬될 경우를 대비해서 위치를 유지
+                        addData(data, 20);
+                        view.refresh();
+                        view.currentPosition = index;
+                    }
+                }
+                // scrollPositionChanged: function () {
+                //     var rng = wtab02Grid.viewRange;
+                //     view_p01tab02page.setWindow(rng.row, rng.row2);
+                // }
             }); 
                
             // 선택기 생성
@@ -2165,7 +2187,8 @@
                         data: { 
                             "frdate"      : ls_frdate,
                             "todate"      : ls_todate,
-                            "acode"      : ls_bacode,   
+                            "acode"      : ls_bacode,         
+                            "jcode"    : '%',      
                             "perid"      : ls_abonsadam1,  
                             "fixflag"    : ls_misfixflag, 
                             "devflag"    : ls_misdevflag,

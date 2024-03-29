@@ -85,6 +85,14 @@
                                                 </div>
                                             </div> 
                                             <div class="col-2 col-sm-2">
+                                                <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">품명</span> 
+                                                    <input class="form-control form-control-sm" id="jpumnm" type="text"    autocomplete="off"  placeholder=""     >
+                                                    <input class="form-control form-control-sm" id="jkey" type="hidden"  /> 
+                                                    <input class="form-control form-control-sm" id="jpbgubn" type="hidden"  /> 
+                                                    
+                                                </div>
+                                            </div>
+                                            <div class="col-2 col-sm-2">
                                                 <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">담당사원</span> 
                                                     <input class="form-control form-control-sm"   type="text"    autocomplete="off"  placeholder=""   id="pernm" disabled  >
                                                     
@@ -166,6 +174,49 @@
  <!--------------------------------------------------------------------------------------->         
   
 
+    <!--  모달 처리 -->
+    <input class="form-control form-control-sm"  type="hidden" id="jpumbtn" data-bs-toggle="modal" data-bs-target="#jcodemodal"  /> 
+    <!--------------------------------------------------------------------------------------->   
+    <div class="modal fade" id="jcodemodal" data-bs-keyboard="false"
+    data-bs-backdrop="static" tabindex="-1" aria-labelledby="staticBackdropLabel"
+    aria-hidden="true">
+        <div class="modal-dialog modal-lg mt-6" role="document" id = "modalForm01"
+            style="max-width: 600px">
+            <div class="modal-content border-0">
+                <div class="modal-body p-0" > 
+                    <div class="rounded-top-lg py-3 ps-4 pe-6 bg-light">                            
+                        <div class="search">
+                            <div class="input_wrap">  
+                                <input class="form-control form-control-sm" id="searchCode" type="text"   onkeyup="if(window.event.keyCode==13){JpumSearchList_rtn('M')}"
+                                placeholder="품목명 "     />                                      
+                            </div>
+
+                            <button id="wjpumBtn">
+                                <img th:src="@{/assets/images/i_search.png}" alt=""> 
+                            </button>
+                        </div>                             
+                    </div>   
+                    <div class="container-fluid"> 
+                        <div id="wjpumGrid_div"  style="overflow:scroll;   height:600px;    margin:0 auto; "></div> 
+                        <!-- <div id="thePager03"></div> -->
+                    </div>   
+                </div>  
+
+                <div class="modal-footer">
+                    <div class="row g-1">
+                        <div class="col-auto">
+                            <button class="badge-soft-primary dropdown-item rounded-1"
+                                type="button"  id="wjpummodal_btn" data-bs-dismiss="modal">Close</button>
+                        </div> 
+                    </div>
+                </div>   
+
+            </div>
+        </div> 
+    </div>  
+      
+ <!--------------------------------------------------------------------------------------->         
+
 
 
 
@@ -177,12 +228,14 @@
          var view_p01tab02page;
          var view_p01tab03page; 
          var view_p01tab04page; 
-         var view_innamepage; 
+         var view_innamepage;  
+         var view_jpumpage; 
          var wtab01Grid;
          var wtab02Grid;
          var wtab03Grid; 
          var wtab04Grid; 
          var winnameGrid; 
+         var wjpumGrid;
 
          var misdateArr = new Array();
          var misnumArr = new Array();
@@ -245,7 +298,17 @@
                     { binding: 'remark', header: '요청사항', align: "center", width: 150 },  
                     // { binding: 'fixflag', header: '확정', align: "center", width: 150, cssClass: 'switch'   },  
                 ], 
-                itemsSource: view_p01tab02page
+                itemsSource: view_p01tab02page,
+                scrollPositionChanged: function (s, e) {
+                // 만약 바닥에 가까우면, 20개의 아이템을 추가
+                    if (s.viewRange.bottomRow >= s.rows.length - 1) {
+                        let view = s.collectionView;
+                        let index = view.currentPosition; // 뷰가 정렬될 경우를 대비해서 위치를 유지
+                        addData(data, 20);
+                        view.refresh();
+                        view.currentPosition = index;
+                    }
+                }
             });  
 
 
@@ -333,6 +396,42 @@
                 return winname_data;                    
             }  
 
+
+
+            // // ################################################################  
+            //품목현황 Modalㅁ
+            view_jpumpage = new wijmo.collections.CollectionView(getData_wlist(), {
+                //pageSize: 12
+            });
+            // 품목 페이지 이동
+            // new wijmo.input.CollectionViewNavigator('#thePager03', {
+            //     byPage: true,
+            //     headerFormat: 'Page {currentPage:n0} of {pageCount:n0}',
+            //     cv: view_jpumpage
+            // });     
+            wjpumGrid = new wijmo.grid.FlexGrid('#wjpumGrid_div', {  
+                autoGenerateColumns: false,
+                isReadOnly: false, 
+                allowSorting: 'MultiColumn',
+                selectionMode: 'RowRange',
+                alternatingRowStep: 0,
+                columns: [     
+                    { binding: 'jkey', header: '코드', align: "center", width: '1*' },
+                    { binding: 'pname', header: '품목', align: "left", width: '1*' },
+                    { binding: 'psize', header: '규격', align: "left", width: '1*' },
+                    { binding: 'pbonsa', header: '코드', align: "center", width: '1*' },
+                    { binding: 'pmodel', header: '모델', align: "center", width: '1*' },
+                    { binding: 'pcolor', header: '컬러', align: "center", width: '1*' },
+                ], 
+                itemsSource: view_jpumpage
+            });  
+            
+            wjpumGrid.showMarquee = true; 
+            wijmo.toggleClass(wjpumGrid.hostElement, 'highlightActive', true);
+            wjpumGrid.focus(); 
+
+
+
         } 
 
         //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
@@ -378,6 +477,13 @@
                 CifSearchList_rtn("A"); 
             }
         });     
+        //품목검색 
+        document.getElementById("jpumnm").addEventListener("keyup", (e)=>{ 
+            if(e.keyCode === 13){  
+                document.getElementById("jpumbtn").click(); 
+                JpumSearchList_rtn("A"); 
+            }
+        });   
 
         function searchList_rtn(arg1){ 
             switch(arg1){ 
@@ -385,7 +491,9 @@
                     var ls_frdate = document.getElementById('frdate').value; 
                     var ls_todate = document.getElementById('todate').value;          
                     var ls_bacode   = document.getElementById('bacode').value;    
-                    var ls_bcifname   = document.getElementById('bcifname').value; 
+                    var ls_bcifname   = document.getElementById('bcifname').value;     
+                    var ls_jkey   = document.getElementById('jkey').value;    
+                    var ls_jpumnm   = document.getElementById('jpumnm').value; 
                     var ls_abonsadam1   = document.getElementById('abonsadam1').value; 
                     var ls_bjpbgubn = document.getElementById('bjpbgubn').value;  
                     
@@ -411,7 +519,11 @@
                     }   
                     if(ls_bcifname == null || ls_bcifname.length == 0 || ls_bcifname == ""){  
                         ls_bacode = "%";
-                    }    
+                    }       
+                    if(ls_jpumnm == null || ls_jpumnm.length == 0 || ls_jpumnm == ""){  
+                        ls_jkey = "%";
+                    }  
+                     
                     var ls_makflag = "1" ; 
                     $.ajax({
                         url: '/app01m/index14/list',  
@@ -419,8 +531,9 @@
                         data: { 
                             "frdate"      : ls_frdate,
                             "todate"      : ls_todate,
-                            "acode"      : ls_bacode,   
-                            "perid"      : ls_abonsadam1,  
+                            "acode"      : ls_bacode,        
+                            "jcode"    : ls_jkey,     
+                            "perid"      : ls_abonsadam1, 
                             "fixflag"    : '%',
                             "devflag"    : '%',
                             "misgubun"    : '%',
@@ -667,7 +780,8 @@
                     acorp2: wtab02Dto[i]["acorp2"], 
                     acorp3: wtab02Dto[i]["acorp3"],  
                     acode: wtab02Dto[i]["acode"], 
-                    acorp: wtab02Dto[i]["acorp"]      
+                    acorp: wtab02Dto[i]["acorp"]   , 
+                    abigo: wtab02Dto[i]["abigo"]      
                 });
                 cnt++;
             }   
@@ -699,6 +813,13 @@
             cols.width = 200;
             winnameGrid.columns.push(cols); 
 
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'abigo';
+            cols.header = '비고'; 
+            cols.align = "left"; 
+            cols.width = 200;
+            winnameGrid.columns.push(cols); 
+
          
         }
                 
@@ -724,6 +845,149 @@
             }
             
         }   
+
+
+
+ 
+        function JpumSearchList_rtn(arg){  
+
+            var searchCode = ""; 
+
+            if(arg == "M"){
+                searchCode = document.getElementById('searchCode').value;   
+            }
+            if(arg == "A"){
+                searchCode = document.getElementById('jpumnm').value;   
+            } 
+            if(arg == "B"){
+                searchCode = document.getElementById('bjpumnm').value;   
+            } 
+            var ls_jpbgubn = document.getElementById('jpbgubn').value
+            // if(arg == "C"){
+            //     searchCode = document.getElementById('djpumnm').value;   
+            // } 
+            if(searchCode == null || searchCode.length == 0 || searchCode == ""){ 
+                searchCode = "%"         ;
+            }     
+            if(ls_jpbgubn == null || ls_jpbgubn.length == 0 || ls_jpbgubn == ""){ 
+                ls_jpbgubn = "%"         ;
+            }   
+            let ls_conacorp1 = "%";  
+            let ls_conagita = "%";   
+            let ls_abonsadam1 = "%";
+            $.ajax({
+                    url: '/app01m/index03/list',  
+                    type:"POST",
+                    data: { 
+                            "searchtxt" :searchCode, 
+                            "jpbgubn" :ls_jpbgubn, 
+                    }, 
+                    async:false,
+                    success:function(data){  
+                        tabJcodePop_grid(data, arg);
+                    },error:function(e){
+                        console.log("error");                            
+                    }
+                }).done(function(fragment){           
+
+                })    
+
+        }     
+        //  거래처팝업 grid data 수집
+        function tabJcodePop_grid(data, arg){
+            // console.log(data);
+            var wtab01Dto  = data;    
+            var wtab01_data = [];
+            var cnt = 1;
+            for (var i = 0; i < wtab01Dto.length; i++) {
+                wtab01_data.push({
+                    id: i, 
+                    index: cnt, 
+                    id: i, 
+                    index: cnt, 
+                    jkey: wtab01Dto[i]["jkey"], 
+                    jpb_gubn: wtab01Dto[i]["jpb_gubn"], 
+                    jgong_code: wtab01Dto[i]["jgong_code"], 
+                    jdan_code: wtab01Dto[i]["jdan_code"], 
+                    jmodel_code: wtab01Dto[i]["jmodel_code"], 
+                    jcolor_code: wtab01Dto[i]["jcolor_code"], 
+                    jcustomer_code: wtab01Dto[i]["jcustomer_code"], 
+                    jbonsa_code: wtab01Dto[i]["jbonsa_code"], 
+                    jsayong_gubn: wtab01Dto[i]["jsayong_gubn"], 
+                    jpum: wtab01Dto[i]["jpum"], 
+                    jgugek: wtab01Dto[i]["jgugek"], 
+                    jsize: wtab01Dto[i]["jsize"], 
+                    jchgoga0: wtab01Dto[i]["jchgoga0"], 
+                    jchgoga0: wtab01Dto[i]["jchgoga0"],
+                    jbigo: wtab01Dto[i]["jbigo"],     
+                });
+                cnt++;
+            }   
+
+            // console.log(winnameGrid);
+
+            wjpumGrid.columns.clear();  
+            wjpumGrid.autoGenerateColumns = false; 
+            view_jpumpage.sourceCollection  = wtab01_data;
+
+            var cols = new wijmo.grid.Column(); 
+            cols.binding = 'jkey';
+            cols.header = '코드';
+            cols.align = "center";
+            cols.width = 180; 
+            cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
+                text: '<b>${item.jkey}</b>',
+                click: (e, ctx) => {
+                    wkeyChk_a(ctx.item.jkey, ctx.item.jpum, ctx.item.jgugek,  ctx.item.jsize, ctx.item.jmodel_code, ctx.item.jcolor_code,   ctx.item.jbonsa_code );                    
+                    
+                }
+            });
+            wjpumGrid.columns.push(cols);  
+
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'jpum';
+            cols.header = '품명'; 
+            cols.align = "left"; 
+            cols.width = 150;
+            wjpumGrid.columns.push(cols); 
+
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'jgugek';
+            cols.header = '규격'; 
+            cols.align = "center"; 
+            cols.width = 100;
+            wjpumGrid.columns.push(cols);  
+
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'jmodel_code';
+            cols.header = '모델라인'; 
+            cols.align = "center"; 
+            cols.width = 100;
+            wjpumGrid.columns.push(cols);  
+
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'jcolor_code';
+            cols.header = '모델칼라'; 
+            cols.align = "center"; 
+            cols.width = 100;
+            wjpumGrid.columns.push(cols); 
+        }
+
+        function wkeyChk_a(arg1, arg2, arg3, arg4, arg5){   
+            var ls_tab = document.getElementById('tabvalue').value;   
+            if(ls_tab == "A"){ 
+                document.getElementById('jkey').value = arg1;   
+                document.getElementById('jpumnm').value = arg2;  
+                searchList_rtn(ls_tab)
+                $("#wjpummodal_btn").trigger("click");
+            }else if(ls_tab == "B"){
+                document.getElementById('bjkey').value = arg1;   
+                document.getElementById('bjpumnm').value = arg2; 
+                searchList_rtn(ls_tab) 
+                $("#wjpummodal_btn").trigger("click"); 
+            } 
+
+        }             
   
 
 
@@ -794,12 +1058,10 @@
             lsUserid = window.localStorage.getItem("userid")
             if(ls_role == "P"){ 
                 document.getElementById('jpbgubn').value = "P"; 
-                document.getElementById('djpbgubn').value = "P"; 
-                document.getElementById('bjpbgubn').value = "P";  
+                document.getElementById('bjpbgubn').value = "P";   
             }else if(ls_role =="B"){
                 document.getElementById('jpbgubn').value = "B"; 
-                document.getElementById('djpbgubn').value = "B"; 
-                document.getElementById('bjpbgubn').value = "B";   
+                document.getElementById('bjpbgubn').value = "B";    
             }else{
                 if (lsUserid == "pvadmin"){ 
                     document.getElementById('bjpbgubn').value = "P";  

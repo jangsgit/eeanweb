@@ -3,8 +3,12 @@ package com.dae.eean.Service.App01;
 import com.dae.eean.DTO.App01.*;
 import com.dae.eean.Mapper.App01.Index14Mapper;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Service;
+import com.dae.eean.Service.SqlRunner;
 
 import java.util.HashMap;
 import java.util.List;
@@ -13,8 +17,13 @@ import java.util.List;
 @Service("Index14Service")
 public class Index14Service {
     @Autowired
+    SqlRunner sqlRunner;
+
+    @Autowired
     Index14Mapper  appMapper;
 
+
+    protected Log log =  LogFactory.getLog(this.getClass());
     public String SelectMaxMisnum(IndexDa023Dto parm){
         return  appMapper.SelectMaxMisnum(parm);
     }
@@ -60,12 +69,61 @@ public class Index14Service {
         return  appMapper.SelectDa024ListDel(parm);
     }
     public List<IndexDa024Dto> SelectDa024ListLike(IndexDa024Dto parm){
+
+//        MapSqlParameterSource paramMap = new MapSqlParameterSource();
+//        paramMap.addValue("cltcd", parm.getCltcd());
+//        paramMap.addValue("perid", parm.getPerid());
+//        paramMap.addValue("frdate", parm.getFrdate());
+//        paramMap.addValue("todate", parm.getTodate());
+//        paramMap.addValue("fixflag", parm.getFixflag());
+//        paramMap.addValue("devflag", parm.getDevflag());
+//        paramMap.addValue("misgubun", parm.getMisgubun());
+//        paramMap.addValue("makflag", parm.getMakflag());
+//        paramMap.addValue("jpbgubn", parm.getJpbgubn());
+//        paramMap.addValue("jfrdate", parm.getJfrdate());
+//        paramMap.addValue("jtodate", parm.getJtodate());
+//
+//        String sql = " select B.cltcd as cltcd, Left(B.misdate,4) + '-' + substring(B.misdate, 5,2)+ '-' + substring(B.misdate, 7,2) as misdate, B.misnum, B.seq, " +
+//                         " B.pcode, B.pname, B.psize,    B.punit,  B.qty,  B.uamt, B.samt, B.addamt, isnull(C.remarkaa,'') as remarkaa, isnull(C.remarkbb,'') as remarkbb, isnull(B.makflag, '0') as makflag, " +
+//                         " B.amt, A.acorp, pbonsa, pmodel, pcolor , D.inname, B.misgubun, isnull(B.fixflag,'0') as fixflag,isnull(B.devflag,'0') as devflag,   D.inname as pernm, C.unsongnum as unsongnum,   " +
+//                         " B.fixdate,  CONVERT(CHAR(19),B.fixdatetime,20) as fixdatetime ,  0 as jqty " +
+//                    "  from  TB_DA024 B WITH (NOLOCK) , " +
+//                    "        cif A WITH (NOLOCK) Left outer JOIN INSA D ON A.abonsadam1 = D.insano, " +
+//                    "        TB_DA023 C WITH (NOLOCK), " +
+//                    "        jcode3 E WITH (NOLOCK)    " +
+//                    "  where B.misdate + B.misnum = C.misdate + C.misnum AND B.misgubun = C.misgubun " +
+//                    "        AND isnull(C.delflag, '') <> 'Y'  " +
+//                    "        AND B.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)      " +
+//                    "        AND C.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)      " +
+//                    "        AND B.pcode = E.jkey                                    " +
+//                    "        AND A.acorp1 + CAST(A.acorp2 as varchar) Like concat('%',:cltcd,'%')   " +
+//                    "        AND isnull(A.abonsadam1,'')  Like concat('%',:perid,'%')   " +
+//                    "        AND B.misdate between :frdate and :todate                   " +
+//                    "        AND Isnull(B.fixflag, '0') Like concat('%',:fixflag,'%')    " +
+//                    "        AND Isnull(B.devflag, '0') Like concat('%',:devflag,'%')     " +
+//                    "        AND Isnull(C.misgubun, '') Like concat('%',:misgubun,'%')     " +
+//                    "        AND Isnull(B.makflag, '0') Like concat('%',:makflag,'%')      " +
+//                    "        and isnull(E.jpb_gubn,'') Like concat('%',:jpbgubn,'%')        " +
+//                    "        ORDER BY  B.misdate desc, B.misnum, B.seq  ";
+
+        //log.info("sql =====>" + sql);
+//        return this.sqlRunner.getListRows(sql, paramMap);
+//        {
+//            call SP_SelectDa024ListLike(#{cltcd}, #{perid},#{frdate},#{todate},#{fixflag},#{devflag},#{misgubun},#{makflag},#{jpbgubn},#{jfrdate},#{jtodate})
+//        }
         return  appMapper.SelectDa024ListLike(parm);
     }
 
 //    public List<IndexDa024Dto> SelectDa024ListPrt(IndexDa024Dto parm){
 //        return  appMapper.SelectDa024ListPrt(parm);
 //    }
+    public List<IndexDa024Dto> SelectDa024ListJang(IndexDa024Dto parm){
+    return  appMapper.SelectDa024ListJang(parm);
+}
+
+    public List<IndexDa024Dto> SelectDa024ListLikeJang(IndexDa024Dto parm){
+        return  appMapper.SelectDa024ListLikeJang(parm);
+    }
 
     public List<IndexDa024Dto> SelectDa024ListPrt(IndexDa024Dto parm) {
         return  appMapper.SelectDa024ListPrt(parm);

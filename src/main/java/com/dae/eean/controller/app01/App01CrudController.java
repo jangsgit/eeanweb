@@ -2144,6 +2144,7 @@ public class App01CrudController {
     public Object App14List_index(@RequestParam("frdate") String frdate,
                                   @RequestParam("todate") String todate,
                                   @RequestParam("acode") String acode,
+                                  @RequestParam("jcode") String jcode,
                                   @RequestParam("fixflag") String fixflag,
                                   @RequestParam("devflag") String devflag,
                                   @RequestParam("perid") String perid,
@@ -2175,6 +2176,9 @@ public class App01CrudController {
             if(jpbgubn == null || jpbgubn.equals("")){
                 jpbgubn = "%";
             }
+            if(jcode == null || jcode.equals("")){
+                jcode = "%";
+            }
             indexDa024Dto.setFrdate(frdate);
             indexDa024Dto.setTodate(todate);
             indexDa024Dto.setCltcd(acode);
@@ -2182,6 +2186,8 @@ public class App01CrudController {
             indexDa024Dto.setDevflag(devflag);
             indexDa024Dto.setMakflag(makflag);
             indexDa024Dto.setJpbgubn(jpbgubn);
+            indexDa024Dto.setPcode(jcode);
+
             if(perid == null || perid.equals("")){
                 perid = "%";
             }
@@ -2287,9 +2293,9 @@ public class App01CrudController {
             indexDa024Dto.setJfrdate("20000101");
             indexDa024Dto.setJtodate(todate);
             if(acode.equals("%")){
-                indexDa024ListDto = service14.SelectDa024ListLike(indexDa024Dto);
+                indexDa024ListDto = service14.SelectDa024ListLikeJang(indexDa024Dto);
             }else{
-                indexDa024ListDto = service14.SelectDa024List(indexDa024Dto);
+                indexDa024ListDto = service14.SelectDa024ListJang(indexDa024Dto);
             }
             model.addAttribute("indexDa024ListDto",indexDa024ListDto);
 

@@ -266,6 +266,16 @@
                     
                 ],  
                 itemsSource: view_p01tab02page, 
+                scrollPositionChanged: function (s, e) {
+                // 만약 바닥에 가까우면, 20개의 아이템을 추가
+                    if (s.viewRange.bottomRow >= s.rows.length - 1) {
+                        let view = s.collectionView;
+                        let index = view.currentPosition; // 뷰가 정렬될 경우를 대비해서 위치를 유지
+                        addData(data, 20);
+                        view.refresh();
+                        view.currentPosition = index;
+                    }
+                }
             }); 
                  
             // 그룹 전환 
@@ -317,7 +327,17 @@
                     { binding: 'ipsu', header: '입고수량', align: "center", width: 80 , aggregate: 'Sum'},  
                     { binding: 'chulsu', header: '출고수량', align: "center", width: 80 , aggregate: 'Sum'},  
                 ], 
-                itemsSource: view_p01tab04page
+                itemsSource: view_p01tab04page,
+                scrollPositionChanged: function (s, e) {
+                // 만약 바닥에 가까우면, 20개의 아이템을 추가
+                    if (s.viewRange.bottomRow >= s.rows.length - 1) {
+                        let view = s.collectionView;
+                        let index = view.currentPosition; // 뷰가 정렬될 경우를 대비해서 위치를 유지
+                        addData(data, 20);
+                        view.refresh();
+                        view.currentPosition = index;
+                    }
+                }
             });  
 
 
