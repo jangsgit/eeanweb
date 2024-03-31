@@ -52,6 +52,8 @@ public interface AuthDBMapper {
     public int UpdateUserInfo(UserFormDto Parm);
     public int UpdateUserInfoCC(UserFormDto Parm);
 
+    public int TB_XUSERS_INSERT(UserFormDto Parm);
+
     public int UpdateUserMenuInfo(TBXuserMenuDTO Parm);
 
     public int Updatepushid(UserFormDto Parm);

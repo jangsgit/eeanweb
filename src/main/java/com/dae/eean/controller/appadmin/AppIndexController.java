@@ -128,4 +128,32 @@ public class AppIndexController {
         return "appadmin/appindex04";
     }
 
+
+    // 사용자관리 index
+    @GetMapping(value="/index05")
+    public String AppIndex05Form(Model model, HttpServletRequest request) throws  Exception{
+
+        HttpSession session = request.getSession();
+        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        appUserFormDto.setFlag("DD");
+        appUserFormDto.setUsername("%");
+        appUserFormDto.setCustcd(userformDto.getCustcd());
+        appUserFormDto.setUserid("%");
+        appUserFormListDto = service.GetUserListDto(appUserFormDto);
+        userformDto.setPagetree01("관리자모드");
+        userformDto.setPagenm("접수사원별현황");
+        model.addAttribute("userformDto",userformDto);
+        try {
+            model.addAttribute("appUserListDto",appUserFormListDto);
+            model.addAttribute("userformDto",userformDto);
+        } catch (Exception ex) {
+//                dispatchException = ex;
+            log.debug("Exception =====>" + ex.toString() );
+        }
+        return "appadmin/appindex05";
+    }
+
+
+
+
 }

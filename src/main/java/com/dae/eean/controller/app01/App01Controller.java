@@ -692,4 +692,50 @@ public class App01Controller {
         return "App01/index110";
     }
 
+
+    //AS접수 등록
+    @GetMapping(value="/index20")
+    public String App20_index( Model model, HttpServletRequest request) throws Exception{
+        CommDto.setMenuTitle("통계관리");
+        CommDto.setMenuUrl("통계관리>AS접수배송등록");
+        CommDto.setMenuCode("index20");
+        try {
+            HttpSession session = request.getSession();
+            UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+            model.addAttribute("userformDto",userformDto);
+//            popupListDto = svcpopup.getCifCodeList(popupDto);
+
+            model.addAttribute("cifcodeList",popupListDto);
+        } catch (Exception ex) {
+            log.info("App20_index Exception ================================================================");
+            log.info("Exception =====>" + ex.toString());
+            return "redirect:http://eean.co.kr";
+        }
+
+        return "App01/index20";
+    }
+
+
+    //AS접수 등록
+    @GetMapping(value="/index21")
+    public String App21_index( Model model, HttpServletRequest request) throws Exception{
+        CommDto.setMenuTitle("통계관리");
+        CommDto.setMenuUrl("통계관리>AS접수현황");
+        CommDto.setMenuCode("index21");
+        try {
+            HttpSession session = request.getSession();
+            UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+            model.addAttribute("userformDto",userformDto);
+//            popupListDto = svcpopup.getCifCodeList(popupDto);
+
+            model.addAttribute("cifcodeList",popupListDto);
+        } catch (Exception ex) {
+            log.info("App21_index Exception ================================================================");
+            log.info("Exception =====>" + ex.toString());
+            return "redirect:http://eean.co.kr";
+        }
+
+        return "App01/index21";
+    }
+
 }

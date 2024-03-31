@@ -62,9 +62,6 @@ public class App02CrudController {
             index11Dto.setAs_acorp(asacorp);
             index11Dto.setFrdate(frdate);
             index11Dto.setTodate(todate);
-            log.info("asflag Exception =====>" + asflag);
-            log.info("frdate Exception =====>" + frdate);
-            log.info("todate Exception =====>" + todate);
             if(asflag.equals("2")){
                 index11List = service11.GetAsJupsuList03(index11Dto);
             }else if(asflag.equals("1")){

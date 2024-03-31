@@ -196,6 +196,83 @@ public class AppIndexCrudController {
         }
     }
 
+
+    @RequestMapping(value="/id05mod")   //영업사원 상태 수정
+    public String UserUpdate05(@RequestParam("actseqz") String seq
+            ,@RequestParam("actuseridz") String userid
+            ,@RequestParam("actuseynz") String useyn
+            ,@RequestParam("actusernmz") String usernm
+            ,@RequestParam("actuserpwz") String userpw
+            ,@RequestParam("perid") String perid
+            ,@RequestParam("custnm") String custnm
+            , Model model, HttpServletRequest request){
+        try {
+            HttpSession session = request.getSession();
+            UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+            String ls_custcd = userformDto.getCustcd();
+            String ls_spjangcd = userformDto.getSpjangcd();
+            appUserFormDto.setCustcd(ls_custcd);
+            appUserFormDto.setSpjangcd(ls_spjangcd);
+            appUserFormDto.setSeq(Integer.parseInt(seq));
+            appUserFormDto.setUserid(userid);
+            appUserFormDto.setUseyn(useyn);
+            appUserFormDto.setUsername(usernm);
+            appUserFormDto.setPasswd1(userpw);
+            appUserFormDto.setPasswd2(userpw);
+            appUserFormDto.setPerid(perid);
+            appUserFormDto.setCustnm(custnm);
+            log.info("custnm   =====> " + custnm);
+            appUserFormDto.setFlag("DD");
+
+            boolean result = service.UpdateUserInfoCC(appUserFormDto);
+            if (!result) {
+                return "error";
+            }else{
+                return "success";
+            }
+        }catch (IllegalStateException e){
+            model.addAttribute("errorMessage", e.getMessage());
+            return "error";
+        }
+    }
+
+
+    @RequestMapping(value="/id05sav")   //영업사원 상태 수정
+    public String UserInsert05(@RequestParam("userid") String userid
+            ,@RequestParam("passwd1") String passwd1
+            ,@RequestParam("passwd2") String passwd2
+            ,@RequestParam("custnm") String custnm
+            ,@RequestParam("perid") String perid
+            ,@RequestParam("username") String username
+            ,@RequestParam("flag") String flag
+            , Model model, HttpServletRequest request){
+        try {
+            HttpSession session = request.getSession();
+            UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+            String ls_custcd = userformDto.getCustcd();
+            String ls_spjangcd = userformDto.getSpjangcd();
+            appUserFormDto.setSpjangcd("ZZ");
+            appUserFormDto.setUserid(userid);
+            appUserFormDto.setUseyn("Y");
+            appUserFormDto.setUsername(username);
+            appUserFormDto.setPasswd1(passwd1);
+            appUserFormDto.setPasswd2(passwd2);
+            appUserFormDto.setPerid(perid);
+            appUserFormDto.setCustnm(custnm);
+            appUserFormDto.setFlag(flag);
+
+            boolean result = service.TB_XUSERS_INSERT(appUserFormDto);
+            if (!result) {
+                return "error";
+            }else{
+                return "success";
+            }
+        }catch (IllegalStateException e){
+            model.addAttribute("errorMessage", e.getMessage());
+            return "error";
+        }
+    }
+
     @RequestMapping(value="/id02list")   //거래처 리스트 조회
     public Object UserList02(@RequestParam("actusernamez") String usernm
             , Model model, HttpServletRequest request){
@@ -247,6 +324,29 @@ public class AppIndexCrudController {
             appUserFormDto.setSpjangcd(ls_spjangcd);
             appUserFormDto.setUsername(usernm);
             appUserFormDto.setFlag("CC");
+            appUserFormListDto = service.GetUserListDto(appUserFormDto);
+            model.addAttribute("appUserFormListDto", appUserFormListDto);
+
+        }catch (IllegalStateException e){
+            model.addAttribute("errorMessage", e.getMessage());
+            return "error";
+        }
+        return appUserFormListDto;
+    }
+
+
+    @RequestMapping(value="/id05list")   //거래처 리스트 조회
+    public Object UserList05(@RequestParam("actusernamez") String usernm
+            , Model model, HttpServletRequest request){
+        try {
+            HttpSession session = request.getSession();
+            UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+            String ls_custcd = userformDto.getCustcd();
+            String ls_spjangcd = userformDto.getSpjangcd();
+            appUserFormDto.setCustcd(ls_custcd);
+            appUserFormDto.setSpjangcd(ls_spjangcd);
+            appUserFormDto.setUsername(usernm);
+            appUserFormDto.setFlag("DD");
             appUserFormListDto = service.GetUserListDto(appUserFormDto);
             model.addAttribute("appUserFormListDto", appUserFormListDto);
 

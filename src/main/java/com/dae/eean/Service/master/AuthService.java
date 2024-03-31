@@ -88,6 +88,17 @@ public class AuthService {
         return (queryResult > 0);
     }
 
+    //사용자사용여부
+    @Transactional
+    public boolean TB_XUSERS_INSERT(UserFormDto parm){
+        int queryResult = 1;
+        queryResult = authMapper.TB_XUSERS_INSERT(parm);
+        if(queryResult < 1){
+            queryResult = 0;
+        }
+        return (queryResult > 0);
+    }
+
     //사용자 메뉴사용여부
     @Transactional
     public boolean UpdateUserMenuInfo(TBXuserMenuDTO parm){
