@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <th:block layout:fragment="leftNavComm">
+        <!----- hover scripts>script  서브메뉴위치    -->
+        <ul class="pnav">
+            <li>
+                <button type="button"><img th:src="@{/assets/images/header_icon1.png}" alt=""></button>
+                <div class="depth2">
+                    <div class="dep_main">
+                        <a href="./center.html">
+                            <button type="button">
+                                이인옵틱AS접수
+                            </button>
+                        </a> 
+                    </div> 
+                    <ul>
+                        <li><a th:href="@{/app01/index20}"><i><img class="dot1" th:src="@{/assets/images/i_dot_header.png}" alt=""><img class="dot2" th:src="@{/assets/images/i_dot_header2.png}" alt=""></i>접수등록</a></li>
+                        <li><a th:href="@{/app01/index21}"><i><img class="dot1" th:src="@{/assets/images/i_dot_header.png}" alt=""><img class="dot2" th:src="@{/assets/images/i_dot_header2.png}" alt=""></i>접수현황</a></li> 
+                    </ul>
+                </div>     
+            </li> 
+            <li>
+                <button type="button"><img th:src="@{/assets/images/check_on.png}" alt=""></button>
+                <div class="depth2 on">
+                    <div class="dep_main">   
+                        <button id="logout" onclick="logout()">
+                            로그아웃
+                        </button>  
+                    </div> 
+                </div>
+            </li> 
+        </ul>
+    </th:block>
+
+
+
+    <input class="form-control form-control-sm"  type="hidden" id="userinfobtn" data-bs-toggle="modal" data-bs-target="#userinfomodal"  />
+ 
+
+    <script type="text/javascript" th:inline="javascript">
+        //마이페이지 모달 호출
+        // document.getElementById("userinfo").addEventListener("click",function() {
+        //     document.getElementById("userinfobtn").click();
+
+        // });
+
+
+        function save_btn3(){
+            var ls_passwd = document.getElementById('actpasswdz').value;
+            var ls_name = document.getElementById('actnamez').value;
+            var ls_phone = document.getElementById('actphonez').value;
+            var ls_userid = document.getElementById('actuseridz').value;
+
+            if(!ls_passwd){
+                alert("공백은 불가합니다.")
+                return
+            }
+            if(!ls_name){
+                alert("공백은 불가합니다.")
+                return
+            }
+            if(!ls_phone){
+                alert("공백은 불가합니다.")
+                return
+            }
+
+            $.ajax({
+                url: '/authcrud/update',
+                type: "POST",
+                data: {
+                    "passwd1" : ls_passwd,
+                    "passwd2" : ls_passwd,
+                    "phone" : ls_phone,
+                    "username" : ls_name,
+                    "userid" : ls_userid
+                },
+                async: false,
+                success:function (data) {
+                    alert("성공")
+                },error:function (e) {
+                    alert("오류발생");
+                    console.log('error', e)
+                }
+            }).done(function(fragment){
+
+            })
+
+
+        }
+
+        function check_pw(){
+            var pw = document.getElementById('actpasswdz').value;
+
+            const pattern_pwd = /(?=.*\d{1,20})(?=.*[~`!@#$%\^&*()-+=]{1,20})(?=.*[a-zA-Z]{1,20}).{8,20}$/;
+
+            if(!(pattern_pwd.test(pw))){
+                window.alert('영문+숫자+특수문자 조합으로 8자리 이상 비밀번호를 입력해주세요.');
+                document.getElementById('actpasswdz').value="";
+                document.getElementById('actpasswdz').focus();
+            }
+        }
+ 
+        function logout(){   
+            if (!confirm("로그아웃하시겠습니까?") ){
+                return    
+            }
+            localStorage.removeItem("perid");
+            localStorage.removeItem("pernm");
+            localStorage.removeItem("userid");
+            localStorage.removeItem("flag");
+            localStorage.removeItem("custnm") ;
+            location.href = "/" ;
+        }   
+    </script>
+
+
+</html>
