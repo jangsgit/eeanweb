@@ -722,7 +722,7 @@
                         return ;               
                     }   
                     ls_misfixflag = "%";
-                    // if(ls_misfixflag == "확정구분"){ 
+                    // if(ls_misfixflag == "확정구분"){  
                     //     ls_misfixflag = "%";
                     // }    
                     if(ls_inname01 == null || ls_inname01.length == 0 || ls_inname01 == ""){  
@@ -763,10 +763,7 @@
                     var ls_inname02   = document.getElementById('inname02').value; 
                     // var ls_wishfixflag = document.getElementById('wishfixflag').value; 
                     
-                    ls_wishfixflag = "%";
-                    // if(ls_wishfixflag == "확정구분"){ 
-                    //     ls_wishfixflag = "%";
-                    // }  
+                    ls_wishfixflag = "1";   
                     if(ls_frdate == null || ls_frdate.length == 0 || ls_frdate == ""){ 
                         alert("조회일자를 등록하세요") 
                         document.getElementById("frdate02").focus(); 
@@ -821,7 +818,7 @@
                         document.getElementById("todate").focus(); 
                         return ;               
                     }    
-                    ls_misfixflag = "%";
+                    ls_misfixflag = "1";  
                      
                     if(ls_inname03 == null || ls_inname03.length == 0 || ls_inname03 == ""){  
                         ls_abonsadam3 = "%";
@@ -867,7 +864,7 @@
                         document.getElementById("todate").focus(); 
                         return ;               
                     }   
-                    ls_misfixflag = "%";
+                    ls_misfixflag = "1"; 
                     
                     if(ls_inname04 == null || ls_inname04.length == 0 || ls_inname04 == ""){  
                         ls_abonsadam4 = "%";
@@ -1151,12 +1148,12 @@
             cols.align = "center";
             cols.width = 150; 
             wtab04Grid.columns.push(cols); 
-            // cols = new wijmo.grid.Column(); 
-            // cols.binding = 'misnum';
-            // cols.header = '주문번호';
-            // cols.align = "center";
-            // cols.width = 80;  
-            // wtab04Grid.columns.push(cols);  
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'misnum';
+            cols.header = '주문번호';
+            cols.align = "center";
+            cols.width = 80;  
+            wtab04Grid.columns.push(cols);  
             // cols = new wijmo.grid.Column(); 
             // cols.binding = 'seq';
             // cols.header = '순번';
