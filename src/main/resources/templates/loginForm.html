@@ -262,7 +262,7 @@
      })
 
      function insertLogin(){
-      // console.log("insertlogin start");
+      // console.log("insertlogin start"); 
       var ls_loginid   = document.getElementById('loginid').value;
       var ls_logpass   = document.getElementById('logpass').value;
       var ls_ipaddr    = document.getElementById('ipaddr').value;
@@ -284,6 +284,7 @@
      }
 
      function wrongPasswd(){
+        return true
         console.log("wrongPasswd start");
         var ls_loginid   = document.getElementById('loginid').value;
         var ls_logpass   = document.getElementById('logpass').value;
