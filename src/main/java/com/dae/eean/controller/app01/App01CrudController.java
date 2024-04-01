@@ -643,8 +643,6 @@ public class App01CrudController {
 
             String ls_acode = service03.GetJpumCheck(_index03Dto);
             Boolean result = false;
-            log.info("ls_acode");
-            log.info(_index03Dto.getJbigo());
             if (ls_acode == null || ls_acode.equals("")) {
                 result = service03.InsertJpum(_index03Dto);
                 log.info("result1");

@@ -384,6 +384,7 @@
                                                 <option value="P">피오비노</option>
                                                 <option value="B">블리스</option>  
                                             </select>
+                                            <input class="form-control form-control-sm" id="sjpbgubn" type="hidden"  /> 
                                         </div>
                                     </li>                                    
                                     <li style ="float:left; list-style-type:none; margin-left:40px;">
@@ -883,11 +884,13 @@
             }
         });         
         function searchList_rtn(arg1){    
+            var ls_sjpbgubn = document.getElementById('sjpbgubn').value;  
             $.ajax({
                         url: '/app01m/index03/list',  
                         type:"POST",
                         data: { 
                             "searchtxt" :arg1, 
+                            "jpbgubn" :ls_sjpbgubn, 
                         }, 
                         async:false,
                         success:function(data){  
@@ -1359,14 +1362,14 @@ function sample4_execDaumPostcode() {
 
 
     }
-
+ 
 
 
 // 날짜 및 시간 표현 script     
         //gettoday,init_date script
         $(document).ready(function() {             
             getToday()
-            //fn_egov_init_date()  
+            fn_egov_init_date()  
                
         })       
       
@@ -1405,6 +1408,25 @@ function sample4_execDaumPostcode() {
         } 
         
         
+    function fn_egov_init_date(){
+        const ls_perid = window.localStorage.getItem("perid");
+        const ls_pernm = window.localStorage.getItem("pernm");
+        const ls_role = window.localStorage.getItem("role");  
+        lsUserid = window.localStorage.getItem("userid")
+        if(ls_role == "P"){ 
+            document.getElementById('sjpbgubn').value = "P";    
+        }else if(ls_role =="B"){
+            document.getElementById('sjpbgubn').value = "B";     
+        }else{
+            if (lsUserid == "pvadmin"){ 
+                document.getElementById('sjpbgubn').value = "P";  
+            }else if(lsUserid == "bladmin"){ 
+                document.getElementById('sjpbgubn').value = "B";  
+            }else{ 
+                document.getElementById('sjpbgubn').value = "%"; 
+            }
+        }
+    }
         
         // <!--######################################## 그리드 메뉴-->
         class FlexGridContextMenu {

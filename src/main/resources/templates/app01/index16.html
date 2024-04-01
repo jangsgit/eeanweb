@@ -568,16 +568,16 @@
                 //     rowCount.textContent = s.rows.length;
                 //     cellCount.textContent = s.hostElement.querySelectorAll('.wj-cell').length;
                 // },
-                scrollPositionChanged: function (s, e) {
-                // 만약 바닥에 가까우면, 20개의 아이템을 추가
-                    if (s.viewRange.bottomRow >= s.rows.length - 1) {
-                        let view = s.collectionView;
-                        let index = view.currentPosition; // 뷰가 정렬될 경우를 대비해서 위치를 유지
-                        addData(data, 20);
-                        view.refresh();
-                        view.currentPosition = index;
-                    }
-                }
+                // scrollPositionChanged: function (s, e) {
+                // // 만약 바닥에 가까우면, 20개의 아이템을 추가
+                //     if (s.viewRange.bottomRow >= s.rows.length - 1) {
+                //         let view = s.collectionView;
+                //         let index = view.currentPosition; // 뷰가 정렬될 경우를 대비해서 위치를 유지
+                //         addData(data, 20);
+                //         view.refresh();
+                //         view.currentPosition = index;
+                //     }
+                // }
                 // scrollPositionChanged: function () {
                 //     var rng = wtab02Grid.viewRange;
                 //     view_p01tab02page.setWindow(rng.row, rng.row2);
@@ -3266,7 +3266,8 @@
                     acorp2: wtab02Dto[i]["acorp2"], 
                     acorp3: wtab02Dto[i]["acorp3"],  
                     acode: wtab02Dto[i]["acode"], 
-                    acorp: wtab02Dto[i]["acorp"]      
+                    acorp: wtab02Dto[i]["acorp"] , 
+                    abigo: wtab02Dto[i]["abigo"]       
                 });
                 cnt++;
             }   
@@ -3295,6 +3296,13 @@
             cols = new wijmo.grid.Column(); 
             cols.binding = 'acorp';
             cols.header = '거래처명'; 
+            cols.align = "left"; 
+            cols.width = 200;
+            winnameGrid.columns.push(cols); 
+
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'abigo';
+            cols.header = '비고'; 
             cols.align = "left"; 
             cols.width = 200;
             winnameGrid.columns.push(cols); 
@@ -3560,6 +3568,10 @@
         document.getElementById('wishfixflag').value = "0";
         document.getElementById('misgubunflag').value = "%";
         document.getElementById('misgubun').value = "%";
+        const ls_role = window.localStorage.getItem("role");  
+        if(ls_role == null || ls_role.length == 0 || ls_role == ""){ 
+            ls_role = '%'             
+        } 
         
         lsUserid = window.localStorage.getItem("userid")
         if (lsUserid == "pvadmin"){ 
@@ -3567,7 +3579,7 @@
         }else if(lsUserid == "bladmin"){ 
             document.getElementById('bjpbgubn').value = "B";  
         }else{ 
-            document.getElementById('bjpbgubn').value = "%"; 
+            document.getElementById('bjpbgubn').value = ls_role; 
         }
         // var $frdate = $('#frdate');
         // var $todate = $('#todate');

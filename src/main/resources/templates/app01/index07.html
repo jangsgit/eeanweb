@@ -285,16 +285,16 @@
                         'acorp'
                     ]
                 }) ,
-                scrollPositionChanged: function (s, e) {
-                // 만약 바닥에 가까우면, 20개의 아이템을 추가
-                    if (s.viewRange.bottomRow >= s.rows.length - 1) {
-                        let view = s.collectionView;
-                        let index = view.currentPosition; // 뷰가 정렬될 경우를 대비해서 위치를 유지
-                        addData(data, 20);
-                        view.refresh();
-                        view.currentPosition = index;
-                    }
-                }
+                // scrollPositionChanged: function (s, e) {
+                // // 만약 바닥에 가까우면, 20개의 아이템을 추가
+                //     if (s.viewRange.bottomRow >= s.rows.length - 1) {
+                //         let view = s.collectionView;
+                //         let index = view.currentPosition; // 뷰가 정렬될 경우를 대비해서 위치를 유지
+                //         addData(data, 20);
+                //         view.refresh();
+                //         view.currentPosition = index;
+                //     }
+                // }
                 //itemsSource: view_p01tab02page, 
             }); 
                  
@@ -1132,6 +1132,10 @@
 
     function fn_egov_init_date(){
         lsUserid = window.localStorage.getItem("userid")
+        const ls_role = window.localStorage.getItem("role");  
+        if(ls_role == null || ls_role.length == 0 || ls_role == ""){ 
+            ls_role = '%'             
+        }  
         if (lsUserid == "pvadmin"){
             document.getElementById('jpbgubn').value = "P"; 
             document.getElementById('bjpbgubn').value = "P";  
@@ -1139,8 +1143,8 @@
             document.getElementById('jpbgubn').value = "B"; 
             document.getElementById('bjpbgubn').value = "B";  
         }else{
-            document.getElementById('jpbgubn').value = "%"; 
-            document.getElementById('bjpbgubn').value = "%"; 
+            document.getElementById('jpbgubn').value = ls_role; 
+            document.getElementById('bjpbgubn').value = ls_role; 
         }
         // var $frdate = $('#frdate');
         // var $todate = $('#todate');

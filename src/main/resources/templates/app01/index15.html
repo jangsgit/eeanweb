@@ -2532,19 +2532,25 @@ aria-hidden="true">
 
         function fn_egov_init_date(){  
             lsUserid = window.localStorage.getItem("userid")
+            const ls_role = window.localStorage.getItem("role");
+            if(ls_role == null || ls_role.length == 0 || ls_role == ""){ 
+                ls_role = '%'             
+            }
             //console.log('lsUserid==>' + lsUserid)
             if(lsUserid == null || lsUserid.length == 0 || lsUserid == ""){ 
                 alert("로그인을 다시하세요") 
                 location.href = "/" ;
                 return ;               
             }   
+                
             if (lsUserid == "pvadmin"){
                 document.getElementById('jpbgubn').value = "P"; 
             }else if(lsUserid == "bladmin"){
                 document.getElementById('jpbgubn').value = "B";  
-            }else{
-                document.getElementById('jpbgubn').value = "%"; 
+            }else{  
+                document.getElementById('jpbgubn').value = ls_role;   
             }
+ 
             document.getElementById('makflag01').value = "0";
             document.getElementById('makflag02').value = "0";
         }

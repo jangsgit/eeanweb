@@ -367,16 +367,16 @@
                     { binding: 'fixflag', header: '주문', align: "center", width: 150, cssClass: 'switch'   },  
                 ], 
                 itemsSource: view_p01tab04page,
-                scrollPositionChanged: function (s, e) {
-                // 만약 바닥에 가까우면, 20개의 아이템을 추가
-                    if (s.viewRange.bottomRow >= s.rows.length - 1) {
-                        let view = s.collectionView;
-                        let index = view.currentPosition; // 뷰가 정렬될 경우를 대비해서 위치를 유지
-                        addData(data, 20);
-                        view.refresh();
-                        view.currentPosition = index;
-                    }
-                }
+                // scrollPositionChanged: function (s, e) {
+                // // 만약 바닥에 가까우면, 20개의 아이템을 추가
+                //     if (s.viewRange.bottomRow >= s.rows.length - 1) {
+                //         let view = s.collectionView;
+                //         let index = view.currentPosition; // 뷰가 정렬될 경우를 대비해서 위치를 유지
+                //         addData(data, 20);
+                //         view.refresh();
+                //         view.currentPosition = index;
+                //     }
+                // }
             });  
 
 
@@ -1604,14 +1604,17 @@
     }
 
     function fn_egov_init_date(){
-         
+        const ls_role = window.localStorage.getItem("role");  
+        if(ls_role == null || ls_role.length == 0 || ls_role == ""){ 
+            ls_role = '%'             
+        }  
         lsUserid = window.localStorage.getItem("userid")
         if (lsUserid == "pvadmin"){ 
             document.getElementById('bjpbgubn').value = "P";  
         }else if(lsUserid == "bladmin"){ 
             document.getElementById('bjpbgubn').value = "B";  
         }else{ 
-            document.getElementById('bjpbgubn').value = "%"; 
+            document.getElementById('bjpbgubn').value = ls_role; 
         }
             document.getElementById('misgubun').value = "%"; 
         
