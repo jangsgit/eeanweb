@@ -105,7 +105,7 @@
                                                 </button>
                                             </div> 
                                             <div class="col-1 col-sm-1">  
-                                                <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="wishBtn" type="button" onclick="wishorderlist_rtn()">예약장바구니
+                                                <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="wishBtn" type="button" onclick="wishorderlist_rtn()" disabled>예약장바구니
                                                 </button>
                                             </div>    
                                         </div> 
@@ -2325,6 +2325,8 @@ aria-hidden="true">
 
 
         function wish_fnc(arg1, arg2){
+            //24.04.02 요청에의해 임의로막음
+            return true
              savewish_btn(arg1, arg2, '', 1) 
             // save_modal("R", arg1, arg2)
         }

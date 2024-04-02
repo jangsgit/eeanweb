@@ -1150,12 +1150,17 @@
 
     function fn_egov_init_date(){
         const ls_perid = window.localStorage.getItem("perid");
+        const ls_role = window.localStorage.getItem("role");  
+        if(ls_role == null || ls_role.length == 0 || ls_role == ""){ 
+            ls_role = '%'             
+        }  
+
         if(ls_perid.substr(0,1) == "p"){
             document.getElementById('jpbgubn').value = "P";
         }else if(ls_perid.substr(0,1) == "b"){
             document.getElementById('jpbgubn').value = "B";
         }else{
-            document.getElementById('jpbgubn').value = "%";
+            document.getElementById('jpbgubn').value = ls_role;
         }  
         // var $frdate = $('#frdate');
         // var $todate = $('#todate');
