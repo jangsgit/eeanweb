@@ -20,6 +20,7 @@
     </select>
 
 
+
     <insert id="InsertCifCode" parameterType="com.dae.eean.DTO.Popup.PopupDto" >
         insert into CIFCODE (cifcode, cifcodename ) values
             (#{cifcode}, #{cifcodename})

@@ -314,7 +314,7 @@
                         <div class="rounded-top-lg py-3 ps-4 pe-6 bg-light">                            
                             <div class="search">
                                 <div class="input_wrap">  
-                                    <input class="form-control form-control-sm" id="searchCode" type="text"   onkeyup="if(window.event.keyCode==13){insaList_rtn('M')}"
+                                    <input class="form-control form-control-sm" id="searchCode" type="text"   onkeyup="if(window.event.keyCode==13){insaSearchList_rtn('M')}"
                                     placeholder="사원명 "     />                                      
                                 </div>
                                 <button id="winnameBtn">
@@ -405,8 +405,8 @@
                         </div>   
                         <div class="box_wrap with_tit" style="padding: 10px;">
                             <div class="container-fluid" style="padding: 10px;">
-                                <div id="wtab02Grid_div" ></div>
-                                <div  id="tab02Pager"></div>
+                                <div id="wtab02Grid_div" style="overflow:scroll;   height:600px;    margin:0 auto; "></div>
+                                <!-- <div  id="tab02Pager"></div> -->
                             </div>   
                         </div>
                     </div>  
@@ -492,34 +492,23 @@
             ], 
             itemsSource: view_p01tab01page,  
         });        
- 
+   
+        // 헤더 열 전환
+        setHeaderColumn(false);
+        function setHeaderColumn(headerOn) {
+            wtab01Grid.headersVisibility = headerOn
+            ? wijmo.grid.HeadersVisibility.All
+            : wijmo.grid.HeadersVisibility.Column;
+            // selector.column = headerOn
+            // ? wtab01Grid.rowHeaders.columns[0]
+            // : wtab01Grid.columns[0];
+        } 
         
-            new FlexGridContextMenu(wtab01Grid);
-            // 그룹 패널 생성
-            // var theGroupPanel = new wijmo.grid.grouppanel.GroupPanel('#theGroupPanel', {
-            //     placeholder: '그룹을 만들려면 열을 여기로 끌어다 놓아주세요.  마우스 우 클릭하시면 엑셀로 받으실 수 있습니다.',
-            //     grid: wtab01Grid
-            // }); 
-            // 선택기 생성
-            // let selector = new wijmo.grid.selector.Selector(wtab01Grid, {
-            //     itemChecked: () => {
-            //         showCheckedCount();
-            //     }
-            // });  
-            // 헤더 열 전환
-            setHeaderColumn(false);
-            function setHeaderColumn(headerOn) {
-                wtab01Grid.headersVisibility = headerOn
-                ? wijmo.grid.HeadersVisibility.All
-                : wijmo.grid.HeadersVisibility.Column;
-                // selector.column = headerOn
-                // ? wtab01Grid.rowHeaders.columns[0]
-                // : wtab01Grid.columns[0];
-            } 
-            wtab01Grid.showMarquee = true;
-            wtab01Grid.focus();
-            wijmo.toggleClass(wtab01Grid.hostElement, 'highlightActive', true);
-            wtab01Grid.focus();
+        new FlexGridContextMenu(wtab01Grid); 
+        wtab01Grid.showMarquee = true;
+        wtab01Grid.focus();
+        wijmo.toggleClass(wtab01Grid.hostElement, 'highlightActive', true);
+        wtab01Grid.focus();
 
  
         // tab01검색 데이터 수집
@@ -582,15 +571,15 @@
         // // ################################################################
 
         view_p01tab02page = new wijmo.collections.CollectionView(getData_tab02(), {
-            sortDescriptions: [new wijmo.collections.SortDescription("acode", false)],
-            pageSize: 18
+            // sortDescriptions: [new wijmo.collections.SortDescription("acode", false)],
+            // pageSize: 18
         });
        // tab02 grid page
-        new wijmo.input.CollectionViewNavigator('#tab02Pager', {
-            byPage: true,
-            headerFormat: 'Page {currentPage:n0} of {pageCount:n0}',
-            cv: view_p01tab02page
-        });      
+        // new wijmo.input.CollectionViewNavigator('#tab02Pager', {
+        //     byPage: true,
+        //     headerFormat: 'Page {currentPage:n0} of {pageCount:n0}',
+        //     cv: view_p01tab02page
+        // });      
         wtab02Grid = new wijmo.grid.FlexGrid('#wtab02Grid_div', {  
             autoGenerateColumns: false,
             showMarquee: true,
@@ -632,34 +621,23 @@
             ], 
             itemsSource: view_p01tab02page
         });       
-  
 
-        new FlexGridContextMenu(wtab02Grid);
-            // 그룹 패널 생성
-            // var theGroupPanel = new wijmo.grid.grouppanel.GroupPanel('#theGroupPanel', {
-            //     placeholder: '그룹을 만들려면 열을 여기로 끌어다 놓아주세요.  마우스 우 클릭하시면 엑셀로 받으실 수 있습니다.',
-            //     grid: wtab02Grid
-            // }); 
-            // 선택기 생성
-            selector = new wijmo.grid.selector.Selector(wtab02Grid, {
-                itemChecked: () => {
-                    showCheckedCount();
-                }
-            }); 
-            // 헤더 열 전환
-            setHeaderColumn02(true);
-            function setHeaderColumn02(headerOn) {
-                wtab02Grid.headersVisibility = headerOn
-                ? wijmo.grid.HeadersVisibility.All
-                : wijmo.grid.HeadersVisibility.Column;
-                selector.column = headerOn
-                ? wtab02Grid.rowHeaders.columns[0]
-                : wtab02Grid.columns[0];
-            } 
-            wtab02Grid.showMarquee = true;
-            wtab02Grid.focus();
-            wijmo.toggleClass(wtab02Grid.hostElement, 'highlightActive', true);
-            wtab02Grid.focus();
+        // 헤더 열 전환
+        setHeaderColumn02(true);
+        function setHeaderColumn02(headerOn) {
+            wtab02Grid.headersVisibility = headerOn
+            ? wijmo.grid.HeadersVisibility.All
+            : wijmo.grid.HeadersVisibility.Column;
+            // selector.column = headerOn
+            // ? wtab02Grid.rowHeaders.columns[0]
+            // : wtab02Grid.columns[0];
+        } 
+        
+        new FlexGridContextMenu(wtab02Grid); 
+        wtab02Grid.showMarquee = true;
+        wtab02Grid.focus();
+        wijmo.toggleClass(wtab02Grid.hostElement, 'highlightActive', true);
+        wtab02Grid.focus();
 
  
         // tab01검색 데이터 수집
@@ -1079,21 +1057,7 @@
                 insaflag = "A"; 
                 insaSearchList_rtn("A"); 
             }
-        });    
-        document.getElementById("inname02").addEventListener("keyup", (e)=>{ 
-            if(e.keyCode === 13){ 
-                document.getElementById("innamebtn").click();
-                insaflag = "B"; 
-                insaSearchList_rtn("B"); 
-            }
-        });    
-        document.getElementById("inname03").addEventListener("keyup", (e)=>{ 
-            if(e.keyCode === 13){ 
-                document.getElementById("innamebtn").click();
-                insaflag = "C"; 
-                insaSearchList_rtn("C"); 
-            }
-        });    
+        });     
  
         document.getElementById("winnameBtn").addEventListener("click",function(){   
             insaSearchList_rtn("M");  
@@ -1228,7 +1192,7 @@
                 searchList_rtn(searchText); 
             }
         });         
-        function searchList_rtn(arg1){    
+        function searchList_rtn(arg1){   
             $.ajax({
                         url: '/app01m/index02/list',  
                         type:"POST",
@@ -1293,11 +1257,11 @@
                 cnt++;
             }   
 
-            console.log(wtab01_data);
+            //  console.log(wtab01_data);
 
             wtab01Grid.columns.clear();  
             wtab01Grid.autoGenerateColumns = false; 
-            view_p01tab01page.sourceCollection  = wtab01_data;
+            wtab01Grid.itemsSource  = wtab01_data;
 
             var cols = new wijmo.grid.Column(); 
             cols.binding = 'acode';
@@ -1352,7 +1316,14 @@
         // wcifChk_a(ctx.item.acorp1, ctx.item.acorp2, ctx.item.acorp3, ctx.item.acode, ctx.item.acorp,ctx.item.asano1, ctx.item.asano2, ctx.item.asano3, ctx.item.aname, ctx.item.aupte,
         //  ctx.item.ajong,ctx.item.apost1, ctx.item.ajuso1, ctx.item.ajuso2, ctx.item.abigo, ctx.item.agita, ctx.item.ajumi1, ctx.item.ajumi2,ctx.item.aascode1, ctx.item.aascode2,
         //   ctx.item.atelno, ctx.item.atelno2, ctx.item.aemail, ctx.item.ahand, ctx.item.abonsadam1, ctx.item.abonsadam2, ctx.item.abonsadam3, ctx.item.adomain, ctx.item.afax 
-                      
+       
+        // ctx.item.acorp1, ctx.item.acorp2, ctx.item.acorp3, ctx.item.acode, ctx.item.acorp, 1-5
+        // ctx.item.asano1, ctx.item.asano2, ctx.item.asano3, ctx.item.aname, ctx.item.aupte, 6-10
+        // ctx.item.ajong,  ctx.item.apost1, ctx.item.ajuso1, ctx.item.ajuso2, ctx.item.abigo, 11-15
+        // ctx.item.agita, ctx.item.ajumi1, ctx.item.ajumi2,ctx.item.aascode1, ctx.item.aascode2, 16-20
+        // ctx.item.atelno, ctx.item.atelno2, ctx.item.aemail, ctx.item.ahand, ctx.item.abonsadam1, 21-25
+        // ctx.item.abonsadam2, ctx.item.abonsadam3, ctx.item.adomain, ctx.item.afax, ctx.item.inname01, 26-30
+        // ctx.item.inname02, ctx.item.inname03 `                                                       31 32
         function wcifChk_a(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16, arg17, arg18, arg19, arg20, arg21, arg22, arg23, arg24, arg25, arg26, arg27, arg28, arg29, arg30, arg31, arg32){            
             document.getElementById('acorp1').value = arg1;  
             document.getElementById('acorp2').value = arg2;   
@@ -1379,13 +1350,13 @@
             document.getElementById('aemail').value = arg23;
             document.getElementById('ahand').value = arg24;
             document.getElementById('abonsadam1').value = arg25; 
-            document.getElementById('abonsadam2').value = arg26;
-            document.getElementById('abonsadam3').value = arg27;
-            document.getElementById('adomain').value = arg28;
+            // document.getElementById('abonsadam2').value = arg26;
+            // document.getElementById('abonsadam3').value = arg27;
+            // document.getElementById('adomain').value = arg28;
             document.getElementById('afax').value = arg29; 
             document.getElementById('inname01').value = arg30; 
-            document.getElementById('inname02').value = arg31; 
-            document.getElementById('inname03').value = arg32; 
+            // document.getElementById('inname02').value = arg31; 
+            // document.getElementById('inname03').value = arg32; 
         }      
 
 
@@ -1468,11 +1439,11 @@
                 cnt++;
             }   
 
-            // console.log(wtab02_data);
+            //  console.log(wtab02_data);
 
             wtab02Grid.columns.clear();  
             wtab02Grid.autoGenerateColumns = false; 
-            view_p01tab02page.sourceCollection  = wtab02_data;
+            wtab02Grid.itemsSource  = wtab02_data;
 
             var cols = new wijmo.grid.Column(); 
             cols.binding = 'acode';
@@ -1762,271 +1733,227 @@ function sample4_execDaumPostcode() {
 
         }  
         
-        
-        
-        
-        // <!--######################################## 그리드 메뉴-->
-        class FlexGridContextMenu {
-            constructor(grid) {
-                let host = grid.hostElement, menu = this._buildMenu(grid);
-                host.addEventListener('contextmenu', (e) => {
-                    // 클릭된 셀/열 선택
-                    let sel = grid.selection, ht = grid.hitTest(e), row = ht.getRow();
+         
 
-                    switch (ht.panel) {
-                        case grid.cells:
-                        let colIndex = ht.col;
-                        // 만약 그룹 헤더이면, 그룹 열 선택
-                        if (row instanceof wijmo.grid.GroupRow && row.dataItem instanceof wijmo.collections.CollectionViewGroup) {
-                            let gd = row.dataItem.groupDescription;
-                            if (gd instanceof wijmo.collections.PropertyGroupDescription) {
-                            let col = grid.getColumn(gd.propertyName);
-                            if (col && col.index > -1) {
-                                colIndex = col.index;
-                            }
-                            }
+
+         
+    class FlexGridContextMenu {
+        constructor(grid) {
+            let host = grid.hostElement, menu = this._buildMenu(grid);
+            host.addEventListener('contextmenu', (e) => {
+                // 클릭된 셀/열 선택
+                let sel = grid.selection, ht = grid.hitTest(e), row = ht.getRow();
+
+                switch (ht.panel) {
+                    case grid.cells:
+                    let colIndex = ht.col;
+                    // 만약 그룹 헤더이면, 그룹 열 선택
+                    if (row instanceof wijmo.grid.GroupRow && row.dataItem instanceof wijmo.collections.CollectionViewGroup) {
+                        let gd = row.dataItem.groupDescription;
+                        if (gd instanceof wijmo.collections.PropertyGroupDescription) {
+                        let col = grid.getColumn(gd.propertyName);
+                        if (col && col.index > -1) {
+                            colIndex = col.index;
                         }
-                        grid.select(ht.row, colIndex);
-                        break;
-                        case grid.columnHeaders:
-                        grid.select(sel.row, ht.col);
-                        break;
-                        case grid.rowHeaders:
-                        grid.select(ht.row, sel.col);
-                        break;
-                        default:
-                        return; // 유효하지 않는 패널
+                        }
                     }
-                    // 현재 열에 대한 메뉴 표시
-                    if (grid.selection.col > -1) {
-                        e.preventDefault(); // 브라우저의 기본 메뉴 취소
-                        menu.show(e); // Wijmo 메뉴 표시
-                    }
-                }, true);
-            }
-            _buildMenu(grid) {
-                let menu = new wijmo.input.Menu(document.createElement('div'), {
-                owner: grid.hostElement,
-                displayMemberPath: 'header',
-                subItemsPath: 'items',
-                commandParameterPath: 'cmd',
-                dropDownCssClass: 'ctx-menu',
-                openOnHover: true,
-                closeOnLeave: true,
-                itemsSource: [
-                    {
-                    header: '정렬', items: [
-                        { header: 'Ascending', cmd: 'SRT_ASC' },
-                        { header: 'Descending', cmd: 'SRT_DESC' },
-                        { header: 'No Sort', cmd: 'SRT_NONE' },
-                        { header: '-' },
-                        { header: 'Clear All Sorts', cmd: 'SRT_CLR' }
-                    ]
-                    },
+                    grid.select(ht.row, colIndex);
+                    break;
+                    case grid.columnHeaders:
+                    grid.select(sel.row, ht.col);
+                    break;
+                    case grid.rowHeaders:
+                    grid.select(ht.row, sel.col);
+                    break;
+                    default:
+                    return; // 유효하지 않는 패널
+                }
+                // 현재 열에 대한 메뉴 표시
+                if (grid.selection.col > -1) {
+                    e.preventDefault(); // 브라우저의 기본 메뉴 취소
+                    menu.show(e); // Wijmo 메뉴 표시
+                }
+            }, true);
+        }
+        _buildMenu(grid) {
+            let menu = new wijmo.input.Menu(document.createElement('div'), {
+            owner: grid.hostElement,
+            displayMemberPath: 'header',
+            subItemsPath: 'items',
+            commandParameterPath: 'cmd',
+            dropDownCssClass: 'ctx-menu',
+            openOnHover: true,
+            closeOnLeave: true,
+            itemsSource: [
+                {
+                header: '정렬', items: [
+                    { header: 'Ascending', cmd: 'SRT_ASC' },
+                    { header: 'Descending', cmd: 'SRT_DESC' },
+                    { header: 'No Sort', cmd: 'SRT_NONE' },
                     { header: '-' },
-                    { header: 'Pin/Unpin', cmd: 'PIN' },
-                    { header: '-' },
-                    { header: 'AutoSize', cmd: 'ASZ' },
-                    { header: 'AutoSize All', cmd: 'ASZ_ALL' },
-                    { header: '-' },
-                    { header: 'Group/Ungroup', cmd: 'GRP' },
-                    { header: 'Clear All Groups', cmd: 'GRP_CLR' },
-                    { header: '-' },
-                    {
-                    header: '내려받기', items: [
-                        { header: 'CSV', cmd: 'X_CSV' },
-                        { header: 'XLSX', cmd: 'X_XLSX' },
-                        { header: 'PDF', cmd: 'X_PDF' },
-                    ]
-                    }
-                ],
-                command: {
-                    // 메뉴 명령 활성화/비활성화
-                    canExecuteCommand: (cmd) => {
-                    let view = grid.collectionView, col = grid.columns[grid.selection.col];
+                    { header: 'Clear All Sorts', cmd: 'SRT_CLR' }
+                ]
+                },
+                { header: '-' },
+                { header: 'Pin/Unpin', cmd: 'PIN' },
+                { header: '-' },
+                { header: 'AutoSize', cmd: 'ASZ' },
+                { header: 'AutoSize All', cmd: 'ASZ_ALL' },
+                { header: '-' },
+                { header: 'Group/Ungroup', cmd: 'GRP' },
+                { header: 'Clear All Groups', cmd: 'GRP_CLR' },
+                { header: '-' },
+                {
+                header: '내려받기', items: [
+                    { header: 'CSV', cmd: 'X_CSV' },
+                    { header: 'XLSX', cmd: 'X_XLSX' },
+                    { header: 'PDF', cmd: 'X_PDF' },
+                ]
+                }
+            ],
+            command: {
+                // 메뉴 명령 활성화/비활성화
+                canExecuteCommand: (cmd) => {
+                let view = grid.collectionView, col = grid.columns[grid.selection.col];
+                switch (cmd) {
+                    case 'SRT_ASC':
+                    return col.currentSort != '+';
+                    case 'SRT_DESC':
+                    return col.currentSort != '-';
+                    case 'SRT_NONE':
+                    return col.currentSort != null;
+                    case 'SRT_CLR':
+                    return view.sortDescriptions.length > 0;
+                    case 'PIN':
+                    return true; // toggle pin
+                    case 'ASZ':
+                    case 'ASZ_ALL':
+                    return true;
+                    case 'GRP':
+                    return col.dataType != wijmo.DataType.Number; // don't group numbers
+                    case 'GRP_CLR':
+                    return view.groupDescriptions.length > 0;
+                }
+                return true;
+                },
+                // 메뉴 명령 실행
+                executeCommand: (cmd) => {
+                    let view = grid.collectionView, cols = grid.columns, col = cols[grid.selection.col], sd = view.sortDescriptions, gd = view.groupDescriptions;
                     switch (cmd) {
                         case 'SRT_ASC':
-                        return col.currentSort != '+';
                         case 'SRT_DESC':
-                        return col.currentSort != '-';
                         case 'SRT_NONE':
-                        return col.currentSort != null;
+                        if (grid.allowSorting != wijmo.grid.AllowSorting.MultiColumn) {
+                            sd.clear();
+                        }
+                        else {
+                            for (let i = 0; i < sd.length; i++) {
+                            if (sd[i].property == col.binding) {
+                                sd.removeAt(i);
+                                break;
+                            }
+                            }
+                        }
+                        if (cmd != 'SRT_NONE') {
+                            sd.push(new wijmo.collections.SortDescription(col.binding, cmd == 'SRT_ASC'));
+                        }
+                            break;
                         case 'SRT_CLR':
-                        return view.sortDescriptions.length > 0;
+                            sd.clear();
+                            break;
                         case 'PIN':
-                        return true; // toggle pin
+                            let fCols = grid.frozenColumns;
+                            if (col.index >= fCols) { // pinning
+                                cols.moveElement(col.index, fCols, false);
+                                cols.frozen++;
+                            }
+                            else { // unpinning
+                                cols.moveElement(col.index, fCols - 1, false);
+                                cols.frozen--;
+                            }
+                            break;
                         case 'ASZ':
+                            grid.autoSizeColumn(col.index);
+                            break;
                         case 'ASZ_ALL':
-                        return true;
+                            grid.autoSizeColumns(0, grid.columns.length - 1);
+                            break;
                         case 'GRP':
-                        return col.dataType != wijmo.DataType.Number; // don't group numbers
+                        // 그룹 삭제
+                            for (let i = 0; i < gd.length; i++) {
+                                if (gd[i].propertyName == col.binding) {
+                                gd.removeAt(i);
+                                return; // we're done
+                                }
+                            }
+                            // 그룹 추가
+                            gd.push(new wijmo.collections.PropertyGroupDescription(col.binding));
+                            break;
                         case 'GRP_CLR':
-                        return view.groupDescriptions.length > 0;
-                    }
-                    return true;
-                    },
-                    // 메뉴 명령 실행
-                    
-                    executeCommand: (cmd) => {
-                        let view = grid.collectionView, cols = grid.columns, col = cols[grid.selection.col], sd = view.sortDescriptions, gd = view.groupDescriptions;
-                                           
-                        switch (cmd) {
-                            case 'SRT_ASC':
-                            case 'SRT_DESC':
-                            case 'SRT_NONE':
-                            if (grid.allowSorting != wijmo.grid.AllowSorting.MultiColumn) {
-                                sd.clear();
-                            }
-                            else {
-                                for (let i = 0; i < sd.length; i++) {
-                                if (sd[i].property == col.binding) {
-                                    sd.removeAt(i);
-                                    break;
-                                }
-                                }
-                            }
-                            if (cmd != 'SRT_NONE') {
-                                sd.push(new wijmo.collections.SortDescription(col.binding, cmd == 'SRT_ASC'));
-                            }
-                                break;
-                            case 'SRT_CLR':
-                                sd.clear();
-                                break;
-                            case 'PIN':
-                                let fCols = grid.frozenColumns;
-                                if (col.index >= fCols) { // pinning
-                                    cols.moveElement(col.index, fCols, false);
-                                    cols.frozen++;
-                                }
-                                else { // unpinning
-                                    cols.moveElement(col.index, fCols - 1, false);
-                                    cols.frozen--;
-                                }
-                                break;
-                            case 'ASZ':
-                                grid.autoSizeColumn(col.index);
-                                break;
-                            case 'ASZ_ALL':
-                                grid.autoSizeColumns(0, grid.columns.length - 1);
-                                break;
-                            case 'GRP':
-                            // 그룹 삭제
-                                for (let i = 0; i < gd.length; i++) {
-                                    if (gd[i].propertyName == col.binding) {
-                                    gd.removeAt(i);
-                                    return; // we're done
+                            gd.clear();
+                            break;
+                        // 내보내기
+                        case 'X_CSV':
+                            let rng = new wijmo.grid.CellRange(0, 0, grid.rows.length - 1, grid.columns.length - 1), csv = grid.getClipString(rng, wijmo.grid.ClipStringOptions.CSV, true, false);
+                            wijmo.saveFile(csv, '사원별매출현황.csv');
+                            break;
+                        case 'X_XLSX':
+                            const gridView = grid.collectionView;
+                            let oldPgSize = gridView.pageSize, oldPgIndex = gridView.pageIndex;
+
+                            grid.beginUpdate();
+                            gridView.pageSize = 0;
+
+                            wijmo.grid.xlsx.FlexGridXlsxConverter.saveAsync(grid, {includeCellStyles: true, includeColumnHeaders: true}, '사원별매출현황.xlsx',
+                            saved => {
+                            gridView.pageSize = oldPgSize;
+                            gridView.moveToPage(oldPgIndex);
+                            grid.endUpdate();
+                            }, null
+                            ); 
+                            break;
+                        case 'X_PDF':
+                            wijmo.grid.pdf.FlexGridPdfConverter.export(grid, '사원별매출현황.pdf', {
+                                maxPages: 10,
+                                scaleMode: wijmo.grid.pdf.ScaleMode.PageWidth,
+                                documentOptions: {
+                                compress: true,
+                                header: { declarative: { text: '\t&[Page] of &[Pages]' } },
+                                footer: { declarative: { text: '\t&[Page] of &[Pages]' } },
+                                info: { author: 'GrapeCity', title: '사원별매출현황' }
+                                },
+                                //내장된 폰트 정보
+                                embeddedFonts: [
+                                    {
+                                    source: "https://assets.codepen.io/975719/BMHANNAPro.ttf",
+                                    name: "BMHANNAPro",
+                                    style: "normal",
+                                    weight: "normal",
+                                    sansSerif: true
                                     }
+                                ],
+                                styles: {
+                                    cellStyle: { backgroundColor: '#ffffff', borderColor: '#c6c6c6', font: {family: "BMHANNAPro"} },
+                                    altCellStyle: { backgroundColor: '#f9f9f9' },
+                                    groupCellStyle: { backgroundColor: '#dddddd' },
+                                    headerCellStyle: { backgroundColor: '#eaeaea' }
                                 }
-                                // 그룹 추가
-                                gd.push(new wijmo.collections.PropertyGroupDescription(col.binding));
-                                break;
-                            case 'GRP_CLR':
-                                gd.clear();
-                                break;
-                            // 내보내기
-                            case 'X_CSV':
-                                let rng = new wijmo.grid.CellRange(0, 0, grid.rows.length - 1, grid.columns.length - 1), csv = grid.getClipString(rng, wijmo.grid.ClipStringOptions.CSV, true, false);
-                                wijmo.saveFile(csv, '거래처현황.csv');
-                                break;
-                            case 'X_XLSX':
-                                //엑셀수정
-                                const gridView = grid.collectionView;
-                                let oldPgSize = gridView.pageSize, oldPgIndex = gridView.pageIndex;
-
-                                grid.beginUpdate();
-                                gridView.pageSize = 0;
-
-                                wijmo.grid.xlsx.FlexGridXlsxConverter.saveAsync(grid, {includeCellStyles: true, includeColumnHeaders: true}, '거래처현황.xlsx',
-                                saved => {
-                                gridView.pageSize = oldPgSize;
-                                gridView.moveToPage(oldPgIndex);
-                                grid.endUpdate();
-                                }, null
-                                );                          
-                                break;
-                            case 'X_PDF':
-                                wijmo.grid.pdf.FlexGridPdfConverter.export(grid,'거래처현황.pdf', {
-                                    maxPages: 10,
-                                    scaleMode: wijmo.grid.pdf.ScaleMode.PageWidth,
-                                    // exportMode = wijmo.grid.pdf.ExportMode.All,
-                                    documentOptions: {
-                                            compress: true,
-                                            pageSettings: {
-                                            layout: orientation
-                                            },
-                                        header: { declarative: { text: '\t&[Page] of &[Pages]' } },
-                                        footer: { declarative: { text: '\t&[Page] of &[Pages]' } },
-                                        info: { author: 'Actas', title: '거래처현황' }
-                                    },
-                                    //내장된 폰트 정보
-                                    embeddedFonts: [
-                                        {
-                                        source: "https://assets.codepen.io/975719/BMHANNAPro.ttf",
-                                        name: "BMHANNAPro",
-                                        style: "normal",
-                                        weight: "normal",
-                                        sansSerif: true
-                                        }
-                                    ],
-                                    styles: {
-                                        cellStyle: { backgroundColor: '#ffffff', borderColor: '#c6c6c6', font: {family: "BMHANNAPro"} },
-                                        altCellStyle: { backgroundColor: '#f9f9f9' },
-                                        groupCellStyle: { backgroundColor: '#dddddd' },
-                                        headerCellStyle: { backgroundColor: '#eaeaea' }
-                                    } 
-                                });
-                                // let doc = new pdf.PdfDocument({
-                                // header: {
-                                //     declarative: {
-                                //         text: '\t&[Page]\\&[Pages]'
-                                //     }
-                                // },
-                                // footer: {
-                                //     declarative: {
-                                //         text: '\t&[Page]\\&[Pages]'
-                                //     }
-                                // },
-                                // ended: (sender, args) => pdf.saveBlob(args.blob, 'FlexGrid.pdf')
-                                // });
-                                // let settings = {
-                                // styles: {
-                                //     cellStyle: {
-                                //         backgroundColor: '#ffffff',
-                                //         borderColor: '#c6c6c6'
-                                //     },
-                                //     altCellStyle: {
-                                //         backgroundColor: '#f9f9f9'
-                                //     },
-                                //     groupCellStyle: {
-                                //         backgroundColor: '#dddddd'
-                                //     },
-                                //     headerCellStyle: {
-                                //         backgroundColor: '#eaeaea'
-                                //     }
-                                // }}
-                                // doc.drawText('This grid is drawn in its original size using the draw method and is split into multiple pages.', 0, 400);
-                                // doc.moveDown();
-                                // gridPdf.FlexGridPdfConverter.draw(flexGrid, doc, null, null, settings);
-                                // //
-                                // doc.end();
-                                break;
-                        }
-                        // 활성화 그리드 셀에 포커스 복원
-                        grid.refresh();
-                        let sel = grid.selection, cell = grid.cells.getCellElement(sel.row, sel.col);
-                        if (cell) {
-                            cell.focus();
-                        }
+                            });
+                            break;
+                    }
+                    // 활성화 그리드 셀에 포커스 복원
+                    grid.refresh();
+                    let sel = grid.selection, cell = grid.cells.getCellElement(sel.row, sel.col);
+                    if (cell) {
+                        cell.focus();
                     }
                 }
-                });
-                // 완료
-                return menu;
             }
+            });
+            // 완료
+            return menu;
         }
-
-
-        //모달 끝
+    }   
 // 자바 끝
  </script>
 

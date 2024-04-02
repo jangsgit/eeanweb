@@ -63,7 +63,6 @@ public class App01Controller {
             model.addAttribute("comcodeList",index01ListDto);
         } catch (Exception ex) {
 //                dispatchException = ex;
-            log.info("App01_index Exception =============================");
             log.info("Exception =====>" + ex.toString());
             return "redirect:http://eean.co.kr/";
 //            log.debug("Exception =====>" + ex.toString() );
@@ -700,12 +699,20 @@ public class App01Controller {
         CommDto.setMenuUrl("통계관리>AS접수배송등록");
         CommDto.setMenuCode("index20");
         try {
+
+            List<Index01Dto> _index01UserDto = new ArrayList<>();
             HttpSession session = request.getSession();
             UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
             model.addAttribute("userformDto",userformDto);
-//            popupListDto = svcpopup.getCifCodeList(popupDto);
+            index01Dto.setCom_cls("002");
+            index01ListDto    = service01.GetComcodeDetailList(index01Dto);
+            _index01UserDto   = service01.getWperidlist(index01Dto);
+            popupListDto = svcpopup.getCifCodeList(popupDto);
 
             model.addAttribute("cifcodeList",popupListDto);
+            model.addAttribute("index01ListDto",index01ListDto);
+            model.addAttribute("index01UserDto",_index01UserDto);
+
         } catch (Exception ex) {
             log.info("App20_index Exception ================================================================");
             log.info("Exception =====>" + ex.toString());

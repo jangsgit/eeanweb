@@ -1095,6 +1095,7 @@ public class App01CrudController {
             if(ls_chknull == null){
                 ls_chknull = "";
             }
+            log.info("ls_chknull =====> " + ls_chknull);
             if(ls_chknull.length() == 0){
                 ls_misnum = service14.SelectCheckMisnumMkflag(indexDa023Dto);  //주문된 순번max 찾기
                 if(ls_misnum == null){
@@ -2266,22 +2267,21 @@ public class App01CrudController {
             indexDa024Dto.setDevflag(devflag);
             indexDa024Dto.setMakflag(makflag);
             indexDa024Dto.setJpbgubn(jpbgubn);
+            //영업사원과 본사가 같은업체 같은 품목으로 겹칠수있어 구분을 넣음.
+            indexDa024Dto.setMisgubun(misgubun);
+
             if(perid == null || perid.equals("")){
                 perid = "%";
             }
             switch (mflag){
                 case "AA" :
                     indexDa024Dto.setPerid(perid);
-                    indexDa024Dto.setMisgubun(misgubun);
-                    mflag = "%";
                     break;
                 case "BB":
                     indexDa024Dto.setPerid(perid);
-                    indexDa024Dto.setMisgubun("%");
                     break;
                 case "CC":
                     indexDa024Dto.setPerid(userformDto.getPerid());
-                    indexDa024Dto.setMisgubun("%");
                     break;
                 default:
                     break;
@@ -4089,8 +4089,6 @@ public class App01CrudController {
             if(com_cls == null || com_cls.equals("")){
                 com_cls = "%";
             }
-            log.debug("searchtxt =====>" + searchtxt );
-
             index01Dto.setCom_cls(com_cls);
             index01Dto.setCom_cnam(searchtxt);;
             index01ListDto = service01.GetComcodeDetailList(index01Dto);
