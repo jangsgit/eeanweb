@@ -58,6 +58,7 @@ public class App01Controller {
             HttpSession session = request.getSession();
             UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
             model.addAttribute("userformDto",userformDto);
+            index01Dto.setCom_cls("%");
             index01ListDto = service01.getComCodeList(index01Dto);
 
             model.addAttribute("comcodeList",index01ListDto);
@@ -701,17 +702,23 @@ public class App01Controller {
         try {
 
             List<Index01Dto> _index01UserDto = new ArrayList<>();
+            List<Index01Dto> _index02UserDto = new ArrayList<>();
             HttpSession session = request.getSession();
             UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
             model.addAttribute("userformDto",userformDto);
             index01Dto.setCom_cls("002");
             index01ListDto    = service01.GetComcodeDetailList(index01Dto);
             _index01UserDto   = service01.getWperidlist(index01Dto);
+            index01Dto.setCom_cls("003");
+            _index02UserDto    = service01.GetComcodeDetailList(index01Dto);
+
+
             popupListDto = svcpopup.getCifCodeList(popupDto);
 
             model.addAttribute("cifcodeList",popupListDto);
             model.addAttribute("index01ListDto",index01ListDto);
             model.addAttribute("index01UserDto",_index01UserDto);
+            model.addAttribute("index02ListDto",_index02UserDto);
 
         } catch (Exception ex) {
             log.info("App20_index Exception ================================================================");

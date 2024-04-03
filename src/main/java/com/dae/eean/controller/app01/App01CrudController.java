@@ -1095,7 +1095,6 @@ public class App01CrudController {
             if(ls_chknull == null){
                 ls_chknull = "";
             }
-            log.info("ls_chknull =====> " + ls_chknull);
             if(ls_chknull.length() == 0){
                 ls_misnum = service14.SelectCheckMisnumMkflag(indexDa023Dto);  //주문된 순번max 찾기
                 if(ls_misnum == null){

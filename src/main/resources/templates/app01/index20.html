@@ -35,7 +35,7 @@
             <div class="card-body bg-light">
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
-                        <a class="nav-link active" data-toggle="tab" href="#step01" onclick="tabchk_rtn('A')">A/S접수현황</a>
+                        <a class="nav-link active" data-toggle="tab" href="#step01" onclick="tabchk_rtn('A')">A/S접수등록</a>
                     </li>
                     <!-- <li class="nav-item">
                         <a class="nav-link" data-toggle="tab" href="#step02"  onclick="tabchk_rtn('B')">A/S배송현황</a>
@@ -47,69 +47,136 @@
                 </ul> 
 
                 <div class="tab-content"> 
-                    <div class="tab-pane fade show active" id="step01">    
-                        <div class="row gx-3" style="  margin: 10px 10px 10px;">   
-                            <div class="col-2 col-sm-2">
-                                <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">조회일자</span>
-                                    <input type="text"  class="form-control datetimepicker" id="frdate" autocomplete="off"  placeholder="Y-m-d"     >
-                                </div> 
-                            </div>   
-                            <div class="col-2 col-sm-2"> 
-                                <div class="input-group input-group-sm mb-3"> 
-                                    <input type="text"  class="form-control datetimepicker" id="todate" autocomplete="off"  placeholder="Y-m-d"     >
-                                </div>
-                            </div> 
-                            <div class="col-2 col-sm-2">
-                                <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">거래처</span> 
-                                    <input class="form-control form-control-sm" id="bcifname" type="text"    autocomplete="off"  placeholder=""     >
-                                    <input class="form-control form-control-sm" id="bacorp1" type="hidden"  />
-                                    <input class="form-control form-control-sm" id="bacorp2" type="hidden"  />
-                                    <input class="form-control form-control-sm" id="bacorp3" type="hidden"  />
-                                    <input class="form-control form-control-sm" id="bacode" type="hidden"  />  
-                                    <input class="form-control form-control-sm" id="bjpbgubn" type="hidden"  /> 
-                                    
+                    <div class="tab-pane fade show active" id="step01">   
+                        <div class="section regist">
+                            <!-- //여기서부터 그래프 -->
+                            <div class="sec_con" style="width: 80%;">
+                                <div class="box_wrap">
+                                    <div class="box_input" >
+                                        <div class="date_wrap">
+                                            <!-------------------------------------------------------------->
+                                             
+                                                    <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">조회일자</span>
+                                                        <input type="text"  class="form-control datetimepicker" id="frdate" autocomplete="off"  placeholder="Y-m-d"     >
+                                                    </div>  
+                                                    <div class="input-group input-group-sm mb-3"> 
+                                                        <input type="text"  class="form-control datetimepicker" id="todate" autocomplete="off"  placeholder="Y-m-d"     >
+                                                    </div> 
+                                                    <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">거래처</span> 
+                                                        <input class="form-control form-control-sm" id="bcifname" type="text"    autocomplete="off"  placeholder=""     >
+                                                        <input class="form-control form-control-sm" id="bacorp1" type="hidden"  />
+                                                        <input class="form-control form-control-sm" id="bacorp2" type="hidden"  />
+                                                        <input class="form-control form-control-sm" id="bacorp3" type="hidden"  />
+                                                        <input class="form-control form-control-sm" id="bacode" type="hidden"  />  
+                                                        <input class="form-control form-control-sm" id="bjpbgubn" type="hidden"  /> 
+                                                        
+                                                    </div> 
+                                                    <!-- <select class="form-select" id="asflag"  >   
+                                                        <option selected="">배송구분</option>
+                                                        <option value="0">전체</option>
+                                                        <option value="1">배송전</option>  
+                                                        <option value="2">배송완료</option>  
+                                                    </select>       -->
+                                                    <!-- <select class="form-select" th:field="*{index01ListDto}" name="conaname" id="conaname">
+                                                        <option value="">선택</option>
+                                                        <option th:each="val : ${index01ListDto}" th:value="${val.com_code}" th:text="${val.com_rem1}">
+                                                    </select>      -->
+                                                    <!-- <select class="form-select" th:field="*{index01UserDto}" name="condamdang" id="condamdang">
+                                                        <option value="">접수자</option>
+                                                        <option th:each="val : ${index01UserDto}" th:value="${val.insano}" th:text="${val.insano}">
+                                                    </select>   -->
+                                                    <button class="btn btn-falcon-primary me-1 mb-1 btn-sm" id="retrieveBtn" type="button"  >조회
+                                                    </button> 
+                                            <!--------------------------------------------------------------> 
+                                        </div>
+                                        <div class="table table_style2">
+                                            <div class="container-fluid"> 
+                                                <div id="wtab01Grid_div" style="overflow:scroll; width:1100px;     height:720px;    margin:0 auto; "></div>  
+                                                <!-- <div id="tab01Pager"></div> -->
+                                            </div>    
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-1 col-sm-1">  
-                                <select class="form-select" id="asflag"  >   
-                                    <option selected="">배송구분</option>
-                                    <option value="0">전체</option>
-                                    <option value="1">배송전</option>  
-                                    <option value="2">배송완료</option>  
-                                </select>                                      
-                            </div> 
-                            <div class="col-1 col-sm-1">  
-                                <select class="form-select" th:field="*{index01ListDto}" name="conaname" id="conaname">
-                                    <option value="">선택</option>
-                                    <option th:each="val : ${index01ListDto}" th:value="${val.com_code}" th:text="${val.com_rem1}">
-                                </select>                                  
-                            </div> 
-                            <div class="col-1 col-sm-1">  
-                                <select class="form-select" th:field="*{index01UserDto}" name="condamdang" id="condamdang">
-                                    <option value="">접수자</option>
-                                    <option th:each="val : ${index01UserDto}" th:value="${val.insano}" th:text="${val.insano}">
-                                </select>                                  
-                            </div> 
-                            <div class="col-1 col-sm-1">  
-                                <table>
-                                    <tr>
-                                        <td>
-                                            <button class="btn btn-falcon-primary me-1 mb-1 btn-sm" id="retrieveBtn" type="button"  >조회
-                                            </button>
-                                        </td> 
-                                        <td>
-                                            <button class="btn btn-success me-1 mb-1 btn-sm" id="addBtn" type="button"  >접수등록
-                                            </button>
-                                        </td>  
-                                    </tr>
-                                </table> 
-                            </div>   
-                        </div> 
-                        <div class="container-fluid"> 
-                            <div id="wtab01Grid_div" style="overflow:scroll; width:1100px;     height:720px;    margin:0 auto; "></div>  
-                            <!-- <div id="tab01Pager"></div> -->
-                        </div>   
+                            <!-- //여기서부터 등록 -->
+                            <div class="sec_con" style="width: 65%;">
+                                <!--------------------------------------------------------------------------------------->   
+                                <div class="section regist">
+                                    <div class="part2" style="width: 100%;">          
+                                        <div class="modal_box">
+                                            <div class="date_wrap">
+                                                <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">접수일자</span>                                                        
+                                                    <input type="text"  class="form-control datetimepicker" id="asaskey1" autocomplete="off"  placeholder="Y-m-d"   >
+                                                </div> 
+                                            </div>                                          
+                                            <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">접수자</span> 
+                                                <select class="form-select" th:field="*{index01UserDto}" name="condamdang" id="condamdang"> 
+                                                    <option th:each="val : ${index01UserDto}" th:value="${val.insano}" th:text="${val.insano}">
+                                                </select>                 
+                                            </div>      
+                                            <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">공장</span> 
+                                                <select class="form-select" th:field="*{index02ListDto}" name="asasgong" id="asasgong"> 
+                                                    <option th:each="val : ${index02ListDto}" th:value="${val.com_code}" th:text="${val.com_rem1}">
+                                                </select>                                                             
+                                                <!-- <input class="form-control form-control-sm" type="text" id="asasgong" placeholder=""  autocomplete="off"  >                                              -->
+                                            </div>  
+                                            <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">거래처</span> 
+                                                <input class="form-control form-control-sm" id="jcifname" type="text"    autocomplete="off"  placeholder=""     >
+                                                <input class="form-control form-control-sm" id="jacorp1" type="hidden"  />
+                                                <input class="form-control form-control-sm" id="jacorp2" type="hidden"  />
+                                                <input class="form-control form-control-sm" id="jacorp3" type="hidden"  />
+                                                <input class="form-control form-control-sm" id="jacode" type="hidden"  />  
+                                                <input class="form-control form-control-sm" id="jpbgubn" type="hidden"  />                   
+                                            </div>   
+                                            <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">모델</span> 
+                                                <input class="form-control form-control-sm" id="asasmodel" type="text"    autocomplete="off"  placeholder="">                                               
+                                            </div>   
+                                            <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">색상</span> 
+                                                <input class="form-control form-control-sm" id="asascolor" type="text"    autocomplete="off"  placeholder="">                                               
+                                            </div>                                    
+                                            <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">유/무상</span> 
+                                                <input class="form-control form-control-sm" id="asasyumu" type="text"    autocomplete="off"  placeholder="">                                               
+                                            </div> 
+                                            <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">수리사유</span> 
+                                                <input class="form-control form-control-sm" id="asassuri" type="text"    autocomplete="off"  placeholder="">                                               
+                                            </div>  
+                                            <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">메모</span> 
+                                                <input class="form-control form-control-sm" id="asasmemo" type="text"    autocomplete="off"  placeholder="">                                               
+                                            </div>       
+                                            <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">메모2</span> 
+                                                <input class="form-control form-control-sm" id="asasmemo2" type="text"    autocomplete="off"  placeholder="">                                               
+                                            </div>                                         
+                                            <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">메모3</span> 
+                                                <input class="form-control form-control-sm" id="asasmemo3" type="text"    autocomplete="off"  placeholder="">                                               
+                                            </div>                                            
+                                            <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">구분</span> 
+                                                <select class="form-select" th:field="*{index01ListDto}" name="asaname" id="asaname"> 
+                                                    <option th:each="val : ${index01ListDto}" th:value="${val.com_code}" th:text="${val.com_rem1}">
+                                                </select>                                                             
+                                            </div>                                                                           
+    
+                                            <div class="container text-center">
+                                                <div class="row align-items-center">
+                                                  <div class="col">
+                                                    <button class="btn btn-falcon-primary me-1 mb-1 btn-sm" id="listBtn" type="button"  >신규
+                                                    </button>
+                                                  </div>
+                                                  <div class="col">    
+                                                    <button class="btn btn-success me-1 mb-1 btn-sm" id="saveBtn01" type="button"  >저장
+                                                    </button>
+                                                  </div>
+                                                </div>
+                                            </div>       
+                                        </div>
+                                    </div>     
+                                </div>
+                                <!--------------------------------------------------------------------------------------->  
+                            
+                            </div>
+                        </div>
                     </div>
+
+
                     <div class="tab-pane fade" id="step02">
                         <div class="row gx-3" style="  margin: 10px 10px 10px;">   
                             <div class="col-2 col-sm-2">
@@ -172,8 +239,8 @@
                         </div>                             
                     </div>   
                     <div class="container-fluid"> 
-                        <div id="winnameGrid_div" ></div>
-                        <div id="thePager03"></div>
+                        <div id="winnameGrid_div" style="overflow:scroll;   height:500px;   margin:0 auto; "></div> 
+                        <!-- <div id="thePager03"></div> -->
                     </div>   
                 </div>  
 
@@ -193,13 +260,12 @@
 
     <!--------------------------------------------------------------------------------------->   
         <!--  접수 추가 MODAL FROM  -->  
-        <div class="modal fade" id="actnmmodal" data-bs-keyboard="false"
+        <!-- <div class="modal fade" id="actnmmodal" data-bs-keyboard="false"
             data-bs-backdrop="static" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg mt-6" role="document" id = "modalForm01" style="max-width: 800px">
+            <div class="modal-dialog modal-lg mt-6" role="document" id = "modalForm02" style="max-width: 800px">
                 <div class="modal-content border-0">
                     <div class="modal-body p-0" > 
-                        <div class="rounded-top-lg py-3 ps-4 pe-6 bg-light">  
-                            <!--------------------------------------------------------------------------------------->   
+                        <div class="rounded-top-lg py-3 ps-4 pe-6 bg-light">    
                             <div class="section regist">
                                 <div class="part2" style="width: 100%;">          
                                     <div class="modal_box">
@@ -209,14 +275,16 @@
                                             </div> 
                                         </div>   
                                         <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">공장</span> 
-                                            <input class="form-control form-control-sm" type="text" id="asasgong" placeholder=""  autocomplete="off"  >                                             
-                                        </div> 
-                                        <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">거래처</span>  
-                                            <input class="form-control form-control-sm" id="cltcd" type="text"    autocomplete="off"  placeholder="">
-                                            <input class="form-control form-control-sm" id="acorp1" type="hidden"  />
-                                            <input class="form-control form-control-sm" id="acorp2" type="hidden"  />
-                                            <input class="form-control form-control-sm" id="acorp3" type="hidden"  />
-                                            <input class="form-control form-control-sm" id="acode" type="hidden"  /> 
+                                            <select class="form-select" th:field="*{index02ListDto}" name="asasgong" id="asasgong"> 
+                                                <option th:each="val : ${index02ListDto}" th:value="${val.com_code}" th:text="${val.com_rem1}">
+                                            </select>                                                                                                             
+                                        </div>  
+                                        <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">거래처</span> 
+                                            <input class="form-control form-control-sm" id="jcifname" type="text"    autocomplete="off"  placeholder=""     >
+                                            <input class="form-control form-control-sm" id="jacorp1" type="hidden"  />
+                                            <input class="form-control form-control-sm" id="jacorp2" type="hidden"  />
+                                            <input class="form-control form-control-sm" id="jacorp3" type="hidden"  />
+                                            <input class="form-control form-control-sm" id="jacode" type="hidden"  />  
                                             <input class="form-control form-control-sm" id="jpbgubn" type="hidden"  />                   
                                         </div>   
                                         <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">모델</span> 
@@ -265,8 +333,7 @@
                                         </div>       
                                     </div>
                                 </div>     
-                            </div>
-                            <!--------------------------------------------------------------------------------------->  
+                            </div> 
                         </div> 
                     </div>  
     
@@ -280,7 +347,7 @@
                     </div>   
                 </div>
             </div> 
-        </div>   
+        </div>    -->
 <!--------------------------------------------------------------------------------------->  
 
 
@@ -508,14 +575,14 @@
 
             //거래처현황 Modalㅁ
             view_innamepage = new wijmo.collections.CollectionView(getData_wlist2(), {
-                pageSize: 12
+                // pageSize: 12
             });
             // 거래처 페이지 이동
-            new wijmo.input.CollectionViewNavigator('#thePager03', {
-                byPage: true,
-                headerFormat: 'Page {currentPage:n0} of {pageCount:n0}',
-                cv: view_innamepage
-            });     
+            // new wijmo.input.CollectionViewNavigator('#thePager03', {
+            //     byPage: true,
+            //     headerFormat: 'Page {currentPage:n0} of {pageCount:n0}',
+            //     cv: view_innamepage
+            // });     
             winnameGrid = new wijmo.grid.FlexGrid('#winnameGrid_div', {  
                 autoGenerateColumns: false,
                 isReadOnly: false, 
@@ -529,9 +596,16 @@
                 itemsSource: view_innamepage
             });  
             
+
             winnameGrid.showMarquee = true; 
             wijmo.toggleClass(winnameGrid.hostElement, 'highlightActive', true);
             winnameGrid.focus();
+            setHeaderColumn3(false);
+            function setHeaderColumn3(headerOn) {
+                winnameGrid.headersVisibility = headerOn
+                ? wijmo.grid.HeadersVisibility.All
+                : wijmo.grid.HeadersVisibility.Column; 
+            } 
             // 거래처 데이터 수집
             function getData_wlist2(){   
                 var winname_data = []; 
@@ -556,9 +630,9 @@
          function tabchk_rtn(arg){
             document.getElementById('tabvalue').value = arg; 
         }     
-        document.getElementById("addBtn").addEventListener("click",function(){  
-            document.getElementById("actnmbtn").click(); 
-        }) 
+        // document.getElementById("addBtn").addEventListener("click",function(){  
+        //     document.getElementById("actnmbtn").click(); 
+        // }) 
   
         //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
                                      
@@ -592,6 +666,12 @@
                 CifSearchList_rtn("B"); 
             }
         });    
+        document.getElementById("jcifname").addEventListener("keyup", (e)=>{ 
+            if(e.keyCode === 13){  
+                document.getElementById("innamebtn").click(); 
+                CifSearchList_rtn("C"); 
+            }
+        });    
 
   
         function CifSearchList_rtn(arg){  
@@ -608,6 +688,10 @@
             if(arg == "B"){
                 searchCode = document.getElementById('dcifname').value; 
                 ls_jpbgubn = document.getElementById('djpbgubn').value;   
+            } 
+            if(arg == "C"){
+                searchCode = document.getElementById('jcifname').value; 
+                ls_jpbgubn = document.getElementById('jpbgubn').value;   
             } 
             if(searchCode == null || searchCode.length == 0 || searchCode == ""){ 
                 searchCode = "%"         ;
@@ -657,9 +741,7 @@
                 });
                 cnt++;
             }   
-
-            // console.log(winnameGrid);
-
+ 
             winnameGrid.columns.clear();  
             winnameGrid.autoGenerateColumns = false; 
             view_innamepage.sourceCollection  = wtab02_data;
@@ -668,7 +750,7 @@
             cols.binding = 'acode';
             cols.header = '코드';
             cols.align = "center";
-            cols.width = 80;
+            cols.width = 150;
             cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
                 text: '<b>${item.acode}</b>',
                 click: (e, ctx) => {
@@ -682,7 +764,7 @@
             cols.binding = 'acorp';
             cols.header = '거래처명'; 
             cols.align = "left"; 
-            cols.width = 200;
+            cols.width = 250;
             winnameGrid.columns.push(cols); 
         }
             
@@ -703,6 +785,13 @@
                 document.getElementById('dacode').value = arg4;   
                 document.getElementById('dcifname').value = arg5;  
                 $("#winnamemodal_btn").trigger("click"); 
+            }else if(ls_tab == "C"){
+                document.getElementById('jacorp1').value = arg1;  
+                document.getElementById('jacorp2').value = arg2;  
+                document.getElementById('jacorp3').value = arg3;  
+                document.getElementById('jacode').value = arg4;   
+                document.getElementById('jcifname').value = arg5;  
+                $("#winnamemodal_btn").trigger("click"); 
             } 
             searchList_rtn(ls_tab) 
 
@@ -714,7 +803,8 @@
                 case 'A':
                     var ls_frdate = document.getElementById('frdate').value; 
                     var ls_todate = document.getElementById('todate').value; 
-                    var ls_asflag = document.getElementById('asflag').value; 
+                    var ls_asflag = "%" ;
+                    // var ls_asflag = document.getElementById('asflag').value; 
                     var ls_bacode = document.getElementById('bacode').value; 
                     var ls_bcifname = document.getElementById('bcifname').value; 
                     
@@ -791,7 +881,7 @@
                     }).done(function(fragment){           
 
                     })  
-                    break;               
+                    break;                
                 default:    
                     break;                
             }
@@ -1034,6 +1124,8 @@
             document.getElementById('todate').value = ls_today; 
             document.getElementById('frdate02').value = ls_frday;
             document.getElementById('todate02').value = ls_today;
+            document.getElementById('asaskey1').value = ls_today;
+            
         }
 
         function convert_time(timestamp){ 
@@ -1060,6 +1152,7 @@
                 document.getElementById('djpbgubn').value = "%"; 
                 document.getElementById('bjpbgubn').value = "%"; 
             }
+            
             // var $frdate = $('#frdate');
             // var $todate = $('#todate');
             // $frdate.datetimepicker({

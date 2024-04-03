@@ -86,15 +86,33 @@
                                         <input class="form-control" type="text"   id="actuserpwz" name="actuserpwz" aria-describedby="basic-addon1" />
                                     </div>  
                                 </div>   
-                                <div class="col-auto"> 
+                                <!-- <div class="col-auto"> 
                                     <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">사원번호</span>
                                         <input class="form-control" type="text"   id="perid" name="perid" aria-describedby="basic-addon1" />
                                     </div>  
-                                </div>  
+                                </div>   -->
                                 <div class="col-auto"> 
                                     <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">사용PC</span>
                                         <input class="form-control" type="text"   id="actcustnm" name="actcustnm" aria-describedby="basic-addon1" />
                                     </div>  
+                                </div>   
+                                <div class="col-auto"> 
+                                    <!-- <div class="input-group input-group-sm mb-3"> -->
+                                        <!-- <span class="input-group-text" id="inputGroup-sizing-sm">순번</span> -->
+                                        <!-- <input class="form-control" type="text"   id="actrnum" name="actrnum" aria-describedby="basic-addon1" /> -->
+                                                    <select class="form-select" name="actrnum" id="actrnum">
+                                                        <option value="">사용번호선택</option>
+                                                        <option value="1000">1000</option>
+                                                        <option value="2000">2000</option>
+                                                        <option value="3000">3000</option>
+                                                        <option value="4000">4000</option>
+                                                        <option value="5000">5000</option>
+                                                        <option value="6000">6000</option>
+                                                        <option value="7000">7000</option>
+                                                        <option value="8000">8000</option>
+                                                        <option value="9000">9000</option>
+                                                    </select>
+                                    <!-- </div>   -->
                                 </div>   
                                 <div class="col-auto">  
                                     <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" type="button"  id="retrieveBtn" >조회
@@ -180,8 +198,19 @@
                                                 </div>  
         
                                                 <div class="input_wrap flex">
-                                                    <p>사원코드</p>
-                                                    <input type="text" id="perid" name="perid"   /> 
+                                                    <p>시작번호</p>
+                                                    <select class="form-select" name="rnum" id="rnum">
+                                                        <option value="">선택</option>
+                                                        <option value="1000">1000</option>
+                                                        <option value="2000">2000</option>
+                                                        <option value="3000">3000</option>
+                                                        <option value="4000">4000</option>
+                                                        <option value="5000">5000</option>
+                                                        <option value="6000">6000</option>
+                                                        <option value="7000">7000</option>
+                                                        <option value="8000">8000</option>
+                                                        <option value="9000">9000</option>
+                                                    </select>
                                                 </div> 
         
                                                 <div class="btn_wrap">
@@ -232,7 +261,7 @@
         document.getElementById('actuseyn').value = arg3;  
         document.getElementById('actusernamez').value = arg4;  
         document.getElementById('actuserpwz').value = arg5;  
-        document.getElementById('perid').value = arg6;   
+        document.getElementById('actrnum').value = arg6;   
         document.getElementById('actcustnm').value = arg7;  
         // document.getElementById("actnmbtn").click();
         // document.getElementById('searchtext').value = arg1;  
@@ -253,7 +282,7 @@
                     useyn:   wtab01Dto[i]["useyn"],
                     flag : wtab01Dto[i]["flag"] ,
                     phone : wtab01Dto[i]["phone"] ,
-                    perid : wtab01Dto[i]["perid"] ,
+                    rnum : wtab01Dto[i]["rnum"] ,
                     actnm : wtab01Dto[i]["actnm"] ,
                     passwd1 : wtab01Dto[i]["passwd1"]    ,
                     role : wtab01Dto[i]["role"]         ,
@@ -273,7 +302,7 @@
             cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
                 text: '<b>${item.flag}</b>',
                 click: (e, ctx) => {
-                    wactnmChk_2(ctx.item.seq, ctx.item.userid, ctx.item.useyn, ctx.item.username, ctx.item.passwd1, ctx.item.perid, ctx.item.custnm );
+                    wactnmChk_2(ctx.item.seq, ctx.item.userid, ctx.item.useyn, ctx.item.username, ctx.item.passwd1, ctx.item.rnum, ctx.item.custnm );
                 }
             });
             wapp04Grid.columns.push(cols);  
@@ -285,7 +314,7 @@
             cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
                 text: '<b>${item.userid}</b>',
                 click: (e, ctx) => {
-                    menumodal_click(ctx.item.seq, ctx.item.userid, ctx.item.useyn, ctx.item.username, ctx.item.passwd1, ctx.item.perid, ctx.item.custnm);
+                    menumodal_click(ctx.item.seq, ctx.item.userid, ctx.item.useyn, ctx.item.username, ctx.item.passwd1, ctx.item.rnum, ctx.item.custnm);
                 }
             }); 
             wapp04Grid.columns.push(cols);  
@@ -308,8 +337,8 @@
             cols.width = '*'; 
             wapp04Grid.columns.push(cols);   
             cols = new wijmo.grid.Column(); 
-            cols.binding = 'phone';
-            cols.header = '전화번호';
+            cols.binding = 'rnum';
+            cols.header = '시작번호';
             cols.align = "center";
             cols.width = '*'; 
             wapp04Grid.columns.push(cols);  
@@ -328,7 +357,7 @@
             var ls_actuseyn = document.getElementById('actuseyn').value ;  
             var ls_actusernamez = document.getElementById('actusernamez').value;  
             var ls_actuserpwz = document.getElementById('actuserpwz').value;  
-            var ls_perid = document.getElementById('perid').value;  
+            var ls_rnum = document.getElementById('rnum').value;  
             var ls_actcustnm = document.getElementById('actcustnm').value;  
         
             if (!confirm("수정하시겠습니까?")) {
@@ -364,7 +393,7 @@
                     "actuseynz"    : ls_actuseyn ,
                     "actusernmz"    : ls_actusernamez,
                     "actuserpwz"    : ls_actuserpwz,
-                    "perid"    : ls_perid,
+                    "rnum"    : ls_rnum,
                     "custnm"    : ls_actcustnm
                 },
                 async:false,
@@ -413,7 +442,7 @@
                     "actuseynz"    : arg2 ,
                     "actusernmz"    : arg3,
                     "actuserpwz"    : arg4,
-                    "perid"    : arg5,
+                    "rnum"    : arg5,
                     "custnm"    : arg6
                 }, 
                 async:false,
@@ -472,7 +501,7 @@
             var ls_passwd1 = document.getElementById('passwd1').value ;  
             var ls_passwd2 = document.getElementById('passwd2').value;  
             var ls_custnm = document.getElementById('custnm').value;  
-            var ls_perid = document.getElementById('perid').value;  
+            var ls_rnum = document.getElementById('rnum').value;  
             var ls_username = document.getElementById('username').value;  
         
             if (!confirm("등록하시겠습니까?")) {
@@ -503,7 +532,7 @@
                     "passwd1"    : ls_passwd1 ,
                     "passwd2"    : ls_passwd2,
                     "custnm"    : ls_custnm,
-                    "perid"    : ls_perid,
+                    "rnum"    : ls_rnum,
                     "username"    : ls_username,
                     "flag"    : 'DD'
                 },
@@ -571,7 +600,7 @@
                         cellTemplate: wijmo.grid.cellmaker.CellMaker.makeLink({ 
                             text: '<b>${item.flag}</b>',
                             click: (e, ctx) => {
-                                wactnmChk_2(ctx.item.seq, ctx.item.userid, ctx.item.useyn, ctx.item.username, ctx.item.passwd1, ctx.item.perid, ctx.item.custnm );
+                                wactnmChk_2(ctx.item.seq, ctx.item.userid, ctx.item.useyn, ctx.item.username, ctx.item.passwd1, ctx.item.rnum, ctx.item.custnm );
                             }
                         })
                     },     
@@ -579,13 +608,13 @@
                         cellTemplate: wijmo.grid.cellmaker.CellMaker.makeLink({ 
                             text: '<b>${item.userid}</b>',
                             click: (e, ctx) => {
-                                menumodal_click(ctx.item.seq, ctx.item.userid, ctx.item.useyn, ctx.item.username, ctx.item.passwd1, ctx.item.perid, ctx.item.custnm   );
+                                menumodal_click(ctx.item.seq, ctx.item.userid, ctx.item.useyn, ctx.item.username, ctx.item.passwd1, ctx.item.rnum, ctx.item.custnm   );
                             }
                         })} , 
                 { binding: 'passwd1', header: '비밀번호', width: '*', format: '*' , align:"center", isReadOnly: true}, 
                 { binding: 'username', header: '사용자', width: '*', format: '*' , align:"center", isReadOnly: true},                  
                 { binding: 'custnm', header: '사용PC', width: '*', format: '*', align:"left", isReadOnly: true },    
-                { binding: 'phone', header: '전화번호', width: '*', format: '*', align:"center", isReadOnly: true },  
+                { binding: 'rnum', header: '사용번호', width: '*', format: '*', align:"center", isReadOnly: true },  
             ], 
             itemsSource: view_Mmanualpage
         });  
@@ -614,7 +643,7 @@
                     username: mapp04Dto[i]["username"], 
                     useyn:   mapp04Dto[i]["useyn"],
                     flag : mapp04Dto[i]["flag"] ,
-                    phone : mapp04Dto[i]["phone"] ,
+                    rnum : mapp04Dto[i]["rnum"] ,
                     perid : mapp04Dto[i]["perid"] ,
                     passwd1 : mapp04Dto[i]["passwd1"]     ,
                     role : mapp04Dto[i]["role"]     ,

@@ -174,6 +174,7 @@ public class AppIndexCrudController {
             appUserFormDto.setPasswd2(userpw);
             appUserFormDto.setPerid(perid);
             appUserFormDto.setRole(role);
+            appUserFormDto.setRnum("0");
             log.info("role   =====> " + role);
             if(role.equals("B") ){
                 appUserFormDto.setCustnm("블리스");
@@ -203,7 +204,7 @@ public class AppIndexCrudController {
             ,@RequestParam("actuseynz") String useyn
             ,@RequestParam("actusernmz") String usernm
             ,@RequestParam("actuserpwz") String userpw
-            ,@RequestParam("perid") String perid
+            ,@RequestParam("rnum") String rnum
             ,@RequestParam("custnm") String custnm
             , Model model, HttpServletRequest request){
         try {
@@ -219,9 +220,8 @@ public class AppIndexCrudController {
             appUserFormDto.setUsername(usernm);
             appUserFormDto.setPasswd1(userpw);
             appUserFormDto.setPasswd2(userpw);
-            appUserFormDto.setPerid(perid);
+            appUserFormDto.setRnum(rnum);
             appUserFormDto.setCustnm(custnm);
-            log.info("custnm   =====> " + custnm);
             appUserFormDto.setFlag("DD");
 
             boolean result = service.UpdateUserInfoCC(appUserFormDto);
@@ -242,7 +242,7 @@ public class AppIndexCrudController {
             ,@RequestParam("passwd1") String passwd1
             ,@RequestParam("passwd2") String passwd2
             ,@RequestParam("custnm") String custnm
-            ,@RequestParam("perid") String perid
+            ,@RequestParam("rnum") String rnum
             ,@RequestParam("username") String username
             ,@RequestParam("flag") String flag
             , Model model, HttpServletRequest request){
@@ -257,9 +257,10 @@ public class AppIndexCrudController {
             appUserFormDto.setUsername(username);
             appUserFormDto.setPasswd1(passwd1);
             appUserFormDto.setPasswd2(passwd2);
-            appUserFormDto.setPerid(perid);
+            appUserFormDto.setRnum(rnum);
             appUserFormDto.setCustnm(custnm);
             appUserFormDto.setFlag(flag);
+            appUserFormDto.setCustcd("actcd");
 
             boolean result = service.TB_XUSERS_INSERT(appUserFormDto);
             if (!result) {
