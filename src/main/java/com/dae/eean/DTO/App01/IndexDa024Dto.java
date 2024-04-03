@@ -72,6 +72,7 @@ public class IndexDa024Dto {
     private String deltime;
     private String fixdate;
     private String fixdatetime;
+    private String misdatetime;
 
 
 }

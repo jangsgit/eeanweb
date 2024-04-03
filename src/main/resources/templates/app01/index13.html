@@ -63,7 +63,7 @@
                                     <div class="tab-pane fade show active" id="step01"> 
                                         <div class="row gx-3" style="  margin: 10px 10px 10px;">   
                                             <div class="col-2 col-sm-2">
-                                                <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">조회일자</span>
+                                                <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">주문일자</span>
                                                     <input type="text"  class="form-control datetimepicker" id="frdate" autocomplete="off"  placeholder="Y-m-d"     >
                                                 </div> 
                                             </div>   
@@ -100,7 +100,7 @@
                                     <div class="tab-pane fade" id="step02"> 
                                         <div class="row gx-3" style="  margin: 10px 10px 10px;">   
                                             <div class="col-2 col-sm-2">
-                                                <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">예약기간</span>
+                                                <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">주문기간</span>
                                                     <input type="text"  class="form-control datetimepicker" id="frdate02" autocomplete="off"  placeholder="Y-m-d"     >
                                                 </div> 
                                             </div>   
@@ -466,7 +466,7 @@
         // tab01 검색   
         document.getElementById("listBtn").addEventListener("click",function(){  
             var ls_tab = document.getElementById('tabvalue').value;  
-            console.log(ls_tab) 
+            // console.log(ls_tab) 
             searchList_rtn(ls_tab);
         })                         
         // tab02 검색   

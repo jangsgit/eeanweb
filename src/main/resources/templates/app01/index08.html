@@ -63,7 +63,7 @@
                                     <div class="tab-pane fade show active" id="step01"> 
                                         <div class="row gx-3" style="  margin: 10px 10px 10px;">   
                                             <div class="col-2 col-sm-2">
-                                                <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">조회일자</span>
+                                                <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">출력일자</span>
                                                     <input type="text"  class="form-control datetimepicker" id="frdate" autocomplete="off"  placeholder="Y-m-d"     >
                                                 </div> 
                                             </div>   
@@ -703,16 +703,16 @@
             // cols.width = 100;  
             // wtab02Grid.columns.push(cols); 
             cols = new wijmo.grid.Column();  
-            cols.binding = 'misdate';
-            cols.header = '주문일자';
-            cols.align = "center";
-            cols.width = 150; 
-            wtab02Grid.columns.push(cols); 
-            cols = new wijmo.grid.Column();  
             cols.binding = 'fixdatetime';
             cols.header = '출력일자';
             cols.align = "center";
             cols.width = 200; 
+            wtab02Grid.columns.push(cols); 
+            cols = new wijmo.grid.Column();  
+            cols.binding = 'misdate';
+            cols.header = '주문일자';
+            cols.align = "center";
+            cols.width = 150; 
             wtab02Grid.columns.push(cols); 
             // cols = new wijmo.grid.Column(); 
             // cols.binding = 'misnum';

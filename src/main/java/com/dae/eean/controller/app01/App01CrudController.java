@@ -3609,6 +3609,44 @@ public class App01CrudController {
         return "success";
     }
 
+
+    @RequestMapping(value="/index16/modifyremk")
+    public String index16ModifyRemk(@RequestParam(value = "mmisdate") String mmisdate
+            ,@RequestParam( value =  "mmisnum") String mmisnum
+            ,@RequestParam( value =  "mmisseq") String mmisseq
+            ,@RequestParam( value =  "mcltcd") String mcltcd
+            ,@RequestParam( value =  "mmisgubun") String mmisgubun
+            ,@RequestParam( value =  "mremarkaa") String mremarkaa
+            ,@RequestParam( value =  "mremarkbb") String mremarkbb
+            , Model model
+            , HttpServletRequest request){
+
+        try {
+            boolean result = false;
+            String year = mmisdate.substring(0,4);
+            String month = mmisdate.substring(5,7);
+            String day = mmisdate.substring(8,10);
+            String ls_misdate = year + month + day ;
+            indexDa024Dto.setMisdate(ls_misdate);
+            indexDa024Dto.setMisnum(mmisnum);
+            indexDa024Dto.setCltcd(mcltcd);
+            indexDa024Dto.setMisgubun(mmisnum);
+            indexDa024Dto.setMisgubun(mmisgubun);
+            indexDa024Dto.setRemarkaa(mremarkaa);
+            indexDa024Dto.setRemarkbb(mremarkbb);
+            result = service14.UpdateDA024Remk(indexDa024Dto);
+
+            if (!result){
+                return "error";
+            }
+            return "success";
+
+        }catch (IllegalStateException e){
+            model.addAttribute("index16Save errorMessage", e.getMessage());
+            return "error";
+        }
+    }
+
     @RequestMapping(value="/index16/delarr")
     public String index16DelArr(@RequestParam(value = "misdatearr[]") List<String> misdatearr
             ,@RequestParam( value =  "misnumarr[]") List<String> misnumarr
