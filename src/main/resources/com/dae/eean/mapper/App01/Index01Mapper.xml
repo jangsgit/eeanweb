@@ -67,4 +67,40 @@
     </select>
 
 
+    <insert id="InsertJupsu" parameterType="com.dae.eean.DTO.App01.Index20Dto" >
+        insert into as_jupsu (as_key1, as_key2, as_model ,as_color, as_suri, as_yumu,as_memo,as_gongjang,as_acorp,as_acorp1,as_acorp2,as_acorp3,
+                              as_computer,as_damdang,as_memo2,as_aname,as_key4,as_date2,as_memo3) values
+            (#{as_key1}, #{as_key2}, #{as_model} , #{as_color}, #{as_suri}, #{as_yumu}, #{as_memo}, #{as_gongjang}, #{as_acorp}, #{as_acorp1}, #{as_acorp2}, #{as_acorp3},
+             #{as_computer}, #{as_damdang}, #{as_memo2}, #{as_aname}, #{as_key4}, #{as_date2}, #{as_memo3} )
+    </insert>
+
+
+    <update id="UpdateJupsu" parameterType="com.dae.eean.DTO.App01.Index20Dto">
+        <![CDATA[
+        UPDATE  as_jupsu SET as_model = #{as_model} , as_color = #{as_color} , as_suri = #{as_suri} , as_yumu = #{as_yumu} , as_gongjang = #{as_gongjang}
+                           , as_acorp = #{as_acorp}
+                           , as_acorp1 = #{as_acorp1}
+                           , as_acorp2 = #{as_acorp2}
+                           , as_acorp3 = #{as_acorp3}
+                           , as_computer = #{as_computer}
+                           , as_damdang = #{as_damdang}
+                           , as_memo2 = #{as_memo2}
+                           , as_aname = #{as_aname}
+                           , as_memo3 = #{as_memo3}
+        where as_key1  = #{as_key1} and as_key2 = #{as_key2}
+        ]]>
+    </update>
+
+
+    <update id="DeleteJupsu" parameterType="com.dae.eean.DTO.App01.Index20Dto">
+        <![CDATA[
+        DELETE  as_jupsu   where as_key1  = #{as_key1} and as_key2 = #{as_key2}
+        ]]>
+    </update>
+
+
+    <select id="SelectMaxJupsu" parameterType="com.dae.eean.DTO.App01.Index20Dto" resultType="String">
+        <![CDATA[  select  max(as_key2)  from as_jupsu where as_key1 = #{as_key1} and Left(as_key,1) >= Left(#{as_rnum},1)     ]]>
+    </select>
+
 </mapper>

@@ -1,6 +1,7 @@
 package com.dae.eean.Service.App01;
 
 import com.dae.eean.DTO.App01.Index01Dto;
+import com.dae.eean.DTO.App01.Index20Dto;
 import com.dae.eean.Mapper.App01.Index01Mapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,11 @@ public class Index01Service {
     public Boolean UpdateComCode(Index01Dto parm){  return  indexMapper.UpdateComCode(parm);}
     public Boolean DeleteComCode(Index01Dto parm){  return  indexMapper.DeleteComCode(parm);}
 
+
+    public Boolean InsertJupsu(Index20Dto parm){ return  indexMapper.InsertJupsu(parm);}
+    public Boolean UpdateJupsu(Index20Dto parm){ return  indexMapper.UpdateJupsu(parm);}
+    public Boolean DeleteJupsu(Index20Dto parm){ return  indexMapper.DeleteJupsu(parm);}
+
     public List<Index01Dto> getComCodeLists(Index01Dto parm){
         return indexMapper.getComCodeLists(parm);
     }
@@ -39,5 +45,8 @@ public class Index01Service {
     public Boolean DeleteComCodeDetail(Index01Dto parm){  return  indexMapper.DeleteComCodeDetail(parm);}
 
     public String GetComCodeCheck(Index01Dto parm){  return  indexMapper.GetComCodeCheck(parm);  }
+
+    public String SelectMaxJupsu(Index20Dto parm){  return  indexMapper.SelectMaxJupsu(parm);  }
+
 
 }

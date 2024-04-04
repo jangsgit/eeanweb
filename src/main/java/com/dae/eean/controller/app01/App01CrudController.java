@@ -39,7 +39,7 @@ public class App01CrudController {
     List<Index02Dto> index02List = new ArrayList<>();
     List<IndexDa024Dto> indexDa024ListDto = new ArrayList<>();
 
-    Index02Dto index02Dto = new Index02Dto();
+    Index20Dto index20Dto = new Index20Dto();
     Index02Dto index02BonsaDto = new Index02Dto();
     Index03Dto index03Dto = new Index03Dto();
     IndexDa023Dto indexDa023Dto = new IndexDa023Dto();
@@ -4140,6 +4140,77 @@ public class App01CrudController {
 
 
 
+    @RequestMapping(value="/jupsusave")
+    public String index20JupsuSave(@RequestParam(value = "asaskey1") String asaskey1
+            ,@RequestParam( value =  "asaskey2") String asaskey2
+            ,@RequestParam( value =  "condamdang") String condamdang
+            ,@RequestParam( value =  "asasgong") String asasgong
+            ,@RequestParam( value =  "jacorp") String jacorp
+            ,@RequestParam( value =  "jacorp1") String jacorp1
+            ,@RequestParam( value =  "jacorp2") String jacorp2
+            ,@RequestParam( value =  "jacorp3") String jacorp3
+            ,@RequestParam( value =  "asasmodel") String asasmodel
+            ,@RequestParam( value =  "asascolor") String asascolor
+            ,@RequestParam( value =  "asasyumu") String asasyumu
+            ,@RequestParam( value =  "asassuri") String asassuri
+            ,@RequestParam( value =  "asasmemo") String asasmemo
+            ,@RequestParam( value =  "asasmemo2") String asasmemo2
+            ,@RequestParam( value =  "asasmemo3") String asasmemo3
+            ,@RequestParam( value =  "asaname") String asaname
+            , Model model
+            , HttpServletRequest request){
+
+        try {
+
+            HttpSession session = request.getSession();
+            UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+            if(userformDto == null){
+                log.info("App01ComdodeDetailList_index Exception =====> relogin userformDto null");
+                return "relogin";
+            }
+            model.addAttribute("userformDto",userformDto);
+
+            boolean result = false;
+//            String year = mmisdate.substring(0,4);
+//            String month = mmisdate.substring(5,7);
+//            String day = mmisdate.substring(8,10);
+//            String ls_misdate = year + month + day ;
+                index20Dto.setAs_key1(asaskey1);
+                index20Dto.setAs_key2(asaskey2);
+                index20Dto.setAs_damdang(condamdang);
+                index20Dto.setAs_gongjang(asasgong);
+                index20Dto.setAs_computer(userformDto.getCustnm());
+                index20Dto.setAs_rnum(userformDto.getRnum());
+                index20Dto.setAs_acorp(jacorp);
+                index20Dto.setAs_acorp1(jacorp1);
+                index20Dto.setAs_acorp2(jacorp2);
+                index20Dto.setAs_acorp3(jacorp3);
+                index20Dto.setAs_model(asasmodel);
+                index20Dto.setAs_color(asascolor);
+                index20Dto.setAs_yumu(asasyumu);
+                index20Dto.setAs_suri(asassuri);
+                index20Dto.setAs_memo(asasmemo);
+                index20Dto.setAs_memo2(asasmemo2);
+                index20Dto.setAs_memo3(asasmemo3);
+                index20Dto.setAs_aname(asaname);
+
+                if(asaskey2 == null || asaskey2.equals("")){
+                    asaskey2 = GetMaxJupsu(index20Dto);
+                    index20Dto.setAs_key2(asaskey2);
+                    result = service01.InsertJupsu(index20Dto);
+                }else{
+                    result = service01.UpdateJupsu(index20Dto);
+                }
+            if (!result){
+                return "error";
+            }
+            return "success";
+
+        }catch (IllegalStateException e){
+            model.addAttribute("index20JupsuSave errorMessage", e.getMessage());
+            return "error";
+        }
+    }
 
 
 
@@ -4206,6 +4277,18 @@ public class App01CrudController {
             if (ls_seq.length() == 1){
                 ls_seq = "0" + ls_seq;
             }
+        }
+        return ls_seq;
+    }
+
+    public String GetMaxJupsu(Index20Dto asDto){
+
+        String ls_seq = service01.SelectMaxJupsu(asDto);
+        if(ls_seq == null){
+            ls_seq = "9001";
+        }else{
+            Integer ll_misnum = Integer.parseInt(ls_seq) + 1;
+            ls_seq = ll_misnum.toString();
         }
         return ls_seq;
     }

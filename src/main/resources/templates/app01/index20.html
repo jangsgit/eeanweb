@@ -107,6 +107,7 @@
                                             <div class="date_wrap">
                                                 <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">접수일자</span>                                                        
                                                     <input type="text"  class="form-control datetimepicker" id="asaskey1" autocomplete="off"  placeholder="Y-m-d"   >
+                                                    <input type="hidden"   id="asaskey2"  >
                                                 </div> 
                                             </div>                                          
                                             <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">접수자</span> 
@@ -641,8 +642,7 @@
         //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
                                      
         // tab01 검색   
-        document.getElementById("retrieveBtn").addEventListener("click",function(){ 
-            
+        document.getElementById("retrieveBtn").addEventListener("click",function(){  
             var ls_tab = document.getElementById('tabvalue').value;   
             searchList_rtn(ls_tab);
         })                   
@@ -651,9 +651,13 @@
             
             var ls_tab = document.getElementById('tabvalue').value;   
             searchList_rtn(ls_tab);
-        })   
+        })                    
+        // tab02 검색   
+        document.getElementById("saveBtn").addEventListener("click",function(){  
+            save_rtn();
+        }) 
         
-
+        
         //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 모달 검색@@@@@@@@@@@@@@@@@@@@@@@@@@@
         //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
                 
@@ -758,7 +762,7 @@
             cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
                 text: '<b>${item.acode}</b>',
                 click: (e, ctx) => {
-                    wcifChk_a(ctx.item.acorp1, ctx.item.acorp2, ctx.item.acorp3, ctx.item.acode,   ctx.item.acorp  );                    
+                    wcifChk_a(arg, ctx.item.acorp1, ctx.item.acorp2, ctx.item.acorp3, ctx.item.acode,   ctx.item.acorp  );                    
                     
                 }
             });
@@ -772,8 +776,8 @@
             winnameGrid.columns.push(cols); 
         }
             
-        function wcifChk_a(arg1, arg2, arg3, arg4, arg5){  
-            var ls_tab = document.getElementById('tabvalue').value;    
+        function wcifChk_a(arg0, arg1, arg2, arg3, arg4, arg5){  
+            var ls_tab = arg0; //document.getElementById('tabvalue').value;    
         
             if(ls_tab == "A"){ 
                 document.getElementById('bacorp1').value = arg1;  
@@ -801,6 +805,101 @@
 
         }  
  
+
+        function save_btn(arg){
+            var ls_tab = document.getElementById('tabvalue').value;
+            var ls_asaskey1 = document.getElementById('asaskey1').value;
+            var ls_asaskey2 = document.getElementById('asaskey2').value;
+            var ls_condamdang = document.getElementById('condamdang').value;
+            var ls_asasgong = document.getElementById('asasgong').value;
+            var ls_jcifname = document.getElementById('jcifname').value;
+            var ls_jacorp1 = document.getElementById('jacorp1').value;
+            var ls_jacorp2 = document.getElementById('jacorp2').value;
+            var ls_jacorp3 = document.getElementById('jacorp3').value;
+            var ls_asasmodel = document.getElementById('asasmodel').value;  
+            var ls_asascolor = document.getElementById('asascolor').value; 
+            var ls_asasyumu = document.getElementById('asasyumu').value; 
+            var ls_asassuri = document.getElementById('asassuri').value; 
+            var ls_asasmemo = document.getElementById('asasmemo').value; 
+            var ls_asasmemo2 = document.getElementById('asasmemo2').value; 
+            var ls_asasmemo3 = document.getElementById('asasmemo3').value; 
+            var ls_asaname = document.getElementById('asaname').value;  
+        
+            if (!confirm("저장하시겠습니까?")) {
+                    return ; 
+            }   
+            
+            switch(ls_tab){
+                case 'A':
+
+                if(ls_asaskey1 == null || ls_asaskey1.length == 0 || ls_asaskey1 == ""){ 
+                    alert("접수일자를 등록하세요") 
+                    document.getElementById("asaskey1").focus(); 
+                    return ;               
+                }  
+                if(ls_asaskey2 == null || ls_asaskey2.length == 0 || ls_asaskey2 == ""){ 
+                    ls_asaskey2 = "";
+                }   
+                if(ls_condamdang == null || ls_condamdang.length == 0 || ls_condamdang == ""){ 
+                    alert("담당자를 등록하세요") 
+                    document.getElementById("condamdang").focus(); 
+                    return ;               
+                }   
+                if(ls_jcifname == null || ls_jcifname.length == 0 || ls_jcifname == ""){ 
+                    alert("업체명을 등록하세요") 
+                    document.getElementById("jcifname").focus(); 
+                    return ;               
+                }  
+
+                    $.ajax({
+                        url: '/app01m/jupsusave',  
+                        type:"POST",
+                        data: { 
+                            "asaskey1"      : ls_asaskey1,  
+                            "asaskey2"      : ls_asaskey2 ,  
+                            "condamdang"      : ls_condamdang ,  
+                            "asasgong"      : ls_asasgong ,  
+                            "jacorp1"      : ls_jacorp1 ,  
+                            "jacorp2"      : ls_jacorp2 ,  
+                            "jacorp3"      : ls_jacorp3 ,  
+                            "asasmodel"      : ls_asasmodel ,  
+                            "asascolor"      : ls_asascolor  ,  
+                            "asasyumu"      : ls_asasyumu  ,  
+                            "asassuri"      : ls_asassuri  ,  
+                            "asasmemo"      : ls_asasmemo  ,  
+                            "asasmemo2"      : ls_asasmemo2  ,  
+                            "asasmemo3"      : ls_asasmemo3  ,  
+                            "asaname"      : ls_asaname  , 
+                        }, 
+                        async:false,
+                        success:function(data){   
+                            if(data == "success"){
+                                alert("저장되었습니다.") 
+                                searchList_rtn(ls_tab);  
+                                clear_rtn(ls_tab);             
+                            }else{   
+                                if(data == "relogin"){
+                                    alert("다시 로그인해주세요")
+                                    window.location.href='http://eean.co.kr';
+                                    return 
+                                }                    
+                                alert("저장중 오류가 발생했습니다. 관리자에게 문의하세요.")
+                                // listUp();
+                                console.log(data);  
+                            }
+                           
+                        },error:function(e){
+                            console.log("error"); 
+                        }
+                    }).done(function(fragment){           
+
+                    })  
+                    break;             
+                default:    
+                    break;                
+            } 
+
+        } 
 
         function searchList_rtn(arg1){  
             switch(arg1){
@@ -1146,6 +1245,7 @@
 
         function fn_egov_init_date(){ 
             lsUserid = window.localStorage.getItem("userid")
+            document.getElementById('djpbgubn').value = lsUserid;  
             if (lsUserid == "pvadmin"){
                 document.getElementById('djpbgubn').value = "P"; 
                 document.getElementById('bjpbgubn').value = "P";  
