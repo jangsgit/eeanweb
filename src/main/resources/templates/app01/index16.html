@@ -255,7 +255,7 @@
                                                             </button>
                                                         </td>
                                                         <td> 
-                                                            <button class="btn btn-success me-1 mb-1 btn-sm" id="saveBtn02" type="button"  >주문등록/취소
+                                                            <button class="btn btn-success me-1 mb-1 btn-sm" id="saveBtn02" type="button" disabled >주문등록/취소
                                                             </button> 
                                                         </td> 
                                                     </tr>
@@ -660,7 +660,7 @@
             // showCheckedCount();
             function showCheckedCount() {
                 let cnt = document.getElementById('checked-count'), sel = wtab02Grid.rows.filter(r => r.isSelected);
-                //cnt.textContent = sel.length.toString();  
+                cnt.textContent = sel.length.toString();  
                 chkTabA = sel;          
                 // for (var i = 0; i < sel.length; i++) { 
                 //     misdateArr[i]   = sel[i]._data.misdate;
@@ -763,17 +763,16 @@
                 ? wtab04Grid.rowHeaders.columns[0]
                 : wtab04Grid.columns[0];
             }
-            // 체크된 항목 표시
-            showCheckedCount02();
+            // 체크된 항목 표시 
             function showCheckedCount02() {
                 let cnt = document.getElementById('checked-count02'), sel = wtab04Grid.rows.filter(r => r.isSelected);
-                //cnt.textContent = sel.length.toString();   
+                cnt.textContent = sel.length.toString();   
                 let jqty = 0;
                 chkTabB = sel;    
                 for (var i = 0; i < sel.length; i++) { 
                     jqty   = sel[i]._data.jqty; 
                     if(jqty == 0){
-                        alert("재고수량을 확인하세요")
+                        //alert("재고수량을 확인하세요")
                     }
                 }       
                 // for (var i = 0; i < sel.length; i++) { 
