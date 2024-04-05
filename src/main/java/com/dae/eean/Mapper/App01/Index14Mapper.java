@@ -72,6 +72,8 @@ public interface Index14Mapper {
     public List<IndexDa024Dto> SelectDa024ListLike(IndexDa024Dto parm) ;
     public List<IndexDa024Dto> SelectDa024ListLikeJang(IndexDa024Dto parm) ;
 
+    public String SelectedFixDA024(IndexDa024Dto parm) ;
+
 
 //    public List<IndexDa024Dto> SelectDa024ListPrt(IndexDa024Dto parm) ;
     public List<IndexDa024Dto> SelectDa024ListPrt(IndexDa024Dto parm) ;
