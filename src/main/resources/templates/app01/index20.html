@@ -140,7 +140,12 @@
                                             </div> 
                                             <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">수리사유</span> 
                                                 <input class="form-control form-control-sm" id="asassuri" type="text"    autocomplete="off"  placeholder="">                                               
-                                            </div>  
+                                            </div>                                             
+                                            <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">구분</span> 
+                                                <select class="form-select" th:field="*{index01ListDto}" name="asaname" id="asaname"> 
+                                                    <option th:each="val : ${index01ListDto}" th:value="${val.com_code}" th:text="${val.com_rem1}">
+                                                </select>                                                             
+                                            </div>   
                                             <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">메모</span> 
                                                 <input class="form-control form-control-sm" id="asasmemo" type="text"    autocomplete="off"  placeholder="">                                               
                                             </div>       
@@ -149,12 +154,7 @@
                                             </div>                                         
                                             <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">메모3</span> 
                                                 <input class="form-control form-control-sm" id="asasmemo3" type="text"    autocomplete="off"  placeholder="">                                               
-                                            </div>                                            
-                                            <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">구분</span> 
-                                                <select class="form-select" th:field="*{index01ListDto}" name="asaname" id="asaname"> 
-                                                    <option th:each="val : ${index01ListDto}" th:value="${val.com_code}" th:text="${val.com_rem1}">
-                                                </select>                                                             
-                                            </div>                                                                           
+                                            </div>                                                                         
     
                                             <div class="container text-center">
                                                 <div class="row align-items-center">
@@ -680,7 +680,12 @@
                 CifSearchList_rtn("C"); 
             }
         });    
-
+  
+        document.getElementById("asasmemo3").addEventListener("keyup", (e)=>{ 
+            if(e.keyCode === 13){   
+                alert("저장");
+            }
+        }); 
   
         function CifSearchList_rtn(arg){  
 

@@ -455,7 +455,7 @@
                       B.pcode, B.pname, B.psize,    B.punit,  B.qty,  B.uamt, B.samt, B.addamt,
                       B.amt, A.acorp, pbonsa, pmodel, pcolor , D.inname, B.misgubun, isnull(B.fixflag,'0') as fixflag, D.inname as pernm,
                       isnull(C.remarkaa,'') as remarkaa, isnull(C.remarkbb,'') as remarkbb,
-                      B.fixdate,  CONVERT(CHAR(19),B.fixdatetime,20) as fixdatetime
+                      B.fixdate,  CONVERT(CHAR(19),B.fixdatetime,20) as fixdatetime,  CONVERT(CHAR(19),B.misdatetime,20) as misdatetime
                   from  TB_DA024 B WITH (NOLOCK) ,  jcode3 E WITH (NOLOCK) ,
                         TB_DA023 C WITH (NOLOCK) ,
                         cif A WITH (NOLOCK)  Left outer JOIN INSA D ON A.abonsadam1 = D.insano

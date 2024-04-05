@@ -1171,6 +1171,7 @@
                     misgubun: wtab04Dto[i]["misgubun"],    
                     fixdate: wtab04Dto[i]["fixdate"],   
                     fixdatetime: wtab04Dto[i]["fixdatetime"],   
+                    misdatetime: wtab04Dto[i]["misdatetime"],  
                     remark: ls_remark,    
                     fixflag: bfixflag,                                           
                 });
@@ -1286,6 +1287,12 @@
             cols.align = "center";
             cols.aggregate = 'Sum';
             cols.width = 120;  
+            wtab04Grid.columns.push(cols);   
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'misdatetime';
+            cols.header = '주문시간';
+            cols.align = "center";
+            cols.width = 200;  
             wtab04Grid.columns.push(cols);   
             cols = new wijmo.grid.Column(); 
             cols.binding = 'remark';

@@ -414,6 +414,7 @@
                 autoGenerateColumns: false,
                 columns: [     
                     { binding: 'pernm', header: '사원명', align: "center", width: 120 }, 
+                    { binding: 'fixdate', header: '출력일자', align: "center", width: 120 }, 
                     { binding: 'misdate', header: '주문일자', align: "center", width: 120 }, 
                     { binding: 'misnum', header: '주문번호', align: "center", width: 80 },  
                     // { binding: 'seq', header: '순번', align: "center", width: 80 },  
@@ -425,8 +426,8 @@
                     // { binding: 'pcolor', header: '컬러', align: "center", width: 100 },  
                     { binding: 'qty', header: '수량', align: "center", width: 80 ,  aggregate: 'Sum'},  
                     { binding: 'uamt', header: '단가', align: "center", width: 100 },  
-                    { binding: 'samt', header: '금액', align: "center", width: 150,  aggregate: 'Sum' },  
-                    { binding: 'fixdate', header: '출력일자', align: "center", width: 120 }, 
+                    { binding: 'samt', header: '금액', align: "center", width: 150,  aggregate: 'Sum' }, 
+                    { binding: 'misdatetime', header: '주문시간', align: "center", width: 120 },  
                     // { binding: 'fixflag', header: '확정', align: "center", width: 150, cssClass: 'switch'   },  
 
                 ], 
@@ -1139,7 +1140,8 @@
                     inname: wtab04Dto[i]["inname"],       
                     misgubun: wtab04Dto[i]["misgubun"],    
                     fixdate: wtab04Dto[i]["fixdate"],   
-                    fixdatetime: wtab04Dto[i]["fixdatetime"],        
+                    fixdatetime: wtab04Dto[i]["fixdatetime"],  
+                    misdatetime: wtab04Dto[i]["misdatetime"],      
                     fixflag: bfixflag,                                           
                 });
                 cnt++;
@@ -1254,6 +1256,12 @@
             cols.align = "center";
             cols.aggregate = 'Sum';
             cols.width = 120;  
+            wtab04Grid.columns.push(cols);     
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'misdatetime'; 
+            cols.header = '주문시간';
+            cols.align = "center"; 
+            cols.width = 200;  
             wtab04Grid.columns.push(cols);  
             // cols = new wijmo.grid.Column(); 
             // cols.binding = 'fixflag'; 
