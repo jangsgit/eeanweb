@@ -847,7 +847,7 @@
     <update id="UpdateDA024" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
         UPDATE tb_da024 SET
         fixflag=#{fixflag}, fixdate=#{fixdate}, fixdatetime = getdate()
-        where misdate=#{misdate} and misnum=#{misnum} and  seq=#{seq} and cltcd = #{cltcd} and misgubun = #{misgubun}
+        where misdate=#{misdate} and misnum=#{misnum} and  seq=#{seq} and cltcd = #{cltcd} and misgubun = #{misgubun} and len( isnull(CONVERT(CHAR(19),fixdatetime,20),'') ) = 0
     </update>
 
     <update id="UpdateDA024Dev" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
