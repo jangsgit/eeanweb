@@ -43,11 +43,11 @@
     </select>
 
     <select id="SelectMaxSeq" parameterType="com.dae.eean.DTO.App01.IndexDa023Dto" resultType="String">
-        <![CDATA[  select  max(seq)  from tb_da024 where misdate = #{misdate} and misnum = #{misnum} and cltcd = #{cltcd}    ]]>
+        <![CDATA[  select  max(seq)  from tb_da024 where misdate = #{misdate} and misnum = #{misnum} and cltcd = #{cltcd} and misgubun =#{misgubun}   ]]>
     </select>
 
     <select id="SelectMaxSeqWish" parameterType="com.dae.eean.DTO.App01.IndexDa023Dto" resultType="String">
-        <![CDATA[  select  max(seq)  from tb_da026 where misdate = #{misdate} and misnum = #{misnum} and cltcd = #{cltcd}    ]]>
+        <![CDATA[  select  max(seq)  from tb_da026 where misdate = #{misdate} and misnum = #{misnum} and cltcd = #{cltcd} and misgubun =#{misgubun}   ]]>
     </select>
 
     <select id="SelectDa026Detail" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" resultType="com.dae.eean.DTO.App01.IndexDa024Dto">

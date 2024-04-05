@@ -2117,6 +2117,7 @@ aria-hidden="true">
             if(arg4 == null ){ 
                 arg4 = 1         ;
             }    
+            
             if(ls_tabchk == "B"  ){   
                 $.ajax({
                     url: '/app01m/index14/savecustdel',  
@@ -2128,7 +2129,8 @@ aria-hidden="true">
                         "misdate"  : ls_misdate     , 
                         "misdateArr"  : misdateArr   ,      
                         "misnumArr"  : misnumArr  ,      
-                        "seqArr"  : seqArr   
+                        "seqArr"  : seqArr    ,      
+                        "cltcdArr"  : cltcdArr   
                     }, 
                     async:false,
                     success:function(data){      
@@ -2293,7 +2295,7 @@ aria-hidden="true">
                         arg4 = 1         ;
                     }  
                     var  ls_jpbgubn    = document.getElementById('jpbgubn').value;   
-                    console.log(misdateArr);
+                    //console.log(misdateArr);
                     $.ajax({
                         url: '/app01m/index14/savecust',  
                         type:"POST",

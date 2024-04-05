@@ -1510,7 +1510,8 @@
             }
             var ls_tab = document.getElementById('tabvalue').value;
             var ls_ipdate = document.getElementById('ipdate').value;          
-            var ls_acode   = document.getElementById('acode').value;       
+            var ls_acode   = document.getElementById('acode').value;  
+            var ls_cifname = document.getElementById('cifname').value;  
             var  ls_jpbgubn    = document.getElementById('jpbgubn').value;                        
             var ls_bonsacd =   document.getElementById('jbonsacd').value ; 
             const warnning_grid = document.getElementById('inwarnning_grid');    
@@ -1532,8 +1533,13 @@
                             alert("등록일자를 등록하세요") 
                             document.getElementById("ipdate").focus(); 
                             return ;               
-                        }   
-                        if(ls_acode == null || ls_acode.length == 0 || ls_acode == ""){ 
+                        }    
+                        if(ls_cifname == null || ls_cifname.length == 0 || ls_cifname == "" || ls_cifname == "%"){ 
+                            alert("거래처를 등록하세요") 
+                            document.getElementById("cifname").focus(); 
+                            return ;               
+                        }  
+                        if(ls_acode == null || ls_acode.length == 0 || ls_acode == "" || ls_acode == "%"){ 
                             alert("거래처를 등록하세요") 
                             document.getElementById("cifname").focus(); 
                             return ;               
@@ -1587,11 +1593,16 @@
                             document.getElementById("ipdate").focus(); 
                             return ;               
                         }   
-                        if(ls_acode == null || ls_acode.length == 0 || ls_acode == ""){ 
+                        if(ls_cifname == null || ls_cifname.length == 0 || ls_cifname == "" || ls_cifname == "%"){ 
                             alert("거래처를 등록하세요") 
                             document.getElementById("cifname").focus(); 
                             return ;               
-                        }       
+                        }  
+                        if(ls_acode == null || ls_acode.length == 0 || ls_acode == "" || ls_acode == "%"){ 
+                            alert("거래처를 등록하세요") 
+                            document.getElementById("cifname").focus(); 
+                            return ;               
+                        }        
                         $.ajax({
                             url: '/app01m/index14/save',  
                             type:"POST",

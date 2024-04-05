@@ -1038,7 +1038,6 @@ public class App01CrudController {
             , HttpServletRequest request){
 
         try {
-
             HttpSession session = request.getSession();
             UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
             if(userformDto == null){
@@ -1049,6 +1048,8 @@ public class App01CrudController {
             Index03Dto _index03Dto = new Index03Dto();
             Index02Dto _index02Dto = new Index02Dto();
             IndexDa024Dto _index024Dto = new IndexDa024Dto();
+            IndexDa023Dto _indexDa023Dto = new IndexDa023Dto();
+            IndexDa024Dto _indexDa024Dto = new IndexDa024Dto();
 
             Boolean result = false;
             String year = frdate.substring(0,4) ;
@@ -1069,7 +1070,7 @@ public class App01CrudController {
             index02BonsaDto = service02.GetCifBonsa(index02BonsaDto);
             _index03Dto = service03.GetJpumOrderJkey(_index03Dto); //품목정보
             if(_index03Dto == null){
-                log.info("index14Save 재고 없음 =====> index03Dto == null"  );
+                log.info("index14Save 품목 없음 =====> index03Dto == null"  );
                 log.info("jfrdate =====> " + frdate );
                 log.info("jmodel =====> " + jmodel );
                 log.info("jcolor =====> " + jcolor );
@@ -1087,16 +1088,16 @@ public class App01CrudController {
                 log.info("jqty =====> " + _index03Dto.getJqty() );
                 return "jaego";
             }
-            indexDa023Dto.setCltcd(acode);
-            indexDa023Dto.setMisgubun(mflag);
-            indexDa023Dto.setMisdate(frdate);
+            _indexDa023Dto.setCltcd(acode);
+            _indexDa023Dto.setMisgubun(mflag);
+            _indexDa023Dto.setMisdate(frdate);
             String ls_misnum = "";
-            String ls_chknull = service14.SelectCheckMisnum(indexDa023Dto);
+            String ls_chknull = service14.SelectCheckMisnum(_indexDa023Dto);
             if(ls_chknull == null){
                 ls_chknull = "";
             }
             if(ls_chknull.length() == 0){
-                ls_misnum = service14.SelectCheckMisnumMkflag(indexDa023Dto);  //주문된 순번max 찾기
+                ls_misnum = service14.SelectCheckMisnumMkflag(_indexDa023Dto);  //주문된 순번max 찾기
                 if(ls_misnum == null){
                     ls_misnum = "0001";
                 }else{
@@ -1113,51 +1114,51 @@ public class App01CrudController {
             }else{
                 ls_misnum = ls_chknull;
             }
-            indexDa023Dto.setMisnum(ls_misnum);
-            indexDa023Dto.setCltcd(acode);
-            indexDa023Dto.setYyyymm(year + month);
+            _indexDa023Dto.setMisnum(ls_misnum);
+            _indexDa023Dto.setCltcd(acode);
+            _indexDa023Dto.setYyyymm(year + month);
 
             switch (mflag){
                 case "AA" :
-                    indexDa023Dto.setPerid("");
-                    indexDa023Dto.setGgubun("AA");
+                    _indexDa023Dto.setPerid("");
+                    _indexDa023Dto.setGgubun("AA");
                     break;
                 case "BB":
-                    indexDa023Dto.setPerid("");
-                    indexDa023Dto.setGgubun("BB");
+                    _indexDa023Dto.setPerid("");
+                    _indexDa023Dto.setGgubun("BB");
                     break;
                 case "CC":
-                    indexDa023Dto.setPerid(userformDto.getPerid());
-                    indexDa023Dto.setGgubun("CC");
+                    _indexDa023Dto.setPerid(userformDto.getPerid());
+                    _indexDa023Dto.setGgubun("CC");
                     break;
                 default:
                     break;
             }
-            indexDa023Dto.setContamt(0);
-            indexDa023Dto.setAddamt(0);
-            indexDa023Dto.setAddamt(0);
-            indexDa023Dto.setMisamt(0);
-            indexDa023Dto.setAmt(0);
-            indexDa023Dto.setBillkind("1");     //0 미발행 1 발행 2 역발행 3 타사이트발행
-            indexDa023Dto.setTaxcls("0");       //0 부가세별도 1 부가세포함
-            indexDa023Dto.setTaxgubun("001");   //001 과세 002 비과세
-            indexDa023Dto.setBigo("");
-            indexDa023Dto.setRemark("");
-//            indexDa023Dto.setVatemail(_index02Dto.getAemail());  //계산서 메일주소
-//            indexDa023Dto.setVatpernm(_index02Dto.getInname01());  //계산서 담당자
-            indexDa023Dto.setSpjangnum(index02BonsaDto.getAcorp());
-            indexDa023Dto.setGubun("");
-            indexDa024Dto.setMisgubun(mflag);
-            indexDa024Dto.setMisdate(frdate);
-            indexDa024Dto.setMisnum(ls_misnum);
-            indexDa024Dto.setPcode(_index03Dto.getJkey());
-            indexDa024Dto.setPname(_index03Dto.getJpum());
-            indexDa024Dto.setPsize(_index03Dto.getJgugek());
-            indexDa024Dto.setPbonsa(jbonsa);
-            indexDa024Dto.setPbonsa2(_index03Dto.getJbonsa_code2());
-            indexDa024Dto.setPmodel(jmodel);
-            indexDa024Dto.setPcolor(jcolor);
-            indexDa024Dto.setCltcd(indexDa023Dto.getCltcd());
+            _indexDa023Dto.setContamt(0);
+            _indexDa023Dto.setAddamt(0);
+            _indexDa023Dto.setAddamt(0);
+            _indexDa023Dto.setMisamt(0);
+            _indexDa023Dto.setAmt(0);
+            _indexDa023Dto.setBillkind("1");     //0 미발행 1 발행 2 역발행 3 타사이트발행
+            _indexDa023Dto.setTaxcls("0");       //0 부가세별도 1 부가세포함
+            _indexDa023Dto.setTaxgubun("001");   //001 과세 002 비과세
+            _indexDa023Dto.setBigo("");
+            _indexDa023Dto.setRemark("");
+//            _indexDa023Dto.setVatemail(_index02Dto.getAemail());  //계산서 메일주소
+//            _indexDa023Dto.setVatpernm(_index02Dto.getInname01());  //계산서 담당자
+            _indexDa023Dto.setSpjangnum(index02BonsaDto.getAcorp());
+            _indexDa023Dto.setGubun("");
+            _indexDa024Dto.setMisgubun(mflag);
+            _indexDa024Dto.setMisdate(frdate);
+            _indexDa024Dto.setMisnum(ls_misnum);
+            _indexDa024Dto.setPcode(_index03Dto.getJkey());
+            _indexDa024Dto.setPname(_index03Dto.getJpum());
+            _indexDa024Dto.setPsize(_index03Dto.getJgugek());
+            _indexDa024Dto.setPbonsa(jbonsa);
+            _indexDa024Dto.setPbonsa2(_index03Dto.getJbonsa_code2());
+            _indexDa024Dto.setPmodel(jmodel);
+            _indexDa024Dto.setPcolor(jcolor);
+            _indexDa024Dto.setCltcd(_indexDa023Dto.getCltcd());
 
             //재고체크 ------------------------------------------
 
@@ -1170,7 +1171,7 @@ public class App01CrudController {
                 ls_seq = "001";
             }else{
                 //동일업체 동일일자 동일품목이 있는지 체크
-                _index024Dto = service14.SelectCheckJpum024(indexDa024Dto);  //주문된 순번max 찾기
+                _index024Dto = service14.SelectCheckJpum024(_indexDa024Dto);  //주문된 순번max 찾기
                 if (_index024Dto != null){
                     ls_seq = _index024Dto.getSeq();
                     if (ls_seq.length() > 0 && ls_seq != null ){
@@ -1179,30 +1180,30 @@ public class App01CrudController {
                         Integer _ll_samt = 0 ;
                         Integer _ll_addamt = 0 ;
                         Integer _ll_amt = 0;
-                        indexDa024Dto.setSeq(ls_seq);
-                        indexDa024Dto.setQty(_ll_qty);
+                        _indexDa024Dto.setSeq(ls_seq);
+                        _indexDa024Dto.setQty(_ll_qty);
                         if(_ll_uamt > 0){
                             _ll_samt = _ll_qty * _ll_uamt;
                             _ll_addamt = _ll_samt / 10 ;
                             _ll_amt = _ll_samt + _ll_addamt;
-                            indexDa024Dto.setSamt(_ll_samt);
-                            indexDa024Dto.setAddamt(_ll_addamt);
-                            indexDa024Dto.setAmt(_ll_amt);
+                            _indexDa024Dto.setSamt(_ll_samt);
+                            _indexDa024Dto.setAddamt(_ll_addamt);
+                            _indexDa024Dto.setAmt(_ll_amt);
                         }else{
-                            indexDa024Dto.setSamt(0);
-                            indexDa024Dto.setAddamt(0);
-                            indexDa024Dto.setAmt(0);
+                            _indexDa024Dto.setSamt(0);
+                            _indexDa024Dto.setAddamt(0);
+                            _indexDa024Dto.setAmt(0);
                         }
-                        result = service14.UpdateDA024QtySame(indexDa024Dto);
+                        result = service14.UpdateDA024QtySame(_indexDa024Dto);
                         if (!result){
                             return "error";
                         }
                         return "success";
                     }else{
-                        ls_seq = GetMaxSeq(frdate);
+                        ls_seq = GetMaxSeq(_indexDa023Dto, frdate);
                     }
                 }else{
-                    ls_seq = GetMaxSeq(frdate);
+                    ls_seq = GetMaxSeq(_indexDa023Dto, frdate);
                 }
             }
 
@@ -1211,23 +1212,23 @@ public class App01CrudController {
                 ls_chulgoga = "0";
             }
             Integer ll_chulgoga = Integer.parseInt(ls_chulgoga);
-            indexDa024Dto.setSeq(ls_seq);
-            indexDa024Dto.setQty(1);
-            indexDa024Dto.setUamt(ll_chulgoga);
-            indexDa024Dto.setSamt(ll_chulgoga);
-            indexDa024Dto.setAddamt(0);
-            if(ll_chulgoga > 0 ) {indexDa024Dto.setAddamt(ll_chulgoga / 10);};
-            indexDa024Dto.setAmt(ll_chulgoga + (ll_chulgoga / 10));
-            indexDa024Dto.setIndate(getToDate());
-            indexDa024Dto.setInperid(userformDto.getPerid());
-            indexDa024Dto.setPunit("EA");
+            _indexDa024Dto.setSeq(ls_seq);
+            _indexDa024Dto.setQty(1);
+            _indexDa024Dto.setUamt(ll_chulgoga);
+            _indexDa024Dto.setSamt(ll_chulgoga);
+            _indexDa024Dto.setAddamt(0);
+            if(ll_chulgoga > 0 ) {_indexDa024Dto.setAddamt(ll_chulgoga / 10);};
+            _indexDa024Dto.setAmt(ll_chulgoga + (ll_chulgoga / 10));
+            _indexDa024Dto.setIndate(getToDate());
+            _indexDa024Dto.setInperid(userformDto.getPerid());
+            _indexDa024Dto.setPunit("EA");
             if (ls_chknull.length() == 0){
-                result = service14.InsertDa023(indexDa023Dto);
+                result = service14.InsertDa023(_indexDa023Dto);
                 if (!result){
                     return "error";
                 }
             }
-            result = service14.InsertDa024(indexDa024Dto);
+            result = service14.InsertDa024(_indexDa024Dto);
             if (!result){
                 return "error";
             }
@@ -1266,6 +1267,8 @@ public class App01CrudController {
             Index03Dto _index03Dto = new Index03Dto();
             Index02Dto _index02Dto = new Index02Dto();
             IndexDa024Dto _index024Dto = new IndexDa024Dto();
+            IndexDa023Dto _indexDa023Dto = new IndexDa023Dto();
+            IndexDa024Dto _indexDa024Dto = new IndexDa024Dto();
 
             Boolean result = false;
             String year = frdate.substring(0,4) ;
@@ -1286,16 +1289,16 @@ public class App01CrudController {
                 return "error";
             }
 
-            indexDa023Dto.setCltcd(acode);
-            indexDa023Dto.setMisdate(frdate);
-            indexDa023Dto.setMisgubun(mflag);
+            _indexDa023Dto.setCltcd(acode);
+            _indexDa023Dto.setMisdate(frdate);
+            _indexDa023Dto.setMisgubun(mflag);
             String ls_misnum = "";
-            String ls_chknull = service14.SelectCheckMisnumWish(indexDa023Dto);
+            String ls_chknull = service14.SelectCheckMisnumWish(_indexDa023Dto);
             if(ls_chknull == null){
                 ls_chknull = "";
             }
             if(ls_chknull.length() == 0){
-                ls_misnum = service14.SelectCheckMisnumWishMkflag(indexDa023Dto);  //주문된 순번max 찾기
+                ls_misnum = service14.SelectCheckMisnumWishMkflag(_indexDa023Dto);  //주문된 순번max 찾기
                 if(ls_misnum == null){
                     ls_misnum = "0001";
                 }else{
@@ -1312,50 +1315,50 @@ public class App01CrudController {
             }else{
                 ls_misnum = ls_chknull;
             }
-            indexDa023Dto.setMisnum(ls_misnum);
-            indexDa023Dto.setCltcd(acode);
-            indexDa023Dto.setYyyymm(year + month);
+            _indexDa023Dto.setMisnum(ls_misnum);
+            _indexDa023Dto.setCltcd(acode);
+            _indexDa023Dto.setYyyymm(year + month);
 
             switch (mflag){
                 case "AA" :
-                    indexDa023Dto.setPerid("");
-                    indexDa023Dto.setGgubun("AA");
+                    _indexDa023Dto.setPerid("");
+                    _indexDa023Dto.setGgubun("AA");
                     break;
                 case "BB":
-                    indexDa023Dto.setPerid("");
-                    indexDa023Dto.setGgubun("BB");
+                    _indexDa023Dto.setPerid("");
+                    _indexDa023Dto.setGgubun("BB");
                     break;
                 case "CC":
-                    indexDa023Dto.setPerid(userformDto.getPerid());
-                    indexDa023Dto.setGgubun("CC");
+                    _indexDa023Dto.setPerid(userformDto.getPerid());
+                    _indexDa023Dto.setGgubun("CC");
                     break;
                 default:
                     break;
             }
-            indexDa023Dto.setContamt(0);
-            indexDa023Dto.setAddamt(0);
-            indexDa023Dto.setAddamt(0);
-            indexDa023Dto.setMisamt(0);
-            indexDa023Dto.setAmt(0);
-            indexDa023Dto.setBillkind("1");     //0 미발행 1 발행 2 역발행 3 타사이트발행
-            indexDa023Dto.setTaxcls("0");       //0 부가세별도 1 부가세포함
-            indexDa023Dto.setTaxgubun("001");   //001 과세 002 비과세
-            indexDa023Dto.setBigo("");
-            indexDa023Dto.setRemark("");
-//            indexDa023Dto.setVatemail(_index02Dto.getAemail());  //계산서 메일주소
-//            indexDa023Dto.setVatpernm(_index02Dto.getInname01());  //계산서 담당자
-            indexDa023Dto.setSpjangnum(index02BonsaDto.getAcorp());
-            indexDa023Dto.setGubun("");
-            indexDa024Dto.setMisgubun(mflag);
-            indexDa024Dto.setMisdate(frdate);
-            indexDa024Dto.setMisnum(ls_misnum);
-            indexDa024Dto.setPcode(_index03Dto.getJkey());
-            indexDa024Dto.setPname(_index03Dto.getJpum());
-            indexDa024Dto.setPsize(_index03Dto.getJgugek());
-            indexDa024Dto.setPbonsa(jbonsa);
-            indexDa024Dto.setPbonsa2(_index03Dto.getJbonsa_code2());
-            indexDa024Dto.setPmodel(jmodel);
-            indexDa024Dto.setPcolor(jcolor);
+            _indexDa023Dto.setContamt(0);
+            _indexDa023Dto.setAddamt(0);
+            _indexDa023Dto.setAddamt(0);
+            _indexDa023Dto.setMisamt(0);
+            _indexDa023Dto.setAmt(0);
+            _indexDa023Dto.setBillkind("1");     //0 미발행 1 발행 2 역발행 3 타사이트발행
+            _indexDa023Dto.setTaxcls("0");       //0 부가세별도 1 부가세포함
+            _indexDa023Dto.setTaxgubun("001");   //001 과세 002 비과세
+            _indexDa023Dto.setBigo("");
+            _indexDa023Dto.setRemark("");
+//            _indexDa023Dto.setVatemail(_index02Dto.getAemail());  //계산서 메일주소
+//            _indexDa023Dto.setVatpernm(_index02Dto.getInname01());  //계산서 담당자
+            _indexDa023Dto.setSpjangnum(index02BonsaDto.getAcorp());
+            _indexDa023Dto.setGubun("");
+            _indexDa024Dto.setMisgubun(mflag);
+            _indexDa024Dto.setMisdate(frdate);
+            _indexDa024Dto.setMisnum(ls_misnum);
+            _indexDa024Dto.setPcode(_index03Dto.getJkey());
+            _indexDa024Dto.setPname(_index03Dto.getJpum());
+            _indexDa024Dto.setPsize(_index03Dto.getJgugek());
+            _indexDa024Dto.setPbonsa(jbonsa);
+            _indexDa024Dto.setPbonsa2(_index03Dto.getJbonsa_code2());
+            _indexDa024Dto.setPmodel(jmodel);
+            _indexDa024Dto.setPcolor(jcolor);
             String ls_seq = "";
             //신규입력
 //            log.info("ls_chknull ======>" + ls_chknull);
@@ -1363,7 +1366,7 @@ public class App01CrudController {
                 ls_seq = "001";
             }else{
                 //동일업체 동일일자 동일품목이 있는지 체크
-                _index024Dto = service14.SelectCheckJpum026(indexDa024Dto);  //주문된 순번max 찾기
+                _index024Dto = service14.SelectCheckJpum026(_indexDa024Dto);  //주문된 순번max 찾기
                 if(_index024Dto != null){
                     ls_seq = _index024Dto.getSeq();
                     if (ls_seq.length() > 0 && ls_seq != null ){
@@ -1372,30 +1375,30 @@ public class App01CrudController {
                         Integer _ll_samt = 0 ;
                         Integer _ll_addamt = 0 ;
                         Integer _ll_amt = 0;
-                        indexDa024Dto.setSeq(ls_seq);
-                        indexDa024Dto.setQty(_ll_qty);
+                        _indexDa024Dto.setSeq(ls_seq);
+                        _indexDa024Dto.setQty(_ll_qty);
                         if(_ll_uamt > 0){
                             _ll_samt = _ll_qty * _ll_uamt;
                             _ll_addamt = _ll_samt / 10 ;
                             _ll_amt = _ll_samt + _ll_addamt;
-                            indexDa024Dto.setSamt(_ll_samt);
-                            indexDa024Dto.setAddamt(_ll_addamt);
-                            indexDa024Dto.setAmt(_ll_amt);
+                            _indexDa024Dto.setSamt(_ll_samt);
+                            _indexDa024Dto.setAddamt(_ll_addamt);
+                            _indexDa024Dto.setAmt(_ll_amt);
                         }else{
-                            indexDa024Dto.setSamt(0);
-                            indexDa024Dto.setAddamt(0);
-                            indexDa024Dto.setAmt(0);
+                            _indexDa024Dto.setSamt(0);
+                            _indexDa024Dto.setAddamt(0);
+                            _indexDa024Dto.setAmt(0);
                         }
-                        result = service14.UpdateDA026Qty(indexDa024Dto);
+                        result = service14.UpdateDA026Qty(_indexDa024Dto);
                         if (!result){
                             return "error";
                         }
                         return "success";
                     }else{
-                        ls_seq = GetMaxSeqWish(frdate);
+                        ls_seq = GetMaxSeqWish(_indexDa023Dto, frdate);
                     }
                 }else{
-                    ls_seq = GetMaxSeqWish(frdate);
+                    ls_seq = GetMaxSeqWish(_indexDa023Dto, frdate);
                 }
             }
 
@@ -1404,24 +1407,24 @@ public class App01CrudController {
                 ls_chulgoga = "0";
             }
             Integer ll_chulgoga = Integer.parseInt(ls_chulgoga);
-            indexDa024Dto.setSeq(ls_seq);
-            indexDa024Dto.setQty(1);
-            indexDa024Dto.setUamt(ll_chulgoga);
-            indexDa024Dto.setSamt(ll_chulgoga);
-            indexDa024Dto.setCltcd(indexDa023Dto.getCltcd());
-            indexDa024Dto.setAddamt(0);
-            if(ll_chulgoga > 0 ) {indexDa024Dto.setAddamt(ll_chulgoga / 10);};
-            indexDa024Dto.setAmt(ll_chulgoga + (ll_chulgoga / 10));
-            indexDa024Dto.setIndate(getToDate());
-            indexDa024Dto.setInperid(userformDto.getPerid());
-            indexDa024Dto.setPunit("EA");
+            _indexDa024Dto.setSeq(ls_seq);
+            _indexDa024Dto.setQty(1);
+            _indexDa024Dto.setUamt(ll_chulgoga);
+            _indexDa024Dto.setSamt(ll_chulgoga);
+            _indexDa024Dto.setCltcd(_indexDa023Dto.getCltcd());
+            _indexDa024Dto.setAddamt(0);
+            if(ll_chulgoga > 0 ) {_indexDa024Dto.setAddamt(ll_chulgoga / 10);};
+            _indexDa024Dto.setAmt(ll_chulgoga + (ll_chulgoga / 10));
+            _indexDa024Dto.setIndate(getToDate());
+            _indexDa024Dto.setInperid(userformDto.getPerid());
+            _indexDa024Dto.setPunit("EA");
             if (ls_chknull.length() == 0){
-                result = service14.InsertDa025(indexDa023Dto);
+                result = service14.InsertDa025(_indexDa023Dto);
                 if (!result){
                     return "error";
                 }
             }
-            result = service14.InsertDa026(indexDa024Dto);
+            result = service14.InsertDa026(_indexDa024Dto);
             if (!result){
                 return "error";
             }
@@ -1455,7 +1458,10 @@ public class App01CrudController {
 
             //Index03Dto index03Dto_S = new Index03Dto();
 
+            IndexDa024Dto _index024Dto = new IndexDa024Dto();
             IndexDa024Dto _indexDa024Dto = new IndexDa024Dto();
+            IndexDa023Dto _indexDa023Dto = new IndexDa023Dto();
+            IndexDa024Dto _Da024Dto = new IndexDa024Dto();
             HttpSession session = request.getSession();
             UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
             if(userformDto == null){
@@ -1493,33 +1499,33 @@ public class App01CrudController {
                 return "jaego";
             }
 
-            indexDa023Dto.setCltcd(acode);
-            indexDa023Dto.setMisdate(frdate);
+            _indexDa023Dto.setCltcd(acode);
+            _indexDa023Dto.setMisdate(frdate);
             //비고업데이트
             if (!misdate.equals("0000")){
                 year = misdate.substring(0,4) ;
                 month = misdate.substring(5,7) ;
                 day   = misdate.substring(8,10) ;
                 misdate = year + month + day ;
-                indexDa024Dto.setQty(jqty);
-                indexDa024Dto.setMisdate(misdate);
-                indexDa024Dto.setMisnum(misnum);
-                indexDa024Dto.setSeq(seq);
-                indexDa024Dto.setCltcd(acode);
-                indexDa024Dto.setMisgubun(mflag);
+                _Da024Dto.setQty(jqty);
+                _Da024Dto.setMisdate(misdate);
+                _Da024Dto.setMisnum(misnum);
+                _Da024Dto.setSeq(seq);
+                _Da024Dto.setCltcd(acode);
+                _Da024Dto.setMisgubun(mflag);
                 // 개별확정방식으로변경  장바구니에서 체크한것만 주문으로 넘어가도록 방식 변경 23.3.7
                 switch (mflag){
                     case "AA" :
-                        indexDa024Dto.setRemarkaa(jremark);
-                        result = service14.UpdateDA024rkaa(indexDa024Dto);
+                        _Da024Dto.setRemarkaa(jremark);
+                        result = service14.UpdateDA024rkaa(_Da024Dto);
                         break;
                     case "BB":
-                        indexDa024Dto.setRemarkbb(jremark);
-                        result = service14.UpdateDA024rkbb(indexDa024Dto);
+                        _Da024Dto.setRemarkbb(jremark);
+                        result = service14.UpdateDA024rkbb(_Da024Dto);
                         break;
                     case "CC":
-                        indexDa024Dto.setRemarkbb(jremark);
-                        result = service14.UpdateDA024rkbb(indexDa024Dto);
+                        _Da024Dto.setRemarkbb(jremark);
+                        result = service14.UpdateDA024rkbb(_Da024Dto);
                         break;
                     default:
                         break;
@@ -1534,34 +1540,34 @@ public class App01CrudController {
                         month = misdateArr.get(i).substring(5,7);
                         day = misdateArr.get(i).substring(8,10);
                         String ls_misdate = year + month + day ;
-                        indexDa024Dto.setMisdate(ls_misdate);
-                        indexDa024Dto.setMisnum(misnumArr.get(i));
-                        indexDa024Dto.setSeq(seqArr.get(i));
-                        indexDa024Dto.setQty(Integer.parseInt(misqty.get(i)));
-                        _indexDa024Dto.setMisdate(indexDa024Dto.getMisdate());
-                        _indexDa024Dto.setMisnum(indexDa024Dto.getMisnum());
-                        _indexDa024Dto.setSeq(indexDa024Dto.getSeq());
-                        _indexDa024Dto.setCltcd(indexDa024Dto.getCltcd());
-                        _indexDa024Dto.setMisgubun(indexDa024Dto.getMisgubun());
+                        _Da024Dto.setMisdate(ls_misdate);
+                        _Da024Dto.setMisnum(misnumArr.get(i));
+                        _Da024Dto.setSeq(seqArr.get(i));
+                        _Da024Dto.setQty(Integer.parseInt(misqty.get(i)));
+                        _indexDa024Dto.setMisdate(_Da024Dto.getMisdate());
+                        _indexDa024Dto.setMisnum(_Da024Dto.getMisnum());
+                        _indexDa024Dto.setSeq(_Da024Dto.getSeq());
+                        _indexDa024Dto.setCltcd(_Da024Dto.getCltcd());
+                        _indexDa024Dto.setMisgubun(_Da024Dto.getMisgubun());
                         _indexDa024Dto = service14.SelectDa024Detail(_indexDa024Dto);
                         Integer _ll_uamt = _indexDa024Dto.getUamt();
                         Integer _ll_samt = 0;
                         Integer _ll_addamt = 0;
                         Integer _ll_amt = 0;
-                        Integer _ll_qty = indexDa024Dto.getQty();
+                        Integer _ll_qty = _Da024Dto.getQty();
                         if(_ll_uamt > 0){
                             _ll_samt = _ll_qty * _ll_uamt;
                             _ll_addamt = _ll_samt / 10 ;
                             _ll_amt = _ll_samt + _ll_addamt;
-                            indexDa024Dto.setSamt(_ll_samt);
-                            indexDa024Dto.setAddamt(_ll_addamt);
-                            indexDa024Dto.setAmt(_ll_amt);
+                            _Da024Dto.setSamt(_ll_samt);
+                            _Da024Dto.setAddamt(_ll_addamt);
+                            _Da024Dto.setAmt(_ll_amt);
                         }else{
-                            indexDa024Dto.setSamt(0);
-                            indexDa024Dto.setAddamt(0);
-                            indexDa024Dto.setAmt(0);
+                            _Da024Dto.setSamt(0);
+                            _Da024Dto.setAddamt(0);
+                            _Da024Dto.setAmt(0);
                         }
-                        result = service14.UpdateDA024Qty(indexDa024Dto);
+                        result = service14.UpdateDA024Qty(_Da024Dto);
                         if (!result){
                             return "error";
                         }
@@ -1569,16 +1575,16 @@ public class App01CrudController {
                 }
                 return "success";
             }
-            indexDa023Dto.setCltcd(acode);
-            indexDa023Dto.setMisgubun(mflag);
-            indexDa023Dto.setYyyymm(year + month);
+            _indexDa023Dto.setCltcd(acode);
+            _indexDa023Dto.setMisgubun(mflag);
+            _indexDa023Dto.setYyyymm(year + month);
             String ls_misnum = "";
-            String ls_chknull = service14.SelectCheckMisnum(indexDa023Dto);
+            String ls_chknull = service14.SelectCheckMisnum(_indexDa023Dto);
             if(ls_chknull == null){
                 ls_chknull = "";
             }
             if(ls_chknull.length() == 0){
-                ls_misnum = service14.SelectCheckMisnumMkflag(indexDa023Dto);  //주문된 순번max 찾기
+                ls_misnum = service14.SelectCheckMisnumMkflag(_indexDa023Dto);  //주문된 순번max 찾기
                 if(ls_misnum == null){
                     ls_misnum = "0001";
                 }else{
@@ -1595,80 +1601,117 @@ public class App01CrudController {
             }else{
                 ls_misnum = ls_chknull;
             }
-            indexDa023Dto.setMisnum(ls_misnum);
+            _indexDa023Dto.setMisnum(ls_misnum);
 
             switch (mflag){
                 case "AA" :
-                    indexDa023Dto.setPerid("");
+                    _indexDa023Dto.setPerid("");
                     break;
                 case "BB":
-                    indexDa023Dto.setPerid("");
+                    _indexDa023Dto.setPerid("");
                     break;
                 case "CC":
-                    indexDa023Dto.setPerid(userformDto.getPerid());
+                    _indexDa023Dto.setPerid(userformDto.getPerid());
                     break;
                 default:
                     break;
             }
-            indexDa023Dto.setContamt(0);
-            indexDa023Dto.setAddamt(0);
-            indexDa023Dto.setAddamt(0);
-            indexDa023Dto.setMisamt(0);
-            indexDa023Dto.setAmt(0);
-            indexDa023Dto.setBillkind("1");     //0 미발행 1 발행 2 역발행 3 타사이트발행
-            indexDa023Dto.setTaxcls("0");       //0 부가세별도 1 부가세포함
-            indexDa023Dto.setTaxgubun("001");   //001 과세 002 비과세
-            indexDa023Dto.setBigo(jremark);
-            indexDa023Dto.setRemark(jremark);
-//            indexDa023Dto.setVatemail(_index02Dto.getAemail());  //계산서 메일주소
-//            indexDa023Dto.setVatpernm(_index02Dto.getInname01());  //계산서 담당자
-            indexDa023Dto.setSpjangnum(index02BonsaDto.getAcorp());
-            indexDa023Dto.setGubun("");
+            _indexDa023Dto.setContamt(0);
+            _indexDa023Dto.setAddamt(0);
+            _indexDa023Dto.setAddamt(0);
+            _indexDa023Dto.setMisamt(0);
+            _indexDa023Dto.setAmt(0);
+            _indexDa023Dto.setBillkind("1");     //0 미발행 1 발행 2 역발행 3 타사이트발행
+            _indexDa023Dto.setTaxcls("0");       //0 부가세별도 1 부가세포함
+            _indexDa023Dto.setTaxgubun("001");   //001 과세 002 비과세
+            _indexDa023Dto.setBigo(jremark);
+            _indexDa023Dto.setRemark(jremark);
+//            _indexDa023Dto.setVatemail(_index02Dto.getAemail());  //계산서 메일주소
+//            _indexDa023Dto.setVatpernm(_index02Dto.getInname01());  //계산서 담당자
+            _indexDa023Dto.setSpjangnum(index02BonsaDto.getAcorp());
+            _indexDa023Dto.setGubun("");
+            _Da024Dto.setMisdate(frdate);
+            _Da024Dto.setMisnum(ls_misnum);
+            _Da024Dto.setMisgubun(mflag);
+            _Da024Dto.setPcode(_index03Dto.getJkey());
+            _Da024Dto.setPname(_index03Dto.getJpum());
+            _Da024Dto.setPsize(_index03Dto.getJgugek());
+            _Da024Dto.setPbonsa(_index03Dto.getJbonsa_code());
+            _Da024Dto.setPmodel(_index03Dto.getJmodel_code());
+            _Da024Dto.setPcolor(_index03Dto.getJcolor_code());
+            _Da024Dto.setCltcd(_indexDa023Dto.getCltcd());
+
             String ls_seq = "";
             if (ls_chknull.length() == 0 ){
                 ls_seq = "001";
             }else{
-                ls_seq = GetMaxSeq(frdate);
+                //ls_seq = GetMaxSeq(_indexDa023Dto, frdate);
+                //동일업체 동일일자 동일품목이 있는지 체크
+                _index024Dto = service14.SelectCheckJpum024(_Da024Dto);  //주문된 순번max 찾기
+
+                if (_index024Dto != null){
+                    ls_seq = _index024Dto.getSeq();
+                    if (ls_seq.length() > 0 && ls_seq != null ){
+                        Integer _ll_qty = _index024Dto.getQty() + 1;
+                        Integer _ll_uamt = _index024Dto.getUamt();
+                        Integer _ll_samt = 0 ;
+                        Integer _ll_addamt = 0 ;
+                        Integer _ll_amt = 0;
+                        _Da024Dto.setSeq(ls_seq);
+                        _Da024Dto.setQty(_ll_qty);
+                        if(_ll_uamt > 0){
+                            _ll_samt = _ll_qty * _ll_uamt;
+                            _ll_addamt = _ll_samt / 10 ;
+                            _ll_amt = _ll_samt + _ll_addamt;
+                            _Da024Dto.setSamt(_ll_samt);
+                            _Da024Dto.setAddamt(_ll_addamt);
+                            _Da024Dto.setAmt(_ll_amt);
+                        }else{
+                            _Da024Dto.setSamt(0);
+                            _Da024Dto.setAddamt(0);
+                            _Da024Dto.setAmt(0);
+                        }
+                        result = service14.UpdateDA024QtySame(_Da024Dto);
+                        if (!result){
+                            return "error";
+                        }
+                        return "success";
+                    }else{
+                        ls_seq = GetMaxSeq(_indexDa023Dto, frdate);
+                    }
+                }else{
+                    ls_seq = GetMaxSeq(_indexDa023Dto, frdate);
+                }
             }
 
+            _Da024Dto.setAddamt(0);
+            _Da024Dto.setSeq(ls_seq);
+            _Da024Dto.setQty(jqty);
             String ls_chulgoga = _index03Dto.getJchgoga0();
             if( ls_chulgoga == null ){
                 ls_chulgoga = "0";
             }
             Integer ll_chulgoga = Integer.parseInt(ls_chulgoga);
-            indexDa024Dto.setSeq(ls_seq);
-            indexDa024Dto.setMisdate(frdate);
-            indexDa024Dto.setMisnum(ls_misnum);
-            indexDa024Dto.setMisgubun(mflag);
-            indexDa024Dto.setPcode(_index03Dto.getJkey());
-            indexDa024Dto.setPname(_index03Dto.getJpum());
-            indexDa024Dto.setPsize(_index03Dto.getJgugek());
-            indexDa024Dto.setPbonsa(_index03Dto.getJbonsa_code());
-            indexDa024Dto.setPmodel(_index03Dto.getJmodel_code());
-            indexDa024Dto.setPcolor(_index03Dto.getJcolor_code());
-            indexDa024Dto.setQty(jqty);
-            indexDa024Dto.setUamt(ll_chulgoga);
-            indexDa024Dto.setSamt(ll_chulgoga);
-            indexDa024Dto.setCltcd(indexDa023Dto.getCltcd());
-            indexDa024Dto.setAddamt(0);
             if(ll_chulgoga > 0 ) {
-                indexDa024Dto.setAddamt(ll_chulgoga / 10);
-                indexDa024Dto.setAmt(ll_chulgoga + (ll_chulgoga / 10));
+                _Da024Dto.setAddamt(ll_chulgoga / 10);
+                _Da024Dto.setAmt(ll_chulgoga + (ll_chulgoga / 10));
             }else{
-                indexDa024Dto.setAddamt(0);
-                indexDa024Dto.setAmt(0);
+                _Da024Dto.setAddamt(0);
+                _Da024Dto.setAmt(0);
             };
 
-            indexDa024Dto.setIndate(getToDate());
-            indexDa024Dto.setInperid(userformDto.getPerid());
-            indexDa024Dto.setPunit("EA");
+            _Da024Dto.setUamt(ll_chulgoga);
+            _Da024Dto.setSamt(ll_chulgoga);
+            _Da024Dto.setIndate(getToDate());
+            _Da024Dto.setInperid(userformDto.getPerid());
+            _Da024Dto.setPunit("EA");
             if (ls_chknull.length() == 0){
-                result = service14.InsertDa023(indexDa023Dto);
+                result = service14.InsertDa023(_indexDa023Dto);
                 if (!result){
                     return "error";
                 }
             }
-            result = service14.InsertDa024(indexDa024Dto);
+            result = service14.InsertDa024(_Da024Dto);
             if (!result){
                 return "error";
             }
@@ -1703,15 +1746,17 @@ public class App01CrudController {
             }
             model.addAttribute("userformDto",userformDto);
             Index02Dto _index02Dto = new Index02Dto();
+            IndexDa023Dto _indexDa023Dto = new IndexDa023Dto();
+            IndexDa024Dto _indexDa024Dto = new IndexDa024Dto();
             Boolean result = false;
             String year = frdate.substring(0,4) ;
             String month = frdate.substring(5,7) ;
             String day   = frdate.substring(8,10) ;
             frdate = year + month + day ;
             _index02Dto.setAcode(acode);
-            indexDa023Dto.setMisgubun(mflag);
-            indexDa023Dto.setCltcd(acode);
-            indexDa023Dto.setMisdate(frdate);
+            _indexDa023Dto.setMisgubun(mflag);
+            _indexDa023Dto.setCltcd(acode);
+            _indexDa023Dto.setMisdate(frdate);
             //장바구니 삭제
             if (!misdate.equals("0000")){
                 if( misdateArr.size() > 0){
@@ -1721,17 +1766,17 @@ public class App01CrudController {
                         day = misdateArr.get(i).substring(8,10);
                         String ls_misdate = year + month + day ;
                         _index02Dto.setAcode(acode);
-                        indexDa024Dto.setCltcd(cltcdArr.get(i));
-                        indexDa024Dto.setMisgubun(mflag);
-                        indexDa024Dto.setMisdate(ls_misdate);
-                        indexDa024Dto.setMisnum(misnumArr.get(i));
-                        indexDa024Dto.setSeq(seqArr.get(i));
-                        result = service14.DeleteDA024Mkflag(indexDa024Dto);
+                        _indexDa024Dto.setCltcd(cltcdArr.get(i));
+                        _indexDa024Dto.setMisgubun(mflag);
+                        _indexDa024Dto.setMisdate(ls_misdate);
+                        _indexDa024Dto.setMisnum(misnumArr.get(i));
+                        _indexDa024Dto.setSeq(seqArr.get(i));
+                        result = service14.DeleteDA024Mkflag(_indexDa024Dto);
                         if (!result){
                             log.info("error  =====> " + result);
                             return "error";
                         }
-                        result = service14.DeleteDA023(indexDa024Dto);
+                        result = service14.DeleteDA023(_indexDa024Dto);
                         if (!result){
                             //return "error";
                         }
@@ -1769,15 +1814,17 @@ public class App01CrudController {
             }
             model.addAttribute("userformDto",userformDto);
             Index02Dto _index02Dto = new Index02Dto();
+            IndexDa023Dto _indexDa023Dto = new IndexDa023Dto();
+            IndexDa024Dto _indexDa024Dto = new IndexDa024Dto();
             Boolean result = false;
             String year = frdate.substring(0,4) ;
             String month = frdate.substring(5,7) ;
             String day   = frdate.substring(8,10) ;
             frdate = year + month + day ;
             _index02Dto.setAcode(acode);
-            indexDa023Dto.setMisgubun(mflag);
-            indexDa023Dto.setCltcd(acode);
-            indexDa023Dto.setMisdate(frdate);
+            _indexDa023Dto.setMisgubun(mflag);
+            _indexDa023Dto.setCltcd(acode);
+            _indexDa023Dto.setMisdate(frdate);
             //장바구니 삭제
             if (!misdate.equals("0000")){
                 if( misdateArr.size() > 0){
@@ -1786,18 +1833,18 @@ public class App01CrudController {
                         month = misdateArr.get(i).substring(5,7);
                         day = misdateArr.get(i).substring(8,10);
                         String ls_misdate = year + month + day ;
-                        indexDa024Dto.setCltcd(acode);
-                        indexDa024Dto.setMisgubun(mflag);
-                        indexDa024Dto.setMisdate(ls_misdate);
-                        indexDa024Dto.setMisnum(misnumArr.get(i));
-                        indexDa024Dto.setSeq(seqArr.get(i));
-                        result = service14.DeleteDA026Mkflag(indexDa024Dto);
+                        _indexDa024Dto.setCltcd(acode);
+                        _indexDa024Dto.setMisgubun(mflag);
+                        _indexDa024Dto.setMisdate(ls_misdate);
+                        _indexDa024Dto.setMisnum(misnumArr.get(i));
+                        _indexDa024Dto.setSeq(seqArr.get(i));
+                        result = service14.DeleteDA026Mkflag(_indexDa024Dto);
                         if (!result){
                             return "error";
                         }
                     }
                 }
-                result = service14.DeleteDA025(indexDa024Dto);
+                result = service14.DeleteDA025(_indexDa024Dto);
                 if (!result){
                     return "error";
                 }
@@ -1829,23 +1876,24 @@ public class App01CrudController {
             return "relogin";
         }
         model.addAttribute("userformDto",userformDto);
+        IndexDa024Dto _indexDa024Dto = new IndexDa024Dto();
 
         try {
             String year = misdate.substring(0,4) ;
             String month = misdate.substring(5,7) ;
             String day   = misdate.substring(8,10) ;
             misdate = year + month + day ;
-            indexDa024Dto.setMisdate(misdate);
-            indexDa024Dto.setMisnum(misnum);
-            indexDa024Dto.setSeq(seq);
-            indexDa024Dto.setCltcd(cltcd);
-            indexDa024Dto.setMisgubun(mflag);
+            _indexDa024Dto.setMisdate(misdate);
+            _indexDa024Dto.setMisnum(misnum);
+            _indexDa024Dto.setSeq(seq);
+            _indexDa024Dto.setCltcd(cltcd);
+            _indexDa024Dto.setMisgubun(mflag);
             Boolean result = false;
-            result = service14.DeleteDA024(indexDa024Dto);
+            result = service14.DeleteDA024(_indexDa024Dto);
             if (!result){
                 return "error";
             }
-            result = service14.DeleteDA023(indexDa024Dto);
+            result = service14.DeleteDA023(_indexDa024Dto);
             if (!result){
                 //return "error";
             }
@@ -1875,23 +1923,24 @@ public class App01CrudController {
             return "relogin";
         }
         model.addAttribute("userformDto",userformDto);
+        IndexDa024Dto _indexDa024Dto = new IndexDa024Dto();
 
         try {
             String year = misdate.substring(0,4) ;
             String month = misdate.substring(5,7) ;
             String day   = misdate.substring(8,10) ;
             misdate = year + month + day ;
-            indexDa024Dto.setMisdate(misdate);
-            indexDa024Dto.setMisnum(misnum);
-            indexDa024Dto.setSeq(seq);
-            indexDa024Dto.setCltcd(cltcd);
-            indexDa024Dto.setMisgubun(mflag);
+            _indexDa024Dto.setMisdate(misdate);
+            _indexDa024Dto.setMisnum(misnum);
+            _indexDa024Dto.setSeq(seq);
+            _indexDa024Dto.setCltcd(cltcd);
+            _indexDa024Dto.setMisgubun(mflag);
             Boolean result = false;
-            result = service14.DeleteDA026(indexDa024Dto);
+            result = service14.DeleteDA026(_indexDa024Dto);
             if (!result){
                 return "error";
             }
-            result = service14.DeleteDA025(indexDa024Dto);
+            result = service14.DeleteDA025(_indexDa024Dto);
             if (!result){
                 return "error";
             }
@@ -1931,6 +1980,8 @@ public class App01CrudController {
             model.addAttribute("userformDto",userformDto);
             Index03Dto index03Dto_S = new Index03Dto();
             IndexDa024Dto _indexDa024Dto = new IndexDa024Dto();
+            IndexDa023Dto _indexDa023Dto = new IndexDa023Dto();
+            IndexDa024Dto _Da024Dto = new IndexDa024Dto();
             Index02Dto _index02Dto = new Index02Dto();
             Boolean result = false;
             String year = frdate.substring(0,4) ;
@@ -1949,24 +2000,24 @@ public class App01CrudController {
                 month = misdate.substring(5,7) ;
                 day   = misdate.substring(8,10) ;
                 misdate = year + month + day ;
-                indexDa024Dto.setQty(jqty);
-                indexDa024Dto.setMisdate(misdate);
-                indexDa024Dto.setMisnum(misnum);
-                indexDa024Dto.setSeq(seq);
-                indexDa024Dto.setCltcd(acode);
-                indexDa024Dto.setMisgubun(mflag);
+                _Da024Dto.setQty(jqty);
+                _Da024Dto.setMisdate(misdate);
+                _Da024Dto.setMisnum(misnum);
+                _Da024Dto.setSeq(seq);
+                _Da024Dto.setCltcd(acode);
+                _Da024Dto.setMisgubun(mflag);
                 switch (mflag){
                     case "AA" :
-                        indexDa024Dto.setRemarkaa(jremark);
-                        result = service14.UpdateDA026rkaa(indexDa024Dto);
+                        _Da024Dto.setRemarkaa(jremark);
+                        result = service14.UpdateDA026rkaa(_Da024Dto);
                         break;
                     case "BB":
-                        indexDa024Dto.setRemarkbb(jremark);
-                        result = service14.UpdateDA026rkbb(indexDa024Dto);
+                        _Da024Dto.setRemarkbb(jremark);
+                        result = service14.UpdateDA026rkbb(_Da024Dto);
                         break;
                     case "CC":
-                        indexDa024Dto.setRemarkbb(jremark);
-                        result = service14.UpdateDA026rkbb(indexDa024Dto);
+                        _Da024Dto.setRemarkbb(jremark);
+                        result = service14.UpdateDA026rkbb(_Da024Dto);
                         break;
                     default:
                         break;
@@ -1981,38 +2032,38 @@ public class App01CrudController {
                         month = misdateArr.get(i).substring(5,7);
                         day = misdateArr.get(i).substring(8,10);
                         String ls_misdate = year + month + day ;
-                        indexDa024Dto.setMisdate(ls_misdate);
-                        indexDa024Dto.setMisnum(misnumArr.get(i));
-                        indexDa024Dto.setSeq(seqArr.get(i));
-                        indexDa024Dto.setQty(Integer.parseInt(misqty.get(i)));
+                        _Da024Dto.setMisdate(ls_misdate);
+                        _Da024Dto.setMisnum(misnumArr.get(i));
+                        _Da024Dto.setSeq(seqArr.get(i));
+                        _Da024Dto.setQty(Integer.parseInt(misqty.get(i)));
 
 
-                        _indexDa024Dto.setMisdate(indexDa024Dto.getMisdate());
-                        _indexDa024Dto.setMisnum(indexDa024Dto.getMisnum());
-                        _indexDa024Dto.setSeq(indexDa024Dto.getSeq());
-                        _indexDa024Dto.setCltcd(indexDa024Dto.getCltcd());
-                        _indexDa024Dto.setMisgubun(indexDa024Dto.getMisgubun());
+                        _indexDa024Dto.setMisdate(_Da024Dto.getMisdate());
+                        _indexDa024Dto.setMisnum(_Da024Dto.getMisnum());
+                        _indexDa024Dto.setSeq(_Da024Dto.getSeq());
+                        _indexDa024Dto.setCltcd(_Da024Dto.getCltcd());
+                        _indexDa024Dto.setMisgubun(_Da024Dto.getMisgubun());
 
                         _indexDa024Dto = service14.SelectDa026Detail02(_indexDa024Dto);
                         Integer _ll_uamt = _indexDa024Dto.getUamt();
                         Integer _ll_samt = 0;
                         Integer _ll_addamt = 0;
                         Integer _ll_amt = 0;
-                        Integer _ll_qty = indexDa024Dto.getQty();
+                        Integer _ll_qty = _Da024Dto.getQty();
                         if(_ll_uamt > 0){
                             _ll_samt = _ll_qty * _ll_uamt;
                             _ll_addamt = _ll_samt / 10 ;
                             _ll_amt = _ll_samt + _ll_addamt;
-                            indexDa024Dto.setSamt(_ll_samt);
-                            indexDa024Dto.setAddamt(_ll_addamt);
-                            indexDa024Dto.setAmt(_ll_amt);
+                            _Da024Dto.setSamt(_ll_samt);
+                            _Da024Dto.setAddamt(_ll_addamt);
+                            _Da024Dto.setAmt(_ll_amt);
                         }else{
-                            indexDa024Dto.setSamt(0);
-                            indexDa024Dto.setAddamt(0);
-                            indexDa024Dto.setAmt(0);
+                            _Da024Dto.setSamt(0);
+                            _Da024Dto.setAddamt(0);
+                            _Da024Dto.setAmt(0);
                         }
 
-                        result = service14.UpdateDA026Qty(indexDa024Dto);
+                        result = service14.UpdateDA026Qty(_Da024Dto);
                         if (!result){
                             return "error";
                         }
@@ -2022,16 +2073,16 @@ public class App01CrudController {
             }
 
 
-            indexDa023Dto.setCltcd(acode);
-            indexDa023Dto.setMisdate(frdate);
-            indexDa023Dto.setMisgubun(mflag);
+            _indexDa023Dto.setCltcd(acode);
+            _indexDa023Dto.setMisdate(frdate);
+            _indexDa023Dto.setMisgubun(mflag);
             String ls_misnum = "";
-            String ls_chknull = service14.SelectCheckMisnumWish(indexDa023Dto);
+            String ls_chknull = service14.SelectCheckMisnumWish(_indexDa023Dto);
             if(ls_chknull == null){
                 ls_chknull = "";
             }
             if(ls_chknull.length() == 0){
-                ls_misnum = service14.SelectCheckMisnumWishMkflag(indexDa023Dto);  //주문된 순번max 찾기
+                ls_misnum = service14.SelectCheckMisnumWishMkflag(_indexDa023Dto);  //주문된 순번max 찾기
                 if(ls_misnum == null){
                     ls_misnum = "0001";
                 }else{
@@ -2048,42 +2099,42 @@ public class App01CrudController {
             }else{
                 ls_misnum = ls_chknull;
             }
-            indexDa023Dto.setMisnum(ls_misnum);
-            indexDa023Dto.setCltcd(acode);
-            indexDa023Dto.setYyyymm(year + month);
+            _indexDa023Dto.setMisnum(ls_misnum);
+            _indexDa023Dto.setCltcd(acode);
+            _indexDa023Dto.setYyyymm(year + month);
 
             switch (mflag){
                 case "AA" :
-                    indexDa023Dto.setPerid("");
+                    _indexDa023Dto.setPerid("");
                     break;
                 case "BB":
-                    indexDa023Dto.setPerid("");
+                    _indexDa023Dto.setPerid("");
                     break;
                 case "CC":
-                    indexDa023Dto.setPerid(userformDto.getPerid());
+                    _indexDa023Dto.setPerid(userformDto.getPerid());
                     break;
                 default:
                     break;
             }
-            indexDa023Dto.setContamt(0);
-            indexDa023Dto.setAddamt(0);
-            indexDa023Dto.setAddamt(0);
-            indexDa023Dto.setMisamt(0);
-            indexDa023Dto.setAmt(0);
-            indexDa023Dto.setBillkind("1");     //0 미발행 1 발행 2 역발행 3 타사이트발행
-            indexDa023Dto.setTaxcls("0");       //0 부가세별도 1 부가세포함
-            indexDa023Dto.setTaxgubun("001");   //001 과세 002 비과세
-            indexDa023Dto.setBigo(jremark);
-            indexDa023Dto.setRemark(jremark);
-//            indexDa023Dto.setVatemail(_index02Dto.getAemail());  //계산서 메일주소
-//            indexDa023Dto.setVatpernm(_index02Dto.getInname01());  //계산서 담당자
-            indexDa023Dto.setSpjangnum(index02BonsaDto.getAcorp());
-            indexDa023Dto.setGubun("");
+            _indexDa023Dto.setContamt(0);
+            _indexDa023Dto.setAddamt(0);
+            _indexDa023Dto.setAddamt(0);
+            _indexDa023Dto.setMisamt(0);
+            _indexDa023Dto.setAmt(0);
+            _indexDa023Dto.setBillkind("1");     //0 미발행 1 발행 2 역발행 3 타사이트발행
+            _indexDa023Dto.setTaxcls("0");       //0 부가세별도 1 부가세포함
+            _indexDa023Dto.setTaxgubun("001");   //001 과세 002 비과세
+            _indexDa023Dto.setBigo(jremark);
+            _indexDa023Dto.setRemark(jremark);
+//            _indexDa023Dto.setVatemail(_index02Dto.getAemail());  //계산서 메일주소
+//            _indexDa023Dto.setVatpernm(_index02Dto.getInname01());  //계산서 담당자
+            _indexDa023Dto.setSpjangnum(index02BonsaDto.getAcorp());
+            _indexDa023Dto.setGubun("");
             String ls_seq = "";
             if (ls_chknull.length() == 0 ){
                 ls_seq = "001";
             }else{
-                ls_seq = GetMaxSeqWish(frdate);
+                ls_seq = GetMaxSeqWish(_indexDa023Dto, frdate);
             }
 
             String ls_chulgoga = index03Dto_S.getJchgoga0();
@@ -2091,41 +2142,41 @@ public class App01CrudController {
             if( ls_chulgoga == null ||  ll_chulgoga == 0 || ll_chulgoga == null ){
                 ls_chulgoga = "0";
             }
-            indexDa024Dto.setSeq(ls_seq);
-            indexDa024Dto.setMisdate(frdate);
-            indexDa024Dto.setMisnum(ls_misnum);
-            indexDa024Dto.setMisgubun(mflag);
+            _Da024Dto.setSeq(ls_seq);
+            _Da024Dto.setMisdate(frdate);
+            _Da024Dto.setMisnum(ls_misnum);
+            _Da024Dto.setMisgubun(mflag);
 //            log.info("ls_misnum=============>");
 //            log.info(ls_misnum);
-            indexDa024Dto.setPcode(index03Dto_S.getJkey());
-            indexDa024Dto.setPname(index03Dto_S.getJpum());
-            indexDa024Dto.setPsize(index03Dto_S.getJgugek());
-            indexDa024Dto.setPbonsa(index03Dto_S.getJbonsa_code());
-            indexDa024Dto.setPmodel(index03Dto_S.getJmodel_code());
-            indexDa024Dto.setPcolor(index03Dto_S.getJcolor_code());
-            indexDa024Dto.setQty(jqty);
-            indexDa024Dto.setUamt(ll_chulgoga);
-            indexDa024Dto.setSamt(ll_chulgoga);
-            indexDa024Dto.setCltcd(indexDa023Dto.getCltcd());
-            indexDa024Dto.setAddamt(0);
+            _Da024Dto.setPcode(index03Dto_S.getJkey());
+            _Da024Dto.setPname(index03Dto_S.getJpum());
+            _Da024Dto.setPsize(index03Dto_S.getJgugek());
+            _Da024Dto.setPbonsa(index03Dto_S.getJbonsa_code());
+            _Da024Dto.setPmodel(index03Dto_S.getJmodel_code());
+            _Da024Dto.setPcolor(index03Dto_S.getJcolor_code());
+            _Da024Dto.setQty(jqty);
+            _Da024Dto.setUamt(ll_chulgoga);
+            _Da024Dto.setSamt(ll_chulgoga);
+            _Da024Dto.setCltcd(_indexDa023Dto.getCltcd());
+            _Da024Dto.setAddamt(0);
             if(ll_chulgoga > 0 ) {
-                indexDa024Dto.setAddamt(ll_chulgoga / 10);
-                indexDa024Dto.setAmt(ll_chulgoga + (ll_chulgoga / 10));
+                _Da024Dto.setAddamt(ll_chulgoga / 10);
+                _Da024Dto.setAmt(ll_chulgoga + (ll_chulgoga / 10));
             }else{
-                indexDa024Dto.setAddamt(0);
-                indexDa024Dto.setAmt(0);
+                _Da024Dto.setAddamt(0);
+                _Da024Dto.setAmt(0);
             };
 
-            indexDa024Dto.setIndate(getToDate());
-            indexDa024Dto.setInperid(userformDto.getPerid());
-            indexDa024Dto.setPunit("EA");
+            _Da024Dto.setIndate(getToDate());
+            _Da024Dto.setInperid(userformDto.getPerid());
+            _Da024Dto.setPunit("EA");
             if (ls_chknull.length() == 0){
-                result = service14.InsertDa025(indexDa023Dto);
+                result = service14.InsertDa025(_indexDa023Dto);
                 if (!result){
                     return "error";
                 }
             }
-            result = service14.InsertDa026(indexDa024Dto);
+            result = service14.InsertDa026(_Da024Dto);
             if (!result){
                 return "error";
             }
@@ -4240,9 +4291,9 @@ public class App01CrudController {
         return ls_misnum;
     }
 
-    public String GetMaxSeq(String agDate){
+    public String GetMaxSeq(IndexDa023Dto asDto, String agDate){
 
-        String ls_seq = service14.SelectMaxSeq(indexDa023Dto);
+        String ls_seq = service14.SelectMaxSeq(asDto);
         if(ls_seq == null){
             ls_seq = "001";
         }else{
@@ -4254,11 +4305,12 @@ public class App01CrudController {
                 ls_seq = "0" + ls_seq;
             }
         }
+//        log.info("ls_seq =====>" + ls_seq);
         return ls_seq;
     }
-    public String GetMaxSeqWish(String agDate){
+    public String GetMaxSeqWish(IndexDa023Dto asDto, String agDate){
 
-        String ls_seq = service14.SelectMaxSeqWish(indexDa023Dto);
+        String ls_seq = service14.SelectMaxSeqWish(asDto);
         if(ls_seq == null){
             ls_seq = "001";
         }else{
