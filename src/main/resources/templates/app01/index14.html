@@ -1053,11 +1053,13 @@
                 ? wijmo.grid.HeadersVisibility.All
                 : wijmo.grid.HeadersVisibility.Column; 
             }  
-
-
+          //'IN'을 자동선택하도록 요청함.
+          init_click();
         } 
     
-
+        function init_click(){
+            wbonsacodeChk_a('IN');
+        }
         //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
         //선택한 탭 체크 
          function tabchk_rtn(arg){

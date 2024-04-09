@@ -249,7 +249,7 @@
          window.onload = init; 
         function init() { 
             //일자별주문현황 popup list
-            //view_p01tab02page = new wijmo.collections.CollectionView(getData_wlist());    
+            view_p01tab02page = new wijmo.collections.CollectionView(getData_wlist());    
             //setGroups(true);
             grandTotalsGroup = new wijmo.collections.PropertyGroupDescription('합  계', function (item, propName) {
                 return '';
@@ -266,7 +266,7 @@
                     { binding: 'acorp', header: '거래처', align: "center", width: 120 }, 
                     { binding: 'fixdate', header: '출력일자', align: "center", width: 120 }, 
                     { binding: 'misdate', header: '주문일자', align: "center", width: 120 }, 
-                    // { binding: 'misnum', header: '주문번호', align: "center", width: 80 },  
+                    { binding: 'misnum', header: '주문번호', align: "center", width: 80 },  
                     // { binding: 'seq', header: '순번', align: "center", width: 80 },  
                     { binding: 'pernm', header: '사원명', align: "center", width: 150 , },  
                     { binding: 'pname', header: '품목', align: "center", width: 150 },   
@@ -280,12 +280,12 @@
                     // { binding: 'fixflag', header: '출력', align: "center", width: 150, cssClass: 'switch'   },  
                     
                 ], 
-                itemsSource: new wijmo.collections.CollectionView(getData_wlist(), {
-                    groupDescriptions: [
-                        grandTotalsGroup,
-                        'acorp'
-                    ]
-                }) ,
+                // itemsSource: new wijmo.collections.CollectionView(getData_wlist(), {
+                //     groupDescriptions: [
+                //         grandTotalsGroup,
+                //         'acorp'
+                //     ]
+                // }) ,
                 // scrollPositionChanged: function (s, e) {
                 // // 만약 바닥에 가까우면, 20개의 아이템을 추가
                 //     if (s.viewRange.bottomRow >= s.rows.length - 1) {
@@ -296,19 +296,18 @@
                 //         view.currentPosition = index;
                 //     }
                 // }
-                //itemsSource: view_p01tab02page, 
+                itemsSource: view_p01tab02page, 
             }); 
                  
             // 그룹 전환 
-            // setGroups(true); 
-            // function setGroups(groupsOn) {
-            //     let groups = view_p01tab02page.groupDescriptions;
-            //     groups.clear();
-            //     if (groupsOn) {
-            //         groups.push(new wijmo.collections.PropertyGroupDescription('acorp'));
-            //         // groups.push(new wijmo.collections.PropertyGroupDescription('pernm'), new wijmo.collections.PropertyGroupDescription('misdate'));
-            //     }
-            // }
+            setGroups(true); 
+            function setGroups(groupsOn) {
+                let groups = view_p01tab02page.groupDescriptions;
+                groups.clear();
+                if (groupsOn) {
+                    groups.push(new wijmo.collections.PropertyGroupDescription('misdate'), new wijmo.collections.PropertyGroupDescription('misnum'));
+                }
+            }
             // 헤더 열 전환
             setHeaderColumn(false); 
             function setHeaderColumn(headerOn) {
@@ -664,14 +663,14 @@
                     fixflag: bfixflag,                          
                 });
                 cnt++;
-            }    
+            }     
             // { binding: 'active', header: '선택', align: "center", width: 80  ,dataType:3,allowSorting: false  },
             wtab02Grid.columns.clear();   
             wtab02Grid.autoGenerateColumns = false; 
             wtab02Grid.itemsSource = new wijmo.collections.CollectionView(wtab02_data, {
                     groupDescriptions: [
                         grandTotalsGroup,
-                        'acorp'
+                        'acorp', 'misdate', 'misnum'
                     ]
                 })  
             //view_p01tab02page.sourceCollection  = wtab02_data;
@@ -700,12 +699,12 @@
             cols.align = "center";
             cols.width = 150; 
             wtab02Grid.columns.push(cols);  
-            // cols = new wijmo.grid.Column(); 
-            // cols.binding = 'misnum';
-            // cols.header = '주문번호';
-            // cols.align = "center";
-            // cols.width = 80;  
-            // wtab02Grid.columns.push(cols);  
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'misnum';
+            cols.header = '주문번호';
+            cols.align = "center";
+            cols.width = 80;  
+            wtab02Grid.columns.push(cols);  
             // cols = new wijmo.grid.Column(); 
             // cols.binding = 'seq';
             // cols.header = '순번';

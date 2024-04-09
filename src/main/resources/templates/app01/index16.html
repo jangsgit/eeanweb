@@ -812,7 +812,7 @@
                     // { binding: 'active', header: '선택', align: "center", width: 80  ,dataType:3,allowSorting: false, dataType: wijmo.DataType.Boolean  }, 
                     { binding: 'misdate', header: '주문일자', align: "center", width: 120 },  
                     { binding: 'pname', header: '품목', align: "center", width: 150,   cellTemplate: '<span style="font-size : 20pt;">${text}</span>'},   
-                    { binding: 'psize', header: '규격', align: "center", width: 120 },  
+                    // { binding: 'pcolor', header: '색상', align: "center", width: 120 },  
                     // { binding: 'pbonsa', header: '코드', align: "center", width: 100 },  
                     // { binding: 'pmodel', header: '모델', align: "center", width: 100 },  
                     // { binding: 'pcolor', header: '컬러', align: "center", width: 100 },  
@@ -1906,7 +1906,7 @@
                     margins: {
                         left: 36,
                         right: 36,
-                        top: 66,
+                        top: 40,
                         bottom: 16
                     }
                 },
@@ -1930,7 +1930,7 @@
             
             //doc.header.drawText("거 래 명 세 서", null, null, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 20), align: 1, baseline: 5, underline: false});   //align 1 center baseline 5 bottom
  
-            getData.forEach((saledata, i, arr) => { 
+            getData.forEach((saledata, i, arr) => {                 
                 drawSales(doc, saledata);
                 //
                 if (i < arr.length - 1) {
@@ -1966,17 +1966,18 @@
         function drawSales(doc, salesdata) {
             let tot = 0; //salesdata.expenses.totals;
             // console.log('salesdata');
-            // console.log(salesdata);
+            // console.log(salesdata.pmodel);
+            //컬럼 수정시 footer.cells 수정할것.
             let expenses = salesdata;
             let font_url = "https://assets.codepen.io/975719/UnDotum.ttf"; 
             let minDate = expenses.misdate, maxDate = salesdata.misdate, columns = [
-                { header: '순번', binding: 'rownum', width: 85 , align : "center"},
-                { header: '주문일자', binding: 'misdate', format: 'c', width: 105, align : "center" },
-                { header: '품목', binding: 'pname', format: 'c', width: 225, align : "left" },
-                { header: '규격', binding: 'psize', format: 'c', width: 105 , align : "left"},
+                { header: '순번', binding: 'rownum', width: 60 , align : "center"},
+                { header: '주문일자', binding: 'misdate', format: 'c', width: 90, align : "center" },
+                { header: '품목', binding: 'pname', format: 'c', width: 300, align : "left" },
+                // { header: '색상', binding: 'pcolor', format: 'c', width: 160 , align : "left"},
                 //{ header: '모델', binding: 'pmodel', format: 'c', width: 105 , align : "center"},
                 // { header: '컬러', binding: 'pcolor', format: 'c', width: 105, align : "center" },
-                { header: '수량', binding: 'qty', format: 'n0', width: 105 , align : "center"},
+                { header: '수량', binding: 'qty', format: 'n0', width: 80 , align : "center"},
                 { header: '단가', binding: 'uamt', format: 'n0', width: 105, align : "right" },
                 //{ header: '금액', binding: 'samt', format: 'n0', width: 105, align : "right" },
                 //{ header: '부가세', binding: 'addamt', format: 'n0', width: 105, align : "right" },
@@ -1984,7 +1985,6 @@
             ], bold = new wijmo.pdf.PdfFont('BMHANNAPro', 10, 'normal', 'bold'), thinPen = new wijmo.pdf.PdfPen('#000000', 0.5);
             //
             let flexGrid, footer;
-            //
             ll_sumqty = 0; ll_sumsamt = 0; ll_sumaddamt = 0; ll_sumamt = 0
             var lsMisdate = salesdata.misdate    
             var lsMisnum =  salesdata.misnum   
@@ -2019,7 +2019,6 @@
             })  
             try { 
                 footer = new wijmo.grid.FlexGrid('#flexGridFooter');
-                // console.log(view_p01tab03page)
                 theGridPrt.initialize({
                     autoGenerateColumns: false,
                     allowMerging: wijmo.grid.AllowMerging.All,
@@ -2036,18 +2035,18 @@
                     itemsSource: [{
                         rownum: null,
                         misdate: null,
-                        pname: null,
-                        psize: null, 
+                        pmodel: null,
+                        pcolor: null,
                         qty: null,
                         uamt: null, 
-                        amt: null,
+                        samt: null,
                     }]
                 });
                 //
                 footer.cells.setCellData(0, 'rownum', '', false);
                 footer.cells.setCellData(0, 'misdate', '', false);
-                footer.cells.setCellData(0, 'pname', '', false);
-                footer.cells.setCellData(0, 'psize', 'Total', false);
+                footer.cells.setCellData(0, 'pname', 'Total', false);
+                // footer.cells.setCellData(0, 'pcolor', '', false);
                 //footer.cells.setCellData(0, 'pmodel', '', false);
                 // footer.cells.setCellData(0, 'pcolor', 'Total', false);
                 footer.cells.setCellData(0, 'qty', ll_sumqty, false);
@@ -2093,6 +2092,7 @@
 
                 y = doc.y;
                 doc.drawText('사 업 자 번 호 :   ' + ls_asano , 10, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11),   underline:false});  
+                doc.drawText('전체수량 :   ' + ll_sumqty , 420, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 17),   underline:true});  
 
                 y = doc.y; 
                 doc.drawText('연     락      처 :   ' + ls_atelno , 10, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11),   underline:false});  
@@ -2156,7 +2156,7 @@
                                 // console.log(args.style.font)
                                 args.style.font._size = 13                                 
                             }
-                            if(args.col == 4  ){ 
+                            if(args.col == 3  ){ 
                                 args.style.font._size = 13 
                                 args.style.font._weight = 'bold' 
                             }
@@ -2177,7 +2177,7 @@
                     }
                 });
                 //
-                doc.moveDown(2);
+                doc.moveDown(1);
                 if(ls_jpbgubn == "B") {  
                     ls_eeajuso = "서울 강동 양재대로85길17 2,3,4층";
                     ls_eeatelno = "     블리스  02-472-0859";
@@ -2193,7 +2193,7 @@
                     //doc.drawText('순    번 : ' + ls_misnum, 10, doc.y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11),   underline:false}); 
                 }else{
                     //doc.drawText('합계금액 : ' + wijmo.changeType(ll_sumamt, wijmo.DataType.String, 'n0') + '원', 370, doc.y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 13), continue:true, underline:true, align:2});                     
-                    doc.drawText('비    고 : ' + ls_remark, 10, doc.y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11),   underline:false});  
+                    doc.drawText('비    고 : ' + ls_remark, 10, doc.y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 15),   underline:false});  
                 }
 
                 y = doc.y; 
@@ -2201,7 +2201,7 @@
                 // * draw captions *
                 doc.drawText('사업자번호:' + ls_eeasano + '   대표이사:' + ls_eeaname + ' '  , 10, doc.y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11),   underline:false});  
                 y = doc.y;  
-                doc.moveDown(1);
+                // doc.moveDown(1);
                 doc.drawText(  ls_eeajuso + '    /' + ls_eeatelno, 10, doc.y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11),   underline:false});  
                 // doc.drawText(wijmo.changeType(ll_sumamt, wijmo.DataType.String, 'c'));
                 // let cz = doc.drawText('합계금액: ', 100, doc.y, {font: new wijmo.pdf.PdfFont("BMHANNAPro")}); 
@@ -2733,7 +2733,9 @@
                     samt: wtab05Dto[i]["samt"],  
                     addamt: wtab05Dto[i]["addamt"], 
                     amt: wtab05Dto[i]["amt"],   
-                    rownum: wtab05Dto[i]["rownum"],      
+                    rownum: wtab05Dto[i]["rownum"],   
+                    pmodel: wtab05Dto[i]["pmodel"],   
+                    pcolor: wtab05Dto[i]["pcolor"],      
                     acorp: wtab05Dto[i]["acorp"],      
                     eeacorp: wtab05Dto[i]["eeacorp"],      
                     eeasano: wtab05Dto[i]["eeasano"],      
@@ -2752,7 +2754,7 @@
             var cnt = 1;
             var bfixflag = false 
             ll_sumqty = 0; ll_sumsamt = 0; ll_sumaddamt = 0; ll_sumamt= 0; wtab03_data = [];
-            //console.log(wtab03Dto)
+            // console.log(wtab03Dto)
             for (var i = 0; i < wtab03Dto.length; i++) {
                 if(wtab03Dto[i]["fixflag"] == "1"){
                     bfixflag = true;
@@ -2820,8 +2822,8 @@
                 });
                 cnt++;
             }   
-            if (wtab03Dto.length < 20){ 
-                for (var p = wtab03Dto.length + 1; p < 21; p++) { 
+            if (wtab03Dto.length < 19){ 
+                for (var p = wtab03Dto.length + 1; p < 20; p++) { 
                     wtab03_data.push({
                         id: p, 
                         index: cnt,
@@ -2882,12 +2884,12 @@
             cols.align = "center";
             cols.width = 225;    
             theGridPrt.columns.push(cols);   
-            cols = new wijmo.grid.Column(); 
-            cols.binding = 'psize';
-            cols.header = '규격';
-            cols.align = "center";
-            cols.width = 120;   
-            theGridPrt.columns.push(cols);    
+            // cols = new wijmo.grid.Column(); 
+            // cols.binding = 'pcolor';
+            // cols.header = '색상';
+            // cols.align = "center";
+            // cols.width = 120;   
+            // theGridPrt.columns.push(cols);    
             // cols = new wijmo.grid.Column(); 
             // cols.binding = 'pbonsa';
             // cols.header = '코드';
@@ -2911,7 +2913,7 @@
             cols.header = '수량';
             cols.align = "center";
             cols.aggregate = 'Sum';
-            cols.width = 60;  
+            cols.width = 40;  
             theGridPrt.columns.push(cols);   
             cols = new wijmo.grid.Column(); 
             cols.binding = 'uamt';

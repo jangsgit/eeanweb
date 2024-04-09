@@ -521,7 +521,7 @@
                         ls_jkey = "%";
                     }   
                     ls_abonsadam1 = "%";
-                    console.log(ls_bacode)
+                    // console.log(ls_jkey)
                     var ls_makflag = "1";
                     $.ajax({
                         url: '/app01m/index14/listdel',  
@@ -777,32 +777,32 @@
         function wcifChk_a(arg1, arg2, arg3, arg4, arg5){  
               
             var ls_tab = document.getElementById('tabvalue').value;    
-            if(ls_tab == "A"){ 
-                document.getElementById('acorp1').value = arg1;  
-                document.getElementById('acorp2').value = arg2;  
-                document.getElementById('acorp3').value = arg3;  
-                document.getElementById('acode').value = arg4;   
-                document.getElementById('cifname').value = arg5;  
-                //품목조회 본사코드를 조건으로 추가하면서 막음 
-                searchList_rtn('A')
-                $("#winnamemodal_btn").trigger("click");
-            }else if(ls_tab == "B"){ 
+            // if(ls_tab == "A"){ 
+            //     document.getElementById('acorp1').value = arg1;  
+            //     document.getElementById('acorp2').value = arg2;  
+            //     document.getElementById('acorp3').value = arg3;  
+            //     document.getElementById('acode').value = arg4;   
+            //     document.getElementById('cifname').value = arg5;  
+            //     //품목조회 본사코드를 조건으로 추가하면서 막음 
+            //     searchList_rtn('A')
+            //     $("#winnamemodal_btn").trigger("click");
+            // }else if(ls_tab == "B"){ 
                 document.getElementById('bacorp1').value = arg1;  
                 document.getElementById('bacorp2').value = arg2;  
                 document.getElementById('bacorp3').value = arg3;  
                 document.getElementById('bacode').value = arg4;   
                 document.getElementById('bcifname').value = arg5;  
                 //품목조회 본사코드를 조건으로 추가하면서 막음 
-                searchList_rtn('B')
+                searchList_rtn('A')
                 $("#winnamemodal_btn").trigger("click");    
-            }else{
-                document.getElementById('cacorp1').value = arg1;  
-                document.getElementById('cacorp2').value = arg2;  
-                document.getElementById('cacorp3').value = arg3;  
-                document.getElementById('cacode').value = arg4;   
-                document.getElementById('ccifname').value = arg5;  
-                $("#winnamemodal_btn").trigger("click"); 
-            }
+            // }else{
+            //     document.getElementById('cacorp1').value = arg1;  
+            //     document.getElementById('cacorp2').value = arg2;  
+            //     document.getElementById('cacorp3').value = arg3;  
+            //     document.getElementById('cacode').value = arg4;   
+            //     document.getElementById('ccifname').value = arg5;  
+            //     $("#winnamemodal_btn").trigger("click"); 
+            // }
             
         }   
            
@@ -932,16 +932,16 @@
 
         function wjpumChk_a(arg1, arg2, arg3, arg4, arg5){   
             var ls_tab = document.getElementById('tabvalue').value;   
-            if(ls_tab == "A"){
-                document.getElementById('jkey').value = arg1;   
-                document.getElementById('jpumnm').value = arg2;  
-            }else if(ls_tab =="B"){
+            // if(ls_tab == "A"){
+            //     document.getElementById('jkey').value = arg1;   
+            //     document.getElementById('jpumnm').value = arg2;  
+            // }else if(ls_tab =="B"){
                 document.getElementById('jkey02').value = arg1;   
                 document.getElementById('jpumnm02').value = arg2;  
-            }else {
-                document.getElementById('jkey03').value = arg1;   
-                document.getElementById('jpumnm03').value = arg2;  
-            }
+            // }else {
+            //     document.getElementById('jkey03').value = arg1;   
+            //     document.getElementById('jpumnm03').value = arg2;  
+            // }
             searchList_rtn(ls_tab)
             $("#winjpummodal_btn").trigger("click");
 
@@ -1016,14 +1016,14 @@
             ls_role = '%'             
         }  
         lsUserid = window.localStorage.getItem("userid")
-        if (lsUserid == "pvadmin"){ 
-            document.getElementById('bjpbgubn').value = "P";  
-        }else if(lsUserid == "bladmin"){ 
-            document.getElementById('bjpbgubn').value = "B";  
-        }else{ 
-            document.getElementById('bjpbgubn').value = ls_role; 
-        }
-            document.getElementById('misgubun').value = "%"; 
+        // if (lsUserid == "pvadmin"){ 
+        //     document.getElementById('bjpbgubn').value = "P";  
+        // }else if(lsUserid == "bladmin"){ 
+        //     document.getElementById('bjpbgubn').value = "B";  
+        // }else{ 
+        //     document.getElementById('bjpbgubn').value = ls_role; 
+        // }
+            // document.getElementById('misgubun').value = "%"; 
         
         // var $frdate = $('#frdate');
         // var $todate = $('#todate');
