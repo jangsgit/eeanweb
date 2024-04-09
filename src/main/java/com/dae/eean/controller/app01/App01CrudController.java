@@ -4270,6 +4270,38 @@ public class App01CrudController {
 
 
 
+    @RequestMapping(value="/jupsudel")
+    public String index20JupsuDel(@RequestParam(value = "asaskey1") String asaskey1
+            ,@RequestParam( value =  "asaskey2") String asaskey2
+            , Model model
+            , HttpServletRequest request){
+
+        try {
+
+            HttpSession session = request.getSession();
+            UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+            if(userformDto == null){
+                log.info("App01ComdodeDetailList_index Exception =====> relogin userformDto null");
+                return "relogin";
+            }
+            model.addAttribute("userformDto",userformDto);
+
+            boolean result = false;
+            index20Dto.setAs_key1(asaskey1);
+            index20Dto.setAs_key2(asaskey2);
+
+            result = service01.DeleteJupsu(index20Dto);
+            if (!result){
+                return "error";
+            }
+            return "success";
+
+        }catch (IllegalStateException e){
+            model.addAttribute("index20JupsuDel errorMessage", e.getMessage());
+            return "error";
+        }
+    }
+
 
 
 

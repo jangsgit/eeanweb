@@ -48,7 +48,7 @@
 
                 <div class="tab-content"> 
                     <div class="tab-pane fade show active" id="step01"> 
-                        <div class="row gx-3" style="  margin: 10px 10px 10px;">    
+                        <div class="row" style="  margin: 10px 10px 10px;">    
                             <div class="col-2 col-sm-2">
                                 <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">접수일자</span>                                                        
                                     <input type="text"  class="form-control datetimepicker" id="asaskey1" autocomplete="off"  placeholder="Y-m-d"   >
@@ -80,18 +80,11 @@
                                     <input class="form-control form-control-sm" id="jpbgubn" type="hidden"  />                   
                                 </div>                                                      
                             </div>  
-                            <div class="col-2 col-sm-2">
-                                <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">모델</span> 
-                                    <input class="form-control form-control-sm" id="asasmodel" type="text"    autocomplete="off"  placeholder="">                                               
-                                </div>    
-                            </div>
-                            <div class="col-2 col-sm-2">
-                                <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">색상</span> 
-                                    <input class="form-control form-control-sm" id="asascolor" type="text"    autocomplete="off"  placeholder="">                                               
-                                </div>    
-                            </div>
-                        </div> 
-                        <div class="row gx-3" style="  margin: 10px 10px 10px;"> 
+
+                            <!-- Force next columns to break to new line -->
+                            <div class="w-100"></div>
+
+                         
                             <div class="col-2 col-sm-2">
                                 <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">수리사유</span> 
                                     <input class="form-control form-control-sm" id="asassuri" type="text"    autocomplete="off"  placeholder="">                                               
@@ -108,17 +101,21 @@
                                         <option th:each="val : ${index01ListDto}" th:value="${val.com_code}" th:text="${val.com_rem1}">
                                     </select>                                                             
                                 </div>  
-                            </div>     
-                            <div class="col-2 col-sm-2">                                             
-                                <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">접수자</span> 
-                                    <select class="form-select" th:field="*{index01UserDto}" name="condamdang" id="condamdang"> 
-                                        <option th:each="val : ${index01UserDto}" th:value="${val.insano}" th:text="${val.insano}">
-                                    </select>                 
-                                </div>  
-                            </div>     
-                        </div> 
+                            </div>   
+                            <div class="col-2 col-sm-2">
+                                <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">모델</span> 
+                                    <input class="form-control form-control-sm" id="asasmodel" type="text"    autocomplete="off"  placeholder="">                                               
+                                </div>    
+                            </div>
+                            <div class="col-2 col-sm-2">
+                                <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">색상</span> 
+                                    <input class="form-control form-control-sm" id="asascolor" type="text"    autocomplete="off"  placeholder="">                                               
+                                </div>    
+                            </div> 
+                            
+                            <!-- Force next columns to break to new line -->
+                            <div class="w-100"></div>
 
-                        <div class="row gx-3" style="  margin: 10px 10px 10px;">   
                             <div class="col-3 col-sm-2">
                                 <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">메모</span> 
                                     <input class="form-control form-control-sm" id="asasmemo" type="text"    autocomplete="off"  placeholder="">                                               
@@ -135,11 +132,11 @@
                                 </div>  
                             </div>          
                             <div class="col-3 col-sm-2">     
-                                <button class="btn btn-falcon-primary me-1 mb-1 btn-md" id="listBtn" type="button"  >신규
+                                <button class="btn btn-falcon-primary me-1 mb-1 btn-md" id="listBtn" type="button" onclick="clear_rtn()" >신규
                                 </button> 
-                                <button class="btn btn-danger me-1 mb-1 btn-md" id="listBtn" type="button"  >삭제
+                                <button class="btn btn-danger me-1 mb-1 btn-md" id="DelBtn" type="button"  >삭제
                                 </button>
-                                <button class="btn btn-success me-1 mb-1 btn-md" id="saveBtn01" type="button"  >저장
+                                <button class="btn btn-success me-1 mb-1 btn-md" id="saveBtn" type="button"  >저장
                                 </button>
                             </div>       
                         </div>  
@@ -179,7 +176,7 @@
 
 
                     <div class="tab-pane fade" id="step02">
-                        <div class="row gx-3" style="  margin: 10px 10px 10px;">   
+                        <!-- <div class="row gx-3" style="  margin: 10px 10px 10px;">   
                             <div class="col-2 col-sm-2">
                                 <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">조회일자</span>
                                     <input type="text"  class="form-control datetimepicker" id="frdate02" autocomplete="off"  placeholder="Y-m-d"     >
@@ -208,8 +205,7 @@
                         </div>  
                         <div class="container-fluid">
                             <div id="wtab02Grid_div" style="overflow:scroll;   width:1100px;     height:720px;    margin:0 auto; "></div>  
-                            <!-- <div id="tab02Pager"></div> -->
-                        </div>                                        
+                        </div>                                         -->
                     </div> 
                 </div>                                
             </div>     
@@ -476,101 +472,7 @@
                 return wactnm_data;                                          
             } 
  
-            //배송현황 popup list
-            view_p01tab02page = new wijmo.collections.CollectionView(getData_wlist(), {
-                // pageSize: 12
-            }); 
-            wtab02Grid = new wijmo.grid.FlexGrid('#wtab02Grid_div', {  
-                autoGenerateColumns: false,
-                isReadOnly: false, 
-                allowSorting: 'MultiColumn',
-                selectionMode: 'RowRange',
-                alternatingRowStep: 0,
-                columns: [      
-                    { binding: 'as_date2', header: '배송일자', align: "center",   width: 120 },
-                    { binding: 'as_key1', header: '접수일자', align: "center",   width: 120 }, 
-                    { binding: 'as_key2', header: '순번', align: "center",   width: 80 },
-                    { binding: 'as_model', header: '모델', align: "center",   width: 80 },
-                    { binding: 'as_color', header: '칼라', align: "center",   width: 80 },
-                    { binding: 'as_suri', header: '수리부위', align: "center",   width: 150 },
-                    // { binding: 'as_yumu', header: '유무상', align: "center",   width: 80 },
-                    // { binding: 'as_gongjang', header: '공장', align: "center",   width: 100 },
-                    { binding: 'as_acorp', header: '거래처', align: "left",   width: 150 },
-                    // { binding: 'as_aname', header: '구분', align: "center",   width: 80 },
-                    { binding: 'as_memo', header: '메모', align: "center",   width: 200 },          
-                ], 
-                itemsSource: view_p01tab02page
-            });  
-
-            
-            new FlexGridContextMenu(wtab02Grid); 
-            // 선택기 생성
-            selector = new wijmo.grid.selector.Selector(wtab02Grid, {
-                // itemChecked: () => {
-                //     showCheckedCount();
-                // }
-            }); 
-            // 헤더 열 전환
-            // 헤더 열 전환
-            setHeaderColumn2(false);
-            function setHeaderColumn2(headerOn) {
-                wtab02Grid.headersVisibility = headerOn
-                ? wijmo.grid.HeadersVisibility.All
-                : wijmo.grid.HeadersVisibility.Column; 
-            } 
-            wtab02Grid.showMarquee = true;
-            wtab02Grid.focus();
-            wijmo.toggleClass(wtab02Grid.hostElement, 'highlightActive', true);
-            wtab02Grid.focus();
-
-            // 배송현황 데이터 수집
-            function getData_wlist(){   
-                var wtab01Dto = [[${cifcodeList}]];   
-                var wactnm_data = [];
-                var cnt = 1;   
-                 
-                if(wtab01Dto.length == 0){
-                    for (var i = 0; i < 12; i++) {
-                        wactnm_data.push({
-                            id: i, 
-                            index: cnt,
-                            as_key1:  "", 
-                            as_key2:  "", 
-                            as_model:  "", 
-                            as_color:  "", 
-                            as_suri:  "", 
-                            as_yumu:  "", 
-                            as_gongjang: "", 
-                            as_acorp:  "", 
-                            as_aname:  "", 
-                            as_memo:  "", 
-                            as_date2:  "", 
-                        });
-                        cnt++;
-                     }   
-                }else{
-                    for (var i = 0; i < wtab01Dto.length; i++) {
-                        wactnm_data.push({
-                            id: i, 
-                            index: cnt,
-                            as_key1:  wtab01Dto[i]["as_key1"], 
-                            as_key2:  wtab01Dto[i]["as_key2"], 
-                            as_model:  wtab01Dto[i]["as_model"], 
-                            as_color:  wtab01Dto[i]["as_color"], 
-                            as_suri:  wtab01Dto[i]["as_suri"], 
-                            as_yumu:  wtab01Dto[i]["as_yumu"], 
-                            as_gongjang:  wtab01Dto[i]["as_gongjang"], 
-                            as_acorp:  wtab01Dto[i]["as_acorp"], 
-                            as_aname:  wtab01Dto[i]["as_aname"], 
-                            as_memo:  wtab01Dto[i]["as_memo"], 
-                            as_date2:  wtab01Dto[i]["as_date2"],  
-                        });
-                        cnt++;
-                    }   
-                } 
-                 
-                return wactnm_data;                                      
-            }   
+  
 
          // // ################################################################
 
@@ -641,16 +543,12 @@
         document.getElementById("retrieveBtn").addEventListener("click",function(){  
             var ls_tab = document.getElementById('tabvalue').value;   
             searchList_rtn(ls_tab);
-        })                   
-        // tab02 검색   
-        document.getElementById("listBtn02").addEventListener("click",function(){ 
-            
-            var ls_tab = document.getElementById('tabvalue').value;   
-            searchList_rtn(ls_tab);
-        })                    
-        // tab02 검색   
+        })     
         document.getElementById("saveBtn").addEventListener("click",function(){  
-            save_rtn();
+            save_btn()
+        })     
+        document.getElementById("DelBtn").addEventListener("click",function(){  
+            del_btn()
         }) 
         
         
@@ -664,12 +562,12 @@
                 CifSearchList_rtn("A"); 
             }
         });   
-        document.getElementById("dcifname").addEventListener("keyup", (e)=>{ 
-            if(e.keyCode === 13){  
-                document.getElementById("innamebtn").click(); 
-                CifSearchList_rtn("B"); 
-            }
-        });    
+        // document.getElementById("dcifname").addEventListener("keyup", (e)=>{ 
+        //     if(e.keyCode === 13){  
+        //         document.getElementById("innamebtn").click(); 
+        //         CifSearchList_rtn("B"); 
+        //     }
+        // });    
         document.getElementById("jcifname").addEventListener("keyup", (e)=>{ 
             if(e.keyCode === 13){  
                 document.getElementById("innamebtn").click(); 
@@ -679,7 +577,7 @@
   
         document.getElementById("asasmemo3").addEventListener("keyup", (e)=>{ 
             if(e.keyCode === 13){   
-                alert("저장");
+                save_btn()
             }
         }); 
   
@@ -807,7 +705,7 @@
         }  
  
 
-        function save_btn(arg){
+        function save_btn(){
             var ls_tab = document.getElementById('tabvalue').value;
             var ls_asaskey1 = document.getElementById('asaskey1').value;
             var ls_asaskey2 = document.getElementById('asaskey2').value;
@@ -878,7 +776,7 @@
                             if(data == "success"){
                                 alert("저장되었습니다.") 
                                 searchList_rtn(ls_tab);  
-                                clear_rtn(ls_tab);             
+                                clear_rtn();             
                             }else{   
                                 if(data == "relogin"){
                                     alert("다시 로그인해주세요")
@@ -902,7 +800,66 @@
             } 
 
         } 
+        function del_btn(){ 
+            var ls_tab = document.getElementById('tabvalue').value;
+            var ls_asaskey1 = document.getElementById('asaskey1').value;
+            var ls_asaskey2 = document.getElementById('asaskey2').value; 
+        
+            if (!confirm("삭제하시겠습니까?")) {
+                    return ; 
+            }   
+            
+            switch(ls_tab){
+                case 'A':
 
+                if(ls_asaskey1 == null || ls_asaskey1.length == 0 || ls_asaskey1 == ""){ 
+                    alert("삭제할 자료를 선택하세요") 
+                    document.getElementById("asaskey1").focus(); 
+                    return ;               
+                }  
+                if(ls_asaskey2 == null || ls_asaskey2.length == 0 || ls_asaskey2 == ""){ 
+                    alert("삭제할 자료를 선택하세요") 
+                    document.getElementById("asaskey1").focus(); 
+                    return ;               
+                }    
+
+                    $.ajax({
+                        url: '/app01m/jupsudel',  
+                        type:"POST",
+                        data: { 
+                            "asaskey1"      : ls_asaskey1,  
+                            "asaskey2"      : ls_asaskey2 
+                        }, 
+                        async:false,
+                        success:function(data){   
+                            if(data == "success"){
+                                alert("삭제되었습니다.") 
+                                searchList_rtn(ls_tab);  
+                                clear_rtn();             
+                            }else{   
+                                if(data == "relogin"){
+                                    alert("다시 로그인해주세요")
+                                    window.location.href='http://eean.co.kr';
+                                    return 
+                                }                    
+                                alert("저장중 오류가 발생했습니다. 관리자에게 문의하세요.")
+                                // listUp();
+                                console.log(data);  
+                            }
+                           
+                        },error:function(e){
+                            console.log("error"); 
+                        }
+                    }).done(function(fragment){           
+
+                    })  
+                    break;             
+                default:    
+                    break;                
+            } 
+
+        } 
+        
         function searchList_rtn(arg1){  
             switch(arg1){
                 case 'A':
@@ -1009,9 +966,15 @@
                     as_yumu:  wtab01Dto[i]["as_yumu"], 
                     as_gongjang:  wtab01Dto[i]["as_gongjang"], 
                     as_acorp:  wtab01Dto[i]["as_acorp"], 
+                    as_acorp1:  wtab01Dto[i]["as_acorp1"], 
+                    as_acorp2:  wtab01Dto[i]["as_acorp2"], 
+                    as_acorp3:  wtab01Dto[i]["as_acorp3"], 
                     as_aname:  wtab01Dto[i]["as_aname"], 
                     as_memo:  wtab01Dto[i]["as_memo"], 
-                    as_date2:  wtab01Dto[i]["as_date2"],                                  
+                    as_memo2:  wtab01Dto[i]["as_memo2"], 
+                    as_memo3:  wtab01Dto[i]["as_memo3"], 
+                    as_date2:  wtab01Dto[i]["as_date2"],    
+                    as_damdang:  wtab01Dto[i]["as_damdang"],                               
                 });
                 cnt++;
             }   
@@ -1067,6 +1030,13 @@
             cols.header = '거래처';
             cols.align = "left";
             cols.width = 250;  
+            cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
+                text: '<b>${item.as_acorp}</b>',
+                click: (e, ctx) => {
+                    wjupsuChk_a(ctx.item.as_key1, ctx.item.as_key2, ctx.item.as_model, ctx.item.as_color,ctx.item.as_suri,ctx.item.as_yumu,ctx.item.as_gongjang,ctx.item.as_acorp,ctx.item.as_acorp1,ctx.item.as_acorp2,ctx.item.as_acorp3,ctx.item.as_memo,ctx.item.as_memo2,ctx.item.as_memo3,ctx.item.as_aname, ctx.item.as_damdang  );                    
+                    
+                }
+            });
             wtab01Grid.columns.push(cols);   
             // cols = new wijmo.grid.Column(); 
             // cols.binding = 'as_aname';
@@ -1088,103 +1058,50 @@
             wtab01Grid.columns.push(cols);   
  
         }     
-        function tabB_grid(data){
-            var wtab01Dto  = data;    
-            var wtab01_data = [];
-            var cnt = 1;
-            for (var i = 0; i < wtab01Dto.length; i++) {
-                wtab01_data.push({
-                    id: i, 
-                    index: cnt,
-                    as_key1:  wtab01Dto[i]["as_key1"], 
-                    as_key2:  wtab01Dto[i]["as_key2"], 
-                    as_model:  wtab01Dto[i]["as_model"], 
-                    as_color:  wtab01Dto[i]["as_color"], 
-                    as_suri:  wtab01Dto[i]["as_suri"], 
-                    as_yumu:  wtab01Dto[i]["as_yumu"], 
-                    as_gongjang:  wtab01Dto[i]["as_gongjang"], 
-                    as_acorp:  wtab01Dto[i]["as_acorp"], 
-                    as_aname:  wtab01Dto[i]["as_aname"], 
-                    as_memo:  wtab01Dto[i]["as_memo"], 
-                    as_date2:  wtab01Dto[i]["as_date2"],                                  
-                });
-                cnt++;
-            }   
-            // console.log("wtab01_data",wtab01_data) 
-            // console.log(wtab01_data.length);
-            wtab02Grid.columns.clear();  
-            wtab02Grid.autoGenerateColumns = false; 
-            view_p01tab02page.sourceCollection  = wtab01_data; 
-            var cols = new wijmo.grid.Column(); 
-            cols.binding = 'as_date2';
-            cols.header = '배송일자';
-            cols.align = "center";
-            cols.width = 120;  
-            wtab02Grid.columns.push(cols);   
-            cols = new wijmo.grid.Column(); 
-            cols.binding = 'as_key1';
-            cols.header = '접수일자';
-            cols.align = "center";
-            cols.width = 120; 
-            wtab02Grid.columns.push(cols);   
-            cols = new wijmo.grid.Column(); 
-            cols.binding = 'as_key2';
-            cols.header = '순번';
-            cols.align = "center";
-            cols.width = 50;  
-            wtab02Grid.columns.push(cols);  
-            cols = new wijmo.grid.Column(); 
-            cols.binding = 'as_model';
-            cols.header = '모델';
-            cols.align = "center";
-            cols.width = 80;  
-            wtab02Grid.columns.push(cols);  
-            cols = new wijmo.grid.Column(); 
-            cols.binding = 'as_color';
-            cols.header = '컬러';
-            cols.align = "center";
-            cols.width = 80;  
-            wtab02Grid.columns.push(cols);  
-            cols = new wijmo.grid.Column(); 
-            cols.binding = 'as_suri';
-            cols.header = '수리부위';
-            cols.align = "center";
-            cols.width = 150;  
-            wtab02Grid.columns.push(cols);   
-            // cols = new wijmo.grid.Column(); 
-            // cols.binding = 'as_yumu';
-            // cols.header = '유무상';
-            // cols.align = "center";
-            // cols.width = 80;  
-            // wtab02Grid.columns.push(cols); 
-            // cols = new wijmo.grid.Column(); 
-            // cols.binding = 'as_gongjang';
-            // cols.header = '공장';
-            // cols.align = "center";
-            // cols.width = 100;  
-            // wtab02Grid.columns.push(cols);   
-            cols = new wijmo.grid.Column(); 
-            cols.binding = 'as_acorp';
-            cols.header = '거래처';
-            cols.align = "left";
-            cols.width = 250;  
-            wtab02Grid.columns.push(cols);   
-            // cols = new wijmo.grid.Column(); 
-            // cols.binding = 'as_aname';
-            // cols.header = '구분';
-            // cols.align = "center";
-            // cols.width = 80;  
-            // wtab02Grid.columns.push(cols);   
-            cols = new wijmo.grid.Column(); 
-            cols.binding = 'as_memo';
-            cols.header = '메모';
-            cols.align = "center";
-            cols.width = 200;  
-            wtab02Grid.columns.push(cols);   
  
-        }
-  
+        function wjupsuChk_a(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10,arg11, arg12, arg13, arg14, arg15, arg16){ 
+                // ctx.item.as_key1, ctx.item.as_key2,     ctx.item.as_model, ctx.item.as_color,ctx.item.as_suri,
+                // ctx.item.as_yumu, ctx.item.as_gongjang,ctx.item.as_acorp,  ctx.item.as_acorp1,ctx.item.as_acorp2,
+                // ctx.item.as_acorp3,ctx.item.as_memo,ctx.item.as_memo2,ctx.item.as_memo3, as_aname  , 
+                // ctx.item.as_damdang 
+                document.getElementById('asaskey1').value = arg1;  
+                document.getElementById('asaskey2').value = arg2;   
+                document.getElementById('asasmodel').value = arg3;   
+                document.getElementById('asascolor').value = arg4;   
+                document.getElementById('asassuri').value = arg5;   
+                document.getElementById('asasyumu').value = arg6;  
+                document.getElementById('asasgong').value = arg7;  
+                document.getElementById('jcifname').value = arg8;   
+                document.getElementById('jacorp1').value = arg9;   
+                document.getElementById('jacorp2').value = arg10;   
+                document.getElementById('jacorp3').value = arg11;     
+                document.getElementById('asasmemo').value = arg12;   
+                document.getElementById('asasmemo2').value = arg13;   
+                document.getElementById('asasmemo3').value = arg14;   
+                document.getElementById('asaname').value = arg15; 
+                document.getElementById('condamdang').value = arg16; 
 
+        }  
+        function clear_rtn(){ 
+                getToday()
+                var ls_condamdang = document.getElementById('condamdang').value;
+                var ls_asasgong = document.getElementById('asasgong').value;
+                document.getElementById('asaskey2').value = "";   
+                document.getElementById('asasmodel').value = "";   
+                document.getElementById('asascolor').value = "";   
+                document.getElementById('asassuri').value = "";   
+                document.getElementById('asasyumu').value = "";  
+                document.getElementById('asasgong').value = ls_asasgong;  
+                document.getElementById('jcifname').value = "";   
+                document.getElementById('jacorp1').value = "";   
+                document.getElementById('jacorp2').value = "";   
+                document.getElementById('jacorp3').value = "";     
+                document.getElementById('asasmemo').value = "";   
+                document.getElementById('asasmemo2').value = "";   
+                document.getElementById('asasmemo3').value = "";   
+                document.getElementById('asaname').value = ""; 
+                document.getElementById('condamdang').value = ls_condamdang; 
+        }
   
 //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
@@ -1227,8 +1144,8 @@
             let ls_today = year + '-' + month + '-' + date 
             document.getElementById('frdate').value = ls_frday;
             document.getElementById('todate').value = ls_today; 
-            document.getElementById('frdate02').value = ls_frday;
-            document.getElementById('todate02').value = ls_today;
+            // document.getElementById('frdate02').value = ls_frday;
+            // document.getElementById('todate02').value = ls_today;
             document.getElementById('asaskey1').value = ls_today;
             
         }
@@ -1246,47 +1163,9 @@
         }
 
         function fn_egov_init_date(){ 
-            lsUserid = window.localStorage.getItem("userid")
-            document.getElementById('djpbgubn').value = lsUserid;  
-            if (lsUserid == "pvadmin"){
-                document.getElementById('djpbgubn').value = "P"; 
-                document.getElementById('bjpbgubn').value = "P";  
-            }else if(lsUserid == "bladmin"){
-                document.getElementById('djpbgubn').value = "B"; 
-                document.getElementById('bjpbgubn').value = "B";  
-            }else{
-                document.getElementById('djpbgubn').value = "%"; 
-                document.getElementById('bjpbgubn').value = "%"; 
-            }
+            lsUserid = window.localStorage.getItem("userid");             
+            document.getElementById('condamdang').value = lsUserid;  
             
-            // var $frdate = $('#frdate');
-            // var $todate = $('#todate');
-            // $frdate.datetimepicker({
-            //     timepicker: false,
-            //     lang: 'ko',
-            //     format: 'Y-m-d',
-            //     scrollMonth: false,
-            //     scrollInput: false,
-            //     onShow: function (ct) {                                    
-            //         this.setOptions({
-            //             // maxDate: $frdate.val() ? $frdate.val() : false
-            //         })
-            //     },
-            // });
-
-            // $todate.datetimepicker({
-            //     timepicker: false,
-            //     lang: 'ko',
-            //     format: 'Y-m-d',    //'Y-m-d H:i',
-            //     scrollMonth: false,
-            //     scrollInput: false,
-            //     onShow: function (ct) {
-            //         this.setOptions({
-            //             // minDate: $todate.val() ? $todate.val() : false
-            //         })
-            //     }
-            // });
-
         }
  
         function chkLogin(argdata){

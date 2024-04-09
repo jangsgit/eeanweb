@@ -100,7 +100,7 @@
 
 
     <select id="SelectMaxJupsu" parameterType="com.dae.eean.DTO.App01.Index20Dto" resultType="String">
-        <![CDATA[  select  max(as_key2)  from as_jupsu where as_key1 = #{as_key1} and Left(as_key,1) >= Left(#{as_rnum},1)     ]]>
+        <![CDATA[  select  max(as_key2)  from as_jupsu where as_key1 = #{as_key1} and Left(as_key2,1) >= Left(#{as_rnum},1)     ]]>
     </select>
 
 </mapper>
