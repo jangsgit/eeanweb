@@ -1114,11 +1114,20 @@
             var wtab04_data = [];
             var cnt = 1;
             var bfixflag = false
+            var ls_remark = "";
             for (var i = 0; i < wtab04Dto.length; i++) {
                 if(wtab04Dto[i]["fixflag"] == "1"){
                     bfixflag = true;
                 }else{
                     bfixflag = false;
+                } 
+                if(wtab04Dto[i]["seq"] == '001'){
+                    ls_remark =  wtab04Dto[i]["remarkaa"];                
+                    if(ls_remark == null || ls_remark.length == 0 || ls_remark == ""){ 
+                        ls_remark =  wtab04Dto[i]["remarkbb"];  
+                    }  
+                }else{
+                    ls_remark = "";
                 }
                 wtab04_data.push({
                     id: i, 
@@ -1141,7 +1150,8 @@
                     misgubun: wtab04Dto[i]["misgubun"],    
                     fixdate: wtab04Dto[i]["fixdate"],   
                     fixdatetime: wtab04Dto[i]["fixdatetime"],  
-                    misdatetime: wtab04Dto[i]["misdatetime"],      
+                    misdatetime: wtab04Dto[i]["misdatetime"],     
+                    remark: ls_remark,     
                     fixflag: bfixflag,                                           
                 });
                 cnt++;
@@ -1262,7 +1272,13 @@
             cols.header = '주문시간';
             cols.align = "center"; 
             cols.width = 200;  
-            wtab04Grid.columns.push(cols);  
+            wtab04Grid.columns.push(cols);    
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'remark';
+            cols.header = '비고';
+            cols.align = "left";
+            cols.width = 250;  
+            wtab04Grid.columns.push(cols);   
             // cols = new wijmo.grid.Column(); 
             // cols.binding = 'fixflag'; 
             // cols.header = '출력';

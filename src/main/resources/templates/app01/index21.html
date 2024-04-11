@@ -137,7 +137,7 @@
                                             </div>  -->
                                         </div> 
                                         <div class="container-fluid"> 
-                                            <div id="wtab01Grid_div" style="overflow:scroll; width:1100px;     height:720px;    margin:0 auto; "></div>  
+                                            <div id="wtab01Grid_div" style="overflow:scroll; width:1700px;     height:800px;    margin:0 auto; "></div>  
                                             <!-- <div id="tab01Pager"></div> -->
                                         </div>   
                                     </div>
@@ -170,7 +170,7 @@
                                             </div> 
                                         </div>  
                                         <div class="container-fluid">
-                                            <div id="wtab02Grid_div" style="overflow:scroll;   width:1100px;     height:720px;    margin:0 auto; "></div>  
+                                            <div id="wtab02Grid_div" style="overflow:scroll;   width:1700px;     height:720px;    margin:0 auto; "></div>  
                                             <!-- <div id="tab02Pager"></div> -->
                                         </div>                                        
                                     </div> 
@@ -274,15 +274,18 @@
                 columns: [     
                     { binding: 'as_key1', header: '접수일자', align: "center",   width: 120 }, 
                     { binding: 'as_key2', header: '순번', align: "center",   width: 50 },
+                    { binding: 'as_gongjang', header: '공장', align: "center",   width: 50 },
+                    { binding: 'as_acorp', header: '거래처', align: "left",   width: 200 },
                     { binding: 'as_model', header: '모델', align: "center",   width: 80 },
                     { binding: 'as_color', header: '칼라', align: "center",   width: 80 },
                     { binding: 'as_suri', header: '수리부위', align: "center",   width: 150 },
-                    // { binding: 'as_yumu', header: '유무상', align: "center",   width: 80 },
-                    // { binding: 'as_gongjang', header: '공장', align: "center",   width: 100 },
-                    { binding: 'as_acorp', header: '거래처', align: "left",   width: 200 },
-                    // { binding: 'as_aname', header: '구분', align: "center",   width: 80 },
-                    { binding: 'as_date2', header: '배송일자', align: "center",   width: 120 },
-                    { binding: 'as_memo', header: '메모', align: "center",   width: 200 },                    
+                    { binding: 'as_memo', header: '메모', align: "center",   width: 200 },        
+                    { binding: 'as_yumu', header: '유무상', align: "center",   width: 80 }, 
+                    { binding: 'as_memo2', header: '메모2', align: "center",   width: 200 },      
+                    { binding: 'as_memo3', header: '메모3', align: "center",   width: 200 },     
+                    { binding: 'as_date2', header: '배송일자', align: "center",   width: 120 },      
+                    { binding: 'as_aname', header: '구분', align: "center",   width: 80 },           
+                    { binding: 'as_damdang', header: '접수자', align: "center",   width: 80 },                    
                 ], 
                 itemsSource: view_p01tab01page
             });  
@@ -347,6 +350,8 @@
                             as_aname:  wtab01Dto[i]["as_aname"], 
                             as_memo:  wtab01Dto[i]["as_memo"], 
                             as_date2:  wtab01Dto[i]["as_date2"],  
+                            as_damdang:  wtab01Dto[i]["as_damdang"],  
+                            
                         });
                         cnt++;
                     }   
@@ -752,7 +757,9 @@
                     as_acorp:  wtab01Dto[i]["as_acorp"], 
                     as_aname:  wtab01Dto[i]["as_aname"], 
                     as_memo:  wtab01Dto[i]["as_memo"], 
-                    as_date2:  wtab01Dto[i]["as_date2"],                                  
+                    as_date2:  wtab01Dto[i]["as_date2"],   
+                    as_damdang:  wtab01Dto[i]["as_damdang"],   
+                                                   
                 });
                 cnt++;
             }   
@@ -772,7 +779,26 @@
             cols.header = '순번';
             cols.align = "center";
             cols.width = 50;  
-            wtab01Grid.columns.push(cols);  
+            wtab01Grid.columns.push(cols);   
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'as_gongjang';
+            cols.header = '공장';
+            cols.align = "center";
+            cols.width = 80;  
+            wtab01Grid.columns.push(cols);    
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'as_acorp';
+            cols.header = '거래처';
+            cols.align = "left";
+            cols.width = 250;  
+            // cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
+            //     text: '<b>${item.as_acorp}</b>',
+            //     click: (e, ctx) => {
+            //         wjupsuChk_a(ctx.item.as_key1, ctx.item.as_key2, ctx.item.as_model, ctx.item.as_color,ctx.item.as_suri,ctx.item.as_yumu,ctx.item.as_gongjang,ctx.item.as_acorp,ctx.item.as_acorp1,ctx.item.as_acorp2,ctx.item.as_acorp3,ctx.item.as_memo,ctx.item.as_memo2,ctx.item.as_memo3,ctx.item.as_aname, ctx.item.as_damdang  );                    
+                    
+            //     }
+            // });
+            wtab01Grid.columns.push(cols);   
             cols = new wijmo.grid.Column(); 
             cols.binding = 'as_model';
             cols.header = '모델';
@@ -791,30 +817,30 @@
             cols.align = "center";
             cols.width = 150;  
             wtab01Grid.columns.push(cols);   
-            // cols = new wijmo.grid.Column(); 
-            // cols.binding = 'as_yumu';
-            // cols.header = '유무상';
-            // cols.align = "center";
-            // cols.width = 80;  
-            // wtab01Grid.columns.push(cols); 
-            // cols = new wijmo.grid.Column(); 
-            // cols.binding = 'as_gongjang';
-            // cols.header = '공장';
-            // cols.align = "center";
-            // cols.width = 100;  
-            // wtab01Grid.columns.push(cols);   
             cols = new wijmo.grid.Column(); 
-            cols.binding = 'as_acorp';
-            cols.header = '거래처';
-            cols.align = "left";
-            cols.width = 250;  
+            cols.binding = 'as_memo';
+            cols.header = '메모';
+            cols.align = "center";
+            cols.width = 200;  
             wtab01Grid.columns.push(cols);   
-            // cols = new wijmo.grid.Column(); 
-            // cols.binding = 'as_aname';
-            // cols.header = '구분';
-            // cols.align = "center";
-            // cols.width = 80;  
-            // wtab01Grid.columns.push(cols);    
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'as_yumu';
+            cols.header = '유무상';
+            cols.align = "center";
+            cols.width = 80;  
+            wtab01Grid.columns.push(cols); 
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'as_memo2';
+            cols.header = '메모2';
+            cols.align = "center";
+            cols.width = 200;  
+            wtab01Grid.columns.push(cols);   
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'as_memo3';
+            cols.header = '메모';
+            cols.align = "center";
+            cols.width = 200;  
+            wtab01Grid.columns.push(cols);      
             cols = new wijmo.grid.Column(); 
             cols.binding = 'as_date2';
             cols.header = '배송일자';
@@ -822,11 +848,17 @@
             cols.width = 120;  
             wtab01Grid.columns.push(cols);   
             cols = new wijmo.grid.Column(); 
-            cols.binding = 'as_memo';
-            cols.header = '메모';
+            cols.binding = 'as_aname';
+            cols.header = '구분';
             cols.align = "center";
-            cols.width = 200;  
+            cols.width = 80;  
             wtab01Grid.columns.push(cols);   
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'as_damdang';
+            cols.header = '접수자';
+            cols.align = "center";
+            cols.width = 150;  
+            wtab01Grid.columns.push(cols); 
  
         }     
         function tabB_grid(data){

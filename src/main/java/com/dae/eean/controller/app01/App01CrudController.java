@@ -645,14 +645,12 @@ public class App01CrudController {
             Boolean result = false;
             if (ls_acode == null || ls_acode.equals("")) {
                 result = service03.InsertJpum(_index03Dto);
-                log.info("result1");
                 log.info(result);
                 if (!result) {
                     return "error";
                 }
             } else {
                 result = service03.UpdateJpum(_index03Dto);
-                log.info("result2");
                 log.info(result);
                 if (!result) {
                     return "error";
@@ -1165,7 +1163,6 @@ public class App01CrudController {
 
             //--------------------------------------------------
             String ls_seq = "";
-//            log.info("ls_chknull ======>" + ls_chknull);
             //신규입력
             if (ls_chknull.length() == 0 ){
                 ls_seq = "001";
@@ -1361,7 +1358,6 @@ public class App01CrudController {
             _indexDa024Dto.setPcolor(jcolor);
             String ls_seq = "";
             //신규입력
-//            log.info("ls_chknull ======>" + ls_chknull);
             if (ls_chknull.length() == 0 ){
                 ls_seq = "001";
             }else{
@@ -2146,8 +2142,6 @@ public class App01CrudController {
             _Da024Dto.setMisdate(frdate);
             _Da024Dto.setMisnum(ls_misnum);
             _Da024Dto.setMisgubun(mflag);
-//            log.info("ls_misnum=============>");
-//            log.info(ls_misnum);
             _Da024Dto.setPcode(index03Dto_S.getJkey());
             _Da024Dto.setPname(index03Dto_S.getJpum());
             _Da024Dto.setPsize(index03Dto_S.getJgugek());
@@ -2616,10 +2610,6 @@ public class App01CrudController {
             indexDa024Dto.setPerid(perid);
             indexDa024Dto.setMisgubun(mflag);
             indexDa024Dto.setJpbgubn(jpbgubn);
-//            log.info("frdate =====>" + frdate);
-//            log.info("fixflag =====>" + fixflag);
-//            log.info("mflag =====>" + mflag);
-//            log.info("perid =====>" + perid);
             indexDa024ListDto = service14.SelectDa024ListPerid(indexDa024Dto);
             model.addAttribute("indexDa024ListDto",indexDa024ListDto);
 
@@ -2686,10 +2676,6 @@ public class App01CrudController {
             indexDa024Dto.setPerid(perid);
             indexDa024Dto.setMisgubun(mflag);
             indexDa024Dto.setJpbgubn(jpbgubn);
-//            log.info("frdate =====>" + frdate);
-//            log.info("fixflag =====>" + fixflag);
-//            log.info("mflag =====>" + mflag);
-//            log.info("perid =====>" + perid);
             indexDa024ListDto = service14.SelectDa024ListPeridGroup(indexDa024Dto);
             model.addAttribute("indexDa024ListDto",indexDa024ListDto);
 

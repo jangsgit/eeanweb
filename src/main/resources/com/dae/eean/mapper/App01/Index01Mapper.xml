@@ -84,6 +84,7 @@
                            , as_acorp3 = #{as_acorp3}
                            , as_computer = #{as_computer}
                            , as_damdang = #{as_damdang}
+                           , as_memo = #{as_memo}
                            , as_memo2 = #{as_memo2}
                            , as_aname = #{as_aname}
                            , as_memo3 = #{as_memo3}

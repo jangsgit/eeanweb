@@ -22,7 +22,7 @@
                  ,as_damdang
                  ,as_memo2
                  ,as_memo3
-                 ,as_aname
+                 ,trim(as_aname) as as_aname
                  ,as_key4
                  ,Left(as_date2,10) as as_date2
                  ,as_memo3
