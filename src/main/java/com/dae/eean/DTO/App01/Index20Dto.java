@@ -29,4 +29,9 @@ public class Index20Dto {
     private String as_frdate;
     private String as_todate;
     private String as_rnum;
+    private String as_devflag;
+    private String as_devdate;
+    private String as_devcode;
+    private String reservnum;
+    private String unsongnum;
 }

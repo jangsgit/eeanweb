@@ -26,9 +26,13 @@
                  ,as_key4
                  ,Left(as_date2,10) as as_date2
                  ,as_memo3
+                 ,as_devflag
+                 ,as_devcode
+                 , CONVERT(CHAR(19),as_devdate,20) as as_devdate
             from as_jupsu WITH (NOLOCK)
             WHERE isnull(as_acorp,'') Like concat('%',#{as_acorp},'%')
             and as_key1 between #{frdate} and #{todate}
+            and isnull(as_devflag,'') Like concat('%',#{as_devflag},'%')
             ORDER BY as_key1, as_key2
         ]]>
     </select>
@@ -55,9 +59,12 @@
              ,as_key4
              ,Left(as_date2,10) as as_date2
              ,as_memo3
+             ,as_devflag
+             ,as_devcode
+             , CONVERT(CHAR(19),as_devdate,20) as as_devdate
         from as_jupsu WITH (NOLOCK)
         WHERE isnull(as_acorp,'') Like concat('%',#{as_acorp},'%')
-          and as_key1 between #{frdate} and #{todate} and Len(isnull(as_date2,'')) = 0
+          and as_key1 between #{frdate} and #{todate} and isnull(as_devflag,'0') = '0'
         ORDER BY as_key1, as_key2
         ]]>
     </select>
@@ -84,9 +91,12 @@
              ,as_key4
              ,Left(as_date2,10) as as_date2
              ,as_memo3
+             ,as_devflag
+             ,as_devcode
+             , CONVERT(CHAR(19),as_devdate,20) as as_devdate
         from as_jupsu WITH (NOLOCK)
         WHERE isnull(as_acorp,'') Like concat('%',#{as_acorp},'%')
-          and as_key1 between #{frdate} and #{todate} and Len(isnull(as_date2,'')) > 0
+          and as_key1 between #{frdate} and #{todate}  and isnull(as_devflag,'0') = '1'
         ORDER BY as_key1, as_key2
         ]]>
     </select>

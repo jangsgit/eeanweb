@@ -20,6 +20,8 @@ public interface Index01Mapper {
     public Boolean InsertJupsu(Index20Dto parm) ;
     public Boolean UpdateJupsu(Index20Dto parm) ;
     public Boolean DeleteJupsu(Index20Dto parm) ;
+    public Boolean UpdateDevJupsu(Index20Dto parm) ;
+    public Boolean UpdateDevJupsuUnsong(Index20Dto parm) ;
 
     public List<Index01Dto> GetComcodeDetailList(Index01Dto parm) ;
 

@@ -1220,7 +1220,7 @@
                         // 내보내기
                         case 'X_CSV':
                             let rng = new wijmo.grid.CellRange(0, 0, grid.rows.length - 1, grid.columns.length - 1), csv = grid.getClipString(rng, wijmo.grid.ClipStringOptions.CSV, true, false);
-                            wijmo.saveFile(csv, '예약현황.csv');
+                            wijmo.saveFile(csv, '주문삭제현황.csv');
                             break;
                         case 'X_XLSX':
                             const gridView = grid.collectionView;
@@ -1229,7 +1229,7 @@
                             grid.beginUpdate();
                             gridView.pageSize = 0;
 
-                            wijmo.grid.xlsx.FlexGridXlsxConverter.saveAsync(grid, {includeCellStyles: true, includeColumnHeaders: true}, '예약현황.xlsx',
+                            wijmo.grid.xlsx.FlexGridXlsxConverter.saveAsync(grid, {includeCellStyles: true, includeColumnHeaders: true}, '주문삭제현황.xlsx',
                             saved => {
                             gridView.pageSize = oldPgSize;
                             gridView.moveToPage(oldPgIndex);
@@ -1238,14 +1238,14 @@
                             ); 
                             break;
                         case 'X_PDF':
-                            wijmo.grid.pdf.FlexGridPdfConverter.export(grid, '예약현황.pdf', {
+                            wijmo.grid.pdf.FlexGridPdfConverter.export(grid, '주문삭제현황.pdf', {
                                 maxPages: 10,
                                 scaleMode: wijmo.grid.pdf.ScaleMode.PageWidth,
                                 documentOptions: {
                                 compress: true,
                                 header: { declarative: { text: '\t&[Page] of &[Pages]' } },
                                 footer: { declarative: { text: '\t&[Page] of &[Pages]' } },
-                                info: { author: 'GrapeCity', title: '예약현황' }
+                                info: { author: 'GrapeCity', title: '주문삭제현황' }
                                 },
                                 //내장된 폰트 정보
                                 embeddedFonts: [

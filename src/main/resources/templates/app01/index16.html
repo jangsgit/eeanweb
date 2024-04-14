@@ -2062,9 +2062,9 @@
                 }
                 // footer.cells.rows[0].allowMerging = true;  
                 let y = doc.y;
-                doc.header.drawText("거 래 명 세 서", null, null, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 20), align: 1, baseline: 5, underline: false});   //align 1 center baseline 5 bottom
+                doc.header.drawText("거 래 명 세 서", null, null, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 18), align: 1, baseline: 5, underline: false});   //align 1 center baseline 5 bottom
 
-                doc.moveDown(1);
+                // doc.moveDown(1);
                 // * draw captions *
                 doc.drawText('작  성   일  자 : ' + ls_misdatetxt + ' [' + ls_misnum + ']', 10, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11), align: 0, underline:false});
                 //
@@ -2862,6 +2862,47 @@
                     });
                 cnt++;
                 }
+            } else if (wtab03Dto.length < 45){ 
+                for (var p = wtab03Dto.length + 1; p < 46; p++) { 
+                    wtab03_data.push({
+                        id: p, 
+                        index: cnt,
+                        select: false,
+                        misdate: '',
+                        misnum: '',     
+                        seq: '',    
+                        acorp: '',    
+                        pname: '',    
+                        psize: '',    
+                        pbonsa: '',    
+                        pmodel: '',    
+                        pcolor: '',    
+                        qty: '',    
+                        uamt: '',
+                        samt: '',
+                        addamt: '',
+                        amt: '',
+                        cltcd: '',
+                        inname: '',
+                        misgubun: '',
+                        rownum: '',
+                        acorp: '',
+                        asano: '',
+                        aname: '',
+                        aupte: '',
+                        ajong: '',
+                        ajuso: '',
+                        eeacorp: '',
+                        eeasano: '',
+                        eeaname: '',
+                        eeupte: '',
+                        eeajong: '',
+                        eeajuso: '',
+                        fixflag: '',
+                    });
+                cnt++;
+                }
+
             }
             theGridPrt.columns.clear();  
             theGridPrt.autoGenerateColumns = false; 

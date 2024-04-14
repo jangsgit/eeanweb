@@ -18,6 +18,7 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @RestController
@@ -4235,6 +4236,7 @@ public class App01CrudController {
                 index20Dto.setAs_memo2(asasmemo2);
                 index20Dto.setAs_memo3(asasmemo3);
                 index20Dto.setAs_aname(asaname);
+                index20Dto.setAs_devflag("0");
 
                 if(asaskey2 == null || asaskey2.equals("")){
                     asaskey2 = GetMaxJupsu(index20Dto);
@@ -4289,7 +4291,119 @@ public class App01CrudController {
     }
 
 
+    @RequestMapping(value="/jupsudellist")
+    public String index20JupsuDelList(@RequestParam(value = "asKey1Arr[]") List<String> asKey1Arr
+            ,@RequestParam( value =  "asKey2Arr[]") List<String> asKey2Arr
+            , Model model
+            , HttpServletRequest request){
+        try {
+            HttpSession session = request.getSession();
+            UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+            if(userformDto == null){
+                log.info("App01ComdodeDetailList_index Exception =====> relogin userformDto null");
+                return "relogin";
+            }
+            model.addAttribute("userformDto",userformDto);
 
+            boolean result = false;
+            if( asKey1Arr.size() > 0){
+                for(int i = 0; i < asKey1Arr.size(); i++){
+                    index20Dto.setAs_key1(asKey1Arr.get(i));
+                    index20Dto.setAs_key2(asKey2Arr.get(i));
+                    result = service01.DeleteJupsu(index20Dto);
+                    if (!result){
+                        return "error";
+                    }
+                }
+
+            }
+            return "success";
+        }catch (IllegalStateException e){
+            model.addAttribute("index20JupsuDel errorMessage", e.getMessage());
+            return "error";
+        }
+    }
+
+    @RequestMapping(value="/index20/deliv")
+    public String index21Deliv(@RequestParam(value = "asKey1Arr[]") List<String> asKey1Arr
+            ,@RequestParam( value =  "asKey2Arr[]") List<String> asKey2Arr
+            , Model model
+            , HttpServletRequest request){
+
+        try {
+            boolean result = false;
+
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date date      = new Date(System.currentTimeMillis());
+            String ls_date2 = formatter.format(date);
+            if( asKey1Arr.size() > 0){
+                for(int i = 0; i < asKey1Arr.size(); i++){
+                    String year = asKey1Arr.get(i).substring(0,4);
+                    String month = asKey1Arr.get(i).substring(5,7);
+                    String day = asKey1Arr.get(i).substring(8,10);
+                    String ls_misdate = year + month + day ;
+                    index20Dto.setAs_key1(asKey1Arr.get(i));
+                    index20Dto.setAs_key2(asKey2Arr.get(i));
+                    index20Dto.setAs_devflag("1");
+                    index20Dto.setAs_date2(ls_date2);
+//                    if(asflagArr.get(i).equals("0")){
+//                        index20Dto.setAs_devflag("1");
+//                    }else{
+//                        index20Dto.setAs_devflag("0");
+//                    }
+                    index20Dto.setAs_devcode(ls_misdate + asKey2Arr.get(i) );
+                    result = service01.UpdateDevJupsu(index20Dto);
+                    log.info("setAs_date2  =====>" + ls_date2);
+//                    log.info("getMisdate  =====>" + indexDa024Dto.getMisdate());
+                    if (!result){
+                        return "error";
+                    }
+                }
+            }
+            return "success";
+
+        }catch (IllegalStateException e){
+            model.addAttribute("index21Deliv errorMessage", e.getMessage());
+            return "error";
+        }
+    }
+
+
+    @RequestMapping(value="/index20/savedev")
+    public String index20SaveDev(@RequestParam(value = "devnum01[]") List<String> devnum01
+            ,@RequestParam( value =  "devnum02[]") List<String> devnum02
+            ,@RequestParam( value =  "devnum03[]") List<String> devnum03
+            , Model model
+            , HttpServletRequest request){
+
+        try {
+            boolean result = false;
+            if( devnum01.size() > 0){
+                for(int i = 0; i < devnum01.size(); i++){
+                    String ls_unsongnum = "";
+                    ls_unsongnum = devnum02.get(i);
+                    if(ls_unsongnum == null || ls_unsongnum.equals("")){
+                        break;
+                    }
+                    index20Dto.setReservnum(devnum01.get(i));
+                    index20Dto.setUnsongnum(devnum02.get(i));
+                    index20Dto.setAs_key1(devnum03.get(i).substring(0,8));
+                    index20Dto.setAs_key2(devnum03.get(i).substring(8,12));
+                    result = service01.UpdateDevJupsuUnsong(index20Dto);
+                    if (!result){
+                        return "error";
+                    }
+
+                }
+                return "success";
+            }
+
+        }catch (IllegalStateException e){
+            model.addAttribute("index20SaveDev errorMessage", e.getMessage());
+            return "error";
+        }
+        return "success";
+    }
 
     public String GetMaxNum(String agDate){
 

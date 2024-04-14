@@ -45,7 +45,7 @@
 
             </div>  -->
 
-            <!-- <div class="section">
+            <!-- <div class="section"> 
                 <div class="sec_con" style="width: 100%;">
                     <div class="box_wrap">
                         <ul class="search_box">
@@ -122,9 +122,9 @@
                                             <div class="col-1 col-sm-1">  
                                                 <select class="form-select" id="asflag"  >   
                                                     <option selected="">배송구분</option>
-                                                    <option value="0">전체</option>
-                                                    <option value="1">배송전</option>  
-                                                    <option value="2">배송완료</option>  
+                                                    <option value="%">전체</option>
+                                                    <option value="1">배송완료</option>
+                                                    <option value="0">배송전</option>
                                                 </select>                                      
                                             </div> 
                                             <div class="col-1 col-sm-1">  
@@ -283,7 +283,9 @@
                     { binding: 'as_yumu', header: '유무상', align: "center",   width: 80 }, 
                     { binding: 'as_memo2', header: '메모2', align: "center",   width: 200 },      
                     { binding: 'as_memo3', header: '메모3', align: "center",   width: 200 },     
-                    { binding: 'as_date2', header: '배송일자', align: "center",   width: 120 },      
+                    { binding: 'as_date2', header: '배송일자', align: "center",   width: 120 },        
+                    { binding: 'as_devcode', header: '배송코드', align: "center",   width: 120 },    
+                    { binding: 'as_devdate', header: '배송시간', align: "center",   width: 200 },                        
                     { binding: 'as_aname', header: '구분', align: "center",   width: 80 },           
                     { binding: 'as_damdang', header: '접수자', align: "center",   width: 80 },                    
                 ], 
@@ -351,6 +353,8 @@
                             as_memo:  wtab01Dto[i]["as_memo"], 
                             as_date2:  wtab01Dto[i]["as_date2"],  
                             as_damdang:  wtab01Dto[i]["as_damdang"],  
+                            as_devcode:  wtab01Dto[i]["as_devcode"],  
+                            as_devdate:  wtab01Dto[i]["as_devdate"],   
                             
                         });
                         cnt++;
@@ -371,7 +375,9 @@
                 selectionMode: 'RowRange',
                 alternatingRowStep: 0,
                 columns: [      
-                    { binding: 'as_date2', header: '배송일자', align: "center",   width: 120 },
+                    { binding: 'as_date2', header: '배송일자', align: "center",   width: 120 },     
+                    { binding: 'as_devcode', header: '배송코드', align: "center",   width: 120 },    
+                    { binding: 'as_devdate', header: '배송시간', align: "center",   width: 200 }, 
                     { binding: 'as_key1', header: '접수일자', align: "center",   width: 120 }, 
                     { binding: 'as_key2', header: '순번', align: "center",   width: 80 },
                     { binding: 'as_model', header: '모델', align: "center",   width: 80 },
@@ -675,7 +681,10 @@
                             alert("종료일자를 입력하세요") 
                             document.getElementById("todate").focus(); 
                             return ;               
-                    }        
+                    }    
+                    if(ls_asflag == "배송구분"){ 
+                        ls_asflag = "%";
+                    }       
                     $.ajax({
                         url: '/app02m/index11/list01',  
                         type:"POST",
@@ -718,7 +727,7 @@
                         data: { 
                             "frdate"      : ls_frdate, 
                             "todate"      : ls_todate,  
-                            "asflag"      : "2", 
+                            "asflag"      : "1", 
                             "asacorp"      : ls_bacode 
                         }, 
                         async:false,
@@ -759,6 +768,8 @@
                     as_memo:  wtab01Dto[i]["as_memo"], 
                     as_date2:  wtab01Dto[i]["as_date2"],   
                     as_damdang:  wtab01Dto[i]["as_damdang"],   
+                    as_devcode:  wtab01Dto[i]["as_devcode"],   
+                    as_devdate:  wtab01Dto[i]["as_devdate"],   
                                                    
                 });
                 cnt++;
@@ -879,7 +890,9 @@
                     as_acorp:  wtab01Dto[i]["as_acorp"], 
                     as_aname:  wtab01Dto[i]["as_aname"], 
                     as_memo:  wtab01Dto[i]["as_memo"], 
-                    as_date2:  wtab01Dto[i]["as_date2"],                                  
+                    as_date2:  wtab01Dto[i]["as_date2"],      
+                    as_devcode:  wtab01Dto[i]["as_devcode"],   
+                    as_devdate:  wtab01Dto[i]["as_devdate"],                               
                 });
                 cnt++;
             }   
@@ -893,6 +906,18 @@
             cols.header = '배송일자';
             cols.align = "center";
             cols.width = 120;  
+            wtab02Grid.columns.push(cols);    
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'as_devcode';
+            cols.header = '배송코드';
+            cols.align = "center";
+            cols.width = 120; 
+            wtab02Grid.columns.push(cols);    
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'as_devdate';
+            cols.header = '배송시간';
+            cols.align = "center";
+            cols.width = 200; 
             wtab02Grid.columns.push(cols);   
             cols = new wijmo.grid.Column(); 
             cols.binding = 'as_key1';

@@ -28,4 +28,7 @@ public class Index11Dto {
     private String as_key4;
     private String as_date2;
     private String as_memo3;
+    private String as_devflag;
+    private String as_devdate;
+    private String as_devcode;
 }

@@ -62,9 +62,10 @@ public class App02CrudController {
             index11Dto.setAs_acorp(asacorp);
             index11Dto.setFrdate(frdate);
             index11Dto.setTodate(todate);
-            if(asflag.equals("2")){
+            index11Dto.setAs_devflag(asflag);
+            if(asflag.equals("1")){
                 index11List = service11.GetAsJupsuList03(index11Dto);
-            }else if(asflag.equals("1")){
+            }else if(asflag.equals("0")){
                 index11List = service11.GetAsJupsuList02(index11Dto);
             }else{
                 index11List = service11.GetAsJupsuList01(index11Dto);
@@ -79,6 +80,38 @@ public class App02CrudController {
     }
 
 
+    //AS 접수현황
+    @GetMapping(value="/index11/listdev")
+    public Object App02ListDev_index(@RequestParam("frdate") String frdate,
+                                     @RequestParam("todate") String todate,
+                                     @RequestParam("asacorp") String asacorp,
+                                    Model model, HttpServletRequest request) throws Exception{
+        HttpSession session = request.getSession();
+        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        if(userformDto == null){
+            log.info("App02ListDev_index Exception =====> relogin userformDto null");
+            return "relogin";
+        }
+        model.addAttribute("userformDto",userformDto);
+
+        try {
+
+            if(asacorp == null || asacorp.equals("")){
+                asacorp = "%";
+            }
+            index11Dto.setAs_acorp(asacorp);
+            index11Dto.setFrdate(frdate);
+            index11Dto.setTodate(todate);
+            index11Dto.setAs_devflag("1");
+            index11List = service11.GetAsJupsuList03(index11Dto);
+            model.addAttribute("index11List",index11List);
+
+        } catch (Exception ex) {
+            log.info("App02ListDev_index Exception =====>" + ex.toString());
+        }
+
+        return index11List;
+    }
 
 
 }

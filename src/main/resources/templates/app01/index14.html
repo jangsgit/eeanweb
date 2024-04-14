@@ -273,7 +273,7 @@
                                     </div> 
                                   </div>
                             </div>
-                        <!-- </div>    <div class="table table_style2"  > -->
+                        <!-- </div>    <div class="table table_style2"  > --> 
                     <!-- </div>    <div class="box_wrap">  -->
                 <!-- </div> <div class="sec_con" style="width: 100%;">-->
             <!-- </div> <div class="section status">  -->
@@ -802,16 +802,16 @@
                     { binding: 'misdate', header: '주문일자', align: "center", width: 120 }, 
                     // { binding: 'misnum', header: '주문번호', align: "center", width: 80 },  
                     // { binding: 'seq', header: '순번', align: "center", width: 80 },  
-                    { binding: 'acorp', header: '거래처', align: "center", width: 150  },  
+                    { binding: 'acorp', header: '거래처', align: "center", width: 250  },  
                     { binding: 'pname', header: '품목', align: "center", width: 150  },   
-                    { binding: 'psize', header: '규격', align: "center", width: 120  },  
+                    // { binding: 'psize', header: '규격', align: "center", width: 120  },  
                     // { binding: 'pbonsa', header: '코드', align: "center", width: 100 },  
                     // { binding: 'pmodel', header: '모델', align: "center", width: 100 },  
                     // { binding: 'pcolor', header: '컬러', align: "center", width: 100 },  
                     { binding: 'qty', header: '수량', align: "center", width: 80  },  
                     { binding: 'uamt', header: '단가', align: "center", width: 100  },  
                     { binding: 'samt', header: '금액', align: "center", width: 150  },   
-                    { binding: 'remark', header: '요청등록', align: "center", width: 300  },  
+                    // { binding: 'remark', header: '요청등록', align: "center", width: 300  },  
                     // { binding: 'fixflag', header: '확정', align: "center", width: 150, cssClass: 'switch'   },  
                 ], 
                 cellEditEnding: function (s, e) { 
@@ -2089,7 +2089,7 @@
             cols.binding = 'acorp';
             cols.header = '거래처';
             cols.align = "center";
-            cols.width = 150;              
+            cols.width = 250;              
             cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
                 text: '<b>${item.acorp}</b>',
                 click: (e, ctx) => {
@@ -2104,12 +2104,12 @@
             cols.align = "center";
             cols.width = 150;              
             wtab02Grid.columns.push(cols);   
-            cols = new wijmo.grid.Column(); 
-            cols.binding = 'psize';
-            cols.header = '규격';
-            cols.align = "center";
-            cols.width = 120;              
-            wtab02Grid.columns.push(cols);    
+            // cols = new wijmo.grid.Column(); 
+            // cols.binding = 'psize';
+            // cols.header = '규격';
+            // cols.align = "center";
+            // cols.width = 120;              
+            // wtab02Grid.columns.push(cols);    
             // cols = new wijmo.grid.Column(); 
             // cols.binding = 'pbonsa';
             // cols.header = '코드';
@@ -2158,7 +2158,7 @@
             cols.binding = 'remark'; 
             cols.header = '요청등록';
             cols.align = "left";
-            cols.width = 300;                
+            cols.width = 150;                
             cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
                 text: '<b>${item.remark}</b>',
                 click: (e, ctx) => {
@@ -2249,7 +2249,7 @@
             cols.binding = 'acorp';
             cols.header = '거래처';
             cols.align = "center";
-            cols.width = 150;   
+            cols.width = 250;   
             cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
                 text: '<b>${item.acorp}</b>',
                 click: (e, ctx) => {
@@ -2264,12 +2264,12 @@
             cols.align = "center";
             cols.width = 150;  
             wtab04Grid.columns.push(cols);   
-            cols = new wijmo.grid.Column(); 
-            cols.binding = 'psize';
-            cols.header = '규격';
-            cols.align = "center";
-            cols.width = 120;  
-            wtab04Grid.columns.push(cols);    
+            // cols = new wijmo.grid.Column(); 
+            // cols.binding = 'psize';
+            // cols.header = '규격';
+            // cols.align = "center";
+            // cols.width = 120;  
+            // wtab04Grid.columns.push(cols);    
             // cols = new wijmo.grid.Column(); 
             // cols.binding = 'pbonsa';
             // cols.header = '코드';
@@ -2312,7 +2312,7 @@
             cols.binding = 'remark'; 
             cols.header = '요청등록';
             cols.align = "left";
-            cols.width = 300;    
+            cols.width = 150;    
             cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
                 text: '<b>${item.remark}</b>',
                 click: (e, ctx) => {

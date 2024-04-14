@@ -28,7 +28,8 @@ public class Index01Service {
     public Boolean InsertJupsu(Index20Dto parm){ return  indexMapper.InsertJupsu(parm);}
     public Boolean UpdateJupsu(Index20Dto parm){ return  indexMapper.UpdateJupsu(parm);}
     public Boolean DeleteJupsu(Index20Dto parm){ return  indexMapper.DeleteJupsu(parm);}
-
+    public Boolean UpdateDevJupsu(Index20Dto parm){ return  indexMapper.UpdateDevJupsu(parm);}
+    public Boolean UpdateDevJupsuUnsong(Index20Dto parm){ return  indexMapper.UpdateDevJupsuUnsong(parm);}
     public List<Index01Dto> getComCodeLists(Index01Dto parm){
         return indexMapper.getComCodeLists(parm);
     }
