@@ -449,7 +449,7 @@
             } 
             wtab01Grid.showMarquee = true; 
             wijmo.toggleClass(wtab01Grid.hostElement, 'highlightActive', true);
-            wtab01Grid.focus();
+            //wtab01Grid.focus();
             //================================================================================================
 
 
@@ -623,7 +623,7 @@
 
             winnameGrid.showMarquee = true; 
             wijmo.toggleClass(winnameGrid.hostElement, 'highlightActive', true);
-            winnameGrid.focus();
+            //winnameGrid.focus();
             setHeaderColumn3(false);
             function setHeaderColumn3(headerOn) {
                 winnameGrid.headersVisibility = headerOn
@@ -645,6 +645,8 @@
                 }    
                 return winname_data;                                      
             }  
+
+            document.getElementById("asasgong").focus(); 
 
         } 
 

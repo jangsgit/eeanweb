@@ -3758,7 +3758,8 @@ public class App01CrudController {
                     indexDa023Dto.setCltcd(ls_cltcd);
                     result = service14.UpdateDA023Unsong(indexDa023Dto);
                     if (!result){
-                        return "error";
+                        log.info("배송업로드 없는자료 =====>" +  indexDa023Dto.getMisdate() + '/' + indexDa023Dto.getMisnum() + '/' + indexDa023Dto.getCltcd());
+                        //return "error";
                     }
 
                 }
@@ -3766,6 +3767,7 @@ public class App01CrudController {
             }
 
         }catch (IllegalStateException e){
+            log.info("index16Save errorMessage =====>" +  e.getMessage());
             model.addAttribute("index16Save errorMessage", e.getMessage());
             return "error";
         }
