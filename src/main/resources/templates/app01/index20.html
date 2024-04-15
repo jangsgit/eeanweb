@@ -383,6 +383,8 @@
          var treemap;
          let barchart;
          let ani;
+         var lb_entkey = false;
+         var gs_argflag = "";
          var chkTabA = [];
         var wseries_data = [0];  
         var asKey1Arr = new Array();
@@ -695,6 +697,7 @@
         //거래처검색  
         document.getElementById("bcifname").addEventListener("keyup", (e)=>{ 
             if(e.keyCode === 13){  
+                lb_entkey = true; gs_argflag = "A";
                 document.getElementById("innamebtn").click(); 
                 CifSearchList_rtn("A"); 
             }
@@ -707,6 +710,7 @@
         // });    
         document.getElementById("jcifname").addEventListener("keyup", (e)=>{ 
             if(e.keyCode === 13){  
+                lb_entkey = true; gs_argflag = "C"
                 document.getElementById("innamebtn").click(); 
                 CifSearchList_rtn("C"); 
             }
@@ -758,8 +762,8 @@
                     "jpbgubn" :ls_jpbgubn,  
                 }, 
                 async:false,
-                success:function(data){  
-                    tabPop_grid(data, arg);
+                success:function(data){   
+                    tabPop_grid(data, arg);              
                 },error:function(e){
                     console.log("error");                            
                 }
@@ -774,6 +778,7 @@
             var wtab02Dto  = data;    
             var wtab02_data = [];
             var cnt = 1;
+            var ls_arg  = arg;
             for (var i = 0; i < wtab02Dto.length; i++) {
                 wtab02_data.push({
                     id: i, 
@@ -785,23 +790,23 @@
                     acorp: wtab02Dto[i]["acorp"]      
                 });
                 cnt++;
-            }   
- 
-            winnameGrid.focus();
+            }                
             winnameGrid.columns.clear();  
             winnameGrid.autoGenerateColumns = false; 
             view_innamepage.sourceCollection  = wtab02_data;
-            winnameGrid.hostElement.addEventListener("keyup",function(e){ 
-                    if(e.key === "Enter"){    
-                            var llrow = winnameGrid._activeCell['wj-cell-index'].row ;       //속성경로복사 이용할것. 
+            winnameGrid.hostElement.addEventListener("keyup",function(e){  
+                    if(e.key === "Enter" && lb_entkey){    
+                            var llrow = winnameGrid._activeCell['wj-cell-index'].row -1 ;       //속성경로복사 이용할것. 
                             let ls_cltcd = winnameGrid.getCellData(llrow,0);
                             let ls_cltnm = winnameGrid.getCellData(llrow,1); 
                             let ls_acorp1 = winnameGrid.getCellData(llrow,2); 
                             let ls_acorp2 = winnameGrid.getCellData(llrow,3); 
-                            let ls_acorp3 = winnameGrid.getCellData(llrow,4);  
-                            console.log(arg) 
-                            console.log(llrow)
-                            wcifChk_a(arg, ls_acorp1, ls_acorp2, ls_acorp3, ls_cltcd, ls_cltnm  );     
+                            let ls_acorp3 = winnameGrid.getCellData(llrow,4);
+                            // console.log(gs_argflag)  
+                            // console.log(llrow)   
+                            // console.log(ls_cltnm)   
+                            wcifChk_a(gs_argflag, ls_acorp1, ls_acorp2, ls_acorp3, ls_cltcd, ls_cltnm  );   
+                            lb_entkey = false;  
                     } 
                 
                 }
