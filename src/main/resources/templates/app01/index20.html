@@ -245,9 +245,9 @@
                                 placeholder="업체명 "     />                                      
                             </div>
 
-                            <button id="winnameBtn">
+                            <!-- <button id="winnameBtn">
                                 <img th:src="@{/assets/images/i_search.png}" alt=""> 
-                            </button>
+                            </button> -->
                         </div>                             
                     </div>   
                     <div class="container-fluid"> 
@@ -609,6 +609,7 @@
             // });     
             winnameGrid = new wijmo.grid.FlexGrid('#winnameGrid_div', {  
                 autoGenerateColumns: false,
+                alternatingRowStep: 0,
                 isReadOnly: false, 
                 allowSorting: 'MultiColumn',
                 selectionMode: 'RowRange',
@@ -623,7 +624,7 @@
 
             winnameGrid.showMarquee = true; 
             wijmo.toggleClass(winnameGrid.hostElement, 'highlightActive', true);
-            //winnameGrid.focus();
+            winnameGrid.focus();
             setHeaderColumn3(false);
             function setHeaderColumn3(headerOn) {
                 winnameGrid.headersVisibility = headerOn
@@ -711,9 +712,10 @@
             }
         });    
   
-        document.getElementById("asasmemo3").addEventListener("keyup", (e)=>{ 
-            if(e.keyCode === 13){   
-                save_btn()
+        document.getElementById("asasmemo3").addEventListener("keyup", (e)=>{  
+            let key = event.key || event.keyCode; 
+            if(e.key === "Enter"){   
+                save_btn("A")
             }
         }); 
   
@@ -785,9 +787,25 @@
                 cnt++;
             }   
  
+            winnameGrid.focus();
             winnameGrid.columns.clear();  
             winnameGrid.autoGenerateColumns = false; 
             view_innamepage.sourceCollection  = wtab02_data;
+            winnameGrid.hostElement.addEventListener("keyup",function(e){ 
+                    if(e.key === "Enter"){    
+                            var llrow = winnameGrid._activeCell['wj-cell-index'].row ;       //속성경로복사 이용할것. 
+                            let ls_cltcd = winnameGrid.getCellData(llrow,0);
+                            let ls_cltnm = winnameGrid.getCellData(llrow,1); 
+                            let ls_acorp1 = winnameGrid.getCellData(llrow,2); 
+                            let ls_acorp2 = winnameGrid.getCellData(llrow,3); 
+                            let ls_acorp3 = winnameGrid.getCellData(llrow,4);  
+                            console.log(arg) 
+                            console.log(llrow)
+                            wcifChk_a(arg, ls_acorp1, ls_acorp2, ls_acorp3, ls_cltcd, ls_cltnm  );     
+                    } 
+                
+                }
+            )
 
             var cols = new wijmo.grid.Column(); 
             cols.binding = 'acode';
@@ -809,6 +827,27 @@
             cols.align = "left"; 
             cols.width = 250;
             winnameGrid.columns.push(cols); 
+
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'acorp1';
+            cols.header = '코드1'; 
+            cols.align = "center"; 
+            cols.width = 80;
+            winnameGrid.columns.push(cols); 
+
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'acorp2';
+            cols.header = '코드2'; 
+            cols.align = "center"; 
+            cols.width = 80;
+            winnameGrid.columns.push(cols); 
+
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'acorp3';
+            cols.header = '코드3'; 
+            cols.align = "center"; 
+            cols.width = 80;
+            winnameGrid.columns.push(cols); 
         }
             
         function wcifChk_a(arg0, arg1, arg2, arg3, arg4, arg5){  
@@ -820,7 +859,8 @@
                 document.getElementById('bacorp3').value = arg3;  
                 document.getElementById('bacode').value = arg4;   
                 document.getElementById('bcifname').value = arg5;  
-                $("#winnamemodal_btn").trigger("click");  
+                $("#winnamemodal_btn").trigger("click");                  
+                searchList_rtn(ls_tab) 
             }else if(ls_tab == "B"){
                 document.getElementById('dacorp1').value = arg1;  
                 document.getElementById('dacorp2').value = arg2;  
@@ -828,6 +868,7 @@
                 document.getElementById('dacode').value = arg4;   
                 document.getElementById('dcifname').value = arg5;  
                 $("#winnamemodal_btn").trigger("click"); 
+                searchList_rtn(ls_tab) 
             }else if(ls_tab == "C"){
                 document.getElementById('jacorp1').value = arg1;  
                 document.getElementById('jacorp2').value = arg2;  
@@ -835,8 +876,8 @@
                 document.getElementById('jacode').value = arg4;   
                 document.getElementById('jcifname').value = arg5;  
                 $("#winnamemodal_btn").trigger("click"); 
+                document.getElementById("asassuri").focus(); 
             } 
-            searchList_rtn(ls_tab) 
 
         }  
  
@@ -1529,7 +1570,7 @@
                 // ctx.item.as_yumu, ctx.item.as_gongjang,ctx.item.as_acorp,  ctx.item.as_acorp1,ctx.item.as_acorp2,
                 // ctx.item.as_acorp3,ctx.item.as_memo,ctx.item.as_memo2,ctx.item.as_memo3, as_aname  , 
                 // ctx.item.as_damdang 
-                console.log(arg15)
+                // console.log(arg15)
                 document.getElementById('asaskey1').value = arg1;  
                 document.getElementById('asaskey2').value = arg2;   
                 document.getElementById('asasmodel').value = arg3;   
@@ -1566,7 +1607,9 @@
                 document.getElementById('asasmemo2').value = "";   
                 document.getElementById('asasmemo3').value = "";   
                 document.getElementById('asaname').value = ""; 
-                document.getElementById('condamdang').value = ls_condamdang; 
+                document.getElementById('condamdang').value = ls_condamdang;                 
+
+                document.getElementById("asasgong").focus(); 
         }
    
         //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 엑셀변환 @@@@@@@@@@@@@@@@@@@@@@@@@@@
