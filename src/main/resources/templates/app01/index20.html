@@ -427,6 +427,9 @@
                 itemsSource: view_p01tab01page
             });  
 
+            function updateCurrentInfo() {
+                selItemElement.innerHTML = wijmo.format(theGrid.collectionView.currentItem);
+            }
             new FlexGridContextMenu(wtab01Grid); 
             // 선택기 생성
             let selector = new wijmo.grid.selector.Selector(wtab01Grid, {
