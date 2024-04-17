@@ -491,8 +491,28 @@
                 
             ], 
             itemsSource: view_p01tab01page,  
-        });        
-   
+        });    
+        wtab01Grid.formatItem.addHandler((s, e) => {
+                if (e.panel == s.cells) {
+                    var val = s.getCellData(e.row,0); 
+                    if(val == null || val.length == 0 || val == ""){  
+                        return 
+                    } else {
+                        var pos1 = val.indexOf('<');
+                        if (pos1 > 0 ){
+                            return 
+                        } 
+                    }  
+                    // 짝수 행 일 때
+                    if (e.row % 2 == 0) {
+                        e.cell.style.backgroundColor = "rgb(232, 241, 255)";
+                    }
+                    // 홀수 행 일 때
+                    else if (e.row % 2 == 1) {
+                        e.cell.style.backgroundColor = "rgb(255,255,255)";
+                    }
+                }
+            }); 
         // 헤더 열 전환
         setHeaderColumn(false);
         function setHeaderColumn(headerOn) {
@@ -620,8 +640,28 @@
                 
             ], 
             itemsSource: view_p01tab02page
-        });       
-
+        });    
+        wtab02Grid.formatItem.addHandler((s, e) => {
+                if (e.panel == s.cells) {
+                    var val = s.getCellData(e.row,0); 
+                    if(val == null || val.length == 0 || val == ""){  
+                        return 
+                    } else {
+                        var pos1 = val.indexOf('<');
+                        if (pos1 > 0 ){
+                            return 
+                        } 
+                    }  
+                    // 짝수 행 일 때
+                    if (e.row % 2 == 0) {
+                        e.cell.style.backgroundColor = "rgb(232, 241, 255)";
+                    }
+                    // 홀수 행 일 때
+                    else if (e.row % 2 == 1) {
+                        e.cell.style.backgroundColor = "rgb(255,255,255)";
+                    }
+                }
+            }); 
         // 헤더 열 전환
         setHeaderColumn02(true);
         function setHeaderColumn02(headerOn) {
@@ -707,7 +747,7 @@
         });     
         winnameGrid = new wijmo.grid.FlexGrid('#winnameGrid_div', {  
             autoGenerateColumns: false,
-            isReadOnly: false, 
+            isReadOnly: true, 
             allowSorting: 'MultiColumn',
             selectionMode: 'RowRange',
             alternatingRowStep: 0,
@@ -718,8 +758,7 @@
             itemsSource: view_innamepage
         });  
         
-        winnameGrid.showMarquee = true;
-        winnameGrid.focus();
+        // winnameGrid.showMarquee = true; 
         wijmo.toggleClass(winnameGrid.hostElement, 'highlightActive', true);
         winnameGrid.focus();
         // 고장부위 데이터 수집

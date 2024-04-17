@@ -216,6 +216,19 @@
             ], 
             itemsSource: view_Mmanualpage
         });  
+
+        wapp04Grid.formatItem.addHandler((s, e) => {
+                if (e.panel == s.cells) {
+                    // 짝수 행 일 때
+                    if (e.row % 2 == 0) {
+                        e.cell.style.backgroundColor = "rgb(232, 241, 255)";
+                    }
+                    // 홀수 행 일 때
+                    else if (e.row % 2 == 1) {
+                        e.cell.style.backgroundColor = "rgb(255,255,255)";
+                    }
+                }
+            });          
         wapp04Grid.hostElement.addEventListener("click",function(e){
             var ht = wapp04Grid.hitTest(e);
             if(ht.cellType === wijmo.grid.CellType.Cell){

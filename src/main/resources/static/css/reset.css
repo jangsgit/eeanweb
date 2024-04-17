@@ -150,3 +150,9 @@ select {
     display:none;/*for IE10,11*/
  
  }
+
+ 
+.wj-cells .wj-cell.wj-state-selected{
+    background: #E6BAAC;
+  }
+.wj-cell.wj-state-multi-selected{background:#80adbf;color:#E6BAAC}

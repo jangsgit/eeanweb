@@ -363,7 +363,27 @@
                 }) 
                 //itemsSource: view_p01tab02page 
             }); 
-                
+            wtab02Grid.formatItem.addHandler((s, e) => {
+                if (e.panel == s.cells) {
+                    // 짝수 행 일 때
+                    var val = s.getCellData(e.row,0); 
+                    if(val == null || val.length == 0 || val == ""){  
+                        return 
+                    } else {
+                        var pos1 = val.indexOf('<');
+                        if (pos1 > 0 ){
+                            return 
+                        } 
+                    }  
+                    if (e.row % 2 == 0) {
+                        e.cell.style.backgroundColor = "rgb(232, 241, 255)";
+                    }
+                    // 홀수 행 일 때
+                    else if (e.row % 2 == 1) {
+                        e.cell.style.backgroundColor = "rgb(255,255,255)";
+                    }
+                }
+            });                 
             // start collapsed
             // wtab02Grid.collapseGroupsToLevel(1);
             // create a group to show the grand totals
@@ -455,7 +475,27 @@
                 //itemsSource: view_p01tab04page
             });  
 
-
+            wtab04Grid.formatItem.addHandler((s, e) => {
+                if (e.panel == s.cells) {
+                    var val = s.getCellData(e.row,0); 
+                    if(val == null || val.length == 0 || val == ""){  
+                        return 
+                    } else {
+                        var pos1 = val.indexOf('<');
+                        if (pos1 > 0 ){
+                            return 
+                        } 
+                    }  
+                    // 짝수 행 일 때
+                    if (e.row % 2 == 0) {
+                        e.cell.style.backgroundColor = "rgb(232, 241, 255)";
+                    }
+                    // 홀수 행 일 때
+                    else if (e.row % 2 == 1) {
+                        e.cell.style.backgroundColor = "rgb(255,255,255)";
+                    }
+                }
+            }); 
             new FlexGridContextMenu(wtab04Grid);  
             // setGroups02(true); 
             // function setGroups02(groupsOn) {
@@ -510,7 +550,27 @@
                 ], 
                 itemsSource: view_p01tab03page, 
             }); 
-                    
+            wtab03Grid.formatItem.addHandler((s, e) => {
+                if (e.panel == s.cells) {
+                    var val = s.getCellData(e.row,0); 
+                    if(val == null || val.length == 0 || val == ""){  
+                        return 
+                    } else {
+                        var pos1 = val.indexOf('<');
+                        if (pos1 > 0 ){
+                            return 
+                        } 
+                    }  
+                    // 짝수 행 일 때
+                    if (e.row % 2 == 0) {
+                        e.cell.style.backgroundColor = "rgb(232, 241, 255)";
+                    }
+                    // 홀수 행 일 때
+                    else if (e.row % 2 == 1) {
+                        e.cell.style.backgroundColor = "rgb(255,255,255)";
+                    }
+                }
+            });                     
             // 그룹 전환 
             setGroups03(true); 
             function setGroups03(groupsOn) {
@@ -564,7 +624,27 @@
                 ], 
                 itemsSource: view_p01tab05page, 
             }); 
-                    
+            wtab05Grid.formatItem.addHandler((s, e) => {
+                if (e.panel == s.cells) {
+                    var val = s.getCellData(e.row,0); 
+                    if(val == null || val.length == 0 || val == ""){  
+                        return 
+                    } else {
+                        var pos1 = val.indexOf('<');
+                        if (pos1 > 0 ){
+                            return 
+                        } 
+                    }  
+                    // 짝수 행 일 때
+                    if (e.row % 2 == 0) {
+                        e.cell.style.backgroundColor = "rgb(232, 241, 255)";
+                    }
+                    // 홀수 행 일 때
+                    else if (e.row % 2 == 1) {
+                        e.cell.style.backgroundColor = "rgb(255,255,255)";
+                    }
+                }
+            });                     
             // 그룹 전환 
             setGroups05(true); 
             function setGroups05(groupsOn) {
