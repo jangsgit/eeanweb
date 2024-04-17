@@ -2256,12 +2256,13 @@ public class App01CrudController {
             indexDa024Dto.setJfrdate("20000101");
             indexDa024Dto.setJtodate(todate);
             //indexDa024Dto.setMisgubun(mflag);
-            //log.info("misgubun =====>" + misgubun);
+//            log.info("misgubun1 =====>" + misgubun);
             if(acode.equals("%")){
                 indexDa024ListDto = service14.SelectDa024ListLike(indexDa024Dto);
             }else{
                 indexDa024ListDto = service14.SelectDa024List(indexDa024Dto);
             }
+//            log.info("misgubun2 =====>" + misgubun);
             model.addAttribute("indexDa024ListDto",indexDa024ListDto);
 
         } catch (Exception ex) {
