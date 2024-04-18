@@ -868,13 +868,13 @@
 
 
     <update id="UpdateDA026rkaa" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
-        UPDATE tb_da026 SET
+        UPDATE tb_da025 SET
         remarkaa=#{remarkaa} , makflag = '1'
         where misdate=#{misdate} and misnum=#{misnum}  and cltcd = #{cltcd}
     </update>
 
     <update id="UpdateDA026rkbb" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
-        UPDATE tb_da026 SET
+        UPDATE tb_da025 SET
         remarkbb=#{remarkbb}, makflag = '1'
         where misdate=#{misdate} and misnum=#{misnum}  and cltcd = #{cltcd}
     </update>
