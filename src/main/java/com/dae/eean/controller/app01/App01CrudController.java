@@ -1347,6 +1347,7 @@ public class App01CrudController {
 //            _indexDa023Dto.setVatpernm(_index02Dto.getInname01());  //계산서 담당자
             _indexDa023Dto.setSpjangnum(index02BonsaDto.getAcorp());
             _indexDa023Dto.setGubun("");
+            _indexDa024Dto.setCltcd(acode);
             _indexDa024Dto.setMisgubun(mflag);
             _indexDa024Dto.setMisdate(frdate);
             _indexDa024Dto.setMisnum(ls_misnum);
@@ -1386,7 +1387,7 @@ public class App01CrudController {
                             _indexDa024Dto.setAddamt(0);
                             _indexDa024Dto.setAmt(0);
                         }
-                        result = service14.UpdateDA026Qty(_indexDa024Dto);
+                        result = service14.UpdateDA026QtySame(_indexDa024Dto);
                         if (!result){
                             return "error";
                         }
@@ -3535,6 +3536,10 @@ public class App01CrudController {
 
         try {
             boolean result = false;
+            HashMap hm = new HashMap();
+            String[] itemString =new String[misdatearr.size()];
+            String ls_tempItem = "";
+            Integer ll_count = 0;
             if( misdatearr.size() > 0){
                 for(int i = 0; i < misdatearr.size(); i++){
                     String year = misdatearr.get(i).substring(0,4);
@@ -3547,34 +3552,41 @@ public class App01CrudController {
                     indexDa024Dto.setCltcd(cltcdarr.get(i));
                     indexDa024Dto.setMisgubun(gubunarr.get(i));
                     indexDa024Dto.setFixdate(getToDate());
-//                    log.info("mflag  =====>" + mflag);
-//                    log.info("getMisdate  =====>" + indexDa024Dto.getMisdate());
-//                    log.info("getMisnum  =====>" + indexDa024Dto.getMisnum());
-//                    log.info("getSeq  =====>" + indexDa024Dto.getSeq());
-//                    log.info("getCltcd  =====>" + indexDa024Dto.getCltcd());
-//                    log.info("getMisgubun  =====>" + indexDa024Dto.getMisgubun());
-//                    log.info("setFixdate  =====>" + indexDa024Dto.getFixdate());
-                    if (mflag.equals("AA")){
-                        indexDa024Dto.setFixflag("1");
-                        String ls_seq = service14.SelectedFixDA024(indexDa024Dto);
-                        if( ls_seq == null){
-                            return "success";
-                        }else{
-                            result = service14.UpdateDA024(indexDa024Dto);
-                        }
-                    }else{
+
+                    if(ls_tempItem.equals( ls_misdate + misnumarr.get(i) + seqarr.get(i)  + cltcdarr.get(i))){
+                        continue;
+                    }
+                    itemString[ll_count] = ls_misdate + misnumarr.get(i) + seqarr.get(i)  + cltcdarr.get(i);  //
+                    ll_count++;
+                    ls_tempItem = ls_misdate  + misnumarr.get(i) + seqarr.get(i) + cltcdarr.get(i);  //
+                    if (!mflag.equals("AA")){
                         indexDa024Dto.setDevflag("1");
                         result = service14.UpdateDA024Dev(indexDa024Dto);
+                        if (!result){
+                            return "error";
+                        }
+//                        indexDa024Dto.setFixflag("1");
+//                        String ls_seq = service14.SelectedFixDA024(indexDa024Dto);
+//                        if( ls_seq == null){
+//                            return "success";
+//                        }else{
+//                            result = service14.UpdateDA024(indexDa024Dto);
+//                        }
                     }
-
                     //출력(확정)취소는 없앰. 7.23
 //                    if(fixflagarr.get(i).equals("0")){
 //                        indexDa024Dto.setFixflag("1");
 //                    }else{
 //                        indexDa024Dto.setFixflag("0");
 //                    }
-                    if (!result){
-                        return "error";
+                }
+                if (mflag.equals("AA")){
+                    hm.put("itemcdArr", itemString);
+                    if (mflag.equals("AA")){
+                        result = service14.UpdateDA024Fix(hm);
+                        if (!result){
+                            //return "error";
+                        }
                     }
                 }
 
@@ -4356,7 +4368,7 @@ public class App01CrudController {
 //                    }
                     index20Dto.setAs_devcode(ls_misdate + asKey2Arr.get(i) );
                     result = service01.UpdateDevJupsu(index20Dto);
-                    log.info("setAs_date2  =====>" + ls_date2);
+//                    log.info("setAs_date2  =====>" + ls_date2);
 //                    log.info("getMisdate  =====>" + indexDa024Dto.getMisdate());
                     if (!result){
                         return "error";

@@ -817,6 +817,17 @@
         where misdate=#{misdate} and misnum=#{misnum} and  seq=#{seq} and cltcd = #{cltcd} and misgubun = #{misgubun} and len( isnull(CONVERT(CHAR(19),fixdatetime,20),'') ) = 0
     </update>
 
+
+    <update id="UpdateDA024Fix" parameterType="hashmap"   >
+        UPDATE tb_da024 SET
+               fixflag='1', fixdate=CONVERT(CHAR(8),getdate(),112), fixdatetime = getdate()
+        where   misdate + misnum + seq + cltcd in
+            <foreach collection="itemcdArr" item="itemcd"  open="(" close=")" separator=",">
+                #{itemcd}
+            </foreach>
+        and len( isnull(CONVERT(CHAR(19),fixdatetime,20),'') ) = 0
+    </update>
+
     <update id="UpdateDA024Dev" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
         UPDATE tb_da024 SET
         devflag=#{devflag}
@@ -867,6 +878,12 @@
     </update>
 
 
+    <update id="UpdateDA026QtySame" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
+        UPDATE tb_da026 SET
+                            qty=#{qty}, samt=#{samt}, addamt=#{addamt}, amt=#{amt}
+        where misdate=#{misdate} and misnum=#{misnum} and seq=#{seq} and cltcd = #{cltcd}
+    </update>
+
     <update id="UpdateDA026rkaa" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
         UPDATE tb_da025 SET
         remarkaa=#{remarkaa} , makflag = '1'
@@ -881,7 +898,7 @@
 
     <update id="UpdateDA026Qty" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
         UPDATE tb_da026 SET
-            qty=#{qty}, samt=#{samt}, addamt=#{addamt}, amt=#{amt}
+            qty=#{qty}, samt=#{samt}, addamt=#{addamt}, amt=#{amt},   makflag = '1', misdatetime = getdate(),  remarkaa=#{remarkaa}, remarkbb=#{remarkbb}
         where misdate=#{misdate} and misnum=#{misnum} and seq=#{seq} and cltcd = #{cltcd}
     </update>
 

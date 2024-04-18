@@ -218,6 +218,9 @@ public class Index14Service {
     public Boolean UpdateDA023Unsong(IndexDa023Dto parm){ return  appMapper.UpdateDA023Unsong(parm);}
     public Boolean UpdateDA024(IndexDa024Dto parm){ return  appMapper.UpdateDA024(parm);}
     public Boolean UpdateDA024Dev(IndexDa024Dto parm){ return  appMapper.UpdateDA024Dev(parm);}
+
+    public Boolean UpdateDA024Fix(HashMap<String,String> parm){ return  appMapper.UpdateDA024Fix(parm);}
+
     public Boolean UpdateDA026(IndexDa024Dto parm){ return  appMapper.UpdateDA026(parm);}
     public Boolean UpdateDA024rkaa(IndexDa024Dto parm){ return  appMapper.UpdateDA024rkaa(parm);}
     public Boolean UpdateDA024rkbb(IndexDa024Dto parm){ return  appMapper.UpdateDA024rkbb(parm);}
@@ -225,6 +228,7 @@ public class Index14Service {
     public Boolean UpdateDA026rkbb(IndexDa024Dto parm){ return  appMapper.UpdateDA026rkbb(parm);}
     public Boolean UpdateDA024Qty(IndexDa024Dto parm){ return  appMapper.UpdateDA024Qty(parm);}
     public Boolean UpdateDA024QtySame(IndexDa024Dto parm){ return  appMapper.UpdateDA024QtySame(parm);}
+    public Boolean UpdateDA026QtySame(IndexDa024Dto parm){ return  appMapper.UpdateDA026QtySame(parm);}
     public Boolean UpdateDA026Qty(IndexDa024Dto parm){ return  appMapper.UpdateDA026Qty(parm);}
     public Boolean UpdateDA024Amt(IndexDa024Dto parm){ return  appMapper.UpdateDA024Amt(parm);}
     public Boolean UpdateDA024Remk(IndexDa024Dto parm){ return  appMapper.UpdateDA024Remk(parm);}
