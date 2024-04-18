@@ -82,7 +82,7 @@
                       B.unsongnum as unsongnum,
                       isnull(B.makflag, '0') as makflag,
                       B.amt, A.acorp, pbonsa, pmodel, pcolor , D.inname, B.misgubun, isnull(B.fixflag,'0') as fixflag,isnull(B.devflag,'0') as devflag,   D.inname as pernm,
-                      B.fixdate,  CONVERT(CHAR(19),B.fixdatetime,20) as fixdatetime ,  0 as jqty
+                      B.fixdate,  CONVERT(CHAR(19),B.fixdatetime,20) as fixdatetime , CONVERT(CHAR(19),B.misdatetime,20) as misdatetime, 0 as jqty
                   from  TB_DA024 B WITH (NOLOCK) ,
                       cif A WITH (NOLOCK) Left outer JOIN INSA D ON A.abonsadam1 = D.insano,
                       jcode3 E WITH (NOLOCK)
