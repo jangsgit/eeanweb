@@ -382,7 +382,7 @@
             // });     
             wtab02Grid = new wijmo.grid.FlexGrid('#wtab02Grid_div', {  
                 autoGenerateColumns: false,
-                isReadOnly: false, 
+                isReadOnly: true, 
                 allowSorting: 'MultiColumn',
                 selectionMode: 'RowRange',
                 alternatingRowStep: 0,
@@ -398,29 +398,23 @@
                     // { binding: 'jcustomer_code', header: '고객코드', align: "center", width: '1*' }, 
                     { binding: 'ijaego_su1', header: '입고수량', align: "center", width: '1*' },  
                 ], 
-                itemsSource: view_p01tab02page,
-                // scrollPositionChanged: function (s, e) {
-                // // 만약 바닥에 가까우면, 20개의 아이템을 추가
-                //     if (s.viewRange.bottomRow >= s.rows.length - 1) {
-                //         let view = s.collectionView;
-                //         let index = view.currentPosition; // 뷰가 정렬될 경우를 대비해서 위치를 유지
-                //         addData(data, 20);
-                //         view.refresh();
-                //         view.currentPosition = index;
-                //     }
-                // }
-            }); 
+                itemsSource: view_p01tab02page, 
+            });  
             wtab02Grid.formatItem.addHandler((s, e) => {
                 if (e.panel == s.cells) {
                     var val = s.getCellData(e.row,0); 
                     if(val == null || val.length == 0 || val == ""){  
                         return 
                     } else {
-                        var pos1 = val.indexOf('<');
+                        var pos1 = val.indexOf('<'); 
                         if (pos1 > 0 ){
                             return 
                         } 
-                    }  
+                    }   
+                    var llrow = e._p._activeCell['wj-cell-index'].row;
+                    if(e.row == llrow){
+                        return 
+                    }
                     // 짝수 행 일 때
                     if (e.row % 2 == 0) {
                         e.cell.style.backgroundColor = "rgb(232, 241, 255)";
