@@ -3556,12 +3556,12 @@ public class App01CrudController {
 //                    log.info("setFixdate  =====>" + indexDa024Dto.getFixdate());
                     if (mflag.equals("AA")){
                         indexDa024Dto.setFixflag("1");
-                        //String ls_seq = service14.SelectedFixDA024(indexDa024Dto);
-                        //if( ls_seq == null){
-                        //    return "success";
-                        //}else{
+                        String ls_seq = service14.SelectedFixDA024(indexDa024Dto);
+                        if( ls_seq == null){
+                            return "success";
+                        }else{
                             result = service14.UpdateDA024(indexDa024Dto);
-                       // }
+                        }
                     }else{
                         indexDa024Dto.setDevflag("1");
                         result = service14.UpdateDA024Dev(indexDa024Dto);
