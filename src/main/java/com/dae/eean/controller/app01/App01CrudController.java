@@ -2452,12 +2452,12 @@ public class App01CrudController {
                     String month = misdatearr.get(i).substring(5,7);
                     String day = misdatearr.get(i).substring(8,10);
                     String ls_misdate = year + month + day ;
-                    if(ls_tempItem.equals( ls_misdate + misnumarr.get(i)  + cltcdarr.get(i))){
+                    if(ls_tempItem.equals( ls_misdate + misnumarr.get(i) + seqarr.get(i)  + cltcdarr.get(i))){
                         continue;
                     }
-                    itemString[ll_count] = ls_misdate + misnumarr.get(i)  + cltcdarr.get(i);  //
+                    itemString[ll_count] = ls_misdate + misnumarr.get(i) + seqarr.get(i)  + cltcdarr.get(i);  //
                     ll_count++;
-                    ls_tempItem = ls_misdate  + misnumarr.get(i) + cltcdarr.get(i);  //
+                    ls_tempItem = ls_misdate  + misnumarr.get(i) + seqarr.get(i) + cltcdarr.get(i);  //
 //                    log.info("itemString =====>" + ls_misdate + misnumarr.get(i) + seqarr.get(i) + cltcdarr.get(i));
                 }
                 hm.put("itemcdArr", itemString);
@@ -3556,12 +3556,12 @@ public class App01CrudController {
 //                    log.info("setFixdate  =====>" + indexDa024Dto.getFixdate());
                     if (mflag.equals("AA")){
                         indexDa024Dto.setFixflag("1");
-                        String ls_seq = service14.SelectedFixDA024(indexDa024Dto);
-                        if( ls_seq == null){
-                            return "success";
-                        }else{
+                        //String ls_seq = service14.SelectedFixDA024(indexDa024Dto);
+                        //if( ls_seq == null){
+                        //    return "success";
+                        //}else{
                             result = service14.UpdateDA024(indexDa024Dto);
-                        }
+                       // }
                     }else{
                         indexDa024Dto.setDevflag("1");
                         result = service14.UpdateDA024Dev(indexDa024Dto);

@@ -299,11 +299,11 @@
             ( select acorp, atelno, asano1 + '-' + asano2 + '-' + asano3 as asano, aname, aupte, ajong, ajuso1 + ' ' + ajuso2 as ajuso
             from cif where acorp1 + acorp2 + acorp3 = '0000' ) F
         where B.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
-            AND B.misdate + B.misnum + B.cltcd in
+            AND B.misdate + B.misnum + B.seq + B.cltcd in
         <foreach collection="itemcdArr" item="itemcd"  open="(" close=")" separator=",">
             #{itemcd}
         </foreach>
-            AND B.fixflag = '1'
+
         Group BY B.cltcd,  B.misdate, B.misnum, A.acorp, B.remarkaa, B.remarkbb
         ORDER BY B.misdate desc, B.misnum
     </select>
