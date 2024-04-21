@@ -473,11 +473,11 @@
                     var ls_todate = document.getElementById('todate').value;          
                     var ls_bacode   = document.getElementById('bacode').value;    
                     var ls_bcifname   = document.getElementById('bcifname').value;     
-                    var ls_jkey   = document.getElementById('jkey').value;    
-                    var ls_jpumnm   = document.getElementById('jpumnm').value; 
+                    var ls_jkey   = "%"; //document.getElementById('jkey').value;    
+                    var ls_jpumnm   = "%"; // document.getElementById('jpumnm').value; 
                     var ls_abonsadam1   = document.getElementById('abonsadam1').value; 
                     var ls_bjpbgubn = document.getElementById('bjpbgubn').value;  
-                    
+                    console.log(ls_frdate)
                     if(ls_frdate == null || ls_frdate.length == 0 || ls_frdate == ""){ 
                         alert("조회일자를 등록하세요") 
                         document.getElementById("frdate").focus(); 
