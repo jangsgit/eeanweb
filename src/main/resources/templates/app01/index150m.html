@@ -47,8 +47,9 @@
                                             </div>
                                         </div> 
                                         <div class="col-auto">
-                                            <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">거래처</span> 
-                                                <input class="form-control form-control-sm" id="cifname" type="text"    autocomplete="off"  placeholder=""   >
+                                            <div class="input-group input-group-sm mb-3">
+                                                <button class="btn btn-falcon-primary me-1 mb-1 btn-sm" id="cifBtn" type="button"  >거래처검색  </button>
+                                                <input class="form-control form-control-sm" id="cifname" type="text"    autocomplete="off"  placeholder=""  disabled >
                                                 <input class="form-control form-control-sm" id="acorp1" type="hidden"  />
                                                 <input class="form-control form-control-sm" id="acorp2" type="hidden"  />
                                                 <input class="form-control form-control-sm" id="acorp3" type="hidden"  />
@@ -1073,18 +1074,24 @@
                 CifSearchList_rtn("A"); 
             }
         });   
-        document.getElementById("bcifname").addEventListener("keyup", (e)=>{ 
-            if(e.keyCode === 13){  
-                document.getElementById("innamebtn").click(); 
-                CifSearchList_rtn("A"); 
-            }
-        });    
-        document.getElementById("dcifname").addEventListener("keyup", (e)=>{ 
-            if(e.keyCode === 13){  
-                document.getElementById("innamebtn").click(); 
-                CifSearchList_rtn("A"); 
-            }
-        });  
+  
+        // 거래처 검색   
+        document.getElementById("cifBtn").addEventListener("click",function(){  
+            document.getElementById("innamebtn").click();  
+            CifSearchList_rtn("A"); 
+        })          
+        // document.getElementById("bcifname").addEventListener("keyup", (e)=>{ 
+        //     if(e.keyCode === 13){  
+        //         document.getElementById("innamebtn").click(); 
+        //         CifSearchList_rtn("A"); 
+        //     }
+        // });    
+        // document.getElementById("dcifname").addEventListener("keyup", (e)=>{ 
+        //     if(e.keyCode === 13){  
+        //         document.getElementById("innamebtn").click(); 
+        //         CifSearchList_rtn("A"); 
+        //     }
+        // });  
         function retrieveClick01(){
             document.getElementById("innamebtn").click(); 
             CifSearchList_rtn("A");             
