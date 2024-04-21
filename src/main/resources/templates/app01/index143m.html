@@ -45,35 +45,41 @@
                             <div class="tab-content">
                                 <div class="tab-pane fade show active" id="step01"> 
                                     <div class="row gx-3" style="  margin: 10px 10px 10px;">   
-                                        <div class="col-2 col-sm-2">
-                                            <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">출력일자</span>
-                                                <input type="text"  class="form-control datetimepicker" id="frdate" autocomplete="off"  placeholder="Y-m-d"     >
-                                            </div> 
+                                        <div class="col-auto">  
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">출력일자</span>
+                                                            <input type="text"  class="form-control datetimepicker" id="frdate" autocomplete="off"  placeholder="Y-m-d"     >
+                                                        </div>            
+                                                    </td>
+                                                    <td> 
+                                                        <div class="input-group input-group-sm mb-3"> 
+                                                            <input type="text"  class="form-control datetimepicker" id="todate" autocomplete="off"  placeholder="Y-m-d"     >
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">사원명</span> 
+                                                            <input type="text" name="inname01" id="inname01" placeholder=""  disabled > 
+                                                            <input type="hidden" name="abonsadam1" id="abonsadam1" placeholder=""  >   
+                                                            
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <select class="form-select form-select-sm" id="misfixflag" aria-label=".form-select-sm example">
+                                                            <option selected="">출력구분</option>
+                                                            <option value="%">전체</option>
+                                                            <option value="1">출력</option>
+                                                            <option value="0">미출력</option>
+                                                            </select> 
+                                                    </td>
+                                                    <td>
+                                                        <button class="btn btn-falcon-primary me-1 mb-1 btn-sm" id="listBtn" type="button"  >조회
+                                                        </button>
+                                                    </td>  
+                                                </tr>
+                                            </table> 
                                         </div>   
-                                        <div class="col-2 col-sm-2"> 
-                                            <div class="input-group input-group-sm mb-3"> 
-                                                <input type="text"  class="form-control datetimepicker" id="todate" autocomplete="off"  placeholder="Y-m-d"     >
-                                            </div>
-                                        </div> 
-                                        <div class="col-2 col-sm-2">
-                                            <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">사원명</span> 
-                                                <input type="text" name="inname01" id="inname01" placeholder=""  disabled > 
-                                                <input type="hidden" name="abonsadam1" id="abonsadam1" placeholder=""  >   
-                                                
-                                            </div>
-                                        </div>
-                                        <div class="col-2 col-sm-2">
-                                            <select class="form-select form-select-sm" id="misfixflag" aria-label=".form-select-sm example">
-                                                <option selected="">출력구분</option>
-                                                <option value="%">전체</option>
-                                                <option value="1">출력</option>
-                                                <option value="0">미출력</option>
-                                                </select> 
-                                        </div>  
-                                        <div class="col-1 col-sm-1">  
-                                            <button class="btn btn-falcon-primary me-1 mb-1 btn-sm" id="listBtn" type="button"  >조회
-                                            </button>
-                                        </div> 
                                     </div> 
                                     <div class="container-fluid"> 
                                         <div id="wtab02Grid_div"  style="overflow:scroll;   height:400px;   width: 900px;  margin:0 auto; "></div>   
