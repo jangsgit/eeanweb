@@ -35,13 +35,7 @@
                             <ul class="nav nav-tabs">
                                 <li class="nav-item">
                                   <a class="nav-link active" data-toggle="tab" href="#step01" onclick="tabchk_rtn('A')">주문등록</a>
-                                </li>
-                                <!-- <li class="nav-item">
-                                  <a class="nav-link" data-toggle="tab" href="#step02"  onclick="tabchk_rtn('B')">주문(장바구니)</a>
-                                </li>
-                                <li class="nav-item">
-                                  <a class="nav-link" data-toggle="tab" href="#step03"  onclick="tabchk_rtn('C')">예약(장바구니)</a>
-                                </li> -->
+                                </li> 
                                 <input type="hidden" id="tabvalue" value="A">
                             </ul>
                             <div class="tab-content"  > 
@@ -96,56 +90,6 @@
                                                 </tr>
                                             </table> 
                                         </div>   
-                                        <!-- <div class="col-2 col-sm-1">
-                                            <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm" >등록일자</span>
-                                                <input type="text"  class="form-control datetimepicker" id="ipdate" autocomplete="off"  placeholder="Y-m-d"     >
-                                            </div>
-                                        </div> 
-                                        <div class="col-2 col-sm-1">
-                                            <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">거래처</span> 
-                                                <input class="form-control form-control-sm" id="cifname" type="text"    autocomplete="off"  placeholder=""     >
-                                                <input class="form-control form-control-sm" id="acorp1" type="hidden"  />
-                                                <input class="form-control form-control-sm" id="acorp2" type="hidden"  />
-                                                <input class="form-control form-control-sm" id="acorp3" type="hidden"  />
-                                                <input class="form-control form-control-sm" id="acode" type="hidden"  /> 
-                                                <input class="form-control form-control-sm" id="jpbgubn" type="hidden"  /> 
-                                                <input class="form-control form-control-sm" id="abonsadam1" type="hidden"   /> 
-                                                <input class="form-control form-control-sm" id="jbonsacd" type="hidden"  /> 
-                                                
-                                            </div>
-                                        </div>
-                                        <div class="col-2 col-sm-1">
-                                            <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">담당사원</span> 
-                                                <input class="form-control form-control-sm"   type="text"    autocomplete="off"  placeholder=""   id="pernm" disabled  >
-                                                
-                                            </div> 
-                                        </div> 
-                                        <div class="col-1 col-sm-3">  
-                                            <table>
-                                                <tr>
-                                                    <td>
-                                                        <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="retrieveBtn" type="button" onclick="retrieveClick01()">조회
-                                                        </button>
-                                                    </td>
-                                                    <td>
-                                                        <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="orderBtn" type="button" onclick="orderlist_rtn()">주문장바구니
-                                                        </button>
-                                                    </td>
-                                                    <td>
-                                                        <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="wishBtn" type="button" onclick="wishorderlist_rtn()" >예약장바구니
-                                                        </button>
-                                                    </td> 
-                                                </tr>
-                                            </table> 
-                                        </div>           
-                                        <div class="col-1 col-sm-2">  
-                                            <div class="input-group mb-3" >
-                                                <span class="input-group-text" style="max-height:50px;" >비고</span>                                                
-                                                <textarea class="form-control"   rows="3" id="abigo"  disabled=true></textarea>
-                                            </div>
-                                        </div>      
-                                    </div> -->
-                                     <!----  <div class="row gx-3" style="  margin: 10px 10px 10px;">   --> 
                                     
                                     <div class="table-responsive">
                                         <table class="table table-borderless"  style="overflow:scroll;  margin:0 auto; cellpadding:0px"  >
@@ -274,7 +218,8 @@
                                 </div>  <!--  <div class="tab-pane fade" id="step03">  -->
 
                             </div> <!----- <div class="tab-content">    -->
-                        </div>                        
+                            </div>                        
+                        </div>    
                     </body>
                 </div>
             </div>
@@ -1768,18 +1713,18 @@
            CifSearchList_rtn("A"); 
        }
    });   
-   document.getElementById("bcifname").addEventListener("keyup", (e)=>{ 
-       if(e.keyCode === 13){  
-           document.getElementById("innamebtn").click(); 
-           CifSearchList_rtn("B"); 
-       }
-   });   
-   document.getElementById("dcifname").addEventListener("keyup", (e)=>{ 
-       if(e.keyCode === 13){  
-           document.getElementById("innamebtn").click(); 
-           CifSearchList_rtn("C");  
-       }
-   });   
+//    document.getElementById("bcifname").addEventListener("keyup", (e)=>{ 
+//        if(e.keyCode === 13){  
+//            document.getElementById("innamebtn").click(); 
+//            CifSearchList_rtn("B"); 
+//        }
+//    });   
+//    document.getElementById("dcifname").addEventListener("keyup", (e)=>{ 
+//        if(e.keyCode === 13){  
+//            document.getElementById("innamebtn").click(); 
+//            CifSearchList_rtn("C");  
+//        }
+//    });   
    function retrieveClick01(){
        document.getElementById("innamebtn").click(); 
        CifSearchList_rtn("A");             
