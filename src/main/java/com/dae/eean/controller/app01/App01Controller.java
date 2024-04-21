@@ -439,6 +439,28 @@ public class App01Controller {
     }
 
 
+    //주문등록
+    @GetMapping(value="/index141m")
+    public String App141m_index( Model model, HttpServletRequest request) throws Exception{
+        CommDto.setMenuTitle("주문현황");
+        CommDto.setMenuUrl("기준정보>주문현황");
+        CommDto.setMenuCode("index141m");
+        try {
+            HttpSession session = request.getSession();
+            UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+            model.addAttribute("userformDto",userformDto);
+//            index03List = service03.GetJBonsaCodeList(index03Dto);
+//            model.addAttribute("index03List",index03List);
+        } catch (Exception ex) {
+            log.info("App141m_index Exception ================================================================");
+            log.info("Exception =====>" + ex.toString());
+            return "redirect:http://eean.co.kr/m";
+        }
+
+        return "App01/index141m";
+    }
+
+
     //예약현황
     @GetMapping(value="/index142")
     public String App142_index( Model model, HttpServletRequest request) throws Exception{
@@ -461,6 +483,27 @@ public class App01Controller {
     }
 
 
+    //예약현황
+    @GetMapping(value="/index142m")
+    public String App142m_index( Model model, HttpServletRequest request) throws Exception{
+        CommDto.setMenuTitle("예약현황");
+        CommDto.setMenuUrl("기준정보>예약현황");
+        CommDto.setMenuCode("index142");
+        try {
+            HttpSession session = request.getSession();
+            UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+            model.addAttribute("userformDto",userformDto);
+//            index03List = service03.GetJBonsaCodeList(index03Dto);
+//            model.addAttribute("index03List",index03List);
+        } catch (Exception ex) {
+            log.info("App142_index Exception ================================================================");
+            log.info("Exception =====>" + ex.toString());
+            return "redirect:http://eean.co.kr/m";
+        }
+
+        return "App01/index142m";
+    }
+
     //주문등록
     @GetMapping(value="/index143")
     public String App143_index( Model model, HttpServletRequest request) throws Exception{
@@ -480,6 +523,27 @@ public class App01Controller {
         }
 
         return "App01/index143";
+    }
+
+    //주문등록
+    @GetMapping(value="/index143m")
+    public String App143m_index( Model model, HttpServletRequest request) throws Exception{
+        CommDto.setMenuTitle("사원별매출현황");
+        CommDto.setMenuUrl("기준정보>사원별매출현황");
+        CommDto.setMenuCode("index143m");
+        try {
+            HttpSession session = request.getSession();
+            UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+            model.addAttribute("userformDto",userformDto);
+//            index03List = service03.GetJBonsaCodeList(index03Dto);
+//            model.addAttribute("index03List",index03List);
+        } catch (Exception ex) {
+            log.info("App143m_index Exception ================================================================");
+            log.info("Exception =====>" + ex.toString());
+            return "redirect:http://eean.co.kr/m";
+        }
+
+        return "App01/index143m";
     }
 
 

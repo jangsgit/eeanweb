@@ -163,6 +163,7 @@
                 window.localStorage.setItem("userid",  userFormDto["userid"])
                 window.localStorage.setItem("flag",  userFormDto["flag"])
                 window.localStorage.setItem("custnm",  userFormDto["custnm"])
+                window.localStorage.setItem("role",  userFormDto["role"])
                 window.localStorage.setItem("userpw", ls_logpass)
                 if(userFormDto == "" || userFormDto == null){
                   alert("사용자 구분을 확인하세요.");
@@ -176,7 +177,7 @@
                   if(ls_flag == "CC"){
                     window.location.href = '/app01/index140m';
                   }else if(ls_flag == "BB"){
-                    window.location.href = '/app01/index150m'; 
+                    window.location.href = '/app01/index150c'; 
                   }else { 
                     alert("영업사원 또는 거래처에서만 사용가능합니다.");
                     return false;
