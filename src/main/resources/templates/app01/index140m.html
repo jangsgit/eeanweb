@@ -58,8 +58,7 @@
                                                             <input class="form-control form-control-sm" id="acode" type="hidden"  /> 
                                                             <input class="form-control form-control-sm" id="jpbgubn" type="hidden"  /> 
                                                             <input class="form-control form-control-sm" id="abonsadam1" type="hidden"   /> 
-                                                            <input class="form-control form-control-sm" id="jbonsacd" type="hidden"  /> 
-                                                            
+                                                            <input class="form-control form-control-sm" id="jbonsacd" type="hidden"  />  
                                                         </div>
                                                     </td>
                                                     <td>
@@ -1709,6 +1708,7 @@
    //거래처검색 
    document.getElementById("cifname").addEventListener("keyup", (e)=>{ 
        if(e.keyCode === 13){   
+        alert("kk")
            document.getElementById("innamebtn").click(); 
            CifSearchList_rtn("A"); 
        }
