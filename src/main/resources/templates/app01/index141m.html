@@ -50,7 +50,7 @@
                                                 <tr>
                                                     <td>
                                                         <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">조회일자</span>
-                                                            <input type="text"  class="form-control datetimepicker" id="frdate" autocomplete="off"  placeholder="Y-m-d"     >                                                             
+                                                            <input type="text"   class="form-control datetimepicker flatpickr-input flatpickr-mobile" id="frdate" autocomplete="off"  placeholder="Y-m-d"     >                                                             
                                                         </div>             
                                                     </td>
                                                     <td>
@@ -459,12 +459,12 @@
             }
         });     
         //품목검색 
-        document.getElementById("jpumnm").addEventListener("keyup", (e)=>{ 
-            if(e.keyCode === 13){  
-                document.getElementById("jpumbtn").click(); 
-                JpumSearchList_rtn("A"); 
-            }
-        });   
+        // document.getElementById("jpumnm").addEventListener("keyup", (e)=>{ 
+        //     if(e.keyCode === 13){  
+        //         document.getElementById("jpumbtn").click(); 
+        //         JpumSearchList_rtn("A"); 
+        //     }
+        // });   
 
         function searchList_rtn(arg1){ 
             switch(arg1){ 
@@ -843,7 +843,7 @@
             if(arg == "B"){
                 searchCode = document.getElementById('bjpumnm').value;   
             } 
-            var ls_jpbgubn = document.getElementById('jpbgubn').value
+            var ls_jpbgubn = document.getElementById('bjpbgubn').value
             // if(arg == "C"){
             //     searchCode = document.getElementById('djpumnm').value;   
             // } 
@@ -977,19 +977,7 @@
 
     $(document).ready(function() { 
         getToday()
-        fn_egov_init_date()
-        // $('datetimepicker').datetimepicker({
-            
-        // }); 
-
-        // $("#frdate").change(function(e){ 
-        //      console.log("달력클릭");
-        //      console.log(convert_time(e.timestamp));
-        // })
-        // $("#todate").change(function(e){ 
-        //     // console.log("달력클릭");
-        //     // console.log(convert_time(e.timestamp));
-        // })
+        fn_egov_init_date() 
     })
 
     function test_rtn(arg1){
@@ -1012,10 +1000,27 @@
         let ls_frday = year + '-' + month + '-' + date 
         let ls_today = year + '-' + month + '-' + date 
         document.getElementById('frdate').value = ls_frday;
-        document.getElementById('todate').value = ls_today; 
-        // document.getElementById('frdate02').value = ls_frday;
-        // document.getElementById('todate02').value = ls_today; 
-        // document.getElementById('todate').value = ls_today;
+        document.getElementById('todate').value = ls_today;  
+        
+        // 모바일 환경에서 더 나은 사용성을 위해
+        flatpickr("#frdate", {
+            enableTime: false,
+            lang: 'ko',
+            format: "Y-m-d",
+            static: true, // 모바일에서의 더 나은 표현을 위해
+            disableMobile: false // 모바일 장치에서 기본 datetime picker 사용 비활성화
+        }); 
+        
+        // 모바일 환경에서 더 나은 사용성을 위해
+        flatpickr("#todate", {
+            enableTime: false,
+            lang: 'ko',
+            format: "Y-m-d",
+            static: true, // 모바일에서의 더 나은 표현을 위해
+            disableMobile: false // 모바일 장치에서 기본 datetime picker 사용 비활성화
+        }); 
+        
+         
     }
 
     function convert_time(timestamp){ 
@@ -1037,11 +1042,9 @@
             document.getElementById('abonsadam1').value = ls_perid;
             document.getElementById('pernm').value = ls_pernm; 
             lsUserid = window.localStorage.getItem("userid")
-            if(ls_role == "P"){ 
-                document.getElementById('jpbgubn').value = "P";  
+            if(ls_role == "P"){    
                 document.getElementById('bjpbgubn').value = "P";   
-            }else if(ls_role =="B"){
-                document.getElementById('jpbgubn').value = "B"; 
+            }else if(ls_role =="B"){  
                 document.getElementById('bjpbgubn').value = "B";    
             }else{
                 if (lsUserid == "pvadmin"){ 
@@ -1052,40 +1055,13 @@
                     document.getElementById('bjpbgubn').value = "%"; 
                 }
             }
-        // var $frdate = $('#frdate');
-        // var $todate = $('#todate');
-        // $frdate.datetimepicker({
-        //     timepicker: false,
-        //     lang: 'ko',
-        //     format: 'Y-m-d',
-        //     scrollMonth: false,
-        //     scrollInput: false,
-        //     onShow: function (ct) {                                    
-        //         this.setOptions({
-        //             // maxDate: $frdate.val() ? $frdate.val() : false
-        //         })
-        //     },
-        // });
-
-        // $todate.datetimepicker({
-        //     timepicker: false,
-        //     lang: 'ko',
-        //     format: 'Y-m-d',    //'Y-m-d H:i',
-        //     scrollMonth: false,
-        //     scrollInput: false,
-        //     onShow: function (ct) {
-        //         this.setOptions({
-        //             // minDate: $todate.val() ? $todate.val() : false
-        //         })
-        //     }
-        // });
 
     }
 
     function chkLogin(argdata){
         if(argdata == "relogin"){
                 alert("다시 로그인해주세요")
-                window.location.href='http://eean.co.kr';
+                window.location.href='http://eean.co.kr/m';
                 return 
         }    
     }             

@@ -1587,6 +1587,24 @@
         document.getElementById('todate03').value = ls_today; 
         document.getElementById('frdate04').value = ls_frday;
         document.getElementById('todate04').value = ls_today; 
+        
+        // 모바일 환경에서 더 나은 사용성을 위해
+        flatpickr("#frdate", {
+            enableTime: false,
+            lang: 'ko',
+            format: "Y-m-d",
+            static: true, // 모바일에서의 더 나은 표현을 위해
+            disableMobile: false // 모바일 장치에서 기본 datetime picker 사용 비활성화
+        }); 
+        
+        // 모바일 환경에서 더 나은 사용성을 위해
+        flatpickr("#todate", {
+            enableTime: false,
+            lang: 'ko',
+            format: "Y-m-d",
+            static: true, // 모바일에서의 더 나은 표현을 위해
+            disableMobile: false // 모바일 장치에서 기본 datetime picker 사용 비활성화
+        }); 
         // document.getElementById('todate').value = ls_today;
     }
 

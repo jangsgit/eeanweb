@@ -1035,9 +1035,24 @@
         let ls_today = year + '-' + month + '-' + date 
         document.getElementById('frdate').value = ls_frday;
         document.getElementById('todate').value = ls_today; 
-        // document.getElementById('frdate02').value = ls_frday;
-        // document.getElementById('todate02').value = ls_today; 
-        // document.getElementById('todate').value = ls_today;
+        
+        // 모바일 환경에서 더 나은 사용성을 위해
+        flatpickr("#frdate", {
+            enableTime: false,
+            lang: 'ko',
+            format: "Y-m-d",
+            static: true, // 모바일에서의 더 나은 표현을 위해
+            disableMobile: false // 모바일 장치에서 기본 datetime picker 사용 비활성화
+        }); 
+        
+        // 모바일 환경에서 더 나은 사용성을 위해
+        flatpickr("#todate", {
+            enableTime: false,
+            lang: 'ko',
+            format: "Y-m-d",
+            static: true, // 모바일에서의 더 나은 표현을 위해
+            disableMobile: false // 모바일 장치에서 기본 datetime picker 사용 비활성화
+        }); 
     }
 
     function convert_time(timestamp){ 
@@ -1105,7 +1120,7 @@
     function chkLogin(argdata){
         if(argdata == "relogin"){
                 alert("다시 로그인해주세요")
-                window.location.href='http://eean.co.kr';
+                window.location.href='http://eean.co.kr/m';
                 return 
         }    
     }             
