@@ -34,7 +34,7 @@
                         <div class="card-body bg-light">
                             <ul class="nav nav-tabs">
                                 <li class="nav-item">
-                                  <a class="nav-link active" data-toggle="tab" href="#step01" onclick="tabchk_rtn('A')">주문등록B</a>
+                                  <a class="nav-link active" data-toggle="tab" href="#step01" onclick="tabchk_rtn('A')">일반주문</a>
                                 </li> 
                                 <!-- <li class="nav-item">
                                   <a class="nav-link" data-toggle="tab" href="#step02"  onclick="tabchk_rtn('B')">주문(장바구니)</a>
@@ -923,13 +923,13 @@
                 // console.log(ls_jchgoga0);
               
                 //---------------------------------------------------------------------------------- 
-                DivHtml01 = DivHtml01 +  "    <div class='col-2'  > "; 
+                DivHtml01 = DivHtml01 +  "    <div class='col-auto'  > "; 
                 DivHtml01 = DivHtml01 +  "    <div class='card card-block'  > ";                 
                  DivHtml01 = DivHtml01 +  " 		<a class='color-white' href=javascript:imgdetail('" + ls_imgurl + ls_jkey + "');>					         ";  	// ls_imgurl + "11001_1240442012214252104');>
                                 DivHtml01 = DivHtml01 +  " 		  <div class='hoverbox rounded-3'>						 "; 
                                 DivHtml01 = DivHtml01 +  " 		            <img class='img-fluid rounded' src='" + ls_imgurl + ls_jkey + "_1.jpg' alt='' style='height:180px; display: block;  margin-left: auto; margin-right: auto'/>	 ";             //ls_imgurl + "11001_1240442012214252104_01.png' alt='' />	 ";  
                                 DivHtml01 = DivHtml01 +  " 		        <div class='hoverbox-content'>						 ";  
-                                DivHtml01 = DivHtml01 +  " 		            <img class='img-fluid rounded' src='" + ls_imgurl + ls_jkey + "_2.jpg' alt='' style='height:180px; display: block;  margin-left: auto; margin-right: auto'/>	 ";
+                                DivHtml01 = DivHtml01 +  " 		            <img class='img-fluid rounded' src='" + ls_imgurl + ls_jkey + "_2.jpg' alt='' style='height:180px;  display: block;  margin-left: auto; margin-right: auto'/>	 "; 
                                 DivHtml01 = DivHtml01 +  " 		        </div>									 ";  
                                 DivHtml01 = DivHtml01 +  " 		  </div>									 ";  
                  DivHtml01 = DivHtml01 +  " 		</a>										 ";
@@ -944,7 +944,7 @@
                 DivHtml01 = DivHtml01 +  "    </div> "; 
                  DivHtml01 = DivHtml01 +  "   </div> ";                  
                 
-                //---------------------------------------------------------------------------------                                          
+                //---------------------------------------------------------------------------------                                      
   
             }    
             DivHtml01 = DivHtml01 +  "</div> "; 
