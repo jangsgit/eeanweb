@@ -1707,7 +1707,7 @@
            
    //거래처검색 
    document.getElementById("cifname").addEventListener("keydown", (e)=>{ 
-       if(e.keyCode === 13){  
+       if(e.key === 'Enter'){    
            document.getElementById("innamebtn").click(); 
            CifSearchList_rtn("A"); 
        }
