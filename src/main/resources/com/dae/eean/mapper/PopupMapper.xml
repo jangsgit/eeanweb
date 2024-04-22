@@ -5,10 +5,13 @@
 <mapper namespace="com.dae.eean.Mapper.PopupMapper">
     <select id="GetInsaList" parameterType="com.dae.eean.DTO.Popup.PopupDto" resultType="com.dae.eean.DTO.Popup.PopupDto">
         <![CDATA[
-            select insano, inname
-            from insa WITH (NOLOCK)
-            WHERE isnull(inname,'') Like concat('%',#{inname},'%') or isnull(insano,'') Like concat('%',#{inname},'%')
-            ORDER BY inname
+            select perid as insano, username as inname
+            from TB_XUSERS WITH (NOLOCK)
+            WHERE (isnull(username,'') Like concat('%',#{inname},'%') or isnull(perid,'') Like concat('%',#{inname},'%') )
+            and flag = 'CC' and useyn = 'Y'
+            ORDER BY username
+
+
         ]]>
     </select>
 
