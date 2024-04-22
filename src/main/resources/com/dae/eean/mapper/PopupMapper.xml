@@ -11,7 +11,6 @@
             and flag = 'CC' and useyn = 'Y'
             ORDER BY username
 
-
         ]]>
     </select>
 
