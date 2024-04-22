@@ -9,7 +9,7 @@
                     <li class="nav-item">
                         <!-- label-->
                         <div class="row navbar-vertical-label-wrapper mt-3 mb-2">
-                            <div class="col-auto navbar-vertical-label">DaeSanSystem
+                            <div class="col-auto navbar-vertical-label">EEAN
                             </div>
                             <div class="col ps-0">
                                 <hr class="mb-0 navbar-vertical-divider" />
@@ -20,7 +20,7 @@
                             data-bs-toggle="collapse" aria-expanded="false" aria-controls="withdraw">
                             <div class="d-flex align-items-center"><span class="nav-link-icon"><span
                                         class="fas fa-envelope-open"></span></span><span
-                                    class="nav-link-text ps-1">EEAN 주문시스템</span>  
+                                    class="nav-link-text ps-1">EEAN</span>  
                             </div>
                         </a>                        
                         <!-- th:if="${CommDto.MenuCode} == 'appcom01'" class="nav-link active"  -->
@@ -28,7 +28,39 @@
                             <li class="nav-item">
                                 <a class="nav-link" th:href="@{/app01/index140m}" aria-expanded="false" >
                                     <div class="d-flex align-items-center"><span
-                                        class="nav-link-text ps-1">주문등록</span>  
+                                        class="nav-link-text ps-1">간편주문</span>  
+                                    </div>
+                                </a>
+                                <!-- more inner pages-->
+                            </li> 
+                            <li class="nav-item">
+                                <a class="nav-link" th:href="@{/app01/index150m}" aria-expanded="false" >
+                                    <div class="d-flex align-items-center"><span
+                                        class="nav-link-text ps-1">일반주문</span>  
+                                    </div>
+                                </a>
+                                <!-- more inner pages-->
+                            </li> 
+                            <li class="nav-item">
+                                <a class="nav-link" th:href="@{/app01/index141m}" aria-expanded="false" >
+                                    <div class="d-flex align-items-center"><span
+                                        class="nav-link-text ps-1">주문현황</span>  
+                                    </div>
+                                </a>
+                                <!-- more inner pages-->
+                            </li> 
+                            <li class="nav-item">
+                                <a class="nav-link" th:href="@{/app01/index142m}" aria-expanded="false" >
+                                    <div class="d-flex align-items-center"><span
+                                        class="nav-link-text ps-1">예약현황</span>  
+                                    </div>
+                                </a>
+                                <!-- more inner pages-->
+                            </li> 
+                            <li class="nav-item">
+                                <a class="nav-link" th:href="@{/app01/index143m}" aria-expanded="false" >
+                                    <div class="d-flex align-items-center"><span
+                                        class="nav-link-text ps-1">사원별매출현황</span>  
                                     </div>
                                 </a>
                                 <!-- more inner pages-->
@@ -40,14 +72,13 @@
                                     </div>
                                 </a>
                             </li> -->
-                            <li class="nav-item">
+                            <!-- <li class="nav-item">
                                 <a class="nav-link" href="#" aria-expanded="false" >
                                     <div class="d-flex align-items-center"><span id="userinfo"
                                             class="nav-link-text ps-1"   onmouseup="userrtn()"   >환경설정</span>  
                                     </div>
-                                </a>
-                                <!-- more inner pages-->
-                            </li> 
+                                </a> 
+                            </li>  -->
                             <!-- <li>
                                 <button type="button"><img th:src="@{/assets/images/check_on.png}" alt=""></button>
                                 <div class="depth2 on">

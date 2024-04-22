@@ -267,24 +267,30 @@ public class App01Controller {
     //주문등록
     @GetMapping(value="/index150")
     public Object App150_index( Model model, HttpServletRequest request) throws Exception{
+        Index03Dto _index03Dto = new Index03Dto();
         CommDto.setMenuTitle("거래처주문등록");
         CommDto.setMenuUrl("기준정보>거래처주문등록");
-        CommDto.setMenuCode("index15");
+        CommDto.setMenuCode("index150");
         try {
             HttpSession session = request.getSession();
             UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
             model.addAttribute("userformDto",userformDto);
-            String ls_acorp1 = userformDto.getPerid();
-            String ls_flag = userformDto.getFlag();
-            if (ls_flag.equals("BB")){
-//                log.debug("ls_acorp1 =====>" + ls_acorp1.substring(0,2) );
-                if(ls_acorp1.substring(0,2).equals("02")){
-                    index03Dto.setJpb_gubn("P");
+            if(userformDto.getFlag().equals("AA")){
+                if(userformDto.getUserid().substring(0,2).equals("pv")){
+                    _index03Dto.setJpb_gubn("P");
+                }else if(userformDto.getUserid().substring(0,2).equals("bl")){
+                    _index03Dto.setJpb_gubn("B");
                 }else{
-                    index03Dto.setJpb_gubn("B");
+                    _index03Dto.setJpb_gubn("%");
+                }
+            }else if(userformDto.getFlag().equals("BB")){
+                if(userformDto.getPerid().substring(0,2).equals("02")){
+                    _index03Dto.setJpb_gubn("P");
+                }else{
+                    _index03Dto.setJpb_gubn("B");
                 }
             }else{
-                index03Dto.setJpb_gubn("%");
+                _index03Dto.setJpb_gubn("%");
             }
             index03List = service03.GetJcustomCode_BB(index03Dto);
 
@@ -439,6 +445,28 @@ public class App01Controller {
     }
 
 
+    //주문등록
+    @GetMapping(value="/index141m")
+    public String App141m_index( Model model, HttpServletRequest request) throws Exception{
+        CommDto.setMenuTitle("주문현황");
+        CommDto.setMenuUrl("기준정보>주문현황");
+        CommDto.setMenuCode("index141m");
+        try {
+            HttpSession session = request.getSession();
+            UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+            model.addAttribute("userformDto",userformDto);
+//            index03List = service03.GetJBonsaCodeList(index03Dto);
+//            model.addAttribute("index03List",index03List);
+        } catch (Exception ex) {
+            log.info("App141m_index Exception ================================================================");
+            log.info("Exception =====>" + ex.toString());
+            return "redirect:http://eean.co.kr/m";
+        }
+
+        return "App01/index141m";
+    }
+
+
     //예약현황
     @GetMapping(value="/index142")
     public String App142_index( Model model, HttpServletRequest request) throws Exception{
@@ -461,6 +489,27 @@ public class App01Controller {
     }
 
 
+    //예약현황
+    @GetMapping(value="/index142m")
+    public String App142m_index( Model model, HttpServletRequest request) throws Exception{
+        CommDto.setMenuTitle("예약현황");
+        CommDto.setMenuUrl("기준정보>예약현황");
+        CommDto.setMenuCode("index142");
+        try {
+            HttpSession session = request.getSession();
+            UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+            model.addAttribute("userformDto",userformDto);
+//            index03List = service03.GetJBonsaCodeList(index03Dto);
+//            model.addAttribute("index03List",index03List);
+        } catch (Exception ex) {
+            log.info("App142_index Exception ================================================================");
+            log.info("Exception =====>" + ex.toString());
+            return "redirect:http://eean.co.kr/m";
+        }
+
+        return "App01/index142m";
+    }
+
     //주문등록
     @GetMapping(value="/index143")
     public String App143_index( Model model, HttpServletRequest request) throws Exception{
@@ -480,6 +529,27 @@ public class App01Controller {
         }
 
         return "App01/index143";
+    }
+
+    //주문등록
+    @GetMapping(value="/index143m")
+    public String App143m_index( Model model, HttpServletRequest request) throws Exception{
+        CommDto.setMenuTitle("사원별매출현황");
+        CommDto.setMenuUrl("기준정보>사원별매출현황");
+        CommDto.setMenuCode("index143m");
+        try {
+            HttpSession session = request.getSession();
+            UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+            model.addAttribute("userformDto",userformDto);
+//            index03List = service03.GetJBonsaCodeList(index03Dto);
+//            model.addAttribute("index03List",index03List);
+        } catch (Exception ex) {
+            log.info("App143m_index Exception ================================================================");
+            log.info("Exception =====>" + ex.toString());
+            return "redirect:http://eean.co.kr/m";
+        }
+
+        return "App01/index143m";
     }
 
 
@@ -518,18 +588,13 @@ public class App01Controller {
             model.addAttribute("userformDto",userformDto);
             String ls_acorp1 = userformDto.getPerid();
             String ls_flag = userformDto.getFlag();
-            if (ls_flag.equals("BB")){
-                log.debug("ls_acorp1 =====>" + ls_acorp1.substring(0,2) );
-                if(ls_acorp1.substring(0,2).equals("02")){
-                    index03Dto.setJpb_gubn("P");
-                }else{
-                    index03Dto.setJpb_gubn("B");
-                }
+            String ls_role = userformDto.getRole();
+            if (ls_flag.equals("CC")){
+                index03Dto.setJpb_gubn(ls_role);
             }else{
                 index03Dto.setJpb_gubn("%");
             }
-            index03List = service03.GetJcustomCode(index03Dto);
-
+            index03List = service03.GetJcustomCode_CC(index03Dto);
             model.addAttribute("index15List",index03List);
         } catch (Exception ex) {
             log.info("App150m_index Exception ================================================================");
