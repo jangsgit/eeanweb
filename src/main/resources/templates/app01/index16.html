@@ -2845,7 +2845,47 @@
                 });
                 cnt++;
             }   
-            if (wtab03Dto.length <= 19){ 
+            if (wtab03Dto.length <= 18){ 
+                for (var p = wtab03Dto.length + 1; p < 19; p++) { 
+                    wtab03_data.push({
+                        id: p, 
+                        index: cnt,
+                        select: false,
+                        misdate: '',
+                        misnum: '',     
+                        seq: '',    
+                        acorp: '',    
+                        pname: '',    
+                        psize: '',    
+                        pbonsa: '',    
+                        pmodel: '',    
+                        pcolor: '',    
+                        qty: '',    
+                        uamt: '',
+                        samt: '',
+                        addamt: '',
+                        amt: '',
+                        cltcd: '',
+                        inname: '',
+                        misgubun: '',
+                        rownum: '',
+                        acorp: '',
+                        asano: '',
+                        aname: '',
+                        aupte: '',
+                        ajong: '',
+                        ajuso: '',
+                        eeacorp: '',
+                        eeasano: '',
+                        eeaname: '',
+                        eeupte: '',
+                        eeajong: '',
+                        eeajuso: '',
+                        fixflag: '',
+                    });
+                cnt++;
+                }
+            }  else if (wtab03Dto.length <= 19){ 
                 for (var p = wtab03Dto.length + 1; p < 20; p++) { 
                     wtab03_data.push({
                         id: p, 
@@ -2885,7 +2925,89 @@
                     });
                 cnt++;
                 }
-            } else if (wtab03Dto.length < 45){ 
+
+            }else if (wtab03Dto.length <= 20){ 
+                for (var p = wtab03Dto.length + 1; p < 21; p++) { 
+                    wtab03_data.push({
+                        id: p, 
+                        index: cnt,
+                        select: false,
+                        misdate: '',
+                        misnum: '',     
+                        seq: '',    
+                        acorp: '',    
+                        pname: '',    
+                        psize: '',    
+                        pbonsa: '',    
+                        pmodel: '',    
+                        pcolor: '',    
+                        qty: '',    
+                        uamt: '',
+                        samt: '',
+                        addamt: '',
+                        amt: '',
+                        cltcd: '',
+                        inname: '',
+                        misgubun: '',
+                        rownum: '',
+                        acorp: '',
+                        asano: '',
+                        aname: '',
+                        aupte: '',
+                        ajong: '',
+                        ajuso: '',
+                        eeacorp: '',
+                        eeasano: '',
+                        eeaname: '',
+                        eeupte: '',
+                        eeajong: '',
+                        eeajuso: '',
+                        fixflag: '',
+                    });
+                cnt++;
+                }
+
+            } else if (wtab03Dto.length <= 23){ 
+                for (var p = wtab03Dto.length + 1; p < 24; p++) { 
+                    wtab03_data.push({
+                        id: p, 
+                        index: cnt,
+                        select: false,
+                        misdate: '',
+                        misnum: '',     
+                        seq: '',    
+                        acorp: '',    
+                        pname: '',    
+                        psize: '',    
+                        pbonsa: '',    
+                        pmodel: '',    
+                        pcolor: '',    
+                        qty: '',    
+                        uamt: '',
+                        samt: '',
+                        addamt: '',
+                        amt: '',
+                        cltcd: '',
+                        inname: '',
+                        misgubun: '',
+                        rownum: '',
+                        acorp: '',
+                        asano: '',
+                        aname: '',
+                        aupte: '',
+                        ajong: '',
+                        ajuso: '',
+                        eeacorp: '',
+                        eeasano: '',
+                        eeaname: '',
+                        eeupte: '',
+                        eeajong: '',
+                        eeajuso: '',
+                        fixflag: '',
+                    });
+                cnt++;
+                } 
+            }else if (wtab03Dto.length < 45){ 
                 for (var p = wtab03Dto.length + 1; p < 46; p++) { 
                     wtab03_data.push({
                         id: p, 
