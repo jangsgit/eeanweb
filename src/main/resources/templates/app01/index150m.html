@@ -239,11 +239,18 @@
                 <div class="modal-body p-0" > 
                     <div class="rounded-top-lg py-3 ps-4 pe-6 bg-light">                            
                         <div class="search">
-                            <div class="input_wrap">  
-                                <input class="form-control form-control-sm" id="searchCode" type="text"   onkeyup="if(window.event.keyCode==13){CifSearchList_rtn('M')}"
-                                placeholder="업체명 "     />                                      
+                            <div class="row"  >   
+                                <div class="col-auto">
+                                    <div class="input_wrap">  
+                                        <input class="form-control form-control-sm" id="searchCode" type="text"   onkeyup="if(window.event.keyCode==13){CifSearchList_rtn('M')}"
+                                        placeholder="업체명 "     />   
+                                    </div> 
+                                </div>
+                                <div class="col-auto"> 
+                                    <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="listBtn03" type="button"  >조회
+                                    </button>
+                                </div>
                             </div>
-
                             <button id="winnameBtn">
                                 <img th:src="@{/assets/images/i_search.png}" alt=""> 
                             </button>
@@ -277,7 +284,7 @@
     data-bs-backdrop="static" tabindex="-1" aria-labelledby="staticBackdropLabel"
     aria-hidden="true">
         <div class="modal-dialog modal-lg mt-6" role="document" id = "modalForm01"
-            style="max-width: 1200px">
+            style="max-width: 800px">
             <div class="modal-content border-0">
                 <div class="modal-body p-0" > 
                     <div class="rounded-top-lg py-3 ps-4 pe-6 bg-light">                            
@@ -1062,7 +1069,7 @@
         document.getElementById("saveBtn02").addEventListener("click",function(){ 
             savewishchk_rtn()
             document.getElementById("inorderbtn").click();     
-        })          
+        })           
 
         //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 모달 검색@@@@@@@@@@@@@@@@@@@@@@@@@@@
         //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
@@ -1079,7 +1086,11 @@
         document.getElementById("cifBtn").addEventListener("click",function(){  
             document.getElementById("innamebtn").click();  
             CifSearchList_rtn("A"); 
-        })          
+        })   
+        // 거래처 검색   
+        document.getElementById("listBtn03").addEventListener("click",function(){  
+            CifSearchList_rtn("M"); 
+        })         
         // document.getElementById("bcifname").addEventListener("keyup", (e)=>{ 
         //     if(e.keyCode === 13){  
         //         document.getElementById("innamebtn").click(); 

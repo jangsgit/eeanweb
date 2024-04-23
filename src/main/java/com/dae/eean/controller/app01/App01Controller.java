@@ -240,19 +240,24 @@ public class App01Controller {
                 }else{
                     _index03Dto.setJpb_gubn("%");
                 }
+                index03List = service03.GetJcustomCode(_index03Dto);
             }else if(userformDto.getFlag().equals("BB")){
                 if(userformDto.getPerid().substring(0,2).equals("02")){
                     _index03Dto.setJpb_gubn("P");
                 }else{
                     _index03Dto.setJpb_gubn("B");
                 }
+                index03List = service03.GetJcustomCode(_index03Dto);
             }else{
-                _index03Dto.setJpb_gubn("%");
+                String ls_flag = userformDto.getFlag();
+                String ls_role = userformDto.getRole();
+                if (ls_flag.equals("CC")){
+                    _index03Dto.setJpb_gubn(ls_role);
+                }else{
+                    _index03Dto.setJpb_gubn("%");
+                }
+                index03List = service03.GetJcustomCode_CC(_index03Dto);
             }
-
-
-            index03List = service03.GetJcustomCode(_index03Dto);
-
             model.addAttribute("index15List",index03List);
         } catch (Exception ex) {
             log.info("App15_index Exception ================================================================");
@@ -275,6 +280,7 @@ public class App01Controller {
             HttpSession session = request.getSession();
             UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
             model.addAttribute("userformDto",userformDto);
+
             if(userformDto.getFlag().equals("AA")){
                 if(userformDto.getUserid().substring(0,2).equals("pv")){
                     _index03Dto.setJpb_gubn("P");
@@ -283,16 +289,20 @@ public class App01Controller {
                 }else{
                     _index03Dto.setJpb_gubn("%");
                 }
+                index03List = service03.GetJcustomCode_BB(index03Dto);
             }else if(userformDto.getFlag().equals("BB")){
                 if(userformDto.getPerid().substring(0,2).equals("02")){
                     _index03Dto.setJpb_gubn("P");
                 }else{
                     _index03Dto.setJpb_gubn("B");
                 }
+                index03List = service03.GetJcustomCode_BB(index03Dto);
             }else{
-                _index03Dto.setJpb_gubn("%");
+                String ls_role = userformDto.getRole();
+                _index03Dto.setJpb_gubn(ls_role);
+                log.info("ls_role =====>" + ls_role);
+                index03List = service03.GetJcustomCode_CC(_index03Dto);
             }
-            index03List = service03.GetJcustomCode_BB(index03Dto);
 
             model.addAttribute("index15List",index03List);
         } catch (Exception ex) {
@@ -322,6 +332,8 @@ public class App01Controller {
             }else{
                 index03Dto.setJpb_gubn("%");
             }
+            log.info("ls_flag =====>" + ls_flag);
+            log.info("ls_role =====>" + ls_role);
             index03List = service03.GetJcustomCode_CC(index03Dto);
 
             model.addAttribute("index15List",index03List);
@@ -333,6 +345,32 @@ public class App01Controller {
         return "App01/index150b";
     }
 
+    //주문등록
+    @GetMapping(value="/index150c")
+    public Object App150C_index( Model model, HttpServletRequest request) throws Exception{
+        Index03Dto _index03Dto = new Index03Dto();
+        CommDto.setMenuTitle("영업사원일반등록");
+        CommDto.setMenuUrl("기준정보>영업사원일반주문등록");
+        CommDto.setMenuCode("index15");
+        try {
+            HttpSession session = request.getSession();
+            UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+            model.addAttribute("userformDto",userformDto);
+            if(userformDto.getPerid().substring(0,2).equals("02")){
+                _index03Dto.setJpb_gubn("P");
+            }else{
+                _index03Dto.setJpb_gubn("B");
+            }
+            index03List = service03.GetJcustomCode_BB(_index03Dto);
+
+            model.addAttribute("index15List",index03List);
+        } catch (Exception ex) {
+            log.info("App150c_index Exception  ===================>"  + ex.toString());
+            return "redirect:http://eean.co.kr/m";
+        }
+
+        return "App01/index150c";
+    }
 
     //주문현황
     @GetMapping(value="/index151")
