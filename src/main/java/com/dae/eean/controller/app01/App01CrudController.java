@@ -2236,19 +2236,16 @@ public class App01CrudController {
             if(perid == null || perid.equals("")){
                 perid = "%";
             }
+            mflag = "%";
             switch (mflag){
                 case "AA" :
-                    indexDa024Dto.setPerid(perid);
                     indexDa024Dto.setMisgubun(misgubun);
-                    mflag = "%";
                     break;
                 case "BB":
-                    indexDa024Dto.setPerid(perid);
-                    indexDa024Dto.setMisgubun("%");
+                    indexDa024Dto.setMisgubun(mflag);
                     break;
                 case "CC":
-                    indexDa024Dto.setPerid(userformDto.getPerid());
-                    indexDa024Dto.setMisgubun("%");
+                    indexDa024Dto.setMisgubun(mflag);
                     break;
                 default:
                     break;
@@ -2596,10 +2593,10 @@ public class App01CrudController {
             if(perid == null || perid.equals("")){
                 perid = "%";
             }
+            mflag = "%";
             switch (mflag){
                 case "AA" :
                     indexDa024Dto.setPerid(perid);
-                    mflag = "%";
                     break;
                 case "BB":
                     indexDa024Dto.setPerid(perid);
@@ -2662,10 +2659,10 @@ public class App01CrudController {
             if(perid == null || perid.equals("")){
                 perid = "%";
             }
+            mflag = "%";
             switch (mflag){
                 case "AA" :
                     indexDa024Dto.setPerid(perid);
-                    mflag = "%";
                     break;
                 case "BB":
                     indexDa024Dto.setPerid(perid);
@@ -2729,10 +2726,10 @@ public class App01CrudController {
             if(perid == null || perid.equals("")){
                 perid = "%";
             }
+            mflag = "%";
             switch (mflag){
                 case "AA" :
                     indexDa024Dto.setPerid(perid);
-                    mflag = "%";
                     break;
                 case "BB":
                     indexDa024Dto.setPerid(perid);
@@ -2796,10 +2793,10 @@ public class App01CrudController {
             if(perid == null || perid.equals("")){
                 perid = "%";
             }
+            mflag = "%";
             switch (mflag){
                 case "AA" :
                     indexDa024Dto.setPerid(perid);
-                    mflag = "%";
                     break;
                 case "BB":
                     indexDa024Dto.setPerid(perid);
@@ -2864,10 +2861,10 @@ public class App01CrudController {
             if(perid == null || perid.equals("")){
                 perid = "%";
             }
+            mflag = "%";
             switch (mflag){
                 case "AA" :
                     indexDa024Dto.setPerid(perid);
-                    mflag = "%";
                     break;
                 case "BB":
                     indexDa024Dto.setPerid(perid);
@@ -2935,10 +2932,10 @@ public class App01CrudController {
             if(perid == null || perid.equals("")){
                 perid = "%";
             }
+            mflag = "%";
             switch (mflag){
                 case "AA" :
                     indexDa024Dto.setPerid(perid);
-                    mflag = "%";
                     break;
                 case "BB":
                     indexDa024Dto.setPerid(perid);
@@ -3002,10 +2999,10 @@ public class App01CrudController {
             if(perid == null || perid.equals("")){
                 perid = "%";
             }
+            mflag = "%";
             switch (mflag){
                 case "AA" :
                     indexDa024Dto.setPerid(perid);
-                    mflag = "%";
                     break;
                 case "BB":
                     indexDa024Dto.setPerid(perid);
@@ -3068,10 +3065,10 @@ public class App01CrudController {
             if(perid == null || perid.equals("")){
                 perid = "%";
             }
+            mflag = "%";
             switch (mflag){
                 case "AA" :
                     indexDa024Dto.setPerid(perid);
-                    mflag = "%";
                     break;
                 case "BB":
                     indexDa024Dto.setPerid(perid);
@@ -3362,10 +3359,10 @@ public class App01CrudController {
             if(perid == null || perid.equals("")){
                 perid = "%";
             }
+            mflag = "%";
             switch (mflag){
                 case "AA" :
                     indexDa024Dto.setPerid(perid);
-                    mflag = "%";
                     break;
                 case "BB":
                     indexDa024Dto.setPerid(perid);
@@ -3427,10 +3424,10 @@ public class App01CrudController {
             if(perid == null || perid.equals("")){
                 perid = "%";
             }
+            mflag = "%";
             switch (mflag){
                 case "AA" :
                     indexDa024Dto.setPerid(perid);
-                    mflag = "%";
                     break;
                 case "BB":
                     indexDa024Dto.setPerid(perid);
@@ -3495,10 +3492,10 @@ public class App01CrudController {
             if(perid == null || perid.equals("")){
                 perid = "%";
             }
+            mflag = "%";
             switch (mflag){
                 case "AA" :
                     indexDa024Dto.setPerid(perid);
-                    mflag = "%";
                     break;
                 case "BB":
                     indexDa024Dto.setPerid(perid);

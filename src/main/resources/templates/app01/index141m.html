@@ -49,7 +49,7 @@
                                             <table>
                                                 <tr>
                                                     <td>
-                                                        <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">조회일자</span>
+                                                        <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">주문일자</span>
                                                             <input type="text"   class="form-control datetimepicker flatpickr-input flatpickr-mobile" id="frdate" autocomplete="off"  placeholder="Y-m-d"     >                                                             
                                                         </div>             
                                                     </td>
@@ -75,6 +75,14 @@
                                                             
                                                         </div>
                                                     </td>  
+                                                    <td>
+                                                        <select class="form-select form-select-sm" id="misfixflag" aria-label=".form-select-sm example">
+                                                            <option selected="">출력구분</option>
+                                                            <option value="%">전체</option>
+                                                            <option value="1">출력</option>
+                                                            <option value="0">미출력</option>
+                                                            </select> 
+                                                    </td>
                                                     <!-- <td>
                                                         <div class="input-group input-group-sm mb-3"> 
                                                             <button class="btn btn-falcon-primary me-1 mb-1 btn-sm" id="jpumBtn" type="button"  >품명</button> 
@@ -296,7 +304,7 @@
                 let groups = view_p01tab02page.groupDescriptions;
                 groups.clear();
                 if (groupsOn) {
-                    groups.push(new wijmo.collections.PropertyGroupDescription('misdate'), new wijmo.collections.PropertyGroupDescription('acorp'));
+                    groups.push(new wijmo.collections.PropertyGroupDescription('acorp'), new wijmo.collections.PropertyGroupDescription('misdate'));
                 }
             }
             // 헤더 열 전환
@@ -474,10 +482,10 @@
                     var ls_bacode   = document.getElementById('bacode').value;    
                     var ls_bcifname   = document.getElementById('bcifname').value;     
                     var ls_jkey   = "%"; //document.getElementById('jkey').value;    
-                    var ls_jpumnm   = "%"; // document.getElementById('jpumnm').value; 
+                    var ls_jpumnm   = ""; // document.getElementById('jpumnm').value; 
                     var ls_abonsadam1   = document.getElementById('abonsadam1').value; 
                     var ls_bjpbgubn = document.getElementById('bjpbgubn').value;  
-                    console.log(ls_frdate)
+                    var ls_misfixflag = document.getElementById('misfixflag').value;  
                     if(ls_frdate == null || ls_frdate.length == 0 || ls_frdate == ""){ 
                         alert("조회일자를 등록하세요") 
                         document.getElementById("frdate").focus(); 
@@ -497,7 +505,10 @@
                         alert("사원코드가 없습니다. 다시 로그인하세요.") 
                         document.getElementById("pernm").focus(); 
                         return ;               
-                    }   
+                    }     
+                    if(ls_misfixflag == "출력구분"){  
+                        ls_misfixflag = "%";
+                    }  
                     if(ls_bcifname == null || ls_bcifname.length == 0 || ls_bcifname == ""){  
                         ls_bacode = "%";
                     }       
@@ -507,18 +518,18 @@
                      
                     var ls_makflag = "1" ; 
                     $.ajax({
-                        url: '/app01m/index14/list',  
+                        url: '/app01m/index14/list',   
                         type:"POST",
                         data: { 
                             "frdate"      : ls_frdate,
-                            "todate"      : ls_todate,
+                            "todate"      : ls_todate, 
                             "acode"      : ls_bacode,        
                             "jcode"    : ls_jkey,     
                             "perid"      : ls_abonsadam1, 
-                            "fixflag"    : '%',
+                            "fixflag"    : ls_misfixflag,
                             "devflag"    : '%',
                             "misgubun"    : '%',
-                            "jpbgubn"    : ls_bjpbgubn,
+                            "jpbgubn"    :'%' ,
                             "makflag"    : ls_makflag,
                             "mflag"  : 'CC'   ,  
                         },    
@@ -578,7 +589,8 @@
                     cltcd: wtab02Dto[i]["cltcd"],   
                     inname: wtab02Dto[i]["inname"],   
                     misgubun: wtab02Dto[i]["misgubun"],                 
-                    remark: wtab02Dto[i]["remarkbb"],     
+                    remark: wtab02Dto[i]["remarkbb"],                   
+                    fixdatetime: wtab02Dto[i]["fixdatetime"],     
                     unsongnum: ls_unsongnum,        
                     fixflag: bfixflag,                                               
                 });
@@ -592,7 +604,7 @@
             wtab02Grid.itemsSource = new wijmo.collections.CollectionView(wtab02_data, {
                     groupDescriptions: [
                         grandTotalsGroup,
-                        'misdate'
+                        'acorp'
                     ]
                 })  
             var cols = new wijmo.grid.Column(); 
@@ -601,6 +613,12 @@
             cols.align = "center";
             cols.width = 160; 
             wtab02Grid.columns.push(cols);  
+            cols = new wijmo.grid.Column();  
+            cols.binding = 'fixdatetime';
+            cols.header = '출력일자';
+            cols.align = "center";
+            cols.width = 200; 
+            wtab02Grid.columns.push(cols); 
             // cols = new wijmo.grid.Column(); 
             // cols.binding = 'misnum';
             // cols.header = '주문번호';
@@ -1001,6 +1019,7 @@
         let ls_today = year + '-' + month + '-' + date 
         document.getElementById('frdate').value = ls_frday;
         document.getElementById('todate').value = ls_today;  
+        document.getElementById('misfixflag').value = "1"; 
         
         // 모바일 환경에서 더 나은 사용성을 위해
         flatpickr("#frdate", {
