@@ -1009,9 +1009,9 @@ public class App01CrudController {
 //            log.info("001 ->" + _index03Dto.getJpum());
 //            log.info("002 ->" + _index03Dto.getFrdate());
 //            log.info("003 ->" + _index03Dto.getTodate());
-//            log.info("004 ->" + _index03Dto.getJpb_gubn());
+//            log.info("001 ->" + _index03Dto.getJpb_gubn());
             _index03List = service03.GetJpumCustJaegoList(_index03Dto);
-            //log.info("004 ->" + _index03List);
+//            log.info("002 ->" + _index03Dto.getJpb_gubn());
             model.addAttribute("index03List",_index03List);
 
         } catch (Exception ex) {

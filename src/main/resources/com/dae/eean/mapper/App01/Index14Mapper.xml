@@ -469,17 +469,15 @@
                                  B.pcode, B.pname, B.psize,    B.punit,  B.qty,  B.uamt, B.samt, B.addamt,
                                  B.amt, A.acorp, pbonsa, pmodel, pcolor ,   B.misgubun, isnull(B.fixflag,'0') as fixflag, D.inname as pernm,
                                  B.fixdate,  CONVERT(CHAR(19),B.fixdatetime,20) as fixdatetime
-                   from  TB_DA024 B WITH (NOLOCK) ,  jcode3 E WITH (NOLOCK) ,
+                   from  TB_DA024 B WITH (NOLOCK) ,
                          cif A WITH (NOLOCK)  Left outer JOIN INSA D ON A.abonsadam1 = D.insano
                    where   B.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
-                     AND B.pcode = E.jkey
                     AND A.acorp1 + CAST(A.acorp2 as varchar) Like concat('%',#{cltcd},'%')
                      AND isnull(A.abonsadam1,'')  Like concat('%',#{perid},'%')
                      AND isnull(B.misgubun,'')  Like concat('%',#{misgubun},'%')
                     AND B.fixdate between #{frdate} and #{todate}
                     AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
                     AND Isnull(B.makflag, '0') Like concat('%',#{makflag},'%')
-                     and isnull(E.jpb_gubn,'') Like concat('%',#{jpbgubn},'%')
                     ORDER BY B.cltcd,  B.fixdate, B.misdate, B.misnum, B.seq
                 ]]>
 
