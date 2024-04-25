@@ -1159,6 +1159,10 @@ public class App01CrudController {
             _indexDa024Dto.setPmodel(jmodel);
             _indexDa024Dto.setPcolor(jcolor);
             _indexDa024Dto.setCltcd(_indexDa023Dto.getCltcd());
+            _indexDa024Dto.setAcorp(_index02Dto.getAcorp());
+            _indexDa024Dto.setPernm(_index02Dto.getInname01());
+            _indexDa024Dto.setPerid(_index02Dto.getAbonsadam1());
+            _indexDa024Dto.setJpb_gubn(jpbgubn);
 
             //재고체크 ------------------------------------------
 
@@ -1360,6 +1364,10 @@ public class App01CrudController {
             _indexDa024Dto.setPbonsa2(_index03Dto.getJbonsa_code2());
             _indexDa024Dto.setPmodel(jmodel);
             _indexDa024Dto.setPcolor(jcolor);
+            _indexDa024Dto.setAcorp(_index02Dto.getAcorp());
+            _indexDa024Dto.setPernm(_index02Dto.getInname01());
+            _indexDa024Dto.setPerid(_index02Dto.getAbonsadam1());
+            _indexDa024Dto.setJpb_gubn(jpbgubn);
             String ls_seq = "";
             //신규입력
             if (ls_chknull.length() == 0 ){
@@ -1641,6 +1649,10 @@ public class App01CrudController {
             _Da024Dto.setPmodel(_index03Dto.getJmodel_code());
             _Da024Dto.setPcolor(_index03Dto.getJcolor_code());
             _Da024Dto.setCltcd(_indexDa023Dto.getCltcd());
+            _Da024Dto.setAcorp(_index02Dto.getAcorp());
+            _Da024Dto.setPernm(_index02Dto.getInname01());
+            _Da024Dto.setPerid(_index02Dto.getAbonsadam1());
+            _Da024Dto.setJpb_gubn(_index03Dto.getJpb_gubn());
 
             String ls_seq = "";
             if (ls_chknull.length() == 0 ){
@@ -2158,6 +2170,10 @@ public class App01CrudController {
             _Da024Dto.setUamt(ll_chulgoga);
             _Da024Dto.setSamt(ll_chulgoga);
             _Da024Dto.setCltcd(_indexDa023Dto.getCltcd());
+            _Da024Dto.setAcorp(_index02Dto.getAcorp());
+            _Da024Dto.setPernm(_index02Dto.getInname01());
+            _Da024Dto.setPerid(_index02Dto.getAbonsadam1());
+            _Da024Dto.setJpb_gubn(index03Dto_S.getJpb_gubn());
             _Da024Dto.setAddamt(0);
             if(ll_chulgoga > 0 ) {
                 _Da024Dto.setAddamt(ll_chulgoga / 10);

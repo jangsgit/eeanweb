@@ -73,6 +73,6 @@ public class IndexDa024Dto {
     private String fixdate;
     private String fixdatetime;
     private String misdatetime;
-
+    private String jpb_gubn;
 
 }

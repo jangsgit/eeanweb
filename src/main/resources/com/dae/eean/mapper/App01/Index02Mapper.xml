@@ -47,11 +47,9 @@
                    ajuso1, ajuso2, abigo, agita, ajumi1, ajumi2, ajumi1 + '-' + ajumi2 as ajumitxt,
                    aascode1,aascode2, aascode1 + '-' + aascode2 as aascodetxt, atelno, atelno2,
                    ahand , aemail,abonsadam1, abonsadam2, abonsadam3, adomain, afax, isnull(ajuso1,'') + ' ' + isnull(ajuso2,'') as ajusotxt,
-                   B.inname as inname01, C.inname as inname02, D.inname as inname03, E.cifcodename as cifcodename
+                   B.username as inname01, '' as inname02, '' as inname03, E.cifcodename as cifcodename
             from cif WITH (NOLOCK)
-            LEFT OUTER JOIN INSA B WITH(NOLOCK) ON (cif.abonsadam1 = B.insano)
-            LEFT OUTER JOIN INSA C WITH(NOLOCK) ON (cif.abonsadam2 = C.insano)
-            LEFT OUTER JOIN INSA D WITH(NOLOCK) ON (cif.abonsadam3 = D.insano)
+            LEFT OUTER JOIN TB_XUSERS B WITH(NOLOCK) ON (cif.abonsadam1 = B.perid and B.flag ='CC')
             LEFT OUTER JOIN cifcode E WITH(NOLOCK) ON (cif.acorp1 = E.cifcode)
             WHERE acorp1 + CAST(acorp2 as varchar) = #{acode}
             ORDER BY acorp

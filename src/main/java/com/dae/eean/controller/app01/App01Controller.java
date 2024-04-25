@@ -250,9 +250,9 @@ public class App01Controller {
                 }else{
                     _index03Dto.setJpb_gubn("%");
                 }
-                log.info("flag =====>" + flag);
-                log.info("userid =====>" + userid);
-                log.info("getJpb_gubn =====>" + _index03Dto.getJpb_gubn());
+//                log.info("flag =====>" + flag);
+//                log.info("userid =====>" + userid);
+//                log.info("getJpb_gubn =====>" + _index03Dto.getJpb_gubn());
                 _index03List = service03.GetJcustomCode(_index03Dto);
             }else if(ls_flag.equals("BB")){
                 if(ls_perid.substring(0,2).equals("02")){
