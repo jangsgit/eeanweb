@@ -238,6 +238,8 @@ public class App01Controller {
             ls_userid = userformDto.getUserid();
             ls_role = userformDto.getRole();
             ls_perid = userformDto.getPerid();
+            log.info("ls_flag =====>" + ls_flag);
+            log.info("ls_perid =====>" + ls_userid.substring(0,2));
             if(ls_flag.equals("AA")){
                 if(ls_userid.substring(0,2).equals("pv")){
                     _index03Dto.setJpb_gubn("P");
@@ -246,6 +248,7 @@ public class App01Controller {
                 }else{
                     _index03Dto.setJpb_gubn("%");
                 }
+                log.info("getJpb_gubn =====>" + _index03Dto.getJpb_gubn());
                 _index03List = service03.GetJcustomCode(_index03Dto);
             }else if(ls_flag.equals("BB")){
                 if(ls_perid.substring(0,2).equals("02")){
@@ -255,7 +258,6 @@ public class App01Controller {
                 }
                 _index03List = service03.GetJcustomCode(_index03Dto);
             }else{
-
                 if (ls_flag.equals("CC")){
                     _index03Dto.setJpb_gubn(ls_role);
                 }else{
@@ -363,7 +365,7 @@ public class App01Controller {
         Index03Dto _index03Dto = new Index03Dto();
         CommDto.setMenuTitle("영업사원일반등록");
         CommDto.setMenuUrl("기준정보>영업사원일반주문등록");
-        CommDto.setMenuCode("index15");
+        CommDto.setMenuCode("index150c");
         try {
             HttpSession session = request.getSession();
             UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
