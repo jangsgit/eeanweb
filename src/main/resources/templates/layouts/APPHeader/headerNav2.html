@@ -2,9 +2,24 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"> 
 
 <script>
-    function logout(){
-        alert("kk");
-    }
+
+    $(document).ready(function() { 
+      set_init() 
+    })
+    
+    function set_init(){ 
+            lsUserid = window.localStorage.getItem("userid");
+            lsMflag = window.localStorage.getItem("flag");
+            lsRole = window.localStorage.getItem("role");
+            lsPerid = window.localStorage.getItem("perid");
+        var params = new URLSearchParams();
+        params.append('userid', lsUserid)
+        params.append('flag', lsMflag)
+        params.append('role', lsRole)
+        params.append('perid', lsPerid)
+        var link_15 = document.getElementById('index15Link');
+        link_15.href += "?" + params.toString();
+    }  
 </script>
 <body>
     <div th:fragment="headerNav2">
@@ -14,7 +29,7 @@
                 data-bs-toggle="collapse" data-bs-target="#navbarVerticalCollapse"
                 aria-controls="navbarVerticalCollapse" aria-expanded="false" aria-label="Toggle Navigation"><span
                     class="navbar-toggle-icon"><span class="toggle-line"></span></span></button>
-            <a class="navbar-brand me-1 me-sm-3" th:href="@{/app01/index150m}">
+            <a class="navbar-brand me-1 me-sm-3" id="index15Link"  th:href="@{/app01/index150m}">
                 <div class="d-flex align-items-center"> <span
                         class="font-sans-serif">EEAN System</span>
                 </div>

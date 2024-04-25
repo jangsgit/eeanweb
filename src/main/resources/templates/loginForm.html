@@ -217,7 +217,8 @@
                 window.localStorage.setItem("flag",  userFormDto["flag"])
                 window.localStorage.setItem("custnm",  userFormDto["custnm"])
                 window.localStorage.setItem("role",  userFormDto["role"])
-                window.localStorage.setItem("userpw", ls_logpass)
+                window.localStorage.setItem("rnum",  userFormDto["rnum"])
+                window.localStorage.setItem("userpw", ls_logpass) 
                 if(userFormDto == "" || userFormDto == null){
                   document.getElementById('select').value = lsFlag
                   alert("사용자 구분을 확인하세요.");

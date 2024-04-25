@@ -947,7 +947,9 @@
             var ls_asasmemo = document.getElementById('asasmemo').value; 
             var ls_asasmemo2 = document.getElementById('asasmemo2').value; 
             var ls_asasmemo3 = document.getElementById('asasmemo3').value; 
-            var ls_asaname = document.getElementById('asaname').value;  
+            var ls_asaname = document.getElementById('asaname').value;           
+            var lsCustnm = window.localStorage.getItem("custnm");                  
+            var lsRnum = window.localStorage.getItem("rnum");         
             if(arg =="A") {
                 if (!confirm("저장하시겠습니까?")) {
                     return ; 
@@ -994,7 +996,9 @@
                                 "asasmemo"      : ls_asasmemo  ,  
                                 "asasmemo2"      : ls_asasmemo2  ,  
                                 "asasmemo3"      : ls_asasmemo3  ,  
-                                "asaname"      : ls_asaname  , 
+                                "asaname"      : ls_asaname  ,  
+                                "ascustnm"      : lsCustnm  ,  
+                                "asrnum"      : lsRnum  , 
                             }, 
                             async:false,
                             success:function(data){   

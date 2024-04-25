@@ -26,7 +26,7 @@
                         <!-- th:if="${CommDto.MenuCode} == 'appcom01'" class="nav-link active"  -->
                         <ul class="nav collapse false" id="stdcode">
                             <li class="nav-item">
-                                <a class="nav-link" th:href="@{/app01/index150c}" aria-expanded="false" >
+                                <a class="nav-link" id="index15Link"  th:href="@{/app01/index150c}" aria-expanded="false" >
                                     <div class="d-flex align-items-center"><span
                                         class="nav-link-text ps-1">주문등록</span>  
                                     </div>
@@ -138,6 +138,16 @@
     // });
 
 
+    $(document).ready(function() { 
+      set_init() 
+    })
+    function set_init(){  
+        lsPerid = window.localStorage.getItem("perid");
+        var params = new URLSearchParams(); 
+        params.append('perid', lsPerid)
+        var link_15 = document.getElementById('index15Link');
+        link_15.href += "?" + params.toString();
+    }  
     function save_btn3(){
         var ls_passwd = document.getElementById('actpasswdz').value;
         var ls_name = document.getElementById('actnamez').value;

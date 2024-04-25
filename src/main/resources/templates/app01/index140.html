@@ -1143,7 +1143,8 @@
             var ls_misnum   = document.getElementById('bmisnum').value;          
             var ls_seq   = document.getElementById('bseq').value;                
             var ls_cltcd   = document.getElementById('bcltcd').value;  //비고등록시 거래처코드
-            var ls_tabchk = document.getElementById('tabvalue').value;                               
+            var ls_tabchk = document.getElementById('tabvalue').value;       
+            var lsPerid = window.localStorage.getItem("perid");                                   
             // const warnning_grid = document.getElementById('inwarnning_grid'); 
             var ls_pcode  =  [];        
             var ll_qty    =  [];    
@@ -1178,7 +1179,8 @@
                         "jqty"  : 1     ,      
                         "misdate"  : ls_misdate     ,      
                         "misnum"  : ls_misnum     ,      
-                        "seq"  : ls_seq     ,       
+                        "seq"  : ls_seq     ,   
+                        "perid"  : lsPerid     ,      
                         "mflag"  : 'CC'   ,      
                         "ordercd"  : 'CC'   , 
                         "misdateArr"  : misdateArr   ,      
@@ -1444,7 +1446,8 @@
             var ls_cifname = document.getElementById('cifname').value;  
             var  ls_jpbgubn    = document.getElementById('jpbgubn').value;                         
             var ls_bonsacd =   document.getElementById('jbonsacd').value ;                                    
-            const warnning_grid = document.getElementById('inwarnning_grid');   
+            const warnning_grid = document.getElementById('inwarnning_grid');  
+            var lsPerid = window.localStorage.getItem("perid");  
             var ls_pcode  =  [];        
             var ll_qty    =  [];    
             var ls_jcode  =  [];        
@@ -1487,7 +1490,8 @@
                                 "jcolor"  : arg3   ,    
                                 "jpbgubn"  : ls_jpbgubn   ,   
                                 "mflag"  : 'CC'   ,      
-                                "ordercd"  : 'CC'   , 
+                                "ordercd"  : 'CC'   ,       
+                                "perid"  : lsPerid   , 
                             }, 
                             async:false,
                             success:function(data){     
@@ -1542,7 +1546,8 @@
                                 "jcolor"  : arg3   ,    
                                 "jpbgubn"  : ls_jpbgubn   ,   
                                 "mflag"  : 'CC'   ,      
-                                "ordercd"  : 'CC'   , 
+                                "ordercd"  : 'CC'   ,      
+                                "perid"  : lsPerid   , 
                             }, 
                             async:false,
                             success:function(data){    

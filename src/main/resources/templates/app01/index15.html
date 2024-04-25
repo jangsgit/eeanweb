@@ -1962,7 +1962,8 @@ aria-hidden="true">
             var ls_misnum   = document.getElementById('bmisnum').value;          
             var ls_seq   = document.getElementById('bseq').value;                
             var ls_cltcd   = document.getElementById('bcltcd').value;  //비고등록시 거래처코드
-            var ls_tabchk = document.getElementById('tabvalue').value;                               
+            var ls_tabchk = document.getElementById('tabvalue').value;     
+            var lsPerid = window.localStorage.getItem("perid");                                      
             // const warnning_grid = document.getElementById('inwarnning_grid'); 
             var ls_pcode  =  [];        
             var ll_qty    =  [];    
@@ -1990,7 +1991,8 @@ aria-hidden="true">
                         "jqty"  : 1     ,      
                         "misdate"  : ls_misdate     ,      
                         "misnum"  : ls_misnum     ,      
-                        "seq"  : ls_seq     ,       
+                        "seq"  : ls_seq     ,   
+                        "perid"  : lsPerid     ,       
                         "mflag"  : 'AA'   ,      
                         "ordercd"  : 'AA'   , 
                         "misdateArr"  : misdateArr   ,      
@@ -2058,7 +2060,8 @@ aria-hidden="true">
                             "jqty"  : 1     , 
                             "misdate"  : ls_misdate     ,      
                             "misnum"  : ls_misnum     ,      
-                            "seq"      : ls_seq     ,              
+                            "seq"      : ls_seq     , 
+                            "perid"  : lsPerid     ,                 
                             "mflag"  : 'AA'   ,      
                             "ordercd"  : 'AA'   , 
                             "misdateArr"  : misdateArr   ,      
@@ -2266,7 +2269,8 @@ aria-hidden="true">
             var ls_misnum   = document.getElementById('bmisnum').value;          
             var ls_seq   = document.getElementById('bseq').value;                
             var ls_cltcd   = document.getElementById('bcltcd').value;  
-            var ls_tabchk = document.getElementById('tabvalue').value;                                            
+            var ls_tabchk = document.getElementById('tabvalue').value;      
+            var lsPerid = window.localStorage.getItem("perid");                                                 
             // const warnning_grid = document.getElementById('inwarnning_grid'); 
             var ls_pcode  =  [];        
             var ll_qty    =  [];    
@@ -2329,7 +2333,8 @@ aria-hidden="true">
                             "mflag"  : 'AA'   ,       
                             "misdate"  : ls_misdate     ,      
                             "misnum"  : ls_misnum     ,      
-                            "seq"  : ls_seq     ,         
+                            "seq"  : ls_seq     , 
+                            "perid"  : lsPerid     ,         
                             "ordercd"  : 'AA'   , 
                             "misdateArr"  : misdateArr   ,      
                             "misnumArr"  : misnumArr  ,      
@@ -2390,7 +2395,8 @@ aria-hidden="true">
             var ls_misnum   = document.getElementById('bmisnum').value;          
             var ls_seq   = document.getElementById('bseq').value;                  
             var ls_cltcd   = document.getElementById('bcltcd').value; 
-            var ls_tabchk = document.getElementById('tabvalue').value;                                         
+            var ls_tabchk = document.getElementById('tabvalue').value;           
+            var lsPerid = window.localStorage.getItem("perid");                                         
             // const warnning_grid = document.getElementById('inwarnning_grid'); 
             var ls_pcode  =  [];        
             var ll_qty    =  [];    
@@ -2451,6 +2457,7 @@ aria-hidden="true">
                             "misdate"  : ls_misdate     ,      
                             "misnum"  : ls_misnum     ,      
                             "seq"      : ls_seq     ,         
+                            "perid"      : lsPerid     ,        
                             "mflag"  : 'AA'   ,      
                             "ordercd"  : 'AA'   , 
                             "misdateArr"  : misdateArr   ,      

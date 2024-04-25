@@ -222,7 +222,11 @@ public class App01Controller {
 
     //주문등록
     @GetMapping(value="/index15")
-    public Object App15_index( Model model, HttpServletRequest request) throws Exception{
+    public Object App15_index( @RequestParam("userid") String userid,
+                               @RequestParam("flag") String flag,
+                               @RequestParam("role") String role,
+                               @RequestParam("perid") String perid,
+                               Model model, HttpServletRequest request) throws Exception{
 
         Index03Dto _index03Dto = new Index03Dto();
         List<Index03Dto> _index03List = new ArrayList<>();
@@ -234,12 +238,10 @@ public class App01Controller {
             HttpSession session = request.getSession();
             UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
             model.addAttribute("userformDto",userformDto);
-            ls_flag = userformDto.getFlag();
-            ls_userid = userformDto.getUserid();
-            ls_role = userformDto.getRole();
-            ls_perid = userformDto.getPerid();
-            log.info("ls_flag =====>" + ls_flag);
-            log.info("ls_perid =====>" + ls_userid.substring(0,2));
+            ls_flag = flag;
+            ls_userid = userid;
+            ls_role = role;
+            ls_perid = perid;
             if(ls_flag.equals("AA")){
                 if(ls_userid.substring(0,2).equals("pv")){
                     _index03Dto.setJpb_gubn("P");
@@ -248,6 +250,8 @@ public class App01Controller {
                 }else{
                     _index03Dto.setJpb_gubn("%");
                 }
+                log.info("flag =====>" + flag);
+                log.info("userid =====>" + userid);
                 log.info("getJpb_gubn =====>" + _index03Dto.getJpb_gubn());
                 _index03List = service03.GetJcustomCode(_index03Dto);
             }else if(ls_flag.equals("BB")){
@@ -278,7 +282,11 @@ public class App01Controller {
 
     //주문등록
     @GetMapping(value="/index150")
-    public Object App150_index( Model model, HttpServletRequest request) throws Exception{
+    public Object App150_index( @RequestParam("userid") String userid,
+                                @RequestParam("flag") String flag,
+                                @RequestParam("role") String role,
+                                @RequestParam("perid") String perid,
+                                Model model, HttpServletRequest request) throws Exception{
         List<Index03Dto> _index03List = new ArrayList<>();
         Index03Dto _index03Dto = new Index03Dto();
         String ls_flag, ls_userid, ls_role, ls_perid;
@@ -291,10 +299,10 @@ public class App01Controller {
             UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
             model.addAttribute("userformDto",userformDto);
 
-            ls_flag = userformDto.getFlag();
-            ls_userid = userformDto.getUserid();
-            ls_role = userformDto.getRole();
-            ls_perid = userformDto.getPerid();
+            ls_flag = flag;
+            ls_userid = userid;
+            ls_role = role;
+            ls_perid = perid;
             if(ls_flag.equals("AA")){
                 if(ls_userid.substring(0,2).equals("pv")){
                     _index03Dto.setJpb_gubn("P");
@@ -329,7 +337,11 @@ public class App01Controller {
 
     //주문등록
     @GetMapping(value="/index150b")
-    public Object App150b_index( Model model, HttpServletRequest request) throws Exception{
+    public Object App150b_index( @RequestParam("userid") String userid,
+                                 @RequestParam("flag") String flag,
+                                 @RequestParam("role") String role,
+                                 @RequestParam("perid") String perid,
+                                 Model model, HttpServletRequest request) throws Exception{
         List<Index03Dto> _index03List = new ArrayList<>();
         Index03Dto _index03Dto = new Index03Dto();
         CommDto.setMenuTitle("영업사원일반등록");
@@ -339,15 +351,13 @@ public class App01Controller {
             HttpSession session = request.getSession();
             UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
             model.addAttribute("userformDto",userformDto);
-            String ls_flag = userformDto.getFlag();
-            String ls_role = userformDto.getRole();
+            String ls_flag = flag;
+            String ls_role = role;
             if (ls_flag.equals("CC")){
                 _index03Dto.setJpb_gubn(ls_role);
             }else{
                 _index03Dto.setJpb_gubn("%");
             }
-//            log.info("ls_flag =====>" + ls_flag);
-//            log.info("ls_role =====>" + ls_role);
             _index03List = service03.GetJcustomCode_CC(_index03Dto);
 
             model.addAttribute("index15List",_index03List);
@@ -361,7 +371,8 @@ public class App01Controller {
 
     //주문등록
     @GetMapping(value="/index150c")
-    public Object App150C_index( Model model, HttpServletRequest request) throws Exception{
+    public Object App150C_index( @RequestParam("perid") String perid,
+                                 Model model, HttpServletRequest request) throws Exception{
         Index03Dto _index03Dto = new Index03Dto();
         CommDto.setMenuTitle("영업사원일반등록");
         CommDto.setMenuUrl("기준정보>영업사원일반주문등록");
@@ -370,7 +381,7 @@ public class App01Controller {
             HttpSession session = request.getSession();
             UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
             model.addAttribute("userformDto",userformDto);
-            if(userformDto.getPerid().substring(0,2).equals("02")){
+            if(perid.substring(0,2).equals("02")){
                 _index03Dto.setJpb_gubn("P");
             }else{
                 _index03Dto.setJpb_gubn("B");
@@ -380,7 +391,7 @@ public class App01Controller {
             model.addAttribute("index15List",index03List);
         } catch (Exception ex) {
             log.info("App150c_index Exception  ===================>"  + ex.toString());
-            return "redirect:http://eean.co.kr/m";
+            return "redirect:http://eean.co.kr:8900/m";
         }
 
         return "App01/index150c";
@@ -512,7 +523,7 @@ public class App01Controller {
         } catch (Exception ex) {
             log.info("App141m_index Exception ================================================================");
             log.info("Exception =====>" + ex.toString());
-            return "redirect:http://eean.co.kr/m";
+            return "redirect:http://eean.co.kr:8900/m";
         }
 
         return "App01/index141m";
@@ -556,7 +567,7 @@ public class App01Controller {
         } catch (Exception ex) {
             log.info("App142_index Exception ================================================================");
             log.info("Exception =====>" + ex.toString());
-            return "redirect:http://eean.co.kr/m";
+            return "redirect:http://eean.co.kr:8900/m";
         }
 
         return "App01/index142m";
@@ -598,7 +609,7 @@ public class App01Controller {
         } catch (Exception ex) {
             log.info("App143m_index Exception ================================================================");
             log.info("Exception =====>" + ex.toString());
-            return "redirect:http://eean.co.kr/m";
+            return "redirect:http://eean.co.kr:8900/m";
         }
 
         return "App01/index143m";
@@ -621,7 +632,7 @@ public class App01Controller {
         } catch (Exception ex) {
             log.info("index140m Exception ================================================================");
             log.info("Exception =====>" + ex.toString());
-            return "redirect:http://eean.co.kr/m";
+            return "redirect:http://eean.co.kr:8900/m";
         }
 
         return "App01/index140m";
@@ -630,7 +641,11 @@ public class App01Controller {
 
     //주문등록 거래처
     @GetMapping(value="/index150m")
-    public String App150m_index( Model model, HttpServletRequest request) throws Exception{
+    public String App150m_index(  @RequestParam("userid") String userid,
+                                  @RequestParam("flag") String flag,
+                                  @RequestParam("role") String role,
+                                  @RequestParam("perid") String perid,
+                                  Model model, HttpServletRequest request) throws Exception{
         CommDto.setMenuTitle("거래처주문등록");
         CommDto.setMenuUrl("기준정보>거래처주문등록");
         CommDto.setMenuCode("index150m");
@@ -638,9 +653,9 @@ public class App01Controller {
             HttpSession session = request.getSession();
             UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
             model.addAttribute("userformDto",userformDto);
-            String ls_acorp1 = userformDto.getPerid();
-            String ls_flag = userformDto.getFlag();
-            String ls_role = userformDto.getRole();
+            String ls_acorp1 = perid;
+            String ls_flag = flag;
+            String ls_role = role;
             if (ls_flag.equals("CC")){
                 index03Dto.setJpb_gubn(ls_role);
             }else{
@@ -651,7 +666,7 @@ public class App01Controller {
         } catch (Exception ex) {
             log.info("App150m_index Exception ================================================================");
             log.info("Exception =====>" + ex.toString());
-            return "redirect:http://eean.co.kr/m";
+            return "redirect:http://eean.co.kr:8900/m";
         }
 
         return "App01/index150m";

@@ -1033,6 +1033,7 @@ public class App01CrudController {
             ,@RequestParam("mflag") String mflag
             ,@RequestParam("jpbgubn") String jpbgubn
             ,@RequestParam("ordercd") String ordercd
+            ,@RequestParam("perid") String perid
             , Model model
             , HttpServletRequest request){
 
@@ -1127,7 +1128,7 @@ public class App01CrudController {
                     _indexDa023Dto.setGgubun("BB");
                     break;
                 case "CC":
-                    _indexDa023Dto.setPerid(userformDto.getPerid());
+                    _indexDa023Dto.setPerid(perid);
                     _indexDa023Dto.setGgubun("CC");
                     break;
                 default:
@@ -1218,7 +1219,7 @@ public class App01CrudController {
             if(ll_chulgoga > 0 ) {_indexDa024Dto.setAddamt(ll_chulgoga / 10);};
             _indexDa024Dto.setAmt(ll_chulgoga + (ll_chulgoga / 10));
             _indexDa024Dto.setIndate(getToDate());
-            _indexDa024Dto.setInperid(userformDto.getPerid());
+            _indexDa024Dto.setInperid(perid);
             _indexDa024Dto.setPunit("EA");
             if (ls_chknull.length() == 0){
                 result = service14.InsertDa023(_indexDa023Dto);
@@ -1250,6 +1251,7 @@ public class App01CrudController {
             ,@RequestParam("mflag") String mflag
             ,@RequestParam("jpbgubn") String jpbgubn
             ,@RequestParam("ordercd") String ordercd
+            ,@RequestParam("perid") String perid
             , Model model
             , HttpServletRequest request){
 
@@ -1327,7 +1329,7 @@ public class App01CrudController {
                     _indexDa023Dto.setGgubun("BB");
                     break;
                 case "CC":
-                    _indexDa023Dto.setPerid(userformDto.getPerid());
+                    _indexDa023Dto.setPerid(perid);
                     _indexDa023Dto.setGgubun("CC");
                     break;
                 default:
@@ -1414,7 +1416,7 @@ public class App01CrudController {
             if(ll_chulgoga > 0 ) {_indexDa024Dto.setAddamt(ll_chulgoga / 10);};
             _indexDa024Dto.setAmt(ll_chulgoga + (ll_chulgoga / 10));
             _indexDa024Dto.setIndate(getToDate());
-            _indexDa024Dto.setInperid(userformDto.getPerid());
+            _indexDa024Dto.setInperid(perid);
             _indexDa024Dto.setPunit("EA");
             if (ls_chknull.length() == 0){
                 result = service14.InsertDa025(_indexDa023Dto);
@@ -1445,6 +1447,7 @@ public class App01CrudController {
             ,@RequestParam("misdate") String misdate
             ,@RequestParam("misnum") String misnum
             ,@RequestParam("seq") String seq
+            ,@RequestParam("perid") String perid
             ,@RequestParam( value =  "misdateArr[]") List<String> misdateArr
             ,@RequestParam( value =  "misnumArr[]") List<String> misnumArr
             ,@RequestParam( value =  "seqArr[]") List<String> seqArr
@@ -1609,7 +1612,7 @@ public class App01CrudController {
                     _indexDa023Dto.setPerid("");
                     break;
                 case "CC":
-                    _indexDa023Dto.setPerid(userformDto.getPerid());
+                    _indexDa023Dto.setPerid(perid);
                     break;
                 default:
                     break;
@@ -1701,7 +1704,7 @@ public class App01CrudController {
             _Da024Dto.setUamt(ll_chulgoga);
             _Da024Dto.setSamt(ll_chulgoga);
             _Da024Dto.setIndate(getToDate());
-            _Da024Dto.setInperid(userformDto.getPerid());
+            _Da024Dto.setInperid(perid);
             _Da024Dto.setPunit("EA");
             if (ls_chknull.length() == 0){
                 result = service14.InsertDa023(_indexDa023Dto);
@@ -1960,6 +1963,7 @@ public class App01CrudController {
             ,@RequestParam("misdate") String misdate
             ,@RequestParam("misnum") String misnum
             ,@RequestParam("seq") String seq
+            ,@RequestParam("perid") String perid
             ,@RequestParam( value =  "misdateArr[]") List<String> misdateArr
             ,@RequestParam( value =  "misnumArr[]") List<String> misnumArr
             ,@RequestParam( value =  "seqArr[]") List<String> seqArr
@@ -2109,7 +2113,7 @@ public class App01CrudController {
                     _indexDa023Dto.setPerid("");
                     break;
                 case "CC":
-                    _indexDa023Dto.setPerid(userformDto.getPerid());
+                    _indexDa023Dto.setPerid(perid);
                     break;
                 default:
                     break;
@@ -2164,7 +2168,7 @@ public class App01CrudController {
             };
 
             _Da024Dto.setIndate(getToDate());
-            _Da024Dto.setInperid(userformDto.getPerid());
+            _Da024Dto.setInperid(perid);
             _Da024Dto.setPunit("EA");
             if (ls_chknull.length() == 0){
                 result = service14.InsertDa025(_indexDa023Dto);
@@ -2215,7 +2219,7 @@ public class App01CrudController {
             String year = frdate.substring(0,4) ;
             String month = frdate.substring(5,7) ;
             String day   = frdate.substring(8,10) ;
-            String ls_flag = userformDto.getFlag();
+            String ls_flag = mflag;
             frdate = year + month + day ;
             year = todate.substring(0,4) ;
             month = todate.substring(5,7) ;
@@ -2331,7 +2335,7 @@ public class App01CrudController {
                     _indexDa024Dto.setPerid(perid);
                     break;
                 case "CC":
-                    _indexDa024Dto.setPerid(userformDto.getPerid());
+                    _indexDa024Dto.setPerid(perid);
                     break;
                 default:
                     break;
@@ -2409,7 +2413,7 @@ public class App01CrudController {
                     _indexDa024Dto.setMisgubun("%");
                     break;
                 case "CC":
-                    _indexDa024Dto.setPerid(userformDto.getPerid());
+                    _indexDa024Dto.setPerid(perid);
                     _indexDa024Dto.setMisgubun("%");
                     break;
                 default:
@@ -2612,7 +2616,7 @@ public class App01CrudController {
                     _indexDa024Dto.setPerid(perid);
                     break;
                 case "CC":
-                    _indexDa024Dto.setPerid(userformDto.getPerid());
+                    _indexDa024Dto.setPerid(perid);
                     break;
                 default:
                     break;
@@ -2680,7 +2684,7 @@ public class App01CrudController {
                     _indexDa024Dto.setPerid(perid);
                     break;
                 case "CC":
-                    _indexDa024Dto.setPerid(userformDto.getPerid());
+                    _indexDa024Dto.setPerid(perid);
                     break;
                 default:
                     break;
@@ -2749,7 +2753,7 @@ public class App01CrudController {
                     _indexDa024Dto.setPerid(perid);
                     break;
                 case "CC":
-                    _indexDa024Dto.setPerid(userformDto.getPerid());
+                    _indexDa024Dto.setPerid(perid);
                     break;
                 default:
                     break;
@@ -2818,7 +2822,7 @@ public class App01CrudController {
                     _indexDa024Dto.setPerid(perid);
                     break;
                 case "CC":
-                    _indexDa024Dto.setPerid(userformDto.getPerid());
+                    _indexDa024Dto.setPerid(perid);
                     break;
                 default:
                     break;
@@ -2888,7 +2892,7 @@ public class App01CrudController {
                     _indexDa024Dto.setPerid(perid);
                     break;
                 case "CC":
-                    _indexDa024Dto.setPerid(userformDto.getPerid());
+                    _indexDa024Dto.setPerid(perid);
                     break;
                 default:
                     break;
@@ -2961,7 +2965,7 @@ public class App01CrudController {
                     _indexDa024Dto.setPerid(perid);
                     break;
                 case "CC":
-                    _indexDa024Dto.setPerid(userformDto.getPerid());
+                    _indexDa024Dto.setPerid(perid);
                     break;
                 default:
                     break;
@@ -3030,7 +3034,7 @@ public class App01CrudController {
                     _indexDa024Dto.setPerid(perid);
                     break;
                 case "CC":
-                    _indexDa024Dto.setPerid(userformDto.getPerid());
+                    _indexDa024Dto.setPerid(perid);
                     break;
                 default:
                     break;
@@ -3098,7 +3102,7 @@ public class App01CrudController {
                     _indexDa024Dto.setPerid(perid);
                     break;
                 case "CC":
-                    _indexDa024Dto.setPerid(userformDto.getPerid());
+                    _indexDa024Dto.setPerid(perid);
                     break;
                 default:
                     break;
@@ -3173,7 +3177,7 @@ public class App01CrudController {
                     _indexDa024Dto.setMisgubun("%");
                     break;
                 case "CC":
-                    _indexDa024Dto.setPerid(userformDto.getPerid());
+                    _indexDa024Dto.setPerid(perid);
                     _indexDa024Dto.setMisgubun("%");
                     break;
                 default:
@@ -3254,7 +3258,7 @@ public class App01CrudController {
                     _indexDa024Dto.setMisgubun("%");
                     break;
                 case "CC":
-                    _indexDa024Dto.setPerid(userformDto.getPerid());
+                    _indexDa024Dto.setPerid(perid);
                     _indexDa024Dto.setMisgubun("%");
                     break;
                 default:
@@ -3332,7 +3336,7 @@ public class App01CrudController {
                     _indexDa024Dto.setMisgubun("%");
                     break;
                 case "CC":
-                    _indexDa024Dto.setPerid(userformDto.getPerid());
+                    _indexDa024Dto.setPerid(perid);
                     _indexDa024Dto.setMisgubun("%");
                     break;
                 default:
@@ -3400,7 +3404,7 @@ public class App01CrudController {
                     _indexDa024Dto.setPerid(perid);
                     break;
                 case "CC":
-                    _indexDa024Dto.setPerid(userformDto.getPerid());
+                    _indexDa024Dto.setPerid(perid);
                     break;
                 default:
                     break;
@@ -3467,7 +3471,7 @@ public class App01CrudController {
                     _indexDa024Dto.setPerid(perid);
                     break;
                 case "CC":
-                    _indexDa024Dto.setPerid(userformDto.getPerid());
+                    _indexDa024Dto.setPerid(perid);
                     break;
                 default:
                     break;
@@ -3537,7 +3541,7 @@ public class App01CrudController {
                     _indexDa024Dto.setPerid(perid);
                     break;
                 case "CC":
-                    _indexDa024Dto.setPerid(userformDto.getPerid());
+                    _indexDa024Dto.setPerid(perid);
                     break;
                 default:
                     break;
@@ -4252,6 +4256,8 @@ public class App01CrudController {
             ,@RequestParam( value =  "asasmemo2") String asasmemo2
             ,@RequestParam( value =  "asasmemo3") String asasmemo3
             ,@RequestParam( value =  "asaname") String asaname
+            ,@RequestParam( value =  "ascustnm") String ascustnm
+            ,@RequestParam( value =  "asrnum") String asrnum
             , Model model
             , HttpServletRequest request){
 
@@ -4274,8 +4280,8 @@ public class App01CrudController {
                 index20Dto.setAs_key2(asaskey2);
                 index20Dto.setAs_damdang(condamdang);
                 index20Dto.setAs_gongjang(asasgong);
-                index20Dto.setAs_computer(userformDto.getCustnm());
-                index20Dto.setAs_rnum(userformDto.getRnum());
+                index20Dto.setAs_computer(ascustnm);
+                index20Dto.setAs_rnum(asrnum);
                 index20Dto.setAs_acorp(jacorp);
                 index20Dto.setAs_acorp1(jacorp1);
                 index20Dto.setAs_acorp2(jacorp2);

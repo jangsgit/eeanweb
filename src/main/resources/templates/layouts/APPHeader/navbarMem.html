@@ -34,7 +34,7 @@
                                 <!-- more inner pages-->
                             </li> 
                             <li class="nav-item">
-                                <a class="nav-link" th:href="@{/app01/index150m}" aria-expanded="false" >
+                                <a class="nav-link" id="index15Link"  th:href="@{/app01/index150m}" aria-expanded="false" >
                                     <div class="d-flex align-items-center"><span
                                         class="nav-link-text ps-1">일반주문</span>  
                                     </div>
@@ -157,9 +157,24 @@
 
 
 <script type="text/javascript" th:inline="javascript">
-    function userrtn(){
-        alert("kkk")
-    }
+
+    $(document).ready(function() { 
+      set_init() 
+    })
+    
+    function set_init(){ 
+            lsUserid = window.localStorage.getItem("userid");
+            lsMflag = window.localStorage.getItem("flag");
+            lsRole = window.localStorage.getItem("role");
+            lsPerid = window.localStorage.getItem("perid");
+        var params = new URLSearchParams();
+        params.append('userid', lsUserid)
+        params.append('flag', lsMflag)
+        params.append('role', lsRole)
+        params.append('perid', lsPerid)
+        var link_15 = document.getElementById('index15Link');
+        link_15.href += "?" + params.toString();
+    }  
     //마이페이지 모달 호출
     // document.getElementById("userinfo").addEventListener("click",function() {
     //     document.getElementById("userinfobtn").click();

@@ -15,7 +15,7 @@
                     </div> 
                     <ul>
                         <li><a th:href="@{/app01/index14}"><i><img class="dot1" th:src="@{/assets/images/i_dot_header.png}" alt=""><img class="dot2" th:src="@{/assets/images/i_dot_header2.png}" alt=""></i>간편주문</a></li>
-                        <li><a th:href="@{/app01/index15}"><i><img class="dot1" th:src="@{/assets/images/i_dot_header.png}" alt=""><img class="dot2" th:src="@{/assets/images/i_dot_header2.png}" alt=""></i>일반주문</a></li>
+                        <li><a id="index15Link" th:href="@{/app01/index15}"><i><img class="dot1" th:src="@{/assets/images/i_dot_header.png}" alt=""><img class="dot2" th:src="@{/assets/images/i_dot_header2.png}" alt=""></i>일반주문</a></li>
                         <li><a th:href="@{/app01/index16}"><i><img class="dot1" th:src="@{/assets/images/i_dot_header.png}" alt=""><img class="dot2" th:src="@{/assets/images/i_dot_header2.png}" alt=""></i>주문현황</a></li>
                         <li><a th:href="@{/app01/index17}"><i><img class="dot1" th:src="@{/assets/images/i_dot_header.png}" alt=""><img class="dot2" th:src="@{/assets/images/i_dot_header2.png}" alt=""></i>주문삭제현황</a></li>
                         <!-- <li><a th:href="@{/app01/index05}"><i><img class="dot1" th:src="@{/assets/images/i_dot_header.png}" alt=""><img class="dot2" th:src="@{/assets/images/i_dot_header2.png}" alt=""></i>예약주문등록</a></li> -->
@@ -134,13 +134,30 @@
     <!--------------------------------------------------------------------------------------->
 
     <script type="text/javascript" th:inline="javascript">
+        
+        $(document).ready(function() { 
+            set_init() 
+        })
+
         //마이페이지 모달 호출
         // document.getElementById("userinfo").addEventListener("click",function() {
         //     document.getElementById("userinfobtn").click();
 
         // });
 
-
+        function set_init(){ 
+             lsUserid = window.localStorage.getItem("userid");
+             lsMflag = window.localStorage.getItem("flag");
+             lsRole = window.localStorage.getItem("role");
+             lsPerid = window.localStorage.getItem("perid");
+            var params = new URLSearchParams();
+            params.append('userid', lsUserid)
+            params.append('flag', lsMflag)
+            params.append('role', lsRole)
+            params.append('perid', lsPerid)
+            var link_15 = document.getElementById('index15Link');
+            link_15.href += "?" + params.toString();
+        }    
         function save_btn3(){
             var ls_passwd = document.getElementById('actpasswdz').value;
             var ls_name = document.getElementById('actnamez').value;

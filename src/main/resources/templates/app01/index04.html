@@ -396,7 +396,7 @@
                     // { binding: 'jmodel_code', header: '모델코드', align: "center", width: '1*' }, 
                     // { binding: 'jcolor_code', header: '컬러코드', align: "center", width: '1*' }, 
                     // { binding: 'jcustomer_code', header: '고객코드', align: "center", width: '1*' }, 
-                    { binding: 'ijaego_su1', header: '입고수량', align: "center", width: '1*' },  
+                    { binding: 'ijaego_su1', header: '입고수량', align: "center", width: '1*',  format: 'n0' },  
                 ], 
                 itemsSource: view_p01tab02page, 
             });  
@@ -552,8 +552,8 @@
                     { binding: 'jmodel_code', header: '모델코드', align: "center", width: '1*' }, 
                     { binding: 'jcolor_code', header: '컬러코드', align: "center", width: '1*' }, 
                     { binding: 'jcustomer_code', header: '고객코드', align: "center", width: '1*' }, 
-                    { binding: 'jqty', header: '재고수량', align: "center", width: '1*' },  
-                ], 
+                    { binding: 'jqty', header: '재고수량', align: "center", width: '1*', format: 'n0' },  
+                ],  
                 itemsSource: view_p01tab04page,
                 scrollPositionChanged: function (s, e) {
                 // 만약 바닥에 가까우면, 20개의 아이템을 추가
@@ -1234,7 +1234,9 @@
             var wtab03Dto  = data;    
             var wtab03_data = [];
             var cnt = 1;
+            var ll_jqty = 0;
             for (var i = 0; i < wtab03Dto.length; i++) {
+                ll_jqty = wtab03Dto[i]["jqty"];
                 wtab03_data.push({ 
                     id: i, 
                     index: cnt,
@@ -1245,7 +1247,7 @@
                     jmodel_code: wtab03Dto[i]["jmodel_code"],
                     jcolor_code: wtab03Dto[i]["jcolor_code"], 
                     jcustomer_code: wtab03Dto[i]["jcustomer_code"], 
-                    jqty: wtab03Dto[i]["jqty"], 
+                    jqty: ll_jqty, 
                     
                 });
                 cnt++;
@@ -1308,6 +1310,7 @@
             cols.binding = 'jqty';
             cols.header = '재고수량';
             cols.align = "center";
+            cols.format = "n0"; 
             cols.width = 100;  
             wtab04Grid.columns.push(cols);   
  
