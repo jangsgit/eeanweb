@@ -2203,6 +2203,8 @@ public class App01CrudController {
         CommDto.setMenuCode("index14");
         HttpSession session = request.getSession();
         UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        IndexDa024Dto _indexDa024Dto = new IndexDa024Dto();
+        List<IndexDa024Dto> _indexDa024ListDto = new ArrayList<>();
         if(userformDto == null){
             log.info("App14List_index Exception =====> relogin userformDto null");
             return "relogin";
@@ -2213,6 +2215,7 @@ public class App01CrudController {
             String year = frdate.substring(0,4) ;
             String month = frdate.substring(5,7) ;
             String day   = frdate.substring(8,10) ;
+            String ls_flag = userformDto.getFlag();
             frdate = year + month + day ;
             year = todate.substring(0,4) ;
             month = todate.substring(5,7) ;
@@ -2224,50 +2227,51 @@ public class App01CrudController {
             if(jcode == null || jcode.equals("")){
                 jcode = "%";
             }
-            indexDa024Dto.setFrdate(frdate);
-            indexDa024Dto.setTodate(todate);
-            indexDa024Dto.setCltcd(acode);
-            indexDa024Dto.setFixflag(fixflag);
-            indexDa024Dto.setDevflag(devflag);
-            indexDa024Dto.setMakflag(makflag);
-            indexDa024Dto.setJpbgubn(jpbgubn);
-            indexDa024Dto.setPcode(jcode);
+            _indexDa024Dto.setFrdate(frdate);
+            _indexDa024Dto.setTodate(todate);
+            _indexDa024Dto.setCltcd(acode);
+            _indexDa024Dto.setFixflag(fixflag);
+            _indexDa024Dto.setDevflag(devflag);
+            _indexDa024Dto.setMakflag(makflag);
+            _indexDa024Dto.setJpbgubn(jpbgubn);
+            _indexDa024Dto.setPcode(jcode);
 
             if(perid == null || perid.equals("")){
                 perid = "%";
             }
             mflag = "%";
-            switch (mflag){
+//            log.info("ls_flag=====>" + ls_flag);
+//            log.info("ls_misgubun====>" + misgubun);
+            switch (ls_flag){
                 case "AA" :
-                    indexDa024Dto.setMisgubun(misgubun);
+                    _indexDa024Dto.setMisgubun(misgubun);
                     break;
                 case "BB":
-                    indexDa024Dto.setMisgubun(mflag);
+                    _indexDa024Dto.setMisgubun(ls_flag);
                     break;
                 case "CC":
-                    indexDa024Dto.setMisgubun(mflag);
+                    _indexDa024Dto.setMisgubun(ls_flag);
                     break;
                 default:
                     break;
             }
-            indexDa024Dto.setPerid(perid);
-            indexDa024Dto.setJfrdate("20000101");
-            indexDa024Dto.setJtodate(todate);
-            //indexDa024Dto.setMisgubun(mflag);
+            _indexDa024Dto.setPerid(perid);
+            _indexDa024Dto.setJfrdate("20000101");
+            _indexDa024Dto.setJtodate(todate);
 //            log.info("misgubun1 =====>" + misgubun);
             if(acode.equals("%")){
-                indexDa024ListDto = service14.SelectDa024ListLike(indexDa024Dto);
+                _indexDa024ListDto = service14.SelectDa024ListLike(_indexDa024Dto);
             }else{
-                indexDa024ListDto = service14.SelectDa024List(indexDa024Dto);
+                _indexDa024ListDto = service14.SelectDa024List(_indexDa024Dto);
             }
 //            log.info("misgubun2 =====>" + misgubun);
-            model.addAttribute("indexDa024ListDto",indexDa024ListDto);
+            model.addAttribute("indexDa024ListDto",_indexDa024ListDto);
 
         } catch (Exception ex) {
             log.info("App14List_index Exception =====>" + ex.toString());
         }
 
-        return indexDa024ListDto;
+        return _indexDa024ListDto;
     }
 
 
@@ -2289,6 +2293,8 @@ public class App01CrudController {
         CommDto.setMenuCode("index14");
         HttpSession session = request.getSession();
         UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        IndexDa024Dto _indexDa024Dto = new IndexDa024Dto();
+        List<IndexDa024Dto> _indexDa024ListDto = new ArrayList<>();
         if(userformDto == null){
             log.info("App14List_index Exception =====> relogin userformDto null");
             return "relogin";
@@ -2304,48 +2310,48 @@ public class App01CrudController {
             month = todate.substring(5,7) ;
             day   = todate.substring(8,10) ;
             todate = year + month + day ;
-            indexDa024Dto.setFrdate(frdate);
-            indexDa024Dto.setTodate(todate);
-            indexDa024Dto.setCltcd(acode);
-            indexDa024Dto.setFixflag(fixflag);
-            indexDa024Dto.setDevflag(devflag);
-            indexDa024Dto.setMakflag(makflag);
-            indexDa024Dto.setJpbgubn(jpbgubn);
+            _indexDa024Dto.setFrdate(frdate);
+            _indexDa024Dto.setTodate(todate);
+            _indexDa024Dto.setCltcd(acode);
+            _indexDa024Dto.setFixflag(fixflag);
+            _indexDa024Dto.setDevflag(devflag);
+            _indexDa024Dto.setMakflag(makflag);
+            _indexDa024Dto.setJpbgubn(jpbgubn);
             //영업사원과 본사가 같은업체 같은 품목으로 겹칠수있어 구분을 넣음.
-            indexDa024Dto.setMisgubun(misgubun);
+            _indexDa024Dto.setMisgubun(misgubun);
 
             if(perid == null || perid.equals("")){
                 perid = "%";
             }
             switch (mflag){
                 case "AA" :
-                    indexDa024Dto.setPerid(perid);
+                    _indexDa024Dto.setPerid(perid);
                     break;
                 case "BB":
-                    indexDa024Dto.setPerid(perid);
+                    _indexDa024Dto.setPerid(perid);
                     break;
                 case "CC":
-                    indexDa024Dto.setPerid(userformDto.getPerid());
+                    _indexDa024Dto.setPerid(userformDto.getPerid());
                     break;
                 default:
                     break;
             }
-            indexDa024Dto.setPerid(perid);
-            indexDa024Dto.setMisgubun(mflag);
-            indexDa024Dto.setJfrdate("20000101");
-            indexDa024Dto.setJtodate(todate);
+            _indexDa024Dto.setPerid(perid);
+            _indexDa024Dto.setMisgubun(mflag);
+            _indexDa024Dto.setJfrdate("20000101");
+            _indexDa024Dto.setJtodate(todate);
             if(acode.equals("%")){
-                indexDa024ListDto = service14.SelectDa024ListLikeJang(indexDa024Dto);
+                _indexDa024ListDto = service14.SelectDa024ListLikeJang(_indexDa024Dto);
             }else{
-                indexDa024ListDto = service14.SelectDa024ListJang(indexDa024Dto);
+                _indexDa024ListDto = service14.SelectDa024ListJang(_indexDa024Dto);
             }
-            model.addAttribute("indexDa024ListDto",indexDa024ListDto);
+            model.addAttribute("indexDa024ListDto",_indexDa024ListDto);
 
         } catch (Exception ex) {
             log.info("App14List_index Exception =====>" + ex.toString());
         }
 
-        return indexDa024ListDto;
+        return _indexDa024ListDto;
     }
 
     //주문현황 리스트
@@ -2366,6 +2372,8 @@ public class App01CrudController {
         CommDto.setMenuCode("index14");
         HttpSession session = request.getSession();
         UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        IndexDa024Dto _indexDa024Dto = new IndexDa024Dto();
+        List<IndexDa024Dto> _indexDa024ListDto = new ArrayList<>();
         if(userformDto == null){
             log.info("App14List_index Exception =====> relogin userformDto null");
             return "relogin";
@@ -2381,43 +2389,43 @@ public class App01CrudController {
             month = todate.substring(5,7) ;
             day   = todate.substring(8,10) ;
             todate = year + month + day ;
-            indexDa024Dto.setFrdate(frdate);
-            indexDa024Dto.setTodate(todate);
-            indexDa024Dto.setCltcd(acode);
-            indexDa024Dto.setFixflag(fixflag);
-            indexDa024Dto.setMakflag(makflag);
-            indexDa024Dto.setPcode(jcode);
+            _indexDa024Dto.setFrdate(frdate);
+            _indexDa024Dto.setTodate(todate);
+            _indexDa024Dto.setCltcd(acode);
+            _indexDa024Dto.setFixflag(fixflag);
+            _indexDa024Dto.setMakflag(makflag);
+            _indexDa024Dto.setPcode(jcode);
             if(perid == null || perid.equals("")){
                 perid = "%";
             }
             switch (mflag){
                 case "AA" :
-                    indexDa024Dto.setPerid(perid);
-                    indexDa024Dto.setMisgubun("%");
+                    _indexDa024Dto.setPerid(perid);
+                    _indexDa024Dto.setMisgubun("%");
                     mflag = "%";
                     break;
                 case "BB":
-                    indexDa024Dto.setPerid(perid);
-                    indexDa024Dto.setMisgubun("%");
+                    _indexDa024Dto.setPerid(perid);
+                    _indexDa024Dto.setMisgubun("%");
                     break;
                 case "CC":
-                    indexDa024Dto.setPerid(userformDto.getPerid());
-                    indexDa024Dto.setMisgubun("%");
+                    _indexDa024Dto.setPerid(userformDto.getPerid());
+                    _indexDa024Dto.setMisgubun("%");
                     break;
                 default:
                     break;
             }
-            indexDa024Dto.setPerid(perid);
+            _indexDa024Dto.setPerid(perid);
             //indexDa024Dto.setMisgubun(mflag);
             //log.info("misgubun =====>" + misgubun);
-            indexDa024ListDto = service14.SelectDa024ListDel(indexDa024Dto);
-            model.addAttribute("indexDa024ListDto",indexDa024ListDto);
+            _indexDa024ListDto = service14.SelectDa024ListDel(_indexDa024Dto);
+            model.addAttribute("indexDa024ListDto",_indexDa024ListDto);
 
         } catch (Exception ex) {
             log.info("App14List_index Exception =====>" + ex.toString());
         }
 
-        return indexDa024ListDto;
+        return _indexDa024ListDto;
     }
 
     //주문현황 리스트
@@ -2570,6 +2578,8 @@ public class App01CrudController {
         CommDto.setMenuCode("index14");
         HttpSession session = request.getSession();
         UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        IndexDa024Dto _indexDa024Dto = new IndexDa024Dto();
+        List<IndexDa024Dto> _indexDa024ListDto = new ArrayList<>();
         if(userformDto == null){
             log.info("App14ListPerid_index Exception =====> relogin userformDto null");
             return "relogin";
@@ -2585,39 +2595,39 @@ public class App01CrudController {
             month = todate.substring(5,7) ;
             day   = todate.substring(8,10) ;
             todate = year + month + day ;
-            indexDa024Dto.setFrdate(frdate);
-            indexDa024Dto.setTodate(todate);
-            indexDa024Dto.setCltcd(acode);
-            indexDa024Dto.setFixflag(fixflag);
-            indexDa024Dto.setMakflag(makflag);
+            _indexDa024Dto.setFrdate(frdate);
+            _indexDa024Dto.setTodate(todate);
+            _indexDa024Dto.setCltcd(acode);
+            _indexDa024Dto.setFixflag(fixflag);
+            _indexDa024Dto.setMakflag(makflag);
             if(perid == null || perid.equals("")){
                 perid = "%";
             }
             mflag = "%";
             switch (mflag){
                 case "AA" :
-                    indexDa024Dto.setPerid(perid);
+                    _indexDa024Dto.setPerid(perid);
                     break;
                 case "BB":
-                    indexDa024Dto.setPerid(perid);
+                    _indexDa024Dto.setPerid(perid);
                     break;
                 case "CC":
-                    indexDa024Dto.setPerid(userformDto.getPerid());
+                    _indexDa024Dto.setPerid(userformDto.getPerid());
                     break;
                 default:
                     break;
             }
-            indexDa024Dto.setPerid(perid);
-            indexDa024Dto.setMisgubun(mflag);
-            indexDa024Dto.setJpbgubn(jpbgubn);
-            indexDa024ListDto = service14.SelectDa024ListPerid(indexDa024Dto);
-            model.addAttribute("indexDa024ListDto",indexDa024ListDto);
+            _indexDa024Dto.setPerid(perid);
+            _indexDa024Dto.setMisgubun(mflag);
+            _indexDa024Dto.setJpbgubn(jpbgubn);
+            _indexDa024ListDto = service14.SelectDa024ListPerid(_indexDa024Dto);
+            model.addAttribute("indexDa024ListDto",_indexDa024ListDto);
 
         } catch (Exception ex) {
             log.info("App14List_index Exception =====>" + ex.toString());
         }
 
-        return indexDa024ListDto;
+        return _indexDa024ListDto;
     }
 
     //주문현황집계 리스트
@@ -2636,6 +2646,8 @@ public class App01CrudController {
         CommDto.setMenuCode("index14");
         HttpSession session = request.getSession();
         UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        IndexDa024Dto _indexDa024Dto = new IndexDa024Dto();
+        List<IndexDa024Dto> _indexDa024ListDto = new ArrayList<>();
         if(userformDto == null){
             log.info("App14ListPeridGroup_index  =====> relogin userformDto null");
             return "relogin";
@@ -2651,39 +2663,39 @@ public class App01CrudController {
             month = todate.substring(5,7) ;
             day   = todate.substring(8,10) ;
             todate = year + month + day ;
-            indexDa024Dto.setFrdate(frdate);
-            indexDa024Dto.setTodate(todate);
-            indexDa024Dto.setCltcd(acode);
-            indexDa024Dto.setFixflag(fixflag);
-            indexDa024Dto.setMakflag(makflag);
+            _indexDa024Dto.setFrdate(frdate);
+            _indexDa024Dto.setTodate(todate);
+            _indexDa024Dto.setCltcd(acode);
+            _indexDa024Dto.setFixflag(fixflag);
+            _indexDa024Dto.setMakflag(makflag);
             if(perid == null || perid.equals("")){
                 perid = "%";
             }
             mflag = "%";
             switch (mflag){
                 case "AA" :
-                    indexDa024Dto.setPerid(perid);
+                    _indexDa024Dto.setPerid(perid);
                     break;
                 case "BB":
-                    indexDa024Dto.setPerid(perid);
+                    _indexDa024Dto.setPerid(perid);
                     break;
                 case "CC":
-                    indexDa024Dto.setPerid(userformDto.getPerid());
+                    _indexDa024Dto.setPerid(userformDto.getPerid());
                     break;
                 default:
                     break;
             }
-            indexDa024Dto.setPerid(perid);
-            indexDa024Dto.setMisgubun(mflag);
-            indexDa024Dto.setJpbgubn(jpbgubn);
-            indexDa024ListDto = service14.SelectDa024ListPeridGroup(indexDa024Dto);
-            model.addAttribute("indexDa024ListDto",indexDa024ListDto);
+            _indexDa024Dto.setPerid(perid);
+            _indexDa024Dto.setMisgubun(mflag);
+            _indexDa024Dto.setJpbgubn(jpbgubn);
+            _indexDa024ListDto = service14.SelectDa024ListPeridGroup(_indexDa024Dto);
+            model.addAttribute("indexDa024ListDto",_indexDa024ListDto);
 
         } catch (Exception ex) {
             log.info("App14List_index Exception =====>" + ex.toString());
         }
 
-        return indexDa024ListDto;
+        return _indexDa024ListDto;
     }
 
 
@@ -2703,6 +2715,8 @@ public class App01CrudController {
         CommDto.setMenuCode("index14");
         HttpSession session = request.getSession();
         UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        IndexDa024Dto _indexDa024Dto = new IndexDa024Dto();
+        List<IndexDa024Dto> _indexDa024ListDto = new ArrayList<>();
         if(userformDto == null){
             log.info("App14ListCltcd_index Exception =====> relogin userformDto null");
             return "relogin";
@@ -2718,39 +2732,39 @@ public class App01CrudController {
             month = todate.substring(5,7) ;
             day   = todate.substring(8,10) ;
             todate = year + month + day ;
-            indexDa024Dto.setFrdate(frdate);
-            indexDa024Dto.setTodate(todate);
-            indexDa024Dto.setCltcd(acode);
-            indexDa024Dto.setFixflag(fixflag);
-            indexDa024Dto.setMakflag(makflag);
+            _indexDa024Dto.setFrdate(frdate);
+            _indexDa024Dto.setTodate(todate);
+            _indexDa024Dto.setCltcd(acode);
+            _indexDa024Dto.setFixflag(fixflag);
+            _indexDa024Dto.setMakflag(makflag);
             if(perid == null || perid.equals("")){
                 perid = "%";
             }
             mflag = "%";
             switch (mflag){
                 case "AA" :
-                    indexDa024Dto.setPerid(perid);
+                    _indexDa024Dto.setPerid(perid);
                     break;
                 case "BB":
-                    indexDa024Dto.setPerid(perid);
+                    _indexDa024Dto.setPerid(perid);
                     break;
                 case "CC":
-                    indexDa024Dto.setPerid(userformDto.getPerid());
+                    _indexDa024Dto.setPerid(userformDto.getPerid());
                     break;
                 default:
                     break;
             }
-            indexDa024Dto.setPerid(perid);
-            indexDa024Dto.setMisgubun(mflag);
-            indexDa024Dto.setJpbgubn(jpbgubn);
-            indexDa024ListDto = service14.SelectDa024ListCltcd(indexDa024Dto);
-            model.addAttribute("indexDa024ListDto",indexDa024ListDto);
+            _indexDa024Dto.setPerid(perid);
+            _indexDa024Dto.setMisgubun(mflag);
+            _indexDa024Dto.setJpbgubn(jpbgubn);
+            _indexDa024ListDto = service14.SelectDa024ListCltcd(_indexDa024Dto);
+            model.addAttribute("indexDa024ListDto",_indexDa024ListDto);
 
         } catch (Exception ex) {
             log.info("App14List_index Exception =====>" + ex.toString());
         }
 
-        return indexDa024ListDto;
+        return _indexDa024ListDto;
     }
 
 
@@ -2770,6 +2784,8 @@ public class App01CrudController {
         CommDto.setMenuCode("index14");
         HttpSession session = request.getSession();
         UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        IndexDa024Dto _indexDa024Dto = new IndexDa024Dto();
+        List<IndexDa024Dto> _indexDa024ListDto = new ArrayList<>();
         if(userformDto == null){
             log.info("App14ListCltcdGroup_index Exception =====> relogin userformDto null");
             return "relogin";
@@ -2785,39 +2801,39 @@ public class App01CrudController {
             month = todate.substring(5,7) ;
             day   = todate.substring(8,10) ;
             todate = year + month + day ;
-            indexDa024Dto.setFrdate(frdate);
-            indexDa024Dto.setTodate(todate);
-            indexDa024Dto.setCltcd(acode);
-            indexDa024Dto.setFixflag(fixflag);
-            indexDa024Dto.setMakflag(makflag);
+            _indexDa024Dto.setFrdate(frdate);
+            _indexDa024Dto.setTodate(todate);
+            _indexDa024Dto.setCltcd(acode);
+            _indexDa024Dto.setFixflag(fixflag);
+            _indexDa024Dto.setMakflag(makflag);
             if(perid == null || perid.equals("")){
                 perid = "%";
             }
             mflag = "%";
             switch (mflag){
                 case "AA" :
-                    indexDa024Dto.setPerid(perid);
+                    _indexDa024Dto.setPerid(perid);
                     break;
                 case "BB":
-                    indexDa024Dto.setPerid(perid);
+                    _indexDa024Dto.setPerid(perid);
                     break;
                 case "CC":
-                    indexDa024Dto.setPerid(userformDto.getPerid());
+                    _indexDa024Dto.setPerid(userformDto.getPerid());
                     break;
                 default:
                     break;
             }
-            indexDa024Dto.setPerid(perid);
-            indexDa024Dto.setMisgubun(mflag);
-            indexDa024Dto.setJpbgubn(jpbgubn);
-            indexDa024ListDto = service14.SelectDa024ListCltcdGroup(indexDa024Dto);
-            model.addAttribute("indexDa024ListDto",indexDa024ListDto);
+            _indexDa024Dto.setPerid(perid);
+            _indexDa024Dto.setMisgubun(mflag);
+            _indexDa024Dto.setJpbgubn(jpbgubn);
+            _indexDa024ListDto = service14.SelectDa024ListCltcdGroup(_indexDa024Dto);
+            model.addAttribute("indexDa024ListDto",_indexDa024ListDto);
 
         } catch (Exception ex) {
             log.info("App14List_index Exception =====>" + ex.toString());
         }
 
-        return indexDa024ListDto;
+        return _indexDa024ListDto;
     }
 
 
@@ -2838,6 +2854,8 @@ public class App01CrudController {
         CommDto.setMenuCode("index14");
         HttpSession session = request.getSession();
         UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        IndexDa024Dto _indexDa024Dto = new IndexDa024Dto();
+        List<IndexDa024Dto> _indexDa024ListDto = new ArrayList<>();
         if(userformDto == null){
             log.info("App14ListJkey_index Exception =====> relogin userformDto null");
             return "relogin";
@@ -2853,42 +2871,42 @@ public class App01CrudController {
             month = todate.substring(5,7) ;
             day   = todate.substring(8,10) ;
             todate = year + month + day ;
-            indexDa024Dto.setFrdate(frdate);
-            indexDa024Dto.setTodate(todate);
-            indexDa024Dto.setCltcd(acode);
-            indexDa024Dto.setFixflag(fixflag);
-            indexDa024Dto.setMakflag(makflag);
+            _indexDa024Dto.setFrdate(frdate);
+            _indexDa024Dto.setTodate(todate);
+            _indexDa024Dto.setCltcd(acode);
+            _indexDa024Dto.setFixflag(fixflag);
+            _indexDa024Dto.setMakflag(makflag);
             if(perid == null || perid.equals("")){
                 perid = "%";
             }
             mflag = "%";
             switch (mflag){
                 case "AA" :
-                    indexDa024Dto.setPerid(perid);
+                    _indexDa024Dto.setPerid(perid);
                     break;
                 case "BB":
-                    indexDa024Dto.setPerid(perid);
+                    _indexDa024Dto.setPerid(perid);
                     break;
                 case "CC":
-                    indexDa024Dto.setPerid(userformDto.getPerid());
+                    _indexDa024Dto.setPerid(userformDto.getPerid());
                     break;
                 default:
                     break;
             }
-            indexDa024Dto.setPerid(perid);
-            indexDa024Dto.setMisgubun(mflag);
-            indexDa024Dto.setPcode(jkey);
-            indexDa024Dto.setJpbgubn(jpbgubn);
+            _indexDa024Dto.setPerid(perid);
+            _indexDa024Dto.setMisgubun(mflag);
+            _indexDa024Dto.setPcode(jkey);
+            _indexDa024Dto.setJpbgubn(jpbgubn);
             //log.info("jpbgubn 111=====>" + jpbgubn);
-            indexDa024ListDto = service14.SelectDa024ListJpum(indexDa024Dto);
+            _indexDa024ListDto = service14.SelectDa024ListJpum(_indexDa024Dto);
             //log.info("jpbgubn 222=====>" + jpbgubn);
-            model.addAttribute("indexDa024ListDto",indexDa024ListDto);
+            model.addAttribute("indexDa024ListDto",_indexDa024ListDto);
 
         } catch (Exception ex) {
             log.info("App14List_index Exception =====>" + ex.toString());
         }
 
-        return indexDa024ListDto;
+        return _indexDa024ListDto;
     }
 
 
@@ -2909,6 +2927,8 @@ public class App01CrudController {
         CommDto.setMenuCode("index14");
         HttpSession session = request.getSession();
         UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        IndexDa024Dto _indexDa024Dto = new IndexDa024Dto();
+        List<IndexDa024Dto> _indexDa024ListDto = new ArrayList<>();
         if(userformDto == null){
             log.info("App14ListJkeyGroup_index Exception =====> relogin userformDto null");
             return "relogin";
@@ -2924,40 +2944,40 @@ public class App01CrudController {
             month = todate.substring(5,7) ;
             day   = todate.substring(8,10) ;
             todate = year + month + day ;
-            indexDa024Dto.setFrdate(frdate);
-            indexDa024Dto.setTodate(todate);
-            indexDa024Dto.setCltcd(acode);
-            indexDa024Dto.setFixflag(fixflag);
-            indexDa024Dto.setMakflag(makflag);
+            _indexDa024Dto.setFrdate(frdate);
+            _indexDa024Dto.setTodate(todate);
+            _indexDa024Dto.setCltcd(acode);
+            _indexDa024Dto.setFixflag(fixflag);
+            _indexDa024Dto.setMakflag(makflag);
             if(perid == null || perid.equals("")){
                 perid = "%";
             }
             mflag = "%";
             switch (mflag){
                 case "AA" :
-                    indexDa024Dto.setPerid(perid);
+                    _indexDa024Dto.setPerid(perid);
                     break;
                 case "BB":
-                    indexDa024Dto.setPerid(perid);
+                    _indexDa024Dto.setPerid(perid);
                     break;
                 case "CC":
-                    indexDa024Dto.setPerid(userformDto.getPerid());
+                    _indexDa024Dto.setPerid(userformDto.getPerid());
                     break;
                 default:
                     break;
             }
-            indexDa024Dto.setPerid(perid);
-            indexDa024Dto.setMisgubun(mflag);
-            indexDa024Dto.setPcode(jkey);
-            indexDa024Dto.setJpbgubn(jpbgubn);
-            indexDa024ListDto = service14.SelectDa024ListJpumGroup(indexDa024Dto);
-            model.addAttribute("indexDa024ListDto",indexDa024ListDto);
+            _indexDa024Dto.setPerid(perid);
+            _indexDa024Dto.setMisgubun(mflag);
+            _indexDa024Dto.setPcode(jkey);
+            _indexDa024Dto.setJpbgubn(jpbgubn);
+            _indexDa024ListDto = service14.SelectDa024ListJpumGroup(_indexDa024Dto);
+            model.addAttribute("indexDa024ListDto",_indexDa024ListDto);
 
         } catch (Exception ex) {
             log.info("App14ListJkeyGroup_index Exception =====>" + ex.toString());
         }
 
-        return indexDa024ListDto;
+        return _indexDa024ListDto;
     }
 
     //지역별현황 시도 품목별집계 리스트
@@ -2976,6 +2996,8 @@ public class App01CrudController {
         CommDto.setMenuCode("index14");
         HttpSession session = request.getSession();
         UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        IndexDa024Dto _indexDa024Dto = new IndexDa024Dto();
+        List<IndexDa024Dto> _indexDa024ListDto = new ArrayList<>();
         if(userformDto == null){
             log.info("App14ListSido_index Exception =====> relogin userformDto null");
             return "relogin";
@@ -2991,39 +3013,39 @@ public class App01CrudController {
             month = todate.substring(5,7) ;
             day   = todate.substring(8,10) ;
             todate = year + month + day ;
-            indexDa024Dto.setFrdate(frdate);
-            indexDa024Dto.setTodate(todate);
-            indexDa024Dto.setCltcd(acode);
-            indexDa024Dto.setFixflag(fixflag);
-            indexDa024Dto.setMakflag(makflag);
+            _indexDa024Dto.setFrdate(frdate);
+            _indexDa024Dto.setTodate(todate);
+            _indexDa024Dto.setCltcd(acode);
+            _indexDa024Dto.setFixflag(fixflag);
+            _indexDa024Dto.setMakflag(makflag);
             if(perid == null || perid.equals("")){
                 perid = "%";
             }
             mflag = "%";
             switch (mflag){
                 case "AA" :
-                    indexDa024Dto.setPerid(perid);
+                    _indexDa024Dto.setPerid(perid);
                     break;
                 case "BB":
-                    indexDa024Dto.setPerid(perid);
+                    _indexDa024Dto.setPerid(perid);
                     break;
                 case "CC":
-                    indexDa024Dto.setPerid(userformDto.getPerid());
+                    _indexDa024Dto.setPerid(userformDto.getPerid());
                     break;
                 default:
                     break;
             }
-            indexDa024Dto.setPerid(perid);
-            indexDa024Dto.setMisgubun(mflag);
-            indexDa024Dto.setJpbgubn(jpbgubn);
-            indexDa024ListDto = service14.SelectDa024ListJpumArea(indexDa024Dto);
-            model.addAttribute("indexDa024ListDto",indexDa024ListDto);
+            _indexDa024Dto.setPerid(perid);
+            _indexDa024Dto.setMisgubun(mflag);
+            _indexDa024Dto.setJpbgubn(jpbgubn);
+            _indexDa024ListDto = service14.SelectDa024ListJpumArea(_indexDa024Dto);
+            model.addAttribute("indexDa024ListDto",_indexDa024ListDto);
 
         } catch (Exception ex) {
             log.info("App14ListSido_index Exception =====>" + ex.toString());
         }
 
-        return indexDa024ListDto;
+        return _indexDa024ListDto;
     }
 
     //지역별현황 시도 품목별집계 리스트
@@ -3042,6 +3064,8 @@ public class App01CrudController {
         CommDto.setMenuCode("index14");
         HttpSession session = request.getSession();
         UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        IndexDa024Dto _indexDa024Dto = new IndexDa024Dto();
+        List<IndexDa024Dto> _indexDa024ListDto = new ArrayList<>();
         if(userformDto == null){
             log.info("App14ListGugun_index Exception =====> relogin userformDto null");
             return "relogin";
@@ -3057,39 +3081,39 @@ public class App01CrudController {
             month = todate.substring(5,7) ;
             day   = todate.substring(8,10) ;
             todate = year + month + day ;
-            indexDa024Dto.setFrdate(frdate);
-            indexDa024Dto.setTodate(todate);
-            indexDa024Dto.setCltcd(acode);
-            indexDa024Dto.setFixflag(fixflag);
-            indexDa024Dto.setMakflag(makflag);
+            _indexDa024Dto.setFrdate(frdate);
+            _indexDa024Dto.setTodate(todate);
+            _indexDa024Dto.setCltcd(acode);
+            _indexDa024Dto.setFixflag(fixflag);
+            _indexDa024Dto.setMakflag(makflag);
             if(perid == null || perid.equals("")){
                 perid = "%";
             }
             mflag = "%";
             switch (mflag){
                 case "AA" :
-                    indexDa024Dto.setPerid(perid);
+                    _indexDa024Dto.setPerid(perid);
                     break;
                 case "BB":
-                    indexDa024Dto.setPerid(perid);
+                    _indexDa024Dto.setPerid(perid);
                     break;
                 case "CC":
-                    indexDa024Dto.setPerid(userformDto.getPerid());
+                    _indexDa024Dto.setPerid(userformDto.getPerid());
                     break;
                 default:
                     break;
             }
-            indexDa024Dto.setPerid(perid);
-            indexDa024Dto.setMisgubun(mflag);
-            indexDa024Dto.setJpbgubn(jpbgubn);
-            indexDa024ListDto = service14.SelectDa024ListJpumAreaGugun(indexDa024Dto);
-            model.addAttribute("indexDa024ListDto",indexDa024ListDto);
+            _indexDa024Dto.setPerid(perid);
+            _indexDa024Dto.setMisgubun(mflag);
+            _indexDa024Dto.setJpbgubn(jpbgubn);
+            _indexDa024ListDto = service14.SelectDa024ListJpumAreaGugun(_indexDa024Dto);
+            model.addAttribute("indexDa024ListDto",_indexDa024ListDto);
 
         } catch (Exception ex) {
             log.info("App14ListGugun_index Exception =====>" + ex.toString());
         }
 
-        return indexDa024ListDto;
+        return _indexDa024ListDto;
     }
 
 
@@ -3111,6 +3135,8 @@ public class App01CrudController {
         CommDto.setMenuCode("index14wish");
         HttpSession session = request.getSession();
         UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        IndexDa024Dto _indexDa024Dto = new IndexDa024Dto();
+        List<IndexDa024Dto> _indexDa024ListDto = new ArrayList<>();
         if(userformDto == null){
             log.info("App14ListWish_index Exception =====> relogin userformDto null");
             return "relogin";
@@ -3126,49 +3152,49 @@ public class App01CrudController {
             month = todate.substring(5,7) ;
             day   = todate.substring(8,10) ;
             todate = year + month + day ;
-            indexDa024Dto.setFrdate(frdate);
-            indexDa024Dto.setTodate(todate);
-            indexDa024Dto.setCltcd(acode);
-            indexDa024Dto.setFixflag(fixflag);
-            indexDa024Dto.setMakflag(makflag);
-            indexDa024Dto.setPcode(jcode);
-            indexDa024Dto.setJpbgubn(jpbgubn);
+            _indexDa024Dto.setFrdate(frdate);
+            _indexDa024Dto.setTodate(todate);
+            _indexDa024Dto.setCltcd(acode);
+            _indexDa024Dto.setFixflag(fixflag);
+            _indexDa024Dto.setMakflag(makflag);
+            _indexDa024Dto.setPcode(jcode);
+            _indexDa024Dto.setJpbgubn(jpbgubn);
             if(perid == null || perid.equals("")){
                 perid = "%";
             }
             switch (mflag){
                 case "AA" :
-                    indexDa024Dto.setPerid(perid);
-                    indexDa024Dto.setMisgubun(misgubun);
+                    _indexDa024Dto.setPerid(perid);
+                    _indexDa024Dto.setMisgubun(misgubun);
                    //mflag = "%";
                     break;
                 case "BB":
-                    indexDa024Dto.setPerid(perid);
-                    indexDa024Dto.setMisgubun("%");
+                    _indexDa024Dto.setPerid(perid);
+                    _indexDa024Dto.setMisgubun("%");
                     break;
                 case "CC":
-                    indexDa024Dto.setPerid(userformDto.getPerid());
-                    indexDa024Dto.setMisgubun("%");
+                    _indexDa024Dto.setPerid(userformDto.getPerid());
+                    _indexDa024Dto.setMisgubun("%");
                     break;
                 default:
                     break;
             }
             //indexDa024Dto.setMisgubun(mflag);
             //log.info("jpbgubn Exception =====>" + indexDa024Dto.getJpbgubn());
-            indexDa024Dto.setJfrdate("20000101");
-            indexDa024Dto.setJtodate(getToDate());
+            _indexDa024Dto.setJfrdate("20000101");
+            _indexDa024Dto.setJtodate(getToDate());
             if(acode.equals("%")){
-                indexDa024ListDto = service14.SelectDa026ListLike(indexDa024Dto);
+                _indexDa024ListDto = service14.SelectDa026ListLike(_indexDa024Dto);
             }else{
-                indexDa024ListDto = service14.SelectDa026List(indexDa024Dto);
+                _indexDa024ListDto = service14.SelectDa026List(_indexDa024Dto);
             }
-            model.addAttribute("indexDa024ListDto",indexDa024ListDto);
+            model.addAttribute("indexDa024ListDto",_indexDa024ListDto);
 
         } catch (Exception ex) {
             log.info("App14ListWish_index Exception =====>" + ex.toString());
         }
 
-        return indexDa024ListDto;
+        return _indexDa024ListDto;
     }
 
 
@@ -3190,6 +3216,8 @@ public class App01CrudController {
         CommDto.setMenuCode("index14wish");
         HttpSession session = request.getSession();
         UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        IndexDa024Dto _indexDa024Dto = new IndexDa024Dto();
+        List<IndexDa024Dto> _indexDa024ListDto = new ArrayList<>();
         if(userformDto == null){
             log.info("App14ListWish_index Exception =====> relogin userformDto null");
             return "relogin";
@@ -3205,47 +3233,47 @@ public class App01CrudController {
             month = todate.substring(5,7) ;
             day   = todate.substring(8,10) ;
             todate = year + month + day ;
-            indexDa024Dto.setFrdate(frdate);
-            indexDa024Dto.setTodate(todate);
-            indexDa024Dto.setCltcd(acode);
-            indexDa024Dto.setFixflag(fixflag);
-            indexDa024Dto.setMakflag(makflag);
-            indexDa024Dto.setPcode(jcode);
-            indexDa024Dto.setJpbgubn(jpbgubn);
+            _indexDa024Dto.setFrdate(frdate);
+            _indexDa024Dto.setTodate(todate);
+            _indexDa024Dto.setCltcd(acode);
+            _indexDa024Dto.setFixflag(fixflag);
+            _indexDa024Dto.setMakflag(makflag);
+            _indexDa024Dto.setPcode(jcode);
+            _indexDa024Dto.setJpbgubn(jpbgubn);
             if(perid == null || perid.equals("")){
                 perid = "%";
             }
             switch (mflag){
                 case "AA" :
-                    indexDa024Dto.setPerid(perid);
-                    indexDa024Dto.setMisgubun(misgubun);
+                    _indexDa024Dto.setPerid(perid);
+                    _indexDa024Dto.setMisgubun(misgubun);
                     //mflag = "%";
                     break;
                 case "BB":
-                    indexDa024Dto.setPerid(perid);
-                    indexDa024Dto.setMisgubun("%");
+                    _indexDa024Dto.setPerid(perid);
+                    _indexDa024Dto.setMisgubun("%");
                     break;
                 case "CC":
-                    indexDa024Dto.setPerid(userformDto.getPerid());
-                    indexDa024Dto.setMisgubun("%");
+                    _indexDa024Dto.setPerid(userformDto.getPerid());
+                    _indexDa024Dto.setMisgubun("%");
                     break;
                 default:
                     break;
             }
-            indexDa024Dto.setMisgubun(mflag);
+            _indexDa024Dto.setMisgubun(mflag);
             //log.info("jpbgubn Exception =====>" + indexDa024Dto.getJpbgubn());
             if(acode.equals("%")){
-                indexDa024ListDto = service14.SelectDa026ListLike(indexDa024Dto);
+                _indexDa024ListDto = service14.SelectDa026ListLike(_indexDa024Dto);
             }else{
-                indexDa024ListDto = service14.SelectDa026List(indexDa024Dto);
+                _indexDa024ListDto = service14.SelectDa026List(_indexDa024Dto);
             }
-            model.addAttribute("indexDa024ListDto",indexDa024ListDto);
+            model.addAttribute("indexDa024ListDto",_indexDa024ListDto);
 
         } catch (Exception ex) {
             log.info("App14ListWish_index Exception =====>" + ex.toString());
         }
 
-        return indexDa024ListDto;
+        return _indexDa024ListDto;
     }
 
     //주문현황 리스트
@@ -3266,6 +3294,8 @@ public class App01CrudController {
         CommDto.setMenuCode("index14wish");
         HttpSession session = request.getSession();
         UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        IndexDa024Dto _indexDa024Dto = new IndexDa024Dto();
+        List<IndexDa024Dto> _indexDa024ListDto = new ArrayList<>();
         if(userformDto == null){
             log.info("App14ListWish_index Exception =====> relogin userformDto null");
             return "relogin";
@@ -3281,44 +3311,44 @@ public class App01CrudController {
             month = todate.substring(5,7) ;
             day   = todate.substring(8,10) ;
             todate = year + month + day ;
-            indexDa024Dto.setFrdate(frdate);
-            indexDa024Dto.setTodate(todate);
-            indexDa024Dto.setCltcd(acode);
-            indexDa024Dto.setFixflag(fixflag);
-            indexDa024Dto.setMakflag(makflag);
-            indexDa024Dto.setPcode(jcode);
-            indexDa024Dto.setJpbgubn("%");
+            _indexDa024Dto.setFrdate(frdate);
+            _indexDa024Dto.setTodate(todate);
+            _indexDa024Dto.setCltcd(acode);
+            _indexDa024Dto.setFixflag(fixflag);
+            _indexDa024Dto.setMakflag(makflag);
+            _indexDa024Dto.setPcode(jcode);
+            _indexDa024Dto.setJpbgubn("%");
             if(perid == null || perid.equals("")){
                 perid = "%";
             }
             switch (mflag){
                 case "AA" :
-                    indexDa024Dto.setPerid(perid);
-                    indexDa024Dto.setMisgubun("%");
+                    _indexDa024Dto.setPerid(perid);
+                    _indexDa024Dto.setMisgubun("%");
                     //mflag = "%";
                     break;
                 case "BB":
-                    indexDa024Dto.setPerid(perid);
-                    indexDa024Dto.setMisgubun("%");
+                    _indexDa024Dto.setPerid(perid);
+                    _indexDa024Dto.setMisgubun("%");
                     break;
                 case "CC":
-                    indexDa024Dto.setPerid(userformDto.getPerid());
-                    indexDa024Dto.setMisgubun("%");
+                    _indexDa024Dto.setPerid(userformDto.getPerid());
+                    _indexDa024Dto.setMisgubun("%");
                     break;
                 default:
                     break;
             }
             //indexDa024Dto.setMisgubun(mflag);
 //            log.info("Misgubun Exception =====>" + indexDa024Dto.getMisgubun());
-            indexDa024ListDto = service14.SelectDa026ListDel(indexDa024Dto);
+            _indexDa024ListDto = service14.SelectDa026ListDel(_indexDa024Dto);
 
-            model.addAttribute("indexDa024ListDto",indexDa024ListDto);
+            model.addAttribute("indexDa024ListDto",_indexDa024ListDto);
 
         } catch (Exception ex) {
             log.info("App14ListWish_index Exception =====>" + ex.toString());
         }
 
-        return indexDa024ListDto;
+        return _indexDa024ListDto;
     }
 
     //주문현황 리스트
@@ -3336,6 +3366,8 @@ public class App01CrudController {
         CommDto.setMenuCode("index14wish");
         HttpSession session = request.getSession();
         UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        IndexDa024Dto _indexDa024Dto = new IndexDa024Dto();
+        List<IndexDa024Dto> _indexDa024ListDto = new ArrayList<>();
         if(userformDto == null){
             log.info("App14ListWishPerid_index Exception =====> relogin userformDto null");
             return "relogin";
@@ -3351,37 +3383,37 @@ public class App01CrudController {
             month = todate.substring(5,7) ;
             day   = todate.substring(8,10) ;
             todate = year + month + day ;
-            indexDa024Dto.setFrdate(frdate);
-            indexDa024Dto.setTodate(todate);
-            indexDa024Dto.setCltcd(acode);
-            indexDa024Dto.setFixflag(fixflag);
-            indexDa024Dto.setMakflag(makflag);
+            _indexDa024Dto.setFrdate(frdate);
+            _indexDa024Dto.setTodate(todate);
+            _indexDa024Dto.setCltcd(acode);
+            _indexDa024Dto.setFixflag(fixflag);
+            _indexDa024Dto.setMakflag(makflag);
             if(perid == null || perid.equals("")){
                 perid = "%";
             }
             mflag = "%";
             switch (mflag){
                 case "AA" :
-                    indexDa024Dto.setPerid(perid);
+                    _indexDa024Dto.setPerid(perid);
                     break;
                 case "BB":
-                    indexDa024Dto.setPerid(perid);
+                    _indexDa024Dto.setPerid(perid);
                     break;
                 case "CC":
-                    indexDa024Dto.setPerid(userformDto.getPerid());
+                    _indexDa024Dto.setPerid(userformDto.getPerid());
                     break;
                 default:
                     break;
             }
-            indexDa024Dto.setMisgubun(mflag);
-            indexDa024ListDto = service14.SelectDa026ListPerid(indexDa024Dto);
-            model.addAttribute("indexDa024ListDto",indexDa024ListDto);
+            _indexDa024Dto.setMisgubun(mflag);
+            _indexDa024ListDto = service14.SelectDa026ListPerid(_indexDa024Dto);
+            model.addAttribute("indexDa024ListDto",_indexDa024ListDto);
 
         } catch (Exception ex) {
             log.info("App14ListWish_index Exception =====>" + ex.toString());
         }
 
-        return indexDa024ListDto;
+        return _indexDa024ListDto;
     }
 
 
@@ -3401,6 +3433,8 @@ public class App01CrudController {
         CommDto.setMenuCode("index14wish");
         HttpSession session = request.getSession();
         UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        IndexDa024Dto _indexDa024Dto = new IndexDa024Dto();
+        List<IndexDa024Dto> _indexDa024ListDto = new ArrayList<>();
         if(userformDto == null){
             log.info("App14ListWishCltcd_index Exception =====> relogin userformDto null");
             return "relogin";
@@ -3416,38 +3450,38 @@ public class App01CrudController {
             month = todate.substring(5,7) ;
             day   = todate.substring(8,10) ;
             todate = year + month + day ;
-            indexDa024Dto.setFrdate(frdate);
-            indexDa024Dto.setTodate(todate);
-            indexDa024Dto.setCltcd(acode);
-            indexDa024Dto.setFixflag(fixflag);
-            indexDa024Dto.setMakflag(makflag);
+            _indexDa024Dto.setFrdate(frdate);
+            _indexDa024Dto.setTodate(todate);
+            _indexDa024Dto.setCltcd(acode);
+            _indexDa024Dto.setFixflag(fixflag);
+            _indexDa024Dto.setMakflag(makflag);
             if(perid == null || perid.equals("")){
                 perid = "%";
             }
             mflag = "%";
             switch (mflag){
                 case "AA" :
-                    indexDa024Dto.setPerid(perid);
+                    _indexDa024Dto.setPerid(perid);
                     break;
                 case "BB":
-                    indexDa024Dto.setPerid(perid);
+                    _indexDa024Dto.setPerid(perid);
                     break;
                 case "CC":
-                    indexDa024Dto.setPerid(userformDto.getPerid());
+                    _indexDa024Dto.setPerid(userformDto.getPerid());
                     break;
                 default:
                     break;
             }
-            indexDa024Dto.setMisgubun(mflag);
-            indexDa024Dto.setJpbgubn(jpbgubn);
-            indexDa024ListDto = service14.SelectDa026ListCltcd(indexDa024Dto);
-            model.addAttribute("indexDa024ListDto",indexDa024ListDto);
+            _indexDa024Dto.setMisgubun(mflag);
+            _indexDa024Dto.setJpbgubn(jpbgubn);
+            _indexDa024ListDto = service14.SelectDa026ListCltcd(_indexDa024Dto);
+            model.addAttribute("indexDa024ListDto",_indexDa024ListDto);
 
         } catch (Exception ex) {
             log.info("App14ListWish_index Exception =====>" + ex.toString());
         }
 
-        return indexDa024ListDto;
+        return _indexDa024ListDto;
     }
 
 
@@ -3468,6 +3502,8 @@ public class App01CrudController {
         CommDto.setMenuCode("index14wish");
         HttpSession session = request.getSession();
         UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        IndexDa024Dto _indexDa024Dto = new IndexDa024Dto();
+        List<IndexDa024Dto> _indexDa024ListDto = new ArrayList<>();
         if(userformDto == null){
             log.info("App14ListWishJkey_index Exception =====> relogin userformDto null");
             return "relogin";
@@ -3483,40 +3519,40 @@ public class App01CrudController {
             month = todate.substring(5,7) ;
             day   = todate.substring(8,10) ;
             todate = year + month + day ;
-            indexDa024Dto.setFrdate(frdate);
-            indexDa024Dto.setTodate(todate);
-            indexDa024Dto.setCltcd(acode);
-            indexDa024Dto.setPcode(jkey);
-            indexDa024Dto.setFixflag(fixflag);
-            indexDa024Dto.setMakflag(makflag);
+            _indexDa024Dto.setFrdate(frdate);
+            _indexDa024Dto.setTodate(todate);
+            _indexDa024Dto.setCltcd(acode);
+            _indexDa024Dto.setPcode(jkey);
+            _indexDa024Dto.setFixflag(fixflag);
+            _indexDa024Dto.setMakflag(makflag);
             if(perid == null || perid.equals("")){
                 perid = "%";
             }
             mflag = "%";
             switch (mflag){
                 case "AA" :
-                    indexDa024Dto.setPerid(perid);
+                    _indexDa024Dto.setPerid(perid);
                     break;
                 case "BB":
-                    indexDa024Dto.setPerid(perid);
+                    _indexDa024Dto.setPerid(perid);
                     break;
                 case "CC":
-                    indexDa024Dto.setPerid(userformDto.getPerid());
+                    _indexDa024Dto.setPerid(userformDto.getPerid());
                     break;
                 default:
                     break;
             }
-            indexDa024Dto.setMisgubun(mflag);
-            indexDa024Dto.setJpbgubn(jpbgubn);
+            _indexDa024Dto.setMisgubun(mflag);
+            _indexDa024Dto.setJpbgubn(jpbgubn);
             //log.info("jpbgubn 222=====>" + jpbgubn);
-            indexDa024ListDto = service14.SelectDa026ListJpum(indexDa024Dto);
-            model.addAttribute("indexDa024ListDto",indexDa024ListDto);
+            _indexDa024ListDto = service14.SelectDa026ListJpum(_indexDa024Dto);
+            model.addAttribute("indexDa024ListDto",_indexDa024ListDto);
 
         } catch (Exception ex) {
             log.info("App14ListWish_index Exception =====>" + ex.toString());
         }
 
-        return indexDa024ListDto;
+        return _indexDa024ListDto;
     }
 
 
@@ -3532,6 +3568,7 @@ public class App01CrudController {
             , HttpServletRequest request){
 
         try {
+            IndexDa024Dto _indexDa024Dto = new IndexDa024Dto();
             boolean result = false;
             HashMap hm = new HashMap();
             String[] itemString =new String[misdatearr.size()];
@@ -3543,12 +3580,12 @@ public class App01CrudController {
                     String month = misdatearr.get(i).substring(5,7);
                     String day = misdatearr.get(i).substring(8,10);
                     String ls_misdate = year + month + day ;
-                    indexDa024Dto.setMisdate(ls_misdate);
-                    indexDa024Dto.setMisnum(misnumarr.get(i));
-                    indexDa024Dto.setSeq(seqarr.get(i));
-                    indexDa024Dto.setCltcd(cltcdarr.get(i));
-                    indexDa024Dto.setMisgubun(gubunarr.get(i));
-                    indexDa024Dto.setFixdate(getToDate());
+                    _indexDa024Dto.setMisdate(ls_misdate);
+                    _indexDa024Dto.setMisnum(misnumarr.get(i));
+                    _indexDa024Dto.setSeq(seqarr.get(i));
+                    _indexDa024Dto.setCltcd(cltcdarr.get(i));
+                    _indexDa024Dto.setMisgubun(gubunarr.get(i));
+                    _indexDa024Dto.setFixdate(getToDate());
 
                     if(ls_tempItem.equals( ls_misdate + misnumarr.get(i) + seqarr.get(i)  + cltcdarr.get(i))){
                         continue;
@@ -3557,8 +3594,8 @@ public class App01CrudController {
                     ll_count++;
                     ls_tempItem = ls_misdate  + misnumarr.get(i) + seqarr.get(i) + cltcdarr.get(i);  //
                     if (!mflag.equals("AA")){
-                        indexDa024Dto.setDevflag("1");
-                        result = service14.UpdateDA024Dev(indexDa024Dto);
+                        _indexDa024Dto.setDevflag("1");
+                        result = service14.UpdateDA024Dev(_indexDa024Dto);
                         if (!result){
                             return "error";
                         }
@@ -3619,33 +3656,33 @@ public class App01CrudController {
                     String month = misdatearr.get(i).substring(5,7);
                     String day = misdatearr.get(i).substring(8,10);
                     String ls_misdate = year + month + day ;
-                    indexDa024Dto.setMisdate(ls_misdate);
-                    indexDa024Dto.setMisnum(misnumarr.get(i));
-                    indexDa024Dto.setSeq(seqarr.get(i));
-                    indexDa024Dto.setCltcd(cltcdarr.get(i));
-                    indexDa024Dto.setMisgubun(gubunarr.get(i));
-                    indexDa024Dto.setQty(qtyarr.get(i));
-                    indexDa024Dto.setUamt(uamtarr.get(i));
+                    _indexDa024Dto.setMisdate(ls_misdate);
+                    _indexDa024Dto.setMisnum(misnumarr.get(i));
+                    _indexDa024Dto.setSeq(seqarr.get(i));
+                    _indexDa024Dto.setCltcd(cltcdarr.get(i));
+                    _indexDa024Dto.setMisgubun(gubunarr.get(i));
+                    _indexDa024Dto.setQty(qtyarr.get(i));
+                    _indexDa024Dto.setUamt(uamtarr.get(i));
                     //_indexDa024Dto = service14.SelectDa024Detail(indexDa024Dto);
-                    Integer _ll_uamt = indexDa024Dto.getUamt();
+                    Integer _ll_uamt = _indexDa024Dto.getUamt();
                     Integer _ll_samt = 0;
                     Integer _ll_addamt = 0;
                     Integer _ll_amt = 0;
-                    Integer _ll_qty = indexDa024Dto.getQty();
+                    Integer _ll_qty = _indexDa024Dto.getQty();
                     if(_ll_uamt > 0){
                         _ll_samt = _ll_qty * _ll_uamt;
                         _ll_addamt = _ll_samt / 10 ;
                         _ll_amt = _ll_samt + _ll_addamt;
-                        indexDa024Dto.setSamt(_ll_samt);
-                        indexDa024Dto.setAddamt(_ll_addamt);
-                        indexDa024Dto.setAmt(_ll_amt);
+                        _indexDa024Dto.setSamt(_ll_samt);
+                        _indexDa024Dto.setAddamt(_ll_addamt);
+                        _indexDa024Dto.setAmt(_ll_amt);
                     }else{
-                        indexDa024Dto.setSamt(0);
-                        indexDa024Dto.setAddamt(0);
-                        indexDa024Dto.setAmt(0);
+                        _indexDa024Dto.setSamt(0);
+                        _indexDa024Dto.setAddamt(0);
+                        _indexDa024Dto.setAmt(0);
                     }
 
-                    result = service14.UpdateDA024Amt(indexDa024Dto);
+                    result = service14.UpdateDA024Amt(_indexDa024Dto);
 
                     if (!result){
                         return "error";
@@ -3675,18 +3712,19 @@ public class App01CrudController {
 
         try {
             boolean result = false;
+            IndexDa024Dto _indexDa024Dto = new IndexDa024Dto();
             String year = mmisdate.substring(0,4);
             String month = mmisdate.substring(5,7);
             String day = mmisdate.substring(8,10);
             String ls_misdate = year + month + day ;
-            indexDa024Dto.setMisdate(ls_misdate);
-            indexDa024Dto.setMisnum(mmisnum);
-            indexDa024Dto.setCltcd(mcltcd);
-            indexDa024Dto.setMisgubun(mmisnum);
-            indexDa024Dto.setMisgubun(mmisgubun);
-            indexDa024Dto.setRemarkaa(mremarkaa);
-            indexDa024Dto.setRemarkbb(mremarkbb);
-            result = service14.UpdateDA024Remk(indexDa024Dto);
+            _indexDa024Dto.setMisdate(ls_misdate);
+            _indexDa024Dto.setMisnum(mmisnum);
+            _indexDa024Dto.setCltcd(mcltcd);
+            _indexDa024Dto.setMisgubun(mmisnum);
+            _indexDa024Dto.setMisgubun(mmisgubun);
+            _indexDa024Dto.setRemarkaa(mremarkaa);
+            _indexDa024Dto.setRemarkbb(mremarkbb);
+            result = service14.UpdateDA024Remk(_indexDa024Dto);
 
             if (!result){
                 return "error";
@@ -3711,6 +3749,7 @@ public class App01CrudController {
 
         try {
             boolean result = false;
+            IndexDa024Dto _indexDa024Dto = new IndexDa024Dto();
 
             if( misdatearr.size() > 0){
                 for(int i = 0; i < misdatearr.size(); i++){
@@ -3718,16 +3757,16 @@ public class App01CrudController {
                     String month = misdatearr.get(i).substring(5,7);
                     String day = misdatearr.get(i).substring(8,10);
                     String ls_misdate = year + month + day ;
-                    indexDa024Dto.setMisdate(ls_misdate);
-                    indexDa024Dto.setMisnum(misnumarr.get(i));
-                    indexDa024Dto.setSeq(seqarr.get(i));
-                    indexDa024Dto.setCltcd(cltcdarr.get(i));
-                    indexDa024Dto.setMisgubun(gubunarr.get(i));
-                    result = service14.DeleteDA024(indexDa024Dto);
+                    _indexDa024Dto.setMisdate(ls_misdate);
+                    _indexDa024Dto.setMisnum(misnumarr.get(i));
+                    _indexDa024Dto.setSeq(seqarr.get(i));
+                    _indexDa024Dto.setCltcd(cltcdarr.get(i));
+                    _indexDa024Dto.setMisgubun(gubunarr.get(i));
+                    result = service14.DeleteDA024(_indexDa024Dto);
                     if (!result){
                         return "error";
                     }
-                    result = service14.DeleteDA023(indexDa024Dto);
+                    result = service14.DeleteDA023(_indexDa024Dto);
                     if (!result){
                         //return "error";
                     }
@@ -3799,6 +3838,7 @@ public class App01CrudController {
         try {
             boolean result = false;
             String ls_tempchk = "";
+            IndexDa024Dto _indexDa024Dto = new IndexDa024Dto();
             if( misdatearr.size() > 0){
                 for(int i = 0; i < misdatearr.size(); i++){
                     String year = misdatearr.get(i).substring(0,4);
@@ -3918,32 +3958,32 @@ public class App01CrudController {
                     String month = misdatearr.get(i).substring(5,7);
                     String day = misdatearr.get(i).substring(8,10);
                     String ls_misdate = year + month + day ;
-                    indexDa024Dto.setMisdate(ls_misdate);
-                    indexDa024Dto.setMisnum(misnumarr.get(i));
-                    indexDa024Dto.setSeq(seqarr.get(i));
-                    indexDa024Dto.setCltcd(cltcdarr.get(i));
-                    indexDa024Dto.setMisgubun(gubunarr.get(i));
-                    indexDa024Dto.setQty(qtyarr.get(i));
-                    indexDa024Dto.setUamt(uamtarr.get(i));
+                    _indexDa024Dto.setMisdate(ls_misdate);
+                    _indexDa024Dto.setMisnum(misnumarr.get(i));
+                    _indexDa024Dto.setSeq(seqarr.get(i));
+                    _indexDa024Dto.setCltcd(cltcdarr.get(i));
+                    _indexDa024Dto.setMisgubun(gubunarr.get(i));
+                    _indexDa024Dto.setQty(qtyarr.get(i));
+                    _indexDa024Dto.setUamt(uamtarr.get(i));
                     //_indexDa024Dto = service14.SelectDa026Detail02(indexDa024Dto);
-                    Integer _ll_uamt = indexDa024Dto.getUamt();
+                    Integer _ll_uamt = _indexDa024Dto.getUamt();
                     Integer _ll_samt = 0;
                     Integer _ll_addamt = 0;
                     Integer _ll_amt = 0;
-                    Integer _ll_qty = indexDa024Dto.getQty();
+                    Integer _ll_qty = _indexDa024Dto.getQty();
                     if(_ll_uamt > 0){
                         _ll_samt = _ll_qty * _ll_uamt;
                         _ll_addamt = _ll_samt / 10 ;
                         _ll_amt = _ll_samt + _ll_addamt;
-                        indexDa024Dto.setSamt(_ll_samt);
-                        indexDa024Dto.setAddamt(_ll_addamt);
-                        indexDa024Dto.setAmt(_ll_amt);
+                        _indexDa024Dto.setSamt(_ll_samt);
+                        _indexDa024Dto.setAddamt(_ll_addamt);
+                        _indexDa024Dto.setAmt(_ll_amt);
                     }else{
-                        indexDa024Dto.setSamt(0);
-                        indexDa024Dto.setAddamt(0);
-                        indexDa024Dto.setAmt(0);
+                        _indexDa024Dto.setSamt(0);
+                        _indexDa024Dto.setAddamt(0);
+                        _indexDa024Dto.setAmt(0);
                     }
-                    result = service14.UpdateDA026Amt(indexDa024Dto);
+                    result = service14.UpdateDA026Amt(_indexDa024Dto);
 
                     if (!result){
                         return "error";
@@ -3972,23 +4012,23 @@ public class App01CrudController {
 
         try {
             boolean result = false;
-
+            IndexDa024Dto _indexDa024Dto = new IndexDa024Dto();
             if( misdatearr.size() > 0){
                 for(int i = 0; i < misdatearr.size(); i++){
                     String year = misdatearr.get(i).substring(0,4);
                     String month = misdatearr.get(i).substring(5,7);
                     String day = misdatearr.get(i).substring(8,10);
                     String ls_misdate = year + month + day ;
-                    indexDa024Dto.setMisdate(ls_misdate);
-                    indexDa024Dto.setMisnum(misnumarr.get(i));
-                    indexDa024Dto.setSeq(seqarr.get(i));
-                    indexDa024Dto.setCltcd(cltcdarr.get(i));
-                    indexDa024Dto.setMisgubun(gubunarr.get(i));
-                    result = service14.DeleteDA026(indexDa024Dto);
+                    _indexDa024Dto.setMisdate(ls_misdate);
+                    _indexDa024Dto.setMisnum(misnumarr.get(i));
+                    _indexDa024Dto.setSeq(seqarr.get(i));
+                    _indexDa024Dto.setCltcd(cltcdarr.get(i));
+                    _indexDa024Dto.setMisgubun(gubunarr.get(i));
+                    result = service14.DeleteDA026(_indexDa024Dto);
                     if (!result){
                         return "error";
                     }
-                    result = service14.DeleteDA025(indexDa024Dto);
+                    result = service14.DeleteDA025(_indexDa024Dto);
                     if (!result){
                         //return "error";
                     }
