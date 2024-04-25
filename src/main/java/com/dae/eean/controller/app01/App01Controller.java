@@ -344,8 +344,8 @@ public class App01Controller {
             }else{
                 _index03Dto.setJpb_gubn("%");
             }
-            log.info("ls_flag =====>" + ls_flag);
-            log.info("ls_role =====>" + ls_role);
+//            log.info("ls_flag =====>" + ls_flag);
+//            log.info("ls_role =====>" + ls_role);
             _index03List = service03.GetJcustomCode_CC(_index03Dto);
 
             model.addAttribute("index15List",_index03List);

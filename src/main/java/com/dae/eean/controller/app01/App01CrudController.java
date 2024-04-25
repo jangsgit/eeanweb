@@ -1070,21 +1070,21 @@ public class App01CrudController {
             _index03Dto = service03.GetJpumOrderJkey(_index03Dto); //품목정보
             if(_index03Dto == null){
                 log.info("index14Save 품목 없음 =====> index03Dto == null"  );
-                log.info("jfrdate =====> " + frdate );
-                log.info("jmodel =====> " + jmodel );
-                log.info("jcolor =====> " + jcolor );
-                log.info("jcolor =====> " + jcolor );
-                log.info("jbonsa =====> " + jbonsa );
-                log.info("jbonsa2 =====> " + jbonsa2 );
-                log.info("jpbgubn =====> " + jpbgubn );
+//                log.info("jfrdate =====> " + frdate );
+//                log.info("jmodel =====> " + jmodel );
+//                log.info("jcolor =====> " + jcolor );
+//                log.info("jcolor =====> " + jcolor );
+//                log.info("jbonsa =====> " + jbonsa );
+//                log.info("jbonsa2 =====> " + jbonsa2 );
+//                log.info("jpbgubn =====> " + jpbgubn );
                 return "error";
             }
             _ll_jqty = Integer.parseInt(_index03Dto.getJqty());
             if(_ll_jqty == 0 || _ll_jqty == null){
                 log.info("index14Save 재고 없음 =====> _ll_jqty == 0"  );
-                log.info("jfrdate =====> " + frdate );
-                log.info("jkey =====> " + _index03Dto.getJkey() );
-                log.info("jqty =====> " + _index03Dto.getJqty() );
+//                log.info("jfrdate =====> " + frdate );
+//                log.info("jkey =====> " + _index03Dto.getJkey() );
+//                log.info("jqty =====> " + _index03Dto.getJqty() );
                 return "jaego";
             }
             _indexDa023Dto.setCltcd(acode);
