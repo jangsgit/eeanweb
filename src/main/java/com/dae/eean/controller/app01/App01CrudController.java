@@ -2846,12 +2846,12 @@ public class App01CrudController {
             _indexDa024Dto.setMisgubun(mflag);
             _indexDa024Dto.setJpbgubn(jpbgubn);
 
-//            log.info("acode =====>" +acode);
-//            log.info("fixflag =====>" +fixflag);
-//            log.info("makflag =====>" +makflag);
-//            log.info("perid =====>" +perid);
-//            log.info("mflag =====>" +mflag);
-//            log.info("jpbgubn =====>" +jpbgubn);
+            log.info("acode =====>" +acode);
+            log.info("fixflag =====>" +fixflag);
+            log.info("makflag =====>" +makflag);
+            log.info("perid =====>" +perid);
+            log.info("mflag =====>" +mflag);
+            log.info("jpbgubn =====>" +jpbgubn);
             _indexDa024ListDto = service14.SelectDa024ListCltcdGroup(_indexDa024Dto);
             model.addAttribute("indexDa024ListDto",_indexDa024ListDto);
 
