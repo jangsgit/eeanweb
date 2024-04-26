@@ -81,21 +81,17 @@
                       isnull(B.remarkbb,'') as remarkbb,
                       B.unsongnum as unsongnum,
                       isnull(B.makflag, '0') as makflag,
-                      B.amt, A.acorp, pbonsa, pmodel, pcolor , D.inname, B.misgubun, isnull(B.fixflag,'0') as fixflag,isnull(B.devflag,'0') as devflag,   D.inname as pernm,
+                      B.amt, B.acorp, pbonsa, pmodel, pcolor , B.pernm as inname, B.misgubun, isnull(B.fixflag,'0') as fixflag,isnull(B.devflag,'0') as devflag,    B.pernm as pernm,
                       B.fixdate,  CONVERT(CHAR(19),B.fixdatetime,20) as fixdatetime , CONVERT(CHAR(19),B.misdatetime,20) as misdatetime, 0 as jqty
-                  from  TB_DA024 B WITH (NOLOCK) ,
-                      cif A WITH (NOLOCK) Left outer JOIN INSA D ON A.abonsadam1 = D.insano,
-                      jcode3 E WITH (NOLOCK)
-                  where  B.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
-                    AND B.pcode = E.jkey
-                    AND A.acorp1 + CAST(A.acorp2 as varchar) = #{cltcd}
-                    AND isnull(A.abonsadam1,'')  Like concat('%',#{perid},'%')
+                  from  TB_DA024 B WITH (NOLOCK)
+                  where  B.cltcd = #{cltcd}
+                    AND isnull(B.perid,'')  Like concat('%',#{perid},'%')
                     AND B.misdate between #{frdate} and #{todate}
                     AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
                     AND Isnull(B.devflag, '0') Like concat('%',#{devflag},'%')
                     AND Isnull(B.misgubun, '') Like concat('%',#{misgubun},'%')
                     AND Isnull(B.makflag, '0') Like concat('%',#{makflag},'%')
-                    and isnull(E.jpb_gubn,'') Like concat('%',#{jpbgubn},'%')
+                    and isnull(B.jpb_gubn,'') Like concat('%',#{jpbgubn},'%')
                   ORDER BY  B.misdate desc, B.misnum, B.seq
         ]]>
     </select>
@@ -467,7 +463,7 @@
                     and isnull(B.jpb_gubn,'') Like concat('%',#{jpbgubn},'%')
                     AND Len(ISNULL(B.pernm,'')) > 0
                   Group by B.cltcd,  B.pernm, B.misgubun  , B.acorp, B.fixflag
-                  ORDER BY B.pernm, sum(B.qty ) desc, A.acorp
+                  ORDER BY B.pernm, sum(B.qty ) desc, b.acorp
         ]]>
 
     </select>

@@ -768,7 +768,6 @@
         // tab01 검색   
         document.getElementById("listBtn").addEventListener("click",function(){  
             var ls_tab = document.getElementById('tabvalue').value;  
-            console.log(ls_tab) 
             searchList_rtn(ls_tab);
         })                         
         // tab02 검색   
@@ -778,6 +777,7 @@
         })                        
         // tab03 검색   
         document.getElementById("listBtn03").addEventListener("click",function(){  
+            console.log(arg1)
             var ls_tab = document.getElementById('tabvalue').value;   
             searchList_rtn(ls_tab);
         })                        
@@ -828,6 +828,7 @@
             //주문완료
             var ls_makflag = "1" ;
             var ls_jpbgubn = document.getElementById('jpbgubn').value; 
+            
             switch(arg1){ 
                 case 'A': 
                     var ls_frdate = document.getElementById('frdate').value; 
@@ -948,7 +949,7 @@
                      
                     if(ls_inname03 == null || ls_inname03.length == 0 || ls_inname03 == ""){  
                         ls_abonsadam3 = "%";
-                    }    
+                    }     
                     $.ajax({
                         url: '/app01m/index14/listcltcdgroup',  
                         type:"POST",
