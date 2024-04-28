@@ -1933,7 +1933,7 @@
                 },
                 footer: {
                     declarative: {
-                        text: 'EEAN Optic',                             //text: 'EEAN Optic\t&[Page]\\&[Pages]',
+                        text: 'EEAN Optic\t&[Page]\\&[Pages]',                             //text: 'EEAN Optic\t&[Page]\\&[Pages]',
                         font: new wijmo.pdf.PdfFont('times', 12),
                         brush: '#bfc1c2'
                     }
@@ -1950,8 +1950,8 @@
             });
             
             //doc.header.drawText("거 래 명 세 서", null, null, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 20), align: 1, baseline: 5, underline: false});   //align 1 center baseline 5 bottom
- 
-            getData.forEach((saledata, i, arr) => {                 
+            
+            getData.forEach((saledata, i, arr) => {  
                 drawSales(doc, saledata);
                 //
                 if (i < arr.length - 1) {
@@ -1979,8 +1979,7 @@
             //     headerCellStyle: { backgroundColor: '#eaeaea' }
             // }}); 
                  
-            doc.end(); 
-
+            doc.end();  
         }    
 
 //
@@ -2844,211 +2843,74 @@
                     fixflag: bfixflag,                          
                 });
                 cnt++;
-            }   
-            if (wtab03Dto.length <= 18){ 
-                for (var p = wtab03Dto.length + 1; p < 19; p++) { 
-                    wtab03_data.push({
-                        id: p, 
-                        index: cnt,
-                        select: false,
-                        misdate: '',
-                        misnum: '',     
-                        seq: '',    
-                        acorp: '',    
-                        pname: '',    
-                        psize: '',    
-                        pbonsa: '',    
-                        pmodel: '',    
-                        pcolor: '',    
-                        qty: '',    
-                        uamt: '',
-                        samt: '',
-                        addamt: '',
-                        amt: '',
-                        cltcd: '',
-                        inname: '',
-                        misgubun: '',
-                        rownum: '',
-                        acorp: '',
-                        asano: '',
-                        aname: '',
-                        aupte: '',
-                        ajong: '',
-                        ajuso: '',
-                        eeacorp: '',
-                        eeasano: '',
-                        eeaname: '',
-                        eeupte: '',
-                        eeajong: '',
-                        eeajuso: '',
-                        fixflag: '',
-                    });
-                cnt++;
-                }
-            }  else if (wtab03Dto.length <= 19){ 
-                for (var p = wtab03Dto.length + 1; p < 20; p++) { 
-                    wtab03_data.push({
-                        id: p, 
-                        index: cnt,
-                        select: false,
-                        misdate: '',
-                        misnum: '',     
-                        seq: '',    
-                        acorp: '',    
-                        pname: '',    
-                        psize: '',    
-                        pbonsa: '',    
-                        pmodel: '',    
-                        pcolor: '',    
-                        qty: '',    
-                        uamt: '',
-                        samt: '',
-                        addamt: '',
-                        amt: '',
-                        cltcd: '',
-                        inname: '',
-                        misgubun: '',
-                        rownum: '',
-                        acorp: '',
-                        asano: '',
-                        aname: '',
-                        aupte: '',
-                        ajong: '',
-                        ajuso: '',
-                        eeacorp: '',
-                        eeasano: '',
-                        eeaname: '',
-                        eeupte: '',
-                        eeajong: '',
-                        eeajuso: '',
-                        fixflag: '',
-                    });
-                cnt++;
-                }
-
-            }else if (wtab03Dto.length <= 20){ 
-                for (var p = wtab03Dto.length + 1; p < 21; p++) { 
-                    wtab03_data.push({
-                        id: p, 
-                        index: cnt,
-                        select: false,
-                        misdate: '',
-                        misnum: '',     
-                        seq: '',    
-                        acorp: '',    
-                        pname: '',    
-                        psize: '',    
-                        pbonsa: '',    
-                        pmodel: '',    
-                        pcolor: '',    
-                        qty: '',    
-                        uamt: '',
-                        samt: '',
-                        addamt: '',
-                        amt: '',
-                        cltcd: '',
-                        inname: '',
-                        misgubun: '',
-                        rownum: '',
-                        acorp: '',
-                        asano: '',
-                        aname: '',
-                        aupte: '',
-                        ajong: '',
-                        ajuso: '',
-                        eeacorp: '',
-                        eeasano: '',
-                        eeaname: '',
-                        eeupte: '',
-                        eeajong: '',
-                        eeajuso: '',
-                        fixflag: '',
-                    });
-                cnt++;
-                }
-
-            } else if (wtab03Dto.length <= 23){ 
-                for (var p = wtab03Dto.length + 1; p < 24; p++) { 
-                    wtab03_data.push({
-                        id: p, 
-                        index: cnt,
-                        select: false,
-                        misdate: '',
-                        misnum: '',     
-                        seq: '',    
-                        acorp: '',    
-                        pname: '',    
-                        psize: '',    
-                        pbonsa: '',    
-                        pmodel: '',    
-                        pcolor: '',    
-                        qty: '',    
-                        uamt: '',
-                        samt: '',
-                        addamt: '',
-                        amt: '',
-                        cltcd: '',
-                        inname: '',
-                        misgubun: '',
-                        rownum: '',
-                        acorp: '',
-                        asano: '',
-                        aname: '',
-                        aupte: '',
-                        ajong: '',
-                        ajuso: '',
-                        eeacorp: '',
-                        eeasano: '',
-                        eeaname: '',
-                        eeupte: '',
-                        eeajong: '',
-                        eeajuso: '',
-                        fixflag: '',
-                    });
-                cnt++;
-                } 
-            }else if (wtab03Dto.length < 45){ 
-                for (var p = wtab03Dto.length + 1; p < 46; p++) { 
-                    wtab03_data.push({
-                        id: p, 
-                        index: cnt,
-                        select: false,
-                        misdate: '',
-                        misnum: '',     
-                        seq: '',    
-                        acorp: '',    
-                        pname: '',    
-                        psize: '',    
-                        pbonsa: '',    
-                        pmodel: '',    
-                        pcolor: '',    
-                        qty: '',    
-                        uamt: '',
-                        samt: '',
-                        addamt: '',
-                        amt: '',
-                        cltcd: '',
-                        inname: '',
-                        misgubun: '',
-                        rownum: '',
-                        acorp: '',
-                        asano: '',
-                        aname: '',
-                        aupte: '',
-                        ajong: '',
-                        ajuso: '',
-                        eeacorp: '',
-                        eeasano: '',
-                        eeaname: '',
-                        eeupte: '',
-                        eeajong: '',
-                        eeajuso: '',
-                        fixflag: '',
-                    });
-                cnt++;
-                }
-
+            }  
+            var ll_length =  wtab03Dto.length;
+            var ll_num01 = 0;
+            var ll_num02 = 0;
+            switch(true){
+                case (ll_length <= 18):
+                    ll_num01 = 18;
+                    break;
+                case (ll_length <= 19):
+                    ll_num01 = 19; 
+                    break;
+                case (ll_length <= 22):
+                    ll_num01 = 22; 
+                    break;
+                case (ll_length <= 23):
+                    ll_num01 = 23; 
+                    break;
+                case (ll_length <= 45):
+                    ll_num01 = 45; 
+                    break;
+                case (ll_length <= 90):
+                    ll_num01 = 90; 
+                    break;
+                default:
+                    break;                    
             }
+            ll_num02 = ll_num01 + 1;
+            if (wtab03Dto.length <= ll_num01){ 
+                for (var p = wtab03Dto.length + 1; p < ll_num02; p++) { 
+                    wtab03_data.push({
+                        id: p, 
+                        index: cnt,
+                        select: false,
+                        misdate: '',
+                        misnum: '',     
+                        seq: '',    
+                        acorp: '',    
+                        pname: '',    
+                        psize: '',    
+                        pbonsa: '',    
+                        pmodel: '',    
+                        pcolor: '',    
+                        qty: '',    
+                        uamt: '',
+                        samt: '',
+                        addamt: '',
+                        amt: '',
+                        cltcd: '',
+                        inname: '',
+                        misgubun: '',
+                        rownum: '',
+                        acorp: '',
+                        asano: '',
+                        aname: '',
+                        aupte: '',
+                        ajong: '',
+                        ajuso: '',
+                        eeacorp: '',
+                        eeasano: '',
+                        eeaname: '',
+                        eeupte: '',
+                        eeajong: '',
+                        eeajuso: '',
+                        fixflag: '',
+                    });
+                cnt++;
+                }
+            }  
             theGridPrt.columns.clear();  
             theGridPrt.autoGenerateColumns = false; 
             view_p01tab03page.sourceCollection  = wtab03_data; 
