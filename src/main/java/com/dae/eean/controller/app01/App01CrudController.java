@@ -1009,9 +1009,9 @@ public class App01CrudController {
 //            log.info("001 ->" + _index03Dto.getJpum());
 //            log.info("002 ->" + _index03Dto.getFrdate());
 //            log.info("003 ->" + _index03Dto.getTodate());
-//            log.info("001 ->" + _index03Dto.getJpb_gubn());
+//            log.info("004 ->" + _index03Dto.getJpb_gubn());
             _index03List = service03.GetJpumCustJaegoList(_index03Dto);
-//            log.info("002 ->" + _index03Dto.getJpb_gubn());
+            //log.info("002 ->" + _index03List.get);
             model.addAttribute("index03List",_index03List);
 
         } catch (Exception ex) {
@@ -2830,19 +2830,20 @@ public class App01CrudController {
                 perid = "%";
             }
             mflag = "%";
-            switch (mflag){
-                case "AA" :
-                    _indexDa024Dto.setPerid(perid);
-                    break;
-                case "BB":
-                    _indexDa024Dto.setPerid(perid);
-                    break;
-                case "CC":
-                    _indexDa024Dto.setPerid(perid);
-                    break;
-                default:
-                    break;
-            }
+            _indexDa024Dto.setPerid(perid);
+//            switch (mflag){
+//                case "AA" :
+//                    _indexDa024Dto.setPerid(perid);
+//                    break;
+//                case "BB":
+//                    _indexDa024Dto.setPerid(perid);
+//                    break;
+//                case "CC":
+//                    _indexDa024Dto.setPerid(perid);
+//                    break;
+//                default:
+//                    break;
+//            }
             _indexDa024Dto.setMisgubun(mflag);
             _indexDa024Dto.setJpbgubn(jpbgubn);
 
@@ -3206,7 +3207,13 @@ public class App01CrudController {
                     break;
             }
             //indexDa024Dto.setMisgubun(mflag);
-            //log.info("jpbgubn Exception =====>" + indexDa024Dto.getJpbgubn());
+//            log.info("frdate =====>" + _indexDa024Dto.getFrdate());
+//            log.info("todate =====>" + _indexDa024Dto.getTodate());
+//            log.info("acode =====>" + _indexDa024Dto.getCltcd());
+//            log.info("fixflag =====>" + _indexDa024Dto.getFixflag());
+//            log.info("makflag =====>" + _indexDa024Dto.getMakflag());
+//            log.info("jcode =====>" + _indexDa024Dto.getPcode());
+//            log.info("jpbgubn =====>" + _indexDa024Dto.getJpbgubn());
             _indexDa024Dto.setJfrdate("20000101");
             _indexDa024Dto.setJtodate(getToDate());
             if(acode.equals("%")){
