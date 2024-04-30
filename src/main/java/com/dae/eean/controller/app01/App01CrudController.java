@@ -3634,6 +3634,7 @@ public class App01CrudController {
 //                        }
 //                    }
                 }
+                //DD -->배송
                 if (!mflag.equals("AA")){
                     hm.put("itemcdArr", itemString);
                     result = service14.UpdateDA024Dev(hm);
@@ -3641,6 +3642,7 @@ public class App01CrudController {
                         //return "error";
                     }
                 }
+                //DD -->확정
                 if (mflag.equals("AA")){
                     hm.put("itemcdArr", itemString);
                     if (mflag.equals("AA")){
