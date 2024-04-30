@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"> 
 
-<body> 
+<body onload="init();" > 
     <div th:fragment="navbar">
         <div class="collapse navbar-collapse" id="navbarVerticalCollapse">
             <div class="navbar-vertical-content scrollbar">
@@ -33,7 +33,7 @@
                                 </a>
                                 <!-- more inner pages-->
                             </li> 
-                            <li class="nav-item">
+                            <li class="nav-item"> 
                                 <a class="nav-link" id="index15Link"  th:href="@{/app01/index150m}" aria-expanded="false" >
                                     <div class="d-flex align-items-center"><span
                                         class="nav-link-text ps-1">일반주문</span>  
@@ -156,9 +156,9 @@
 
 
 
-<script type="text/javascript" th:inline="javascript">
+<script type="text/javascript" th:inline="javascript"> 
 
-    $(document).ready(function() { 
+    $(document).ready(function() {  
       set_init() 
     })
     
@@ -168,6 +168,7 @@
             lsRole = window.localStorage.getItem("role");
             lsPerid = window.localStorage.getItem("perid");
         var params = new URLSearchParams();
+        console.log('lsUserid-------------------------------------------------->' + lsUserid)
         params.append('userid', lsUserid)
         params.append('flag', lsMflag)
         params.append('role', lsRole)

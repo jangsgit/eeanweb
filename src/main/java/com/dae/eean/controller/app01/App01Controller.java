@@ -641,11 +641,7 @@ public class App01Controller {
 
     //주문등록 거래처
     @GetMapping(value="/index150m")
-    public String App150m_index(  @RequestParam("userid") String userid,
-                                  @RequestParam("flag") String flag,
-                                  @RequestParam("role") String role,
-                                  @RequestParam("perid") String perid,
-                                  Model model, HttpServletRequest request) throws Exception{
+    public String App150m_index(  Model model, HttpServletRequest request) throws Exception{
         CommDto.setMenuTitle("거래처주문등록");
         CommDto.setMenuUrl("기준정보>거래처주문등록");
         CommDto.setMenuCode("index150m");
@@ -653,9 +649,8 @@ public class App01Controller {
             HttpSession session = request.getSession();
             UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
             model.addAttribute("userformDto",userformDto);
-            String ls_acorp1 = perid;
-            String ls_flag = flag;
-            String ls_role = role;
+            String ls_flag = userformDto.getFlag();
+            String ls_role = userformDto.getRole();
             if (ls_flag.equals("CC")){
                 index03Dto.setJpb_gubn(ls_role);
             }else{
