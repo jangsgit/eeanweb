@@ -765,10 +765,14 @@
         and len( isnull(CONVERT(CHAR(19),fixdatetime,20),'') ) = 0
     </update>
 
-    <update id="UpdateDA024Dev" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
+    <update id="UpdateDA024Dev" parameterType="hashmap">
         UPDATE tb_da024 SET
-        devflag=#{devflag}
-        where misdate=#{misdate} and misnum=#{misnum} and  seq=#{seq} and cltcd = #{cltcd} and misgubun = #{misgubun}
+        devflag='1', devdatetime = getdate()
+        where   misdate + misnum + seq + cltcd in
+        <foreach collection="itemcdArr" item="itemcd"  open="(" close=")" separator=",">
+            #{itemcd}
+        </foreach>
+        and len( isnull(CONVERT(CHAR(19),devdatetime,20),'') ) = 0
     </update>
 
     <update id="UpdateDA024Qty" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >

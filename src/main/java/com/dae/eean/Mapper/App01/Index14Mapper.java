@@ -53,7 +53,7 @@ public interface Index14Mapper {
 
     public Boolean UpdateDA023Unsong(IndexDa023Dto parm) ;
     public Boolean UpdateDA024(IndexDa024Dto parm) ;
-    public Boolean UpdateDA024Dev(IndexDa024Dto parm) ;
+    public Boolean UpdateDA024Dev(HashMap<String,String> parm) ;
     public Boolean UpdateDA024rkaa(IndexDa024Dto parm) ;
     public Boolean UpdateDA024rkbb(IndexDa024Dto parm) ;
     public Boolean UpdateDA024Fix(HashMap<String,String> parm) ;
