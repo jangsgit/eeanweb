@@ -217,7 +217,7 @@ public class Index14Service {
     public Boolean DeleteDA026(IndexDa024Dto parm){ return  appMapper.DeleteDA026(parm);}
     public Boolean UpdateDA023Unsong(IndexDa023Dto parm){ return  appMapper.UpdateDA023Unsong(parm);}
     public Boolean UpdateDA024(IndexDa024Dto parm){ return  appMapper.UpdateDA024(parm);}
-    public Boolean UpdateDA024Dev(IndexDa024Dto parm){ return  appMapper.UpdateDA024Dev(parm);}
+    public Boolean UpdateDA024Dev(HashMap<String,String> parm){ return  appMapper.UpdateDA024Dev(parm);}
 
     public Boolean UpdateDA024Fix(HashMap<String,String> parm){ return  appMapper.UpdateDA024Fix(parm);}
 

@@ -3626,27 +3626,23 @@ public class App01CrudController {
                     itemString[ll_count] = ls_misdate + misnumarr.get(i) + seqarr.get(i)  + cltcdarr.get(i);  //
                     ll_count++;
                     ls_tempItem = ls_misdate  + misnumarr.get(i) + seqarr.get(i) + cltcdarr.get(i);  //
-                    if (!mflag.equals("AA")){
-                        _indexDa024Dto.setDevflag("1");
-                        result = service14.UpdateDA024Dev(_indexDa024Dto);
-                        if (!result){
-                            return "error";
-                        }
-//                        indexDa024Dto.setFixflag("1");
-//                        String ls_seq = service14.SelectedFixDA024(indexDa024Dto);
-//                        if( ls_seq == null){
-//                            return "success";
-//                        }else{
-//                            result = service14.UpdateDA024(indexDa024Dto);
+//                    if (!mflag.equals("AA")){
+//                        _indexDa024Dto.setDevflag("1");
+//                        result = service14.UpdateDA024Dev(_indexDa024Dto);
+//                        if (!result){
+//                            return "error";
 //                        }
-                    }
-                    //출력(확정)취소는 없앰. 7.23
-//                    if(fixflagarr.get(i).equals("0")){
-//                        indexDa024Dto.setFixflag("1");
-//                    }else{
-//                        indexDa024Dto.setFixflag("0");
 //                    }
                 }
+                //DD -->배송
+                if (!mflag.equals("AA")){
+                    hm.put("itemcdArr", itemString);
+                    result = service14.UpdateDA024Dev(hm);
+                    if (!result){
+                        //return "error";
+                    }
+                }
+                //DD -->확정
                 if (mflag.equals("AA")){
                     hm.put("itemcdArr", itemString);
                     if (mflag.equals("AA")){
