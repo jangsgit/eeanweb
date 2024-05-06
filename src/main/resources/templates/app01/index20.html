@@ -97,7 +97,16 @@
                             </div>   
                             <div class="col-2 col-sm-2">                             
                                 <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">유/무상</span> 
-                                    <input class="form-control form-control-sm" id="asasyumu" type="text"    autocomplete="off"  placeholder="">                                               
+                                    <select class="form-select form-select-sm" id="asasyumu" aria-label=".form-select-sm example">
+                                        <option selected="">유무상</option>
+                                        <option value="0">무상</option>
+                                        <option value="1000">1,000</option>
+                                        <option value="5000">5,000</option>
+                                        <option value="15000">15,000</option>
+                                        <option value="20000">20,000</option>
+                                        <option value="25000">25,000</option>
+                                        <option value="30000">30,000</option>
+                                      </select>                                        
                                 </div> 
                             </div>     
                             <div class="col-2 col-sm-2">                                            
@@ -387,6 +396,9 @@
          var gs_argflag = "";
          var chkTabA = [];
         var wseries_data = [0];  
+         var acorp = [];  
+         var askey = [];
+         var ascode = [];
         var asKey1Arr = new Array();
          var asKey2Arr = new Array();   
         var wtabExl_data = [];
@@ -411,7 +423,6 @@
                 columns: [     
                     { binding: 'as_key1', header: '접수일자', align: "center",   width: 120 }, 
                     { binding: 'as_key2', header: '순번', align: "center",   width: 50 },
-                    { binding: 'as_gongjang', header: '공장', align: "center",   width: 50 },
                     { binding: 'as_acorp', header: '거래처', align: "left",   width: 200 },
                     { binding: 'as_model', header: '모델', align: "center",   width: 80 },
                     { binding: 'as_color', header: '칼라', align: "center",   width: 80 },
@@ -419,8 +430,8 @@
                     { binding: 'as_memo', header: '메모', align: "center",   width: 200 },        
                     { binding: 'as_yumu', header: '유무상', align: "center",   width: 80 }, 
                     { binding: 'as_memo2', header: '메모2', align: "center",   width: 200 },      
-                    { binding: 'as_memo3', header: '메모3', align: "center",   width: 200 },     
                     { binding: 'as_date2', header: '배송일자', align: "center",   width: 120 },      
+                    { binding: 'as_gongjang', header: '공장', align: "center",   width: 50 },
                     { binding: 'as_aname', header: '구분', align: "center",   width: 80 },         
                     { binding: 'as_damdang', header: '접수자', align: "center",   width: 80 },           
                 ], 
@@ -462,7 +473,37 @@
             function showCheckedCount() {
                 let cnt = document.getElementById('checked-count'), sel = wtab01Grid.rows.filter(r => r.isSelected);
                 cnt.textContent = sel.length.toString();  
-                chkTabA = sel;           
+                chkTabA = sel;     
+                var icnt = 0;
+                var ascorp1, ascorp2, ascorp3 ;
+                for (var i = 0; i < sel.length; i++) { 
+                    acorp[i]    = sel[i]._data.as_acorp;
+                    askey[i]    = sel[i]._data.as_key1; 
+                    ascorp1     = sel[i]._data.as_corp1;
+                    ascorp2     = sel[i]._data.as_corp2;
+                    ascorp3     = sel[i]._data.as_corp3;
+                    ascorp1 = ascorp1 + ascorp2 + ascorp3;
+                    ascode[i]   = ascorp1 ; 
+                    ascorp1 = "";
+                }          
+                console.log(acorp);
+                console.log(ascode[0]);
+                console.log(ascode.length);
+                for (var p = 0; p < ascode.length; p++) {  
+                    console.log(ascode[p]);
+                    for (var i = 0; i < sel.length; i++) {  
+                        console.log(sel[i]._data.as_corp1 + sel[i]._data.as_corp2 + sel[i]._data.as_corp3 );
+                        if( ascode[p] == sel[i]._data.as_corp1 + sel[i]._data.as_corp2 + sel[i]._data.as_corp3 &&  askey[p] == sel[i]._data.as_key1 ){
+                            icnt++;
+                            console.log(icnt + '-->' + ascode[p] + '/' + askey[p]);
+                        } 
+                    }  
+                    
+                    if(icnt >= 2){
+                        alert("확인: " + askey[p] + " / " + acorp[p] + "  " + icnt + "건 입니다.")
+                    }
+                    icnt = 0;
+                }         
 
             } 
             // 헤더 열 전환
@@ -1404,12 +1445,6 @@
             cols.header = '순번';
             cols.align = "center";
             cols.width = 50;  
-            wtab01Grid.columns.push(cols);   
-            cols = new wijmo.grid.Column(); 
-            cols.binding = 'as_gongjang';
-            cols.header = '공장';
-            cols.align = "center";
-            cols.width = 80;  
             wtab01Grid.columns.push(cols);    
             cols = new wijmo.grid.Column(); 
             cols.binding = 'as_acorp';
@@ -1423,7 +1458,7 @@
                     
                 }
             });
-            wtab01Grid.columns.push(cols);   
+            wtab01Grid.columns.push(cols);  
             cols = new wijmo.grid.Column(); 
             cols.binding = 'as_model';
             cols.header = '모델';
@@ -1459,19 +1494,19 @@
             cols.header = '메모2';
             cols.align = "center";
             cols.width = 200;  
-            wtab01Grid.columns.push(cols);   
-            cols = new wijmo.grid.Column(); 
-            cols.binding = 'as_memo3'; 
-            cols.header = '메모';
-            cols.align = "center";
-            cols.width = 200;  
-            wtab01Grid.columns.push(cols);      
+            wtab01Grid.columns.push(cols);     
             cols = new wijmo.grid.Column(); 
             cols.binding = 'as_date2';
             cols.header = '배송일자';
             cols.align = "center";
             cols.width = 120;  
-            wtab01Grid.columns.push(cols);   
+            wtab01Grid.columns.push(cols);  
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'as_gongjang';
+            cols.header = '공장';
+            cols.align = "center";
+            cols.width = 80;  
+            wtab01Grid.columns.push(cols);    
             cols = new wijmo.grid.Column(); 
             cols.binding = 'as_aname';
             cols.header = '구분';
