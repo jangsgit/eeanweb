@@ -99,13 +99,13 @@
                                 <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">유/무상</span> 
                                     <select class="form-select form-select-sm" id="asasyumu" aria-label=".form-select-sm example">
                                         <option selected="">유무상</option>
-                                        <option value="0">무상</option>
-                                        <option value="1000">1,000</option>
-                                        <option value="5000">5,000</option>
-                                        <option value="15000">15,000</option>
-                                        <option value="20000">20,000</option>
-                                        <option value="25000">25,000</option>
-                                        <option value="30000">30,000</option>
+                                        <option value="무상">무상</option>
+                                        <option value="1">1,000</option>
+                                        <option value="5">5,000</option>
+                                        <option value="15">15,000</option>
+                                        <option value="20">20,000</option>
+                                        <option value="25">25,000</option>
+                                        <option value="30">30,000</option>
                                       </select>                                        
                                 </div> 
                             </div>     
@@ -166,10 +166,10 @@
                                 </div>      
                                 <div class="col-1 col-sm-1">
                                     <select class="form-select form-select-sm" id="devflag" aria-label=".form-select-sm example">
-                                        <option selected="">배송구분</option>
+                                        <option selected="">발송구분</option>
                                         <option value="%">전체</option>
-                                        <option value="1">배송완료</option>
-                                        <option value="0">배송전</option>
+                                        <option value="1">발송완료</option>
+                                        <option value="0">발송전</option>
                                       </select> 
                                 </div>    
                                 <div class="col-3 col-sm-2">  
@@ -186,7 +186,7 @@
                                 <div class="col-3 col-sm-2">   
                                     <button class="btn btn-falcon-warning me-1 mb-1 btn-md" id="retrieveBtn" type="button"  >조회
                                     </button>   
-                                    <button class="btn btn-success me-1 mb-1 btn-md" id="saveBtn03" type="button"  >배송출력
+                                    <button class="btn btn-success me-1 mb-1 btn-md" id="saveBtn03" type="button"  >발송출력
                                     </button>
                                     <button class="btn btn-danger me-1 mb-1 btn-md" id="DelBtn02" type="button"  >삭제
                                     </button>
@@ -430,7 +430,8 @@
                     { binding: 'as_memo', header: '메모', align: "center",   width: 200 },        
                     { binding: 'as_yumu', header: '유무상', align: "center",   width: 80 }, 
                     { binding: 'as_memo2', header: '메모2', align: "center",   width: 200 },      
-                    { binding: 'as_date2', header: '배송일자', align: "center",   width: 120 },      
+                    { binding: 'as_date2', header: '배송일자', align: "center",   width: 120 },     
+                    { binding: 'unsongnum', header: '운송장', align: "center",   width: 120 },     
                     { binding: 'as_gongjang', header: '공장', align: "center",   width: 50 },
                     { binding: 'as_aname', header: '구분', align: "center",   width: 80 },         
                     { binding: 'as_damdang', header: '접수자', align: "center",   width: 80 },           
@@ -475,27 +476,21 @@
                 cnt.textContent = sel.length.toString();  
                 chkTabA = sel;     
                 var icnt = 0;
-                var ascorp1, ascorp2, ascorp3 ;
+                var ascorp1 = '';
+                var ascorp2 = '';
+                var ascorp3 = ''; 
                 for (var i = 0; i < sel.length; i++) { 
                     acorp[i]    = sel[i]._data.as_acorp;
                     askey[i]    = sel[i]._data.as_key1; 
-                    ascorp1     = sel[i]._data.as_corp1;
-                    ascorp2     = sel[i]._data.as_corp2;
-                    ascorp3     = sel[i]._data.as_corp3;
-                    ascorp1 = ascorp1 + ascorp2 + ascorp3;
-                    ascode[i]   = ascorp1 ; 
-                    ascorp1 = "";
-                }          
-                console.log(acorp);
-                console.log(ascode[0]);
-                console.log(ascode.length);
+                    ascorp1     = sel[i]._data.as_acorp1;
+                    ascorp2     = sel[i]._data.as_acorp2;
+                    ascorp3     = sel[i]._data.as_acorp3; 
+                    ascode[i]   = ascorp1 + ascorp2 + ascorp3 + sel[i]._data.as_key1; 
+                }        
                 for (var p = 0; p < ascode.length; p++) {  
-                    console.log(ascode[p]);
-                    for (var i = 0; i < sel.length; i++) {  
-                        console.log(sel[i]._data.as_corp1 + sel[i]._data.as_corp2 + sel[i]._data.as_corp3 );
-                        if( ascode[p] == sel[i]._data.as_corp1 + sel[i]._data.as_corp2 + sel[i]._data.as_corp3 &&  askey[p] == sel[i]._data.as_key1 ){
+                    for (var i = 0; i < sel.length; i++) {   
+                        if( ascode[p] == sel[i]._data.as_acorp1 + sel[i]._data.as_acorp2 + sel[i]._data.as_acorp3  + sel[i]._data.as_key1 ){
                             icnt++;
-                            console.log(icnt + '-->' + ascode[p] + '/' + askey[p]);
                         } 
                     }  
                     
@@ -544,7 +539,7 @@
                     { binding: 'as_memo', header: '메모', align: "center",   width: 200 },        
                     { binding: 'as_yumu', header: '유무상', align: "center",   width: 80 }, 
                     { binding: 'as_memo2', header: '메모2', align: "center",   width: 200 },      
-                    { binding: 'as_memo3', header: '메모3', align: "center",   width: 200 },        
+                    { binding: 'unsongnum', header: '운송장', align: "center",   width: 200 },        
                     { binding: 'as_aname', header: '구분', align: "center",   width: 80 },         
                     { binding: 'as_damdang', header: '접수자', align: "center",   width: 80 },           
                 ], 
@@ -1329,7 +1324,7 @@
                     if(ls_bcifname == null || ls_bcifname.length == 0 || ls_bcifname == ""){ 
                         ls_bacode = "%"             
                     } 
-                    if(ls_asflag == "배송구분"){ 
+                    if(ls_asflag == "발송구분"){ 
                         ls_asflag = "%";
                     }       
                     $.ajax({
@@ -1425,6 +1420,7 @@
                     as_damdang:  wtab01Dto[i]["as_damdang"], 
                     as_devcode:  wtab01Dto[i]["as_devcode"], 
                     as_devdate:  wtab01Dto[i]["as_devdate"],  
+                    unsongnum:  wtab01Dto[i]["unsongnum"],   
                     as_devflag:  bfixflag,                                                 
                 });
                 cnt++;
@@ -1502,6 +1498,12 @@
             cols.width = 120;  
             wtab01Grid.columns.push(cols);  
             cols = new wijmo.grid.Column(); 
+            cols.binding = 'unsongnum';
+            cols.header = '운송장';
+            cols.align = "center";
+            cols.width = 100;   
+            wtab01Grid.columns.push(cols);   
+            cols = new wijmo.grid.Column(); 
             cols.binding = 'as_gongjang';
             cols.header = '공장';
             cols.align = "center";
@@ -1525,14 +1527,13 @@
             cols.align = "center";
             cols.width = 100;  
             cols.cssClass = 'switch'
-            wtab01Grid.columns.push(cols);  
+            wtab01Grid.columns.push(cols);   
             cols = new wijmo.grid.Column(); 
             cols.binding = 'as_devdate';
             cols.header = '발송처리';
             cols.align = "center";
             cols.width = 150;  
             wtab01Grid.columns.push(cols); 
- 
         }     
        
         function tabB_grid(data){
