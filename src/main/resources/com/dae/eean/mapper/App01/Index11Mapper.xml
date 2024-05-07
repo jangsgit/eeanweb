@@ -64,13 +64,13 @@
              , CONVERT(CHAR(19),as_devdate,20) as as_devdate
         from as_jupsu WITH (NOLOCK)
         WHERE isnull(as_acorp,'') Like concat('%',#{as_acorp},'%')
-          and as_key1 between #{frdate} and #{todate} and isnull(as_devflag,'0') = '0'
+          and as_key1 between #{frdate} and #{todate} and isnull(as_devflag,'0') Like concat('%',#{as_devflag},'%')
         ORDER BY as_key1, as_key2
         ]]>
     </select>
 
-    <select id="GetAsJupsuList03" parameterType="com.dae.eean.DTO.App01.Index11Dto" resultType="com.dae.eean.DTO.App01.Index11Dto">
-        <![CDATA[
+    <select id="GetAsJupsuList03" parameterType="hashmap" resultType="com.dae.eean.DTO.App01.Index11Dto">
+
         select as_key1
              ,as_key2
              ,as_date
@@ -95,10 +95,13 @@
              ,as_devcode
              , CONVERT(CHAR(19),as_devdate,20) as as_devdate
         from as_jupsu WITH (NOLOCK)
-        WHERE isnull(as_acorp,'') Like concat('%',#{as_acorp},'%')
-          and as_key1 between #{frdate} and #{todate}  and isnull(as_devflag,'0') = '1'
+        where  as_key1 + convert(nvarchar(4), as_key2 )   in
+            <foreach collection="itemcdArr" item="itemcd"  open="(" close=")" separator=",">
+                 #{itemcd}
+            </foreach>
+         and isnull(as_devflag,'0') = '1'
         ORDER BY as_key1, as_key2
-        ]]>
+
     </select>
 
 

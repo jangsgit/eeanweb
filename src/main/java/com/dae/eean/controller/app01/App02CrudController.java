@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -64,7 +65,7 @@ public class App02CrudController {
             index11Dto.setTodate(todate);
             index11Dto.setAs_devflag(asflag);
             if(asflag.equals("1")){
-                index11List = service11.GetAsJupsuList03(index11Dto);
+                index11List = service11.GetAsJupsuList02(index11Dto);
             }else if(asflag.equals("0")){
                 index11List = service11.GetAsJupsuList02(index11Dto);
             }else{
@@ -82,10 +83,9 @@ public class App02CrudController {
 
     //AS 접수현황
     @GetMapping(value="/index11/listdev")
-    public Object App02ListDev_index(@RequestParam("frdate") String frdate,
-                                     @RequestParam("todate") String todate,
-                                     @RequestParam("asacorp") String asacorp,
-                                    Model model, HttpServletRequest request) throws Exception{
+    public Object App02ListDev_index(@RequestParam(value = "asKey1Arr[]") List<String> asKey1Arr
+                                    ,@RequestParam( value =  "asKey2Arr[]") List<String> asKey2Arr
+                                    ,Model model, HttpServletRequest request) throws Exception{
         HttpSession session = request.getSession();
         UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
         if(userformDto == null){
@@ -94,21 +94,54 @@ public class App02CrudController {
         }
         model.addAttribute("userformDto",userformDto);
 
-        try {
+//        try {
+//
+//            if(asacorp == null || asacorp.equals("")){
+//                asacorp = "%";
+//            }
+//            index11Dto.setAs_acorp(asacorp);
+//            index11Dto.setFrdate(frdate);
+//            index11Dto.setTodate(todate);
+//            index11Dto.setAs_devflag("1");
+//            index11List = service11.GetAsJupsuList03(index11Dto);
+//            model.addAttribute("index11List",index11List);
+//
+//        } catch (Exception ex) {
+//            log.info("App02ListDev_index Exception =====>" + ex.toString());
+//        }
 
-            if(asacorp == null || asacorp.equals("")){
-                asacorp = "%";
+
+        try {
+            HashMap hm = new HashMap();
+            String[] itemString =new String[asKey1Arr.size()];
+            String ls_tempItem = "";
+            Integer ll_count = 0;
+            if( asKey1Arr.size() > 0){
+                for(int i = 0; i < asKey1Arr.size(); i++){
+                    String year = asKey1Arr.get(i).substring(0,4);
+                    String month = asKey1Arr.get(i).substring(5,7);
+                    String day = asKey1Arr.get(i).substring(8,10);
+                    String ls_misdate = asKey1Arr.get(i); //year + month + day ;
+                    if(ls_tempItem.equals( ls_misdate + asKey2Arr.get(i) )){
+                        continue;
+                    }
+                    itemString[ll_count] = ls_misdate + asKey2Arr.get(i);  //
+                    ll_count++;
+                    ls_tempItem = ls_misdate   + asKey2Arr.get(i)    ;  //
+                    //log.info("itemString =====>" + ls_misdate + asKey2Arr.get(i) );
+                }
+                hm.put("itemcdArr", itemString);
+                index11List = service11.GetAsJupsuList03(hm);
+
             }
-            index11Dto.setAs_acorp(asacorp);
-            index11Dto.setFrdate(frdate);
-            index11Dto.setTodate(todate);
-            index11Dto.setAs_devflag("1");
-            index11List = service11.GetAsJupsuList03(index11Dto);
-            model.addAttribute("index11List",index11List);
 
         } catch (Exception ex) {
-            log.info("App02ListDev_index Exception =====>" + ex.toString());
+            log.info("App14List_index Exception =====>" + ex.toString());
         }
+
+
+
+
 
         return index11List;
     }

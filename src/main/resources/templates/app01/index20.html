@@ -1357,14 +1357,23 @@
                     var ls_bcifname = document.getElementById('bcifname').value;      
                     if(ls_bcifname == null || ls_bcifname.length == 0 || ls_bcifname == ""){ 
                         ls_bacode = "%"             
-                    } 
+                    }  
+
+                    // while (asKey1Arr.length > 0) {
+                    //     asKey1Arr.pop();
+                    //     asKey2Arr.pop(); 
+                    // }    
+                    // for (var i = 0; i < chkTabA.length; i++) { 
+                    //     asKey1Arr[i]   = chkTabA[i]._data.as_key1;
+                    //     asKey2Arr[i]   = chkTabA[i]._data.as_key2; 
+                    // }    
+ console.log(asKey1Arr)
                     $.ajax({
                         url: '/app02m/index11/listdev',  
                         type:"POST",
                         data: { 
-                            "frdate"      : ls_frdate, 
-                            "todate"      : ls_todate,  
-                            "asacorp"      : ls_bacode 
+                            "asKey1Arr"  : asKey1Arr,  
+                            "asKey2Arr"   : asKey2Arr   
                         }, 
                         async:false,
                         success:function(data){     
