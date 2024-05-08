@@ -2259,22 +2259,23 @@ public class App01CrudController {
             if(perid == null || perid.equals("")){
                 perid = "%";
             }
+            _indexDa024Dto.setMisgubun(misgubun);
             mflag = "%";
 //            log.info("ls_flag=====>" + ls_flag);
 //            log.info("ls_misgubun====>" + misgubun);
-            switch (ls_flag){
-                case "AA" :
-                    _indexDa024Dto.setMisgubun(misgubun);
-                    break;
-                case "BB":
-                    _indexDa024Dto.setMisgubun(ls_flag);
-                    break;
-                case "CC":
-                    _indexDa024Dto.setMisgubun(ls_flag);
-                    break;
-                default:
-                    break;
-            }
+//            switch (ls_flag){
+//                case "AA" :
+//                    _indexDa024Dto.setMisgubun(misgubun);
+//                    break;
+//                case "BB":
+//                    _indexDa024Dto.setMisgubun(ls_flag);
+//                    break;
+//                case "CC":
+//                    _indexDa024Dto.setMisgubun(ls_flag);
+//                    break;
+//                default:
+//                    break;
+//            }
             _indexDa024Dto.setPerid(perid);
             _indexDa024Dto.setJfrdate("20000101");
             _indexDa024Dto.setJtodate(todate);
