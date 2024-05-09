@@ -164,6 +164,7 @@
         from JCODE3 WITH (NOLOCK)
         WHERE isnull(jmodel_code,'')   = #{jmodel_code}
           and isnull(jcustomer_code,'')   = #{jcustomer_code}
+          and isnull(jpb_gubn,'') Like concat('%',#{jpb_gubn},'%')
           and jsayong_gubn <> '4'
         ORDER BY jmodel_code, CONVERT(float, jcolor_code3),jkey
         ]]>

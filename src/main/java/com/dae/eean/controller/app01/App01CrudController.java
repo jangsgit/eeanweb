@@ -523,6 +523,7 @@ public class App01CrudController {
     @GetMapping(value="/index03/modellist")
     public Object App03ModelList_index(@RequestParam("jcust") String jcust,
                                        @RequestParam("jmodel") String jmodel,
+                                       @RequestParam("jpbgubn") String jpbgubn,
                                       Model model, HttpServletRequest request) throws Exception{
         CommDto.setMenuTitle("제품등록");
         CommDto.setMenuUrl("기준정보>제품정보");
@@ -545,6 +546,7 @@ public class App01CrudController {
             index03Dto_S.setJmodel_code(jmodel);
             index03Dto_S.setFrdate("20100101");
             index03Dto_S.setTodate(getToDate());
+            index03Dto_S.setJpb_gubn(jpbgubn);
             _index03List = service03.GetJpumModelList(index03Dto_S);
             model.addAttribute("index03MdelList",_index03List);
 

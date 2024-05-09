@@ -804,7 +804,7 @@ aria-hidden="true">
                             var ll_uamt = e._p._rows[ll_row]._data.uamt ;
                             if(!ll_uamt){ll_uamt = 0}  //단가
                             var ll_samt = ll_qty * ll_uamt;
-                            wtab03Grid.setCellData(e.row,7,ll_samt);  
+                            wtab03Grid.setCellData(e.row,6,ll_samt);  
                         }
                 },
                 itemsSource: view_p01tab03page
@@ -897,7 +897,7 @@ aria-hidden="true">
             var ls_jpbgubn = document.getElementById('jpbgubn').value ; 
             if(ls_jpbgubn == null || ls_jpbgubn.length == 0 || ls_jpbgubn == ""){ 
                 ls_jpbgubn = "%";
-            } 
+            }  
             $.ajax({
                 url: '/app01m/index03/custlist',  
                 type:"POST",
@@ -907,7 +907,7 @@ aria-hidden="true">
                 }, 
                 async:false,
                 success:function(data){  
-                    jcust_grid(arg,data);
+                    jcust_grid(arg,data, ls_jpbgubn);
                 },error:function(e){
                     alert("조회되지않았습니다. 재로그인해보세요");
                     console.log("error");                            
@@ -918,7 +918,7 @@ aria-hidden="true">
 
         }    
 
-        function jcust_grid(arg, custdata){ 
+        function jcust_grid(arg, custdata, argjpb){ 
             var wactnm_data = [];          
             var cnt = 1;
             for (var i = 0; i < custdata.length; i++) {
@@ -929,6 +929,7 @@ aria-hidden="true">
                     data: { 
                         "jcust" :arg, 
                         "jmodel" :ls_jmodel, 
+                        "jpbgubn" : argjpb
                     }, 
                     async:false,
                     success:function(data){  

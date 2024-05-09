@@ -900,7 +900,7 @@ aria-hidden="true">
                         window.location.href='http://eean.co.kr';
                         return 
                     }     
-                    jcust_grid(arg,data);
+                    jcust_grid(arg,data, ls_jpbgubn);
                 },error:function(e){
                     console.log("error");                            
                 }
@@ -910,7 +910,7 @@ aria-hidden="true">
 
         }    
 
-        function jcust_grid(arg, custdata){  
+        function jcust_grid(arg, custdata, argjpb){  
             var wactnm_data = [];          
             var cnt = 1;
             for (var i = 0; i < custdata.length; i++) {
@@ -921,6 +921,7 @@ aria-hidden="true">
                     data: { 
                         "jcust" :arg, 
                         "jmodel" :ls_jmodel, 
+                        "jpbgubn" : argjpb
                     }, 
                     async:false,
                     success:function(data){        
