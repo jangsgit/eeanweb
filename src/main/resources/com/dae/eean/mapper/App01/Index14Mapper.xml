@@ -412,6 +412,7 @@
                       B.amt, B.acorp, pbonsa, pmodel, pcolor , B.pernm as inname, B.misgubun, isnull(B.fixflag,'0') as fixflag, B.pernm as pernm,
                       isnull(B.remarkaa,'') as remarkaa,
                       isnull(B.remarkbb,'') as remarkbb,
+                      B.unsongnum as unsongnum,
                       B.fixdate,  CONVERT(CHAR(19),B.fixdatetime,20) as fixdatetime,  CONVERT(CHAR(19),B.misdatetime,20) as misdatetime
                   from  TB_DA024 B WITH (NOLOCK)
                   where    B.cltcd Like concat('%',#{cltcd},'%')

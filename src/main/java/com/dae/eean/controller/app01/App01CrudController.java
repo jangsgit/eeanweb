@@ -795,7 +795,12 @@ public class App01CrudController {
                 jpbgubn = "%";
             }
             index03Dto_S.setJpb_gubn(jpbgubn);
-            _index03List = service03.GetJBonsaCodeList(index03Dto_S);
+            if( flag.equals("CC")){
+                _index03List = service03.GetJBonsaCodeList_CC(index03Dto_S);
+            }else{
+                _index03List = service03.GetJBonsaCodeList(index03Dto_S);
+            }
+
             model.addAttribute("index03GanList03",_index03List);
 
         } catch (Exception ex) {
@@ -4324,6 +4329,8 @@ public class App01CrudController {
                 index20Dto.setAs_aname(asaname);
                 index20Dto.setAs_devflag("0");
 
+            log.info("asaskey1 =====>" + asaskey1);
+            log.info("asaskey2 =====>" + asaskey2);
                 if(asaskey2 == null || asaskey2.equals("")){
                     asaskey2 = GetMaxJupsu(index20Dto);
                     index20Dto.setAs_key2(asaskey2);

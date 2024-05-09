@@ -1255,6 +1255,7 @@
                     fixdate: wtab04Dto[i]["fixdate"],   
                     fixdatetime: wtab04Dto[i]["fixdatetime"],   
                     misdatetime: wtab04Dto[i]["misdatetime"],  
+                    unsongnum: wtab04Dto[i]["unsongnum"],  
                     remark: ls_remark,    
                     fixflag: bfixflag,                                           
                 });
@@ -1378,18 +1379,17 @@
             cols.width = 200;  
             wtab04Grid.columns.push(cols);   
             cols = new wijmo.grid.Column(); 
+            cols.binding = 'unsongnum'; 
+            cols.header = '운송장번호';
+            cols.align = "center";
+            cols.width = 150;   
+            wtab04Grid.columns.push(cols);   
+            cols = new wijmo.grid.Column(); 
             cols.binding = 'remark';
             cols.header = '비고';
             cols.align = "left";
             cols.width = 250;  
-            wtab04Grid.columns.push(cols);   
-            // cols = new wijmo.grid.Column(); 
-            // cols.binding = 'fixflag'; 
-            // cols.header = '출력';
-            // cols.align = "center";
-            // cols.width = 100;  
-            // cols.cssClass = 'switch'
-            // wtab04Grid.columns.push(cols);  
+            wtab04Grid.columns.push(cols);  
  
         } 
            

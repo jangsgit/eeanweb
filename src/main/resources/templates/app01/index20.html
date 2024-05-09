@@ -66,6 +66,14 @@
                                 </div>                                                      
                             </div>
                             <div class="col-2 col-sm-2">
+                                <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">공장</span> 
+                                    <select class="form-select" th:field="*{index02ListDto}" name="asasgong" id="asasgong"> 
+                                        <option th:each="val : ${index02ListDto}" th:value="${val.com_code}" th:text="${val.com_rem1}">
+                                    </select>                                                             
+                                    <!-- <input class="form-control form-control-sm" type="text" id="asasgong" placeholder=""  autocomplete="off"  >                                              -->
+                                </div>                                                     
+                            </div>   
+                            <div class="col-2 col-sm-2">
                                 <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">거래처</span> 
                                     <input class="form-control form-control-sm" id="jcifname" type="text"    autocomplete="off"  placeholder=""     >
                                     <input class="form-control form-control-sm" id="jacorp1" type="hidden"  />
@@ -116,20 +124,12 @@
                                     </select>                                                             
                                 </div>  
                             </div>  
-                            <div class="col-2 col-sm-2">
-                                <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">공장</span> 
-                                    <select class="form-select" th:field="*{index02ListDto}" name="asasgong" id="asasgong"> 
-                                        <option th:each="val : ${index02ListDto}" th:value="${val.com_code}" th:text="${val.com_rem1}">
-                                    </select>                                                             
-                                    <!-- <input class="form-control form-control-sm" type="text" id="asasgong" placeholder=""  autocomplete="off"  >                                              -->
-                                </div>                                                     
-                            </div>   
                             
                             <!-- Force next columns to break to new line -->
                             <div class="w-100"></div>     
                             <div class="col-2 col-sm-2">
                                 <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">출고일자</span>                                                        
-                                    <input type="text"  class="form-control datetimepicker" id="as_date" autocomplete="off"  placeholder="Y-m-d"   > 
+                                    <input type="text"  class="form-control datetimepicker" id="as_date" autocomplete="off"  placeholder="Y-m-d" disabled > 
                                 </div> 
                             </div>   
                             <div class="col-3 col-sm-2">
@@ -960,7 +960,7 @@
                 document.getElementById('jacode').value = arg4;   
                 document.getElementById('jcifname').value = arg5;  
                 $("#winnamemodal_btn").trigger("click"); 
-                document.getElementById("asassuri").focus(); 
+                document.getElementById("asasmodel").focus(); 
             } 
 
         }  
@@ -1012,7 +1012,8 @@
                         document.getElementById("jcifname").focus(); 
                         return ;               
                     }  
-
+console.log(ls_asaskey1)
+console.log(ls_asaskey2)
                         $.ajax({
                             url: '/app01m/jupsusave',  
                             type:"POST",
@@ -1773,8 +1774,7 @@
             document.getElementById('todate').value = ls_today; 
             // document.getElementById('frdate02').value = ls_frday;
             // document.getElementById('todate02').value = ls_today;
-            document.getElementById('asaskey1').value = ls_today;
-            document.getElementById('asaskey2').value = ls_today;
+            document.getElementById('asaskey1').value = ls_today; 
             
         }
 
