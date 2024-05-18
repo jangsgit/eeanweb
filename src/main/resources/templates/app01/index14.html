@@ -106,13 +106,20 @@
                                                 <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="wishBtn" type="button" onclick="wishorderlist_rtn()" >예약장바구니
                                                 </button>
                                             </div>      
-                                            <div class="col-1 col-sm-3">  
+                                            <div class="col-auto">  
                                                 <div class="input-group mb-3" >
-                                                    <span class="input-group-text" style="max-height:50px;" >비고</span>
-                                                    <!-- <input class="form-control" type="text"   aria-describedby="inputGroup-sizing-default"  id="abigo"  disabled=true/> -->
-                                                    <textarea class="form-control"   rows="3" id="abigo"  disabled=true></textarea>
+                                                    <span class="input-group-text" style="max-height:50px;" >전화</span>
+                                                    <input class="form-control" type="text"   aria-describedby="inputGroup-sizing-default"  id="atelno"  disabled=true/>
+                                                    <!-- <textarea class="form-control"   rows="3" id="abigo"  disabled=true></textarea> -->
                                                 </div>
-                                            </div>                                         
+                                            </div>         
+                                            <div class="col-2 col-sm-2">
+                                                <div class="input-group mb-3" >
+                                                    <span class="input-group-text" style="max-height:50px;" >주소</span>
+                                                    <input class="form-control" type="text"   aria-describedby="inputGroup-sizing-default"  id="ajusotxt"  />
+                                                    <!-- <textarea class="form-control"   rows="3" id="abigo"  disabled=true></textarea> -->
+                                                </div>
+                                            </div>                                      
                                             <!-- <div class="col-2 col-sm-1">  
                                                 <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" type="button" onclick="save_btn()">주문등록
                                                 </button>
@@ -289,7 +296,7 @@
     data-bs-backdrop="static" tabindex="-1" aria-labelledby="staticBackdropLabel"
     aria-hidden="true">
         <div class="modal-dialog modal-lg mt-6" role="document" id = "modalForm01"
-            style="max-width: 600px">
+            style="max-width: 800px">
             <div class="modal-content border-0">
                 <div class="modal-body p-0" > 
                     <div class="rounded-top-lg py-3 ps-4 pe-6 bg-light">                            
@@ -308,14 +315,7 @@
                         <div id="winnameGrid_div"  style="overflow:scroll;   height:500px;   margin:0 auto; "></div> 
                         <!-- <div id="thePager03"></div> -->
                     </div>   
-                </div>  
-                <div class="col-auto">  
-                    <div class="input-group mb-3" >
-                        <span class="input-group-text" style="max-height:50px;" >비고</span>
-                        <!-- <input class="form-control" type="text"   aria-describedby="inputGroup-sizing-default"  id="abigo"  disabled=true/> -->
-                        <textarea class="form-control"   rows="3" id="abigopop"  disabled=true></textarea>
-                    </div>
-                </div>   
+                </div>    
                 <div class="modal-footer">
                     <div class="row g-1">
                         <div class="col-auto">
@@ -331,6 +331,39 @@
     <!--------------------------------------------------------------------------------------->     
 
 
+    <!--  비고모달 처리 -->
+    <input class="form-control form-control-sm"  type="hidden" id="inbigobtn" data-bs-toggle="modal" data-bs-target="#cifbigomodal"  /> 
+    <!--------------------------------------------------------------------------------------->   
+    <div class="modal fade" id="cifbigomodal" data-bs-keyboard="false"
+    data-bs-backdrop="static" tabindex="-1" aria-labelledby="staticBackdropLabel"
+    aria-hidden="true">
+        <div class="modal-dialog modal-lg mt-6" role="document" id = "modalForm01"
+            style="max-width: 800px">
+            <div class="modal-content border-0">
+                <div class="modal-body p-0" > 
+                    <div class="rounded-top-lg py-3 ps-4 pe-6 bg-light">                            
+                        <div class="search">       
+                            <div class="col-auto">
+                                <div class="input-group mb-3" > 
+                                    <textarea class="form-control"   rows="6" id="abigo"  disabled=true></textarea>
+                                </div>
+                            </div>   
+                        </div>                             
+                    </div>    
+                </div>    
+                <div class="modal-footer">
+                    <div class="row g-1">
+                        <div class="col-auto">
+                            <button class="badge-soft-primary dropdown-item rounded-1"
+                                type="button"  id="wbigomodal_btn" data-bs-dismiss="modal">Close</button>
+                        </div> 
+                    </div>
+                </div>   
+
+            </div>
+        </div> 
+    </div>   
+    <!--------------------------------------------------------------------------------------->     
 
     
     <!--  주문 모달 처리 -->
@@ -2513,7 +2546,9 @@
                     acorp3: wtab02Dto[i]["acorp3"],  
                     acode: wtab02Dto[i]["acode"], 
                     acorp: wtab02Dto[i]["acorp"]  , 
-                    abigo: wtab02Dto[i]["abigo"]     
+                    abigo: wtab02Dto[i]["abigo"]  ,
+                    ajusotxt: wtab02Dto[i]["ajusotxt"]  ,
+                    atelno: wtab02Dto[i]["atelno"]   
                 });
                 cnt++;
             }   
@@ -2532,7 +2567,7 @@
             cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
                 text: '<b>${item.acode}</b>',
                 click: (e, ctx) => {
-                    wcifChk_a(ctx.item.acorp1, ctx.item.acorp2, ctx.item.acorp3, ctx.item.acode, ctx.item.acorp, ctx.item.abigo   );                    
+                    wcifChk_a(ctx.item.acorp1, ctx.item.acorp2, ctx.item.acorp3, ctx.item.acode, ctx.item.acorp, ctx.item.abigo, ctx.item.atelno, ctx.item.ajusotxt   );                    
                     
                 }
             });
@@ -2546,21 +2581,21 @@
             winnameGrid.columns.push(cols); 
 
             cols = new wijmo.grid.Column(); 
-            cols.binding = 'abigo';
-            cols.header = '비고'; 
+            cols.binding = 'atelno';
+            cols.header = '전화'; 
+            cols.align = "center"; 
+            cols.width = 120; 
+            winnameGrid.columns.push(cols); 
+
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'ajusotxt';
+            cols.header = '주소'; 
             cols.align = "left"; 
-            cols.width = 200;
-            cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
-                text: '<b>${item.abigo}</b>',
-                click: (e, ctx) => {
-                    wcifChk_bigo(ctx.item.abigo   );                    
-                    
-                }
-            });
+            cols.width = 300; 
             winnameGrid.columns.push(cols); 
         }
                 
-        function wcifChk_a(arg1, arg2, arg3, arg4, arg5, arg6){  
+        function wcifChk_a(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8){  
               
             var ls_tab = document.getElementById('tabvalue').value;    
             if(ls_tab == "A"){ 
@@ -2570,7 +2605,9 @@
                 document.getElementById('acode').value = arg4;  
                 document.getElementById('searchCode').value = arg5;
                 document.getElementById('cifname').value = arg5;  
-                document.getElementById('abigo').value = arg6;  
+                document.getElementById('abigo').value = arg6; 
+                document.getElementById('atelno').value = arg7;  
+                document.getElementById('ajusotxt').value = arg8;   
 
                 //첫 탭에서 선택한 거래처를 장바구니 거래처에 같이 표시 
                 document.getElementById('bacorp1').value = arg1;  
@@ -2595,6 +2632,10 @@
                 //품목조회 본사코드를 조건으로 추가하면서 막음 
                 retrieve_rtn()
                 $("#winnamemodal_btn").trigger("click");
+                 
+                if(arg6.length > 0){
+                    document.getElementById("inbigobtn").click(); 
+                }
             }else if(ls_tab == "B"){
                 document.getElementById('bacorp1').value = arg1;  
                 document.getElementById('bacorp2').value = arg2;  
@@ -2610,10 +2651,6 @@
                 document.getElementById('dcifname').value = arg5;  
                 $("#winnamemodal_btn").trigger("click"); 
             }
-            
-        }    
-        function wcifChk_bigo(arg1){   
-            document.getElementById('abigopop').value = arg1;  
             
         }  
         function retrieve_rtn(){  
