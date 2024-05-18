@@ -1006,19 +1006,22 @@ public class App01CrudController {
 
             //index03Dto.setJcustomer_code(jcustcd);
             _index03Dto.setJpum(searchtxt);
-            _index03Dto.setFrdate("20000101");
+            _index03Dto.setJfrdate("20000101");
             _index03Dto.setJpb_gubn(jpbgubn);
+
             String year = todate.substring(0,4) ;
             String month = todate.substring(5,7) ;
             String day   = todate.substring(8,10) ;
             todate = year + month + day ;
+            _index03Dto.setFrdate("20000101");
             _index03Dto.setTodate(todate);
+            _index03Dto.setJkey("%");
 //            log.info("001 ->" + _index03Dto.getJpum());
 //            log.info("002 ->" + _index03Dto.getFrdate());
 //            log.info("003 ->" + _index03Dto.getTodate());
-//            log.info("004 ->" + _index03Dto.getJpb_gubn());
-            _index03List = service03.GetJpumCustJaegoList(_index03Dto);
-            //log.info("002 ->" + _index03List.get);
+            log.info("004 ->" + _index03Dto.getJpb_gubn());
+            _index03List = service03.GetJpumCustJaegoList_NEW(_index03Dto);
+            log.info("002 ->" + _index03Dto.getJpb_gubn());
             model.addAttribute("index03List",_index03List);
 
         } catch (Exception ex) {
@@ -1028,6 +1031,67 @@ public class App01CrudController {
         return _index03List;
     }
 
+
+    //그룹별 재고현황 리스트
+    @GetMapping(value="/index04/jaegofromlist")
+    public Object App04JaegoFromList_index(@RequestParam("searchtxt") String searchtxt,
+                                           @RequestParam("jcustcd") String jcustcd,
+                                           @RequestParam("frdate") String frdate,
+                                           @RequestParam("todate") String todate,
+                                           @RequestParam("jpbgubn") String jpbgubn,
+                                           Model model, HttpServletRequest request) throws Exception{
+        CommDto.setMenuTitle("거래처등록");
+        CommDto.setMenuUrl("기준정보>재고현항");
+        CommDto.setMenuCode("index04");
+        HttpSession session = request.getSession();
+        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        if(userformDto == null){
+            log.info("App04JaegoCustList_index Exception =====> relogin userformDto null");
+            return "relogin";
+        }
+        model.addAttribute("userformDto",userformDto);
+        Index03Dto _index03Dto = new Index03Dto();
+        List<Index03Dto> _index03List = new ArrayList<>();
+        try {
+            if(searchtxt == null || searchtxt.equals("")){
+                searchtxt = "%";
+            }
+            if(jcustcd == null || jcustcd.equals("")){
+                jcustcd = "%";
+            }
+
+            //index03Dto.setJcustomer_code(jcustcd);
+            _index03Dto.setJpum(searchtxt);
+            _index03Dto.setJfrdate("20000101");
+            _index03Dto.setJpb_gubn(jpbgubn);
+
+            String year = frdate.substring(0,4) ;
+            String month = frdate.substring(5,7) ;
+            String day   = frdate.substring(8,10) ;
+            frdate = year + month + day ;
+
+            year = todate.substring(0,4) ;
+            month = todate.substring(5,7) ;
+            day   = todate.substring(8,10) ;
+            todate = year + month + day ;
+            _index03Dto.setJtodate(frdate);
+            _index03Dto.setFrdate(frdate);
+            _index03Dto.setTodate(todate);
+            _index03Dto.setJkey("%");
+//            log.info("001 ->" + _index03Dto.getJpum());
+//            log.info("002 ->" + _index03Dto.getFrdate());
+//            log.info("003 ->" + _index03Dto.getTodate());
+            log.info("004 ->" + _index03Dto.getJpb_gubn());
+            _index03List = service03.GetJpumFromJaegoList(_index03Dto);
+            log.info("002 ->" + _index03Dto.getJpb_gubn());
+            model.addAttribute("index03List",_index03List);
+
+        } catch (Exception ex) {
+            log.info("App04JaegoCustList_index Exception =====>" + ex.toString());
+        }
+
+        return _index03List;
+    }
 
     @RequestMapping(value="/index14/save")
     public String index14Save(
@@ -1463,6 +1527,8 @@ public class App01CrudController {
             ,@RequestParam("misnum") String misnum
             ,@RequestParam("seq") String seq
             ,@RequestParam("perid") String perid
+            ,@RequestParam("userid") String userid
+            ,@RequestParam("usernm") String usernm
             ,@RequestParam( value =  "misdateArr[]") List<String> misdateArr
             ,@RequestParam( value =  "misnumArr[]") List<String> misnumArr
             ,@RequestParam( value =  "seqArr[]") List<String> seqArr
@@ -1517,6 +1583,8 @@ public class App01CrudController {
 
             _indexDa023Dto.setCltcd(acode);
             _indexDa023Dto.setMisdate(frdate);
+            _Da024Dto.setUserid(userid);
+            _Da024Dto.setUsernm(usernm);
             //비고업데이트
             if (!misdate.equals("0000")){
                 year = misdate.substring(0,4) ;
@@ -1750,6 +1818,8 @@ public class App01CrudController {
             ,@RequestParam("acode") String acode
             ,@RequestParam("mflag") String mflag
             ,@RequestParam("misdate") String misdate
+            ,@RequestParam("userid") String userid
+            ,@RequestParam("usernm") String usernm
             ,@RequestParam( value =  "misdateArr[]") List<String> misdateArr
             ,@RequestParam( value =  "misnumArr[]") List<String> misnumArr
             ,@RequestParam( value =  "seqArr[]") List<String> seqArr
@@ -1819,6 +1889,8 @@ public class App01CrudController {
             ,@RequestParam("acode") String acode
             ,@RequestParam("mflag") String mflag
             ,@RequestParam("misdate") String misdate
+            ,@RequestParam("userid") String userid
+            ,@RequestParam("usernm") String usernm
             ,@RequestParam( value =  "misdateArr[]") List<String> misdateArr
             ,@RequestParam( value =  "misnumArr[]") List<String> misnumArr
             ,@RequestParam( value =  "seqArr[]") List<String> seqArr
@@ -1983,6 +2055,8 @@ public class App01CrudController {
             ,@RequestParam("misnum") String misnum
             ,@RequestParam("seq") String seq
             ,@RequestParam("perid") String perid
+            ,@RequestParam("userid") String userid
+            ,@RequestParam("usernm") String usernm
             ,@RequestParam( value =  "misdateArr[]") List<String> misdateArr
             ,@RequestParam( value =  "misnumArr[]") List<String> misnumArr
             ,@RequestParam( value =  "seqArr[]") List<String> seqArr
@@ -2014,7 +2088,8 @@ public class App01CrudController {
             _index02Dto = service02.GetCifListAcode(_index02Dto);  //거래처정보
             index02BonsaDto = service02.GetCifBonsa(index02BonsaDto);
             index03Dto_S = service03.GetJpumOrderJkey02(index03Dto_S); //품목
-
+            _Da024Dto.setUserid(userid);
+            _Da024Dto.setUsernm(usernm);
             //비고업데이트
             if (!misdate.equals("0000")){
                 year = misdate.substring(0,4) ;

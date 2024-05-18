@@ -30,10 +30,13 @@ public class Index03Dto {
     private String jbigo;
     private String ascode;
     private String jqty;
+    private String jfrdate;
+    private String jtodate;
     private String frdate;
     private String todate;
     private String flag;
     private String jdate;
+    private Integer junqty;
     private Integer ipsu;
     private Integer chulsu;
 

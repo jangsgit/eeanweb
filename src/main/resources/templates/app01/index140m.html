@@ -12,7 +12,7 @@
             <div class="container-fluid"> 
                 <script>
                     var isFluid = JSON.parse(localStorage.getItem('isFluid'));
-                    if (isFluid) {
+                    if (isFluid) { 
                         var container = document.querySelector('[data-layout]'); 
                         container.classList.remove('container');
                         container.classList.add('container-fluid');
@@ -493,6 +493,8 @@
     var mjqty    = new Array();
    let includeColumnHeader = false;
    let Chknum = 0;
+    var gsUserid = "";                             
+    var gsUsernm  = ""; 
     window.onload = function() {  
        localStorage.setItem("setpage", "app03p001"); 
        // 그리드 초기화 
@@ -1122,7 +1124,9 @@
                    "misdateArr"  : misdateArr   ,      
                    "misnumArr"  : misnumArr  ,      
                    "seqArr"  : seqArr   ,      
-                   "misqty"  : misqty  
+                   "misqty"  : misqty    ,
+                    "userid"  : gsUserid   ,      
+                    "usernm"  : gsUsernm  
                }, 
                async:false,
                success:function(data){      
@@ -1184,7 +1188,9 @@
                        "misdateArr"  : misdateArr   ,      
                        "misnumArr"  : misnumArr  ,      
                        "seqArr"  : seqArr   ,      
-                       "misqty"  : misqty  
+                       "misqty"  : misqty    ,
+                        "userid"  : gsUserid   ,      
+                        "usernm"  : gsUsernm  
                    }, 
                    async:false,
                    success:function(data){      
@@ -1264,7 +1270,9 @@
                    "misdateArr"  : misdateArr   ,      
                    "misnumArr"  : misnumArr  ,      
                    "seqArr"  : seqArr   ,
-                   "cltcdArr"  : cltcdArr   , 
+                   "cltcdArr"  : cltcdArr     ,
+                    "userid"  : gsUserid   ,      
+                    "usernm"  : gsUsernm  
                }, 
                async:false,
                success:function(data){      
@@ -1311,7 +1319,9 @@
                        "mflag"  : 'CC'   ,      
                        "misdateArr"  : misdateArr   ,      
                        "misnumArr"  : misnumArr  ,      
-                       "seqArr"  : seqArr   
+                       "seqArr"  : seqArr     ,
+                        "userid"  : gsUserid   ,      
+                        "usernm"  : gsUsernm  
                    }, 
                    async:false,
                    success:function(data){     
@@ -1872,10 +1882,15 @@
                    alert("사원코드가 없습니다. 다시 로그인하세요.") 
                    document.getElementById("pernm").focus(); 
                    return ;               
-               }   
-               if(ls_bcifname == null || ls_bcifname.length == 0 || ls_bcifname == ""){  
-                   ls_bacode = "%";
-               }   
+               }     
+               if(ls_bcifname == null || ls_bcifname.length == 0 || ls_bcifname == ""){ 
+                    alert("거래처를 등록하세요") 
+                    document.getElementById("cifname").focus(); 
+                    return ;               
+               }  
+            //    if(ls_bcifname == null || ls_bcifname.length == 0 || ls_bcifname == ""){  
+            //        ls_bacode = "%";
+            //    }   
                if(ls_makflag == null || ls_makflag.length == 0 || ls_makflag == "" || ls_makflag == "구분"){  
                    ls_makflag = "%"               
                }  
@@ -2947,6 +2962,8 @@
    }
 
    function fn_egov_init_date(){ 
+        gsUserid = window.localStorage.getItem("userid");                             
+        gsUsernm = window.localStorage.getItem("username");
        const ls_perid = window.localStorage.getItem("perid");
        const ls_pernm = window.localStorage.getItem("pernm");
        const ls_role = window.localStorage.getItem("role"); 

@@ -128,6 +128,19 @@
         ]]>
     </select>
 
+    <select id="GetJpumCustJaegoList_New" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
+        {
+            call SP_JaegoList(#{frdate},#{todate}, #{jkey}, #{jpb_gubn})
+        }
+    </select>
+
+
+    <select id="GetJpumFromJaegoList" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
+        {
+        call SP_FromToJaegoList(#{frdate},#{todate}, #{jkey}, #{jpb_gubn})
+        }
+    </select>
+
 
     <select id="GetJpumOrderJkey" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
         <![CDATA[

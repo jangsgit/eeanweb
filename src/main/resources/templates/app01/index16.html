@@ -2560,6 +2560,8 @@
                     fixdate: wtab02Dto[i]["fixdate"],   
                     fixdatetime: wtab02Dto[i]["fixdatetime"],  
                     misdatetime: wtab02Dto[i]["misdatetime"],  
+                    userid: wtab02Dto[i]["userid"],  
+                    usernm: wtab02Dto[i]["usernm"],  
                     unsongnum: ls_unsongnum, 
                     remarkaa: ls_remark01,  
                     remarkbb: ls_remark02,   
@@ -2716,6 +2718,12 @@
             cols.header = '주문시간';
             cols.align = "center";
             cols.width = 200;  
+            wtab02Grid.columns.push(cols);  
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'usernm';
+            cols.header = '등록자';
+            cols.align = "center";
+            cols.width = 100;  
             wtab02Grid.columns.push(cols);  
  
         }
@@ -3198,7 +3206,9 @@
                     omisdate: wtab04Dto[i]["omisdate"],
                     omisnum: wtab04Dto[i]["omisnum"],     
                     oseq: wtab04Dto[i]["oseq"],       
-                    jqty: wtab04Dto[i]["jqty"],     
+                    jqty: wtab04Dto[i]["jqty"],         
+                    userid: wtab04Dto[i]["userid"],       
+                    usernm: wtab04Dto[i]["usernm"],   
                     remarkaa: ls_remark01,  
                     remarkbb: ls_remark02,       
                     fixflag: bfixflag,                                           
@@ -3315,7 +3325,12 @@
             cols.header = '담당사원';
             cols.align = "center";
             cols.width = 100;  
-            wtab04Grid.columns.push(cols);     
+            wtab04Grid.columns.push(cols);       
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'usernm'; 
+            cols.header = '등록자';
+            cols.align = "center";
+            cols.width = 100;   
             cols = new wijmo.grid.Column(); 
             cols.binding = 'fixflag'; 
             cols.header = '주문';

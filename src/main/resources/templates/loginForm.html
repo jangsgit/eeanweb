@@ -188,7 +188,7 @@
           var ls_logpass   = document.getElementById('logpass').value;
           var ls_ipaddr    = document.getElementById('ipaddr').value;
           var ls_select  = 'FF'; //document.getElementById('select').value;
-          var ls_actcustcdz = "EEAN" ; //document.getElementById('actcustcdz').value;
+          var ls_actcustcdz = "EEAN" ; //document.getElementById('actcustcdz').value; 
           $.ajax({
               url: '/authcrud/login',
               type:"POST",
@@ -203,7 +203,7 @@
 
                 var ListDto = userFormDto;
                 var ls_userid = userFormDto["userid"]
-                var ls_username = userFormDto["username"]
+                var ls_username = userFormDto["username"]                
                 var ls_cltcd= userFormDto["cltcd"]
                 var ls_dbnm = userFormDto["dbnm"]
                 var ls_flag = userFormDto["flag"]
@@ -214,6 +214,7 @@
                 window.localStorage.setItem("perid",  userFormDto["perid"])
                 window.localStorage.setItem("pernm",  userFormDto["pernm"])
                 window.localStorage.setItem("userid",  userFormDto["userid"])
+                window.localStorage.setItem("username",  userFormDto["username"])
                 window.localStorage.setItem("flag",  userFormDto["flag"])
                 window.localStorage.setItem("custnm",  userFormDto["custnm"])
                 window.localStorage.setItem("role",  userFormDto["role"])

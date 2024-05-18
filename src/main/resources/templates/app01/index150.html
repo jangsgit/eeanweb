@@ -542,6 +542,8 @@ aria-hidden="true">
          var mjqty    = new Array();
         var wseries_data = [0]; 
         let includeColumnHeader = false;
+         var gsUserid = "";                             
+         var gsUsernm  = ""; 
 
          window.onload = function() {  
             localStorage.setItem("setpage", "app03p001"); 
@@ -1234,6 +1236,7 @@ aria-hidden="true">
                     }else{
                         ls_todate = ls_ipdate; //ls_todate.substring(0,4) + '12-31'
                     }   
+                       
                     if(ls_bacode == null || ls_bacode.length == 0 || ls_bacode == ""){  
                         alert("거래처를 등록하세요") 
                         document.getElementById("bcifname").focus(); 
@@ -2002,7 +2005,9 @@ aria-hidden="true">
                         "misdateArr"  : misdateArr   ,      
                         "misnumArr"  : misnumArr  ,      
                         "seqArr"  : seqArr   ,      
-                        "misqty"  : misqty  
+                        "misqty"  : misqty   ,
+                        "userid"  : gsUserid   ,      
+                        "usernm"  : gsUsernm  
                     }, 
                     async:false,
                     success:function(data){      
@@ -2064,7 +2069,9 @@ aria-hidden="true">
                             "misdateArr"  : misdateArr   ,      
                             "misnumArr"  : misnumArr  ,      
                             "seqArr"  : seqArr   ,      
-                            "misqty"  : misqty  
+                            "misqty"  : misqty   ,
+                            "userid"  : gsUserid   ,      
+                            "usernm"  : gsUsernm  
                         }, 
                         async:false,
                         success:function(data){      
@@ -2145,7 +2152,9 @@ aria-hidden="true">
                         "misdateArr"  : misdateArr   ,      
                         "misnumArr"  : misnumArr  ,      
                         "seqArr"  : seqArr    ,
-                        "cltcdArr"  : cltcdArr   , 
+                        "cltcdArr"  : cltcdArr    ,
+                        "userid"  : gsUserid   ,      
+                        "usernm"  : gsUsernm  
                     }, 
                     async:false,
                     success:function(data){      
@@ -2194,7 +2203,9 @@ aria-hidden="true">
                             "mflag"  : 'BB'   ,      
                             "misdateArr"  : misdateArr   ,      
                             "misnumArr"  : misnumArr  ,      
-                            "seqArr"  : seqArr   
+                            "seqArr"  : seqArr    ,
+                            "userid"  : gsUserid   ,      
+                            "usernm"  : gsUsernm  
                         }, 
                         async:false,
                         success:function(data){      
@@ -2318,7 +2329,9 @@ aria-hidden="true">
                             "misdateArr"  : misdateArr   ,      
                             "misnumArr"  : misnumArr  ,      
                             "seqArr"  : seqArr   ,      
-                            "misqty"  : misqty  
+                            "misqty"  : misqty  ,
+                            "userid"  : gsUserid   ,      
+                            "usernm"  : gsUsernm   
                         }, 
                         async:false,
                         success:function(data){      
@@ -2434,7 +2447,9 @@ aria-hidden="true">
                             "misdateArr"  : misdateArr   ,      
                             "misnumArr"  : misnumArr  ,      
                             "seqArr"  : seqArr   ,      
-                            "misqty"  : misqty  
+                            "misqty"  : misqty   ,
+                            "userid"  : gsUserid   ,      
+                            "usernm"  : gsUsernm  
                         }, 
                         async:false,
                         success:function(data){      
@@ -2530,6 +2545,8 @@ aria-hidden="true">
         }
 
         function fn_egov_init_date(){ 
+            gsUserid = window.localStorage.getItem("userid");                             
+            gsUsernm = window.localStorage.getItem("username"); 
             const ls_perid = window.localStorage.getItem("perid");
             const ls_pernm = window.localStorage.getItem("pernm");
             const ls_custnm = window.localStorage.getItem("custnm");

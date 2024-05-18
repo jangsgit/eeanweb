@@ -309,7 +309,13 @@
                         <!-- <div id="thePager03"></div> -->
                     </div>   
                 </div>  
-
+                <div class="col-auto">  
+                    <div class="input-group mb-3" >
+                        <span class="input-group-text" style="max-height:50px;" >비고</span>
+                        <!-- <input class="form-control" type="text"   aria-describedby="inputGroup-sizing-default"  id="abigo"  disabled=true/> -->
+                        <textarea class="form-control"   rows="3" id="abigopop"  disabled=true></textarea>
+                    </div>
+                </div>   
                 <div class="modal-footer">
                     <div class="row g-1">
                         <div class="col-auto">
@@ -527,7 +533,7 @@
          var typeMenu;  
          var treemap;
          let barchart;
-         let ani;
+         let ani;        
          var isTimestamp = "";
          var isPreTimestamp = "";
         var wseries_data = [0]; 
@@ -540,7 +546,9 @@
          var gubunArr    = new Array(); 
          var fixflagArr    = new Array(); 
          var misqty    = new Array();
-         var mjqty    = new Array();
+         var mjqty    = new Array(); 
+         var gsUserid = "";                             
+         var gsUsernm  = ""; 
         let includeColumnHeader = false;
         let Chknum = 0;
          window.onload = function() {  
@@ -1243,6 +1251,8 @@
             if(arg4 == null ){ 
                 arg4 = 1         ;
             }     
+            console.log(gsUserid)
+            console.log(gsUsernm)
             if(ls_tabchk == "B"  ){   
                 $.ajax({
                     url: '/app01m/index14/savecust',  
@@ -1261,7 +1271,9 @@
                         "misdateArr"  : misdateArr   ,      
                         "misnumArr"  : misnumArr  ,      
                         "seqArr"  : seqArr   ,      
-                        "misqty"  : misqty  
+                        "misqty"  : misqty   ,      
+                        "userid"  : gsUserid   ,      
+                        "usernm"  : gsUsernm  
                     }, 
                     async:false,
                     success:function(data){   
@@ -1327,7 +1339,9 @@
                             "misdateArr"  : misdateArr   ,      
                             "misnumArr"  : misnumArr  ,      
                             "seqArr"  : seqArr   ,      
-                            "misqty"  : misqty  
+                            "misqty"  : misqty  ,      
+                            "userid"  : gsUserid   ,      
+                            "usernm"  : gsUsernm   
                         }, 
                         async:false,
                         success:function(data){   
@@ -1381,7 +1395,7 @@
             var ls_misnum   = document.getElementById('bmisnum').value;          
             var ls_seq   = document.getElementById('bseq').value;                
             var ls_cltcd   = document.getElementById('bcltcd').value;  //비고등록시 거래처코드
-            var ls_tabchk = document.getElementById('tabvalue').value;                               
+            var ls_tabchk = document.getElementById('tabvalue').value;   
             // const warnning_grid = document.getElementById('inwarnning_grid'); 
             var ls_pcode  =  [];        
             var ll_qty    =  [];    
@@ -1413,7 +1427,9 @@
                         "misdateArr"  : misdateArr   ,      
                         "misnumArr"  : misnumArr  ,      
                         "seqArr"  : seqArr   ,
-                        "cltcdArr"  : cltcdArr   , 
+                        "cltcdArr"  : cltcdArr  ,
+                        "userid"  : gsUserid   ,      
+                        "usernm"  : gsUsernm  
                     }, 
                     async:false,
                     success:function(data){   
@@ -1464,7 +1480,9 @@
                             "mflag"  : 'AA'   ,      
                             "misdateArr"  : misdateArr   ,      
                             "misnumArr"  : misnumArr  ,      
-                            "seqArr"  : seqArr   
+                            "seqArr"  : seqArr   ,
+                            "userid"  : gsUserid   ,      
+                            "usernm"  : gsUsernm  
                         }, 
                         async:false,
                         success:function(data){   
@@ -1927,9 +1945,11 @@
                         return ;               
                     }else{
                         ls_todate = ls_ipdate; //ls_todate.substring(0,4) + '12-31'
-                    }   
-                    if(ls_bcifname == null || ls_bcifname.length == 0 || ls_bcifname == ""){  
-                        ls_bacode = "%";
+                    }    
+                    if(ls_bcifname == null || ls_bcifname.length == 0 || ls_bcifname == ""){ 
+                        alert("거래처를 등록하세요") 
+                        document.getElementById("cifname").focus(); 
+                        return ;               
                     }      
                     if(ls_misgubun == "주문구분"){ 
                         ls_misgubun = "AA";
@@ -2530,6 +2550,13 @@
             cols.header = '비고'; 
             cols.align = "left"; 
             cols.width = 200;
+            cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
+                text: '<b>${item.abigo}</b>',
+                click: (e, ctx) => {
+                    wcifChk_bigo(ctx.item.abigo   );                    
+                    
+                }
+            });
             winnameGrid.columns.push(cols); 
         }
                 
@@ -2583,6 +2610,10 @@
                 document.getElementById('dcifname').value = arg5;  
                 $("#winnamemodal_btn").trigger("click"); 
             }
+            
+        }    
+        function wcifChk_bigo(arg1){   
+            document.getElementById('abigopop').value = arg1;  
             
         }  
         function retrieve_rtn(){  
@@ -3230,7 +3261,9 @@
             return time;  
         }
 
-        function fn_egov_init_date(){ 
+        function fn_egov_init_date(){  
+            gsUserid = window.localStorage.getItem("userid");                             
+            gsUsernm = window.localStorage.getItem("username");  
             lsUserid = window.localStorage.getItem("userid");
             const ls_role = window.localStorage.getItem("role");  
             if(ls_role == null || ls_role.length == 0 || ls_role == ""){ 

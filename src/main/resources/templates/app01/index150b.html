@@ -9,7 +9,28 @@
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>  
+    <script src="//code.jquery.com/jquery-3.3.1.min.js"></script> 
+    <script>
+        // Prevent pull-to-refresh on mobile browsers
+        window.addEventListener('touchmove', function(event) {
+        if (window.scrollY === 0 && event.touches[0].clientY > 0) {
+            event.preventDefault();
+        }
+        }, { passive: false });
+        
+        // Additionally, prevent default behavior for touchstart and touchend
+        window.addEventListener('touchstart', function(event) {
+        if (window.scrollY === 0 && event.touches[0].clientY > 0) {
+            event.preventDefault();
+        }
+        }, { passive: false });
+
+        window.addEventListener('touchend', function(event) {
+        if (window.scrollY === 0 && event.changedTouches[0].clientY > 0) {
+            event.preventDefault();
+        }
+        }, { passive: false });
+    </script> 
 </head> 
 <style>
     table, th, td {
@@ -28,6 +49,13 @@
     <header>
 
     </header>
+    <style>
+        body {
+          height: 200vh; /* This is just to ensure the page has enough height to scroll */
+          margin: 0;
+          padding: 0;
+        }
+      </style>
     <div class="content flex">
         <div class="header on">
             <div class="left">
@@ -290,7 +318,13 @@
                         <!-- <div id="thePager03"></div> -->
                     </div>   
                 </div>  
-
+                <div class="col-auto">  
+                    <div class="input-group mb-3" >
+                        <span class="input-group-text" style="max-height:50px;" >비고</span>
+                        <!-- <input class="form-control" type="text"   aria-describedby="inputGroup-sizing-default"  id="abigo"  disabled=true/> -->
+                        <textarea class="form-control"   rows="3" id="abigopop"  disabled=true></textarea>
+                    </div>
+                </div>  
                 <div class="modal-footer">
                     <div class="row g-1">
                         <div class="col-auto">
@@ -562,6 +596,8 @@ aria-hidden="true">
          var misqty    = new Array();
          var mjqty    = new Array();
         let includeColumnHeader = false;
+         var gsUserid = "";                             
+         var gsUsernm  = ""; 
 
          window.onload = function() {  
             localStorage.setItem("setpage", "app03p001"); 
@@ -1265,10 +1301,15 @@ aria-hidden="true">
                         return ;               
                     }else{
                         ls_todate = ls_ipdate; //ls_todate.substring(0,4) + '12-31'
-                    }     
-                    if(ls_bcifname == null || ls_bcifname.length == 0 || ls_bcifname == ""){  
-                        ls_bacode = "%";
-                    } 
+                    }    
+                    if(ls_bcifname == null || ls_bcifname.length == 0 || ls_bcifname == ""){ 
+                        alert("거래처를 등록하세요") 
+                        document.getElementById("bcifname").focus(); 
+                        return ;               
+                    }    
+                    // if(ls_bcifname == null || ls_bcifname.length == 0 || ls_bcifname == ""){  
+                    //     ls_bacode = "%";
+                    // } 
                     if(ls_abonsadam1 == null || ls_abonsadam1.length == 0 || ls_abonsadam1 == ""){ 
                         alert("사원코드가 없습니다. 다시 로그인하세요.") 
                         document.getElementById("pernm").focus(); 
@@ -1753,7 +1794,8 @@ aria-hidden="true">
                     acorp2: wtab02Dto[i]["acorp2"], 
                     acorp3: wtab02Dto[i]["acorp3"],  
                     acode: wtab02Dto[i]["acode"], 
-                    acorp: wtab02Dto[i]["acorp"]      
+                    acorp: wtab02Dto[i]["acorp"] , 
+                    abigo: wtab02Dto[i]["abigo"]       
                 });
                 cnt++;
             }   
@@ -1783,6 +1825,20 @@ aria-hidden="true">
             cols.header = '거래처명'; 
             cols.align = "left"; 
             cols.width = 200;
+            winnameGrid.columns.push(cols); 
+
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'abigo';
+            cols.header = '비고'; 
+            cols.align = "left"; 
+            cols.width = 200;
+            cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
+                text: '<b>${item.abigo}</b>',
+                click: (e, ctx) => {
+                    wcifChk_bigo(ctx.item.abigo   );                    
+                    
+                }
+            });
             winnameGrid.columns.push(cols); 
         }
                 
@@ -1826,6 +1882,10 @@ aria-hidden="true">
             
         }
 
+        function wcifChk_bigo(arg1){   
+            document.getElementById('abigopop').value = arg1;  
+            
+        }  
 
         function wOrderChk_a(arg1, arg2){  
             //argument :  ls_jpum , ls_jkey
@@ -1995,7 +2055,9 @@ aria-hidden="true">
                         "misdateArr"  : misdateArr   ,      
                         "misnumArr"  : misnumArr  ,      
                         "seqArr"  : seqArr   ,      
-                        "misqty"  : misqty  
+                        "misqty"  : misqty   ,
+                        "userid"  : gsUserid   ,      
+                        "usernm"  : gsUsernm  
                     }, 
                     async:false,
                     success:function(data){      
@@ -2057,7 +2119,9 @@ aria-hidden="true">
                             "misdateArr"  : misdateArr   ,      
                             "misnumArr"  : misnumArr  ,      
                             "seqArr"  : seqArr   ,      
-                            "misqty"  : misqty  
+                            "misqty"  : misqty  ,
+                            "userid"  : gsUserid   ,      
+                            "usernm"  : gsUsernm   
                         }, 
                         async:false,
                         success:function(data){      
@@ -2139,7 +2203,9 @@ aria-hidden="true">
                         "misdateArr"  : misdateArr   ,      
                         "misnumArr"  : misnumArr  ,      
                         "seqArr"  : seqArr    ,
-                        "cltcdArr"  : cltcdArr   , 
+                        "cltcdArr"  : cltcdArr    ,
+                        "userid"  : gsUserid   ,      
+                        "usernm"  : gsUsernm  
                     }, 
                     async:false,
                     success:function(data){      
@@ -2186,7 +2252,9 @@ aria-hidden="true">
                             "mflag"  : 'CC'   ,      
                             "misdateArr"  : misdateArr   ,      
                             "misnumArr"  : misnumArr  ,      
-                            "seqArr"  : seqArr   
+                            "seqArr"  : seqArr    ,
+                            "userid"  : gsUserid   ,      
+                            "usernm"  : gsUsernm  
                         }, 
                         async:false,
                         success:function(data){      
@@ -2310,7 +2378,9 @@ aria-hidden="true">
                             "misdateArr"  : misdateArr   ,      
                             "misnumArr"  : misnumArr  ,      
                             "seqArr"  : seqArr   ,      
-                            "misqty"  : misqty  
+                            "misqty"  : misqty   ,
+                            "userid"  : gsUserid   ,      
+                            "usernm"  : gsUsernm  
                         }, 
                         async:false,
                         success:function(data){      
@@ -2428,7 +2498,9 @@ aria-hidden="true">
                             "misdateArr"  : misdateArr   ,      
                             "misnumArr"  : misnumArr  ,      
                             "seqArr"  : seqArr   ,      
-                            "misqty"  : misqty  
+                            "misqty"  : misqty   ,
+                            "userid"  : gsUserid   ,      
+                            "usernm"  : gsUsernm  
                         }, 
                         async:false,
                         success:function(data){      
@@ -2524,6 +2596,8 @@ aria-hidden="true">
         }
 
         function fn_egov_init_date(){ 
+            gsUserid = window.localStorage.getItem("userid");                             
+            gsUsernm = window.localStorage.getItem("username"); 
             const ls_perid = window.localStorage.getItem("perid");
             const ls_pernm = window.localStorage.getItem("pernm");
             const ls_role = window.localStorage.getItem("role"); 

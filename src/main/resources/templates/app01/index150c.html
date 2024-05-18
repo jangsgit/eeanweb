@@ -516,6 +516,8 @@
          var mjqty    = new Array();
         let includeColumnHeader = false;
         let Chknum = 0;
+         var gsUserid = "";                             
+         var gsUsernm  = ""; 
          window.onload = function() {  
             localStorage.setItem("setpage", "app03p001"); 
             // 그리드 초기화 
@@ -2030,7 +2032,9 @@
                         "misdateArr"  : misdateArr   ,      
                         "misnumArr"  : misnumArr  ,      
                         "seqArr"  : seqArr   ,      
-                        "misqty"  : misqty  
+                        "misqty"  : misqty   ,
+                        "userid"  : gsUserid   ,      
+                        "usernm"  : gsUsernm  
                     }, 
                     async:false,
                     success:function(data){      
@@ -2092,7 +2096,9 @@
                             "misdateArr"  : misdateArr   ,      
                             "misnumArr"  : misnumArr  ,      
                             "seqArr"  : seqArr   ,      
-                            "misqty"  : misqty  
+                            "misqty"  : misqty  ,
+                            "userid"  : gsUserid   ,      
+                            "usernm"  : gsUsernm   
                         }, 
                         async:false,
                         success:function(data){      
@@ -2173,7 +2179,9 @@
                         "misdateArr"  : misdateArr   ,      
                         "misnumArr"  : misnumArr  ,      
                         "seqArr"  : seqArr    ,
-                        "cltcdArr"  : cltcdArr   , 
+                        "cltcdArr"  : cltcdArr    ,
+                        "userid"  : gsUserid   ,      
+                        "usernm"  : gsUsernm  
                     }, 
                     async:false,
                     success:function(data){      
@@ -2220,7 +2228,9 @@
                             "mflag"  : 'BB'   ,      
                             "misdateArr"  : misdateArr   ,      
                             "misnumArr"  : misnumArr  ,      
-                            "seqArr"  : seqArr   
+                            "seqArr"  : seqArr   ,
+                            "userid"  : gsUserid   ,      
+                            "usernm"  : gsUsernm   
                         }, 
                         async:false,
                         success:function(data){      
@@ -2344,7 +2354,9 @@
                             "misdateArr"  : misdateArr   ,      
                             "misnumArr"  : misnumArr  ,      
                             "seqArr"  : seqArr   ,      
-                            "misqty"  : misqty  
+                            "misqty"  : misqty  ,
+                            "userid"  : gsUserid   ,      
+                            "usernm"  : gsUsernm   
                         }, 
                         async:false,
                         success:function(data){      
@@ -2462,7 +2474,9 @@
                             "misdateArr"  : misdateArr   ,      
                             "misnumArr"  : misnumArr  ,      
                             "seqArr"  : seqArr   ,      
-                            "misqty"  : misqty  
+                            "misqty"  : misqty   ,
+                            "userid"  : gsUserid   ,      
+                            "usernm"  : gsUsernm  
                         }, 
                         async:false,
                         success:function(data){      
@@ -2585,6 +2599,8 @@
         }
 
         function fn_egov_init_date(){ 
+            gsUserid = window.localStorage.getItem("userid");                             
+            gsUsernm = window.localStorage.getItem("username"); 
             const ls_perid = window.localStorage.getItem("perid");
             const ls_pernm = window.localStorage.getItem("pernm");
             const ls_custnm = window.localStorage.getItem("custnm");

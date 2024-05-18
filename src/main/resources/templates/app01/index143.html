@@ -18,13 +18,41 @@
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>   
+    <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>    
+    <script>
+        // Prevent pull-to-refresh on mobile browsers
+        window.addEventListener('touchmove', function(event) {
+          if (window.scrollY === 0 && event.touches[0].clientY > 0) {
+            event.preventDefault();
+          }
+        }, { passive: false });
+        
+        // Additionally, prevent default behavior for touchstart and touchend
+        window.addEventListener('touchstart', function(event) {
+          if (window.scrollY === 0 && event.touches[0].clientY > 0) {
+            event.preventDefault();
+          }
+        }, { passive: false });
+    
+        window.addEventListener('touchend', function(event) {
+          if (window.scrollY === 0 && event.changedTouches[0].clientY > 0) {
+            event.preventDefault();
+          }
+        }, { passive: false });
+    </script>    
 </head>
  
 <body style="background: #f5f9fa;">
     <header> 
         
     </header>
+    <style>
+        body {
+          height: 200vh; /* This is just to ensure the page has enough height to scroll */
+          margin: 0;
+          padding: 0;
+        }
+      </style>
     <div class="content flex">
         <div class="header on">
             <div class="left">
@@ -440,7 +468,7 @@
                     // { binding: 'seq', header: '순번', align: "center", width: 80 },  
                     { binding: 'acorp', header: '거래처', align: "center", width: 150 , },  
                     { binding: 'pname', header: '품목', align: "center", width: 150 },   
-                    { binding: 'psize', header: '규격', align: "center", width: 120 },  
+                    // { binding: 'psize', header: '규격', align: "center", width: 120 },  
                     // { binding: 'pbonsa', header: '코드', align: "center", width: 100 },  
                     // { binding: 'pmodel', header: '모델', align: "center", width: 100 },  
                     // { binding: 'pcolor', header: '컬러', align: "center", width: 100 },  
@@ -1304,12 +1332,12 @@
             cols.align = "center";
             cols.width = 150;  
             wtab04Grid.columns.push(cols);   
-            cols = new wijmo.grid.Column(); 
-            cols.binding = 'psize';
-            cols.header = '규격';
-            cols.align = "center";
-            cols.width = 120;  
-            wtab04Grid.columns.push(cols);    
+            // cols = new wijmo.grid.Column(); 
+            // cols.binding = 'psize';
+            // cols.header = '규격';
+            // cols.align = "center";
+            // cols.width = 120;  
+            // wtab04Grid.columns.push(cols);    
             // cols = new wijmo.grid.Column(); 
             // cols.binding = 'pbonsa';
             // cols.header = '코드';

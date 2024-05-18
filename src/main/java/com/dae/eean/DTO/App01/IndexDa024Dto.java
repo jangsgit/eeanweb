@@ -74,5 +74,7 @@ public class IndexDa024Dto {
     private String fixdatetime;
     private String misdatetime;
     private String jpb_gubn;
+    private String userid;
+    private String usernm;
 
 }

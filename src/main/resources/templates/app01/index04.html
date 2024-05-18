@@ -65,6 +65,9 @@
                                     <li class="nav-item">
                                       <a class="nav-link" data-toggle="tab" href="#step03"  onclick="tabchk_rtn('C')">재고현황</a>
                                     </li>
+                                    <li class="nav-item">
+                                      <a class="nav-link" data-toggle="tab" href="#step04"  onclick="tabchk_rtn('C')">기간별재고현황</a>
+                                    </li>
                                     <input type="hidden" id="tabvalue" value="A">
                                   </ul>
                                   <div class="tab-content">
@@ -131,8 +134,8 @@
                                     </div>
                                     <div class="tab-pane fade" id="step03">    
                                         <div class="row gx-3" style="  margin: 10px 10px 10px;">   
-                                            <div class="col-2 col-sm-2">
-                                                <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">조회일자</span>
+                                            <div class="col-2 col-sm-2"> 
+                                                <div class="input-group input-group-sm mb-3"> 
                                                     <input type="text"  class="form-control datetimepicker" id="todate" autocomplete="off"  placeholder="Y-m-d"     >
                                                 </div>
                                             </div> 
@@ -159,6 +162,49 @@
                                                   <td class="align-top">                                                         
                                                     <div class="container-fluid"  >                                                         
                                                         <div id="wtab04Grid_div"  style="overflow:scroll;   height:750px;   margin:0 auto; "></div> 
+                                                     </div>  
+                                                  </td> 
+                                                </tr>
+                                              </tbody>
+                                            </table>
+                                        </div>  
+                                    </div>
+                                    
+                                    <div class="tab-pane fade" id="step04">    
+                                        <div class="row gx-3" style="  margin: 10px 10px 10px;">   
+                                            <div class="col-2 col-sm-2">
+                                                <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">조회일자</span>
+                                                    <input type="text"  class="form-control datetimepicker" id="fromdt" autocomplete="off"  placeholder="Y-m-d"     >
+                                                </div>
+                                            </div>    
+                                            <div class="col-2 col-sm-2"> 
+                                                <div class="input-group input-group-sm mb-3"> 
+                                                    <input type="text"  class="form-control datetimepicker" id="todaydt" autocomplete="off"  placeholder="Y-m-d"     >
+                                                </div>
+                                            </div> 
+                                            <div class="col-2 col-sm-2">
+                                                <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">품목</span> 
+                                                    <input class="form-control form-control-sm" id="jpumname02" type="text"    autocomplete="off"  placeholder=""     >
+                                                    <input class="form-control form-control-sm" id="jkey02" type="hidden"  /> 
+                                                </div>
+                                            </div>
+                                            <div class="col-1 col-sm-1">  
+                                                <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="retrieveBtn"  type="button" onclick="searchList_rtn('D')">조회
+                                                </button>
+                                            </div>  
+                                        </div> 
+                                        <div class="table-responsive">
+                                            <table class="table table-borderless" style="height: 100px;" >
+                                              <tbody>
+                                                <tr> 
+                                                  <!-- <td class="align-top" style="width: 20%;"> 
+                                                    <div class="container-fluid">   
+                                                        <div id="wtab03Grid_div"  style="overflow:scroll;   height:750px;  width:300px; margin:0 auto; "></div>  
+                                                    </div>  
+                                                  </td> -->
+                                                  <td class="align-top">                                                         
+                                                    <div class="container-fluid"  >                                                         
+                                                        <div id="wtab05Grid_div"  style="overflow:scroll;   height:750px;   margin:0 auto; "></div> 
                                                      </div>  
                                                   </td> 
                                                 </tr>
@@ -300,12 +346,14 @@
          var view_p01tab02page;
          var view_p01tab03page; 
          var view_p01tab04page; 
+         var view_p01tab05page; 
          var view_innamepage; 
          var view_injcodepage; 
          var wtab01Grid;
          var wtab02Grid;
          var wtab03Grid; 
          var wtab04Grid; 
+         var wtab05Grid; 
          var winnameGrid; 
          var winjcodeGrid; 
          var excelIOSheet;
@@ -556,37 +604,9 @@
                     { binding: 'jqty', header: '재고수량', align: "center", width: '1*', format: 'n0' },  
                 ],  
                 itemsSource: view_p01tab04page, 
-            });  
-            // wtab04Grid.formatItem.addHandler((s, e) => {
-            //     if (e.panel == s.cells) {
-            //         var val = s.getCellData(e.row,0); 
-            //         if(val == null || val.length == 0 || val == ""){  
-            //             return 
-            //         } else {
-            //             var pos1 = val.indexOf('<');
-            //             if (pos1 > 0 ){
-            //                 return 
-            //             } 
-            //         }  
-            //         // 짝수 행 일 때
-            //         if (e.row % 2 == 0) {
-            //             e.cell.style.backgroundColor = "rgb(232, 241, 255)";
-            //         }
-            //         // 홀수 행 일 때
-            //         else if (e.row % 2 == 1) {
-            //             e.cell.style.backgroundColor = "rgb(255,255,255)";
-            //         }
-            //     }
-            // }); 
+            });   
 
-            new FlexGridContextMenu(wtab04Grid);  
-            // 선택기 생성
-            // selector = new wijmo.grid.selector.Selector(wtab04Grid, {
-            //     itemChecked: () => {
-            //         // showCheckedCount();
-            //     }
-            // }); 
-            // 헤더 열 전환
+            new FlexGridContextMenu(wtab04Grid);   
             setHeaderColumn3(false);
             function setHeaderColumn3(headerOn) {
                 wtab04Grid.headersVisibility = headerOn
@@ -622,6 +642,51 @@
                 return wactnm_data;                           
             }  
 
+
+            //재고현황  list
+            view_p01tab05page = new wijmo.collections.CollectionView(getData_tab04(), {
+                // sortDescriptions: [new wijmo.collections.SortDescription("jepm", false)],
+                // pageSize: 20
+            });
+            // 일자별입고현황 페이지 이동
+            // new wijmo.input.CollectionViewNavigator('#tab02Pager', {
+            //     byPage: true,
+            //     headerFormat: 'Page {currentPage:n0} of {pageCount:n0}',
+            //     cv: view_p01tab02page
+            // });     
+            wtab05Grid = new wijmo.grid.FlexGrid('#wtab05Grid_div', {  
+                autoGenerateColumns: false,
+                isReadOnly: false, 
+                allowSorting: 'MultiColumn',
+                selectionMode: 'RowRange',
+                alternatingRowStep: 0,
+                columns: [     
+                    { binding: 'jkey', header: '품목코드', align: "center", width: '1*' }, 
+                    { binding: 'jpum', header: '품목', align: "center", width: '1*' }, 
+                    { binding: 'jgugek', header: '규격', align: "center", width: '1*' }, 
+                    { binding: 'jsize', header: '사이즈', align: "center", width: '1*' }, 
+                    { binding: 'jmodel_code', header: '모델코드', align: "center", width: '1*' }, 
+                    { binding: 'jcolor_code', header: '컬러코드', align: "center", width: '1*' }, 
+                    { binding: 'jcustomer_code', header: '고객코드', align: "center", width: '1*' }, 
+                    { binding: 'junqty', header: '전재고', align: "center", width: '1*', format: 'n0' }, 
+                    { binding: 'ipqty', header: '입고수량', align: "center", width: '1*', format: 'n0' }, 
+                    { binding: 'chqty', header: '출고수량', align: "center", width: '1*', format: 'n0' }, 
+                    { binding: 'jqty', header: '재고수량', align: "center", width: '1*', format: 'n0' },  
+                ],  
+                itemsSource: view_p01tab05page, 
+            });   
+
+            new FlexGridContextMenu(wtab05Grid);   
+            setHeaderColumn4(false);
+            function setHeaderColumn4(headerOn) {
+                wtab05Grid.headersVisibility = headerOn
+                ? wijmo.grid.HeadersVisibility.All
+                : wijmo.grid.HeadersVisibility.Column; 
+            } 
+            wtab05Grid.showMarquee = true;
+            wtab05Grid.focus();
+            wijmo.toggleClass(wtab05Grid.hostElement, 'highlightActive', true);
+            wtab05Grid.focus();
 
 
 
@@ -780,7 +845,7 @@
         //         data: { 
         //             "searchtxt" : '%',
         //             "jcustcd" :arg, 
-        //             "todate" :ls_todate, 
+        //             "fromdt" :ls_todate, 
         //            "jpbgubn" :ls_jpbgubn,  
         //         }, 
         //         async:false,
@@ -1079,7 +1144,7 @@
                 case 'C':
                     var ls_jkey = document.getElementById('jkey').value;  
                     var ls_jpumname = document.getElementById('jpumname').value; 
-                    var ls_todate = document.getElementById('todate').value; 
+                    var ls_todate = document.getElementById('todate').value;  
                     
                     if(ls_jpumname == null || ls_jpumname.length == 0 || ls_jpumname == ""){ 
                         ls_jkey = '%';            
@@ -1089,7 +1154,7 @@
                         type:"POST",
                         data: { 
                             "searchtxt" : ls_jkey,
-                            "jcustcd" :'%', 
+                            "jcustcd" :'%',  
                             "todate" :ls_todate,  
                             "jpbgubn" :ls_jpbgubn,   
                         }, 
@@ -1105,7 +1170,39 @@
                     }).done(function(fragment){           
 
                     })  
-                    break;                
+                    break;  
+                case 'D':
+                    var ls_jkey = document.getElementById('jkey').value;  
+                    var ls_jpumname = document.getElementById('jpumname').value; 
+                    var ls_frdate = document.getElementById('fromdt').value; 
+                    var ls_todate = document.getElementById('todaydt').value; 
+                    
+                    if(ls_jpumname == null || ls_jpumname.length == 0 || ls_jpumname == ""){ 
+                        ls_jkey = '%';            
+                    }    
+                    $.ajax({
+                        url: '/app01m/index04/jaegofromlist',  
+                        type:"POST",
+                        data: { 
+                            "searchtxt" : ls_jkey,
+                            "jcustcd" :'%', 
+                            "frdate" :ls_frdate, 
+                            "todate" :ls_todate,  
+                            "jpbgubn" :ls_jpbgubn,   
+                        }, 
+                        async:false,
+                        success:function(data){   
+                            chkLogin(data)  
+                            tabD_grid(data);
+                        },error:function(e){
+                            console.log("error");
+                            // alert(data.code);
+                            // alert(data.message);
+                        }
+                    }).done(function(fragment){           
+
+                    })  
+                    break;                  
                 default:    
                     break;                
             }
@@ -1226,7 +1323,7 @@
             var wtab03_data = [];
             var cnt = 1;
             var ll_jqty = 0;
-            console.log(wtab03Dto)
+            //console.log(wtab03Dto)
             for (var i = 0; i < wtab03Dto.length; i++) {
                 ll_jqty = wtab03Dto[i]["jqty"]; 
                 wtab03_data.push({ 
@@ -1306,7 +1403,125 @@
             cols.width = 100;  
             wtab04Grid.columns.push(cols);   
  
-        }         
+        }    
+        
+ 
+        function tabD_grid(data){
+            var wtab03Dto  = data;    
+            var wtab03_data = [];
+            var cnt = 1;
+            var ll_jqty = 0;
+            //console.log(wtab03Dto)
+            for (var i = 0; i < wtab03Dto.length; i++) {
+                ll_junqty = wtab03Dto[i]["junqty"]; 
+                ll_ipsu = wtab03Dto[i]["ipsu"]; 
+                ll_chulsu = wtab03Dto[i]["chulsu"]; 
+                ll_jqty = wtab03Dto[i]["jqty"]; 
+                wtab03_data.push({ 
+                    id: i, 
+                    index: cnt,
+                    jkey: wtab03Dto[i]["jkey"],
+                    jpum: wtab03Dto[i]["jpum"],
+                    jgugek: wtab03Dto[i]["jgugek"], 
+                    jsize: wtab03Dto[i]["jsize"], 
+                    jmodel_code: wtab03Dto[i]["jmodel_code"],
+                    jcolor_code: wtab03Dto[i]["jcolor_code"], 
+                    jcustomer_code: wtab03Dto[i]["jcustomer_code"], 
+                    junqty: ll_junqty, 
+                    ipqty: ll_ipsu, 
+                    chqty: ll_chulsu, 
+                    jqty: ll_jqty, 
+                    
+                });
+                cnt++;
+            }     
+            // console.log(wtab03_data.length);
+            wtab05Grid.columns.clear();  
+            wtab05Grid.autoGenerateColumns = false; 
+            view_p01tab05page.sourceCollection  = wtab03_data;
+            var cols = new wijmo.grid.Column(); 
+            cols.binding = 'jkey';
+            cols.header = '코드';
+            cols.align = "center";
+            cols.width = 200; 
+            wtab05Grid.columns.push(cols);  
+
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'jpum';
+            cols.header = '품목';
+            cols.align = "center";
+            cols.width = 200;  
+            wtab05Grid.columns.push(cols);   
+
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'jgugek';
+            cols.header = '규격';
+            cols.align = "center";
+            cols.width = 100;  
+            wtab05Grid.columns.push(cols);   
+
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'jsize';
+            cols.header = '사이즈';
+            cols.align = "center";
+            cols.width = 100;  
+            wtab05Grid.columns.push(cols);   
+
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'jmodel_code';
+            cols.header = '모델코드';
+            cols.align = "center";
+            cols.width = 100;  
+            wtab05Grid.columns.push(cols);   
+
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'jcolor_code';
+            cols.header = '컬러코드';
+            cols.align = "center";
+            cols.width = 100;  
+            wtab05Grid.columns.push(cols);   
+
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'jcustomer_code';
+            cols.header = '고객코드';
+            cols.align = "center";
+            cols.width = 200;  
+            wtab05Grid.columns.push(cols);   
+   
+            // console.log("cols", cols);  
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'junqty';
+            cols.header = '전재고';
+            cols.align = "center";
+            cols.format = "n0"; 
+            cols.width = 100;  
+            wtab05Grid.columns.push(cols);   
+
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'ipqty';
+            cols.header = '입고수량';
+            cols.align = "center";
+            cols.format = "n0"; 
+            cols.width = 100;  
+            wtab05Grid.columns.push(cols);  
+
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'chqty';
+            cols.header = '출고수량';
+            cols.align = "center";
+            cols.format = "n0"; 
+            cols.width = 100;  
+            wtab05Grid.columns.push(cols);  
+
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'jqty';
+            cols.header = '재고수량';
+            cols.align = "center";
+            cols.format = "n0"; 
+            cols.width = 100;  
+            wtab05Grid.columns.push(cols);  
+ 
+        }            
         
         function wdelfun_a(arg1, arg2, arg3, arg4 ){ 
             if (!confirm("입고일자 : " + arg1 + " (" +  arg2 + ") : " + arg4 + "   삭제하시겠습니까?")) {
@@ -1578,7 +1793,9 @@
             let ls_frday = year + '-' + month + '-' + date 
             let ls_today = year + '-' + month + '-' + date 
             document.getElementById('frdate').value = ls_today;
-            document.getElementById('todate').value = ls_today; 
+            document.getElementById('todate').value = ls_today;
+            document.getElementById('fromdt').value = ls_today; 
+            document.getElementById('todaydt').value = ls_today; 
             document.getElementById('savedate').value = ls_today;
             document.getElementById('ipfrdate').value = ls_frday;
             document.getElementById('iptodate').value = ls_today;

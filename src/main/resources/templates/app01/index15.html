@@ -269,7 +269,14 @@
                         <div id="winnameGrid_div"  style="overflow:scroll;   height:500px;   margin:0 auto; "></div> 
                         <!-- <div id="thePager03"></div> -->
                     </div>   
-                </div>  
+                </div>   
+                <div class="col-auto">  
+                    <div class="input-group mb-3" >
+                        <span class="input-group-text" style="max-height:50px;" >비고</span>
+                        <!-- <input class="form-control" type="text"   aria-describedby="inputGroup-sizing-default"  id="abigo"  disabled=true/> -->
+                        <textarea class="form-control"   rows="3" id="abigopop"  disabled=true></textarea>
+                    </div>
+                </div>   
 
                 <div class="modal-footer">
                     <div class="row g-1">
@@ -534,6 +541,8 @@ aria-hidden="true">
          var misqty    = new Array();
          var mjqty    = new Array();
         let includeColumnHeader = false;
+         var gsUserid = "";                             
+         var gsUsernm  = ""; 
 
          window.onload = function() {  
             localStorage.setItem("setpage", "app03p001"); 
@@ -1257,10 +1266,12 @@ aria-hidden="true">
                         return ;               
                     }else{
                         ls_frdate = ls_ipdate; //ls_frdate.substring(0,4) + '01-01'
+                    }    
+                    if(ls_bcifname == null || ls_bcifname.length == 0 || ls_bcifname == ""){ 
+                        alert("거래처를 등록하세요") 
+                        document.getElementById("cifname").focus(); 
+                        return ;               
                     }   
-                    if(ls_bcifname == null || ls_bcifname.length == 0 || ls_bcifname == ""){  
-                        ls_bacode = "%";
-                    }  
                     if(ls_todate == null || ls_todate.length == 0 || ls_todate == ""){ 
                         alert("조회일자를 등록하세요") 
                         document.getElementById("todate").focus(); 
@@ -1748,7 +1759,8 @@ aria-hidden="true">
                     acorp2: wtab02Dto[i]["acorp2"], 
                     acorp3: wtab02Dto[i]["acorp3"],  
                     acode: wtab02Dto[i]["acode"], 
-                    acorp: wtab02Dto[i]["acorp"]      
+                    acorp: wtab02Dto[i]["acorp"]  , 
+                    abigo: wtab02Dto[i]["abigo"]      
                 });
                 cnt++;
             }   
@@ -1778,6 +1790,20 @@ aria-hidden="true">
             cols.header = '거래처명'; 
             cols.align = "left"; 
             cols.width = 200;
+            winnameGrid.columns.push(cols); 
+
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'abigo';
+            cols.header = '비고'; 
+            cols.align = "left"; 
+            cols.width = 200;
+            cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
+                text: '<b>${item.abigo}</b>',
+                click: (e, ctx) => {
+                    wcifChk_bigo(ctx.item.abigo   );                    
+                    
+                }
+            });
             winnameGrid.columns.push(cols); 
         }
                 
@@ -1819,9 +1845,11 @@ aria-hidden="true">
             }  
             $("#winnamemodal_btn").trigger("click");
             
-        }
-
-
+        } 
+        function wcifChk_bigo(arg1){   
+            document.getElementById('abigopop').value = arg1;  
+            
+        }  
         function wOrderChk_a(arg1, arg2){  
             // var ls_frdate = '';
             // ls_frdate = document.getElementById('ipdate').value; 
@@ -1999,7 +2027,9 @@ aria-hidden="true">
                         "misdateArr"  : misdateArr   ,      
                         "misnumArr"  : misnumArr  ,      
                         "seqArr"  : seqArr   ,      
-                        "misqty"  : misqty  
+                        "misqty"  : misqty  ,
+                        "userid"  : gsUserid   ,      
+                        "usernm"  : gsUsernm   
                     }, 
                     async:false,
                     success:function(data){      
@@ -2068,7 +2098,9 @@ aria-hidden="true">
                             "misdateArr"  : misdateArr   ,      
                             "misnumArr"  : misnumArr  ,      
                             "seqArr"  : seqArr   ,      
-                            "misqty"  : misqty  
+                            "misqty"  : misqty   ,
+                            "userid"  : gsUserid   ,      
+                            "usernm"  : gsUsernm  
                         }, 
                         async:false,
                         success:function(data){      
@@ -2155,7 +2187,9 @@ aria-hidden="true">
                         "misdateArr"  : misdateArr   ,      
                         "misnumArr"  : misnumArr  ,      
                         "seqArr"  : seqArr    ,      
-                        "cltcdArr"  : cltcdArr   
+                        "cltcdArr"  : cltcdArr    ,
+                        "userid"  : gsUserid   ,      
+                        "usernm"  : gsUsernm  
                     }, 
                     async:false,
                     success:function(data){      
@@ -2207,7 +2241,9 @@ aria-hidden="true">
                             "mflag"  : 'AA'   ,      
                             "misdateArr"  : misdateArr   ,      
                             "misnumArr"  : misnumArr  ,      
-                            "seqArr"  : seqArr   
+                            "seqArr"  : seqArr    ,
+                            "userid"  : gsUserid   ,      
+                            "usernm"  : gsUsernm  
                         }, 
                         async:false,
                         success:function(data){     
@@ -2340,7 +2376,9 @@ aria-hidden="true">
                             "misdateArr"  : misdateArr   ,      
                             "misnumArr"  : misnumArr  ,      
                             "seqArr"  : seqArr   ,      
-                            "misqty"  : misqty  
+                            "misqty"  : misqty  ,
+                            "userid"  : gsUserid   ,      
+                            "usernm"  : gsUsernm  
                         }, 
                         async:false,
                         success:function(data){      
@@ -2464,7 +2502,9 @@ aria-hidden="true">
                             "misdateArr"  : misdateArr   ,      
                             "misnumArr"  : misnumArr  ,      
                             "seqArr"  : seqArr   ,      
-                            "misqty"  : misqty  
+                            "misqty"  : misqty   ,
+                            "userid"  : gsUserid   ,      
+                            "usernm"  : gsUsernm  
                         }, 
                         async:false,
                         success:function(data){      
@@ -2564,6 +2604,8 @@ aria-hidden="true">
         }
 
         function fn_egov_init_date(){  
+            gsUserid = window.localStorage.getItem("userid");                             
+            gsUsernm = window.localStorage.getItem("username"); 
             lsUserid = window.localStorage.getItem("userid")
             const ls_role = window.localStorage.getItem("role");
             if(ls_role == null || ls_role.length == 0 || ls_role == ""){ 
