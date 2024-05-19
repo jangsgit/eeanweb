@@ -193,6 +193,16 @@
         ]]>
     </select>
 
+    <select id="GetJpumCheck02" parameterType="String" resultType="com.dae.eean.DTO.App01.Index03Dto">
+        <![CDATA[
+        select top 1  jkey, jpb_gubn, jgong_code, jdan_code, jmodel_code, jcolor_code, jcustomer_code,
+                 jbonsa_code, jsayong_gubn, jpum, jgugek, jsize,   convert(int , jchgoga0)  as jchgoga0, jbigo
+        from JCODE3 WITH (NOLOCK)
+        WHERE isnull(jpum,'')   = #{jpum}
+        ORDER BY jpum
+        ]]>
+    </select>
+
     <select id="GetJpumList" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
         <![CDATA[
             select jkey, jpb_gubn, jgong_code, jdan_code, jmodel_code, jcolor_code, jcustomer_code, jcustomer_code_seq,

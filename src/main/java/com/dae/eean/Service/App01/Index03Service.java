@@ -80,6 +80,7 @@ public class Index03Service {
     public Boolean UpdateJpum(Index03Dto parm){  return  appMapper.UpdateJpum(parm);  }
     public Boolean DeleteJpum(Index03Dto parm){  return  appMapper.DeleteJpum(parm);  }
     public String GetJpumCheck(Index03Dto parm){  return  appMapper.GetJpumCheck(parm);  }
+    public Index03Dto GetJpumCheck02(String parm){  return  appMapper.GetJpumCheck02(parm);  }
 
 
 }

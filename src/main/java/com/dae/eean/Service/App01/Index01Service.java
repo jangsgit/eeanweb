@@ -1,6 +1,7 @@
 package com.dae.eean.Service.App01;
 
 import com.dae.eean.DTO.App01.Index01Dto;
+import com.dae.eean.DTO.App01.Index03Dto;
 import com.dae.eean.DTO.App01.Index20Dto;
 import com.dae.eean.Mapper.App01.Index01Mapper;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,7 @@ public class Index01Service {
         return indexMapper.getComCodeList(parm);
     }
 
+
     public Boolean InsertComCode(Index01Dto parm){ return  indexMapper.InsertComCode(parm);}
     public Boolean UpdateComCode(Index01Dto parm){  return  indexMapper.UpdateComCode(parm);}
     public Boolean DeleteComCode(Index01Dto parm){  return  indexMapper.DeleteComCode(parm);}
@@ -27,9 +29,20 @@ public class Index01Service {
 
     public Boolean InsertJupsu(Index20Dto parm){ return  indexMapper.InsertJupsu(parm);}
     public Boolean UpdateJupsu(Index20Dto parm){ return  indexMapper.UpdateJupsu(parm);}
+    public Boolean UpdateJupsuMisnum(Index20Dto parm){ return  indexMapper.UpdateJupsuMisnum(parm);}
+
     public Boolean DeleteJupsu(Index20Dto parm){ return  indexMapper.DeleteJupsu(parm);}
     public Boolean UpdateDevJupsu(Index20Dto parm){ return  indexMapper.UpdateDevJupsu(parm);}
     public Boolean UpdateDevJupsuUnsong(Index20Dto parm){ return  indexMapper.UpdateDevJupsuUnsong(parm);}
+    public Boolean UpdateMisJupsu(Index20Dto parm){ return  indexMapper.UpdateMisJupsu(parm);}
+
+    public Index20Dto GetAsJumsuDataYU(Index20Dto parm){
+        return indexMapper.GetAsJumsuDataYU(parm);
+    }
+    public Index20Dto GetAsJumsuDataMU(Index20Dto parm){
+        return indexMapper.GetAsJumsuDataMU(parm);
+    }
+
     public List<Index01Dto> getComCodeLists(Index01Dto parm){
         return indexMapper.getComCodeLists(parm);
     }
@@ -39,6 +52,9 @@ public class Index01Service {
     }
     public List<Index01Dto> getWperidlist(Index01Dto parm){
         return  indexMapper.getWperidlist(parm);
+    }
+    public List<Index03Dto> getAsyumulist(Index03Dto parm){
+        return  indexMapper.getAsyumulist(parm);
     }
 
     public Boolean InsertComCodeDetail(Index01Dto parm){ return  indexMapper.InsertComCodeDetail(parm);}

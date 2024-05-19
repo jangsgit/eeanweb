@@ -38,6 +38,7 @@ public interface Index03Mapper {
     public Boolean UpdateJpum(Index03Dto  parm) ;
     public Boolean DeleteJpum(Index03Dto  parm) ;
     public String GetJpumCheck(Index03Dto  parm) ;
+    public Index03Dto GetJpumCheck02(String  parm) ;
 
 
 }

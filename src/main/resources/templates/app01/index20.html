@@ -82,17 +82,17 @@
                                     <input class="form-control form-control-sm" id="jacode" type="hidden"  />  
                                     <input class="form-control form-control-sm" id="jpbgubn" type="hidden"  />                   
                                 </div>                                                      
-                            </div>   
+                            </div>  
+
+                            <!-- Force next columns to break to new line -->
+                            <div class="w-100"></div>
+
+                          
                             <div class="col-2 col-sm-2">
                                 <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">모델</span> 
                                     <input class="form-control form-control-sm" id="asasmodel" type="text"    autocomplete="off"  placeholder="">                                               
                                 </div>    
                             </div>
-
-                            <!-- Force next columns to break to new line -->
-                            <div class="w-100"></div>
-
-                         
                             <div class="col-2 col-sm-2">
                                 <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">컬러</span> 
                                     <input class="form-control form-control-sm" id="asascolor" type="text"    autocomplete="off"  placeholder="">                                               
@@ -105,16 +105,11 @@
                             </div>   
                             <div class="col-2 col-sm-2">                             
                                 <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">유/무상</span> 
-                                    <select class="form-select form-select-sm" id="asasyumu" aria-label=".form-select-sm example">
-                                        <option selected="">유무상</option>
+                                    <select class="form-select" th:field="*{yumucodeList}" name="asasyumu" id="asasyumu"> 
                                         <option value="무상">무상</option>
-                                        <option value="1">1,000</option>
-                                        <option value="5">5,000</option>
-                                        <option value="15">15,000</option>
-                                        <option value="20">20,000</option>
-                                        <option value="25">25,000</option>
-                                        <option value="30">30,000</option>
-                                      </select>                                        
+                                        <option th:each="val : ${yumucodeList}" th:value="${val.jpum}" th:text="${val.jchgoga0}">
+                                    </select>                                                             
+                           
                                 </div> 
                             </div>     
                             <div class="col-2 col-sm-2">                                            
@@ -183,10 +178,12 @@
                                         
                                     </div>  
                                 </div>         
-                                <div class="col-3 col-sm-2">   
+                                <div class="col-3 col-sm-3">   
                                     <button class="btn btn-falcon-warning me-1 mb-1 btn-md" id="retrieveBtn" type="button"  >조회
                                     </button>   
                                     <button class="btn btn-success me-1 mb-1 btn-md" id="saveBtn03" type="button"  >발송출력
+                                    </button> 
+                                    <button class="btn btn-primary me-1 mb-1 btn-md" id="saveBtn05" type="button"  >주문등록
                                     </button>
                                     <button class="btn btn-danger me-1 mb-1 btn-md" id="DelBtn02" type="button"  >삭제
                                     </button>
@@ -236,7 +233,7 @@
         </div>
     </div>
 
-    
+     
     <!--  모달 처리 -->
     <input class="form-control form-control-sm"  type="hidden" id="innamebtn" data-bs-toggle="modal" data-bs-target="#cifmodal"  /> 
     <!--------------------------------------------------------------------------------------->   
@@ -278,7 +275,46 @@
         </div> 
     </div>  
     <!--------------------------------------------------------------------------------------->     
+    
+    <!--  주문일자모달 처리 -->
+    <input class="form-control form-control-sm"  type="hidden" id="inmisbtn" data-bs-toggle="modal" data-bs-target="#misdatemodal"  /> 
+    <!--------------------------------------------------------------------------------------->   
+    <div class="modal fade" id="misdatemodal" data-bs-keyboard="false"
+    data-bs-backdrop="static" tabindex="-1" aria-labelledby="staticBackdropLabel"
+    aria-hidden="true">
+        <div class="modal-dialog modal-lg mt-6" role="document" id = "modalForm01"
+            style="max-width: 500px">
+            <div class="modal-content border-0">
+                <div class="modal-body p-0" > 
+                    <div class="rounded-top-lg py-3 ps-4 pe-6 bg-light">                            
+                        <div class="search">   
+                            <div class="row gx-3" style="  margin: 10px 10px 10px;">   
+                                <div class="col-auto">
+                                    <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">주문등록일자</span>
+                                        <input type="text"  class="form-control datetimepicker" id="misdate" autocomplete="off"  placeholder="Y-m-d"     >
+                                    </div>  
+                                </div>   
+                                <div class="col-2 col-sm-1"> 
+                                    <button class="btn btn-falcon-primary me-1 mb-1 btn-sm" type="button" id="saveBtn06">저장
+                                    </button> 
+                                </div>  
+                            </div> 
+                        </div>                             
+                    </div>    
+                </div>    
+                <div class="modal-footer">
+                    <div class="row g-1">
+                        <div class="col-auto">
+                            <button class="badge-soft-primary dropdown-item rounded-1"
+                                type="button"  id="wmismodal_btn" data-bs-dismiss="modal">Close</button>
+                        </div> 
+                    </div>
+                </div>   
 
+            </div>
+        </div> 
+    </div>   
+    <!--------------------------------------------------------------------------------------->     
     <!--------------------------------------------------------------------------------------->   
         <!--  접수 추가 MODAL FROM  -->  
         <!-- <div class="modal fade" id="actnmmodal" data-bs-keyboard="false"
@@ -401,7 +437,15 @@
          var ascode = [];
         var asKey1Arr = new Array();
          var asKey2Arr = new Array();   
+         var asYumu = new Array();  
+         var asAname = new Array();   
+         var misdateArr = new Array(); 
+         var misnumArr = new Array(); 
         var wtabExl_data = [];
+         var gsUserid = "";                             
+         var gsUsernm  = "";                           
+         var gsRnum  = ""; 
+         
          window.onload = function() {  
             // localStorage.setItem("setpage", "app03p001");
             view_p01tab01page = new wijmo.collections.CollectionView(getData_tab01(), {
@@ -474,7 +518,7 @@
             function showCheckedCount() {
                 let cnt = document.getElementById('checked-count'), sel = wtab01Grid.rows.filter(r => r.isSelected);
                 cnt.textContent = sel.length.toString();  
-                chkTabA = sel;     
+                chkTabA = sel;   
                 var icnt = 0;
                 var ascorp1 = '';
                 var ascorp2 = '';
@@ -486,7 +530,11 @@
                     ascorp2     = sel[i]._data.as_acorp2;
                     ascorp3     = sel[i]._data.as_acorp3; 
                     ascode[i]   = ascorp1 + ascorp2 + ascorp3 + sel[i]._data.as_key1; 
-                }        
+                    asAname[i]     = sel[i]._data.as_aname; 
+                    asYumu[i]     = sel[i]._data.as_yumu;   
+                    misdateArr[i]  = sel[i]._data.misdate;   
+                    misnumArr[i]  = sel[i]._data.misnum;   
+                }          
                 for (var p = 0; p < ascode.length; p++) {  
                     for (var i = 0; i < sel.length; i++) {   
                         if( ascode[p] == sel[i]._data.as_acorp1 + sel[i]._data.as_acorp2 + sel[i]._data.as_acorp3  + sel[i]._data.as_key1 ){
@@ -763,7 +811,19 @@
         document.getElementById("saveBtn03").addEventListener("click",function(){
             var ls_tab = document.getElementById('tabvalue').value;     
             save_btn("B");
-        })   
+        })  
+        // 주문등록
+        document.getElementById("saveBtn05").addEventListener("click",function(){ 
+            var ls_tab = document.getElementById('tabvalue').value;     
+            save_btn("C");            
+            //document.getElementById("inmisbtn").click();   //모달창 버튼 
+        })  
+        //모달save버튼 
+        document.getElementById("saveBtn06").addEventListener("click",function(){ 
+            document.getElementById("wmismodal_btn").click();
+            var ls_tab = document.getElementById('tabvalue').value;     
+            save_btn("C");
+        })  
                   
         // 배송등록 
         document.getElementById("saveBtn04").addEventListener("click",function(){
@@ -1011,9 +1071,7 @@
                         alert("업체명을 등록하세요") 
                         document.getElementById("jcifname").focus(); 
                         return ;               
-                    }  
-console.log(ls_asaskey1)
-console.log(ls_asaskey2)
+                    }   
                         $.ajax({
                             url: '/app01m/jupsusave',  
                             type:"POST",
@@ -1035,7 +1093,7 @@ console.log(ls_asaskey2)
                                 "asasmemo3"      : ls_asasmemo3  ,  
                                 "asaname"      : ls_asaname  ,  
                                 "ascustnm"      : lsCustnm  ,  
-                                "asrnum"      : lsRnum  , 
+                                "asrnum"      : gsRnum  , 
                             }, 
                             async:false,
                             success:function(data){   
@@ -1110,7 +1168,73 @@ console.log(ls_asaskey2)
                     }).done(function(fragment){           
 
                     })   
-                    break;   
+                    break;              
+                case 'C':
+                    if (!confirm("주문등록 하시겠습니까?")) { 
+                        return false; 
+                    }     
+                    ls_misdate = ''; //document.getElementById("misdate").value;    
+                    // if(ls_misdate.length == null || ls_misdate.length == 0){ 
+                    //     alert("주문일자를 입력하세요") 
+                    //     return ;               
+                    // } 
+                       
+                    while (asKey1Arr.length > 0) {
+                        asKey1Arr.pop();
+                        asKey2Arr.pop(); 
+                        asYumu.pop();   
+                        asAname.POP();
+                    }    
+                    for (var i = 0; i < chkTabA.length; i++) { 
+                        asKey1Arr[i]   = chkTabA[i]._data.as_key1;
+                        asKey2Arr[i]   = chkTabA[i]._data.as_key2; 
+                        asYumu[i]      = chkTabA[i]._data.as_yumu; 
+                        asAname[i]      = chkTabA[i]._data.as_aname;  
+                    }    
+                    console.log(asAname)
+                    if(asKey1Arr.length == null || asKey1Arr.length == 0){ 
+                        alert("주문등록할 내역을 선택하세요") 
+                        return ;               
+                    }  
+                    $.ajax({
+                        url: '/app01m/index20/jumunsav',  
+                        type:"POST",
+                        data: { 
+                            "asKey1Arr"  : asKey1Arr,  
+                            "asKey2Arr"   : asKey2Arr ,   
+                            "asYumu"   : asYumu , 
+                            "asAname"   : asAname ,        
+                            "userid"  : gsUserid   ,      
+                            "usernm"  : gsUsernm   ,      
+                            "misdate"  : ls_misdate  
+                        }, 
+                        async:false,
+                        success:function(data){   
+                            if(data == "success"){
+                                alert("처리되었습니다.")
+                                searchList_rtn("A");  
+                                clear_rtn();               
+                                return true;
+                                // clear_rtn(ls_tab);        
+                            }else{       
+                                if(data == "relogin"){
+                                    alert("다시 로그인해주세요")
+                                    window.location.href='http://eean.co.kr';
+                                    return 
+                                }                       
+                                alert("처리중 오류가 발생했습니다. 관리자에게 문의하세요.")
+                                // listUp();
+                                console.log(data); 
+                                return false; 
+                            }
+                        
+                        },error:function(e){
+                            console.log("error"); 
+                        }
+                    }).done(function(fragment){           
+
+                    })   
+                    break;  
                 case 'E': 
                     if (!confirm("발송업로드 하시겠습니까?")) { 
                         return false; 
@@ -1256,13 +1380,14 @@ console.log(ls_asaskey2)
             if (!confirm("삭제하시겠습니까?")) { 
                         return false; 
                     }     
+                      
                     while (asKey1Arr.length > 0) {
                         asKey1Arr.pop();
-                        asKey2Arr.pop(); 
+                        asKey2Arr.pop();  
                     }    
                     for (var i = 0; i < chkTabA.length; i++) { 
                         asKey1Arr[i]   = chkTabA[i]._data.as_key1;
-                        asKey2Arr[i]   = chkTabA[i]._data.as_key2; 
+                        asKey2Arr[i]   = chkTabA[i]._data.as_key2;  
                     }    
                     if(asKey1Arr.length == null || asKey1Arr.length == 0){ 
                         alert("삭제할 내역을 선택하세요") 
@@ -1273,7 +1398,7 @@ console.log(ls_asaskey2)
                         type:"POST",
                         data: { 
                             "asKey1Arr"  : asKey1Arr,  
-                            "asKey2Arr"   : asKey2Arr   ,  
+                            "asKey2Arr"   : asKey2Arr   
                         }, 
                         async:false,
                         success:function(data){   
@@ -1402,6 +1527,7 @@ console.log(ls_asaskey2)
             var wtab01_data = [];
             var cnt = 1;
             var bfixflag= false;
+            console.log(wtab01Dto)
             for (var i = 0; i < wtab01Dto.length; i++) {
                 if(wtab01Dto[i]["as_devflag"] == "1"){
                     bfixflag = true;
@@ -1430,7 +1556,9 @@ console.log(ls_asaskey2)
                     as_damdang:  wtab01Dto[i]["as_damdang"], 
                     as_devcode:  wtab01Dto[i]["as_devcode"], 
                     as_devdate:  wtab01Dto[i]["as_devdate"],  
-                    unsongnum:  wtab01Dto[i]["unsongnum"],   
+                    unsongnum:  wtab01Dto[i]["unsongnum"],    
+                    misdate:  wtab01Dto[i]["misdate"],    
+                    misnum:  wtab01Dto[i]["misnum"],   
                     as_devflag:  bfixflag,                                                 
                 });
                 cnt++;
@@ -1543,6 +1671,18 @@ console.log(ls_asaskey2)
             cols.header = '발송처리';
             cols.align = "center";
             cols.width = 150;  
+            wtab01Grid.columns.push(cols); 
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'misdate';
+            cols.header = '주문일자';
+            cols.align = "center";
+            cols.width = 150;  
+            wtab01Grid.columns.push(cols); 
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'misnum';
+            cols.header = '주문번호';
+            cols.align = "center";
+            cols.width = 100;  
             wtab01Grid.columns.push(cols); 
         }     
        
@@ -1752,7 +1892,7 @@ console.log(ls_asaskey2)
         })
 
         function test_rtn(arg1){
-            console.log(arg1);
+            //console.log(arg1);
             const disHtml = `
                 <div class="tab-pane fade show active" id=${arg1} role="tabpanel" aria-labelledby="profile-tab">${arg1}</div>`
             $('#btnDiv02').before(disHtml);
@@ -1772,6 +1912,7 @@ console.log(ls_asaskey2)
             let ls_today = year + '-' + month + '-' + date 
             document.getElementById('frdate').value = ls_frday;
             document.getElementById('todate').value = ls_today; 
+            document.getElementById('misdate').value = ls_today;  
             // document.getElementById('frdate02').value = ls_frday;
             // document.getElementById('todate02').value = ls_today;
             document.getElementById('asaskey1').value = ls_today; 
@@ -1791,7 +1932,10 @@ console.log(ls_asaskey2)
         }
 
         function fn_egov_init_date(){ 
-            lsUserid = window.localStorage.getItem("userid");             
+            gsUserid = window.localStorage.getItem("userid");                             
+            gsUsernm = window.localStorage.getItem("username"); 
+            lsUserid = window.localStorage.getItem("userid");   
+            gsRnum = window.localStorage.getItem("rnum");            
             document.getElementById('condamdang').value = lsUserid;  
             
         }

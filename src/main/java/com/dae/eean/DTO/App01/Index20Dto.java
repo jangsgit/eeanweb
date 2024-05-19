@@ -34,4 +34,19 @@ public class Index20Dto {
     private String as_devcode;
     private String reservnum;
     private String unsongnum;
+    private String misflag;
+    private String misdate;
+    private String misnum;
+    private String userid;
+    private String usernm;
+    private String jkey;
+    private String jbonsa_code2;
+    private String jmodel_code2;
+    private String jcolor_code;
+    private String jpb_gubn;
+    private Integer jchgoga0;
+    private String acode;
+
+
+
 }

@@ -38,6 +38,13 @@
         ]]>
     </select>
 
+
+    <select id="getAsyumulist"  parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
+        <![CDATA[
+                select cast(jchgoga0 as int) as jchgoga0 , jpum from jcode3 where jbonsa_code = 'AS' group by jpum, jchgoga0
+        ]]>
+    </select>
+
     <insert id="InsertComCodeDetail" parameterType="com.dae.eean.DTO.App01.Index01Dto" >
         insert into TB_CA510 (com_cls, com_code, com_cnam ,com_rem1, com_rem2, com_work) values
         (#{com_cls}, #{com_code}, #{com_cnam},#{com_rem1}, #{com_rem2},#{com_work})
@@ -63,6 +70,31 @@
         WHERE isnull(com_cls,'')   = #{com_cls}
         and isnull(com_code,'')   = #{com_code}
         ORDER BY com_cls
+        ]]>
+    </select>
+
+    <select id="GetAsJumsuDataYU" parameterType="com.dae.eean.DTO.App01.Index20Dto" resultType="com.dae.eean.DTO.App01.Index20Dto">
+        <![CDATA[
+            select   as_key1, as_key2, as_model ,as_color, as_suri, as_yumu,as_memo,as_gongjang,as_acorp,as_acorp1,as_acorp2,as_acorp3, as_acorp1 + CAST(as_acorp1 as varchar) as acode,
+                     as_computer,as_damdang,as_memo2,as_aname,as_key4,as_date2,as_memo3, as_devflag, D.jkey, D.jchgoga0, D.jbonsa_code2, D.jmodel_code2, D.jcolor_code, D.jpb_gubn,
+                     unsongnum, as_devflag, misflag, misdate, misnum
+            from as_jupsu  WITH (NOLOCK)
+                 Left outer JOIN JCODE3 D ON as_yumu = D.jpum AND isnull(D.jpb_gubn,'')  Like concat('%',#{jpb_gubn},'%')
+            WHERE isnull(as_key1,'')   = #{as_key1}
+            and isnull(as_key2,'')   = #{as_key2}
+
+        ]]>
+    </select>
+
+    <select id="GetAsJumsuDataMU" parameterType="com.dae.eean.DTO.App01.Index20Dto" resultType="com.dae.eean.DTO.App01.Index20Dto">
+        <![CDATA[
+            select   as_key1, as_key2, as_model ,as_color, as_suri, as_yumu,as_memo,as_gongjang,as_acorp,as_acorp1,as_acorp2,as_acorp3, as_acorp1 + CAST(as_acorp1 as varchar) as acode,
+                     as_computer,as_damdang,as_memo2,as_aname,as_key4,as_date2,as_memo3, as_devflag, '' AS jkey,
+                     0 AS jchgoga0, '' AS  jbonsa_code2, '' AS jmodel_code2, '' AS jcolor_code, '' AS jpb_gubn,
+                     unsongnum, as_devflag, misflag, misdate, misnum
+            from as_jupsu  WITH (NOLOCK)
+            WHERE isnull(as_key1,'')   = #{as_key1}
+            and isnull(as_key2,'')   = #{as_key2}
         ]]>
     </select>
 
@@ -93,6 +125,14 @@
     </update>
 
 
+    <update id="UpdateJupsuMisnum" parameterType="com.dae.eean.DTO.App01.Index20Dto">
+        <![CDATA[
+        UPDATE  as_jupsu SET misdate = '' , misnum = '' , misflag = '0'
+         where misdate  = #{misdate} and misnum = #{misnum}
+        ]]>
+    </update>
+
+
 
 
     <update id="DeleteJupsu" parameterType="com.dae.eean.DTO.App01.Index20Dto">
@@ -103,13 +143,20 @@
 
 
     <select id="SelectMaxJupsu" parameterType="com.dae.eean.DTO.App01.Index20Dto" resultType="String">
-        <![CDATA[  select  max(as_key2)  from as_jupsu where as_key1 = #{as_key1} and Left(as_key2,1) >= Left(#{as_rnum},1)     ]]>
+        <![CDATA[  select  max(as_key2)  from as_jupsu where as_key1 = #{as_key1} and Left(as_key2,1) = Left(#{as_rnum},1)     ]]>
     </select>
 
 
     <update id="UpdateDevJupsu" parameterType="com.dae.eean.DTO.App01.Index20Dto">
         <![CDATA[
         UPDATE  as_jupsu SET as_devflag = #{as_devflag} , as_devdate =  getdate(), as_date2 =  #{as_date2}, as_devcode = #{as_devcode}
+        where as_key1  = #{as_key1} and as_key2 = #{as_key2}
+        ]]>
+    </update>
+
+    <update id="UpdateMisJupsu" parameterType="com.dae.eean.DTO.App01.Index20Dto">
+        <![CDATA[
+        UPDATE  as_jupsu SET misdate = #{misdate} , misnum =  #{misnum}, misflag =  #{misflag}
         where as_key1  = #{as_key1} and as_key2 = #{as_key2}
         ]]>
     </update>

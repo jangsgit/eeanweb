@@ -3862,6 +3862,7 @@ public class App01CrudController {
         try {
             boolean result = false;
             IndexDa024Dto _indexDa024Dto = new IndexDa024Dto();
+            Index20Dto _indexDa020Dto = new Index20Dto();
 
             if( misdatearr.size() > 0){
                 for(int i = 0; i < misdatearr.size(); i++){
@@ -3882,6 +3883,15 @@ public class App01CrudController {
                     if (!result){
                         //return "error";
                     }
+                    //접수 주문 업데이트
+                    _indexDa020Dto.setMisdate(ls_misdate);
+                    _indexDa020Dto.setMisnum(misnumarr.get(i));
+                    result = service01.UpdateJupsuMisnum(_indexDa020Dto);
+                    if (!result){
+                        //return "error";
+                    }
+
+
                 }
 
             }
@@ -4370,7 +4380,6 @@ public class App01CrudController {
             , HttpServletRequest request){
 
         try {
-
             HttpSession session = request.getSession();
             UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
             if(userformDto == null){
@@ -4380,38 +4389,41 @@ public class App01CrudController {
             model.addAttribute("userformDto",userformDto);
 
             boolean result = false;
+            Index20Dto _index20Dto = new Index20Dto();
 //            String year = mmisdate.substring(0,4);
 //            String month = mmisdate.substring(5,7);
 //            String day = mmisdate.substring(8,10);
 //            String ls_misdate = year + month + day ;
-                index20Dto.setAs_key1(asaskey1);
-                index20Dto.setAs_key2(asaskey2);
-                index20Dto.setAs_damdang(condamdang);
-                index20Dto.setAs_gongjang(asasgong);
-                index20Dto.setAs_computer(ascustnm);
-                index20Dto.setAs_rnum(asrnum);
-                index20Dto.setAs_acorp(jacorp);
-                index20Dto.setAs_acorp1(jacorp1);
-                index20Dto.setAs_acorp2(jacorp2);
-                index20Dto.setAs_acorp3(jacorp3);
-                index20Dto.setAs_model(asasmodel);
-                index20Dto.setAs_color(asascolor);
-                index20Dto.setAs_yumu(asasyumu);
-                index20Dto.setAs_suri(asassuri);
-                index20Dto.setAs_memo(asasmemo);
-                index20Dto.setAs_memo2(asasmemo2);
-                index20Dto.setAs_memo3(asasmemo3);
-                index20Dto.setAs_aname(asaname);
-                index20Dto.setAs_devflag("0");
+            _index20Dto.setAs_key1(asaskey1);
+            _index20Dto.setAs_key2(asaskey2);
+            _index20Dto.setAs_damdang(condamdang);
+            _index20Dto.setAs_gongjang(asasgong);
+            _index20Dto.setAs_computer(ascustnm);
+            _index20Dto.setAs_rnum(asrnum);
+            _index20Dto.setAs_acorp(jacorp);
+            _index20Dto.setAs_acorp1(jacorp1);
+            _index20Dto.setAs_acorp2(jacorp2);
+            _index20Dto.setAs_acorp3(jacorp3);
+            _index20Dto.setAs_model(asasmodel);
+            _index20Dto.setAs_color(asascolor);
+            _index20Dto.setAs_yumu(asasyumu);
+            _index20Dto.setAs_suri(asassuri);
+            _index20Dto.setAs_memo(asasmemo);
+            _index20Dto.setAs_memo2(asasmemo2);
+            _index20Dto.setAs_memo3(asasmemo3);
+            _index20Dto.setAs_aname(asaname);
+            _index20Dto.setAs_devflag("0");
+            _index20Dto.setMisflag("0");
 
-            log.info("asaskey1 =====>" + asaskey1);
-            log.info("asaskey2 =====>" + asaskey2);
+//            log.info("asaskey1 =====>" + asaskey1);
+//            log.info("asaskey2 =====>" + asaskey2);
+//            log.info("asrnum =====>" + asrnum);
                 if(asaskey2 == null || asaskey2.equals("")){
-                    asaskey2 = GetMaxJupsu(index20Dto);
-                    index20Dto.setAs_key2(asaskey2);
-                    result = service01.InsertJupsu(index20Dto);
+                    asaskey2 = GetMaxJupsu(_index20Dto);
+                    _index20Dto.setAs_key2(asaskey2);
+                    result = service01.InsertJupsu(_index20Dto);
                 }else{
-                    result = service01.UpdateJupsu(index20Dto);
+                    result = service01.UpdateJupsu(_index20Dto);
                 }
             if (!result){
                 return "error";
@@ -4443,10 +4455,11 @@ public class App01CrudController {
             model.addAttribute("userformDto",userformDto);
 
             boolean result = false;
-            index20Dto.setAs_key1(asaskey1);
-            index20Dto.setAs_key2(asaskey2);
+            Index20Dto _index20Dto = new Index20Dto();
+            _index20Dto.setAs_key1(asaskey1);
+            _index20Dto.setAs_key2(asaskey2);
 
-            result = service01.DeleteJupsu(index20Dto);
+            result = service01.DeleteJupsu(_index20Dto);
             if (!result){
                 return "error";
             }
@@ -4474,11 +4487,30 @@ public class App01CrudController {
             model.addAttribute("userformDto",userformDto);
 
             boolean result = false;
+            Index20Dto _index20Dto = new Index20Dto();
+            Index20Dto _index20DtoRe = new Index20Dto();
+            IndexDa024Dto _indexDa024Dto = new IndexDa024Dto();
             if( asKey1Arr.size() > 0){
                 for(int i = 0; i < asKey1Arr.size(); i++){
-                    index20Dto.setAs_key1(asKey1Arr.get(i));
-                    index20Dto.setAs_key2(asKey2Arr.get(i));
-                    result = service01.DeleteJupsu(index20Dto);
+                    _index20Dto.setAs_key1(asKey1Arr.get(i));
+                    _index20Dto.setAs_key2(asKey2Arr.get(i));
+                    _index20DtoRe = service01.GetAsJumsuDataMU(_index20Dto);
+                    if(_index20DtoRe.getMisflag().equals("1")){
+                        _indexDa024Dto.setMisdate(_index20DtoRe.getMisdate());
+                        _indexDa024Dto.setMisnum(_index20DtoRe.getMisnum());
+                        _indexDa024Dto.setCltcd(_index20DtoRe.getAcode());
+                        _indexDa024Dto.setSeq("001");
+                        _indexDa024Dto.setMisgubun("AA");
+                        result = service14.DeleteDA024Jumsu(_indexDa024Dto);
+                        if (!result){
+                            //return "error";
+                        }
+                        result = service14.DeleteDA023(_indexDa024Dto);
+                        if (!result){
+                            //return "error";
+                        }
+                    }
+                    result = service01.DeleteJupsu(_index20Dto);
                     if (!result){
                         return "error";
                     }
@@ -4504,23 +4536,24 @@ public class App01CrudController {
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Date date      = new Date(System.currentTimeMillis());
             String ls_date2 = formatter.format(date);
+            Index20Dto _index20Dto = new Index20Dto();
             if( asKey1Arr.size() > 0){
                 for(int i = 0; i < asKey1Arr.size(); i++){
                     String year = asKey1Arr.get(i).substring(0,4);
                     String month = asKey1Arr.get(i).substring(5,7);
                     String day = asKey1Arr.get(i).substring(8,10);
                     String ls_misdate = year + month + day ;
-                    index20Dto.setAs_key1(asKey1Arr.get(i));
-                    index20Dto.setAs_key2(asKey2Arr.get(i));
-                    index20Dto.setAs_devflag("1");
-                    index20Dto.setAs_date2(ls_date2);
+                    _index20Dto.setAs_key1(asKey1Arr.get(i));
+                    _index20Dto.setAs_key2(asKey2Arr.get(i));
+                    _index20Dto.setAs_devflag("1");
+                    _index20Dto.setAs_date2(ls_date2);
 //                    if(asflagArr.get(i).equals("0")){
 //                        index20Dto.setAs_devflag("1");
 //                    }else{
 //                        index20Dto.setAs_devflag("0");
 //                    }
-                    index20Dto.setAs_devcode(ls_misdate + asKey2Arr.get(i) );
-                    result = service01.UpdateDevJupsu(index20Dto);
+                    _index20Dto.setAs_devcode(ls_misdate + asKey2Arr.get(i) );
+                    result = service01.UpdateDevJupsu(_index20Dto);
 //                    log.info("setAs_date2  =====>" + ls_date2);
 //                    log.info("getMisdate  =====>" + indexDa024Dto.getMisdate());
                     if (!result){
@@ -4536,6 +4569,159 @@ public class App01CrudController {
         }
     }
 
+    @RequestMapping(value="/index20/jumunsav")
+    public String index21JumunSav(@RequestParam(value = "asKey1Arr[]") List<String> asKey1Arr
+            ,@RequestParam( value =  "asKey2Arr[]") List<String> asKey2Arr
+            ,@RequestParam( value =  "asYumu[]") List<String> asYumu
+            ,@RequestParam( value =  "asAname[]") List<String> asAname
+            ,@RequestParam("userid") String userid
+            ,@RequestParam("usernm") String usernm
+            ,@RequestParam("misdate") String misdate
+            , Model model
+            , HttpServletRequest request){
+
+        try {
+            boolean result = false;
+            Index20Dto _index20Dto = new Index20Dto();
+            Index20Dto _index20DtoRe = new Index20Dto();
+            IndexDa024Dto _indexDa024Dto = new IndexDa024Dto();
+            IndexDa023Dto _indexDa023Dto = new IndexDa023Dto();
+
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date date      = new Date(System.currentTimeMillis());
+            String ls_date2 = formatter.format(date);
+            if( asKey1Arr.size() > 0){
+                for(int i = 0; i < asKey1Arr.size(); i++){
+                    String year = asKey1Arr.get(i).substring(0,4);
+                    String month = asKey1Arr.get(i).substring(5,7);
+                    String day = asKey1Arr.get(i).substring(8,10);
+                    String ls_misdate = year + month + day ;
+                    String ls_misnum = "";
+                    String ls_yumu = asYumu.get(i);
+                    String ls_aname = asAname.get(i);
+
+                    _index20Dto.setUserid(userid);
+                    _index20Dto.setUsernm(usernm);
+                    _index20Dto.setAs_key1(asKey1Arr.get(i));
+                    _index20Dto.setAs_key2(asKey2Arr.get(i));
+                    _index20Dto.setMisflag("1");
+                    _index20Dto.setAs_date2(ls_date2);
+                    if(ls_aname.equals("블리스")){
+                        _index20Dto.setJpb_gubn("B");
+                    }else{
+                        _index20Dto.setJpb_gubn("P");
+                    }
+                    if(ls_yumu.equals("무상")){
+                        _index20DtoRe = service01.GetAsJumsuDataMU(_index20Dto);
+                    }else{
+                        _index20DtoRe = service01.GetAsJumsuDataYU(_index20Dto);
+                    }
+
+
+                    _indexDa023Dto.setCltcd(_index20DtoRe.getAcode());
+                    _indexDa023Dto.setMisdate(ls_misdate);
+                    _indexDa023Dto.setMisgubun("AA");
+                    _indexDa024Dto.setUserid(userid);
+                    _indexDa024Dto.setUsernm(usernm);
+                    _indexDa024Dto.setDevflag(_index20DtoRe.getAs_devflag());
+                    _indexDa024Dto.setUnsongnum(_index20DtoRe.getUnsongnum());
+                    ls_misnum = service14.SelectCheckMisnumMkflag(_indexDa023Dto);  //주문된 순번max 찾기
+                    if(ls_misnum == null){
+                        ls_misnum = "0001";
+                    }else{
+                        Integer ll_misnum = Integer.parseInt(ls_misnum) + 1;
+                        ls_misnum = ll_misnum.toString();
+                        if (ls_misnum.length() == 1){
+                            ls_misnum = "000" + ls_misnum;
+                        }else if(ls_misnum.length() == 2){
+                            ls_misnum = "00" + ls_misnum;
+                        }else {
+                            ls_misnum = "0" + ls_misnum;
+                        }
+                    }
+
+                    _indexDa023Dto.setMisnum(ls_misnum);
+                    _indexDa023Dto.setCltcd(_index20DtoRe.getAcode());
+                    _indexDa023Dto.setPerid("");
+                    _indexDa023Dto.setContamt(0);
+                    _indexDa023Dto.setAddamt(0);
+                    _indexDa023Dto.setAddamt(0);
+                    _indexDa023Dto.setMisamt(0);
+                    _indexDa023Dto.setAmt(0);
+                    _indexDa023Dto.setBillkind("1");     //0 미발행 1 발행 2 역발행 3 타사이트발행
+                    _indexDa023Dto.setTaxcls("0");       //0 부가세별도 1 부가세포함
+                    _indexDa023Dto.setTaxgubun("001");   //001 과세 002 비과세
+                    _indexDa023Dto.setBigo("");
+                    _indexDa023Dto.setRemark("");
+                    _indexDa023Dto.setSpjangnum(_index20DtoRe.getAs_acorp());
+                    _indexDa023Dto.setGubun("");
+
+
+                    _indexDa024Dto.setMisdate(ls_misdate);
+                    _indexDa024Dto.setMisnum(ls_misnum);
+                    _indexDa024Dto.setMisgubun("AA");
+                    _indexDa024Dto.setPcode(_index20DtoRe.getJkey());
+                    _indexDa024Dto.setPname(_index20DtoRe.getAs_yumu());
+                    _indexDa024Dto.setPsize("");
+                    _indexDa024Dto.setPbonsa(_index20DtoRe.getJbonsa_code2());
+                    _indexDa024Dto.setPmodel(_index20DtoRe.getJmodel_code2());
+                    _indexDa024Dto.setPcolor(_index20DtoRe.getJcolor_code());
+                    _indexDa024Dto.setCltcd(_index20DtoRe.getAcode());
+                    _indexDa024Dto.setAcorp(_index20DtoRe.getAs_acorp());
+                    _indexDa024Dto.setPernm(usernm);
+                    _indexDa024Dto.setPerid(userid);
+                    _indexDa024Dto.setJpb_gubn(_index20DtoRe.getJpb_gubn());
+
+                    _indexDa024Dto.setAddamt(0);
+                    _indexDa024Dto.setSeq("001");
+                    _indexDa024Dto.setQty(1);
+                    _indexDa024Dto.setMakflag("1");
+                    _indexDa024Dto.setMisdatetime(getToDateTime());
+                    _index20DtoRe.setMisdate(ls_misdate);
+                    _index20DtoRe.setMisnum(ls_misnum);
+                    _index20DtoRe.setMisflag("1");
+
+
+                    Integer ll_chulgoga = _index20DtoRe.getJchgoga0();
+                    if(ll_chulgoga > 0 ) {
+                        _indexDa024Dto.setUamt(ll_chulgoga);
+                        _indexDa024Dto.setAddamt(ll_chulgoga / 10);
+                        _indexDa024Dto.setAmt(ll_chulgoga + (ll_chulgoga / 10));
+                        _indexDa024Dto.setSamt(ll_chulgoga);
+                    }else{
+                        _indexDa024Dto.setUamt(0);
+                        _indexDa024Dto.setAddamt(0);
+                        _indexDa024Dto.setAmt(0);
+                        _indexDa024Dto.setSamt(0);
+                    };
+                    _indexDa024Dto.setIndate(getToDate());
+                    _indexDa024Dto.setInperid(userid);
+                    _indexDa024Dto.setPunit("EA");
+                    _indexDa024Dto.setRemarkaa("");
+                    _indexDa024Dto.setRemarkbb("");
+                    result = service14.InsertDa023(_indexDa023Dto);
+                    if (!result){
+                        return "error";
+                    }
+                    result = service14.InsertDa024Jumsu(_indexDa024Dto);
+                    if (!result){
+                        return "error";
+                    }
+                    result = service01.UpdateMisJupsu(_index20DtoRe);
+//                    log.info("setAs_date2  =====>" + ls_date2);
+//                    log.info("getMisdate  =====>" + indexDa024Dto.getMisdate());
+                    if (!result){
+                        return "error";
+                    }
+                }
+            }
+            return "success";
+
+        }catch (IllegalStateException e){
+            model.addAttribute("index21Deliv errorMessage", e.getMessage());
+            return "error";
+        }
+    }
 
     @RequestMapping(value="/index20/savedev")
     public String index20SaveDev(@RequestParam(value = "devnum01[]") List<String> devnum01
@@ -4641,11 +4827,16 @@ public class App01CrudController {
     public String GetMaxJupsu(Index20Dto asDto){
 
         String ls_seq = service01.SelectMaxJupsu(asDto);
-        if(ls_seq == null){
+        if(asDto.getAs_rnum() == null || asDto.getAs_rnum().length() == 0){
             ls_seq = "9001";
         }else{
-            Integer ll_misnum = Integer.parseInt(ls_seq) + 1;
-            ls_seq = ll_misnum.toString();
+            if(ls_seq == null){
+                Integer ll_misnum = Integer.parseInt(asDto.getAs_rnum()) + 1;
+                ls_seq = ll_misnum.toString();
+            }else{
+                Integer ll_misnum = Integer.parseInt(ls_seq) + 1;
+                ls_seq = ll_misnum.toString();
+            }
         }
         return ls_seq;
     }
@@ -4655,6 +4846,13 @@ public class App01CrudController {
         Date date      = new Date(System.currentTimeMillis());
 
         return formatter.format(date);
+    }
+
+    private String getToDateTime() {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
+        Date date      = new Date(System.currentTimeMillis());
+
+        return date.toString();
     }
 
 }

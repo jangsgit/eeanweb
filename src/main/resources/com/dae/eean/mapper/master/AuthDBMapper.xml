@@ -18,23 +18,23 @@
         select custcd, custnm from tb_xusers where len(custnm) > 0 group by custcd, custnm
     </select>
     <select id="GetFlagInfo" parameterType="com.dae.eean.DTO.UserFormDto"  resultType="com.dae.eean.DTO.UserFormDto">
-        select top 1 userid, passwd1,  username, actcd, actnm, saupnum, flag, phone, perid, pernm, useyn, role, dbnm, wrongnum, custcd, custnm, perid, pushid
+        select top 1 userid, passwd1,  username, actcd, actnm, saupnum, flag, phone, perid, pernm, useyn, role, dbnm, wrongnum, custcd, custnm, perid, pushid, rnum
         from TB_XUSERS where userid=#{userid} and passwd1=#{passwd1}
     </select>
     <select id="GetUserInfo" parameterType="com.dae.eean.DTO.UserFormDto"  resultType="com.dae.eean.DTO.UserFormDto">
-        select top 1 userid, passwd1,  username, actcd, actnm, saupnum, flag, phone, perid, pernm, useyn, role, dbnm, wrongnum, custcd, custnm, perid, pushid
+        select top 1 userid, passwd1,  username, actcd, actnm, saupnum, flag, phone, perid, pernm, useyn, role, dbnm, wrongnum, custcd, custnm, perid, pushid, rnum
          from TB_XUSERS where userid=#{userid} and passwd1=#{passwd1} and flag=#{flag}
     </select>
     <select id="GetAdminInfo" parameterType="com.dae.eean.DTO.UserFormDto"  resultType="com.dae.eean.DTO.UserFormDto">
-        select top 1 userid, passwd1,  username, actcd, actnm, saupnum, flag, phone, perid, pernm, useyn, role, dbnm, wrongnum, custcd, custnm, dbnm, pushid
+        select top 1 userid, passwd1,  username, actcd, actnm, saupnum, flag, phone, perid, pernm, useyn, role, dbnm, wrongnum, custcd, custnm, dbnm, pushid, rnum
         from TB_XUSERS where userid=#{userid} and passwd1=#{passwd1} and flag = #{flag}
     </select>
     <select id="GetUserInfoDto" parameterType="com.dae.eean.DTO.UserFormDto"  resultType="com.dae.eean.DTO.UserFormDto">
-        select top 1 userid, passwd1,  username, actcd, actnm, saupnum, flag, phone,  perid, pernm, useyn, role, dbnm, wrongnum, custcd, custnm, pushid
+        select top 1 userid, passwd1,  username, actcd, actnm, saupnum, flag, phone,  perid, pernm, useyn, role, dbnm, wrongnum, custcd, custnm, pushid, rnum
         from TB_XUSERS where userid=#{userid} and flag = #{flag}
     </select>
     <select id="GetUserInfoDto2" parameterType="com.dae.eean.DTO.UserFormDto"  resultType="com.dae.eean.DTO.UserFormDto">
-        select top 1 userid, passwd1,  username, actcd, actnm, saupnum, flag, phone,  perid, pernm, useyn, role, dbnm, wrongnum, custcd, custnm, pushid
+        select top 1 userid, passwd1,  username, actcd, actnm, saupnum, flag, phone,  perid, pernm, useyn, role, dbnm, wrongnum, custcd, custnm, pushid, rnum
         from TB_XUSERS where pernm=#{pernm} and flag = #{flag}
     </select>
     <select id="GetUserListDto" parameterType="com.dae.eean.DTO.UserFormDto"  resultType="com.dae.eean.DTO.UserFormDto">

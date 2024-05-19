@@ -28,6 +28,10 @@
                  ,as_memo3
                  ,as_devflag
                  ,as_devcode
+                 ,unsongnum
+                 ,misdate
+                 ,misnum
+                 ,misflag
                  , CONVERT(CHAR(19),as_devdate,20) as as_devdate
             from as_jupsu WITH (NOLOCK)
             WHERE isnull(as_acorp,'') Like concat('%',#{as_acorp},'%')
@@ -61,6 +65,10 @@
              ,as_memo3
              ,as_devflag
              ,as_devcode
+             ,unsongnum
+             ,misdate
+             ,misnum
+             ,misflag
              , CONVERT(CHAR(19),as_devdate,20) as as_devdate
         from as_jupsu WITH (NOLOCK)
         WHERE isnull(as_acorp,'') Like concat('%',#{as_acorp},'%')
@@ -93,6 +101,10 @@
              ,as_memo3
              ,as_devflag
              ,as_devcode
+             ,unsongnum
+             ,misdate
+             ,misnum
+             ,misflag
              , CONVERT(CHAR(19),as_devdate,20) as as_devdate
         from as_jupsu WITH (NOLOCK)
         where  as_key1 + convert(nvarchar(4), as_key2 )   in

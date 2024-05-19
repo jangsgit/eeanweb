@@ -843,12 +843,15 @@ public class App01Controller {
 
             List<Index01Dto> _index01UserDto = new ArrayList<>();
             List<Index01Dto> _index02UserDto = new ArrayList<>();
+            List<Index03Dto> _index03YumuDto = new ArrayList<>();
             HttpSession session = request.getSession();
             UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
             model.addAttribute("userformDto",userformDto);
             index01Dto.setCom_cls("002");
             index01ListDto    = service01.GetComcodeDetailList(index01Dto);
             _index01UserDto   = service01.getWperidlist(index01Dto);
+            _index03YumuDto   = service01.getAsyumulist(index03Dto);
+
             index01Dto.setCom_cls("003");
             _index02UserDto    = service01.GetComcodeDetailList(index01Dto);
 
@@ -856,6 +859,7 @@ public class App01Controller {
             popupListDto = svcpopup.getCifCodeList(popupDto);
 
             model.addAttribute("cifcodeList",popupListDto);
+            model.addAttribute("yumucodeList",_index03YumuDto);
             model.addAttribute("index01ListDto",index01ListDto);
             model.addAttribute("index01UserDto",_index01UserDto);
             model.addAttribute("index02ListDto",_index02UserDto);
