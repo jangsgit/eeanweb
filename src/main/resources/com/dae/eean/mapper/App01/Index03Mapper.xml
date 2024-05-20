@@ -136,8 +136,22 @@
 
 
     <select id="GetJpumFromJaegoList" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
+        <![CDATA[
+        select    jkey,  jpum  ,  jgugek , jsize,
+                jmodel_code, jcolor_code, jcustomer_code, 0 AS junqty, 0 AS ipsu, 0 AS chulsu , 0 as jqty
+        from JCODE3 WITH (NOLOCK)
+        WHERE   isnull(jkey,'') Like concat('%',#{jpum},'%')
+        and jsayong_gubn <> '4'
+        and isnull(jpb_gubn,'') Like concat('%',#{jpb_gubn},'%')
+        ORDER BY jkey,  jpum
+        ]]>
+    </select>
+
+
+
+    <select id="GetJpumFromJaegoList_PRC" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
         {
-        call SP_FromToJaegoList(#{frdate},#{todate}, #{jkey}, #{jpb_gubn})
+            call SP_FromToJaegoList(#{frdate},#{todate}, #{jkey}, #{jpb_gubn})
         }
     </select>
 
@@ -308,6 +322,11 @@
         ]]>
     </select>
 
+    <select id="GetGanListBonsa02_PRC" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
+        <![CDATA[
+                call SP_GanListBonsa02(#{frdate}, #{todate}, #{jpb_gubn}, #{jbonsa_code},#{jbonsa_code2}, #{jmodel_code})
+        ]]>
+    </select>
 
     <select id="GetGanListBonsa02" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
         <![CDATA[
@@ -339,11 +358,9 @@
                 union all
 
                 Select '1' as flag, A.misdate as jdate,   B.jkey, B.jpum, isnull(B.jgugek, '') as jgugek, B.jbonsa_code, B.jcolor_code, B.jmodel_code, 0 as ipsu, A.qty as chulsu
-                from  tb_da024 A WITH (NOLOCK), jcode3 B WITH (NOLOCK) , TB_DA023 C WITH (NOLOCK)
+                from  tb_da024 A WITH (NOLOCK), jcode3 B WITH (NOLOCK)
                 WHERE A.pcode = B.jkey
-                and A.misdate = C.misdate
-                and A.misnum = C.misnum
-                AND isnull(C.makflag, '0') = '1'
+                AND isnull(A.makflag, '0') = '1'
                 and isnull(A.fixflag, '0') = '1'
                 and A.misdate between #{frdate} and #{todate}
                 and  isnull(B.jkey,'') Like concat('%',#{jkey},'%')
@@ -370,11 +387,9 @@
                 union all
 
                 Select '1' as flag, A.misdate as jdate,   B.jkey, B.jpum, isnull(B.jgugek, '') as jgugek, B.jbonsa_code, B.jcolor_code, B.jmodel_code, 0 as ipsu, A.qty as chulsu
-                from  tb_da024 A WITH (NOLOCK), jcode3 B WITH (NOLOCK), TB_DA023 C WITH (NOLOCK)
+                from  tb_da024 A WITH (NOLOCK), jcode3 B WITH (NOLOCK)
                 WHERE A.pcode = B.jkey
-                and A.misdate = C.misdate
-                and A.misnum = C.misnum
-                AND isnull(C.makflag, '0') = '1'
+                AND isnull(A.makflag, '0') = '1'
                 and isnull(A.fixflag, '0') = '1'
                 and A.misdate between #{frdate} and #{todate}
                 and  isnull(B.jkey,'') Like concat('%',#{jkey},'%')

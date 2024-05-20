@@ -751,6 +751,10 @@ public class App01CrudController {
             if(jpbgubn == null || jpbgubn.equals("")){
                 jpbgubn = "%";
             }
+            log.info("jpbgubn =====>" + jpbgubn);
+            log.info("jbonsacode =====>" + jbonsacode);
+            log.info("jbonsacode2 =====>" + jbonsacode2);
+            log.info("jmodelcode =====>" + jmodelcode);
             index03Dto_S.setJpb_gubn(jpbgubn);
             index03Dto_S.setJbonsa_code(jbonsacode);
             index03Dto_S.setJbonsa_code2(jbonsacode2);
@@ -1020,7 +1024,7 @@ public class App01CrudController {
 //            log.info("002 ->" + _index03Dto.getFrdate());
 //            log.info("003 ->" + _index03Dto.getTodate());
             log.info("004 ->" + _index03Dto.getJpb_gubn());
-            _index03List = service03.GetJpumCustJaegoList_NEW(_index03Dto);
+            _index03List = service03.GetJpumCustJaegoList(_index03Dto);
             log.info("002 ->" + _index03Dto.getJpb_gubn());
             model.addAttribute("index03List",_index03List);
 
