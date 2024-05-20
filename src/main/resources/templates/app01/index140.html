@@ -11,15 +11,13 @@
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>   
-    <script>
-        // Prevent pull-to-refresh on mobile browsers
+    <!-- <script> 
         window.addEventListener('touchmove', function(event) {
           if (window.scrollY === 0 && event.touches[0].clientY > 0) {
             event.preventDefault();
           }
         }, { passive: false });
-        
-        // Additionally, prevent default behavior for touchstart and touchend
+         
         window.addEventListener('touchstart', function(event) {
           if (window.scrollY === 0 && event.touches[0].clientY > 0) {
             event.preventDefault();
@@ -31,7 +29,7 @@
             event.preventDefault();
           }
         }, { passive: false });
-      </script>    
+      </script>     -->
 </head> 
 <style>
     table, th, td {
