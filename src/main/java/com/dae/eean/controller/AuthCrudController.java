@@ -162,7 +162,7 @@ public class AuthCrudController {
         HttpSession session = request.getSession();
         session.setAttribute("userformDto",userformDto);
         //log.info("005 ========");
-        //log.info("usernm =====>" + userReturnDto.getUsername() );
+        log.info("usernm =====>" + userReturnDto.getUsername() );
         if(select.equals(userformDto.getFlag()) == false){
             userReturnDto = null;
             return userReturnDto;
