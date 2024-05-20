@@ -3709,7 +3709,7 @@ public class App01CrudController {
                     itemString[ll_count] = ls_misdate + misnumarr.get(i) + seqarr.get(i)  + cltcdarr.get(i);  //
                     ll_count++;
                     ls_tempItem = ls_misdate  + misnumarr.get(i) + seqarr.get(i) + cltcdarr.get(i);  //
-                    log.info("ls_tempItem =====>" + ls_tempItem);
+                    //log.info("ls_tempItem =====>" + ls_tempItem);
 //                    if (!mflag.equals("AA")){
 //                        _indexDa024Dto.setDevflag("1");
 //                        result = service14.UpdateDA024Dev(_indexDa024Dto);

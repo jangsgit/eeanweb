@@ -133,7 +133,7 @@ public class AuthCrudController {
         userformDto.setUserid(loginid);
         userformDto.setPasswd1(logpass);
 
-        log.info("001 ========");
+        //log.info("001 ========");
         UserFormDto userFlagDto = authService.GetFlagInfo(userformDto);
         if (userFlagDto == null){
             return 0;
@@ -141,7 +141,7 @@ public class AuthCrudController {
             select = userFlagDto.getFlag();
         }
         userformDto.setFlag(userFlagDto.getFlag());
-        log.info("002 ========");
+        //log.info("002 ========");
         UserFormDto userReturnDto = authService.GetUserInfo(userformDto);
         if (userReturnDto == null){
             return 0;
@@ -149,19 +149,19 @@ public class AuthCrudController {
         if(userReturnDto.getWrongnum().equals("3")){
             return userReturnDto;
         }
-        log.info("003 ========");
+       // log.info("003 ========");
         //authService.TB_XUSERS_LOGSUCC(userReturnDto);
         model.addAttribute("UserInfo", userReturnDto );
         userformDto.setUserid(loginid);
         userformDto.setFlag(select);
-        log.info("004 ========");
+        //log.info("004 ========");
 //        log.info("memberLoginForm Exception ================================================================");
 //        log.info(userformDto);
         userformDto =  authService.GetUserInfoDto(userformDto);
 
         HttpSession session = request.getSession();
         session.setAttribute("userformDto",userformDto);
-        log.info("005 ========");
+        //log.info("005 ========");
         //log.info("usernm =====>" + userReturnDto.getUsername() );
         if(select.equals(userformDto.getFlag()) == false){
             userReturnDto = null;
