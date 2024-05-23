@@ -79,7 +79,7 @@
                                                 <div class="input-group input-group-sm mb-3"> 
                                                     <input type="text"  class="form-control datetimepicker" id="todate" autocomplete="off"  placeholder="Y-m-d"     >
                                                 </div>
-                                            </div>   
+                                            </div>  
                                             <!-- <div class="col-2 col-sm-2">
                                                 <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">거래처</span> 
                                                     <input class="form-control form-control-sm" id="bcifname" type="text"    autocomplete="off"  placeholder=""     >
@@ -135,7 +135,15 @@
                                                     <option value="1">확정</option>
                                                     <option value="0">미확정</option>
                                                   </select> 
-                                            </div>   -->
+                                            </div>   --> 
+                                            <div class="col-1 col-sm-1">
+                                                <select class="form-select form-select-sm" id="misfixflag" aria-label=".form-select-sm example">
+                                                    <option selected="">출력구분</option>
+                                                    <option value="%">전체</option>
+                                                    <option value="1">출력</option>
+                                                    <option value="0">미출력</option>
+                                                  </select> 
+                                            </div>  
                                             <div class="col-1 col-sm-1">  
                                                 <button class="btn btn-falcon-primary me-1 mb-1 btn-sm" id="listBtn" type="button"  >조회
                                                 </button>
@@ -581,6 +589,8 @@
         function searchList_rtn(arg1){ 
             switch(arg1){ 
                 case 'A': 
+                misfixflag  
+                    var ls_misfixflag = document.getElementById('misfixflag').value; 
                     var ls_frdate = document.getElementById('frdate').value; 
                     var ls_todate = document.getElementById('todate').value;          
                     var ls_bacode   = document.getElementById('bacode').value;    
@@ -589,7 +599,10 @@
                     var ls_jpumnm   = document.getElementById('jpumnm').value; 
                     var ls_abonsadam1   = document.getElementById('abonsadam1').value; 
                     var ls_bjpbgubn = document.getElementById('bjpbgubn').value;  
-                    
+                     
+                    if(ls_misfixflag == "출력구분"){ 
+                        ls_misfixflag = "%";
+                    }  
                     if(ls_frdate == null || ls_frdate.length == 0 || ls_frdate == ""){ 
                         alert("조회일자를 등록하세요") 
                         document.getElementById("frdate").focus(); 
@@ -627,7 +640,7 @@
                             "acode"      : ls_bacode,        
                             "jcode"    : ls_jkey,     
                             "perid"      : ls_abonsadam1, 
-                            "fixflag"    : '%',
+                            "fixflag"    : ls_misfixflag,
                             "devflag"    : '%',
                             "misgubun"    : '%',
                             "jpbgubn"    : '%',
