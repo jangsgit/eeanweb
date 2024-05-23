@@ -76,5 +76,7 @@ public class IndexDa024Dto {
     private String jpb_gubn;
     private String userid;
     private String usernm;
+    private String deluser;
+    private String deluserid;
 
 }

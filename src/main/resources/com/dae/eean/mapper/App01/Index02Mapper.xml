@@ -16,6 +16,7 @@
             LEFT OUTER JOIN INSA D WITH(NOLOCK) ON (cif.abonsadam3 = D.insano)
             LEFT OUTER JOIN cifcode E WITH(NOLOCK) ON (cif.acorp1 = E.cifcode)
             WHERE isnull(acorp,'') Like concat('%',#{acorp},'%')
+            and isnull(delflag,'') <> '1'
             ORDER BY acorp
         ]]>
     </select>

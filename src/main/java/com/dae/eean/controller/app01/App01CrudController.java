@@ -713,7 +713,12 @@ public class App01CrudController {
             }
             index03Dto_S.setJbonsa_code(jbonsacode);
             index03Dto_S.setJpb_gubn(jpbgubn);
-            _index03List = service03.GetGanListBonsa01(index03Dto_S);
+            if(flag.equals("AA")) {
+                _index03List = service03.GetGanListBonsa01(index03Dto_S);
+            }else{
+                _index03List = service03.GetGanListBonsa01BB(index03Dto_S);
+            }
+
             model.addAttribute("index03GanList01",_index03List);
 
         } catch (Exception ex) {
@@ -1861,6 +1866,8 @@ public class App01CrudController {
                         _indexDa024Dto.setMisdate(ls_misdate);
                         _indexDa024Dto.setMisnum(misnumArr.get(i));
                         _indexDa024Dto.setSeq(seqArr.get(i));
+                        _indexDa024Dto.setDeluserid(userid);
+                        _indexDa024Dto.setDeluser(usernm);
                         result = service14.DeleteDA024Mkflag(_indexDa024Dto);
                         if (!result){
                             log.info("error  =====> " + result);
@@ -1870,6 +1877,11 @@ public class App01CrudController {
                         if (!result){
                             //return "error";
                         }
+                        result = service14.UpdateDA024Del(_indexDa024Dto);
+                        if (!result){
+                            //return "error";
+                        }
+
                     }
                 }
                 return "success";
@@ -1930,9 +1942,15 @@ public class App01CrudController {
                         _indexDa024Dto.setMisdate(ls_misdate);
                         _indexDa024Dto.setMisnum(misnumArr.get(i));
                         _indexDa024Dto.setSeq(seqArr.get(i));
+                        _indexDa024Dto.setDeluserid(userid);
+                        _indexDa024Dto.setDeluser(usernm);
                         result = service14.DeleteDA026Mkflag(_indexDa024Dto);
                         if (!result){
                             return "error";
+                        }
+                        result = service14.UpdateDA026Del(_indexDa024Dto);
+                        if (!result){
+                            //return "error";
                         }
                     }
                 }
@@ -2508,6 +2526,7 @@ public class App01CrudController {
             _indexDa024Dto.setFixflag(fixflag);
             _indexDa024Dto.setMakflag(makflag);
             _indexDa024Dto.setPcode(jcode);
+            _indexDa024Dto.setJpb_gubn(jpbgubn);
             if(perid == null || perid.equals("")){
                 perid = "%";
             }
@@ -2530,7 +2549,7 @@ public class App01CrudController {
             }
             _indexDa024Dto.setPerid(perid);
             //indexDa024Dto.setMisgubun(mflag);
-            //log.info("misgubun =====>" + misgubun);
+            //log.info("jpbgubn =====>" + jpbgubn);
             _indexDa024ListDto = service14.SelectDa024ListDel(_indexDa024Dto);
             model.addAttribute("indexDa024ListDto",_indexDa024ListDto);
 
@@ -3867,6 +3886,8 @@ public class App01CrudController {
             ,@RequestParam( value =  "cltcdarr[]") List<String> cltcdarr
             ,@RequestParam( value =  "gubunarr[]") List<String> gubunarr
             ,@RequestParam("mflag") String mflag
+            ,@RequestParam("userid") String userid
+            ,@RequestParam("usernm") String usernm
             , Model model
             , HttpServletRequest request){
 
@@ -3886,11 +3907,17 @@ public class App01CrudController {
                     _indexDa024Dto.setSeq(seqarr.get(i));
                     _indexDa024Dto.setCltcd(cltcdarr.get(i));
                     _indexDa024Dto.setMisgubun(gubunarr.get(i));
+                    _indexDa024Dto.setDeluser(usernm);
+                    _indexDa024Dto.setDeluserid(userid);
                     result = service14.DeleteDA024(_indexDa024Dto);
                     if (!result){
                         return "error";
                     }
                     result = service14.DeleteDA023(_indexDa024Dto);
+                    if (!result){
+                        //return "error";
+                    }
+                    result = service14.UpdateDA024Del(_indexDa024Dto);
                     if (!result){
                         //return "error";
                     }
@@ -4140,6 +4167,8 @@ public class App01CrudController {
             ,@RequestParam( value =  "cltcdarr[]") List<String> cltcdarr
             ,@RequestParam( value =  "gubunarr[]") List<String> gubunarr
             ,@RequestParam("mflag") String mflag
+            ,@RequestParam("userid") String userid
+            ,@RequestParam("usernm") String usernm
             , Model model
             , HttpServletRequest request){
 
@@ -4157,11 +4186,17 @@ public class App01CrudController {
                     _indexDa024Dto.setSeq(seqarr.get(i));
                     _indexDa024Dto.setCltcd(cltcdarr.get(i));
                     _indexDa024Dto.setMisgubun(gubunarr.get(i));
+                    _indexDa024Dto.setDeluserid(userid);
+                    _indexDa024Dto.setDeluser(usernm);
                     result = service14.DeleteDA026(_indexDa024Dto);
                     if (!result){
                         return "error";
                     }
                     result = service14.DeleteDA025(_indexDa024Dto);
+                    if (!result){
+                        //return "error";
+                    }
+                    result = service14.UpdateDA026Del(_indexDa024Dto);
                     if (!result){
                         //return "error";
                     }

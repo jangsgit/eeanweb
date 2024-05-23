@@ -183,6 +183,8 @@
                       isnull(B.remarkbb,'') as remarkbb,
                       isnull(B.makflag, '0') as makflag,
                       B.unsongnum as unsongnum,
+                      B.deluser,
+                      B.deluserid,
                       B.amt, A.acorp, pbonsa, pmodel, pcolor , D.inname, B.misgubun, isnull(B.fixflag,'0') as fixflag,isnull(B.devflag,'0') as devflag,   D.inname as pernm ,  B.deltime, B.fixdatetime
                   from  TB_DA024_DEL B WITH (NOLOCK) ,
                       cif A WITH (NOLOCK) Left outer JOIN INSA D ON  A.abonsadam1 = D.insano
@@ -191,6 +193,7 @@
                     AND B.misdate between #{frdate} and #{todate}
                     AND Isnull(B.misgubun, '') Like concat('%',#{misgubun},'%')
                     AND Isnull(B.pcode, '') Like concat('%',#{pcode},'%')
+                    and isnull(B.jpb_gubn,'') Like concat('%',#{jpb_gubn},'%')
                   ORDER BY B.misdate desc, B.misnum, B.seq
         ]]>
 
@@ -818,6 +821,12 @@
     </update>
 
 
+    <update id="UpdateDA024Del" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
+        UPDATE tb_da024_del SET deluserid=#{deluserid}, deluser=#{deluser}
+        where misdate=#{misdate} and misnum=#{misnum} and seq = #{seq}  and cltcd = #{cltcd}
+    </update>
+
+
     <delete id="DeleteDA024Mkflag" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
         delete from tb_da024
         where  cltcd = #{cltcd}  and  misdate =#{misdate} and misnum =  #{misnum} and seq  =  #{seq}
@@ -834,6 +843,12 @@
         UPDATE tb_da026 SET
         fixflag=#{fixflag}, omisdate=#{omisdate}, omisnum=#{omisnum}, oseq=#{oseq}
         where misdate=#{misdate} and misnum=#{misnum} and  seq=#{seq} and cltcd = #{cltcd} and misgubun = #{misgubun}
+    </update>
+
+
+    <update id="UpdateDA026Del" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
+        UPDATE tb_da026_del SET  deluserid=#{deluserid}, deluser=#{deluser}
+        where misdate=#{misdate} and misnum=#{misnum} and  seq=#{seq} and cltcd = #{cltcd}
     </update>
 
 

@@ -585,6 +585,8 @@
          var ll_sumsamt = 0; 
          var ll_sumaddamt = 0; 
          var ll_sumamt= 0
+         var gsUserid = "";                             
+         var gsUsernm  = ""; 
 
         var wseries_data = [0]; 
         let includeColumnHeader = false;
@@ -1249,7 +1251,9 @@
                             "cltcdarr"  : cltcdArr     , 
                             "gubunarr"  : gubunArr     ,  
                             "mflag"  : 'AA'   ,      
-                            "ordercd"  : 'AA'   , 
+                            "ordercd"  : 'AA'    ,
+                            "userid"  : gsUserid   ,      
+                            "usernm"  : gsUsernm  
                         }, 
                         async:false,
                         success:function(data){   
@@ -1380,7 +1384,9 @@
                             "cltcdarr"  : cltcdWArr     , 
                             "gubunarr"  : gubunWArr     ,  
                             "mflag"  : 'AA'   ,      
-                            "ordercd"  : 'AA'   , 
+                            "ordercd"  : 'AA'     ,
+                            "userid"  : gsUserid   ,      
+                            "usernm"  : gsUsernm  
                         }, 
                         async:false,
                         success:function(data){   
@@ -3776,6 +3782,8 @@
     }
 
     function fn_egov_init_date(){ 
+        gsUserid = window.localStorage.getItem("userid");                             
+        gsUsernm = window.localStorage.getItem("username");
         document.getElementById('misfixflag').value = "0";
         document.getElementById('wishfixflag').value = "0";
         document.getElementById('misgubunflag').value = "%";

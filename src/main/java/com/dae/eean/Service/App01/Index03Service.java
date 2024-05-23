@@ -25,6 +25,10 @@ public class Index03Service {
     public List<Index03Dto> GetGanListBonsa01(Index03Dto parm){
         return  appMapper.GetGanListBonsa01(parm);
     }
+    public List<Index03Dto> GetGanListBonsa01BB(Index03Dto parm){
+        return  appMapper.GetGanListBonsa01BB(parm);
+    }
+
     public List<Index03Dto> GetGanListBonsa02(Index03Dto parm){
         return  appMapper.GetGanListBonsa02(parm);
     }

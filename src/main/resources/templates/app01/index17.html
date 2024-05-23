@@ -612,7 +612,9 @@
                     deltime: wtab01Dto[i]["deltime"],     
                     remarkaa: wtab01Dto[i]["remarkaa"],  
                     remarkbb: wtab01Dto[i]["remarkbb"],    
-                    fixdatetime: wtab01Dto[i]["fixdatetime"],     
+                    fixdatetime: wtab01Dto[i]["fixdatetime"],   
+                    deluser: wtab01Dto[i]["deluser"],  
+                    deluserid: wtab01Dto[i]["deluserid"],    
                     fixflag: bfixflag,                                           
                 });
                 cnt++;
@@ -687,6 +689,18 @@
             cols = new wijmo.grid.Column(); 
             cols.binding = 'deltime';
             cols.header = '삭제일자';
+            cols.align = "center"; 
+            cols.width = 200;  
+            wtab01Grid.columns.push(cols);        
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'deluserid';
+            cols.header = '삭제ID';
+            cols.align = "center"; 
+            cols.width = 120;  
+            wtab01Grid.columns.push(cols);          
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'deluser';
+            cols.header = '삭제User';
             cols.align = "center"; 
             cols.width = 200;  
             wtab01Grid.columns.push(cols);         
@@ -1034,7 +1048,8 @@
         const ls_role = window.localStorage.getItem("role");  
         if(ls_role == null || ls_role.length == 0 || ls_role == ""){ 
             ls_role = '%'             
-        }  
+        }   
+        document.getElementById('bjpbgubn').value = ls_role;
         lsUserid = window.localStorage.getItem("userid")
         // if (lsUserid == "pvadmin"){ 
         //     document.getElementById('bjpbgubn').value = "P";  

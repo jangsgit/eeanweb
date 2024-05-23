@@ -280,13 +280,10 @@ public class App01Controller {
     }
 
 
+
     //주문등록
     @GetMapping(value="/index150")
-    public Object App150_index( @RequestParam("userid") String userid,
-                                @RequestParam("flag") String flag,
-                                @RequestParam("role") String role,
-                                @RequestParam("perid") String perid,
-                                Model model, HttpServletRequest request) throws Exception{
+    public Object App150_index( Model model, HttpServletRequest request) throws Exception{
         List<Index03Dto> _index03List = new ArrayList<>();
         Index03Dto _index03Dto = new Index03Dto();
         String ls_flag, ls_userid, ls_role, ls_perid;
@@ -299,31 +296,28 @@ public class App01Controller {
             UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
             model.addAttribute("userformDto",userformDto);
 
-            ls_flag = flag;
-            ls_userid = userid;
-            ls_role = role;
-            ls_perid = perid;
-            if(ls_flag.equals("AA")){
-                if(ls_userid.substring(0,2).equals("pv")){
-                    _index03Dto.setJpb_gubn("P");
-                }else if(ls_userid.substring(0,2).equals("bl")){
-                    _index03Dto.setJpb_gubn("B");
-                }else{
-                    _index03Dto.setJpb_gubn("%");
-                }
-                _index03List = service03.GetJcustomCode_BB(index03Dto);
-            }else if(ls_flag.equals("BB")){
-                if(ls_perid.substring(0,2).equals("02")){
-                    _index03Dto.setJpb_gubn("P");
-                }else{
-                    _index03Dto.setJpb_gubn("B");
-                }
-                _index03List = service03.GetJcustomCode_BB(index03Dto);
-            }else{
-                _index03Dto.setJpb_gubn(ls_role);
-                _index03List = service03.GetJcustomCode_CC(_index03Dto);
-            }
-
+//            if(ls_flag.equals("AA")){
+//                if(ls_userid.substring(0,2).equals("pv")){
+//                    _index03Dto.setJpb_gubn("P");
+//                }else if(ls_userid.substring(0,2).equals("bl")){
+//                    _index03Dto.setJpb_gubn("B");
+//                }else{
+//                    _index03Dto.setJpb_gubn("%");
+//                }
+//                _index03List = service03.GetJcustomCode_BB(index03Dto);
+//            }else if(ls_flag.equals("BB")){
+//                if(ls_perid.substring(0,2).equals("02")){
+//                    _index03Dto.setJpb_gubn("P");
+//                }else{
+//                    _index03Dto.setJpb_gubn("B");
+//                }
+//                _index03List = service03.GetJcustomCode_BB(index03Dto);
+//            }else{
+//                _index03Dto.setJpb_gubn(ls_role);
+//                _index03List = service03.GetJcustomCode_CC(_index03Dto);
+//            }
+            _index03Dto.setJpb_gubn("P");
+            _index03List = service03.GetJcustomCode_BB(_index03Dto);
             model.addAttribute("index15List",_index03List);
         } catch (Exception ex) {
             log.info("App150_index Exception ================================================================");
@@ -371,8 +365,7 @@ public class App01Controller {
 
     //주문등록
     @GetMapping(value="/index150c")
-    public Object App150C_index( @RequestParam("perid") String perid,
-                                 Model model, HttpServletRequest request) throws Exception{
+    public Object App150C_index(  Model model, HttpServletRequest request) throws Exception{
         Index03Dto _index03Dto = new Index03Dto();
         CommDto.setMenuTitle("영업사원일반등록");
         CommDto.setMenuUrl("기준정보>영업사원일반주문등록");
@@ -381,11 +374,12 @@ public class App01Controller {
             HttpSession session = request.getSession();
             UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
             model.addAttribute("userformDto",userformDto);
-            if(perid.substring(0,2).equals("02")){
-                _index03Dto.setJpb_gubn("P");
-            }else{
-                _index03Dto.setJpb_gubn("B");
-            }
+//            if(perid.substring(0,2).equals("02")){
+//                _index03Dto.setJpb_gubn("P");
+//            }else{
+//                _index03Dto.setJpb_gubn("B");
+//            }
+            _index03Dto.setJpb_gubn("P");
             index03List = service03.GetJcustomCode_BB(_index03Dto);
 
             model.addAttribute("index15List",index03List);

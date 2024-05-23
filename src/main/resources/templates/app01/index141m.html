@@ -590,7 +590,8 @@
                     inname: wtab02Dto[i]["inname"],   
                     misgubun: wtab02Dto[i]["misgubun"],                 
                     remark: wtab02Dto[i]["remarkbb"],                   
-                    fixdatetime: wtab02Dto[i]["fixdatetime"],     
+                    fixdatetime: wtab02Dto[i]["fixdatetime"],              
+                    misdatetime: wtab02Dto[i]["misdatetime"],   
                     unsongnum: ls_unsongnum,        
                     fixflag: bfixflag,                                               
                 });
@@ -704,7 +705,19 @@
             cols.header = '운송장번호';
             cols.align = "center";
             cols.width = 160;  
-            wtab02Grid.columns.push(cols);    
+            wtab02Grid.columns.push(cols);        
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'misdatetime';
+            cols.header = '주문시간';
+            cols.align = "center";
+            cols.width = 200;  
+            wtab02Grid.columns.push(cols);      
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'fixdatetime';
+            cols.header = '출력시간';
+            cols.align = "center";
+            cols.width = 200;  
+            wtab02Grid.columns.push(cols);     
             // cols = new wijmo.grid.Column(); 
             // cols.binding = 'fixflag'; 
             // cols.header = '확정';

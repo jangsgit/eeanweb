@@ -366,7 +366,9 @@
                     { binding: 'qty', header: '수량', align: "center", width: 80 },  
                     { binding: 'uamt', header: '단가', align: "center", width: 100 },  
                     { binding: 'samt', header: '금액', align: "center", width: 150 },     
-                    { binding: 'remark', header: '요청사항', align: "center", width: 150 },  
+                    { binding: 'remark', header: '요청사항', align: "center", width: 150 },    
+                    { binding: 'remark', header: '주문시간', align: "center", width: 150 },    
+                    { binding: 'remark', header: '출력시간', align: "center", width: 150 },  
                     // { binding: 'fixflag', header: '확정', align: "center", width: 150, cssClass: 'switch'   },  
                 ], 
                 itemsSource: view_p01tab02page,
@@ -703,7 +705,9 @@
                     cltcd: wtab02Dto[i]["cltcd"],   
                     inname: wtab02Dto[i]["inname"],   
                     misgubun: wtab02Dto[i]["misgubun"],                 
-                    remark: wtab02Dto[i]["remarkbb"],     
+                    remark: wtab02Dto[i]["remarkbb"],   
+                    fixdatetime: wtab02Dto[i]["fixdatetime"],  
+                    misdatetime: wtab02Dto[i]["misdatetime"],    
                     unsongnum: ls_unsongnum,        
                     fixflag: bfixflag,                                               
                 });
@@ -810,7 +814,19 @@
             cols.binding = 'unsongnum';
             cols.header = '운송장번호';
             cols.align = "center";
-            cols.width = 160;  
+            cols.width = 200;  
+            wtab02Grid.columns.push(cols);      
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'misdatetime';
+            cols.header = '주문시간';
+            cols.align = "center";
+            cols.width = 200;  
+            wtab02Grid.columns.push(cols);      
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'fixdatetime';
+            cols.header = '출력시간';
+            cols.align = "center";
+            cols.width = 200;  
             wtab02Grid.columns.push(cols);    
             // cols = new wijmo.grid.Column(); 
             // cols.binding = 'fixflag'; 
