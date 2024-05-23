@@ -2361,7 +2361,17 @@ public class App01CrudController {
             _indexDa024Dto.setPerid(perid);
             _indexDa024Dto.setJfrdate("20000101");
             _indexDa024Dto.setJtodate(todate);
-//            log.info("misgubun1 =====>" + misgubun);
+//            log.info("frdate =====>" + frdate);
+//            log.info("todate =====>" + todate);
+//            log.info("acode =====>" + acode);
+//            log.info("jcode =====>" + jcode);
+//            log.info("perid =====>" + perid);
+//            log.info("fixflag =====>" + fixflag);
+//            log.info("devflag =====>" + devflag);
+//            log.info("misgubun =====>" + misgubun);
+//            log.info("jpbgubn =====>" + jpbgubn);
+//            log.info("makflag =====>" + misgubun);
+//            log.info("mflag =====>" + mflag);
             if(acode.equals("%")){
                 _indexDa024ListDto = service14.SelectDa024ListLike(_indexDa024Dto);
             }else{
