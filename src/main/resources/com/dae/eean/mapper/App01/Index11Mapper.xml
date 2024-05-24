@@ -22,7 +22,8 @@
                  ,as_damdang
                  ,as_memo2
                  ,as_memo3
-                 ,trim(as_aname) as as_aname
+                 ,as_aname
+                 ,B.com_REM1 as as_comrem
                  ,as_key4
                  ,Left(as_date2,10) as as_date2
                  ,as_memo3
@@ -34,10 +35,11 @@
                  ,misflag
                  , CONVERT(CHAR(19),as_devdate,20) as as_devdate
             from as_jupsu WITH (NOLOCK)
+                LEFT JOIN TB_CA510 B ON com_code <> '00' and com_cls = '002' and com_code=as_jupsu.as_aname
             WHERE isnull(as_acorp,'') Like concat('%',#{as_acorp},'%')
             and as_key1 between #{frdate} and #{todate}
             and isnull(as_devflag,'') Like concat('%',#{as_devflag},'%')
-            ORDER BY as_key1, as_key2
+            ORDER BY as_key1 desc, as_key2
         ]]>
     </select>
 
@@ -59,7 +61,8 @@
              ,as_computer
              ,as_damdang
              ,as_memo2
-             ,as_aname
+             ,trim(as_aname) as as_name
+             ,B.com_REM1 as as_comrem
              ,as_key4
              ,Left(as_date2,10) as as_date2
              ,as_memo3
@@ -71,9 +74,10 @@
              ,misflag
              , CONVERT(CHAR(19),as_devdate,20) as as_devdate
         from as_jupsu WITH (NOLOCK)
+             LEFT JOIN TB_CA510 B ON com_code <> '00' and com_cls = '002' and com_code=as_jupsu.as_aname
         WHERE isnull(as_acorp,'') Like concat('%',#{as_acorp},'%')
           and as_key1 between #{frdate} and #{todate} and isnull(as_devflag,'0') Like concat('%',#{as_devflag},'%')
-        ORDER BY as_key1, as_key2
+        ORDER BY as_key1 desc, as_key2
         ]]>
     </select>
 
@@ -95,7 +99,7 @@
              ,as_computer
              ,as_damdang
              ,as_memo2
-             ,as_aname
+             ,trim(as_aname) as as_name
              ,as_key4
              ,Left(as_date2,10) as as_date2
              ,as_memo3

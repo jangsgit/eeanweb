@@ -1527,13 +1527,13 @@
             var wtab01_data = [];
             var cnt = 1;
             var bfixflag= false;
-            console.log(wtab01Dto)
+            var ls_aname = ''
             for (var i = 0; i < wtab01Dto.length; i++) {
                 if(wtab01Dto[i]["as_devflag"] == "1"){
                     bfixflag = true;
                 }else{
                     bfixflag = false;
-                }
+                }  
                 wtab01_data.push({
                     id: i, 
                     index: cnt,
@@ -1542,7 +1542,7 @@
                     as_model:  wtab01Dto[i]["as_model"], 
                     as_color:  wtab01Dto[i]["as_color"], 
                     as_suri:  wtab01Dto[i]["as_suri"], 
-                    as_yumu:  wtab01Dto[i]["as_yumu"], 
+                    as_yumu:  wtab01Dto[i]["as_yumu"],   
                     as_gongjang:  wtab01Dto[i]["as_gongjang"], 
                     as_acorp:  wtab01Dto[i]["as_acorp"], 
                     as_acorp1:  wtab01Dto[i]["as_acorp1"], 
@@ -1558,7 +1558,9 @@
                     as_devdate:  wtab01Dto[i]["as_devdate"],  
                     unsongnum:  wtab01Dto[i]["unsongnum"],    
                     misdate:  wtab01Dto[i]["misdate"],    
-                    misnum:  wtab01Dto[i]["misnum"],   
+                    misnum:  wtab01Dto[i]["misnum"],  
+                    as_comrem:  wtab01Dto[i]["as_comrem"],  
+                     
                     as_devflag:  bfixflag,                                                 
                 });
                 cnt++;
@@ -1648,7 +1650,7 @@
             cols.width = 80;  
             wtab01Grid.columns.push(cols);    
             cols = new wijmo.grid.Column(); 
-            cols.binding = 'as_aname';
+            cols.binding = 'as_comrem';
             cols.header = '구분';
             cols.align = "center";
             cols.width = 80;  
