@@ -243,13 +243,14 @@ public class App01Controller {
             ls_role = role;
             ls_perid = perid;
             if(ls_flag.equals("AA")){
-                if(ls_userid.substring(0,2).equals("pv")){
-                    _index03Dto.setJpb_gubn("P");
-                }else if(ls_userid.substring(0,2).equals("bl")){
-                    _index03Dto.setJpb_gubn("B");
-                }else{
-                    _index03Dto.setJpb_gubn("%");
-                }
+                _index03Dto.setJpb_gubn(ls_role);
+//                if(ls_userid.substring(0,2).equals("pv")){
+//                    _index03Dto.setJpb_gubn("P");
+//                }else if(ls_userid.substring(0,2).equals("bl")){
+//                    _index03Dto.setJpb_gubn("B");
+//                }else{
+//                    _index03Dto.setJpb_gubn("%");
+//                }
 //                log.info("flag =====>" + flag);
 //                log.info("userid =====>" + userid);
 //                log.info("getJpb_gubn =====>" + _index03Dto.getJpb_gubn());
