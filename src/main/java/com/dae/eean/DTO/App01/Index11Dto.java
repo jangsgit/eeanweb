@@ -45,6 +45,7 @@ public class Index11Dto {
     private String jpb_gubn;
     private Integer jchgoga0;
     private String acode;
+    private String ascode;
     private String as_comrem;
 
 }

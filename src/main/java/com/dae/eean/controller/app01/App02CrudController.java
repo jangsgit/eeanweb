@@ -60,7 +60,7 @@ public class App02CrudController {
             if(asacorp == null || asacorp.equals("")){
                 asacorp = "%";
             }
-            index11Dto.setAs_acorp(asacorp);
+            index11Dto.setAscode(asacorp);
             index11Dto.setFrdate(frdate);
             index11Dto.setTodate(todate);
             index11Dto.setAs_devflag(asflag);

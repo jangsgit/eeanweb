@@ -4540,8 +4540,14 @@ public class App01CrudController {
                 for(int i = 0; i < asKey1Arr.size(); i++){
                     _index20Dto.setAs_key1(asKey1Arr.get(i));
                     _index20Dto.setAs_key2(asKey2Arr.get(i));
+                    log.info("asKey1Arr =====>" + _index20Dto.getAs_key1());
+                    log.info("asKey2Arr =====>" + _index20Dto.getAs_key2());
                     _index20DtoRe = service01.GetAsJumsuDataMU(_index20Dto);
-                    if(_index20DtoRe.getMisflag().equals("1")){
+                    String ls_misdate = _index20DtoRe.getMisdate();
+                    if(ls_misdate == null || ls_misdate.equals("")){
+                        ls_misdate = "";
+                    }
+                    if(ls_misdate.length() > 0 ){
                         _indexDa024Dto.setMisdate(_index20DtoRe.getMisdate());
                         _indexDa024Dto.setMisnum(_index20DtoRe.getMisnum());
                         _indexDa024Dto.setCltcd(_index20DtoRe.getAcode());

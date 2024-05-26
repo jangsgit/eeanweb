@@ -75,7 +75,7 @@
 
     <select id="GetAsJumsuDataYU" parameterType="com.dae.eean.DTO.App01.Index20Dto" resultType="com.dae.eean.DTO.App01.Index20Dto">
         <![CDATA[
-            select   as_key1, as_key2, as_model ,as_color, as_suri, as_yumu,as_memo,as_gongjang,as_acorp,as_acorp1,as_acorp2,as_acorp3, as_acorp1 + CAST(as_acorp1 as varchar) as acode,
+            select   as_key1, as_key2, as_model ,as_color, as_suri, as_yumu,as_memo,as_gongjang,as_acorp,as_acorp1,as_acorp2,as_acorp3, '' as acode,
                      as_computer,as_damdang,as_memo2,as_aname,as_key4,as_date2,as_memo3, as_devflag, D.jkey, D.jchgoga0, D.jbonsa_code2, D.jmodel_code2, D.jcolor_code, D.jpb_gubn,
                      unsongnum, as_devflag, misflag, misdate, misnum
             from as_jupsu  WITH (NOLOCK)
@@ -88,7 +88,7 @@
 
     <select id="GetAsJumsuDataMU" parameterType="com.dae.eean.DTO.App01.Index20Dto" resultType="com.dae.eean.DTO.App01.Index20Dto">
         <![CDATA[
-            select   as_key1, as_key2, as_model ,as_color, as_suri, as_yumu,as_memo,as_gongjang,as_acorp,as_acorp1,as_acorp2,as_acorp3, as_acorp1 + CAST(as_acorp1 as varchar) as acode,
+            select   as_key1, as_key2, as_model ,as_color, as_suri, as_yumu,as_memo,as_gongjang,as_acorp,as_acorp1,as_acorp2,as_acorp3, '' as acode,
                      as_computer,as_damdang,as_memo2,as_aname,as_key4,as_date2,as_memo3, as_devflag, '' AS jkey,
                      0 AS jchgoga0, '' AS  jbonsa_code2, '' AS jmodel_code2, '' AS jcolor_code, '' AS jpb_gubn,
                      unsongnum, as_devflag, misflag, misdate, misnum

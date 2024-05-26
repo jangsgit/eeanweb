@@ -133,11 +133,9 @@
                                             </td>                                        
                                             <th>구분</th> 
                                             <td >
-                                                <select class="form-select" id="agita" aria-label="Default select example" >  <!--onchange="CahngeSlect(this.value)"-->
-                                                    <option selected="">거래구분</option>
-                                                    <option value="1">크레딧</option>
-                                                    <option value="2">비거래</option> 
-                                                  </select>                                                                  
+                                                <select class="form-select" th:field="*{index01ListDto}" name="agita" id="agita"> 
+                                                    <option th:each="val : ${index01ListDto}" th:value="${val.com_code}" th:text="${val.com_rem1}">
+                                                </select>                                                                                                                        
                                             </td>                                                     
                                         </tr>
                                         <tr> 
@@ -453,7 +451,7 @@
                         }
                     })
                 }, 
-                { binding: 'acorp', header: '거래처명', align: "left", width: 160 },  
+                { binding: 'acorp', header: '거래처명', align: "left", width: 200 },  
                 { binding: 'atelno', header: '전화번호', align: "center", width: 150 },                      
                 { binding: 'aemail', header: '메일', align: "left", width: 200 },  
                 { binding: 'ajusotxt', header: '주소', align: "center", width: 200 },   
@@ -1345,7 +1343,7 @@
         //  ctx.item.ajong,ctx.item.apost1, ctx.item.ajuso1, ctx.item.ajuso2, ctx.item.abigo, ctx.item.agita, ctx.item.ajumi1, ctx.item.ajumi2,ctx.item.aascode1, ctx.item.aascode2,
         //   ctx.item.atelno, ctx.item.atelno2, ctx.item.aemail, ctx.item.ahand, ctx.item.abonsadam1, ctx.item.abonsadam2, ctx.item.abonsadam3, ctx.item.adomain, ctx.item.afax 
                       
-        function wcifChk_a(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16, arg17, arg18, arg19, arg20, arg21, arg22, arg23, arg24, arg25, arg26, arg27, arg28, arg29, arg30, arg31, arg32){            
+        function wcifChk_a(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16, arg17, arg18, arg19, arg20, arg21, arg22, arg23, arg24, arg25, arg26, arg27, arg28, arg29, arg30, arg31, arg32){                        
             document.getElementById('acorp1').value = arg1;  
             document.getElementById('acorp2').value = arg2;   
             document.getElementById('acorp3').value = arg3;

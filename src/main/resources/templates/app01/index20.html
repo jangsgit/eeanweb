@@ -482,6 +482,7 @@
                 ], 
                 itemsSource: view_p01tab01page
             });   
+             
             // wtab01Grid.formatItem.addHandler((s, e) => {
             //     if (e.panel == s.cells) {
             //         var val = s.getCellData(e.row,0); 
@@ -558,6 +559,8 @@
             } 
             wtab01Grid.showMarquee = true; 
             wijmo.toggleClass(wtab01Grid.hostElement, 'highlightActive', true);
+            
+
             //wtab01Grid.focus();
             //================================================================================================
 
@@ -918,7 +921,16 @@
             var wtab02_data = [];
             var cnt = 1;
             var ls_arg  = arg;
+            var ls_gitatxt = '';
             for (var i = 0; i < wtab02Dto.length; i++) {
+                ls_gitatxt = wtab02Dto[i]["agita"]  ;
+                if(ls_gitatxt == 'P'){
+                    ls_gitatxt = '피오비노';
+                }else if(ls_gitatxt == 'B'){
+                    ls_gitatxt = '블리스';
+                }else{
+                    ls_gitatxt = '비거래';
+                }
                 wtab02_data.push({
                     id: i, 
                     index: cnt, 
@@ -926,7 +938,9 @@
                     acorp2: wtab02Dto[i]["acorp2"], 
                     acorp3: wtab02Dto[i]["acorp3"],  
                     acode: wtab02Dto[i]["acode"], 
-                    acorp: wtab02Dto[i]["acorp"]      
+                    acorp: wtab02Dto[i]["acorp"] , 
+                    agita: wtab02Dto[i]["agita"]  , 
+                    agitatxt: ls_gitatxt      
                 });
                 cnt++;
             }                
@@ -941,10 +955,11 @@
                             let ls_acorp1 = winnameGrid.getCellData(llrow,2); 
                             let ls_acorp2 = winnameGrid.getCellData(llrow,3); 
                             let ls_acorp3 = winnameGrid.getCellData(llrow,4);
+                            let ls_agita  = winnameGrid.getCellData(llrow,5);
                             // console.log(gs_argflag)  
                             // console.log(llrow)   
                             // console.log(ls_cltnm)   
-                            wcifChk_a(gs_argflag, ls_acorp1, ls_acorp2, ls_acorp3, ls_cltcd, ls_cltnm  );   
+                            wcifChk_a(gs_argflag, ls_acorp1, ls_acorp2, ls_acorp3, ls_cltcd, ls_cltnm , ls_agita );   
                             lb_entkey = false;  
                     } 
                 
@@ -992,17 +1007,25 @@
             cols.align = "center"; 
             cols.width = 80;
             winnameGrid.columns.push(cols); 
+
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'agita';
+            cols.header = '거래구분'; 
+            cols.align = "center"; 
+            cols.width = 80;
+            winnameGrid.columns.push(cols); 
         }
             
-        function wcifChk_a(arg0, arg1, arg2, arg3, arg4, arg5){  
+        function wcifChk_a(arg0, arg1, arg2, arg3, arg4, arg5, arg6){  
             var ls_tab = arg0; //document.getElementById('tabvalue').value;    
-        
+       
             if(ls_tab == "A"){ 
                 document.getElementById('bacorp1').value = arg1;  
                 document.getElementById('bacorp2').value = arg2;  
                 document.getElementById('bacorp3').value = arg3;  
                 document.getElementById('bacode').value = arg4;   
                 document.getElementById('bcifname').value = arg5;  
+                document.getElementById('asaname').value = arg6; 
                 $("#winnamemodal_btn").trigger("click");                  
                 searchList_rtn(ls_tab) 
             }else if(ls_tab == "B"){
@@ -1011,6 +1034,7 @@
                 document.getElementById('dacorp3').value = arg3;  
                 document.getElementById('dacode').value = arg4;   
                 document.getElementById('dcifname').value = arg5;  
+                document.getElementById('asaname').value = arg6; 
                 $("#winnamemodal_btn").trigger("click"); 
                 searchList_rtn(ls_tab) 
             }else if(ls_tab == "C"){
@@ -1019,6 +1043,7 @@
                 document.getElementById('jacorp3').value = arg3;  
                 document.getElementById('jacode').value = arg4;   
                 document.getElementById('jcifname').value = arg5;  
+                document.getElementById('asaname').value = arg6; 
                 $("#winnamemodal_btn").trigger("click"); 
                 document.getElementById("asasmodel").focus(); 
             } 
@@ -1393,6 +1418,8 @@
                         alert("삭제할 내역을 선택하세요") 
                         return ;               
                     }  
+                    console.log(asKey1Arr)
+                    console.log(asKey2Arr)
                     $.ajax({
                         url: '/app01m/jupsudellist',  
                         type:"POST",
@@ -1436,7 +1463,8 @@
                     var ls_asflag = document.getElementById('devflag').value;    
                     var ls_bacode = document.getElementById('bacode').value; 
                     var ls_bcifname = document.getElementById('bcifname').value; 
-                    
+                    console.log(ls_bacode)
+                    console.log(ls_bcifname)
                     if(ls_frdate == null || ls_frdate.length == 0 || ls_frdate == ""){ 
                             alert("시작일자를 입력하세요") 
                             document.getElementById("frdate").focus(); 
@@ -1465,7 +1493,8 @@
                         async:false,
                         success:function(data){      
                             chkLogin(data)       
-                            tabA_grid(data);
+                            tabA_grid(data); 
+                            cell_color()
                         },error:function(e){
                             console.log("error");
                             // alert(data.code);
@@ -1581,7 +1610,13 @@
             cols.header = '순번';
             cols.align = "center";
             cols.width = 50;  
-            wtab01Grid.columns.push(cols);    
+            wtab01Grid.columns.push(cols);   
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'as_comrem';
+            cols.header = '구분';
+            cols.align = "center";
+            cols.width = 80;  
+            wtab01Grid.columns.push(cols);     
             cols = new wijmo.grid.Column(); 
             cols.binding = 'as_acorp';
             cols.header = '거래처';
@@ -1646,12 +1681,6 @@
             cols = new wijmo.grid.Column(); 
             cols.binding = 'as_gongjang';
             cols.header = '공장';
-            cols.align = "center";
-            cols.width = 80;  
-            wtab01Grid.columns.push(cols);    
-            cols = new wijmo.grid.Column(); 
-            cols.binding = 'as_comrem';
-            cols.header = '구분';
             cols.align = "center";
             cols.width = 80;  
             wtab01Grid.columns.push(cols);   
@@ -1810,7 +1839,11 @@
                 // ctx.item.as_yumu, ctx.item.as_gongjang,ctx.item.as_acorp,  ctx.item.as_acorp1,ctx.item.as_acorp2,
                 // ctx.item.as_acorp3,ctx.item.as_memo,ctx.item.as_memo2,ctx.item.as_memo3, as_aname  , 
                 // ctx.item.as_damdang 
-                // console.log(arg15)
+                // as_key1, as_key2, as_model, as_color,as_suri,
+                // as_yumu,as_gongjang,as_acorp,as_acorp1,as_acorp2,
+                // as_acorp3,as_memo,as_memo2,as_memo3,as_aname, 
+                // s_damdang 
+                arg15 = arg15.trim(); 
                 document.getElementById('asaskey1').value = arg1;  
                 document.getElementById('asaskey2').value = arg2;   
                 document.getElementById('asasmodel').value = arg3;   
@@ -1852,6 +1885,30 @@
                 document.getElementById("asasgong").focus(); 
         }
    
+        function cell_color(){
+            wtab01Grid.refresh()
+            wtab01Grid.formatItem.addHandler(function(s,e){
+                if(true){
+                    if(e.panel === s.cells){ // 셀 영역이고
+                        if(s.columns[e.col].binding == "as_comrem"){
+                            var val = s.getCellData(e.row,e.col); 
+                            if(val == null || val.length == 0 || val == ""){  
+                                return 
+                            }  
+                            if(val == '피오비노'){
+                                wijmo.addClass(e.cell, 'gold-cell'); //배경색 지정을 위한 클래스 추가
+                            }else if(val == '블리스'){ 
+                                wijmo.addClass(e.cell, 'white-cell'); //배경색 지정을 위한 클래스 추가
+                            }else{ 
+                                wijmo.addClass(e.cell, 'orange-cell'); //배경색 지정을 위한 클래스 추가
+                            }  
+                        }
+
+                    }
+                }
+
+            });            
+        }
         //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 엑셀변환 @@@@@@@@@@@@@@@@@@@@@@@@@@@
         //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
      
@@ -1911,9 +1968,7 @@
             if(month > 0 && month < 10) {month = "0" + month};
             if(date > 0 && date < 10) {date = "0" + date};
             let ls_frday = year + '-' + month + '-' + date 
-            let ls_today = year + '-' + month + '-' + date 
-            document.getElementById('frdate').value = ls_frday;
-            document.getElementById('todate').value = ls_today; 
+            let ls_today = year + '-' + month + '-' + date  
             document.getElementById('misdate').value = ls_today;  
             // document.getElementById('frdate02').value = ls_frday;
             // document.getElementById('todate02').value = ls_today;
@@ -1939,6 +1994,19 @@
             lsUserid = window.localStorage.getItem("userid");   
             gsRnum = window.localStorage.getItem("rnum");            
             document.getElementById('condamdang').value = lsUserid;  
+            
+            let today = new Date();   
+
+            let year = today.getFullYear(); // 년도
+            let month = today.getMonth() + 1;  // 월
+            let date = today.getDate();  // 날짜
+            let day = today.getDay();  // 요일
+            if(month > 0 && month < 10) {month = "0" + month};
+            if(date > 0 && date < 10) {date = "0" + date};
+            let ls_frday = year + '-' + month + '-' + date 
+            let ls_today = year + '-' + month + '-' + date 
+            document.getElementById('frdate').value = ls_frday;
+            document.getElementById('todate').value = ls_today; 
             
         }
  

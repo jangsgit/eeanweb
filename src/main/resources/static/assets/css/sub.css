@@ -13,6 +13,12 @@
 .white-cell{
     background-color:rgb(255, 255, 255) !important;
 }
+.orange-cell{
+    background-color:rgb(240, 127, 22) !important;
+}
+.blue-cell{
+    background-color:rgb(64, 136, 243) !important;
+}
 
 /*토스트 메시지*/
 #tost_message {

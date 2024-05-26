@@ -133,12 +133,9 @@
                                             </td>                                        
                                             <th>구분</th> 
                                             <td >
-                                                <select class="form-select" id="agita" aria-label="Default select example" >  <!--onchange="CahngeSlect(this.value)"-->
-                                                    <option selected="">거래구분</option>
-                                                    <option value="P">피오비노</option>
-                                                    <option value="B">블리스</option> 
-                                                    <option value="Z">비거래</option> 
-                                                  </select>                                                                  
+                                                <select class="form-select" th:field="*{index01ListDto}" name="agita" id="agita"> 
+                                                    <option th:each="val : ${index01ListDto}" th:value="${val.com_code}" th:text="${val.com_rem1}">
+                                                </select>                                                                  
                                             </td>                                                     
                                         </tr>
                                         <tr> 
@@ -881,14 +878,14 @@
         var ls_aemail = document.getElementById('aemail').value ; 
         var ls_ahand = document.getElementById('ahand').value; 
         var ls_abonsadam1 = document.getElementById('abonsadam1').value; 
-        var ls_abonsadam2 = document.getElementById('abonsadam2').value ; 
-        var ls_abonsadam3 = document.getElementById('abonsadam3').value; 
-        var ls_adomain = document.getElementById('adomain').value; 
-        var ls_afax = document.getElementById('afax').value ; 
+        var ls_abonsadam2 = ''; //document.getElementById('abonsadam2').value ; 
+        var ls_abonsadam3 = ''; //document.getElementById('abonsadam3').value; 
+        var ls_adomain = ''; //document.getElementById('adomain').value; 
+        var ls_afax = ''; //document.getElementById('afax').value ; 
         var ls_inname01 = document.getElementById('inname01').value ; 
-        var ls_inname02 = document.getElementById('inname02').value ; 
-        var ls_inname03 = document.getElementById('inname03').value;  
-             
+        var ls_inname02 = ''; //document.getElementById('inname02').value ; 
+        var ls_inname03 = ''; //document.getElementById('inname03').value;  
+           
         if(ls_inname01 == null || ls_inname01.length == 0 || ls_inname01 == ""){ 
             ls_abonsadam1 = "";
         }                      
@@ -897,145 +894,141 @@
         }                      
         if(ls_inname03 == null || ls_inname03.length == 0 || ls_inname03 == ""){ 
             ls_abonsadam3 = "";
-        }                                      
-        
+        }       
+        if (!confirm("저장하시겠습니까?")) {
+                return ; 
+            }   
+        if(!ls_acorp){
+            alert("거래처명을 입력하세요")
+                return ; 
+        } 
+        if(!ls_atelno){
+            alert("전화번호를 입력하세요") 
+                return ;                 
+        }       
 
-        
-            if (!confirm("저장하시겠습니까?")) {
-                    return ; 
-                }   
-            if(!ls_acorp){
-                alert("거래처명을 입력하세요")
-                    return ; 
+        if(ls_acorp1 == null || ls_acorp1.length == 0 || ls_acorp1 == ""){ 
+                alert("업체구분을 선택하세요") 
+                document.getElementById("acorp1").focus(); 
+                return ;               
+        }             
+        if(ls_asano1 != null && ls_asano1.length > 0 && ls_asano1 != ""){
+            if(ls_asano1.length != 3){
+                alert("사업자번호 첫번째 자리는 3자리로 입력해주세요")  
+                document.getElementById("asano1").focus(); 
+                return ;                 
+            }
+        }       
+        if(ls_asano2 != null && ls_asano2.length > 0 && ls_asano2 != ""){
+            if(ls_asano2.length != 2){
+                alert("사업자번호 두번째 자리는 2자리로 입력해주세요")   
+                document.getElementById("asano2").focus(); 
+                return ;                 
+            }
+        }       
+        if(ls_asano3 != null && ls_asano3.length > 0 && ls_asano3 != ""){
+            if(ls_asano3.length != 5){
+                alert("사업자번호 세번째 자리는 5자리로 입력해주세요")    
+                document.getElementById("asano3").focus(); 
+                return ;                 
+            }
+        }      
+        if(ls_inname01 != null && ls_inname01.length > 0 && ls_inname01 != ""){ 
+            if(ls_abonsadam1 == null || ls_abonsadam1.length == 0 || ls_abonsadam1 == ""){ 
+                alert(ls_inname01 + " : 담당사원의 코드를 선택하세요.")    
+                document.getElementById("inname01").focus();  
+                return ;               
             } 
-            if(!ls_atelno){
-                alert("전화번호를 입력하세요") 
-                    return ;                 
-            }       
-
-            if(ls_acorp1 == null || ls_acorp1.length == 0 || ls_acorp1 == ""){ 
-                    alert("업체구분을 선택하세요") 
-                    document.getElementById("acorp1").focus(); 
-                    return ;               
-            }             
-            if(ls_asano1 != null && ls_asano1.length > 0 && ls_asano1 != ""){
-                if(ls_asano1.length != 3){
-                    alert("사업자번호 첫번째 자리는 3자리로 입력해주세요")  
-                    document.getElementById("asano1").focus(); 
-                    return ;                 
-                }
-            }       
-            if(ls_asano2 != null && ls_asano2.length > 0 && ls_asano2 != ""){
-                if(ls_asano2.length != 2){
-                    alert("사업자번호 두번째 자리는 2자리로 입력해주세요")   
-                    document.getElementById("asano2").focus(); 
-                    return ;                 
-                }
-            }       
-            if(ls_asano3 != null && ls_asano3.length > 0 && ls_asano3 != ""){
-                if(ls_asano3.length != 5){
-                    alert("사업자번호 세번째 자리는 5자리로 입력해주세요")    
-                    document.getElementById("asano3").focus(); 
-                    return ;                 
-                }
-            }      
-            if(ls_inname01 != null && ls_inname01.length > 0 && ls_inname01 != ""){ 
-                if(ls_abonsadam1 == null || ls_abonsadam1.length == 0 || ls_abonsadam1 == ""){ 
-                    alert(ls_inname01 + " : 담당사원의 코드를 선택하세요.")    
-                    document.getElementById("inname01").focus();  
-                    return ;               
-                } 
-            }    
-            if(ls_inname02 != null && ls_inname02.length > 0 && ls_inname02 != ""){ 
-                if(ls_abonsadam2 == null || ls_abonsadam2.length == 0 || ls_abonsadam2 == ""){ 
-                    alert(ls_inname02 + " : 담당사원의 코드를 선택하세요.")     
-                    document.getElementById("inname02").focus();  
-                    return ;               
-                } 
-            }     
-            if(ls_inname03 != null && ls_inname03.length > 0 && ls_inname03 != ""){ 
-                if(ls_abonsadam3 == null || ls_abonsadam3.length == 0 || ls_abonsadam3 == ""){ 
-                    alert(ls_inname03 + " : 담당사원의 코드를 선택하세요.")     
-                    document.getElementById("inname03").focus();  
-                    return ;               
-                } 
-            }   
-            if(ls_ajumi1 != null && ls_ajumi1.length > 0 && ls_ajumi1 != ""){
-                // if(ls_ajumi1.length != 6){
-                //     alert("법인번호 첫번째 자리는 6자리로 입력해주세요")     
-                //     document.getElementById("ajumi1").focus();  
-                //     return ;                 
-                // }
-            }    
-            if(ls_ajumi1 == null || ls_ajumi1.length == 0 || ls_ajumi1 == ""){ 
-                ls_ajumi1 = ""             ;
-            }     
-            if(ls_ajumi2 != null && ls_ajumi2.length > 0 && ls_ajumi2 != ""){
-                // if(ls_ajumi2.length != 7){
-                //     alert("법인번호 두번째 자리는 7자리로 입력해주세요")     
-                //     document.getElementById("ajumi2").focus();  
-                //     return ;                 
-                // }
-            }      
-            if(ls_ajumi2 == null || ls_ajumi2.length == 0 || ls_ajumi2 == ""){ 
-                ls_ajumi2 = ""             ;
-            }                 
-            if(ls_aascode1 != null && ls_aascode1.length > 0 && ls_aascode1 != ""){
-                // if(ls_aascode1.length != 6){
-                //     alert("주민번호 첫번째 자리는 6자리로 입력해주세요")     
-                //     document.getElementById("aascode1").focus();  
-                //     return ;                 
-                // }
-            }      
-            if(ls_aascode1 == null || ls_aascode1.length == 0 || ls_aascode1 == ""){ 
-                ls_aascode1 = ""             ;
-            }     
-            if(ls_aascode2 != null && ls_aascode2.length > 0 && ls_aascode2 != ""){
-                // if(ls_aascode2.length != 7){
-                //     alert("주민번호 두번째 자리는 7자리로 입력해주세요")     
-                //     document.getElementById("aascode2").focus();  
-                //     return ;                 
-                // }
-            }       
-            if(ls_aascode2 == null || ls_aascode2.length == 0 || ls_aascode2 == ""){ 
-                ls_aascode2 = ""             ;
-            }   
+        }    
+        if(ls_inname02 != null && ls_inname02.length > 0 && ls_inname02 != ""){ 
+            if(ls_abonsadam2 == null || ls_abonsadam2.length == 0 || ls_abonsadam2 == ""){ 
+                alert(ls_inname02 + " : 담당사원의 코드를 선택하세요.")     
+                document.getElementById("inname02").focus();  
+                return ;               
+            } 
+        }     
+        if(ls_inname03 != null && ls_inname03.length > 0 && ls_inname03 != ""){ 
+            if(ls_abonsadam3 == null || ls_abonsadam3.length == 0 || ls_abonsadam3 == ""){ 
+                alert(ls_inname03 + " : 담당사원의 코드를 선택하세요.")     
+                document.getElementById("inname03").focus();  
+                return ;               
+            } 
+        }   
+        if(ls_ajumi1 != null && ls_ajumi1.length > 0 && ls_ajumi1 != ""){
+            // if(ls_ajumi1.length != 6){
+            //     alert("법인번호 첫번째 자리는 6자리로 입력해주세요")     
+            //     document.getElementById("ajumi1").focus();  
+            //     return ;                 
+            // }
+        }    
+        if(ls_ajumi1 == null || ls_ajumi1.length == 0 || ls_ajumi1 == ""){ 
+            ls_ajumi1 = ""             ;
+        }     
+        if(ls_ajumi2 != null && ls_ajumi2.length > 0 && ls_ajumi2 != ""){
+            // if(ls_ajumi2.length != 7){
+            //     alert("법인번호 두번째 자리는 7자리로 입력해주세요")     
+            //     document.getElementById("ajumi2").focus();  
+            //     return ;                 
+            // }
+        }      
+        if(ls_ajumi2 == null || ls_ajumi2.length == 0 || ls_ajumi2 == ""){ 
+            ls_ajumi2 = ""             ;
+        }                 
+        if(ls_aascode1 != null && ls_aascode1.length > 0 && ls_aascode1 != ""){
+            // if(ls_aascode1.length != 6){
+            //     alert("주민번호 첫번째 자리는 6자리로 입력해주세요")     
+            //     document.getElementById("aascode1").focus();  
+            //     return ;                 
+            // }
+        }      
+        if(ls_aascode1 == null || ls_aascode1.length == 0 || ls_aascode1 == ""){ 
+            ls_aascode1 = ""             ;
+        }     
+        if(ls_aascode2 != null && ls_aascode2.length > 0 && ls_aascode2 != ""){
+            // if(ls_aascode2.length != 7){
+            //     alert("주민번호 두번째 자리는 7자리로 입력해주세요")     
+            //     document.getElementById("aascode2").focus();  
+            //     return ;                 
+            // }
+        }       
+        if(ls_aascode2 == null || ls_aascode2.length == 0 || ls_aascode2 == ""){ 
+            ls_aascode2 = ""             ;
+        }   
+        
             
-             
-            var inputdata = {  
-                "acorp1" : ls_acorp1,
-                "acorp2": ls_acorp2 , 
-                "acorp3"   : ls_acorp3, 
-                "acode": ls_acode , 
-                "acorp"   : ls_acorp, 
-                "asano1"   : ls_asano1,
-                "asano2"   : ls_asano2, 
-                "asano3": ls_asano3 , 
-                "aname" : ls_aname,
-                "aupte":  ls_aupte,
-                "ajong":  ls_ajong,
-                "apost1" :  ls_apost1,
-                "ajuso1" :  ls_ajuso1, 
-                "ajuso2" :  ls_ajuso2, 
-                "abigo" :  ls_abigo, 
-                "agita" :  ls_agita, 
-                "ajumi1" :  ls_ajumi1, 
-                "ajumi2" :  ls_ajumi2,                 
-                "aascode1"   : ls_aascode1, 
-                "aascode2"   : ls_aascode2,
-                "atelno" : ls_atelno,
-                "atelno2" : ls_atelno2,
-                "aemail"   : ls_aemail,
-                "ahand" : ls_ahand,
-                "abonsadam1" : ls_abonsadam1,
-                "abonsadam2" : ls_abonsadam2,
-                "abonsadam3" : ls_abonsadam3, 
-                "adomain" : ls_adomain,                
-                "afax" : ls_afax          
-            } 
-            //직전 데이타가 메모리에 남아 폼데이타 키를 삭제후 다시 데이타를 전송해야함. 
-            formData.delete("key");  
-            console.log(inputdata);
+        var inputdata = {  
+            "acorp1" : ls_acorp1,
+            "acorp2": ls_acorp2 , 
+            "acorp3"   : ls_acorp3, 
+            "acode": ls_acode , 
+            "acorp"   : ls_acorp, 
+            "asano1"   : ls_asano1,
+            "asano2"   : ls_asano2, 
+            "asano3": ls_asano3 , 
+            "aname" : ls_aname,
+            "aupte":  ls_aupte,
+            "ajong":  ls_ajong,
+            "apost1" :  ls_apost1,
+            "ajuso1" :  ls_ajuso1, 
+            "ajuso2" :  ls_ajuso2, 
+            "abigo" :  ls_abigo, 
+            "agita" :  ls_agita, 
+            "ajumi1" :  ls_ajumi1, 
+            "ajumi2" :  ls_ajumi2,                 
+            "aascode1"   : ls_aascode1, 
+            "aascode2"   : ls_aascode2,
+            "atelno" : ls_atelno,
+            "atelno2" : ls_atelno2,
+            "aemail"   : ls_aemail,
+            "ahand" : ls_ahand,
+            "abonsadam1" : ls_abonsadam1,
+            "abonsadam2" : ls_abonsadam2,
+            "abonsadam3" : ls_abonsadam3, 
+            "adomain" : ls_adomain,                
+            "afax" : ls_afax          
+        } 
+        //직전 데이타가 메모리에 남아 폼데이타 키를 삭제후 다시 데이타를 전송해야함. 
+        formData.delete("key");   
 
         formData.append("key", new Blob([ JSON.stringify(inputdata) ], {type : "application/json"}));
         
