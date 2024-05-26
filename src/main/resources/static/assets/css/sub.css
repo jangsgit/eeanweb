@@ -13,6 +13,9 @@
 .white-cell{
     background-color:rgb(255, 255, 255) !important;
 }
+.greenblue-cell{
+    background-color:rgb(11, 191, 204) !important;
+}
 .orange-cell{
     background-color:rgb(240, 127, 22) !important;
 }
