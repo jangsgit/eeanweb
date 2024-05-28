@@ -649,6 +649,53 @@
         #{devflag},#{unsongnum})
     </insert>
 
+
+    <update id="UpdateDa024Jumsu" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto">
+        update TB_DA024
+        set custcd = 'EEAN'
+        <if test="cltcd != null ">,</if>
+        <if test="cltcd != null">cltcd=#{cltcd}</if>
+        <if test="pcode != null ">,</if>
+        <if test="pcode != null">pcode=#{pcode}</if>
+        <if test="pname != null ">,</if>
+        <if test="pname != null">pname=#{pname}</if>
+        <if test="psize != null ">,</if>
+        <if test="psize != null">psize=#{psize}</if>
+        <if test="punit != null ">,</if>
+        <if test="punit != null">punit=#{punit}</if>
+        <if test="qty != null ">,</if>
+        <if test="qty != null">qty=#{qty}</if>
+        <if test="uamt != null ">,</if>
+        <if test="uamt != null">uamt=#{uamt}</if>
+        <if test="samt != null ">,</if>
+        <if test="samt != null">samt=#{samt}</if>
+        <if test="addamt != null ">,</if>
+        <if test="addamt != null">addamt=#{addamt}</if>
+        <if test="amt != null ">,</if>
+        <if test="amt != null">amt=#{amt}</if>
+        <if test="pbonsa != null ">,</if>
+        <if test="pbonsa != null">pbonsa=#{pbonsa}</if>
+        <if test="pbonsa2 != null ">,</if>
+        <if test="pbonsa2 != null">pbonsa2=#{pbonsa2}</if>
+        <if test="pcolor != null ">,</if>
+        <if test="pcolor != null">pcolor=#{pcolor}</if>
+        <if test="acorp != null ">,</if>
+        <if test="acorp != null">acorp=#{acorp}</if>
+        <if test="jpb_gubn != null ">,</if>
+        <if test="jpb_gubn != null">jpb_gubn=#{jpb_gubn}</if>
+        <if test="userid != null ">,</if>
+        <if test="userid != null">userid=#{userid}</if>
+        <if test="usernm != null ">,</if>
+        <if test="usernm != null">usernm=#{usernm}</if>
+        <if test="devflag != null ">,</if>
+        <if test="devflag != null">devflag=#{devflag}</if>
+        <if test="unsongnum != null ">,</if>
+        <if test="unsongnum != null">unsongnum=#{unsongnum}</if>
+        where misdate   = #{misdate} and misnum = #{misnum} and misgubun = #{misgubun}  and pmodel='AS'
+    </update>
+
+
+
     <insert id="InsertDa026" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
         insert into TB_DA026 (custcd, spjangcd, cltcd, misgubun, misdate, misnum, seq,
         pcode, pname, psize,    punit,  qty,  uamt, samt, addamt,

@@ -1,9 +1,11 @@
 package com.dae.eean.controller.appadmin;
 
+import com.dae.eean.DTO.App01.Index01Dto;
 import com.dae.eean.DTO.Popup.PopupDto;
 import com.dae.eean.DTO.TBXLoginDTO;
 import com.dae.eean.DTO.TBXa012VO;
 import com.dae.eean.DTO.UserFormDto;
+import com.dae.eean.Service.App01.Index01Service;
 import com.dae.eean.Service.master.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.logging.Log;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -24,6 +27,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AppIndexController {
     private final AuthService service;
+    private final Index01Service service01;
     List<UserFormDto> appUserFormListDto ;
     List<TBXLoginDTO> appUserLoginListDto ;
     UserFormDto appUserFormDto  = new UserFormDto();
@@ -43,8 +47,13 @@ public class AppIndexController {
         appUserFormListDto = service.GetUserListDto(appUserFormDto);
         userformDto.setPagetree01("관리자모드");
         userformDto.setPagenm("사용자현황");
+        Index01Dto _index01Dto = new Index01Dto();
+        List<Index01Dto> _index01ListDto = new ArrayList<>();
         model.addAttribute("userformDto",userformDto);
         try {
+            _index01Dto.setCom_cls("002");
+            _index01ListDto    = service01.GetComcodeDetailList(_index01Dto);
+            model.addAttribute("index01ListDto",_index01ListDto);
             model.addAttribute("appUserListDto",appUserFormListDto);
             model.addAttribute("userformDto",userformDto);
         } catch (Exception ex) {
@@ -110,6 +119,8 @@ public class AppIndexController {
 
         HttpSession session = request.getSession();
         UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        Index01Dto _index01Dto = new Index01Dto();
+        List<Index01Dto> _index01ListDto = new ArrayList<>();
         appUserFormDto.setFlag("CC");
         appUserFormDto.setUsername("%");
         appUserFormDto.setCustcd(userformDto.getCustcd());
@@ -119,6 +130,9 @@ public class AppIndexController {
         userformDto.setPagenm("영업사원별현황");
         model.addAttribute("userformDto",userformDto);
         try {
+            _index01Dto.setCom_cls("002");
+            _index01ListDto    = service01.GetComcodeDetailList(_index01Dto);
+            model.addAttribute("index01ListDto",_index01ListDto);
             model.addAttribute("appUserListDto",appUserFormListDto);
             model.addAttribute("userformDto",userformDto);
         } catch (Exception ex) {

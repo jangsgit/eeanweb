@@ -261,6 +261,57 @@ public class AppIndexCrudController {
             appUserFormDto.setCustnm(custnm);
             appUserFormDto.setFlag(flag);
             appUserFormDto.setCustcd("actcd");
+            appUserFormDto.setPerid(userid);
+            appUserFormDto.setPassword(passwd1);
+            appUserFormDto.setRole("%");
+            boolean result = service.TB_XUSERS_INSERT(appUserFormDto);
+            if (!result) {
+                return "error";
+            }else{
+                return "success";
+            }
+        }catch (IllegalStateException e){
+            model.addAttribute("errorMessage", e.getMessage());
+            return "error";
+        }
+    }
+
+
+    @RequestMapping(value="/id01sav")   //영업사원 상태 수정
+    public String UserInsert01(@RequestParam("userid") String userid
+            ,@RequestParam("passwd1") String passwd1
+            ,@RequestParam("passwd2") String passwd2
+            ,@RequestParam("custnm") String custnm
+            ,@RequestParam("username") String username
+            ,@RequestParam("flag") String flag
+            , Model model, HttpServletRequest request){
+        try {
+            HttpSession session = request.getSession();
+            UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+            String ls_custcd = userformDto.getCustcd();
+            String ls_spjangcd = userformDto.getSpjangcd();
+            String ls_role = "";
+            if(custnm.equals("P")){
+                appUserFormDto.setRole(custnm);
+                appUserFormDto.setCustnm("피오비노");
+            }else if(custnm.equals("B")){
+                appUserFormDto.setRole(custnm);
+                appUserFormDto.setCustnm("블리스");
+            }else{
+                appUserFormDto.setRole("%");
+                appUserFormDto.setCustnm("%");
+            }
+            appUserFormDto.setSpjangcd("ZZ");
+            appUserFormDto.setUserid(userid);
+            appUserFormDto.setUseyn("Y");
+            appUserFormDto.setUsername(username);
+            appUserFormDto.setPernm(username);
+            appUserFormDto.setPasswd1(passwd1);
+            appUserFormDto.setPasswd2(passwd2);
+            appUserFormDto.setFlag(flag);
+            appUserFormDto.setRnum("0");
+            appUserFormDto.setCustcd("actcd");
+            appUserFormDto.setPerid(userid);
 
             boolean result = service.TB_XUSERS_INSERT(appUserFormDto);
             if (!result) {

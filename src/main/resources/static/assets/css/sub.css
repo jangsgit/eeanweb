@@ -23,6 +23,23 @@
     background-color:rgb(64, 136, 243) !important;
 }
 
+.po-val {
+    color: rgb(29, 84, 238);
+    font-weight: normal;
+}
+.zo-val {
+    color: rgb(241, 12, 12);
+    font-weight: bold;
+}
+.bo-val {
+    color: rgb(5, 73, 10);
+    font-weight: normal;
+}
+.low-val {
+    color: rgb(0, 0, 0);
+    font-weight: normal;
+}
+
 /*토스트 메시지*/
 #tost_message {
     opacity: 0;

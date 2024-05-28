@@ -158,7 +158,15 @@
                                     <div class="input-group input-group-sm mb-3"> 
                                         <input type="text"  class="form-control datetimepicker" id="todate" autocomplete="off"  placeholder="Y-m-d"     >
                                     </div> 
-                                </div>      
+                                </div>           
+                                <div class="col-1 col-sm-1">
+                                    <select class="form-select form-select-sm" id="misflag" aria-label=".form-select-sm example">
+                                        <option selected="">주문구분</option>
+                                        <option value="%">전체</option>
+                                        <option value="1">주문완료</option>
+                                        <option value="0">주문전</option>
+                                      </select> 
+                                </div>   
                                 <div class="col-1 col-sm-1">
                                     <select class="form-select form-select-sm" id="devflag" aria-label=".form-select-sm example">
                                         <option selected="">발송구분</option>
@@ -221,7 +229,7 @@
                             </div>  
                         </div>
                         <div class="container-fluid"> 
-                            <div id="wtab03Grid_div"  style="overflow:scroll;   height:800px; width:800px;   margin:0 auto; "></div> 
+                            <div id="wtab03Grid_div"  style="overflow:scroll;   height:800px; width:90%;   margin:0 auto; "></div> 
                             <div id="flexGridFooter" class="gridFooter"></div> 
                             <!-- <div id="tab02Pager"></div> -->
                           </div>
@@ -441,6 +449,11 @@
          var asAname = new Array();   
          var misdateArr = new Array(); 
          var misnumArr = new Array(); 
+         var cltcdArr = new Array(); 
+         var seqArr = new Array(); 
+         var gubunArr = new Array(); 
+         var fixflagArr = new Array(); 
+         
         var wtabExl_data = [];
          var gsUserid = "";                             
          var gsUsernm  = "";                           
@@ -534,7 +547,11 @@
                     asAname[i]     = sel[i]._data.as_aname; 
                     asYumu[i]     = sel[i]._data.as_yumu;   
                     misdateArr[i]  = sel[i]._data.misdate;   
-                    misnumArr[i]  = sel[i]._data.misnum;   
+                    misnumArr[i]  = sel[i]._data.misnum;     
+                    cltcdArr[i]  = ascorp1 + ascorp2;  
+                    gubunArr[i]  = 'AA';  
+                    seqArr[i]  = '001';  
+                    
                 }          
                 for (var p = 0; p < ascode.length; p++) {  
                     for (var i = 0; i < sel.length; i++) {   
@@ -578,21 +595,20 @@
                 allowSorting: 'MultiColumn',
                 alternatingRowStep: 0,
                 columns: [     
-                    { binding: 'as_key1', header: '접수일자', align: "center",   width: 120 }, 
-                    { binding: 'as_key2', header: '순번', align: "center",   width: 50 },
-                    { binding: 'as_acorp', header: '거래처', align: "left",   width: 200 },  
-                    { binding: 'as_devcode', header: '발송번호', align: "center",   width: 120 }, 
-                    { binding: 'as_date2', header: '배송일자', align: "center",   width: 120 }, 
-                    { binding: 'as_gongjang', header: '공장', align: "center",   width: 50 },
-                    { binding: 'as_model', header: '모델', align: "center",   width: 80 },
-                    { binding: 'as_color', header: '칼라', align: "center",   width: 80 },
-                    { binding: 'as_suri', header: '수리부위', align: "center",   width: 150 },
-                    { binding: 'as_memo', header: '메모', align: "center",   width: 200 },        
-                    { binding: 'as_yumu', header: '유무상', align: "center",   width: 80 }, 
-                    { binding: 'as_memo2', header: '메모2', align: "center",   width: 200 },      
-                    { binding: 'unsongnum', header: '운송장', align: "center",   width: 200 },        
-                    { binding: 'as_aname', header: '구분', align: "center",   width: 80 },         
-                    { binding: 'as_damdang', header: '접수자', align: "center",   width: 80 },           
+                    { binding: 'acorp', header: '상호', align: "center", width: 120 },  
+                    { binding: 'atelno', header: '연락처', align: "center", width: 150 },   
+                    { binding: 'ajuso', header: '주소', align: "center", width: 120 },  
+                    { binding: 'aascodetxt', header: '우편번호', align: "center", width: 100 },  
+                    { binding: 'pname', header: '품목', align: "center", width: 100 },  
+                    { binding: 'qty', header: '수량', align: "center", width: 100 },  
+                    { binding: 'remark', header: '비고', align: "center", width: 80 },  
+                    { binding: 'message', header: '메세지', align: "center", width: 100 },  
+                    { binding: 'payflag', header: '선불/착불', align: "center", width: 150 },  
+                    { binding: 'eeacorp', header: '상호', align: "center", width: 150 },  
+                    { binding: 'eeatelno', header: '연락처', align: "center", width: 150 },  
+                    { binding: 'eeacodetxt', header: '우편번호', align: "center", width: 150 },  
+                    { binding: 'eeajuso', header: '주소', align: "center", width: 150 },   
+                    { binding: 'miskey', header: '배송키', align: "center", width: 150 },   
                 ], 
                 itemsSource: view_p01tab02page
             });  
@@ -1147,17 +1163,45 @@
                 case 'B':
                     if (!confirm("발송출력 하시겠습니까?")) { 
                         return false; 
-                    }     
-                    while (asKey1Arr.length > 0) {
+                    }          
+                    while (misdateArr.length > 0) {
+                        misdateArr.pop();
+                        misnumArr.pop();
+                        seqArr.pop();
+                        cltcdArr.pop();
+                        gubunArr.pop();
+                        fixflagArr.pop();
                         asKey1Arr.pop();
                         asKey2Arr.pop(); 
+                        fixflagArr.pop(); 
                     }    
-                    for (var i = 0; i < chkTabA.length; i++) { 
+                    for (var i = 0; i < chkTabA.length; i++) {  
+                        misdateArr[i]   = chkTabA[i]._data.misdate;
+                        misnumArr[i]   = chkTabA[i]._data.misnum;
+                        ascorp1     = chkTabA[i]._data.as_acorp1;
+                        ascorp2     = chkTabA[i]._data.as_acorp2;
+                        seqArr[i]  = '001'; 
+                        cltcdArr[i]  = ascorp1 + ascorp2; 
+                        gubunArr[i]  = 'AA'; 
                         asKey1Arr[i]   = chkTabA[i]._data.as_key1;
                         asKey2Arr[i]   = chkTabA[i]._data.as_key2; 
-                    }    
-                    if(asKey1Arr.length == null || asKey1Arr.length == 0){ 
-                        alert("발송할 내역을 선택하세요") 
+                        fixflagArr[i]  = '1';  
+                        if(!fixflagArr[i]){
+                            fixflagArr[i] = "0";
+                        }else{
+                            fixflagArr[i] = "1";
+                        }
+                    }   
+                    // while (asKey1Arr.length > 0) {
+                    //     asKey1Arr.pop();
+                    //     asKey2Arr.pop(); 
+                    // }    
+                    // for (var i = 0; i < chkTabA.length; i++) { 
+                    //     asKey1Arr[i]   = chkTabA[i]._data.as_key1;
+                    //     asKey2Arr[i]   = chkTabA[i]._data.as_key2; 
+                    // }    
+                    if(misdateArr.length == null || misdateArr.length == 0){ 
+                        alert("주문등록한 발송할 내역을 선택하세요") 
                         return ;               
                     }  
                     $.ajax({
@@ -1165,7 +1209,7 @@
                         type:"POST",
                         data: { 
                             "asKey1Arr"  : asKey1Arr,  
-                            "asKey2Arr"   : asKey2Arr   ,  
+                            "asKey2Arr"   : asKey2Arr 
                         }, 
                         async:false,
                         success:function(data){   
@@ -1208,15 +1252,17 @@
                         asKey1Arr.pop();
                         asKey2Arr.pop(); 
                         asYumu.pop();   
-                        asAname.POP();
+                        asAname.pop();
                     }    
                     for (var i = 0; i < chkTabA.length; i++) { 
                         asKey1Arr[i]   = chkTabA[i]._data.as_key1;
                         asKey2Arr[i]   = chkTabA[i]._data.as_key2; 
                         asYumu[i]      = chkTabA[i]._data.as_yumu; 
-                        asAname[i]      = chkTabA[i]._data.as_aname;  
+                        var ls_asname      = chkTabA[i]._data.as_aname;  
+                        ls_asname = ls_asname.trim();
+                        asAname[i] = ls_asname;
                     }    
-                    console.log(asAname)
+                    //console.log(asAname)
                     if(asKey1Arr.length == null || asKey1Arr.length == 0){ 
                         alert("주문등록할 내역을 선택하세요") 
                         return ;               
@@ -1460,11 +1506,10 @@
                 case 'A':
                     var ls_frdate = document.getElementById('frdate').value; 
                     var ls_todate = document.getElementById('todate').value; 
-                    var ls_asflag = document.getElementById('devflag').value;    
+                    var ls_asflag = document.getElementById('devflag').value;  
+                    var ls_misflag = document.getElementById('misflag').value;   
                     var ls_bacode = document.getElementById('bacode').value; 
-                    var ls_bcifname = document.getElementById('bcifname').value; 
-                    console.log(ls_bacode)
-                    console.log(ls_bcifname)
+                    var ls_bcifname = document.getElementById('bcifname').value;  
                     if(ls_frdate == null || ls_frdate.length == 0 || ls_frdate == ""){ 
                             alert("시작일자를 입력하세요") 
                             document.getElementById("frdate").focus(); 
@@ -1480,21 +1525,25 @@
                     } 
                     if(ls_asflag == "발송구분"){ 
                         ls_asflag = "%";
-                    }       
+                    }    
+                    if(ls_misflag == "주문구분"){ 
+                        ls_misflag = "%";
+                    }     
                     $.ajax({
                         url: '/app02m/index11/list01',  
                         type:"POST",
                         data: { 
-                            "frdate"      : ls_frdate, 
-                            "todate"      : ls_todate,  
-                            "asflag"      : ls_asflag, 
-                            "asacorp"      : ls_bacode 
+                            "frdate"  : ls_frdate,  
+                            "todate"   : ls_todate   , 
+                            "asflag"  : ls_asflag     , 
+                            "asacorp"  : ls_bacode     , 
+                            "misflag"  : ls_misflag      
                         }, 
                         async:false,
                         success:function(data){      
                             chkLogin(data)       
                             tabA_grid(data); 
-                            cell_color()
+                            //cell_color()
                         },error:function(e){
                             console.log("error");
                             // alert(data.code);
@@ -1513,22 +1562,16 @@
                     if(ls_bcifname == null || ls_bcifname.length == 0 || ls_bcifname == ""){ 
                         ls_bacode = "%"             
                     }  
-
-                    // while (asKey1Arr.length > 0) {
-                    //     asKey1Arr.pop();
-                    //     asKey2Arr.pop(); 
-                    // }    
-                    // for (var i = 0; i < chkTabA.length; i++) { 
-                    //     asKey1Arr[i]   = chkTabA[i]._data.as_key1;
-                    //     asKey2Arr[i]   = chkTabA[i]._data.as_key2; 
-                    // }    
  
                     $.ajax({
-                        url: '/app02m/index11/listdev',  
+                        url: '/app01m/index14/listdev',  
                         type:"POST",
                         data: { 
-                            "asKey1Arr"  : asKey1Arr,  
-                            "asKey2Arr"   : asKey2Arr   
+                            "misdatearr"  : misdateArr,  
+                            "misnumarr"   : misnumArr   , 
+                            "seqarr"  : seqArr     , 
+                            "cltcdarr"  : cltcdArr     , 
+                            "gubunarr"  : gubunArr   
                         }, 
                         async:false,
                         success:function(data){     
@@ -1557,6 +1600,7 @@
             var cnt = 1;
             var bfixflag= false;
             var ls_aname = ''
+            var ls_css  = '<span class=${item.as_comrem == "피오비노" ? "po-val" : item.as_comrem == "비거래" ? "zo-val": item.as_comrem == "블리스" ? "bo-val" : "low-val"}>${text}</span>' ;
             for (var i = 0; i < wtab01Dto.length; i++) {
                 if(wtab01Dto[i]["as_devflag"] == "1"){
                     bfixflag = true;
@@ -1595,7 +1639,7 @@
                 cnt++;
             }   
             // console.log("wtab01_data",wtab01_data) 
-            // console.log(wtab01_data.length);
+            // console.log(wtab01_data.length);            
             wtab01Grid.columns.clear();  
             wtab01Grid.autoGenerateColumns = false; 
             view_p01tab01page.sourceCollection  = wtab01_data;
@@ -1603,19 +1647,23 @@
             cols.binding = 'as_key1';
             cols.header = '접수일자';
             cols.align = "center";
-            cols.width = 120; 
+            cols.width = 120;   
+            cols.cellTemplate = ls_css
             wtab01Grid.columns.push(cols);   
+
             cols = new wijmo.grid.Column(); 
             cols.binding = 'as_key2';
             cols.header = '순번';
             cols.align = "center";
-            cols.width = 50;  
+            cols.width = 70;  
+            cols.cellTemplate = ls_css
             wtab01Grid.columns.push(cols);   
             cols = new wijmo.grid.Column(); 
             cols.binding = 'as_comrem';
             cols.header = '구분';
             cols.align = "center";
             cols.width = 80;  
+            cols.cellTemplate = ls_css
             wtab01Grid.columns.push(cols);     
             cols = new wijmo.grid.Column(); 
             cols.binding = 'as_acorp';
@@ -1635,66 +1683,90 @@
             cols.header = '모델';
             cols.align = "center";
             cols.width = 80;  
+            cols.cellTemplate = ls_css
             wtab01Grid.columns.push(cols);  
             cols = new wijmo.grid.Column(); 
             cols.binding = 'as_color';
             cols.header = '컬러';
             cols.align = "center";
             cols.width = 80;  
+            cols.cellTemplate = ls_css
             wtab01Grid.columns.push(cols);  
             cols = new wijmo.grid.Column(); 
             cols.binding = 'as_suri';
             cols.header = '수리부위';
             cols.align = "center";
             cols.width = 150;  
+            cols.cellTemplate = ls_css
             wtab01Grid.columns.push(cols);   
             cols = new wijmo.grid.Column(); 
             cols.binding = 'as_memo';
             cols.header = '메모';
-            cols.align = "center";
+            cols.align = "left";
             cols.width = 200;  
+            cols.cellTemplate = ls_css
             wtab01Grid.columns.push(cols);   
             cols = new wijmo.grid.Column(); 
             cols.binding = 'as_yumu';
             cols.header = '유무상';
             cols.align = "center";
             cols.width = 80;  
+            cols.cellTemplate = ls_css
             wtab01Grid.columns.push(cols); 
             cols = new wijmo.grid.Column(); 
             cols.binding = 'as_memo2';
             cols.header = '메모2';
-            cols.align = "center";
+            cols.align = "left";
             cols.width = 200;  
+            cols.cellTemplate = ls_css
             wtab01Grid.columns.push(cols);     
             cols = new wijmo.grid.Column(); 
             cols.binding = 'as_date2';
             cols.header = '배송일자';
             cols.align = "center";
             cols.width = 120;  
+            cols.cellTemplate = ls_css
             wtab01Grid.columns.push(cols);  
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'misdate';
+            cols.header = '주문일자';
+            cols.align = "center";
+            cols.width = 120;  
+            cols.cellTemplate = ls_css
+            wtab01Grid.columns.push(cols); 
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'misnum';
+            cols.header = '주문번호';
+            cols.align = "center";
+            cols.width = 80;  
+            cols.cellTemplate = ls_css
+            wtab01Grid.columns.push(cols); 
             cols = new wijmo.grid.Column(); 
             cols.binding = 'unsongnum';
             cols.header = '운송장';
             cols.align = "center";
             cols.width = 100;   
+            cols.cellTemplate = ls_css
             wtab01Grid.columns.push(cols);   
             cols = new wijmo.grid.Column(); 
             cols.binding = 'as_gongjang';
             cols.header = '공장';
             cols.align = "center";
             cols.width = 80;  
+            cols.cellTemplate = ls_css
             wtab01Grid.columns.push(cols);   
             cols = new wijmo.grid.Column(); 
             cols.binding = 'as_damdang';
             cols.header = '접수자';
             cols.align = "center";
             cols.width = 150;  
+            cols.cellTemplate = ls_css
             wtab01Grid.columns.push(cols); 
             cols = new wijmo.grid.Column(); 
             cols.binding = 'as_devflag';
             cols.header = '발송구분';
             cols.align = "center";
-            cols.width = 100;  
+            cols.width = 100;   
             cols.cssClass = 'switch'
             wtab01Grid.columns.push(cols);   
             cols = new wijmo.grid.Column(); 
@@ -1702,135 +1774,160 @@
             cols.header = '발송처리';
             cols.align = "center";
             cols.width = 150;  
-            wtab01Grid.columns.push(cols); 
-            cols = new wijmo.grid.Column(); 
-            cols.binding = 'misdate';
-            cols.header = '주문일자';
-            cols.align = "center";
-            cols.width = 150;  
-            wtab01Grid.columns.push(cols); 
-            cols = new wijmo.grid.Column(); 
-            cols.binding = 'misnum';
-            cols.header = '주문번호';
-            cols.align = "center";
-            cols.width = 100;  
+            cols.cellTemplate = ls_css
             wtab01Grid.columns.push(cols); 
         }     
        
         function tabB_grid(data){
             var wtab02Dto  = data;  
             var cnt = 1;
-            var bfixflag = false; 
-            for (var i = 0; i < wtab02Dto.length; i++) {
-                wtabExl_data.push({
+            var bfixflag = "신용" 
+            console.log(wtab02Dto)
+            wtab02_data = [];
+            for (var i = 0; i < wtab02Dto.length; i++) { 
+                ls_acorp = wtab02Dto[i]["acorp"]; 
+                ls_cltcd = wtab02Dto[i]["cltcd"]; 
+                ls_atelno = wtab02Dto[i]["atelno"]; 
+                ls_ajuso = wtab02Dto[i]["ajuso"];  
+                ls_aascodetxt = wtab02Dto[i]["aascodetxt"]; 
+                ls_pname = wtab02Dto[i]["pname"];
+                ls_qty = wtab02Dto[i]["qty"];
+                ls_remark = wtab02Dto[i]["remark"];
+                ls_message = wtab02Dto[i]["message"];
+                ls_payflag = wtab02Dto[i]["payflag"];
+                ls_eeacorp = wtab02Dto[i]["eeacorp"];
+                ls_eeasano = wtab02Dto[i]["eeasano"];
+                ls_eeaname = wtab02Dto[i]["eeaname"];
+                ls_eeupte = wtab02Dto[i]["eeupte"];
+                ls_eeajong = wtab02Dto[i]["eeajong"];
+                ls_eeajuso = wtab02Dto[i]["eeajuso"];
+                ls_eeacodetxt = wtab02Dto[i]["eeacodetxt"];
+                ls_eeatelno = wtab02Dto[i]["eeatelno"]; 
+                ls_misdate = wtab02Dto[i]["misdate"];
+                ls_misnum = wtab02Dto[i]["misnum"];
+                ls_miskey = wtab02Dto[i]["misdate"] + wtab02Dto[i]["misnum"] + wtab02Dto[i]["cltcd"];
+                ls_misdatetxt = wtab02Dto[i]["misdatetxt"]; 
+                if(wtab02Dto[i]["payflag"] == "1"){
+                    bfixflag = "착불";
+                }else{
+                    bfixflag = "신용" 
+                } 
+                var ls_eeacodetxt = '05408';        //wtab02Dto[i]["eeacodetxt"]    
+                var ls_eeajuso    = '서울 강동구 성내동 440-4 만성재빌딩 4층'    //wtab02Dto[i]["eeajuso"]
+                wtab02_data.push({
                     id: i, 
                     index: cnt,
-                    as_key1:  wtab02Dto[i]["as_key1"], 
-                    as_key2:  wtab02Dto[i]["as_key2"], 
-                    as_model:  wtab02Dto[i]["as_model"], 
-                    as_color:  wtab02Dto[i]["as_color"], 
-                    as_suri:  wtab02Dto[i]["as_suri"], 
-                    as_yumu:  wtab02Dto[i]["as_yumu"], 
-                    as_gongjang:  wtab02Dto[i]["as_gongjang"], 
-                    as_acorp:  wtab02Dto[i]["as_acorp"], 
-                    as_acorp1:  wtab02Dto[i]["as_acorp1"], 
-                    as_acorp2:  wtab02Dto[i]["as_acorp2"], 
-                    as_acorp3:  wtab02Dto[i]["as_acorp3"], 
-                    as_aname:  wtab02Dto[i]["as_aname"], 
-                    as_memo:  wtab02Dto[i]["as_memo"], 
-                    as_memo2:  wtab02Dto[i]["as_memo2"], 
-                    as_memo3:  wtab02Dto[i]["as_memo3"], 
-                    as_date2:  wtab02Dto[i]["as_date2"],    
-                    as_damdang:  wtab02Dto[i]["as_damdang"], 
-                    as_devcode:  wtab02Dto[i]["as_devcode"], 
-                    as_devdate:  wtab02Dto[i]["as_devdate"],  
-                    as_devflag:  bfixflag,                               
+                    select: false,
+                    misdate: wtab02Dto[i]["misdate"],
+                    misnum: wtab02Dto[i]["misnum"], 
+                    miskey: ls_miskey,  
+                    acorp: wtab02Dto[i]["acorp"],     
+                    atelno: wtab02Dto[i]["atelno"],     
+                    ajuso: wtab02Dto[i]["ajuso"],     
+                    aascodetxt: wtab02Dto[i]["aascodetxt"],     
+                    pname: wtab02Dto[i]["pname"],     
+                    qty: wtab02Dto[i]["qty"],     
+                    remark: wtab02Dto[i]["remark"],     
+                    message: wtab02Dto[i]["message"],      
+                    payflag: bfixflag,      
+                    qty: wtab02Dto[i]["qty"],    
+                    samt: wtab02Dto[i]["samt"],  
+                    addamt: wtab02Dto[i]["addamt"], 
+                    amt: wtab02Dto[i]["amt"],   
+                    rownum: wtab02Dto[i]["rownum"],      
+                    acorp: wtab02Dto[i]["acorp"],      
+                    eeacorp: wtab02Dto[i]["eeacorp"],      
+                    eeasano: wtab02Dto[i]["eeasano"],      
+                    eeaname: wtab02Dto[i]["eeaname"],      
+                    eeupte: wtab02Dto[i]["eeupte"],      
+                    eeajong: wtab02Dto[i]["eeajong"],      
+                    eeajuso: ls_eeajuso,         
+                    eeacodetxt: ls_eeacodetxt,       
+                    eeatelno: wtab02Dto[i]["eeatelno"],        
                 });
                 cnt++;
-            }   
-             console.log(wtabExl_data) 
-            // console.log(wtab02_data.length);
+            }    
             wtab02Grid.columns.clear();  
             wtab02Grid.autoGenerateColumns = false; 
-            view_p01tab02page.sourceCollection  = wtabExl_data;
+            view_p01tab02page.sourceCollection  = wtab02_data; 
             var cols = new wijmo.grid.Column(); 
-            cols.binding = 'as_key1';
-            cols.header = '접수일자';
+            cols.binding = 'acorp';
+            cols.header = '상호';
             cols.align = "center";
-            cols.width = 120; 
-            wtab02Grid.columns.push(cols);   
-            cols = new wijmo.grid.Column(); 
-            cols.binding = 'as_key2';
-            cols.header = '순번';
-            cols.align = "center";
-            cols.width = 50;  
-            wtab02Grid.columns.push(cols);   
-            cols = new wijmo.grid.Column(); 
-            cols.binding = 'as_acorp';
-            cols.header = '거래처';
-            cols.align = "left";
-            cols.width = 250;   
+            cols.width = 150;  
             wtab02Grid.columns.push(cols);  
-            cols = new wijmo.grid.Column(); 
-            cols.binding = 'as_devcode';
-            cols.header = '발송번호';
+            cols = new wijmo.grid.Column();    
+            cols.binding = 'atelno';
+            cols.header = '연락처';
             cols.align = "center";
-            cols.width = 80;  
-            wtab02Grid.columns.push(cols);       
+            cols.width = 150; 
+            wtab02Grid.columns.push(cols);    
             cols = new wijmo.grid.Column(); 
-            cols.binding = 'as_date2';
-            cols.header = '배송일자';
+            cols.binding = 'ajuso';
+            cols.header = '주소';
+            cols.align = "left";
+            cols.width = 150;  
+            wtab02Grid.columns.push(cols);   
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'aascodetxt';
+            cols.header = '우편번호';
             cols.align = "center";
             cols.width = 120;  
             wtab02Grid.columns.push(cols);   
             cols = new wijmo.grid.Column(); 
-            cols.binding = 'as_model';
-            cols.header = '모델';
-            cols.align = "center";
-            cols.width = 80;  
+            cols.binding = 'misnum';
+            cols.header = '전표번호';
+            cols.align = "left";
+            cols.width = 100;  
             wtab02Grid.columns.push(cols);  
             cols = new wijmo.grid.Column(); 
-            cols.binding = 'as_color';
-            cols.header = '컬러';
+            cols.binding = 'qty';
+            cols.header = '수량';
             cols.align = "center";
             cols.width = 80;  
-            wtab02Grid.columns.push(cols);  
+            wtab02Grid.columns.push(cols);   
             cols = new wijmo.grid.Column(); 
-            cols.binding = 'as_suri';
-            cols.header = '수리부위';
-            cols.align = "center";
+            cols.binding = 'miskey';
+            cols.header = '비고';
+            cols.align = "center"; 
             cols.width = 150;  
             wtab02Grid.columns.push(cols);   
             cols = new wijmo.grid.Column(); 
-            cols.binding = 'as_memo';
-            cols.header = '메모';
-            cols.align = "center";
-            cols.width = 200;  
-            wtab02Grid.columns.push(cols);   
-            cols = new wijmo.grid.Column(); 
-            cols.binding = 'as_memo2';
-            cols.header = '메모2';
-            cols.align = "center";
-            cols.width = 200;  
-            wtab02Grid.columns.push(cols);   
-            cols = new wijmo.grid.Column(); 
-            cols.binding = 'as_memo3';
-            cols.header = '메모';
-            cols.align = "center";
-            cols.width = 200;  
-            wtab02Grid.columns.push(cols);   
-            cols = new wijmo.grid.Column(); 
-            cols.binding = 'as_aname';
-            cols.header = '구분';
-            cols.align = "center";
-            cols.width = 80;  
-            wtab02Grid.columns.push(cols);   
-            cols = new wijmo.grid.Column(); 
-            cols.binding = 'as_damdang';
-            cols.header = '접수자';
-            cols.align = "center";
+            cols.binding = 'message';
+            cols.header = '메세지';
+            cols.align = "left";
             cols.width = 150;  
-            wtab02Grid.columns.push(cols);  
+            wtab02Grid.columns.push(cols);     
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'payflag'; 
+            cols.header = '선불/착불';
+            cols.align = "center"; 
+            cols.width = 100;  
+            wtab02Grid.columns.push(cols);      
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'eeacorp'; 
+            cols.header = '상호';
+            cols.align = "center"; 
+            cols.width = 120;  
+            wtab02Grid.columns.push(cols);      
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'eeatelno'; 
+            cols.header = '연락처';
+            cols.align = "center"; 
+            cols.width = 120;  
+            wtab02Grid.columns.push(cols);     
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'eeacodetxt'; 
+            cols.header = '우편번호';
+            cols.align = "center"; 
+            cols.width = 80;  
+            wtab02Grid.columns.push(cols);     
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'eeajuso'; 
+            cols.header = '주소';
+            cols.align = "left"; 
+            cols.width = 120;  
+            wtab02Grid.columns.push(cols);    
  
         }     
  

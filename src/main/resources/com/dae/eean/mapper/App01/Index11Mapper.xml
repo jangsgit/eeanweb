@@ -39,6 +39,7 @@
             WHERE as_acorp1 + CAST(as_acorp2 as varchar)  Like concat('%',#{ascode},'%')
             and as_key1 between #{frdate} and #{todate}
             and isnull(as_devflag,'') Like concat('%',#{as_devflag},'%')
+            and isnull(misflag,'0') Like concat('%',#{misflag},'%')
             ORDER BY as_key1 desc, as_key2
         ]]>
     </select>
@@ -76,7 +77,9 @@
         from as_jupsu WITH (NOLOCK)
              LEFT JOIN TB_CA510 B ON com_code <> '00' and com_cls = '002' and com_code=as_jupsu.as_aname
         WHERE as_acorp1 + CAST(as_acorp2 as varchar)  Like concat('%',#{ascode},'%')
-          and as_key1 between #{frdate} and #{todate} and isnull(as_devflag,'0') Like concat('%',#{as_devflag},'%')
+          and as_key1 between #{frdate} and #{todate}
+          and isnull(as_devflag,'0') Like concat('%',#{as_devflag},'%')
+          and isnull(misflag,'0') Like concat('%',#{misflag},'%')
         ORDER BY as_key1 desc, as_key2
         ]]>
     </select>
@@ -116,6 +119,7 @@
                  #{itemcd}
             </foreach>
          and isnull(as_devflag,'0') = '1'
+         and isnull(misflag,'0') = '1'
         ORDER BY as_key1, as_key2
 
     </select>

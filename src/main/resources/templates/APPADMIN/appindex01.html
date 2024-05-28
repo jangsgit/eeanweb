@@ -93,7 +93,11 @@
                                 <div class="col-auto">   
                                     <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" type="button" onclick="save_btn()">수정
                                     </button>
-                                </div>  
+                                </div>    
+                                <div class="col-auto">  
+                                    <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" type="button"  id="addBtn" >등록
+                                    </button> 
+                                </div> 
                                 <!-- <div class="col-auto">   
                                     <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" type="button" onclick="delete_btn()">삭제
                                     </button>
@@ -121,57 +125,121 @@
 
 
     <!--------------------------------------------------------------------------------------->   
-        <!--  사용자 메뉴관리 MODAL FROM  -->  
-        <div class="modal fade" id="actnmmodal" data-bs-keyboard="false"
-        data-bs-backdrop="static" tabindex="-1" aria-labelledby="staticBackdropLabel"
-        aria-hidden="true">
-            <div class="modal-dialog modal-lg mt-6" role="document" id = "modalForm01"  style="max-width: 570px">
-                <div class="modal-content border-0"> 
-                    <div class="modal_content modal_sm scrollbar" style="width:600px; height:800px">
-                        <div class="layoutCont">
-                            <div class="modalContWrap">
-                                <!-- <div class="modal_close2 cancerButton">
-                                    <img th:src="@{/assets/images/modal_close.png}" alt="닫기" data-bs-dismiss="modal"> 
-                                </div>   -->
-                                <div class="modal_head">
-                                    사용자 메뉴관리
-                                </div>
-                                <div class="modal_con scrollbar auto_height" style="overflow-y: scroll;">
-                                    <div class="modal-body p-0" > 
-                                        <div class="rounded-top-lg py-3 ps-4 pe-6 bg-light">
-                                            <!-- <h4 class="mb-1" id="modalExampleDemoLabel">현장검색</h4>  -->
-                                            <div class="search">
-                                                <div class="input_wrap">
-                                                    <input class="form-control form-control-sm" id="searchtext" type="text"   onkeyup="if(window.event.keyCode==13){listUp02()}"
-                                                    placeholder="사용자명 "     />                                      
-                                                </div>
-                                                <button id="wactlistBtn" onclick="listUp02()">
-                                                    <img th:src="@{/assets/images/i_search.png}" alt=""> 
-                                                </button>
-                                            </div>  
-                                        </div>    
-                                        <div class="container-fluid"> 
-                                            <div id="wapp01Grid_div" ></div>
-                                            <div id="thePager02"></div>
-                                        </div>   
-                                    </div>  
-                
-                                    <div class="modal-footer">
-                                        <div class="row g-1">
-                                            <div class="col-auto">
-                                                <button class="badge-soft-primary dropdown-item rounded-1"
-                                                type="button"  id="wactnmmodal_btn" data-bs-dismiss="modal">Close</button>
-                                            </div> 
-                                        </div>
-                                    </div>   
-                                </div>
-
+    <!--  사용자 메뉴관리 MODAL FROM  -->  
+    <!-- <div class="modal fade" id="actnmmodal" data-bs-keyboard="false"
+    data-bs-backdrop="static" tabindex="-1" aria-labelledby="staticBackdropLabel"
+    aria-hidden="true">
+        <div class="modal-dialog modal-lg mt-6" role="document" id = "modalForm01"  style="max-width: 570px">
+            <div class="modal-content border-0"> 
+                <div class="modal_content modal_sm scrollbar" style="width:600px; height:800px">
+                    <div class="layoutCont">
+                        <div class="modalContWrap"> 
+                            <div class="modal_head">
+                                사용자 메뉴관리
                             </div>
+                            <div class="modal_con scrollbar auto_height" style="overflow-y: scroll;">
+                                <div class="modal-body p-0" > 
+                                    <div class="rounded-top-lg py-3 ps-4 pe-6 bg-light"> 
+                                        <div class="search">
+                                            <div class="input_wrap">
+                                                <input class="form-control form-control-sm" id="searchtext" type="text"   onkeyup="if(window.event.keyCode==13){listUp02()}"
+                                                placeholder="사용자명 "     />                                      
+                                            </div>
+                                            <button id="wactlistBtn" onclick="listUp02()">
+                                                <img th:src="@{/assets/images/i_search.png}" alt=""> 
+                                            </button>
+                                        </div>  
+                                    </div>    
+                                    <div class="container-fluid"> 
+                                        <div id="wapp01Grid_div" ></div>
+                                        <div id="thePager02"></div>
+                                    </div>   
+                                </div>  
+            
+                                <div class="modal-footer">
+                                    <div class="row g-1">
+                                        <div class="col-auto">
+                                            <button class="badge-soft-primary dropdown-item rounded-1"
+                                            type="button"  id="wactnmmodal_btn" data-bs-dismiss="modal">Close</button>
+                                        </div> 
+                                    </div>
+                                </div>   
+                            </div>
+
                         </div>
                     </div>
-                </div> 
+                </div>
             </div> 
-        </div>  
+        </div> 
+    </div>   -->
+<!--------------------------------------------------------------------------------------->  
+
+<!--------------------------------------------------------------------------------------->   
+    <!--  사용자 추가 MODAL FROM  -->  
+    <div class="modal fade" id="actnmmodal" data-bs-keyboard="false"
+        data-bs-backdrop="static" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg mt-6" role="document" id = "modalForm01" style="max-width: 800px">
+            <div class="modal-content border-0">
+                <div class="modal-body p-0" > 
+                    <div class="rounded-top-lg py-3 ps-4 pe-6 bg-light">                            
+                        <div class="box_con_wrap">
+                            <div class="box_con">
+                                <div class="logo">
+                                    <a th:href="@{/}">
+                                    <img src="/images/logo.png" alt="">
+                                    </a>
+                                </div>
+                                <!--------------------------------------------------------------------------------------->   
+                                <div class="form"> 
+                                    <div class="form_wrap">  
+                                            <div class="input_wrap flex">
+                                                <p>아이디</p>
+                                                <input type="text" id="useridadd" name="useridadd"   /> 
+                                            </div> 
+                                            <div class="input_wrap flex">
+                                                <p>비밀번호</p>
+                                                <input type="password" id="passwd1" name="passwd1" onchange="check_pw()"  />
+                                                
+                                            </div>  
+                                            <div class="input_wrap flex">
+                                                <p>비밀번호 확인</p>
+                                                <input type="password" id="passwd2" name="passwd2" onchange="check_pw()"  /> 
+                                            </div>
+                                            <span id="check" style="margin-left: 140px"></span> 
+                                            <div class="input_wrap flex">
+                                                <p>품목구분</p> 
+                                                <div class="input_wrap" style="max-width: 235px;">
+                                                    <select class="form-select" th:field="*{index01ListDto}" name="custnm" id="custnm"> 
+                                                        <option th:each="val : ${index01ListDto}" th:value="${val.com_code}" th:text="${val.com_rem1}">
+                                                    </select>    
+                                                </div>
+                                            </div>   
+                                            <div class="input_wrap flex">
+                                                <p>사용자명</p>
+                                                <input type="text" id="username" name="username"   /> 
+                                            </div>   
+                                            <div class="btn_wrap">
+                                                <button type="button" name="add_btn" id="add_btn" onclick="add_btn()">본사사용자등록</button>
+                                            </div> 
+                                    </div>
+                                </div>
+                                <!--------------------------------------------------------------------------------------->   
+                            </div>
+                        </div>  
+                    </div> 
+                </div>  
+
+                <div class="modal-footer">
+                    <div class="row g-1"> 
+                        <div class="col-auto">
+                            <button class="badge-soft-primary dropdown-item rounded-1"
+                                type="button"  id="actnmmodal_btn" data-bs-dismiss="modal">Close</button>
+                        </div> 
+                    </div>
+                </div>   
+            </div>
+        </div> 
+    </div>   
 <!--------------------------------------------------------------------------------------->  
 
 
@@ -186,7 +254,10 @@
     document.getElementById("retrieveBtn").addEventListener("click",function(){ 
         listUp();
 
-    })    
+    })        
+    document.getElementById("addBtn").addEventListener("click",function(){  
+        document.getElementById("actnmbtn").click(); 
+    })  
     function menumodal_click(arg1, arg2, arg3, arg4, arg5){  
         document.getElementById('actseq').value = arg1;  
         document.getElementById('userid').value = arg2;  
@@ -682,7 +753,88 @@
             return data01                                          
         }         
 
-  
+
+ 
+        function add_btn(){  
+            var ls_userid = document.getElementById('useridadd').value;    
+            var ls_passwd1 = document.getElementById('passwd1').value ;  
+            var ls_passwd2 = document.getElementById('passwd2').value;  
+            var ls_custnm = document.getElementById('custnm').value; 
+            var ls_username = document.getElementById('username').value;  
+        
+            if (!confirm("등록하시겠습니까?")) {
+                    return ; 
+            }     
+            if(ls_userid == null || ls_userid.length == 0 || ls_userid == ""){ 
+                alert("아이디를 등록 하세요")  
+                return ;               
+            }     
+            if(ls_passwd2 == null || ls_passwd2.length == 0 || ls_passwd2 == ""){ 
+                alert("비밀번호를 등록 하세요")  
+                return ;               
+            }    
+            if(ls_custnm == null || ls_custnm.length == 0 || ls_custnm == ""){ 
+                alert("품목구분을 등록 하세요")  
+                return ;               
+            }       
+            if(ls_username == null || ls_username.length == 0 || ls_username == ""){ 
+                alert("사용자명을 등록 하세요")  
+                return ;               
+            }   
+
+            $.ajax({
+                url: '/appadmod/id01sav',   
+                type:"POST",
+                data: {
+                    "userid"    : ls_userid , 
+                    "passwd1"    : ls_passwd1 ,
+                    "passwd2"    : ls_passwd2,
+                    "custnm"    : ls_custnm, 
+                    "username"    : ls_username,
+                    "flag"    : 'AA'
+                },
+                async:false,
+                success:function(data){
+                    if(data == "success"){
+                        alert("등록되었습니다.")
+                        // console.log("MOD", data); 
+                        listUp();
+                        $("#actnmmodal_btn").trigger("click"); 
+                    }else{
+                        if(data == "relogin"){
+                            alert("다시 로그인해주세요")
+                            window.location.href='http://eean.co.kr';
+                            return 
+                        }       
+                        alert("변경중 오류가 발생했습니다. 관리자에게 문의하세요.")
+                    }
+                },error:function(e){
+                    console.log('error',e);
+                }
+            }).done(function(fragment){
+
+            })
+
+          listUp();
+ 
+        }   
+      
+        function check_pw(){
+            var pw = document.getElementById('passwd1').value;
+    
+            if(document.getElementById('passwd1').value !="" && document.getElementById('passwd2').value != ""){
+                if(document.getElementById('passwd1').value==document.getElementById('passwd2').value){
+                    document.getElementById('check').innerHTML='비밀번호가 일치합니다.'
+                    document.getElementById('check').style.color='blue';
+                }
+                else{
+                    document.getElementById('check').innerHTML='비밀번호가 일치하지 않습니다.';
+                    document.getElementById('check').style.color='red';
+                }
+            }
+
+        }
+        
     </script>
 
     <!------footer ------>
