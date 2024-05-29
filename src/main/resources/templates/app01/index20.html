@@ -1564,14 +1564,11 @@
                     }  
  
                     $.ajax({
-                        url: '/app01m/index14/listdev',  
+                        url: '/app01m/index14/listdevjupsu',  
                         type:"POST",
-                        data: { 
-                            "misdatearr"  : misdateArr,  
-                            "misnumarr"   : misnumArr   , 
-                            "seqarr"  : seqArr     , 
-                            "cltcdarr"  : cltcdArr     , 
-                            "gubunarr"  : gubunArr   
+                        data: {  
+                            "misdatearr"  : asKey1Arr,  
+                            "misnumarr"   : asKey2Arr  
                         }, 
                         async:false,
                         success:function(data){     
@@ -1647,8 +1644,14 @@
             cols.binding = 'as_key1';
             cols.header = '접수일자';
             cols.align = "center";
-            cols.width = 120;   
-            cols.cellTemplate = ls_css
+            cols.width = 120;    
+            cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
+                text: '<b>${item.as_key1}</b>',
+                click: (e, ctx) => {
+                    wjupsuChk_a(ctx.item.as_key1, ctx.item.as_key2, ctx.item.as_model, ctx.item.as_color,ctx.item.as_suri,ctx.item.as_yumu,ctx.item.as_gongjang,ctx.item.as_acorp,ctx.item.as_acorp1,ctx.item.as_acorp2,ctx.item.as_acorp3,ctx.item.as_memo,ctx.item.as_memo2,ctx.item.as_memo3,ctx.item.as_aname, ctx.item.as_damdang  );                    
+                    
+                }
+            });
             wtab01Grid.columns.push(cols);   
 
             cols = new wijmo.grid.Column(); 
@@ -1669,14 +1672,8 @@
             cols.binding = 'as_acorp';
             cols.header = '거래처';
             cols.align = "left";
-            cols.width = 250;  
-            cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
-                text: '<b>${item.as_acorp}</b>',
-                click: (e, ctx) => {
-                    wjupsuChk_a(ctx.item.as_key1, ctx.item.as_key2, ctx.item.as_model, ctx.item.as_color,ctx.item.as_suri,ctx.item.as_yumu,ctx.item.as_gongjang,ctx.item.as_acorp,ctx.item.as_acorp1,ctx.item.as_acorp2,ctx.item.as_acorp3,ctx.item.as_memo,ctx.item.as_memo2,ctx.item.as_memo3,ctx.item.as_aname, ctx.item.as_damdang  );                    
-                    
-                }
-            });
+            cols.width = 250; 
+            cols.cellTemplate = ls_css
             wtab01Grid.columns.push(cols);  
             cols = new wijmo.grid.Column(); 
             cols.binding = 'as_model';
@@ -1782,7 +1779,7 @@
             var wtab02Dto  = data;  
             var cnt = 1;
             var bfixflag = "신용" 
-            console.log(wtab02Dto)
+            //console.log(wtab02Dto)
             wtab02_data = [];
             for (var i = 0; i < wtab02Dto.length; i++) { 
                 ls_acorp = wtab02Dto[i]["acorp"]; 

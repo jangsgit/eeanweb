@@ -125,6 +125,30 @@
 
     </select>
 
+    <select id="SelectDa024ListLikeJupsu"  parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" resultType="com.dae.eean.DTO.App01.IndexDa024Dto">
+
+
+        <![CDATA[ select B.cltcd as cltcd,
+                      Left(B.misdate,4) + '-' + substring(B.misdate, 5,2)+ '-' + substring(B.misdate, 7,2)  as misdate,
+                      B.misnum, B.seq,
+                      B.pcode, B.pname, B.psize,    B.punit,  B.qty,  B.uamt, B.samt, B.addamt,
+                      isnull(B.remarkaa,'') as remarkaa,
+                      isnull(B.remarkbb,'') as remarkbb,
+                      B.unsongnum as unsongnum,
+                      isnull(B.makflag, '0') as makflag,
+                      B.amt, B.acorp, pbonsa, pmodel, pcolor , B.pernm as inname, B.misgubun, isnull(B.fixflag,'0') as fixflag,isnull(B.devflag,'0') as devflag,   B.pernm as pernm,
+                      B.fixdate,  CONVERT(CHAR(19),B.fixdatetime,20) as fixdatetime ,  CONVERT(CHAR(19),B.misdatetime,20) as misdatetime , 0 as jqty,
+                      B.userid, B.usernm
+                  from  TB_DA024 B WITH (NOLOCK)
+                  where B.CLTCD Like concat('%',#{cltcd},'%')
+                    AND B.misdate between #{frdate} and #{todate}
+                    AND Isnull(B.devflag, '0') Like concat('%',#{devflag},'%')
+                    AND B.pmodel = 'AS'
+                  ORDER BY  B.misdate desc, B.misnum, B.seq
+        ]]>
+
+    </select>
+
     <select id="SelectDa024ListJang"  parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" resultType="com.dae.eean.DTO.App01.IndexDa024Dto">
 
 
@@ -319,6 +343,35 @@
             AND isnull(B.devflag, '0') = '1'
         Group BY B.cltcd,  B.misdate, B.misnum, A.acorp
         ORDER BY B.misdate desc, B.misnum
+    </select>
+
+    <select id="SelectDa024ListDevJupsuGroup"  parameterType="hashmap"  resultType="com.dae.eean.DTO.App01.IndexDa024Dto">
+        select  B.as_acorp1 + CAST(B.as_acorp2 as varchar) as cltcd,
+            B.as_key1 as misdate, B.as_key2 AS misnum,
+            substring(B.as_key1, 1,4)+ '년 ' + substring(B.as_key1, 6,2)+ '월 ' + substring(B.as_key1, 9,2) + '일' as misdatetxt,
+            sum(isnull(E.qty,0)) as qty,   sum(isnull(E.samt,0)) as samt, sum(isnull(E.addamt,0)) as addamt, sum(isnull(E.amt,0)) as amt,
+            case when sum(isnull(E.qty,0)) = 1 then  MAX(isnull(E.pname,'')) when sum(isnull(E.qty,0)) = 0 then '무상'  else Max(isnull(E.pname,'')) + ' 외' + cast(sum(isnull(E.qty,0)) - 1 as varchar(100)) + '건' end  as pname,
+            B.as_acorp as acorp, max(A.atelno) as atelno, max(ajuso1) + ' ' + max(ajuso2) as ajuso , '안경원입니다.' as remark,
+            '안경원입니다! 인수자  서명 부탁드립니다.' as message, isnull(max(E.payflag), '0') AS payflag,
+            ROW_NUMBER() OVER(ORDER BY (SELECT 1)) AS rownum,
+            MAX(A.aascode1) + '-' + MAX(A.aascode2) as aascodetxt,
+            MAX(F.acorp) as eeacorp, MAX(F.asano) as eeasano, MAX(F.aname) as eeaname, MAX(F.aupte) as eeupte,
+            MAX(F.ajong) as eeajong, MAX(F.ajuso) as eeajuso, MAX(F.atelno) as eeatelno,  MAX(F.eeacodetxt) as eeacodetxt, MAX(F.eeatelno) as eeatelno
+        from  as_jupsu B WITH (NOLOCK)
+              LEFT OUTER JOIN TB_DA024 E WITH (NOLOCK) ON B.misdate = E.misdate and B.misnum = E.misnum and E.pmodel= 'AS',
+            cif A WITH (NOLOCK) Left outer JOIN INSA D ON A.abonsadam1 = D.insano ,
+            ( select acorp, atelno, asano1 + '-' + asano2 + '-' + asano3 as asano, aname, aupte, ajong,
+            ajuso1 + ' ' + ajuso2 as ajuso, aascode1 + '-' + aascode2 as eeacodetxt, atelno as eeatelno
+            from cif where acorp1 + acorp2 + acorp3 = '0000' ) F
+        where   B.as_acorp1 = A.acorp1
+            AND B.as_acorp2 = A.acorp2
+            AND B.as_key1 + CAST(B.as_key2 AS varchar)  in
+        <foreach collection="itemcdArr" item="itemcd"  open="(" close=")" separator=",">
+            #{itemcd}
+        </foreach>
+        AND isnull(B.as_devflag, '0') = '1'
+        Group BY B.as_acorp1, B.as_acorp2,  B.as_key1, B.as_key2, B.as_acorp
+        ORDER BY B.as_key1 desc, B.as_key2
     </select>
 
     <select id="SelectDa026List"  parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" resultType="com.dae.eean.DTO.App01.IndexDa024Dto">

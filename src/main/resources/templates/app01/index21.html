@@ -118,7 +118,15 @@
                                                     <input class="form-control form-control-sm" id="bjpbgubn" type="hidden"  /> 
                                                     
                                                 </div>
-                                            </div>
+                                            </div> 
+                                            <div class="col-1 col-sm-1">
+                                                <select class="form-select form-select-sm" id="misflag" aria-label=".form-select-sm example">
+                                                    <option selected="">주문구분</option>
+                                                    <option value="%">전체</option>
+                                                    <option value="1">주문완료</option>
+                                                    <option value="0">주문전</option>
+                                                  </select> 
+                                            </div>  
                                             <div class="col-1 col-sm-1">  
                                                 <select class="form-select" id="asflag"  >   
                                                     <option selected="">배송구분</option>
@@ -163,7 +171,7 @@
                                                     <input class="form-control form-control-sm" id="djpbgubn" type="hidden"  /> 
                                                     
                                                 </div>
-                                            </div>
+                                            </div>        
                                             <div class="col-1 col-sm-1">  
                                                 <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="listBtn02" type="button"  >조회
                                                 </button>
@@ -710,7 +718,8 @@
                     var ls_frdate = document.getElementById('frdate').value; 
                     var ls_todate = document.getElementById('todate').value; 
                     var ls_asflag = document.getElementById('asflag').value; 
-                    var ls_bacode = document.getElementById('bacode').value; 
+                    var ls_bacode = document.getElementById('bacode').value;   
+                    var ls_misflag = document.getElementById('misflag').value; 
                     
                     if(ls_frdate == null || ls_frdate.length == 0 || ls_frdate == ""){ 
                             alert("시작일자를 입력하세요") 
@@ -724,7 +733,10 @@
                     }    
                     if(ls_asflag == "배송구분"){ 
                         ls_asflag = "%";
-                    }       
+                    }      
+                    if(ls_misflag == "주문구분"){ 
+                        ls_misflag = "%";
+                    }     
                     $.ajax({
                         url: '/app02m/index11/list01',  
                         type:"POST",
@@ -732,7 +744,8 @@
                             "frdate"      : ls_frdate, 
                             "todate"      : ls_todate,  
                             "asflag"      : ls_asflag, 
-                            "asacorp"      : ls_bacode 
+                            "asacorp"      : ls_bacode  , 
+                            "misflag"  : ls_misflag    
                         }, 
                         async:false,
                         success:function(data){   
@@ -749,8 +762,12 @@
                 case 'B': 
                     var ls_frdate = document.getElementById('frdate02').value; 
                     var ls_todate = document.getElementById('todate02').value;  
-                    var ls_bacode = document.getElementById('dacode').value; 
-                    
+                    var ls_bacode = document.getElementById('dacode').value;  
+                    var ls_misflag = document.getElementById('misflag').value; 
+                       
+                    if(ls_misflag == "주문구분"){ 
+                        ls_misflag = "%";
+                    }  
                     if(ls_frdate == null || ls_frdate.length == 0 || ls_frdate == ""){ 
                             alert("시작일자를 입력하세요") 
                             document.getElementById("frdate02").focus(); 
@@ -768,7 +785,8 @@
                             "frdate"      : ls_frdate, 
                             "todate"      : ls_todate,  
                             "asflag"      : "1", 
-                            "asacorp"      : ls_bacode 
+                            "asacorp"      : ls_bacode  , 
+                            "misflag"  : ls_misflag    
                         }, 
                         async:false,
                         success:function(data){   
@@ -809,7 +827,11 @@
                     as_date2:  wtab01Dto[i]["as_date2"],   
                     as_damdang:  wtab01Dto[i]["as_damdang"],   
                     as_devcode:  wtab01Dto[i]["as_devcode"],   
-                    as_devdate:  wtab01Dto[i]["as_devdate"],   
+                    as_devdate:  wtab01Dto[i]["as_devdate"],  
+                    unsongnum:  wtab01Dto[i]["unsongnum"],       
+                    misdate:  wtab01Dto[i]["misdate"],    
+                    misnum:  wtab01Dto[i]["misnum"],  
+                    as_comrem:  wtab01Dto[i]["as_comrem"],  
                                                    
                 });
                 cnt++;
@@ -831,6 +853,11 @@
             cols.align = "center";
             cols.width = 50;  
             wtab01Grid.columns.push(cols);   
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'as_comrem';
+            cols.header = '구분';
+            cols.align = "center";
+            cols.width = 80;   
             cols = new wijmo.grid.Column(); 
             cols.binding = 'as_gongjang';
             cols.header = '공장';
@@ -885,22 +912,34 @@
             cols.header = '메모2';
             cols.align = "center";
             cols.width = 200;  
-            wtab01Grid.columns.push(cols);   
-            cols = new wijmo.grid.Column(); 
-            cols.binding = 'as_memo3';
-            cols.header = '메모';
-            cols.align = "center";
-            cols.width = 200;  
-            wtab01Grid.columns.push(cols);      
+            wtab01Grid.columns.push(cols);       
             cols = new wijmo.grid.Column(); 
             cols.binding = 'as_date2';
             cols.header = '배송일자';
             cols.align = "center";
             cols.width = 120;  
+            wtab01Grid.columns.push(cols);  
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'misdate';
+            cols.header = '주문일자';
+            cols.align = "center";
+            cols.width = 120;  
+            wtab01Grid.columns.push(cols); 
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'misnum';
+            cols.header = '주문번호';
+            cols.align = "center";
+            cols.width = 80;  
+            wtab01Grid.columns.push(cols); 
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'unsongnum';
+            cols.header = '운송장';
+            cols.align = "center";
+            cols.width = 100;   
             wtab01Grid.columns.push(cols);   
             cols = new wijmo.grid.Column(); 
-            cols.binding = 'as_aname';
-            cols.header = '구분';
+            cols.binding = 'as_gongjang';
+            cols.header = '공장';
             cols.align = "center";
             cols.width = 80;  
             wtab01Grid.columns.push(cols);   
@@ -910,6 +949,19 @@
             cols.align = "center";
             cols.width = 150;  
             wtab01Grid.columns.push(cols); 
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'as_devflag';
+            cols.header = '발송구분';
+            cols.align = "center";
+            cols.width = 100;   
+            cols.cssClass = 'switch'
+            wtab01Grid.columns.push(cols);   
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'as_devdate';
+            cols.header = '발송처리';
+            cols.align = "center";
+            cols.width = 150;  
+            wtab01Grid.columns.push(cols);   
  
         }     
         function tabB_grid(data){

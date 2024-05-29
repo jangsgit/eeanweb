@@ -876,7 +876,7 @@ public class App01Controller {
     }
 
 
-    //AS접수 등록
+    //AS접수 현황
     @GetMapping(value="/index21")
     public String App21_index( Model model, HttpServletRequest request) throws Exception{
         CommDto.setMenuTitle("통계관리");
@@ -896,6 +896,27 @@ public class App01Controller {
         }
 
         return "App01/index21";
+    }
+    //AS주문 현황
+    @GetMapping(value="/index22")
+    public String App22_index( Model model, HttpServletRequest request) throws Exception{
+        CommDto.setMenuTitle("통계관리");
+        CommDto.setMenuUrl("통계관리>AS주문현황");
+        CommDto.setMenuCode("index22");
+        try {
+            HttpSession session = request.getSession();
+            UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+            model.addAttribute("userformDto",userformDto);
+//            popupListDto = svcpopup.getCifCodeList(popupDto);
+
+            model.addAttribute("cifcodeList",popupListDto);
+        } catch (Exception ex) {
+            log.info("App22_index Exception  ====");
+            log.info("Exception =====>" + ex.toString());
+            return "redirect:http://eean.co.kr";
+        }
+
+        return "App01/index22";
     }
 
 }

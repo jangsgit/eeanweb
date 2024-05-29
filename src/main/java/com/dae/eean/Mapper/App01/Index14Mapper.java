@@ -85,6 +85,7 @@ public interface Index14Mapper {
     public List<IndexDa024Dto> SelectDa024ListDel(IndexDa024Dto parm) ;
     public List<IndexDa024Dto> SelectDa024ListLike(IndexDa024Dto parm) ;
     public List<IndexDa024Dto> SelectDa024ListLikeJang(IndexDa024Dto parm) ;
+    public List<IndexDa024Dto> SelectDa024ListLikeJupsu(IndexDa024Dto parm) ;
 
     public String SelectedFixDA024(IndexDa024Dto parm) ;
 
@@ -93,6 +94,7 @@ public interface Index14Mapper {
     public List<IndexDa024Dto> SelectDa024ListPrt(IndexDa024Dto parm) ;
     public List<IndexDa024Dto> SelectDa024ListPrtGroup(HashMap<String,String> parm) ;
     public List<IndexDa024Dto> SelectDa024ListDevGroup(HashMap<String,String> parm) ;
+    public List<IndexDa024Dto> SelectDa024ListDevJupsuGroup(HashMap<String,String> parm) ;
 
     public List<IndexDa024Dto> SelectDa026List(IndexDa024Dto parm) ;
     public List<IndexDa024Dto> SelectDa026ListDel(IndexDa024Dto parm) ;

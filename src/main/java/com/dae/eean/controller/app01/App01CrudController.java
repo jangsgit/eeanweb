@@ -2405,6 +2405,51 @@ public class App01CrudController {
         return _indexDa024ListDto;
     }
 
+    //AS주문현황 리스트
+    @GetMapping(value="/index14/listjupsu")
+    public Object App14ListJupsu_index(@RequestParam("frdate") String frdate,
+                                  @RequestParam("todate") String todate,
+                                  @RequestParam("asflag") String asflag,
+                                  @RequestParam("asacorp") String asacorp,
+                                  Model model, HttpServletRequest request) throws Exception{
+        CommDto.setMenuTitle("접수등록");
+        CommDto.setMenuUrl("접수등록>주문현황");
+        CommDto.setMenuCode("index14");
+        HttpSession session = request.getSession();
+        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        IndexDa024Dto _indexDa024Dto = new IndexDa024Dto();
+        List<IndexDa024Dto> _indexDa024ListDto = new ArrayList<>();
+        if(userformDto == null){
+            log.info("App14ListJupsu_index Exception =====> relogin userformDto null");
+            return "relogin";
+        }
+        model.addAttribute("userformDto",userformDto);
+
+        try {
+            String year = frdate.substring(0,4) ;
+            String month = frdate.substring(5,7) ;
+            String day   = frdate.substring(8,10) ;
+            frdate = year + month + day ;
+            year = todate.substring(0,4) ;
+            month = todate.substring(5,7) ;
+            day   = todate.substring(8,10) ;
+            todate = year + month + day ;
+            _indexDa024Dto.setFrdate(frdate);
+            _indexDa024Dto.setTodate(todate);
+            _indexDa024Dto.setCltcd(asacorp);
+            _indexDa024Dto.setDevflag(asflag);
+            _indexDa024Dto.setJfrdate("20000101");
+            _indexDa024Dto.setJtodate(todate);
+            _indexDa024ListDto = service14.SelectDa024ListLikeJupsu(_indexDa024Dto);
+            model.addAttribute("indexDa024ListDto",_indexDa024ListDto);
+
+        } catch (Exception ex) {
+            log.info("App14List_index Exception =====>" + ex.toString());
+        }
+
+        return _indexDa024ListDto;
+    }
+
 
     //주문현황 리스트 장바구니
     @GetMapping(value="/index14/listjang")
@@ -2610,7 +2655,7 @@ public class App01CrudController {
         return indexDa024ListDto;
     }
 
-    //주문현황 리스트
+    //주문배송현황 리스트
     @GetMapping(value="/index14/listdev")
     public Object App14ListDev_index(@RequestParam(value = "misdatearr[]") List<String> misdatearr
             ,@RequestParam( value =  "misnumarr[]") List<String> misnumarr
@@ -2982,6 +3027,55 @@ public class App01CrudController {
 
         return _indexDa024ListDto;
     }
+
+    //as배송현황 리스트
+    @GetMapping(value="/index14/listdevjupsu")
+    public Object App14ListDevJupsu_index(@RequestParam(value = "misdatearr[]") List<String> misdatearr
+            ,@RequestParam( value =  "misnumarr[]") List<String> misnumarr
+            ,Model model, HttpServletRequest request) throws Exception{
+        CommDto.setMenuTitle("주문등록");
+        CommDto.setMenuUrl("주문등록>주문현황");
+        CommDto.setMenuCode("index14");
+        HttpSession session = request.getSession();
+        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        if(userformDto == null){
+            log.info("App14ListDev_index Exception =====> relogin userformDto null");
+            return "relogin";
+        }
+        model.addAttribute("userformDto",userformDto);
+
+        try {
+            HashMap hm = new HashMap();
+            String[] itemString =new String[misdatearr.size()];
+            String ls_tempItem = "";
+            Integer ll_count = 0;
+            if( misdatearr.size() > 0){
+                for(int i = 0; i < misdatearr.size(); i++){
+                    String ls_misdate = "";
+                    ls_misdate = misdatearr.get(i) ;
+                    if(ls_tempItem.equals( ls_misdate + misnumarr.get(i) )){
+                        continue;
+                    }
+                    itemString[ll_count] = ls_misdate + misnumarr.get(i) ;
+                    ll_count++;
+//                    log.info("ls_misdate=====>" + ls_misdate);
+//                    log.info("misnumarr=====>" + misnumarr.get(i));
+//                    log.info("cltcdarr=====>" +  cltcdarr.get(i));
+                    ls_tempItem = ls_misdate + misnumarr.get(i) ;
+//                    log.info("itemString =====>" + ls_misdate + misnumarr.get(i) + seqarr.get(i) + cltcdarr.get(i));
+                }
+                hm.put("itemcdArr", itemString);
+                indexDa024ListDto = service14.SelectDa024ListDevJupsuGroup(hm);
+
+            }
+
+        } catch (Exception ex) {
+            log.info("App14List_index Exception =====>" + ex.toString());
+        }
+
+        return indexDa024ListDto;
+    }
+
 
 
     //주문현황 리스트
