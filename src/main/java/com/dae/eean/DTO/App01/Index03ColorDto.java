@@ -1,0 +1,78 @@
+package com.dae.eean.DTO.App01;
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+public class Index03ColorDto {
+    private String jkey;
+    private String jpb_gubn;
+    private String jgong_code;
+    private String jdan_code;
+    private String jmodel_code;
+    private String jcolor_code;
+    private String jmodel_code2;
+    private String jcolor_code2;
+    private String jcolor_code3;
+    private String jbonsa_code;
+    private String jbonsa_code2;
+    private String jbonsa_code_seq;
+    private String jbonsa_code_seq2;
+    private String jsayong_gubn;
+    private String jpum;
+    private String jgugek;
+    private String jsize;
+    private String color_1;
+    private String color_2;
+    private String color_3;
+    private String color_4;
+    private String color_5;
+    private String color_6;
+    private String color_7;
+    private String color_8;
+    private String color_9;
+    private String color_10;
+    private String color_11;
+    private String color_12;
+    private String color_13;
+    private String color_14;
+    private String color_15;
+    private String color_16;
+    private String color_17;
+    private String color_18;
+    private String color_19;
+    private String color_20;
+    private String color_21;
+    private String color_22;
+    private String color_23;
+    private String color_24;
+    private String color_25;
+    private String color_26;
+    private Integer jqty_1;
+    private Integer jqty_2;
+    private Integer jqty_3;
+    private Integer jqty_4;
+    private Integer jqty_5;
+    private Integer jqty_6;
+    private Integer jqty_7;
+    private Integer jqty_8;
+    private Integer jqty_9;
+    private Integer jqty_10;
+    private Integer jqty_11;
+    private Integer jqty_12;
+    private Integer jqty_13;
+    private Integer jqty_14;
+    private Integer jqty_15;
+    private Integer jqty_16;
+    private Integer jqty_17;
+    private Integer jqty_18;
+    private Integer jqty_19;
+    private Integer jqty_20;
+    private Integer jqty_21;
+    private Integer jqty_22;
+    private Integer jqty_23;
+    private Integer jqty_24;
+    private Integer jqty_25;
+    private Integer jqty_26;
+}

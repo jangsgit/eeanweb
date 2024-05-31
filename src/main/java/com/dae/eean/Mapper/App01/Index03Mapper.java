@@ -1,5 +1,6 @@
 package com.dae.eean.Mapper.App01;
 
+import com.dae.eean.DTO.App01.Index03ColorDto;
 import com.dae.eean.DTO.App01.Index03Dto;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
@@ -12,8 +13,8 @@ public interface Index03Mapper {
 
     public List<Index03Dto> GetJpumList(Index03Dto parm) ;
     public List<Index03Dto> GetJpumListTot(Index03Dto parm) ;
-    public List<Index03Dto> GetGanListBonsa01(Index03Dto parm) ;
-    public List<Index03Dto> GetGanListBonsa01BB(Index03Dto parm) ;
+    public List<Index03ColorDto> GetGanListBonsa01(Index03Dto parm) ;
+    public List<Index03ColorDto> GetGanListBonsa01BB(Index03Dto parm) ;
 
     public List<Index03Dto> GetGanListBonsa02(Index03Dto parm) ;
     public List<Index03Dto> GetJcustomCode(Index03Dto parm) ;

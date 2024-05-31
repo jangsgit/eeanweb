@@ -1,6 +1,7 @@
 package com.dae.eean.Service.App01;
 
 import com.dae.eean.DTO.App01.Index02Dto;
+import com.dae.eean.DTO.App01.Index03ColorDto;
 import com.dae.eean.DTO.App01.Index03Dto;
 import com.dae.eean.Mapper.App01.Index02Mapper;
 import com.dae.eean.Mapper.App01.Index03Mapper;
@@ -22,10 +23,10 @@ public class Index03Service {
     public List<Index03Dto> GetJpumListTot(Index03Dto parm){
         return  appMapper.GetJpumListTot(parm);
     }
-    public List<Index03Dto> GetGanListBonsa01(Index03Dto parm){
+    public List<Index03ColorDto> GetGanListBonsa01(Index03Dto parm){
         return  appMapper.GetGanListBonsa01(parm);
     }
-    public List<Index03Dto> GetGanListBonsa01BB(Index03Dto parm){
+    public List<Index03ColorDto> GetGanListBonsa01BB(Index03Dto parm){
         return  appMapper.GetGanListBonsa01BB(parm);
     }
 

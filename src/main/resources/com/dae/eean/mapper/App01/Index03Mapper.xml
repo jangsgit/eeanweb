@@ -115,7 +115,7 @@
     </select>
 
 
-    <select id="GetJpumCustJaegoList" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
+    <select id="GetJpumCustJaegoList_New" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
         <![CDATA[
             select    jkey,  jpum  ,  jgugek , jsize,
                              jmodel_code, jcolor_code, jcustomer_code,
@@ -128,14 +128,14 @@
         ]]>
     </select>
 
-    <select id="GetJpumCustJaegoList_New" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
+    <select id="GetJpumCustJaegoList" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
         {
             call SP_JaegoList(#{frdate},#{todate}, #{jkey}, #{jpb_gubn})
         }
     </select>
 
 
-    <select id="GetJpumFromJaegoList" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
+    <select id="GetJpumFromJaegoList_OLD" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
         <![CDATA[
         select    jkey,  jpum  ,  jgugek , jsize,
                 jmodel_code, jcolor_code, jcustomer_code, 0 AS junqty, 0 AS ipsu, 0 AS chulsu , 0 as jqty
@@ -149,7 +149,7 @@
 
 
 
-    <select id="GetJpumFromJaegoList_PRC" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
+    <select id="GetJpumFromJaegoList" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
         {
             call SP_FromToJaegoList(#{frdate},#{todate}, #{jkey}, #{jpb_gubn})
         }
@@ -309,7 +309,16 @@
         UPDATE  JCODE3 SET delflag = '1' where jkey  = #{jkey}
     </update>
 
-    <select id="GetGanListBonsa01" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
+    <select id="GetGanListBonsa01" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03ColorDto">
+        <![CDATA[
+                exec SP_GetGanListBonsa01
+                    #{jpb_gubn, jdbcType=VARCHAR},
+                    #{jbonsa_code, jdbcType=VARCHAR},
+                    #{todate, jdbcType=VARCHAR}
+         ]]>
+    </select>
+
+    <select id="GetGanListBonsa01_OLD" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
         <![CDATA[
         SELECT jbonsa_code, jbonsa_code2, jmodel_code2 as jmodel_code,   jpb_gubn
         from JCODE3 WITH (NOLOCK)
@@ -322,7 +331,7 @@
         ]]>
     </select>
 
-    <select id="GetGanListBonsa01BB" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
+    <select id="GetGanListBonsa01BB" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03ColorDto">
         <![CDATA[
         SELECT jbonsa_code, jbonsa_code2, jmodel_code2 as jmodel_code,   jpb_gubn
         from JCODE3 WITH (NOLOCK)
@@ -341,6 +350,17 @@
     </select>
 
     <select id="GetGanListBonsa02" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
+        <![CDATA[
+                exec SP_GetGanListBonsa02
+                    #{jpb_gubn, jdbcType=VARCHAR},
+                    #{jbonsa_code, jdbcType=VARCHAR},
+                    #{jbonsa_code2, jdbcType=VARCHAR},
+                    #{jmodel_code, jdbcType=VARCHAR},
+                    #{frdate, jdbcType=VARCHAR},
+                    #{todate, jdbcType=VARCHAR}
+         ]]>
+    </select>
+    <select id="GetGanListBonsa02_OLD" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
         <![CDATA[
         SELECT jbonsa_code, jbonsa_code2, jmodel_code2 as jmodel_code,   jpb_gubn, jcolor_code2 as jcolor_code, jkey,
                convert(integer, DBO.DF_TB_PCODE_JQTY(jkey,  #{frdate},  #{todate}) ) as jqty

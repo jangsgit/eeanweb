@@ -695,7 +695,7 @@ public class App01CrudController {
                                      Model model, HttpServletRequest request) throws Exception{
 
         Index03Dto index03Dto_S = new Index03Dto();
-        List<Index03Dto> _index03List = new ArrayList<>();
+        List<Index03ColorDto> _index03List = new ArrayList<>();
         CommDto.setMenuTitle("주문등록");
         CommDto.setMenuUrl("기준정보>주문등록");
         CommDto.setMenuCode("index14");
@@ -713,6 +713,7 @@ public class App01CrudController {
             }
             index03Dto_S.setJbonsa_code(jbonsacode);
             index03Dto_S.setJpb_gubn(jpbgubn);
+            index03Dto_S.setTodate(getToDate());
             if(flag.equals("AA")) {
                 _index03List = service03.GetGanListBonsa01(index03Dto_S);
             }else{
@@ -762,6 +763,11 @@ public class App01CrudController {
             index03Dto_S.setJmodel_code(jmodelcode);
             index03Dto_S.setFrdate("20000101");
             index03Dto_S.setTodate(getToDate());
+//            log.info("jpbgubn=" + jpbgubn);
+//            log.info("jbonsacode=" + jbonsacode);
+//            log.info("jbonsacode2=" + jbonsacode2);
+//            log.info("jmodelcode=" + jmodelcode);
+//            log.info("getToDate()=" + getToDate());
             _index03List = service03.GetGanListBonsa02(index03Dto_S);
             model.addAttribute("index03GanList02",_index03List);
 
