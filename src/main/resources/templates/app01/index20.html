@@ -1779,6 +1779,7 @@
             var wtab02Dto  = data;  
             var cnt = 1;
             var bfixflag = "신용" 
+            var ls_mistxt = ''            
             //console.log(wtab02Dto)
             wtab02_data = [];
             for (var i = 0; i < wtab02Dto.length; i++) { 
@@ -1802,7 +1803,10 @@
                 ls_eeatelno = wtab02Dto[i]["eeatelno"]; 
                 ls_misdate = wtab02Dto[i]["misdate"];
                 ls_misnum = wtab02Dto[i]["misnum"];
-                ls_miskey = wtab02Dto[i]["misdate"] + wtab02Dto[i]["misnum"] + wtab02Dto[i]["cltcd"];
+                ls_mistxt = "";
+                ls_mistxt = wtab02Dto[i]["misdate"]; 
+                ls_mistxt = ls_mistxt.substring(0,4) + ls_mistxt.substring(5,7) + ls_mistxt.substring(8,10);
+                ls_miskey = ls_mistxt + wtab02Dto[i]["misnum"] + wtab02Dto[i]["cltcd"];
                 ls_misdatetxt = wtab02Dto[i]["misdatetxt"]; 
                 if(wtab02Dto[i]["payflag"] == "1"){
                     bfixflag = "착불";

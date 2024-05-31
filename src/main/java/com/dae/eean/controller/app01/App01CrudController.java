@@ -2437,7 +2437,7 @@ public class App01CrudController {
             _indexDa024Dto.setFrdate(frdate);
             _indexDa024Dto.setTodate(todate);
             _indexDa024Dto.setCltcd(asacorp);
-            _indexDa024Dto.setDevflag(asflag);
+            _indexDa024Dto.setFixflag(asflag);
             _indexDa024Dto.setJfrdate("20000101");
             _indexDa024Dto.setJtodate(todate);
             _indexDa024ListDto = service14.SelectDa024ListLikeJupsu(_indexDa024Dto);
@@ -4907,10 +4907,15 @@ public class App01CrudController {
                     if(ls_unsongnum == null || ls_unsongnum.equals("")){
                         break;
                     }
+                    String ls_cltcd = "";
                     index20Dto.setReservnum(devnum01.get(i));
                     index20Dto.setUnsongnum(devnum02.get(i));
                     index20Dto.setAs_key1(devnum03.get(i).substring(0,8));
                     index20Dto.setAs_key2(devnum03.get(i).substring(8,12));
+                    ls_cltcd = devnum03.get(i);
+                    ls_cltcd = ls_cltcd.substring(12, ls_cltcd.length());
+                    index20Dto.setAs_acorp1(ls_cltcd);
+
                     result = service01.UpdateDevJupsuUnsong(index20Dto);
                     if (!result){
                         return "error";

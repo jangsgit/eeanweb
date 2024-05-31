@@ -142,7 +142,7 @@
                   from  TB_DA024 B WITH (NOLOCK)
                   where B.CLTCD Like concat('%',#{cltcd},'%')
                     AND B.misdate between #{frdate} and #{todate}
-                    AND Isnull(B.devflag, '0') Like concat('%',#{devflag},'%')
+                    AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
                     AND B.pmodel = 'AS'
                   ORDER BY  B.misdate desc, B.misnum, B.seq
         ]]>

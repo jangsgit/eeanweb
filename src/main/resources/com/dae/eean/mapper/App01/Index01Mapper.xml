@@ -164,6 +164,8 @@
     <update id="UpdateDevJupsuUnsong" parameterType="com.dae.eean.DTO.App01.Index20Dto" >
         UPDATE as_jupsu SET
         unsongnum=#{unsongnum} , reservnum =#{reservnum}
-        where as_key1  = #{as_key1} and as_key2 = #{as_key2}
+        where substring(as_key1, 1,4)+  substring(as_key1, 6,2)+  substring(as_key1, 9,2)  = #{as_key1}
+          and as_key2 = #{as_key2}
+          and as_acorp1 + CAST(as_acorp2 as varchar) = #{as_acorp1}
     </update>
 </mapper>
