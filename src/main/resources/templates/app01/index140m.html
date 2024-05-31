@@ -1788,8 +1788,9 @@
                    "flag" :ls_flag 
                }, 
                async:false,
-               success:function(data){  
-                   tabA_grid(data);
+               success:function(data){ 
+                   tabA_colorgrid(data);  
+                   //tabA_grid(data);
                    cell_color()
                },error:function(e){
                    console.log("error");                            
@@ -2615,7 +2616,211 @@
        wtab03Grid.columns.push(cols);  
 
    }        
+   function tabA_colorgrid(data){
+            
+            var wtab01Dto  = data;    
+            var wtab01_data = [];   
+            var wtab01_temp = []; 
+            var ls_colors = []; 
+            var ls_jqtys = [];
+            var ls_css = [];
+            var cnt = 1;   
+            wtab01Grid.removeEventListener("click");
+            wtab01Grid.collectionView.clearChanges(); 
+            wtab01Grid.hostElement.addEventListener("click",function(e){
+                // console.log(e);
+                isTimestamp = e.timeStamp; 
+            var ht = wtab01Grid.hitTest(e);
+                    if(ht.cellType === wijmo.grid.CellType.Cell){
+                        if(wtab01Grid.rows[ht.row].isSelected === true){
+                           console.log("kk");
+                        } else {
+                            let ls_color = ht._target.innerText;
+                            // let ls_jbonsa = wtab01Grid.getCellData(ht.row,0);
+                            let ls_jbonsa2 = wtab01Grid.getCellData(ht.row,0);
+                            let ls_jmodel = wtab01Grid.getCellData(ht.row,1); 
+                            // if(ls_color.substring(0,1) == '_'){
+                            //     ls_color = ls_color.substring(1,ls_color.length);
+                            // }
+                            if(ls_color == null || ls_color.length == 0 || ls_color == ""){  
+                                return ;               
+                            }     
+                           if (isTimestamp == isPreTimestamp)  {
+                                return ;
+                           }
+                           //console.log('ht._col'); 
+                           wOrderChk_a(   ls_jbonsa2, ls_jmodel, ls_color, ht._col);
+                            isPreTimestamp = isTimestamp; //이벤트중복발생 차단용     
+                        }
+                    }  
+                }
+            )
+            for (let h = 1; h <= 26; h++) {
+                ls_css[h]  = '<span class=${item.jqty' + h + ' > 0 ? "low-val" : "po-val"}>${text}</span>' ;
+            }            
+            for (var i = 0; i < wtab01Dto.length; i++) { 
+                for (let h = 1; h <= 26; h++) {
+                    ls_jqtys[h] = wtab01Dto[i][`jqty_${h}`];
+                    if(ls_jqtys[h] == null || ls_jqtys[h].length == 0 || ls_jqtys[h] == ""){ls_jqtys[h] = 0;} 
+                    ls_colors[h] = wtab01Dto[i][`color_${h}`];
+                    if(ls_colors[h] == null || ls_colors[h].length == 0 || ls_colors[h] == ""){ls_colors[h] = "";} 
+                    if(ls_jqtys[h] == 0 && ls_colors[h].length > 0){
+                        ls_colors[h] = '_' + ls_colors[h];
+                    }
+                }  
+                wtab01_data.push({
+                    id: i, 
+                    index: cnt,
+                    jbonsa_code: wtab01Dto[i]["jbonsa_code"],  
+                    jbonsa_code2: wtab01Dto[i]["jbonsa_code2"],  
+                    jmodel_code: wtab01Dto[i]["jmodel_code"],     
+                    color1: ls_colors[1],                        
+                    color2: ls_colors[2],                          
+                    color3: ls_colors[3],                          
+                    color4: ls_colors[4],                          
+                    color5: ls_colors[5],                          
+                    color6: ls_colors[6],                          
+                    color7: ls_colors[7],                          
+                    color8: ls_colors[8],                          
+                    color9: ls_colors[9],                          
+                    color10: ls_colors[10],                          
+                    color11: ls_colors[11],                          
+                    color12: ls_colors[12],                          
+                    color13: ls_colors[13],                          
+                    color14: ls_colors[14],                          
+                    color15: ls_colors[15],                          
+                    color16: ls_colors[16],                          
+                    color17: ls_colors[17],                          
+                    color18: ls_colors[18],                          
+                    color19: ls_colors[19],                          
+                    color20: ls_colors[20],                          
+                    color21: ls_colors[21],                          
+                    color22: ls_colors[22],                          
+                    color23: ls_colors[23],                          
+                    color24: ls_colors[24],                          
+                    color25: ls_colors[25],                          
+                    color26: ls_colors[26],    
+                    jqty1: ls_jqtys[1],                        
+                    jqty2: ls_jqtys[2],                          
+                    jqty3: ls_jqtys[3],                          
+                    jqty4: ls_jqtys[4],                          
+                    jqty5: ls_jqtys[5],                          
+                    jqty6: ls_jqtys[6],                          
+                    jqty7: ls_jqtys[7],                          
+                    jqty8: ls_jqtys[8],                          
+                    jqty9: ls_jqtys[9],                          
+                    jqty10: ls_jqtys[10],                          
+                    jqty11: ls_jqtys[11],                          
+                    jqty12: ls_jqtys[12],                          
+                    jqty13: ls_jqtys[13],                          
+                    jqty14: ls_jqtys[14],                          
+                    jqty15: ls_jqtys[15],                          
+                    jqty16: ls_jqtys[16],                          
+                    jqty17: ls_jqtys[17],                          
+                    jqty18: ls_jqtys[18],                          
+                    jqty19: ls_jqtys[19],                          
+                    jqty20: ls_jqtys[20],                          
+                    jqty21: ls_jqtys[21],                          
+                    jqty22: ls_jqtys[22],                          
+                    jqty23: ls_jqtys[23],                          
+                    jqty24: ls_jqtys[24],                          
+                    jqty25: ls_jqtys[25],                          
+                    jqty26: ls_jqtys[26],                               
+                });
+                cnt++;
+            }    
 
+            wtab01Grid.columns.clear();              
+            wtab01Grid.allowMerging =  'Cells',
+            wtab01Grid.autoGenerateColumns = false; 
+            wtab01Grid.itemsSource= wtab01_data;
+            var cols = new wijmo.grid.Column(); 
+            cols.binding = 'jbonsa_code2';  cols.header = '코드';cols.align = "center"; cols.allowMerging =  true;  cols.width = 80;
+            wtab01Grid.columns.push(cols); 
+            cols = new wijmo.grid.Column();    
+            cols.binding = 'jmodel_code';  cols.header = '모델';cols.align = "center"; cols.allowMerging =  true;  cols.width = 80;   
+            wtab01Grid.columns.push(cols);  
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'color1';  cols.header = 'A';cols.align = "center";  cols.width = 80;  cols.cellTemplate = ls_css[1];
+            wtab01Grid.columns.push(cols);  
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'color2';  cols.header = 'B';cols.align = "center";  cols.width = 80;  cols.cellTemplate = ls_css[2];  
+            wtab01Grid.columns.push(cols); 
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'color3';  cols.header = 'C';cols.align = "center";  cols.width = 80;  cols.cellTemplate = ls_css[3];  
+            wtab01Grid.columns.push(cols); 
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'color4';  cols.header = 'D';cols.align = "center";  cols.width = 80;   cols.cellTemplate = ls_css[4]; 
+            wtab01Grid.columns.push(cols); 
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'color5';  cols.header = 'E';cols.align = "center";  cols.width = 80;   cols.cellTemplate = ls_css[5]; 
+            wtab01Grid.columns.push(cols); 
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'color6';  cols.header = 'F';cols.align = "center";  cols.width = 80;  cols.cellTemplate = ls_css[6];  
+            wtab01Grid.columns.push(cols); 
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'color7';  cols.header = 'G';cols.align = "center";  cols.width = 80;   cols.cellTemplate = ls_css[7]; 
+            wtab01Grid.columns.push(cols); 
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'color8';  cols.header = 'H';cols.align = "center";  cols.width = 80;  cols.cellTemplate = ls_css[8];  
+            wtab01Grid.columns.push(cols); 
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'color9';  cols.header = 'I';cols.align = "center";  cols.width = 80;  cols.cellTemplate = ls_css[9];  
+            wtab01Grid.columns.push(cols); 
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'color10';  cols.header = 'J';cols.align = "center";  cols.width = 80;  cols.cellTemplate = ls_css[10];  
+            wtab01Grid.columns.push(cols); 
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'color11';  cols.header = 'K';cols.align = "center";  cols.width = 80;   cols.cellTemplate = ls_css[11]; 
+            wtab01Grid.columns.push(cols); 
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'color12';  cols.header = 'L';cols.align = "center";  cols.width = 80;  cols.cellTemplate = ls_css[12];  
+            wtab01Grid.columns.push(cols); 
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'color13';  cols.header = 'M';cols.align = "center";  cols.width = 80;  cols.cellTemplate = ls_css[13];  
+            wtab01Grid.columns.push(cols); 
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'color14';  cols.header = 'N';cols.align = "center";  cols.width = 80;   cols.cellTemplate = ls_css[14]; 
+            wtab01Grid.columns.push(cols);   
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'color15';  cols.header = 'O';cols.align = "center";  cols.width = 80;   cols.cellTemplate = ls_css[15]; 
+            wtab01Grid.columns.push(cols);  
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'color16';  cols.header = 'P';cols.align = "center";  cols.width = 80;    cols.cellTemplate = ls_css[16];
+            wtab01Grid.columns.push(cols);  
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'color17';  cols.header = 'Q';cols.align = "center";  cols.width = 80;   cols.cellTemplate = ls_css[17]; 
+            wtab01Grid.columns.push(cols);  
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'color18';  cols.header = 'R';cols.align = "center";  cols.width = 80;  cols.cellTemplate = ls_css[18];  
+            wtab01Grid.columns.push(cols);  
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'color19';  cols.header = 'S';cols.align = "center";  cols.width = 80;   cols.cellTemplate = ls_css[19]; 
+            wtab01Grid.columns.push(cols);  
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'color20';  cols.header = 'T';cols.align = "center";  cols.width = 80;   cols.cellTemplate = ls_css[20]; 
+            wtab01Grid.columns.push(cols);  
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'color21';  cols.header = 'U';cols.align = "center";  cols.width = 80;  cols.cellTemplate = ls_css[21];  
+            wtab01Grid.columns.push(cols);            
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'color22';  cols.header = 'V';cols.align = "center";  cols.width = 80;  cols.cellTemplate = ls_css[22];  
+            wtab01Grid.columns.push(cols);  
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'color23';  cols.header = 'W';cols.align = "center";  cols.width = 80;  cols.cellTemplate = ls_css[23];  
+            wtab01Grid.columns.push(cols);  
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'color24';  cols.header = 'X';cols.align = "center";  cols.width = 80;  cols.cellTemplate = ls_css[24];  
+            wtab01Grid.columns.push(cols);  
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'color25';  cols.header = 'Y';cols.align = "center";  cols.width = 80;    cols.cellTemplate = ls_css[25];
+            wtab01Grid.columns.push(cols);  
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'color26';  cols.header = 'Z';cols.align = "center";  cols.width = 80;   cols.cellTemplate = ls_css[26]; 
+            wtab01Grid.columns.push(cols);  
+
+        }
+        
    function tabA_grid(data){
    // console.log(data);
        var wtab01Dto  = data;    

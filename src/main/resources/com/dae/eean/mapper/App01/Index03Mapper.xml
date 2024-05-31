@@ -333,6 +333,15 @@
 
     <select id="GetGanListBonsa01BB" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03ColorDto">
         <![CDATA[
+                exec SP_GetGanListBonsa01
+                    #{jpb_gubn, jdbcType=VARCHAR},
+                    #{jbonsa_code, jdbcType=VARCHAR},
+                    #{todate, jdbcType=VARCHAR}
+         ]]>
+    </select>
+
+    <select id="GetGanListBonsa01BB_OLD" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03ColorDto">
+        <![CDATA[
         SELECT jbonsa_code, jbonsa_code2, jmodel_code2 as jmodel_code,   jpb_gubn
         from JCODE3 WITH (NOLOCK)
         WHERE isnull(jpb_gubn,'') Like concat('%',#{jpb_gubn},'%')
