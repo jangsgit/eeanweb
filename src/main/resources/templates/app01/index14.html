@@ -1891,7 +1891,7 @@
                     success:function(data){  
                         tabA_colorgrid(data); 
                         //tabA_grid(data);
-                        // cell_color()
+                        cell_color()
                     },error:function(e){
                         console.log("error");                            
                     }
@@ -2766,7 +2766,7 @@
                 }
             )
             for (let h = 1; h <= 26; h++) {
-                ls_css[h]  = '<span class=${item.jqty' + h + ' > 0 ? "low-val" : "zo-val"}>${text}</span>' ;
+                ls_css[h]  = '<span class=${item.jqty' + h + ' > 0 ? "low-val" : "po-val"}>${text}</span>' ;
             }            
             for (var i = 0; i < wtab01Dto.length; i++) { 
                 for (let h = 1; h <= 26; h++) {
