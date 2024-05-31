@@ -842,16 +842,22 @@
 
         function fn_egov_init_date(){ 
             lsUserid = window.localStorage.getItem("userid")
-            if (lsUserid == "pvadmin"){
-                document.getElementById('djpbgubn').value = "P"; 
-                document.getElementById('bjpbgubn').value = "P";  
-            }else if(lsUserid == "bladmin"){
-                document.getElementById('djpbgubn').value = "B"; 
-                document.getElementById('bjpbgubn').value = "B";  
-            }else{
-                document.getElementById('djpbgubn').value = "%"; 
-                document.getElementById('bjpbgubn').value = "%"; 
-            }
+            const ls_role = window.localStorage.getItem("role");  
+            if(ls_role == null || ls_role.length == 0 || ls_role == ""){ 
+                ls_role = '%'             
+            } 
+            document.getElementById('djpbgubn').value = ls_role; 
+            document.getElementById('bjpbgubn').value = ls_role;  
+            // if (lsUserid == "pvadmin"){
+            //     document.getElementById('djpbgubn').value = "P"; 
+            //     document.getElementById('bjpbgubn').value = "P";  
+            // }else if(lsUserid == "bladmin"){
+            //     document.getElementById('djpbgubn').value = "B"; 
+            //     document.getElementById('bjpbgubn').value = "B";  
+            // }else{
+            //     document.getElementById('djpbgubn').value = "%"; 
+            //     document.getElementById('bjpbgubn').value = "%"; 
+            // }
             // var $frdate = $('#frdate');
             // var $todate = $('#todate');
             // $frdate.datetimepicker({

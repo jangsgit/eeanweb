@@ -583,6 +583,7 @@
          var gsUserid = "";                             
          var gsUsernm  = ""; 
          var gsMflag = "";
+         var gsRole = "";
         let includeColumnHeader = false;
         let Chknum = 0;
          window.onload = function() {  
@@ -1856,15 +1857,16 @@
             // }  
             if(ls_cifname == null || ls_cifname.length == 0 || ls_cifname == ""){  
                 lsUserid = window.localStorage.getItem("userid")
-                if (lsUserid == "pvadmin"){
-                    ls_jpbgubn = "P"; 
-                }else if(lsUserid == "bladmin"){
-                    ls_jpbgubn = "B";  
-                }else{
-                    if(ls_jpbgubn == null || ls_jpbgubn.length == 0 || ls_jpbgubn == ""){ 
-                        ls_jpbgubn = '%'             
-                    }  
-                }
+                ls_jpbgubn  = window.localStorage.getItem("role") 
+                // if (lsUserid == "pvadmin"){
+                //     ls_jpbgubn = "P"; 
+                // }else if(lsUserid == "bladmin"){
+                //     ls_jpbgubn = "B";  
+                // }else{
+                //     if(ls_jpbgubn == null || ls_jpbgubn.length == 0 || ls_jpbgubn == ""){ 
+                //         ls_jpbgubn = '%'             
+                //     }  
+                // }
             }    
             
             document.getElementById('jbonsacd').value = arg; 
@@ -2952,18 +2954,22 @@
                             async:false,
                             success:function(data){   
                                 var wtab01Dto_S  = data; 
-                                 console.log(wtab01Dto_S);  
-                                var ll_col = 2;    
+                                // console.log(wtab01Dto_S);  
+                                var ll_col = 2; 
+                                var cols ; 
+                                var ls_css  = '<span class=${ls_jqty > 0 ? "po-val" : "low-val"}>${text}</span>' ;
                                 for (var p = 0; p < wtab01Dto_S.length; p++) {
                                     let  ls_jcolorcode   = wtab01Dto_S[p]["jcolor_code"]; 
                                     let  ls_jeky         = wtab01Dto_S[p]["jkey"]; 
-                                    let  ls_jqty         = wtab01Dto_S[p]["jqty"];   
+                                    let  ls_jqty         = wtab01Dto_S[p]["jqty"]; 
+                                    cols = new wijmo.grid.Column();  
                                     if (Number(ls_jqty) > 0){
                                         wtab01Grid.setCellData(ll_row, ll_col,   ls_jcolorcode ,false,false)
-                                        //wtab01Grid.setCellData(ll_row, ll_col,  ls_jcolorcode + "("  + ls_jqty +  ")" ) ;   
-                                        var cols = new wijmo.grid.Column();  
+                                        //wtab01Grid.setCellData(ll_row, ll_col,  ls_jcolorcode + "("  + ls_jqty +  ")" ) ;    
+                                        //cols.cellTemplate = '<span class="po-val">${text}</span>'   
                                     }else{
                                         wtab01Grid.setCellData(ll_row, ll_col,  '_' + ls_jcolorcode  ) ;  
+                                        //cols.cellTemplate = '<span class="low-val">${text}</span>'   
                                     } 
                                     // wtab01Grid.formatItem.addHandler((s, e) => {
                                     //     // var val = s.getCellData(e.row, e.col); 
@@ -3306,18 +3312,20 @@
             if(ls_role == null || ls_role.length == 0 || ls_role == ""){ 
                 ls_role = '%'             
             }   
+            gsRole = ls_role;
             if(lsUserid == null || lsUserid.length == 0 || lsUserid == ""){ 
                 alert("로그인을 다시하세요") 
                 location.href = "/" ;
                 return ;               
             }   
-            if (lsUserid == "pvadmin"){
-                document.getElementById('jpbgubn').value = "P"; 
-            }else if(lsUserid == "bladmin"){
-                document.getElementById('jpbgubn').value = "B";  
-            }else{  
-                document.getElementById('jpbgubn').value = ls_role;   
-            }
+            document.getElementById('jpbgubn').value = ls_role;   
+            // if (lsUserid == "pvadmin"){
+            //     document.getElementById('jpbgubn').value = "P"; 
+            // }else if(lsUserid == "bladmin"){
+            //     document.getElementById('jpbgubn').value = "B";  
+            // }else{  
+            //     document.getElementById('jpbgubn').value = ls_role;   
+            // }
             document.getElementById('makflag01').value = "0";
             document.getElementById('makflag02').value = "0";
             

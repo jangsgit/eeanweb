@@ -2624,14 +2624,14 @@ aria-hidden="true">
                 location.href = "/" ;
                 return ;               
             }   
-                
-            if (lsUserid == "pvadmin"){
-                document.getElementById('jpbgubn').value = "P"; 
-            }else if(lsUserid == "bladmin"){
-                document.getElementById('jpbgubn').value = "B";  
-            }else{  
-                document.getElementById('jpbgubn').value = ls_role;   
-            }
+            document.getElementById('jpbgubn').value = ls_role;   
+            // if (lsUserid == "pvadmin"){
+            //     document.getElementById('jpbgubn').value = "P"; 
+            // }else if(lsUserid == "bladmin"){
+            //     document.getElementById('jpbgubn').value = "B";  
+            // }else{  
+            //     document.getElementById('jpbgubn').value = ls_role;   
+            // }
  
             document.getElementById('makflag01').value = "0";
             document.getElementById('makflag02').value = "0";

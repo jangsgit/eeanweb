@@ -2592,33 +2592,36 @@ aria-hidden="true">
             document.getElementById('makflag01').value = "0";
             document.getElementById('makflag02').value = "0";
             lsUserid = window.localStorage.getItem("userid")
+            document.getElementById('jpbgubn').value = ls_role; 
+            document.getElementById('djpbgubn').value = ls_role; 
+            document.getElementById('bjpbgubn').value = ls_role;
             
-            if(ls_role == "P"){ 
-                document.getElementById('jpbgubn').value = "P"; 
-                document.getElementById('djpbgubn').value = "P"; 
-                document.getElementById('bjpbgubn').value = "P";  
-            }else if(ls_role =="B"){
-                document.getElementById('jpbgubn').value = "B"; 
-                document.getElementById('djpbgubn').value = "B"; 
-                document.getElementById('bjpbgubn').value = "B";   
-            }else{
-                document.getElementById('jpbgubn').value = "%"; 
-                document.getElementById('djpbgubn').value = "%"; 
-                document.getElementById('bjpbgubn').value = "%"; 
-                if (lsUserid == "pvadmin"){
-                    document.getElementById('jpbgubn').value = "P"; 
-                    document.getElementById('djpbgubn').value = "P"; 
-                    document.getElementById('bjpbgubn').value = "P";  
-                }else if(lsUserid == "bladmin"){
-                    document.getElementById('jpbgubn').value = "B"; 
-                    document.getElementById('djpbgubn').value = "B"; 
-                    document.getElementById('bjpbgubn').value = "B";  
-                }else{ 
-                    document.getElementById('jpbgubn').value = "%"; 
-                    document.getElementById('djpbgubn').value = "%"; 
-                    document.getElementById('bjpbgubn').value = "%"; 
-                }
-            }
+            // if(ls_role == "P"){ 
+            //     document.getElementById('jpbgubn').value = "P"; 
+            //     document.getElementById('djpbgubn').value = "P"; 
+            //     document.getElementById('bjpbgubn').value = "P";  
+            // }else if(ls_role =="B"){
+            //     document.getElementById('jpbgubn').value = "B"; 
+            //     document.getElementById('djpbgubn').value = "B"; 
+            //     document.getElementById('bjpbgubn').value = "B";   
+            // }else{
+            //     document.getElementById('jpbgubn').value = "%"; 
+            //     document.getElementById('djpbgubn').value = "%"; 
+            //     document.getElementById('bjpbgubn').value = "%"; 
+            //     if (lsUserid == "pvadmin"){
+            //         document.getElementById('jpbgubn').value = "P"; 
+            //         document.getElementById('djpbgubn').value = "P"; 
+            //         document.getElementById('bjpbgubn').value = "P";  
+            //     }else if(lsUserid == "bladmin"){
+            //         document.getElementById('jpbgubn').value = "B"; 
+            //         document.getElementById('djpbgubn').value = "B"; 
+            //         document.getElementById('bjpbgubn').value = "B";  
+            //     }else{ 
+            //         document.getElementById('jpbgubn').value = "%"; 
+            //         document.getElementById('djpbgubn').value = "%"; 
+            //         document.getElementById('bjpbgubn').value = "%"; 
+            //     }
+            // }
  
             
             // if(ls_perid.substr(0,2) == "02"){

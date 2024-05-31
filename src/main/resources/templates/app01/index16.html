@@ -3794,13 +3794,14 @@
         } 
         
         lsUserid = window.localStorage.getItem("userid")
-        if (lsUserid == "pvadmin"){ 
-            document.getElementById('bjpbgubn').value = "P";  
-        }else if(lsUserid == "bladmin"){ 
-            document.getElementById('bjpbgubn').value = "B";  
-        }else{ 
-            document.getElementById('bjpbgubn').value = ls_role; 
-        }
+        document.getElementById('bjpbgubn').value = ls_role; 
+        // if (lsUserid == "pvadmin"){ 
+        //     document.getElementById('bjpbgubn').value = "P";  
+        // }else if(lsUserid == "bladmin"){ 
+        //     document.getElementById('bjpbgubn').value = "B";  
+        // }else{ 
+        //     document.getElementById('bjpbgubn').value = ls_role; 
+        // }
         // var $frdate = $('#frdate');
         // var $todate = $('#todate');
         // $frdate.datetimepicker({

@@ -1650,14 +1650,15 @@
         const ls_role = window.localStorage.getItem("role");  
         if(ls_role == null || ls_role.length == 0 || ls_role == ""){ 
             ls_role = '%'             
-        }  
-        if (lsUserid == "pvadmin"){
-            document.getElementById('jpbgubn').value = "P";   
-        }else if(lsUserid == "bladmin"){
-            document.getElementById('jpbgubn').value = "B";   
-        }else{
-            document.getElementById('jpbgubn').value = ls_role;   
         } 
+        document.getElementById('jpbgubn').value = ls_role;    
+        // if (lsUserid == "pvadmin"){
+        //     document.getElementById('jpbgubn').value = "P";   
+        // }else if(lsUserid == "bladmin"){
+        //     document.getElementById('jpbgubn').value = "B";   
+        // }else{
+        //     document.getElementById('jpbgubn').value = ls_role;   
+        // } 
         document.getElementById('misfixflag').value = "1"; 
         document.getElementById('misfixflag02').value = "1"; 
         document.getElementById('misfixflag03').value = "1"; 

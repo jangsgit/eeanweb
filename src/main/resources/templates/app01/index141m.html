@@ -1074,19 +1074,20 @@
             document.getElementById('abonsadam1').value = ls_perid;
             document.getElementById('pernm').value = ls_pernm; 
             lsUserid = window.localStorage.getItem("userid")
-            if(ls_role == "P"){    
-                document.getElementById('bjpbgubn').value = "P";   
-            }else if(ls_role =="B"){  
-                document.getElementById('bjpbgubn').value = "B";    
-            }else{
-                if (lsUserid == "pvadmin"){ 
-                    document.getElementById('bjpbgubn').value = "P";  
-                }else if(lsUserid == "bladmin"){ 
-                    document.getElementById('bjpbgubn').value = "B";  
-                }else{ 
-                    document.getElementById('bjpbgubn').value = "%"; 
-                }
-            }
+            document.getElementById('bjpbgubn').value = ls_role;
+            // if(ls_role == "P"){    
+            //     document.getElementById('bjpbgubn').value = "P";   
+            // }else if(ls_role =="B"){  
+            //     document.getElementById('bjpbgubn').value = "B";    
+            // }else{
+            //     if (lsUserid == "pvadmin"){ 
+            //         document.getElementById('bjpbgubn').value = "P";  
+            //     }else if(lsUserid == "bladmin"){ 
+            //         document.getElementById('bjpbgubn').value = "B";  
+            //     }else{ 
+            //         document.getElementById('bjpbgubn').value = "%"; 
+            //     }
+            // }
 
     }
 
