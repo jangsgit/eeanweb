@@ -497,9 +497,7 @@
          var qtyArr    = new Array();  
          var uamtArr    = new Array(); 
          var remarkaa    = new Array(); 
-         var remarkbb    = new Array(); 
-         
-         
+         var remarkbb    = new Array();  
           
          var misdateWArr = new Array();
          var misnumWArr = new Array();
@@ -519,36 +517,6 @@
          var devnum02    = new Array(); 
          var devnum03    = new Array(); 
          var devnum04    = new Array(); 
-         var devnum05    = new Array(); 
-         var devnum06    = new Array(); 
-         var devnum07    = new Array(); 
-         var devnum08    = new Array(); 
-         var devnum09    = new Array(); 
-         var devnum10    = new Array(); 
-         var devnum11    = new Array(); 
-         var devnum12    = new Array(); 
-         var devnum13    = new Array(); 
-         var devnum14    = new Array(); 
-         var devnum15    = new Array(); 
-         var devnum16    = new Array(); 
-         var devnum17    = new Array(); 
-         var devnum18    = new Array(); 
-         var devnum19    = new Array(); 
-         var devnum20    = new Array(); 
-         var devnum21    = new Array(); 
-         var devnum22    = new Array(); 
-         var devnum23    = new Array(); 
-         var devnum24    = new Array(); 
-         var devnum25    = new Array(); 
-         var devnum26    = new Array(); 
-         var devnum27    = new Array(); 
-         var devnum28    = new Array(); 
-         var devnum29    = new Array(); 
-         var devnum30    = new Array(); 
-         var devnum31    = new Array(); 
-         var devnum32    = new Array(); 
-         var devnum33    = new Array(); 
-         var devnum34    = new Array(); 
         
          var excelIOSheet;
          var typeMenu;  
@@ -631,25 +599,7 @@
                     { binding: 'devflag', header: '발송', align: "center", width: 80, cssClass: 'switch'   },  
                     
                 ], 
-                itemsSource: view_p01tab02page, 
-                // updatedView: function (s, e) {
-                //     rowCount.textContent = s.rows.length;
-                //     cellCount.textContent = s.hostElement.querySelectorAll('.wj-cell').length;
-                // },
-                // scrollPositionChanged: function (s, e) {
-                // // 만약 바닥에 가까우면, 20개의 아이템을 추가
-                //     if (s.viewRange.bottomRow >= s.rows.length - 1) {
-                //         let view = s.collectionView;
-                //         let index = view.currentPosition; // 뷰가 정렬될 경우를 대비해서 위치를 유지
-                //         addData(data, 20);
-                //         view.refresh();
-                //         view.currentPosition = index;
-                //     }
-                // }
-                // scrollPositionChanged: function () {
-                //     var rng = wtab02Grid.viewRange;
-                //     view_p01tab02page.setWindow(rng.row, rng.row2);
-                // }
+                itemsSource: view_p01tab02page,  
             }); 
             // wtab02Grid.formatItem.addHandler((s, e) => {
             //     if (e.panel == s.cells) {
@@ -1720,41 +1670,8 @@
                                 devnum03[iCnt] = wtab06Grid.getCellData(i, 8, false);   //주문관리번호
                                 if(devnum02[iCnt].length > 15){
                                     devnum02[iCnt] = substring(devnum02[iCnt], 0, 15);
-                                }
-                                //console.log(wtab06Grid.rows[i]._ubv["2g"]); 
-                                // devnum01[iCnt] = wtab06Grid.rows[i]._ubv["2g"];  
-                                // devnum02[iCnt] = wtab06Grid.rows[i]._ubv["2h"];  
-                                // devnum03[iCnt] = wtab06Grid.rows[i]._ubv["2i"];  
-                                // devnum04[iCnt] = wtab06Grid.rows[i]._ubv["2j"];  
-                                // devnum05[iCnt] = '-'; //wtab06Grid.rows[i]._ubv["2k"]; 
-                                //devnum08[iCnt] = '-'; //wtab06Grid.rows[i]._ubv["2n"];  
-                                // devnum10[iCnt] = wtab06Grid.rows[i]._ubv["2p"];  
-                                // devnum11[iCnt] = wtab06Grid.rows[i]._ubv["2q"];  
-                                // devnum12[iCnt] = wtab06Grid.rows[i]._ubv["2r"];  
-                                // devnum13[iCnt] = wtab06Grid.rows[i]._ubv["2s"];  
-                                // devnum14[iCnt] = wtab06Grid.rows[i]._ubv["2t"]; 
-                                // devnum15[iCnt] = wtab06Grid.rows[i]._ubv["2u"];  
-                                // devnum16[iCnt] = wtab06Grid.rows[i]._ubv["2v"];                                  
-                                // devnum17[iCnt] = wtab06Grid.rows[i]._ubv["2y"];  
-                                // devnum18[iCnt] = wtab06Grid.rows[i]._ubv["2z"];  
-                                // devnum19[iCnt] = wtab06Grid.rows[i]._ubv["3a"];  
-                                // devnum20[iCnt] = wtab06Grid.rows[i]._ubv["3b"];  
-                                // devnum21[iCnt] = wtab06Grid.rows[i]._ubv["3c"];  
-                                // devnum22[iCnt] = wtab06Grid.rows[i]._ubv["3d"];  
-                                // devnum23[iCnt] = wtab06Grid.rows[i]._ubv["30"];  
-                                // devnum24[iCnt] = wtab06Grid.rows[i]._ubv["31"];  
-                                // devnum25[iCnt] = wtab06Grid.rows[i]._ubv["32"];  
-                                // devnum26[iCnt] = wtab06Grid.rows[i]._ubv["33"];  
-                                // devnum27[iCnt] = wtab06Grid.rows[i]._ubv["34"];  
-                                // devnum28[iCnt] = wtab06Grid.rows[i]._ubv["35"];  
-                                // devnum29[iCnt] = wtab06Grid.rows[i]._ubv["36"];  
-                                // devnum30[iCnt] = wtab06Grid.rows[i]._ubv["37"];  
-                                // devnum31[iCnt] = wtab06Grid.rows[i]._ubv["38"];  
-                                // devnum32[iCnt] = wtab06Grid.rows[i]._ubv["39"];  
-                                iCnt++;
-                                //console.log(iCnt);
-                                //console.log(devnum03);  
-                                //console.log(devnum05);     
+                                } 
+                                iCnt++;     
                                 
                             }else{
                                 break;                                
@@ -1838,7 +1755,7 @@
             var ls_tab = document.getElementById('tabvalue').value;   
             searchList_rtn(ls_tab, "listBtn");
         })                    
-        // 주문확정 
+        // 주문출력 
         document.getElementById("saveBtn01").addEventListener("click",function(){ 
             var ls_tab = document.getElementById('tabvalue').value;    
             save_btn(ls_tab);
