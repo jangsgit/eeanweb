@@ -20,6 +20,10 @@ public class Index02Service {
     public List<Index02Dto> GetCifListTot(Index02Dto parm){
         return  appMapper.GetCifListTot(parm);
     }
+    public List<Index02Dto> GetCifListTotJupsu(Index02Dto parm){
+        return  appMapper.GetCifListTotJupsu(parm);
+    }
+
     public Index02Dto GetCifListAcode(Index02Dto parm){
         return  appMapper.GetCifListAcode(parm);
     }

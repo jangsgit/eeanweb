@@ -12,6 +12,7 @@ public interface Index02Mapper {
 
     public List<Index02Dto> GetCifList(Index02Dto parm) ;
     public List<Index02Dto> GetCifListTot(Index02Dto parm) ;
+    public List<Index02Dto> GetCifListTotJupsu(Index02Dto parm) ;
 
     public Index02Dto GetCifListAcode(Index02Dto parm) ;
     public Index02Dto GetCifBonsa(Index02Dto parm) ;

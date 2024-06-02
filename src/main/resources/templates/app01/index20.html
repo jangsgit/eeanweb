@@ -909,6 +909,7 @@
             let ls_conacorp1 = "%";  
             let ls_conagita = "%";   
             let ls_abonsadam1 = "%";
+            //접수등록만 비거래 거래처 포함 DD
             $.ajax({
                 url: '/app01m/index02/listtot',  
                 type:"POST",
@@ -917,7 +918,7 @@
                     "conacorp" :searchCode, 
                     "conagita" :ls_conagita, 
                     "abonsadam1" :ls_abonsadam1, 
-                    "jpbgubn" :ls_jpbgubn,  
+                    "jpbgubn" :'DD',  
                 }, 
                 async:false,
                 success:function(data){   
