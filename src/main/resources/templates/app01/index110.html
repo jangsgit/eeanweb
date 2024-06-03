@@ -653,6 +653,7 @@
                     var ls_todate = document.getElementById('todate').value; 
                     var ls_asflag = document.getElementById('asflag').value; 
                     var ls_bacode = document.getElementById('bacode').value; 
+                    var ls_userid = '%';
                     
                     if(ls_frdate == null || ls_frdate.length == 0 || ls_frdate == ""){ 
                             alert("시작일자를 입력하세요") 
@@ -676,7 +677,8 @@
                             "todate"      : ls_todate,  
                             "asflag"      : ls_asflag, 
                             "asacorp"      : ls_bacode   , 
-                            "misflag"  : ls_misflag   
+                            "misflag"  : ls_misflag     , 
+                            "userid"  : ls_userid   
                         }, 
                         async:false,
                         success:function(data){   
@@ -694,6 +696,8 @@
                     var ls_frdate = document.getElementById('frdate02').value; 
                     var ls_todate = document.getElementById('todate02').value;  
                     var ls_bacode = document.getElementById('dacode').value; 
+                    var ls_userid = '%';
+                    var ls_misflag = '%';   
                     
                     if(ls_frdate == null || ls_frdate.length == 0 || ls_frdate == ""){ 
                             alert("시작일자를 입력하세요") 
@@ -712,7 +716,9 @@
                             "frdate"      : ls_frdate, 
                             "todate"      : ls_todate,  
                             "asflag"      : "2", 
-                            "asacorp"      : ls_bacode 
+                            "asacorp"      : ls_bacode  , 
+                            "misflag"    : ls_misflag     , 
+                            "userid"    : ls_userid   
                         }, 
                         async:false,
                         success:function(data){   

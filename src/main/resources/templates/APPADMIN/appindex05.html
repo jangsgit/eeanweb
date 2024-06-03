@@ -331,12 +331,6 @@
             cols.width = '*'; 
             wapp04Grid.columns.push(cols);   
             cols = new wijmo.grid.Column(); 
-            cols.binding = 'perid';
-            cols.header = '사원번호';
-            cols.align = "center";
-            cols.width = '*'; 
-            wapp04Grid.columns.push(cols);   
-            cols = new wijmo.grid.Column(); 
             cols.binding = 'rnum';
             cols.header = '시작번호';
             cols.align = "center";
@@ -359,7 +353,8 @@
             var ls_actuserpwz = document.getElementById('actuserpwz').value;  
             var ls_rnum = document.getElementById('rnum').value;  
             var ls_actcustnm = document.getElementById('actcustnm').value;  
-        
+            var ls_actrnum = document.getElementById('actrnum').value;  
+            
             if (!confirm("수정하시겠습니까?")) {
                     return ; 
             }   
@@ -382,7 +377,10 @@
             if(ls_actcustnm == null || ls_actcustnm.length == 0 || ls_actcustnm == ""){ 
                 alert("사용할 PC명을 등록 하세요")  
                 return ;               
-            }   
+            }        
+            if(ls_actrnum == null || ls_actrnum.length == 0 || ls_actrnum == ""){ 
+                ls_actrnum = ''       
+            }  
 
             $.ajax({
                 url: '/appadmod/id05mod',   
@@ -393,7 +391,7 @@
                     "actuseynz"    : ls_actuseyn ,
                     "actusernmz"    : ls_actusernamez,
                     "actuserpwz"    : ls_actuserpwz,
-                    "rnum"    : ls_rnum,
+                    "rnum"    : ls_actrnum,
                     "custnm"    : ls_actcustnm
                 },
                 async:false,
@@ -473,9 +471,10 @@
         
     function listUp(){
         var ls_actusernamez = document.getElementById('actusernamez').value;  
-            if(ls_actusernamez == null || ls_actusernamez.length == 0 || ls_actusernamez == ""){
-                ls_actusernamez = "%"; 
-            }   
+            // if(ls_actusernamez == null || ls_actusernamez.length == 0 || ls_actusernamez == ""){
+            //     ls_actusernamez = "%"; 
+            // }   
+            ls_actusernamez = "%"; 
             $.ajax({
                 url: '/appadmod/id05list',  
                 type:"POST",
@@ -612,9 +611,9 @@
                             }
                         })} , 
                 { binding: 'passwd1', header: '비밀번호', width: '*', format: '*' , align:"center", isReadOnly: true}, 
-                { binding: 'username', header: '사용자', width: '*', format: '*' , align:"center", isReadOnly: true},                  
-                { binding: 'custnm', header: '사용PC', width: '*', format: '*', align:"left", isReadOnly: true },    
-                { binding: 'rnum', header: '사용번호', width: '*', format: '*', align:"center", isReadOnly: true },  
+                { binding: 'username', header: '사용자', width: '*', format: '*' , align:"center", isReadOnly: true},     
+                { binding: 'rnum', header: '사용번호', width: '*', format: '*', align:"center", isReadOnly: true },                
+                { binding: 'custnm', header: '사용PC', width: '*', format: '*', align:"left", isReadOnly: true },   
             ], 
             itemsSource: view_Mmanualpage
         });  

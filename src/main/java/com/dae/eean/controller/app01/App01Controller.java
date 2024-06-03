@@ -324,7 +324,13 @@ public class App01Controller {
 //                _index03Dto.setJpb_gubn(ls_role);
 //                _index03List = service03.GetJcustomCode_CC(_index03Dto);
 //            }
-            _index03Dto.setJpb_gubn("P");
+            if(userformDto.getPerid().substring(0,2).equals("02") ){
+                _index03Dto.setJpb_gubn("P");
+            }else if(userformDto.getPerid().substring(0,2).equals("03") ){
+                _index03Dto.setJpb_gubn("B");
+            }else{
+                _index03Dto.setJpb_gubn("P");
+            }
             _index03List = service03.GetJcustomCode_BB(_index03Dto);
             model.addAttribute("index15List",_index03List);
         } catch (Exception ex) {

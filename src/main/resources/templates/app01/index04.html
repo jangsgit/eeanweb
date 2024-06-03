@@ -66,7 +66,7 @@
                                       <a class="nav-link" data-toggle="tab" href="#step03"  onclick="tabchk_rtn('C')">재고현황</a>
                                     </li>
                                     <li class="nav-item">
-                                      <a class="nav-link" data-toggle="tab" href="#step04"  onclick="tabchk_rtn('C')">기간별재고현황</a>
+                                      <a class="nav-link" data-toggle="tab" href="#step04"  onclick="tabchk_rtn('D')">기간별재고현황</a>
                                     </li>
                                     <input type="hidden" id="tabvalue" value="A">
                                   </ul>
@@ -184,8 +184,8 @@
                                             </div> 
                                             <div class="col-2 col-sm-2">
                                                 <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">품목</span> 
-                                                    <input class="form-control form-control-sm" id="jpumname02" type="text"    autocomplete="off"  placeholder=""     >
-                                                    <input class="form-control form-control-sm" id="jkey02" type="hidden"  /> 
+                                                    <input class="form-control form-control-sm" id="jpumname03" type="text"    autocomplete="off"  placeholder=""     >
+                                                    <input class="form-control form-control-sm" id="jkey03" type="hidden"  /> 
                                                 </div>
                                             </div>
                                             <div class="col-1 col-sm-1">  
@@ -811,18 +811,25 @@
         })  
 
           
-        //품목검색 
+        //입고조회 품목검색 
+        document.getElementById("jpumname02").addEventListener("keyup", (e)=>{ 
+            if(e.keyCode === 13){  
+                document.getElementById("innamebtn").click(); 
+                JpumSearchList_rtn("B"); 
+            }
+        });  
+        //재고현황 품목검색 
         document.getElementById("jpumname").addEventListener("keyup", (e)=>{ 
             if(e.keyCode === 13){  
                 document.getElementById("innamebtn").click(); 
                 JpumSearchList_rtn("C"); 
             }
         });  
-        //입고조회 품목검색 
-        document.getElementById("jpumname02").addEventListener("keyup", (e)=>{ 
+        //기간별재고조회 품목검색 
+        document.getElementById("jpumname03").addEventListener("keyup", (e)=>{ 
             if(e.keyCode === 13){  
                 document.getElementById("innamebtn").click(); 
-                JpumSearchList_rtn("B"); 
+                JpumSearchList_rtn("D"); 
             }
         });  
         
@@ -1144,8 +1151,7 @@
                 case 'C':
                     var ls_jkey = document.getElementById('jkey').value;  
                     var ls_jpumname = document.getElementById('jpumname').value; 
-                    var ls_todate = document.getElementById('todate').value;  
-                    
+                    var ls_todate = document.getElementById('todate').value;   
                     if(ls_jpumname == null || ls_jpumname.length == 0 || ls_jpumname == ""){ 
                         ls_jkey = '%';            
                     }    
@@ -1172,8 +1178,8 @@
                     })  
                     break;  
                 case 'D':
-                    var ls_jkey = document.getElementById('jkey').value;  
-                    var ls_jpumname = document.getElementById('jpumname').value; 
+                    var ls_jkey = document.getElementById('jkey03').value;  
+                    var ls_jpumname = document.getElementById('jpumname03').value; 
                     var ls_frdate = document.getElementById('fromdt').value; 
                     var ls_todate = document.getElementById('todaydt').value; 
                     
@@ -1573,15 +1579,18 @@
                 searchCode = document.getElementById('jpumname').value;   
             }else if(arg == "B"){
                 searchCode = document.getElementById('jpumname02').value;   
+            }else if(arg == "D"){
+                searchCode = document.getElementById('jpumname03').value;   
             }   
             if(searchCode == null || searchCode.length == 0 || searchCode == ""){ 
                 searchCode = "%"         ;
-            }     
+            }    
+            console.log(arg) 
+            console.log(searchCode) 
             var ls_jpbgubn = document.getElementById('jpbgubn').value;   
             if(ls_jpbgubn == null || ls_jpbgubn.length == 0 || ls_jpbgubn == ""){ 
                 ls_jpbgubn = "%"         ;
-            }  
-            //console.log(searchCode)
+            }    
             $.ajax({
                     url: '/app01m/index03/list',  
                     type:"POST",
@@ -1633,7 +1642,7 @@
             }   
 
              
-            if(arg == "M" || arg == 'C' || arg == 'B'){
+            if(arg == "M" || arg == 'C' || arg == 'B' || arg == 'D'){
                 winnameGrid.columns.clear();  
                 winnameGrid.autoGenerateColumns = false; 
                 view_innamepage.sourceCollection  = wtab01_data;
@@ -1742,7 +1751,13 @@
                 searchList_rtn(ls_tab)
                 $("#winnamemodal_btn").trigger("click");
 
-            } 
+            }else if(ls_tab == "D"){ 
+                document.getElementById('jkey03').value = arg1;   
+                document.getElementById('jpumname03').value = arg2;   
+                searchList_rtn(ls_tab)
+                $("#winnamemodal_btn").trigger("click");
+
+            }  
 
         }    
         function wcifChk_b(arg1, arg2, arg3, arg4, arg5){   

@@ -101,13 +101,13 @@
 
     <insert id="InsertJupsu" parameterType="com.dae.eean.DTO.App01.Index20Dto" >
         insert into as_jupsu (as_key1, as_key2, as_model ,as_color, as_suri, as_yumu,as_memo,as_gongjang,as_acorp,as_acorp1,as_acorp2,as_acorp3,
-                              as_computer,as_damdang,as_memo2,as_aname,as_key4,as_date2,as_memo3, as_devflag) values
+                              as_computer,as_damdang,as_memo2,as_aname,as_key4,as_date2,as_memo3, as_devflag, userid, usernm) values
             (#{as_key1}, #{as_key2}, #{as_model} , #{as_color}, #{as_suri}, #{as_yumu}, #{as_memo}, #{as_gongjang}, #{as_acorp}, #{as_acorp1}, #{as_acorp2}, #{as_acorp3},
-             #{as_computer}, #{as_damdang}, #{as_memo2}, #{as_aname}, #{as_key4}, #{as_date2}, #{as_memo3}, #{as_devflag} )
+             #{as_computer}, #{as_damdang}, #{as_memo2}, #{as_aname}, #{as_key4}, #{as_date2}, #{as_memo3}, #{as_devflag}, #{userid}, #{usernm} )
     </insert>
 
 
-    <update id="UpdateJupsu" parameterType="com.dae.eean.DTO.App01.Index20Dto">
+    <update id="UpdateJupsu_del" parameterType="com.dae.eean.DTO.App01.Index20Dto">
         <![CDATA[
         UPDATE  as_jupsu SET as_model = #{as_model} , as_color = #{as_color} , as_suri = #{as_suri} , as_yumu = #{as_yumu} , as_gongjang = #{as_gongjang}
                            , as_acorp = #{as_acorp}
@@ -120,8 +120,52 @@
                            , as_memo2 = #{as_memo2}
                            , as_aname = #{as_aname}
                            , as_memo3 = #{as_memo3}
+                           , userid = #{userid}
+                           , usernm = #{usernm}
         where as_key1  = #{as_key1} and as_key2 = #{as_key2}
         ]]>
+    </update>
+
+    <update id="UpdateJupsu" parameterType="com.dae.eean.DTO.App01.Index20Dto">
+        update as_jupsu
+        set as_acorp3 = '0'
+        <if test="as_model != null ">,</if>
+        <if test="as_model != null">as_model=#{as_model}</if>
+        <if test="as_color != null ">,</if>
+        <if test="as_color != null">as_color=#{as_color}</if>
+        <if test="as_suri != null ">,</if>
+        <if test="as_suri != null">as_suri=#{as_suri}</if>
+        <if test="as_yumu != null ">,</if>
+        <if test="as_yumu != null">as_yumu=#{as_yumu}</if>
+        <if test="as_gongjang != null ">,</if>
+        <if test="as_gongjang != null">as_gongjang=#{as_gongjang}</if>
+        <if test="as_acorp != null ">,</if>
+        <if test="as_acorp != null">as_acorp=#{as_acorp}</if>
+        <if test="as_acorp1 != null ">,</if>
+        <if test="as_acorp1 != null">as_acorp1=#{as_acorp1}</if>
+        <if test="as_acorp2 != null ">,</if>
+        <if test="as_acorp2 != null">as_acorp2=#{as_acorp2}</if>
+        <if test="as_computer != null ">,</if>
+        <if test="as_computer != null">as_computer=#{as_computer}</if>
+        <if test="as_damdang != null ">,</if>
+        <if test="as_damdang != null">as_damdang=#{as_damdang}</if>
+        <if test="as_memo != null ">,</if>
+        <if test="as_memo != null">as_memo=#{as_memo}</if>
+        <if test="as_memo2 != null ">,</if>
+        <if test="as_memo2 != null">as_memo2=#{as_memo2}</if>
+        <if test="as_aname != null ">,</if>
+        <if test="as_aname != null">as_aname=#{as_aname}</if>
+        <if test="userid != null ">,</if>
+        <if test="userid != null">userid=#{userid}</if>
+        <if test="usernm != null ">,</if>
+        <if test="usernm != null">usernm=#{usernm}</if>
+        <if test="as_devflag != null ">,</if>
+        <if test="as_devflag != null">as_devflag=#{as_devflag}</if>
+        <if test="as_devdate != null ">,</if>
+        <if test="as_devdate != null">as_devdate=#{as_devdate}</if>
+        <if test="unsongnum != null ">,</if>
+        <if test="unsongnum != null">unsongnum=#{unsongnum}</if>
+        where as_key1  = #{as_key1} and as_key2 = #{as_key2}
     </update>
 
 

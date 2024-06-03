@@ -888,6 +888,8 @@ aria-hidden="true">
             if(ls_jpbgubn == null || ls_jpbgubn.length == 0 || ls_jpbgubn == ""){ 
                 ls_jpbgubn = "%";
             } 
+            console.log(arg)
+            console.log(ls_jpbgubn)
             $.ajax({
                 url: '/app01m/index03/custlist',  
                 type:"POST",
@@ -914,7 +916,7 @@ aria-hidden="true">
 
         function jcust_grid(arg, custdata, argjpb){  
             var wactnm_data = [];          
-            var cnt = 1;
+            var cnt = 1; 
             for (var i = 0; i < custdata.length; i++) {
                 var ls_jmodel = custdata[i]["jmodel_code"] 
                 $.ajax({

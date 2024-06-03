@@ -33,6 +33,7 @@ public class App01CrudController {
     private final Index03Service service03;
     private final Index04Service service04;
     private final Index14Service service14;
+    private final AuthService service_auth;
     CommonDto CommDto = new CommonDto();
     Index04Dto index04Dto = new Index04Dto();
     List<Index04Dto> index04List = new ArrayList<>();
@@ -160,6 +161,7 @@ public class App01CrudController {
 
         try {
             Index02Dto _index02Dto = new Index02Dto();
+            UserFormDto _appUserFormDto  = new UserFormDto();
             param.forEach((key, values) -> {
                 switch (key) {
                     case "acorp1":
@@ -272,6 +274,39 @@ public class App01CrudController {
                 if (!result) {
                     return "error";
                 }
+                //사용자등록
+                if(_index02Dto.getAgita().equals("P")){
+                    _appUserFormDto.setRole(_index02Dto.getAgita());
+                    _appUserFormDto.setCustnm("피오비노");
+                }else if(_index02Dto.getAgita().equals("B")){
+                    _appUserFormDto.setRole(_index02Dto.getAgita());
+                    _appUserFormDto.setCustnm("블리스");
+                }else{
+                    _appUserFormDto.setRole("%");
+                    _appUserFormDto.setCustnm("%");
+                }
+                String ls_userid = "";
+                ls_userid = _index02Dto.getAsano1() + _index02Dto.getAsano2() + _index02Dto.getAsano3();
+                _appUserFormDto.setSpjangcd("ZZ");
+                _appUserFormDto.setUserid(ls_userid);
+                _appUserFormDto.setSaupnum(ls_userid);
+                _appUserFormDto.setPhone(_index02Dto.getAtelno());
+                _appUserFormDto.setUseyn("Y");
+                _appUserFormDto.setRole(_index02Dto.getAgita());
+                _appUserFormDto.setUsername(_index02Dto.getAcorp());
+                _appUserFormDto.setPernm(_index02Dto.getAname());
+                _appUserFormDto.setPasswd1(_index02Dto.getAsano3());
+                _appUserFormDto.setPasswd2(_index02Dto.getAsano3());
+                _appUserFormDto.setFlag("BB");
+                _appUserFormDto.setRnum("0");
+                _appUserFormDto.setCustcd("actcd");
+                _appUserFormDto.setCustnm(_index02Dto.getAcorp());
+                _appUserFormDto.setPerid(_index02Dto.getAcorp1() + _index02Dto.getAcorp2());
+                result = service_auth.TB_XUSERS_INSERT(_appUserFormDto);
+                if (!result) {
+                    return "error";
+                }
+
             } else {
                 result = service02.UpdateCif(_index02Dto);
                 if (!result) {
@@ -1017,7 +1052,6 @@ public class App01CrudController {
             }
 
             //index03Dto.setJcustomer_code(jcustcd);
-            _index03Dto.setJpum(searchtxt);
             _index03Dto.setJfrdate("20000101");
             _index03Dto.setJpb_gubn(jpbgubn);
 
@@ -1027,7 +1061,7 @@ public class App01CrudController {
             todate = year + month + day ;
             _index03Dto.setFrdate("20000101");
             _index03Dto.setTodate(todate);
-            _index03Dto.setJkey("%");
+            _index03Dto.setJkey(searchtxt);
 //            log.info("001 ->" + _index03Dto.getJpum());
 //            log.info("002 ->" + _index03Dto.getFrdate());
 //            log.info("003 ->" + _index03Dto.getTodate());
@@ -1073,7 +1107,7 @@ public class App01CrudController {
             }
 
             //index03Dto.setJcustomer_code(jcustcd);
-            _index03Dto.setJpum(searchtxt);
+            _index03Dto.setJkey(searchtxt);
             _index03Dto.setJfrdate("20000101");
             _index03Dto.setJpb_gubn(jpbgubn);
 
@@ -1089,7 +1123,6 @@ public class App01CrudController {
             _index03Dto.setJtodate(frdate);
             _index03Dto.setFrdate(frdate);
             _index03Dto.setTodate(todate);
-            _index03Dto.setJkey("%");
 //            log.info("001 ->" + _index03Dto.getJpum());
 //            log.info("002 ->" + _index03Dto.getFrdate());
 //            log.info("003 ->" + _index03Dto.getTodate());
@@ -4531,6 +4564,8 @@ public class App01CrudController {
             ,@RequestParam( value =  "asaname") String asaname
             ,@RequestParam( value =  "ascustnm") String ascustnm
             ,@RequestParam( value =  "asrnum") String asrnum
+            ,@RequestParam( value =  "userid") String userid
+            ,@RequestParam( value =  "usernm") String usernm
             , Model model
             , HttpServletRequest request){
 
@@ -4567,15 +4602,16 @@ public class App01CrudController {
             _index20Dto.setAs_memo2(asasmemo2);
             _index20Dto.setAs_memo3(asasmemo3);
             _index20Dto.setAs_aname(asaname);
-            _index20Dto.setAs_devflag("0");
-            _index20Dto.setMisflag("0");
-
+            _index20Dto.setUserid(userid);
+            _index20Dto.setUsernm(usernm);
 //            log.info("asaskey1 =====>" + asaskey1);
 //            log.info("asaskey2 =====>" + asaskey2);
 //            log.info("asrnum =====>" + asrnum);
                 if(asaskey2 == null || asaskey2.equals("")){
                     asaskey2 = GetMaxJupsu(_index20Dto);
                     _index20Dto.setAs_key2(asaskey2);
+                    _index20Dto.setAs_devflag("0");
+                    _index20Dto.setMisflag("0");
                     result = service01.InsertJupsu(_index20Dto);
                 }else{
                     result = service01.UpdateJupsu(_index20Dto);

@@ -40,6 +40,7 @@
             and as_key1 between #{frdate} and #{todate}
             and isnull(as_devflag,'') Like concat('%',#{as_devflag},'%')
             and isnull(misflag,'0') Like concat('%',#{misflag},'%')
+            and isnull(userid,'0') Like concat('%',#{userid},'%')
             ORDER BY as_key1 desc, as_key2
         ]]>
     </select>
@@ -80,6 +81,7 @@
           and as_key1 between #{frdate} and #{todate}
           and isnull(as_devflag,'0') Like concat('%',#{as_devflag},'%')
           and isnull(misflag,'0') Like concat('%',#{misflag},'%')
+          and isnull(userid,'0') Like concat('%',#{userid},'%')
         ORDER BY as_key1 desc, as_key2
         ]]>
     </select>
