@@ -34,7 +34,7 @@
             <th:block th:include="layouts/APPHeader/appheadTop" />
             <!-- <div class="infor_bar type2"> 
                 <div class="left">
-                    A/S접수 및 배송 현황
+                    A/S접수 및 발송 현황
                 </div>
                 <ul class="right">
                     <li>
@@ -64,10 +64,10 @@
                                 <div class="input-group mb-3">
                                     <div class="input_wrap" style="max-width: 235px;"> 
                                         <select class="form-select" id="asflag"  >   
-                                            <option selected="">배송구분</option>
+                                            <option selected="">발송구분</option>
                                             <option value="0">전체</option>
-                                            <option value="1">배송전</option>  
-                                            <option value="2">배송완료</option>  
+                                            <option value="1">발송전</option>  
+                                            <option value="2">발송완료</option>  
                                         </select>                                                                  
                                     </div>
                                 </div>
@@ -86,9 +86,9 @@
                                     <li class="nav-item">
                                       <a class="nav-link active" data-toggle="tab" href="#step01" onclick="tabchk_rtn('A')">A/S접수현황</a>
                                     </li>
-                                    <li class="nav-item">
-                                      <a class="nav-link" data-toggle="tab" href="#step02"  onclick="tabchk_rtn('B')">A/S배송현황</a>
-                                    </li>
+                                    <!-- <li class="nav-item">
+                                      <a class="nav-link" data-toggle="tab" href="#step02"  onclick="tabchk_rtn('B')">A/S발송현황</a>
+                                    </li> -->
                                     <!-- <li class="nav-item">
                                       <a class="nav-link" data-toggle="tab" href="#step03"  onclick="tabchk_rtn('C')">기초코드3</a>
                                     </li> -->
@@ -120,10 +120,9 @@
                                             </div>
                                             <div class="col-1 col-sm-1">  
                                                 <select class="form-select" id="asflag"  >   
-                                                    <option selected="">배송구분</option>
-                                                    <option value="0">전체</option>
-                                                    <option value="1">배송전</option>  
-                                                    <option value="2">배송완료</option>  
+                                                    <option selected="">발송구분</option> 
+                                                    <option value="1">발송전</option>  
+                                                    <option value="2">발송완료</option>  
                                                 </select>                                      
                                             </div> 
                                             <div class="col-1 col-sm-1">  
@@ -274,13 +273,13 @@
                     { binding: 'as_key2', header: '순번', align: "center",   width: 50 },
                     { binding: 'as_model', header: '모델', align: "center",   width: 80 },
                     { binding: 'as_color', header: '칼라', align: "center",   width: 80 },
+                    { binding: 'as_yumu', header: '유무상', align: "center",   width: 80 },
                     { binding: 'as_suri', header: '수리부위', align: "center",   width: 150 },
-                    // { binding: 'as_yumu', header: '유무상', align: "center",   width: 80 },
                     // { binding: 'as_gongjang', header: '공장', align: "center",   width: 100 },
-                    { binding: 'as_acorp', header: '거래처', align: "left",   width: 200 },
+                    // { binding: 'as_acorp', header: '거래처', align: "left",   width: 200 },
                     // { binding: 'as_aname', header: '구분', align: "center",   width: 80 },
-                    { binding: 'as_date2', header: '배송일자', align: "center",   width: 120 },
-                    { binding: 'as_memo', header: '메모', align: "center",   width: 200 },                    
+                    { binding: 'as_date2', header: '발송일자', align: "center",   width: 120 },
+                    // { binding: 'as_memo', header: '메모', align: "center",   width: 200 },                    
                 ], 
                 itemsSource: view_p01tab01page
             });  
@@ -353,7 +352,7 @@
                 return wactnm_data;                                          
             } 
  
-            //배송현황 popup list
+            //발송현황 popup list
             view_p01tab02page = new wijmo.collections.CollectionView(getData_wlist(), {
                 // pageSize: 12
             }); 
@@ -364,7 +363,7 @@
                 selectionMode: 'RowRange',
                 alternatingRowStep: 0,
                 columns: [      
-                    { binding: 'as_date2', header: '배송일자', align: "center",   width: 120 },
+                    { binding: 'as_date2', header: '발송일자', align: "center",   width: 120 },
                     { binding: 'as_key1', header: '접수일자', align: "center",   width: 120 }, 
                     { binding: 'as_key2', header: '순번', align: "center",   width: 80 },
                     { binding: 'as_model', header: '모델', align: "center",   width: 80 },
@@ -400,7 +399,7 @@
             wijmo.toggleClass(wtab02Grid.hostElement, 'highlightActive', true);
             wtab02Grid.focus();
 
-            // 배송현황 데이터 수집
+            // 발송현황 데이터 수집
             function getData_wlist(){   
                 var wtab01Dto = [[${cifcodeList}]];   
                 var wactnm_data = [];
@@ -659,12 +658,16 @@
                             alert("시작일자를 입력하세요") 
                             document.getElementById("frdate").focus(); 
                             return ;               
-                    }   
+                    }     
+                    if(ls_asflag == "발송구분"){ 
+                        ls_asflag = "%";
+                    } 
                     if(ls_todate == null || ls_todate.length == 0 || ls_todate == ""){ 
                             alert("종료일자를 입력하세요") 
                             document.getElementById("todate").focus(); 
                             return ;               
-                    }        
+                    }   
+                    ls_misflag = '%'     
                     $.ajax({
                         url: '/app02m/index11/list01',  
                         type:"POST",
@@ -672,7 +675,8 @@
                             "frdate"      : ls_frdate, 
                             "todate"      : ls_todate,  
                             "asflag"      : ls_asflag, 
-                            "asacorp"      : ls_bacode 
+                            "asacorp"      : ls_bacode   , 
+                            "misflag"  : ls_misflag   
                         }, 
                         async:false,
                         success:function(data){   
@@ -731,8 +735,20 @@
         function tabA_grid(data){
             var wtab01Dto  = data;    
             var wtab01_data = [];
+            var bfixflag= false;
+            var ls_asyumu = '';
             var cnt = 1;
             for (var i = 0; i < wtab01Dto.length; i++) {
+                if(wtab01Dto[i]["as_devflag"] == "1"){
+                    bfixflag = true;
+                }else{
+                    bfixflag = false;
+                }  
+                if(wtab01Dto[i]["as_yumu"] == "무상"){
+                    ls_asyumu = '무상';
+                }else{
+                    ls_asyumu = '유상';
+                }  
                 wtab01_data.push({
                     id: i, 
                     index: cnt,
@@ -741,12 +757,13 @@
                     as_model:  wtab01Dto[i]["as_model"], 
                     as_color:  wtab01Dto[i]["as_color"], 
                     as_suri:  wtab01Dto[i]["as_suri"], 
-                    as_yumu:  wtab01Dto[i]["as_yumu"], 
+                    as_yumu:  ls_asyumu, 
                     as_gongjang:  wtab01Dto[i]["as_gongjang"], 
                     as_acorp:  wtab01Dto[i]["as_acorp"], 
                     as_aname:  wtab01Dto[i]["as_aname"], 
                     as_memo:  wtab01Dto[i]["as_memo"], 
-                    as_date2:  wtab01Dto[i]["as_date2"],                                  
+                    as_date2:  wtab01Dto[i]["as_date2"],  
+                     as_devflag:  bfixflag,                                                
                 });
                 cnt++;
             }   
@@ -780,29 +797,29 @@
             cols.width = 80;  
             wtab01Grid.columns.push(cols);  
             cols = new wijmo.grid.Column(); 
+            cols.binding = 'as_yumu';
+            cols.header = '유무상';
+            cols.align = "center";
+            cols.width = 80;  
+            wtab01Grid.columns.push(cols); 
+            cols = new wijmo.grid.Column(); 
             cols.binding = 'as_suri';
             cols.header = '수리부위';
             cols.align = "center";
             cols.width = 150;  
             wtab01Grid.columns.push(cols);   
             // cols = new wijmo.grid.Column(); 
-            // cols.binding = 'as_yumu';
-            // cols.header = '유무상';
-            // cols.align = "center";
-            // cols.width = 80;  
-            // wtab01Grid.columns.push(cols); 
-            // cols = new wijmo.grid.Column(); 
             // cols.binding = 'as_gongjang';
             // cols.header = '공장';
             // cols.align = "center";
             // cols.width = 100;  
             // wtab01Grid.columns.push(cols);   
-            cols = new wijmo.grid.Column(); 
-            cols.binding = 'as_acorp';
-            cols.header = '거래처';
-            cols.align = "left";
-            cols.width = 250;  
-            wtab01Grid.columns.push(cols);   
+            // cols = new wijmo.grid.Column(); 
+            // cols.binding = 'as_acorp';
+            // cols.header = '거래처';
+            // cols.align = "left";
+            // cols.width = 250;  
+            // wtab01Grid.columns.push(cols);   
             // cols = new wijmo.grid.Column(); 
             // cols.binding = 'as_aname';
             // cols.header = '구분';
@@ -811,16 +828,23 @@
             // wtab01Grid.columns.push(cols);    
             cols = new wijmo.grid.Column(); 
             cols.binding = 'as_date2';
-            cols.header = '배송일자';
+            cols.header = '발송일자';
             cols.align = "center";
             cols.width = 120;  
-            wtab01Grid.columns.push(cols);   
+            wtab01Grid.columns.push(cols);  
             cols = new wijmo.grid.Column(); 
-            cols.binding = 'as_memo';
-            cols.header = '메모';
+            cols.binding = 'as_devflag';
+            cols.header = '발송구분';
             cols.align = "center";
-            cols.width = 200;  
+            cols.width = 100;   
+            cols.cssClass = 'switch'
             wtab01Grid.columns.push(cols);   
+            // cols = new wijmo.grid.Column(); 
+            // cols.binding = 'as_memo';
+            // cols.header = '메모';
+            // cols.align = "center";
+            // cols.width = 200;  
+            // wtab01Grid.columns.push(cols);   
  
         }     
         function tabB_grid(data){
@@ -852,7 +876,7 @@
             view_p01tab02page.sourceCollection  = wtab01_data; 
             var cols = new wijmo.grid.Column(); 
             cols.binding = 'as_date2';
-            cols.header = '배송일자';
+            cols.header = '발송일자';
             cols.align = "center";
             cols.width = 120;  
             wtab02Grid.columns.push(cols);   
@@ -1155,7 +1179,7 @@
                             // 내보내기
                             case 'X_CSV':
                                 let rng = new wijmo.grid.CellRange(0, 0, grid.rows.length - 1, grid.columns.length - 1), csv = grid.getClipString(rng, wijmo.grid.ClipStringOptions.CSV, true, false);
-                                wijmo.saveFile(csv, 'AS접수/배송현황.csv');
+                                wijmo.saveFile(csv, 'AS접수/발송현황.csv');
                                 break;
                             case 'X_XLSX':
                                 const gridView = grid.collectionView;
@@ -1164,7 +1188,7 @@
                                 grid.beginUpdate();
                                 gridView.pageSize = 0;
 
-                                wijmo.grid.xlsx.FlexGridXlsxConverter.saveAsync(grid, {includeCellStyles: true, includeColumnHeaders: true}, 'AS접수/배송현황.xlsx',
+                                wijmo.grid.xlsx.FlexGridXlsxConverter.saveAsync(grid, {includeCellStyles: true, includeColumnHeaders: true}, 'AS접수/발송현황.xlsx',
                                 saved => {
                                 gridView.pageSize = oldPgSize;
                                 gridView.moveToPage(oldPgIndex);
@@ -1173,14 +1197,14 @@
                                 ); 
                                 break;
                             case 'X_PDF':
-                                wijmo.grid.pdf.FlexGridPdfConverter.export(grid, 'AS접수/배송현황.pdf', {
+                                wijmo.grid.pdf.FlexGridPdfConverter.export(grid, 'AS접수/발송현황.pdf', {
                                     maxPages: 10,
                                     scaleMode: wijmo.grid.pdf.ScaleMode.PageWidth,
                                     documentOptions: {
                                     compress: true,
                                     header: { declarative: { text: '\t&[Page] of &[Pages]' } },
                                     footer: { declarative: { text: '\t&[Page] of &[Pages]' } },
-                                    info: { author: 'GrapeCity', title: 'AS접수/배송현황' }
+                                    info: { author: 'GrapeCity', title: 'AS접수/발송현황' }
                                     },
                                     //내장된 폰트 정보
                                     embeddedFonts: [

@@ -487,7 +487,7 @@
                     { binding: 'as_memo', header: '메모', align: "center",   width: 200 },        
                     { binding: 'as_yumu', header: '유무상', align: "center",   width: 80 }, 
                     { binding: 'as_memo2', header: '메모2', align: "center",   width: 200 },      
-                    { binding: 'as_date2', header: '배송일자', align: "center",   width: 120 },     
+                    { binding: 'as_date2', header: '발송일자', align: "center",   width: 120 },     
                     { binding: 'unsongnum', header: '운송장', align: "center",   width: 120 },     
                     { binding: 'as_gongjang', header: '공장', align: "center",   width: 50 },
                     { binding: 'as_aname', header: '구분', align: "center",   width: 80 },         
@@ -608,7 +608,7 @@
                     { binding: 'eeatelno', header: '연락처', align: "center", width: 150 },  
                     { binding: 'eeacodetxt', header: '우편번호', align: "center", width: 150 },  
                     { binding: 'eeajuso', header: '주소', align: "center", width: 150 },   
-                    { binding: 'miskey', header: '배송키', align: "center", width: 150 },   
+                    { binding: 'miskey', header: '발송키', align: "center", width: 150 },   
                 ], 
                 itemsSource: view_p01tab02page
             });  
@@ -844,7 +844,7 @@
             save_btn("C");
         })  
                   
-        // 배송등록 
+        // 발송등록 
         document.getElementById("saveBtn04").addEventListener("click",function(){
             var ls_tab = document.getElementById('tabvalue').value;     
             save_btn("E");
@@ -1720,7 +1720,7 @@
             wtab01Grid.columns.push(cols);     
             cols = new wijmo.grid.Column(); 
             cols.binding = 'as_date2';
-            cols.header = '배송일자';
+            cols.header = '발송일자';
             cols.align = "center";
             cols.width = 120;  
             cols.cellTemplate = ls_css
@@ -2274,7 +2274,7 @@
                             // 내보내기
                             case 'X_CSV':
                                 let rng = new wijmo.grid.CellRange(0, 0, grid.rows.length - 1, grid.columns.length - 1), csv = grid.getClipString(rng, wijmo.grid.ClipStringOptions.CSV, true, false);
-                                wijmo.saveFile(csv, 'AS접수/배송현황.csv');
+                                wijmo.saveFile(csv, 'AS접수/발송현황.csv');
                                 break;
                             case 'X_XLSX':
                                 const gridView = grid.collectionView;
@@ -2283,7 +2283,7 @@
                                 grid.beginUpdate();
                                 gridView.pageSize = 0;
 
-                                wijmo.grid.xlsx.FlexGridXlsxConverter.saveAsync(grid, {includeCellStyles: true, includeColumnHeaders: true}, 'AS접수/배송현황.xlsx',
+                                wijmo.grid.xlsx.FlexGridXlsxConverter.saveAsync(grid, {includeCellStyles: true, includeColumnHeaders: true}, 'AS접수/발송현황.xlsx',
                                 saved => {
                                 gridView.pageSize = oldPgSize;
                                 gridView.moveToPage(oldPgIndex);
@@ -2292,14 +2292,14 @@
                                 ); 
                                 break;
                             case 'X_PDF':
-                                wijmo.grid.pdf.FlexGridPdfConverter.export(grid, 'AS접수/배송현황.pdf', {
+                                wijmo.grid.pdf.FlexGridPdfConverter.export(grid, 'AS접수/발송현황.pdf', {
                                     maxPages: 10,
                                     scaleMode: wijmo.grid.pdf.ScaleMode.PageWidth,
                                     documentOptions: {
                                     compress: true,
                                     header: { declarative: { text: '\t&[Page] of &[Pages]' } },
                                     footer: { declarative: { text: '\t&[Page] of &[Pages]' } },
-                                    info: { author: 'GrapeCity', title: 'AS접수/배송현황' }
+                                    info: { author: 'GrapeCity', title: 'AS접수/발송현황' }
                                     },
                                     //내장된 폰트 정보
                                     embeddedFonts: [

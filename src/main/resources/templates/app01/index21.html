@@ -34,7 +34,7 @@
             <th:block th:include="layouts/APPHeader/appheadTop" />
             <!-- <div class="infor_bar type2"> 
                 <div class="left">
-                    A/S접수 및 배송 현황
+                    A/S접수 및 발송 현황
                 </div>
                 <ul class="right">
                     <li>
@@ -64,10 +64,10 @@
                                 <div class="input-group mb-3">
                                     <div class="input_wrap" style="max-width: 235px;"> 
                                         <select class="form-select" id="asflag"  >   
-                                            <option selected="">배송구분</option>
+                                            <option selected="">발송구분</option>
                                             <option value="0">전체</option>
-                                            <option value="1">배송전</option>  
-                                            <option value="2">배송완료</option>  
+                                            <option value="1">발송전</option>  
+                                            <option value="2">발송완료</option>  
                                         </select>                                                                  
                                     </div>
                                 </div>
@@ -87,7 +87,7 @@
                                       <a class="nav-link active" data-toggle="tab" href="#step01" onclick="tabchk_rtn('A')">A/S접수현황</a>
                                     </li>
                                     <li class="nav-item">
-                                      <a class="nav-link" data-toggle="tab" href="#step02"  onclick="tabchk_rtn('B')">A/S배송현황</a>
+                                      <a class="nav-link" data-toggle="tab" href="#step02"  onclick="tabchk_rtn('B')">A/S발송현황</a>
                                     </li>
                                     <!-- <li class="nav-item">
                                       <a class="nav-link" data-toggle="tab" href="#step03"  onclick="tabchk_rtn('C')">기초코드3</a>
@@ -129,10 +129,10 @@
                                             </div>  
                                             <div class="col-1 col-sm-1">  
                                                 <select class="form-select" id="asflag"  >   
-                                                    <option selected="">배송구분</option>
+                                                    <option selected="">발송구분</option>
                                                     <option value="%">전체</option>
-                                                    <option value="1">배송완료</option>
-                                                    <option value="0">배송전</option>
+                                                    <option value="1">발송완료</option>
+                                                    <option value="0">발송전</option>
                                                 </select>                                      
                                             </div> 
                                             <div class="col-1 col-sm-1">  
@@ -291,9 +291,9 @@
                     { binding: 'as_yumu', header: '유무상', align: "center",   width: 80 }, 
                     { binding: 'as_memo2', header: '메모2', align: "center",   width: 200 },      
                     { binding: 'as_memo3', header: '메모3', align: "center",   width: 200 },     
-                    { binding: 'as_date2', header: '배송일자', align: "center",   width: 120 },        
-                    { binding: 'as_devcode', header: '배송코드', align: "center",   width: 120 },    
-                    { binding: 'as_devdate', header: '배송시간', align: "center",   width: 200 },                        
+                    { binding: 'as_date2', header: '발송일자', align: "center",   width: 120 },        
+                    { binding: 'as_devcode', header: '발송코드', align: "center",   width: 120 },    
+                    { binding: 'as_devdate', header: '발송시간', align: "center",   width: 200 },                        
                     { binding: 'as_aname', header: '구분', align: "center",   width: 80 },           
                     { binding: 'as_damdang', header: '접수자', align: "center",   width: 80 },                    
                 ], 
@@ -392,7 +392,7 @@
                 return wactnm_data;                                          
             } 
  
-            //배송현황 popup list
+            //발송현황 popup list
             view_p01tab02page = new wijmo.collections.CollectionView(getData_wlist(), {
                 // pageSize: 12
             }); 
@@ -403,9 +403,9 @@
                 selectionMode: 'RowRange',
                 alternatingRowStep: 0,
                 columns: [      
-                    { binding: 'as_date2', header: '배송일자', align: "center",   width: 120 },     
-                    { binding: 'as_devcode', header: '배송코드', align: "center",   width: 120 },    
-                    { binding: 'as_devdate', header: '배송시간', align: "center",   width: 200 }, 
+                    { binding: 'as_date2', header: '발송일자', align: "center",   width: 120 },     
+                    { binding: 'as_devcode', header: '발송코드', align: "center",   width: 120 },    
+                    { binding: 'as_devdate', header: '발송시간', align: "center",   width: 200 }, 
                     { binding: 'as_key1', header: '접수일자', align: "center",   width: 120 }, 
                     { binding: 'as_key2', header: '순번', align: "center",   width: 80 },
                     { binding: 'as_model', header: '모델', align: "center",   width: 80 },
@@ -461,7 +461,7 @@
             wijmo.toggleClass(wtab02Grid.hostElement, 'highlightActive', true);
             wtab02Grid.focus();
 
-            // 배송현황 데이터 수집
+            // 발송현황 데이터 수집
             function getData_wlist(){   
                 var wtab01Dto = [[${cifcodeList}]];   
                 var wactnm_data = [];
@@ -731,7 +731,7 @@
                             document.getElementById("todate").focus(); 
                             return ;               
                     }    
-                    if(ls_asflag == "배송구분"){ 
+                    if(ls_asflag == "발송구분"){ 
                         ls_asflag = "%";
                     }      
                     if(ls_misflag == "주문구분"){ 
@@ -915,7 +915,7 @@
             wtab01Grid.columns.push(cols);       
             cols = new wijmo.grid.Column(); 
             cols.binding = 'as_date2';
-            cols.header = '배송일자';
+            cols.header = '발송일자';
             cols.align = "center";
             cols.width = 120;  
             wtab01Grid.columns.push(cols);  
@@ -995,19 +995,19 @@
             view_p01tab02page.sourceCollection  = wtab01_data; 
             var cols = new wijmo.grid.Column(); 
             cols.binding = 'as_date2';
-            cols.header = '배송일자';
+            cols.header = '발송일자';
             cols.align = "center";
             cols.width = 120;  
             wtab02Grid.columns.push(cols);    
             cols = new wijmo.grid.Column(); 
             cols.binding = 'as_devcode';
-            cols.header = '배송코드';
+            cols.header = '발송코드';
             cols.align = "center";
             cols.width = 120; 
             wtab02Grid.columns.push(cols);    
             cols = new wijmo.grid.Column(); 
             cols.binding = 'as_devdate';
-            cols.header = '배송시간';
+            cols.header = '발송시간';
             cols.align = "center";
             cols.width = 200; 
             wtab02Grid.columns.push(cols);   
@@ -1346,7 +1346,7 @@
                             // 내보내기
                             case 'X_CSV':
                                 let rng = new wijmo.grid.CellRange(0, 0, grid.rows.length - 1, grid.columns.length - 1), csv = grid.getClipString(rng, wijmo.grid.ClipStringOptions.CSV, true, false);
-                                wijmo.saveFile(csv, 'AS접수/배송현황.csv');
+                                wijmo.saveFile(csv, 'AS접수/발송현황.csv');
                                 break;
                             case 'X_XLSX':
                                 const gridView = grid.collectionView;
@@ -1355,7 +1355,7 @@
                                 grid.beginUpdate();
                                 gridView.pageSize = 0;
 
-                                wijmo.grid.xlsx.FlexGridXlsxConverter.saveAsync(grid, {includeCellStyles: true, includeColumnHeaders: true}, 'AS접수/배송현황.xlsx',
+                                wijmo.grid.xlsx.FlexGridXlsxConverter.saveAsync(grid, {includeCellStyles: true, includeColumnHeaders: true}, 'AS접수/발송현황.xlsx',
                                 saved => {
                                 gridView.pageSize = oldPgSize;
                                 gridView.moveToPage(oldPgIndex);
@@ -1364,14 +1364,14 @@
                                 ); 
                                 break;
                             case 'X_PDF':
-                                wijmo.grid.pdf.FlexGridPdfConverter.export(grid, 'AS접수/배송현황.pdf', {
+                                wijmo.grid.pdf.FlexGridPdfConverter.export(grid, 'AS접수/발송현황.pdf', {
                                     maxPages: 10,
                                     scaleMode: wijmo.grid.pdf.ScaleMode.PageWidth,
                                     documentOptions: {
                                     compress: true,
                                     header: { declarative: { text: '\t&[Page] of &[Pages]' } },
                                     footer: { declarative: { text: '\t&[Page] of &[Pages]' } },
-                                    info: { author: 'GrapeCity', title: 'AS접수/배송현황' }
+                                    info: { author: 'GrapeCity', title: 'AS접수/발송현황' }
                                     },
                                     //내장된 폰트 정보
                                     embeddedFonts: [
