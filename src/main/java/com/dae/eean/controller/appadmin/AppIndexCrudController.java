@@ -284,6 +284,7 @@ public class AppIndexCrudController {
             ,@RequestParam("custnm") String custnm
             ,@RequestParam("username") String username
             ,@RequestParam("flag") String flag
+            ,@RequestParam("perid") String perid
             , Model model, HttpServletRequest request){
         try {
             HttpSession session = request.getSession();
@@ -311,7 +312,7 @@ public class AppIndexCrudController {
             appUserFormDto.setFlag(flag);
             appUserFormDto.setRnum("0");
             appUserFormDto.setCustcd("actcd");
-            appUserFormDto.setPerid(userid);
+            appUserFormDto.setPerid(perid);
 
             boolean result = service.TB_XUSERS_INSERT(appUserFormDto);
             if (!result) {

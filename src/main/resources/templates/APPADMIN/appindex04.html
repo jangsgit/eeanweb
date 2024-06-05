@@ -226,7 +226,11 @@
                                                         <option th:each="val : ${index01ListDto}" th:value="${val.com_code}" th:text="${val.com_rem1}">
                                                     </select>    
                                                 </div>
-                                            </div>   
+                                            </div>    
+                                            <div class="input_wrap flex">
+                                                <p>사원코드</p>
+                                                <input type="text" id="perid" name="perid"   /> 
+                                            </div> 
                                             <div class="input_wrap flex">
                                                 <p>사용자명</p>
                                                 <input type="text" id="username" name="username"   /> 
@@ -403,6 +407,10 @@
                 alert("비밀번호를 등록 하세요")  
                 return ;               
             }   
+            if(ls_perid == null || ls_perid.length == 0 || ls_perid == ""){ 
+                alert("사원번호를 등록 하세요")  
+                return ;               
+            }  
             if(ls_role == "구분" || ls_role == null || ls_role.length == 0 || ls_role == ""){ 
                 ls_role = "%";
             }    
@@ -808,6 +816,7 @@
             var ls_passwd2 = document.getElementById('passwd2').value;  
             var ls_custnm = document.getElementById('custnm').value; 
             var ls_username = document.getElementById('username').value;  
+            var ls_perid = document.getElementById('perid').value;  
         
             if (!confirm("등록하시겠습니까?")) {
                     return ; 
@@ -827,7 +836,11 @@
             if(ls_username == null || ls_username.length == 0 || ls_username == ""){ 
                 alert("사용자명을 등록 하세요")  
                 return ;               
-            }   
+            }       
+            if(ls_perid == null || ls_perid.length == 0 || ls_perid == ""){ 
+                alert("사원코드를 등록 하세요")  
+                return ;               
+            } 
 
             $.ajax({
                 url: '/appadmod/id01sav',   
@@ -838,6 +851,7 @@
                     "passwd2"    : ls_passwd2,
                     "custnm"    : ls_custnm, 
                     "username"    : ls_username,
+                    "perid"    : ls_perid,
                     "flag"    : 'CC'
                 },
                 async:false,
