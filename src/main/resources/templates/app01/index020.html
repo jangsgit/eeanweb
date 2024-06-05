@@ -1338,11 +1338,10 @@
             wtab01Grid.columns.push(cols);
       
         }        
-
-        // wcifChk_a(ctx.item.acorp1, ctx.item.acorp2, ctx.item.acorp3, ctx.item.acode, ctx.item.acorp,ctx.item.asano1, ctx.item.asano2, ctx.item.asano3, ctx.item.aname, ctx.item.aupte,
-        //  ctx.item.ajong,ctx.item.apost1, ctx.item.ajuso1, ctx.item.ajuso2, ctx.item.abigo, ctx.item.agita, ctx.item.ajumi1, ctx.item.ajumi2,ctx.item.aascode1, ctx.item.aascode2,
-        //   ctx.item.atelno, ctx.item.atelno2, ctx.item.aemail, ctx.item.ahand, ctx.item.abonsadam1, ctx.item.abonsadam2, ctx.item.abonsadam3, ctx.item.adomain, ctx.item.afax 
-                      
+        //   acorp1, acorp2, acorp3, acode, acorp,asano1, asano2, asano3, aname, aupte, 
+        //   ajong,  apost1, ajuso1, ajuso2, abigo, agita, ajumi1, ajumi2,aascode1, aascode2, 
+        //   atelno, atelno2, aemail, ahand, abonsadam1, abonsadam2, abonsadam3, adomain, afax, inname01, 
+        //   inname02, inname03  
         function wcifChk_a(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16, arg17, arg18, arg19, arg20, arg21, arg22, arg23, arg24, arg25, arg26, arg27, arg28, arg29, arg30, arg31, arg32){                        
             document.getElementById('acorp1').value = arg1;  
             document.getElementById('acorp2').value = arg2;   
@@ -1376,6 +1375,7 @@
             document.getElementById('inname01').value = arg30; 
             // document.getElementById('inname02').value = arg31; 
             // document.getElementById('inname03').value = arg32; 
+            $("#wciflist_rtn").trigger("click");
         }      
 
 

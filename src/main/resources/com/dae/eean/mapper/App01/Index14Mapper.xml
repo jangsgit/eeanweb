@@ -209,9 +209,9 @@
                       B.unsongnum as unsongnum,
                       B.deluser,
                       B.deluserid,
-                      B.amt, A.acorp, pbonsa, pmodel, pcolor , D.inname, B.misgubun, isnull(B.fixflag,'0') as fixflag,isnull(B.devflag,'0') as devflag,   D.inname as pernm ,  B.deltime, B.fixdatetime
+                      B.amt, A.acorp, pbonsa, pmodel, pcolor , D.pernm as inname, B.misgubun, isnull(B.fixflag,'0') as fixflag,isnull(B.devflag,'0') as devflag,   D.pernm ,  B.deltime, B.fixdatetime
                   from  TB_DA024_DEL B WITH (NOLOCK) ,
-                      cif A WITH (NOLOCK) Left outer JOIN INSA D ON  A.abonsadam1 = D.insano
+                      cif A WITH (NOLOCK) Left outer JOIN tb_xusers D ON  A.abonsadam1 = D.PERID
                   where   B.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
                     AND A.acorp1 + CAST(A.acorp2 as varchar) Like concat('%',#{cltcd},'%')
                     AND B.misdate between #{frdate} and #{todate}
@@ -229,14 +229,14 @@
             (case when len(isnull(B.remarkaa,'')) > 0 then B.remarkaa  when len(isnull(B.remarkbb,'')) > 0 then B.remarkbb else '' END ) AS remark,
             substring(B.misdate, 1,4)+ '년 ' + substring(B.misdate, 5,2)+ '월 ' + substring(B.misdate, 7,2) + '일' as misdatetxt,
             B.pcode, B.pname, B.psize,    B.punit,  B.qty,  B.uamt, B.samt, B.addamt,
-            B.amt, A.acorp, B.pbonsa, B.pname + ' (' + B.pmodel + ')' as pmodel, B.pcolor , D.inname, B.misgubun, isnull(B.fixflag,'0') as fixflag, D.inname as pernm,
+            B.amt, A.acorp, B.pbonsa, B.pname + ' (' + B.pmodel + ')' as pmodel, B.pcolor , D.pernm as inname, B.misgubun, isnull(B.fixflag,'0') as fixflag, D.pernm,
             ROW_NUMBER() OVER(ORDER BY (SELECT 1)) AS rownum,
             A.acorp, A.asano1 + '-' + A.asano2 + '-' + A.asano3 as asano, A.aname, A.aupte, A.ajong, A.ajuso1 + ' ' + A.ajuso2 as ajuso, A.atelno,
             A.aascode1 + '-' + A.aascode2 as aascodetxt,
             F.acorp as eeacorp, F.asano as eeasano, F.aname as eeaname, F.aupte as eeupte, F.ajong as eeajong, F.ajuso as eeajuso, F.atelno as eeatelno,
             F.eeacodetxt as eeacodetxt
         from  TB_DA024 B WITH (NOLOCK) ,
-            cif A WITH (NOLOCK) Left outer JOIN INSA D ON A.abonsadam1 = D.insano,
+            cif A WITH (NOLOCK) Left outer JOIN tb_xusers D ON A.abonsadam1 = D.perid,
             ( select acorp, atelno, asano1 + '-' + asano2 + '-' + asano3 as asano, aname, aupte, ajong, ajuso1 + ' ' + ajuso2 as ajuso,
                 aascode1 + '-' + aascode2 as eeacodetxt
                  from cif where acorp1 + acorp2 + acorp3 = '0000' ) F
@@ -331,7 +331,7 @@
             MAX(F.acorp) as eeacorp, MAX(F.asano) as eeasano, MAX(F.aname) as eeaname, MAX(F.aupte) as eeupte,
             MAX(F.ajong) as eeajong, MAX(F.ajuso) as eeajuso, MAX(F.atelno) as eeatelno,  MAX(F.eeacodetxt) as eeacodetxt, MAX(F.eeatelno) as eeatelno
         from  TB_DA024 B WITH (NOLOCK) ,
-            cif A WITH (NOLOCK) Left outer JOIN INSA D ON A.abonsadam1 = D.insano ,
+            cif A WITH (NOLOCK) Left outer JOIN tb_xusers D ON A.abonsadam1 = D.perid ,
             ( select acorp, atelno, asano1 + '-' + asano2 + '-' + asano3 as asano, aname, aupte, ajong,
               ajuso1 + ' ' + ajuso2 as ajuso, aascode1 + '-' + aascode2 as eeacodetxt, atelno as eeatelno
             from cif where acorp1 + acorp2 + acorp3 = '0000' ) F
@@ -359,7 +359,7 @@
             MAX(F.ajong) as eeajong, MAX(F.ajuso) as eeajuso, MAX(F.atelno) as eeatelno,  MAX(F.eeacodetxt) as eeacodetxt, MAX(F.eeatelno) as eeatelno
         from  as_jupsu B WITH (NOLOCK)
               LEFT OUTER JOIN TB_DA024 E WITH (NOLOCK) ON B.misdate = E.misdate and B.misnum = E.misnum and E.pmodel= 'AS',
-            cif A WITH (NOLOCK) Left outer JOIN INSA D ON A.abonsadam1 = D.insano ,
+            cif A WITH (NOLOCK) Left outer JOIN tb_xusers D ON A.abonsadam1 = D.perid ,
             ( select acorp, atelno, asano1 + '-' + asano2 + '-' + asano3 as asano, aname, aupte, ajong,
             ajuso1 + ' ' + ajuso2 as ajuso, aascode1 + '-' + aascode2 as eeacodetxt, atelno as eeatelno
             from cif where acorp1 + acorp2 + acorp3 = '0000' ) F
@@ -402,10 +402,10 @@
                       isnull(B.remarkaa,'') as remarkaa,
                       isnull(B.remarkbb,'') as remarkbb,
                       isnull(B.makflag, '0') as makflag,
-                      B.amt, A.acorp, pbonsa, pmodel, pcolor, D.inname, B.misgubun, isnull(B.fixflag,'0') as fixflag, D.inname as pernm,
+                      B.amt, A.acorp, pbonsa, pmodel, pcolor, D.pernm as inname, B.misgubun, isnull(B.fixflag,'0') as fixflag, D.pernm,
                       B.omisdate, B.omisnum, B.oseq, B.deltime
                   from  TB_DA026_del B WITH (NOLOCK) ,
-                      cif A WITH (NOLOCK) Left outer JOIN INSA D ON A.abonsadam1 = D.insano ,
+                      cif A WITH (NOLOCK) Left outer JOIN tb_xusers D ON A.abonsadam1 = D.perid ,
                       jcode3 E WITH (NOLOCK)
                   where  B.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
                     AND B.pcode = E.jkey
@@ -567,7 +567,7 @@
                             sum(B.qty) as qty, sum(B.samt) as samt, sum(B.addamt) as addamt, sum(B.amt) as amt
                   from  TB_DA024 B WITH (NOLOCK) ,
                       jcode3 F WITH (NOLOCK) ,
-                      cif A WITH (NOLOCK)  Left outer JOIN INSA D ON A.abonsadam1 = D.insano
+                      cif A WITH (NOLOCK)  Left outer JOIN tb_xusers D ON A.abonsadam1 = D.perid
                                            Left outer JOIN cif_sido e ON LEFT(A.apost1,3) = E.postcd
                   where  B.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
                     AND B.pcode = F.jkey
@@ -585,7 +585,7 @@
                             sum(B.qty) as qty, sum(B.samt) as samt, sum(B.addamt) as addamt, sum(B.amt) as amt
                   from  TB_DA024 B WITH (NOLOCK) ,  cif_sido E WITH (NOLOCK),
                       jcode3 F WITH (NOLOCK),
-                      cif A WITH (NOLOCK)  Left outer JOIN INSA D ON A.abonsadam1 = D.insano
+                      cif A WITH (NOLOCK)  Left outer JOIN tb_xusers D ON A.abonsadam1 = D.perid
                   where  LEFT(A.apost1,3) = E.postcd
                     AND B.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
                     AND B.pcode = F.jkey
