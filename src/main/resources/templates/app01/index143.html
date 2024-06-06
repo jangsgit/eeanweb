@@ -817,6 +817,7 @@
                     var ls_abonsadam1   = document.getElementById('abonsadam1').value; 
                     var ls_inname01   = document.getElementById('inname01').value; 
                     var ls_misfixflag = document.getElementById('misfixflag').value; 
+                    var ls_sflag = "0" ; //출력일기준
                     if(ls_frdate == null || ls_frdate.length == 0 || ls_frdate == ""){ 
                         alert("조회일자를 등록하세요") 
                         document.getElementById("frdate").focus(); 
@@ -846,7 +847,8 @@
                             "fixflag"    : ls_misfixflag,
                             "makflag"    : ls_makflag,
                             "mflag"  : 'AA'   ,  
-                            "jpbgubn" : '%'
+                            "jpbgubn" : '%',   
+                            "sflag" :ls_sflag 
                         }, 
                         async:false,
                         success:function(data){  
@@ -868,6 +870,7 @@
                     var ls_abonsadam2   = document.getElementById('abonsadam2').value; 
                     var ls_inname02   = document.getElementById('inname02').value; 
                     var ls_misfixflag = document.getElementById('misfixflag02').value; 
+                    var ls_sflag = "0" ; //출력일기준
                         
                     if(ls_frdate == null || ls_frdate.length == 0 || ls_frdate == ""){ 
                         alert("조회일자를 등록하세요") 
@@ -897,7 +900,8 @@
                             "fixflag"    : ls_misfixflag, 
                             "makflag"    : ls_makflag,
                             "mflag"  : 'AA'   ,  
-                            "jpbgubn"  : '%'   ,  
+                            "jpbgubn"  : '%'   ,   
+                            "sflag" :ls_sflag 
                         }, 
                         async:false,
                         success:function(data){      
@@ -918,6 +922,7 @@
                     var ls_abonsadam3   = document.getElementById('abonsadam3').value; 
                     var ls_inname03   = document.getElementById('inname03').value;  
                     var ls_misfixflag = document.getElementById('misfixflag03').value; 
+                    var ls_sflag = "0" ; //출력일기준
                     if(ls_frdate == null || ls_frdate.length == 0 || ls_frdate == ""){ 
                         alert("조회일자를 등록하세요") 
                         document.getElementById("frdate").focus(); 
@@ -946,7 +951,8 @@
                             "fixflag"    : ls_misfixflag,
                             "makflag"    : ls_makflag,
                             "mflag"  : 'AA'   ,  
-                            "jpbgubn"  : '%'   ,  
+                            "jpbgubn"  : '%'   ,   
+                            "sflag" :ls_sflag 
                         }, 
                         async:false,
                         success:function(data){     
@@ -966,7 +972,8 @@
                     var ls_todate = document.getElementById('todate04').value;          
                     var ls_abonsadam4   = document.getElementById('abonsadam4').value; 
                     var ls_inname04   = document.getElementById('inname04').value;   
-                    var ls_misfixflag = document.getElementById('misfixflag04').value; 
+                    var ls_misfixflag = document.getElementById('misfixflag04').value;
+                    var ls_sflag = "0" ; //출력일기준 
                     if(ls_frdate == null || ls_frdate.length == 0 || ls_frdate == ""){ 
                         alert("조회일자를 등록하세요") 
                         document.getElementById("frdate").focus(); 
@@ -995,7 +1002,8 @@
                             "fixflag"    : ls_misfixflag,
                             "makflag"    : ls_makflag,
                             "mflag"  : 'AA'   ,  
-                            "jpbgubn"  : '%'   ,  
+                            "jpbgubn"  : '%'   ,   
+                            "sflag" :ls_sflag 
                         }, 
                         async:false,
                         success:function(data){  

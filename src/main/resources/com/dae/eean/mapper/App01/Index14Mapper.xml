@@ -464,6 +464,26 @@
     </select>
 
 
+
+    <select id="SelectDa024ListPeridGroupJumun"  parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" resultType="com.dae.eean.DTO.App01.IndexDa024Dto">
+        <![CDATA[ select count(*) as rownum,  sum(B.qty) as qty,  sum(B.samt) as samt, sum(B.addamt) as addamt,
+                         sum(B.amt) as amt,   B.pernm as pernm, B.perid AS perid
+           from  TB_DA024 B WITH (NOLOCK)
+           where   B.cltcd Like concat('%',#{cltcd},'%')
+             AND isnull(B.perid,'')  Like concat('%',#{perid},'%')
+             AND isnull(B.misgubun,'')  Like concat('%',#{misgubun},'%')
+            AND B.misdate between #{frdate} and #{todate}
+            AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
+             AND Isnull(B.makflag, '0') Like concat('%',#{makflag},'%')
+             and isnull(B.jpb_gubn,'') Like concat('%',#{jpbgubn},'%')
+             AND Len(ISNULL(B.pernm,'')) > 0
+            Group BY B.perid,  B.pernm
+            ORDER BY  B.pernm
+        ]]>
+
+    </select>
+
+
     <select id="SelectDa024ListPerid"  parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" resultType="com.dae.eean.DTO.App01.IndexDa024Dto">
         <![CDATA[ select B.cltcd as cltcd, Left(B.misdate,4) + '-' + substring(B.misdate, 5,2)+ '-' + substring(B.misdate, 7,2) as misdate, B.misnum, B.seq,
                       B.pcode, B.pname, B.psize,    B.punit,  B.qty,  B.uamt, B.samt, B.addamt,
@@ -486,6 +506,28 @@
 
     </select>
 
+
+    <select id="SelectDa024ListPeridJumun"  parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" resultType="com.dae.eean.DTO.App01.IndexDa024Dto">
+        <![CDATA[ select B.cltcd as cltcd, Left(B.misdate,4) + '-' + substring(B.misdate, 5,2)+ '-' + substring(B.misdate, 7,2) as misdate, B.misnum, B.seq,
+                      B.pcode, B.pname, B.psize,    B.punit,  B.qty,  B.uamt, B.samt, B.addamt,
+                      B.amt, B.acorp, pbonsa, pmodel, pcolor , B.pernm as inname, B.misgubun, isnull(B.fixflag,'0') as fixflag, B.pernm as pernm,
+                      isnull(B.remarkaa,'') as remarkaa,
+                      isnull(B.remarkbb,'') as remarkbb,
+                      B.unsongnum as unsongnum,
+                      B.fixdate,  CONVERT(CHAR(19),B.fixdatetime,20) as fixdatetime,  CONVERT(CHAR(19),B.misdatetime,20) as misdatetime
+                  from  TB_DA024 B WITH (NOLOCK)
+                  where    B.cltcd Like concat('%',#{cltcd},'%')
+                    AND isnull(B.perid,'')  Like concat('%',#{perid},'%')
+                    AND isnull(B.misgubun,'')  Like concat('%',#{misgubun},'%')
+                    AND B.misdate between #{frdate} and #{todate}
+                    AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
+                    AND Isnull(B.makflag, '0') Like concat('%',#{makflag},'%')
+                    and isnull(B.jpb_gubn,'') Like concat('%',#{jpbgubn},'%')
+                    AND Len(ISNULL(B.pernm,'')) > 0
+                  ORDER BY B.pernm, B.misdate, B.misnum, B.seq, B.fixdate
+        ]]>
+
+    </select>
 
     <select id="SelectDa024ListCltcd"  parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" resultType="com.dae.eean.DTO.App01.IndexDa024Dto">
                 <![CDATA[ select B.cltcd as cltcd, Left(B.misdate,4) + '-' + substring(B.misdate, 5,2)+ '-' + substring(B.misdate, 7,2) as misdate, B.misnum, B.seq,
@@ -516,6 +558,25 @@
                   where  B.cltcd Like concat('%',#{cltcd},'%')
                     AND isnull(B.perid,'')  Like concat('%',#{perid},'%')
                     AND B.fixdate between #{frdate} and #{todate}
+                    AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
+                    AND Isnull(B.makflag, '0') Like concat('%',#{makflag},'%')
+                    and isnull(B.jpb_gubn,'') Like concat('%',#{jpbgubn},'%')
+                    AND Len(ISNULL(B.pernm,'')) > 0
+                  Group by B.cltcd,  B.pernm,   B.acorp, B.fixflag
+                  ORDER BY B.pernm, sum(B.qty ) desc, b.acorp
+        ]]>
+
+    </select>
+
+
+    <select id="SelectDa024ListCltcdGroupJumun"  parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" resultType="com.dae.eean.DTO.App01.IndexDa024Dto">
+        <![CDATA[ select B.cltcd as cltcd, count(*) as rownum,
+                        sum(B.qty) as qty, sum(B.samt) as samt, sum(B.addamt) as addamt,
+                      sum(B.amt) as amt, B.acorp, B.pernm as inname, max(B.misgubun) as misgubun, isnull(B.fixflag,'0') as fixflag, B.pernm as pernm
+                  from  TB_DA024 B WITH (NOLOCK)
+                  where  B.cltcd Like concat('%',#{cltcd},'%')
+                    AND isnull(B.perid,'')  Like concat('%',#{perid},'%')
+                    AND B.misdate between #{frdate} and #{todate}
                     AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
                     AND Isnull(B.makflag, '0') Like concat('%',#{makflag},'%')
                     and isnull(B.jpb_gubn,'') Like concat('%',#{jpbgubn},'%')
@@ -561,6 +622,23 @@
 
     </select>
 
+    <select id="SelectDa024ListJpumGroupJumun"  parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" resultType="com.dae.eean.DTO.App01.IndexDa024Dto">
+        <![CDATA[ select    B.pcode, B.pname, B.psize, sum(B.qty) as qty, sum(B.samt) as samt, sum(B.addamt) as addamt,  count(*) as rownum,
+                            sum(B.amt) as amt, B.acorp, B.pernm as inname, B.misgubun, isnull(B.fixflag,'0') as fixflag, B.pernm as pernm
+                  from  TB_DA024 B WITH (NOLOCK)
+                  where  B.cltcd Like concat('%',#{cltcd},'%')
+                    AND isnull(B.perid,'')  Like concat('%',#{perid},'%')
+                    AND isnull(B.misgubun,'')  Like concat('%',#{misgubun},'%')
+                    AND B.misdate between #{frdate} and #{todate}
+                    AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
+                    AND Isnull(B.makflag, '0') Like concat('%',#{makflag},'%')
+                    and isnull(B.jpb_gubn,'') Like concat('%',#{jpbgubn},'%')
+                    AND Len(ISNULL(B.pernm,'')) > 0
+                  Group by B.cltcd, B.pcode, B.pname, B.psize, B.pernm, B.misgubun  , B.acorp, B.fixflag
+                  ORDER BY  B.pernm, sum(B.qty ) desc
+        ]]>
+
+    </select>
 
     <select id="SelectDa024ListJpumArea"  parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" resultType="com.dae.eean.DTO.App01.IndexDa024Dto">
         <![CDATA[ select    count(*) as rownum, E.sidocd, E.sido, E.sidocd, B.pcode, B.pname, B.psize,
