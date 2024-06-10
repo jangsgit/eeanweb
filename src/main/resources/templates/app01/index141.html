@@ -673,9 +673,11 @@
         function tabA_grid(data){ 
             var wtab02Dto  = data;    
             var wtab02_data = [];
-            var cnt = 1;
+            var cnt = 1; 
             var bfixflag = false
             var ls_unsongnum = "";
+            var ls_remark01 = "";
+            var ls_remark02 = "";
             for (var i = 0; i < wtab02Dto.length; i++) {
                 if(wtab02Dto[i]["fixflag"] == "1"){
                     bfixflag = true;
@@ -687,6 +689,15 @@
                 }else{
                     ls_unsongnum = "";
                 }   
+                if(wtab02Dto[i]["remarkaa"].length > 0){
+                    ls_remark01 = wtab02Dto[i]["remarkaa"];
+                }else{
+                    if(wtab02Dto[i]["remarkbb"].length > 0){
+                        ls_remark01 = wtab02Dto[i]["remarkbb"];
+                    }else{
+                        ls_remark01 = "";
+                    }   
+                }  
                 wtab02_data.push({
                     id: i, 
                     index: cnt,
@@ -704,12 +715,12 @@
                     samt: wtab02Dto[i]["samt"],  
                     cltcd: wtab02Dto[i]["cltcd"],   
                     inname: wtab02Dto[i]["inname"],   
-                    misgubun: wtab02Dto[i]["misgubun"],                 
-                    remark: wtab02Dto[i]["remarkbb"],   
+                    misgubun: wtab02Dto[i]["misgubun"],    
                     fixdatetime: wtab02Dto[i]["fixdatetime"],  
                     misdatetime: wtab02Dto[i]["misdatetime"],    
                     unsongnum: ls_unsongnum,        
-                    fixflag: bfixflag,                                               
+                    fixflag: bfixflag,    
+                    remarkaa: ls_remark01,                                               
                 });
                 cnt++;
             }   
@@ -805,7 +816,7 @@
             cols.width = 150;  
             wtab02Grid.columns.push(cols);        
             cols = new wijmo.grid.Column(); 
-            cols.binding = 'remark';
+            cols.binding = 'remarkaa'; 
             cols.header = '요청사항';
             cols.align = "left"; 
             cols.width = 200;  

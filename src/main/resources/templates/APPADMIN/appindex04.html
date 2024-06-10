@@ -86,6 +86,11 @@
                                         <input class="form-control" type="text"   id="actuserpwz" name="actuserpwz" aria-describedby="basic-addon1" />
                                     </div>  
                                 </div>  
+                                <div class="col-auto"> 
+                                    <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">사원번호</span>
+                                        <input class="form-control" type="text"   id="perid" name="perid" aria-describedby="basic-addon1" />
+                                    </div>  
+                                </div>  
                                 <div class="col-2 col-sm-1">
                                     <select class="form-select form-select-sm" id="actrole" aria-label=".form-select-sm example">
                                         <option selected="">구분</option>
@@ -94,11 +99,6 @@
                                         <option value="B">블리스</option>
                                       </select> 
                                 </div>   
-                                <div class="col-auto"> 
-                                    <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">사원번호</span>
-                                        <input class="form-control" type="text"   id="perid" name="perid" aria-describedby="basic-addon1" />
-                                    </div>  
-                                </div>  
                                 <div class="col-auto">  
                                     <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" type="button"  id="retrieveBtn" >조회
                                     </button> 
@@ -229,7 +229,7 @@
                                             </div>    
                                             <div class="input_wrap flex">
                                                 <p>사원코드</p>
-                                                <input type="text" id="perid" name="perid"   /> 
+                                                <input type="text" id="inperid" name="inperid"   /> 
                                             </div> 
                                             <div class="input_wrap flex">
                                                 <p>사용자명</p>
@@ -816,8 +816,7 @@
             var ls_passwd2 = document.getElementById('passwd2').value;  
             var ls_custnm = document.getElementById('custnm').value; 
             var ls_username = document.getElementById('username').value;  
-            var ls_perid = document.getElementById('perid').value;  
-        
+            var ls_perid = document.getElementById('inperid').value;  
             if (!confirm("등록하시겠습니까?")) {
                     return ; 
             }     
