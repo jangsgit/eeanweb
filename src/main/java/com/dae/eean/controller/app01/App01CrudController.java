@@ -1884,10 +1884,20 @@ public class App01CrudController {
             IndexDa023Dto _indexDa023Dto = new IndexDa023Dto();
             IndexDa024Dto _indexDa024Dto = new IndexDa024Dto();
             Boolean result = false;
-            String year = frdate.substring(0,4) ;
-            String month = frdate.substring(5,7) ;
-            String day   = frdate.substring(8,10) ;
-            frdate = year + month + day ;
+            String year = "";
+            String month = "";
+            String day = "";
+            if(frdate == null || frdate.equals("")){
+                year = misdateArr.get(0).substring(0,4);
+                month = misdateArr.get(0).substring(5,7);
+                day = misdateArr.get(0).substring(8,10);
+                frdate = year + month + day ;
+            }else{
+                year = frdate.substring(0,4) ;
+                month = frdate.substring(5,7) ;
+                day   = frdate.substring(8,10) ;
+                frdate = year + month + day ;
+            }
             _index02Dto.setAcode(acode);
             _indexDa023Dto.setMisgubun(mflag);
             _indexDa023Dto.setCltcd(acode);
