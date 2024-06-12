@@ -2664,7 +2664,7 @@
                     if(ls_jqtys[h] == null || ls_jqtys[h].length == 0 || ls_jqtys[h] == ""){ls_jqtys[h] = 0;} 
                     ls_colors[h] = wtab01Dto[i][`color_${h}`];
                     if(ls_colors[h] == null || ls_colors[h].length == 0 || ls_colors[h] == ""){ls_colors[h] = "";} 
-                    if(ls_jqtys[h] == 0 && ls_colors[h].length > 0){
+                    if( (ls_jqtys[h] == 0 || ls_jqtys[h] < 0 )  && ls_colors[h].length > 0){
                         ls_colors[h] = '_' + ls_colors[h];
                     }
                 }  
