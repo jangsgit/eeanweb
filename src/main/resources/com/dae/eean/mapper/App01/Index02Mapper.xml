@@ -27,11 +27,9 @@
                ajuso1, ajuso2, abigo, agita, ajumi1, ajumi2, ajumi1 + '-' + ajumi2 as ajumitxt,
                aascode1,aascode2, aascode1 + '-' + aascode2 as aascodetxt,  atelno, atelno2,
                ahand , aemail,abonsadam1, abonsadam2, abonsadam3, adomain, afax, isnull(ajuso1,'') + ' ' + isnull(ajuso2,'') as ajusotxt,
-               B.pernm as inname01, C.pernm as inname02, D.pernm as inname03, E.cifcodename as cifcodename
+               B.pernm as inname01, '' as inname02, '' as inname03, E.cifcodename as cifcodename
         from cif WITH (NOLOCK)
-            LEFT OUTER JOIN tb_xusers B WITH(NOLOCK) ON (cif.abonsadam1 = B.perid)
-            LEFT OUTER JOIN tb_xusers C WITH(NOLOCK) ON (cif.abonsadam2 = C.perid)
-            LEFT OUTER JOIN tb_xusers D WITH(NOLOCK) ON (cif.abonsadam3 = D.perid)
+            LEFT OUTER JOIN tb_xusers B WITH(NOLOCK) ON (cif.abonsadam1 = B.perid) and B.flag = 'CC'
             LEFT OUTER JOIN cifcode E WITH(NOLOCK) ON (cif.acorp1 = E.cifcode)
         WHERE isnull(acorp,'') Like concat( '%', #{acorp},'%')
           and isnull(delflag,'0')  = '0'
@@ -49,11 +47,9 @@
                ajuso1, ajuso2, abigo, agita, ajumi1, ajumi2, ajumi1 + '-' + ajumi2 as ajumitxt,
                aascode1,aascode2, aascode1 + '-' + aascode2 as aascodetxt,  atelno, atelno2,
                ahand , aemail,abonsadam1, abonsadam2, abonsadam3, adomain, afax, isnull(ajuso1,'') + ' ' + isnull(ajuso2,'') as ajusotxt,
-               B.pernm as inname01, C.pernm as inname02, D.pernm as inname03, E.cifcodename as cifcodename
+               B.pernm as inname01, '' as inname02, '' as inname03, E.cifcodename as cifcodename
         from cif WITH (NOLOCK)
-            LEFT OUTER JOIN tb_xusers B WITH(NOLOCK) ON (cif.abonsadam1 = B.perid)
-            LEFT OUTER JOIN tb_xusers C WITH(NOLOCK) ON (cif.abonsadam2 = C.perid)
-            LEFT OUTER JOIN tb_xusers D WITH(NOLOCK) ON (cif.abonsadam3 = D.perid)
+            LEFT OUTER JOIN tb_xusers B WITH(NOLOCK) ON (cif.abonsadam1 = B.perid)  and B.flag = 'CC'
             LEFT OUTER JOIN cifcode E WITH(NOLOCK) ON (cif.acorp1 = E.cifcode)
         WHERE isnull(acorp,'') Like concat( '%', #{acorp},'%')
           and isnull(delflag,'0')  = '0'

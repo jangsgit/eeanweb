@@ -648,7 +648,16 @@
             var wtab02Dto  = data;    
             var wtab02_data = [];
             var cnt = 1;
+            var ls_gitatxt = '';
             for (var i = 0; i < wtab02Dto.length; i++) {
+                ls_gitatxt = wtab02Dto[i]["agita"]  ;
+                if(ls_gitatxt == 'P'){
+                    ls_gitatxt = '피오비노';
+                }else if(ls_gitatxt == 'B'){
+                    ls_gitatxt = '블리스';
+                }else{
+                    ls_gitatxt = '비거래';
+                }
                 wtab02_data.push({
                     id: i, 
                     index: cnt, 
@@ -656,7 +665,11 @@
                     acorp2: wtab02Dto[i]["acorp2"], 
                     acorp3: wtab02Dto[i]["acorp3"],  
                     acode: wtab02Dto[i]["acode"], 
-                    acorp: wtab02Dto[i]["acorp"]      
+                    acorp: wtab02Dto[i]["acorp"]  , 
+                    abigo: wtab02Dto[i]["abigo"]  ,
+                    ajusotxt: wtab02Dto[i]["ajusotxt"]  ,
+                    atelno: wtab02Dto[i]["atelno"] ,
+                    agitatxt: ls_gitatxt        
                 });
                 cnt++;
             }   
@@ -686,6 +699,27 @@
             cols.header = '거래처명'; 
             cols.align = "left"; 
             cols.width = 200;
+            winnameGrid.columns.push(cols); 
+
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'atelno';
+            cols.header = '전화'; 
+            cols.align = "center"; 
+            cols.width = 120; 
+            winnameGrid.columns.push(cols); 
+
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'ajusotxt';
+            cols.header = '주소'; 
+            cols.align = "left"; 
+            cols.width = 300; 
+            winnameGrid.columns.push(cols);  
+
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'agitatxt';
+            cols.header = '거래구분'; 
+            cols.align = "center"; 
+            cols.width = 80;
             winnameGrid.columns.push(cols); 
         }
             

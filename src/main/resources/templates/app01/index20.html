@@ -249,7 +249,7 @@
     data-bs-backdrop="static" tabindex="-1" aria-labelledby="staticBackdropLabel"
     aria-hidden="true">
         <div class="modal-dialog modal-lg mt-6" role="document" id = "modalForm01"
-            style="max-width: 600px">
+            style="max-width: 800px">
             <div class="modal-content border-0">
                 <div class="modal-body p-0" > 
                     <div class="rounded-top-lg py-3 ps-4 pe-6 bg-light">                            
@@ -956,7 +956,9 @@
                     acorp3: wtab02Dto[i]["acorp3"],  
                     acode: wtab02Dto[i]["acode"], 
                     acorp: wtab02Dto[i]["acorp"] , 
-                    agita: wtab02Dto[i]["agita"]  , 
+                    agita: wtab02Dto[i]["agita"]  ,   
+                    ajusotxt: wtab02Dto[i]["ajusotxt"]  ,
+                    atelno: wtab02Dto[i]["atelno"] ,
                     agitatxt: ls_gitatxt      
                 });
                 cnt++;
@@ -969,10 +971,10 @@
                             var llrow = winnameGrid._activeCell['wj-cell-index'].row -1 ;       //속성경로복사 이용할것. 
                             let ls_cltcd = winnameGrid.getCellData(llrow,0);
                             let ls_cltnm = winnameGrid.getCellData(llrow,1); 
-                            let ls_acorp1 = winnameGrid.getCellData(llrow,2); 
-                            let ls_acorp2 = winnameGrid.getCellData(llrow,3); 
-                            let ls_acorp3 = winnameGrid.getCellData(llrow,4);
-                            let ls_agita  = winnameGrid.getCellData(llrow,5);
+                            let ls_acorp1 = winnameGrid.getCellData(llrow,4); 
+                            let ls_acorp2 = winnameGrid.getCellData(llrow,5); 
+                            let ls_acorp3 = winnameGrid.getCellData(llrow,6);
+                            let ls_agita  = winnameGrid.getCellData(llrow,7);
                             // console.log(gs_argflag)  
                             // console.log(llrow)   
                             // console.log(ls_cltnm)   
@@ -1003,6 +1005,20 @@
             cols.align = "left"; 
             cols.width = 250;
             winnameGrid.columns.push(cols); 
+
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'atelno';
+            cols.header = '전화'; 
+            cols.align = "center"; 
+            cols.width = 120; 
+            winnameGrid.columns.push(cols); 
+
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'ajusotxt';
+            cols.header = '주소'; 
+            cols.align = "left"; 
+            cols.width = 300; 
+            winnameGrid.columns.push(cols);  
 
             cols = new wijmo.grid.Column(); 
             cols.binding = 'acorp1';
