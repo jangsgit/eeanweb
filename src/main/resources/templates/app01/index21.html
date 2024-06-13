@@ -813,6 +813,7 @@
             var wtab01Dto  = data;    
             var wtab01_data = [];
             var cnt = 1;
+            var ls_css  = '<span class=${item.as_comrem == "피오비노" ? "po-val" : item.as_comrem == "비거래" ? "zo-val": item.as_comrem == "블리스" ? "bo-val" : "low-val"}>${text}</span>' ;
             for (var i = 0; i < wtab01Dto.length; i++) {
                 wtab01_data.push({
                     id: i, 
@@ -849,23 +850,28 @@
             cols.header = '접수일자';
             cols.align = "center";
             cols.width = 120; 
+            cols.cellTemplate = ls_css
             wtab01Grid.columns.push(cols);   
             cols = new wijmo.grid.Column(); 
             cols.binding = 'as_key2';
             cols.header = '순번';
             cols.align = "center";
-            cols.width = 50;  
+            cols.width = 80;  
+            cols.cellTemplate = ls_css
             wtab01Grid.columns.push(cols);   
             cols = new wijmo.grid.Column(); 
             cols.binding = 'as_comrem';
             cols.header = '구분';
             cols.align = "center";
             cols.width = 80;   
+            cols.cellTemplate = ls_css
+            wtab01Grid.columns.push(cols); 
             cols = new wijmo.grid.Column(); 
             cols.binding = 'as_gongjang';
             cols.header = '공장';
             cols.align = "center";
             cols.width = 80;  
+            cols.cellTemplate = ls_css
             wtab01Grid.columns.push(cols);    
             cols = new wijmo.grid.Column(); 
             cols.binding = 'as_acorp';
@@ -879,78 +885,91 @@
                     
             //     }
             // });
+            cols.cellTemplate = ls_css
             wtab01Grid.columns.push(cols);   
             cols = new wijmo.grid.Column(); 
             cols.binding = 'as_model';
             cols.header = '모델';
             cols.align = "center";
             cols.width = 80;  
+            cols.cellTemplate = ls_css
             wtab01Grid.columns.push(cols);  
             cols = new wijmo.grid.Column(); 
             cols.binding = 'as_color';
             cols.header = '컬러';
             cols.align = "center";
             cols.width = 80;  
+            cols.cellTemplate = ls_css
             wtab01Grid.columns.push(cols);  
             cols = new wijmo.grid.Column(); 
             cols.binding = 'as_suri';
             cols.header = '수리부위';
             cols.align = "center";
             cols.width = 150;  
+            cols.cellTemplate = ls_css
             wtab01Grid.columns.push(cols);   
             cols = new wijmo.grid.Column(); 
             cols.binding = 'as_memo';
             cols.header = '메모';
             cols.align = "center";
             cols.width = 200;  
+            cols.cellTemplate = ls_css
             wtab01Grid.columns.push(cols);   
             cols = new wijmo.grid.Column(); 
             cols.binding = 'as_yumu';
             cols.header = '유무상';
             cols.align = "center";
             cols.width = 80;  
+            cols.cellTemplate = ls_css
             wtab01Grid.columns.push(cols); 
             cols = new wijmo.grid.Column(); 
             cols.binding = 'as_memo2';
             cols.header = '메모2';
             cols.align = "center";
             cols.width = 200;  
+            cols.cellTemplate = ls_css
             wtab01Grid.columns.push(cols);       
             cols = new wijmo.grid.Column(); 
             cols.binding = 'as_date2';
             cols.header = '발송일자';
             cols.align = "center";
             cols.width = 120;  
+            cols.cellTemplate = ls_css
             wtab01Grid.columns.push(cols);  
             cols = new wijmo.grid.Column(); 
             cols.binding = 'misdate';
             cols.header = '주문일자';
             cols.align = "center";
             cols.width = 120;  
+            cols.cellTemplate = ls_css
             wtab01Grid.columns.push(cols); 
             cols = new wijmo.grid.Column(); 
             cols.binding = 'misnum';
             cols.header = '주문번호';
             cols.align = "center";
             cols.width = 80;  
+            cols.cellTemplate = ls_css
             wtab01Grid.columns.push(cols); 
             cols = new wijmo.grid.Column(); 
             cols.binding = 'unsongnum';
             cols.header = '운송장';
             cols.align = "center";
             cols.width = 100;   
+            cols.cellTemplate = ls_css
             wtab01Grid.columns.push(cols);   
             cols = new wijmo.grid.Column(); 
             cols.binding = 'as_gongjang';
             cols.header = '공장';
             cols.align = "center";
             cols.width = 80;  
+            cols.cellTemplate = ls_css
             wtab01Grid.columns.push(cols);   
             cols = new wijmo.grid.Column(); 
             cols.binding = 'as_damdang';
             cols.header = '접수자';
             cols.align = "center";
             cols.width = 150;  
+            cols.cellTemplate = ls_css
             wtab01Grid.columns.push(cols); 
             cols = new wijmo.grid.Column(); 
             cols.binding = 'as_devflag';
@@ -964,6 +983,7 @@
             cols.header = '발송처리';
             cols.align = "center";
             cols.width = 150;  
+            cols.cellTemplate = ls_css
             wtab01Grid.columns.push(cols);   
  
         }     

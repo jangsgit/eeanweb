@@ -158,6 +158,41 @@ public class App01Controller {
         return "App01/index020";
     }
 
+
+    //거래처등록03
+    @GetMapping(value="/index021")
+    public String App021_index( Model model, HttpServletRequest request) throws Exception{
+        CommDto.setMenuTitle("거래처등록");
+        CommDto.setMenuUrl("기준정보>거래처정보");
+        CommDto.setMenuCode("index020");
+        List<Index01Dto> _index01ListDto = new ArrayList<>();
+        try {
+            HttpSession session = request.getSession();
+            UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+            model.addAttribute("userformDto",userformDto);
+//        userformDto.setPagetree01("거래처등록");
+//        userformDto.setPagenm("본사기준정보");
+//        model.addAttribute("CommDto", CommDto);
+
+            index01Dto.setCom_cls("002");
+            _index01ListDto    = service01.GetComcodeDetailList(index01Dto);
+
+            index02Dto.setAcorp("%");
+            index02List = service02.GetCifList(index02Dto);
+            popupListDto = svcpopup.getCifCodeList(popupDto);
+
+            model.addAttribute("index02List",index02List);
+            model.addAttribute("cifcodeList",popupListDto);
+            model.addAttribute("index01ListDto",_index01ListDto);
+        } catch (Exception ex) {
+            log.info("App021_index Exception ================================================================");
+            log.info("Exception =====>" + ex.toString());
+            return "redirect:http://eean.co.kr/";
+        }
+
+        return "App01/index021";
+    }
+
     //제품등록
     @GetMapping(value="/index03")
     public String App03_index( Model model, HttpServletRequest request) throws Exception{
