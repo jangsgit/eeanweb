@@ -46,6 +46,8 @@ public class Index20Dto {
     private String jpb_gubn;
     private Integer jchgoga0;
     private String acode;
+    private String perid;
+    private String pernm;
 
 
 

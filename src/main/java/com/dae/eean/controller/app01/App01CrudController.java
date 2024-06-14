@@ -4907,8 +4907,8 @@ public class App01CrudController {
                     _indexDa024Dto.setPcolor(_index20DtoRe.getJcolor_code());
                     _indexDa024Dto.setCltcd(_index20DtoRe.getAcode());
                     _indexDa024Dto.setAcorp(_index20DtoRe.getAs_acorp());
-                    _indexDa024Dto.setPernm(usernm);
-                    _indexDa024Dto.setPerid(userid);
+                    _indexDa024Dto.setPernm(_index20DtoRe.getPernm());
+                    _indexDa024Dto.setPerid(_index20DtoRe.getPerid());
                     _indexDa024Dto.setJpb_gubn(_index20DtoRe.getJpb_gubn());
 
                     _indexDa024Dto.setAddamt(0);
