@@ -4983,7 +4983,10 @@ public class App01CrudController {
                     String ls_unsongnum = "";
                     ls_unsongnum = devnum02.get(i);
                     if(ls_unsongnum == null || ls_unsongnum.equals("")){
-                        break;
+                        continue;
+                    }
+                    if(devnum03.get(i) == null || devnum03.get(i).equals("")){
+                        continue;
                     }
                     String ls_cltcd = "";
                     index20Dto.setReservnum(devnum01.get(i));
@@ -4993,10 +4996,9 @@ public class App01CrudController {
                     ls_cltcd = devnum03.get(i);
                     ls_cltcd = ls_cltcd.substring(12, ls_cltcd.length());
                     index20Dto.setAs_acorp1(ls_cltcd);
-
                     result = service01.UpdateDevJupsuUnsong(index20Dto);
                     if (!result){
-                        return "error";
+                        //return "error";
                     }
 
                 }

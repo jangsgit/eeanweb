@@ -453,12 +453,16 @@
          var seqArr = new Array(); 
          var gubunArr = new Array(); 
          var fixflagArr = new Array(); 
+         var devnum01    = new Array(); 
+         var devnum02    = new Array(); 
+         var devnum03    = new Array(); 
+         var devnum04    = new Array(); 
          
         var wtabExl_data = [];
          var gsUserid = "";                             
          var gsUsernm  = "";                           
-         var gsRnum  = ""; 
-         
+         var gsRnum  = "";  
+        let includeColumnHeader = false;
          window.onload = function() {  
             // localStorage.setItem("setpage", "app03p001");
             view_p01tab01page = new wijmo.collections.CollectionView(getData_tab01(), {
@@ -1371,9 +1375,7 @@
                         console.log(err);   
                         //break;
                     }
-                    var gridrow = devnum01.length;  
-                    console.log(devnum03);   
-
+                    var gridrow = devnum01.length; 
                     $.ajax({
                         url: '/app01m/index20/savedev',  
                         type:"POST",
@@ -1813,8 +1815,7 @@
             var wtab02Dto  = data;  
             var cnt = 1;
             var bfixflag = "신용" 
-            var ls_mistxt = ''            
-            //console.log(wtab02Dto)
+            var ls_mistxt = ''     
             wtab02_data = [];
             for (var i = 0; i < wtab02Dto.length; i++) { 
                 ls_acorp = wtab02Dto[i]["acorp"]; 
@@ -2046,6 +2047,13 @@
         //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
      
 
+        // tab05 엑셀적용   
+        document.getElementById("loadXlsx").addEventListener("click",function(){  
+            let inputEle = document.querySelector('#importFile');
+            if (inputEle.files[0]) {
+            wijmo.grid.xlsx.FlexGridXlsxConverter.loadAsync(wtab03Grid, inputEle.files[0], { includeColumnHeaders: includeColumnHeader });
+            } 
+        })  
         function excel_rtn(getData){  
             let today = new Date();   
             let year = today.getFullYear(); // 년도
