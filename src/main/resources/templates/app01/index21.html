@@ -144,6 +144,25 @@
                                                 </button>
                                             </div>  -->
                                         </div> 
+                                        <div class="row gx-3" style="  margin: 10px 10px 10px;">  
+                                            <div class="col-1 col-sm-2">
+                                                <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">공장</span> 
+                                                    <select class="form-select" th:field="*{index02ListDto}" name="asasgong" id="asasgong"> 
+                                                        <option value="%">전체</option>
+                                                        <option th:each="val : ${index02ListDto}" th:value="${val.com_code}" th:text="${val.com_rem1}">
+                                                    </select>                                                             
+                                                    <!-- <input class="form-control form-control-sm" type="text" id="asasgong" placeholder=""  autocomplete="off"  >                                              -->
+                                                </div>                                                     
+                                            </div>   
+                                            <div class="col-1 col-sm-2">
+                                                <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">접수자</span> 
+                                                    <select class="form-select" th:field="*{index01UserDto}" name="condamdang" id="condamdang"> 
+                                                        <option value="%">전체</option>
+                                                        <option th:each="val : ${index01UserDto}" th:value="${val.insano}" th:text="${val.insano}">
+                                                    </select>                 
+                                                </div>                                                      
+                                            </div> 
+                                        </div>
                                         <div class="container-fluid"> 
                                             <div id="wtab01Grid_div" style="overflow:scroll; width:1700px;     height:800px;    margin:0 auto; "></div>  
                                             <!-- <div id="tab01Pager"></div> -->
@@ -199,7 +218,7 @@
     data-bs-backdrop="static" tabindex="-1" aria-labelledby="staticBackdropLabel"
     aria-hidden="true">
         <div class="modal-dialog modal-lg mt-6" role="document" id = "modalForm01"
-            style="max-width: 600px">
+            style="max-width: 800px">
             <div class="modal-content border-0">
                 <div class="modal-body p-0" > 
                     <div class="rounded-top-lg py-3 ps-4 pe-6 bg-light">                            
@@ -215,7 +234,7 @@
                         </div>                             
                     </div>   
                     <div class="container-fluid"> 
-                        <div id="winnameGrid_div" ></div>
+                        <div id="winnameGrid_div" style="overflow:scroll;   height:500px;   margin:0 auto; "></div>
                         <div id="thePager03"></div>
                     </div>   
                 </div>  
@@ -514,16 +533,17 @@
 
             //거래처현황 Modalㅁ
             view_innamepage = new wijmo.collections.CollectionView(getData_wlist2(), {
-                pageSize: 12
+                //pageSize: 12
             });
             // 거래처 페이지 이동
-            new wijmo.input.CollectionViewNavigator('#thePager03', {
-                byPage: true,
-                headerFormat: 'Page {currentPage:n0} of {pageCount:n0}',
-                cv: view_innamepage
-            });     
+            // new wijmo.input.CollectionViewNavigator('#thePager03', {
+            //     byPage: true,
+            //     headerFormat: 'Page {currentPage:n0} of {pageCount:n0}',
+            //     cv: view_innamepage
+            // });     
             winnameGrid = new wijmo.grid.FlexGrid('#winnameGrid_div', {  
                 autoGenerateColumns: false,
+                alternatingRowStep: 0,
                 isReadOnly: false, 
                 allowSorting: 'MultiColumn',
                 selectionMode: 'RowRange',
@@ -629,7 +649,7 @@
                         "conacorp" :searchCode, 
                         "conagita" :ls_conagita, 
                         "abonsadam1" :ls_abonsadam1, 
-                        "jpbgubn" :ls_jpbgubn,  
+                        "jpbgubn" :'DD',  
                     }, 
                     async:false,
                     success:function(data){  
@@ -649,6 +669,8 @@
             var wtab02_data = [];
             var cnt = 1;
             var ls_gitatxt = '';
+            var ls_css  = '<span class=${item.agitatxt == "피오비노" ? "po-val" : item.agitatxt == "비거래" ? "zo-val": item.agitatxt == "블리스" ? "bo-val" : "low-val"}>${text}</span>' ;
+           
             for (var i = 0; i < wtab02Dto.length; i++) {
                 ls_gitatxt = wtab02Dto[i]["agita"]  ;
                 if(ls_gitatxt == 'P'){
@@ -685,6 +707,7 @@
             cols.header = '코드';
             cols.align = "center";
             cols.width = 80;
+            cols.cellTemplate = ls_css
             cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
                 text: '<b>${item.acode}</b>',
                 click: (e, ctx) => {
@@ -699,6 +722,7 @@
             cols.header = '거래처명'; 
             cols.align = "left"; 
             cols.width = 200;
+            cols.cellTemplate = ls_css
             winnameGrid.columns.push(cols); 
 
             cols = new wijmo.grid.Column(); 
@@ -706,6 +730,7 @@
             cols.header = '전화'; 
             cols.align = "center"; 
             cols.width = 120; 
+            cols.cellTemplate = ls_css
             winnameGrid.columns.push(cols); 
 
             cols = new wijmo.grid.Column(); 
@@ -713,6 +738,7 @@
             cols.header = '주소'; 
             cols.align = "left"; 
             cols.width = 300; 
+            cols.cellTemplate = ls_css
             winnameGrid.columns.push(cols);  
 
             cols = new wijmo.grid.Column(); 
@@ -720,6 +746,7 @@
             cols.header = '거래구분'; 
             cols.align = "center"; 
             cols.width = 80;
+            cols.cellTemplate = ls_css
             winnameGrid.columns.push(cols); 
         }
             
@@ -754,6 +781,8 @@
                     var ls_asflag = document.getElementById('asflag').value; 
                     var ls_bacode = document.getElementById('bacode').value;   
                     var ls_misflag = document.getElementById('misflag').value; 
+                    var ls_asasgong = document.getElementById('asasgong').value; 
+                    var ls_condamdang = document.getElementById('condamdang').value; 
                     var ls_userid = '%';
                     if(ls_frdate == null || ls_frdate.length == 0 || ls_frdate == ""){ 
                             alert("시작일자를 입력하세요") 
@@ -780,7 +809,9 @@
                             "asflag"      : ls_asflag, 
                             "asacorp"      : ls_bacode  , 
                             "misflag"  : ls_misflag   , 
-                            "userid"  : ls_userid        
+                            "userid"  : ls_userid       , 
+                            "asasgong"  : ls_asasgong       , 
+                            "condamdang"  : ls_condamdang        
                         }, 
                         async:false,
                         success:function(data){   
@@ -800,6 +831,8 @@
                     var ls_bacode = document.getElementById('dacode').value;  
                     var ls_misflag = document.getElementById('misflag').value;  
                     var ls_userid = '%';
+                    var ls_asasgong = '%';
+                    var ls_condamdang = '%';
                        
                     if(ls_misflag == "주문구분"){ 
                         ls_misflag = "%";
@@ -823,7 +856,9 @@
                             "asflag"      : "1", 
                             "asacorp"      : ls_bacode  , 
                             "misflag"  : ls_misflag     , 
-                            "userid"  : ls_userid    
+                            "userid"  : ls_userid     , 
+                            "asasgong"  : ls_asasgong       , 
+                            "condamdang"  : ls_condamdang  
                         }, 
                         async:false,
                         success:function(data){   
@@ -862,6 +897,7 @@
                     as_acorp:  wtab01Dto[i]["as_acorp"], 
                     as_aname:  wtab01Dto[i]["as_aname"], 
                     as_memo:  wtab01Dto[i]["as_memo"], 
+                    as_memo2:  wtab01Dto[i]["as_memo2"], 
                     as_date2:  wtab01Dto[i]["as_date2"],   
                     as_damdang:  wtab01Dto[i]["as_damdang"],   
                     as_devcode:  wtab01Dto[i]["as_devcode"],   
@@ -945,7 +981,7 @@
             cols = new wijmo.grid.Column(); 
             cols.binding = 'as_memo';
             cols.header = '메모';
-            cols.align = "center";
+            cols.align = "left";
             cols.width = 200;  
             cols.cellTemplate = ls_css
             wtab01Grid.columns.push(cols);   
@@ -959,7 +995,7 @@
             cols = new wijmo.grid.Column(); 
             cols.binding = 'as_memo2';
             cols.header = '메모2';
-            cols.align = "center";
+            cols.align = "left";
             cols.width = 200;  
             cols.cellTemplate = ls_css
             wtab01Grid.columns.push(cols);       
@@ -1170,12 +1206,29 @@
             let day = today.getDay();  // 요일
             if(month > 0 && month < 10) {month = "0" + month};
             if(date > 0 && date < 10) {date = "0" + date};
-            let ls_frday = year + '-' + month + '-' + date 
+            let ls_frday = year + '-' + month + '-' + '01' 
             let ls_today = year + '-' + month + '-' + date 
             document.getElementById('frdate').value = ls_frday;
             document.getElementById('todate').value = ls_today; 
             document.getElementById('frdate02').value = ls_frday;
             document.getElementById('todate02').value = ls_today;
+
+            // 오늘 날짜에서 100일 전 날짜 계산
+            let pastDate = new Date(today);
+            pastDate.setDate(today.getDate() - 30);
+
+            let pastYear = pastDate.getFullYear();
+            let pastMonth = pastDate.getMonth() + 1;
+            let pastDay = pastDate.getDate();
+
+            if (pastMonth > 0 && pastMonth < 10) { pastMonth = "0" + pastMonth; }
+            if (pastDay > 0 && pastDay < 10) { pastDay = "0" + pastDay; }
+
+            let ls_frday_past = pastYear + '-' + pastMonth + '-' + pastDay;
+            document.getElementById('frdate').value = ls_frday_past;
+            document.getElementById('frdate02').value = ls_frday_past;
+
+
         }
 
         function convert_time(timestamp){ 

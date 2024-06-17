@@ -65,14 +65,13 @@
                                     </select>                 
                                 </div>                                                      
                             </div>
-                            <div class="col-2 col-sm-2">
-                                <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">공장</span> 
-                                    <select class="form-select" th:field="*{index02ListDto}" name="asasgong" id="asasgong"> 
-                                        <option th:each="val : ${index02ListDto}" th:value="${val.com_code}" th:text="${val.com_rem1}">
+                            <div class="col-2 col-sm-2">                                            
+                                <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">구분</span> 
+                                    <select class="form-select" th:field="*{index01ListDto}" name="asaname" id="asaname"> 
+                                        <option th:each="val : ${index01ListDto}" th:value="${val.com_code}" th:text="${val.com_rem1}">
                                     </select>                                                             
-                                    <!-- <input class="form-control form-control-sm" type="text" id="asasgong" placeholder=""  autocomplete="off"  >                                              -->
-                                </div>                                                     
-                            </div>   
+                                </div>  
+                            </div>  
                             <div class="col-2 col-sm-2">
                                 <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">거래처</span> 
                                     <input class="form-control form-control-sm" id="jcifname" type="text"    autocomplete="off"  placeholder=""     >
@@ -112,13 +111,14 @@
                            
                                 </div> 
                             </div>     
-                            <div class="col-2 col-sm-2">                                            
-                                <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">구분</span> 
-                                    <select class="form-select" th:field="*{index01ListDto}" name="asaname" id="asaname"> 
-                                        <option th:each="val : ${index01ListDto}" th:value="${val.com_code}" th:text="${val.com_rem1}">
+                            <div class="col-2 col-sm-2">
+                                <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">공장</span> 
+                                    <select class="form-select" th:field="*{index02ListDto}" name="asasgong" id="asasgong"> 
+                                        <option th:each="val : ${index02ListDto}" th:value="${val.com_code}" th:text="${val.com_rem1}">
                                     </select>                                                             
-                                </div>  
-                            </div>  
+                                    <!-- <input class="form-control form-control-sm" type="text" id="asasgong" placeholder=""  autocomplete="off"  >                                              -->
+                                </div>                                                     
+                            </div>   
                             
                             <!-- Force next columns to break to new line -->
                             <div class="w-100"></div>     
@@ -323,6 +323,41 @@
         </div> 
     </div>   
     <!--------------------------------------------------------------------------------------->     
+    
+    <!--  비고모달 처리 -->
+    <input class="form-control form-control-sm"  type="hidden" id="inbigobtn" data-bs-toggle="modal" data-bs-target="#cifbigomodal"  /> 
+    <!--------------------------------------------------------------------------------------->   
+    <div class="modal fade" id="cifbigomodal" data-bs-keyboard="false"
+    data-bs-backdrop="static" tabindex="-1" aria-labelledby="staticBackdropLabel"
+    aria-hidden="true">
+        <div class="modal-dialog modal-lg mt-6" role="document" id = "modalForm01"
+            style="max-width: 800px">
+            <div class="modal-content border-0">
+                <div class="modal-body p-0" > 
+                    <div class="rounded-top-lg py-3 ps-4 pe-6 bg-light">                            
+                        <div class="search">       
+                            <div class="col-auto">
+                                <div class="input-group mb-3" > 
+                                    <textarea class="form-control"   rows="6" id="abigo"  disabled=false></textarea>
+                                </div>
+                            </div>   
+                        </div>                             
+                    </div>    
+                </div>    
+                <div class="modal-footer">
+                    <div class="row g-1">
+                        <div class="col-auto">
+                            <button class="badge-soft-primary dropdown-item rounded-1"
+                                type="button"  id="wbigomodal_btn" data-bs-dismiss="modal">Close</button>
+                        </div> 
+                    </div>
+                </div>   
+
+            </div>
+        </div> 
+    </div>   
+    <!--------------------------------------------------------------------------------------->   
+
     <!--------------------------------------------------------------------------------------->   
         <!--  접수 추가 MODAL FROM  -->  
         <!-- <div class="modal fade" id="actnmmodal" data-bs-keyboard="false"
@@ -852,6 +887,14 @@
         document.getElementById("saveBtn04").addEventListener("click",function(){
             var ls_tab = document.getElementById('tabvalue').value;     
             save_btn("E");
+        })     
+        // 비고모달닫기 
+        document.getElementById("wbigomodal_btn").addEventListener("click",function(){
+            document.getElementById("asasmodel").focus(); 
+        })     
+        // 비고모달열기 
+        document.getElementById("inbigobtn").addEventListener("click",function(){
+            document.getElementById("wbigomodal_btn").focus(); 
         }) 
         //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 모달 검색@@@@@@@@@@@@@@@@@@@@@@@@@@@
         //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
@@ -943,6 +986,7 @@
             var cnt = 1;
             var ls_arg  = arg;
             var ls_gitatxt = '';
+            var ls_css  = '<span class=${item.agitatxt == "피오비노" ? "po-val" : item.agitatxt == "비거래" ? "zo-val": item.agitatxt == "블리스" ? "bo-val" : "low-val"}>${text}</span>' ;
             for (var i = 0; i < wtab02Dto.length; i++) {
                 ls_gitatxt = wtab02Dto[i]["agita"]  ;
                 if(ls_gitatxt == 'P'){
@@ -963,10 +1007,11 @@
                     agita: wtab02Dto[i]["agita"]  ,   
                     ajusotxt: wtab02Dto[i]["ajusotxt"]  ,
                     atelno: wtab02Dto[i]["atelno"] ,
+                    abigo: wtab02Dto[i]["abigo"] ,
                     agitatxt: ls_gitatxt      
                 });
                 cnt++;
-            }                
+            }           
             winnameGrid.columns.clear();  
             winnameGrid.autoGenerateColumns = false; 
             view_innamepage.sourceCollection  = wtab02_data;
@@ -979,10 +1024,11 @@
                             let ls_acorp2 = winnameGrid.getCellData(llrow,5); 
                             let ls_acorp3 = winnameGrid.getCellData(llrow,6);
                             let ls_agita  = winnameGrid.getCellData(llrow,7);
+                            let ls_abigo  = winnameGrid.getCellData(llrow,8);
                             // console.log(gs_argflag)  
                             // console.log(llrow)   
                             // console.log(ls_cltnm)   
-                            wcifChk_a(gs_argflag, ls_acorp1, ls_acorp2, ls_acorp3, ls_cltcd, ls_cltnm , ls_agita );   
+                            wcifChk_a(gs_argflag, ls_acorp1, ls_acorp2, ls_acorp3, ls_cltcd, ls_cltnm , ls_agita, ls_abigo );   
                             lb_entkey = false;  
                     } 
                 
@@ -994,10 +1040,11 @@
             cols.header = '코드';
             cols.align = "center";
             cols.width = 150;
+            cols.cellTemplate = ls_css
             cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
                 text: '<b>${item.acode}</b>',
                 click: (e, ctx) => {
-                    wcifChk_a(arg, ctx.item.acorp1, ctx.item.acorp2, ctx.item.acorp3, ctx.item.acode, ctx.item.acorp, ctx.item.agita  );                    
+                    wcifChk_a(arg, ctx.item.acorp1, ctx.item.acorp2, ctx.item.acorp3, ctx.item.acode, ctx.item.acorp, ctx.item.agita, ctx.item.abigo  );                    
                     
                 }
             });
@@ -1008,6 +1055,7 @@
             cols.header = '거래처명'; 
             cols.align = "left"; 
             cols.width = 250;
+            cols.cellTemplate = ls_css
             winnameGrid.columns.push(cols); 
 
             cols = new wijmo.grid.Column(); 
@@ -1015,6 +1063,7 @@
             cols.header = '전화'; 
             cols.align = "center"; 
             cols.width = 120; 
+            cols.cellTemplate = ls_css
             winnameGrid.columns.push(cols); 
 
             cols = new wijmo.grid.Column(); 
@@ -1022,6 +1071,7 @@
             cols.header = '주소'; 
             cols.align = "left"; 
             cols.width = 300; 
+            cols.cellTemplate = ls_css
             winnameGrid.columns.push(cols);  
 
             cols = new wijmo.grid.Column(); 
@@ -1029,6 +1079,7 @@
             cols.header = '코드1'; 
             cols.align = "center"; 
             cols.width = 80;
+            cols.cellTemplate = ls_css
             winnameGrid.columns.push(cols); 
 
             cols = new wijmo.grid.Column(); 
@@ -1036,6 +1087,7 @@
             cols.header = '코드2'; 
             cols.align = "center"; 
             cols.width = 80;
+            cols.cellTemplate = ls_css
             winnameGrid.columns.push(cols); 
 
             cols = new wijmo.grid.Column(); 
@@ -1043,6 +1095,7 @@
             cols.header = '코드3'; 
             cols.align = "center"; 
             cols.width = 80;
+            cols.cellTemplate = ls_css
             winnameGrid.columns.push(cols); 
 
             cols = new wijmo.grid.Column(); 
@@ -1050,10 +1103,19 @@
             cols.header = '거래구분'; 
             cols.align = "center"; 
             cols.width = 80;
+            cols.cellTemplate = ls_css
+            winnameGrid.columns.push(cols); 
+
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'abigo';
+            cols.header = '비고'; 
+            cols.align = "center"; 
+            cols.width = 80;
+            cols.cellTemplate = ls_css
             winnameGrid.columns.push(cols); 
         }
             
-        function wcifChk_a(arg0, arg1, arg2, arg3, arg4, arg5, arg6){  
+        function wcifChk_a(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7){  
             var ls_tab = arg0; //document.getElementById('tabvalue').value;    
        
             if(ls_tab == "A"){ 
@@ -1082,6 +1144,12 @@
                 document.getElementById('jcifname').value = arg5;  
                 document.getElementById('asaname').value = arg6; 
                 $("#winnamemodal_btn").trigger("click"); 
+
+                
+                if(arg7.length > 0){ 
+                    document.getElementById('abigo').value = arg7; 
+                    document.getElementById("inbigobtn").click();  
+                }
                 document.getElementById("asasmodel").focus(); 
             } 
 
@@ -1543,7 +1611,9 @@
                     var ls_asflag = document.getElementById('devflag').value;  
                     var ls_misflag = document.getElementById('misflag').value;   
                     var ls_bacode = document.getElementById('bacode').value; 
-                    var ls_bcifname = document.getElementById('bcifname').value;  
+                    var ls_bcifname = document.getElementById('bcifname').value; 
+                    var ls_asasgong = '%';
+                    var ls_condamdang = '%'; 
                     if(ls_frdate == null || ls_frdate.length == 0 || ls_frdate == ""){ 
                             alert("시작일자를 입력하세요") 
                             document.getElementById("frdate").focus(); 
@@ -1573,7 +1643,9 @@
                             "asflag"  : ls_asflag     , 
                             "asacorp"  : ls_bacode     , 
                             "misflag"  : ls_misflag     , 
-                            "userid"  : gsUserid      
+                            "userid"  : gsUserid     , 
+                            "asasgong"  : ls_asasgong  , 
+                            "condamdang"  : ls_condamdang    
                         }, 
                         async:false,
                         success:function(data){      

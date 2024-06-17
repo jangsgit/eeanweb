@@ -45,6 +45,8 @@ public class App02CrudController {
                                   @RequestParam("asacorp") String asacorp,
                                   @RequestParam("misflag") String misflag,
                                   @RequestParam("userid") String userid,
+                                  @RequestParam("asasgong") String asasgong,
+                                  @RequestParam("condamdang") String condamdang,
                                   Model model, HttpServletRequest request) throws Exception{
         CommDto.setMenuTitle("AS 접수현황");
         CommDto.setMenuUrl("통계현황>AS 접수현황");
@@ -71,6 +73,8 @@ public class App02CrudController {
             index11Dto.setAs_devflag(asflag);
             index11Dto.setMisflag(misflag);
             index11Dto.setUserid(userid);
+            index11Dto.setAs_gongjang(asasgong);
+            index11Dto.setAs_damdang(condamdang);
             if(asflag.equals("1")){
                 index11List = service11.GetAsJupsuList02(index11Dto);
             }else if(asflag.equals("0")){

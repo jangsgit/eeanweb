@@ -41,7 +41,9 @@
             and isnull(as_devflag,'') Like concat('%',#{as_devflag},'%')
             and isnull(misflag,'0') Like concat('%',#{misflag},'%')
             and isnull(userid,'0') Like concat('%',#{userid},'%')
-            ORDER BY as_key1 desc, as_key2
+            and isnull(as_gongjang,'0') Like concat('%',#{as_gongjang},'%')
+            and isnull(as_damdang,'0') Like concat('%',#{as_damdang},'%')
+            ORDER BY as_key1 desc, as_key2 desc
         ]]>
     </select>
 
@@ -82,7 +84,9 @@
           and isnull(as_devflag,'0') Like concat('%',#{as_devflag},'%')
           and isnull(misflag,'0') Like concat('%',#{misflag},'%')
           and isnull(userid,'0') Like concat('%',#{userid},'%')
-        ORDER BY as_key1 desc, as_key2
+          and isnull(as_gongjang,'0') Like concat('%',#{as_gongjang},'%')
+          and isnull(as_damdang,'0') Like concat('%',#{as_damdang},'%')
+        ORDER BY as_key1 desc, as_key2 desc
         ]]>
     </select>
 

@@ -927,8 +927,15 @@ public class App01Controller {
             HttpSession session = request.getSession();
             UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
             model.addAttribute("userformDto",userformDto);
+            List<Index01Dto> _index01UserDto = new ArrayList<>();
+            List<Index01Dto> _index02UserDto = new ArrayList<>();
+            _index01UserDto   = service01.getWperidlist(index01Dto);
 //            popupListDto = svcpopup.getCifCodeList(popupDto);
 
+            index01Dto.setCom_cls("003");
+            _index02UserDto    = service01.GetComcodeDetailList(index01Dto);
+            model.addAttribute("index02ListDto",_index02UserDto);
+            model.addAttribute("index01UserDto",_index01UserDto);
             model.addAttribute("cifcodeList",popupListDto);
         } catch (Exception ex) {
             log.info("App21_index Exception ================================================================");
