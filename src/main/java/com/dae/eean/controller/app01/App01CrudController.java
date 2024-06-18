@@ -4615,17 +4615,21 @@ public class App01CrudController {
 
             boolean result = false;
             Index20Dto _index20Dto = new Index20Dto();
+            Index02Dto _index02Dto = new Index02Dto();
 //            String year = mmisdate.substring(0,4);
 //            String month = mmisdate.substring(5,7);
 //            String day = mmisdate.substring(8,10);
 //            String ls_misdate = year + month + day ;
+            _index02Dto.setAcode(jacorp1 + jacorp2);
+            _index02Dto = service02.GetCifListAcode(_index02Dto);  //거래처정보
+
             _index20Dto.setAs_key1(asaskey1);
             _index20Dto.setAs_key2(asaskey2);
             _index20Dto.setAs_damdang(condamdang);
             _index20Dto.setAs_gongjang(asasgong);
             _index20Dto.setAs_computer(ascustnm);
             _index20Dto.setAs_rnum(asrnum);
-            _index20Dto.setAs_acorp(jacorp);
+            _index20Dto.setAs_acorp(_index02Dto.getAcorp());
             _index20Dto.setAs_acorp1(jacorp1);
             _index20Dto.setAs_acorp2(jacorp2);
             _index20Dto.setAs_acorp3(jacorp3);

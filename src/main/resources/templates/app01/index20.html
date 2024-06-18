@@ -938,6 +938,7 @@
             if(arg == "A"){
                 searchCode = document.getElementById('bcifname').value; 
                 ls_jpbgubn = document.getElementById('bjpbgubn').value;   
+                document.getElementById('searchCode').value = searchCode;  
             } 
             if(arg == "B"){
                 searchCode = document.getElementById('dcifname').value; 
@@ -945,7 +946,8 @@
             } 
             if(arg == "C"){
                 searchCode = document.getElementById('jcifname').value; 
-                ls_jpbgubn = document.getElementById('jpbgubn').value;   
+                ls_jpbgubn = document.getElementById('jpbgubn').value; 
+                document.getElementById('searchCode').value = searchCode;     
             } 
             if(searchCode == null || searchCode.length == 0 || searchCode == ""){ 
                 searchCode = "%"         ;
@@ -1116,8 +1118,9 @@
         }
             
         function wcifChk_a(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7){  
-            var ls_tab = arg0; //document.getElementById('tabvalue').value;    
-       
+            //거래처 검색창에서 조회했다면 엔터친거래처명으로 변경
+            if( arg0 == 'M'){arg0 = gs_argflag }
+            var ls_tab = arg0; //document.getElementById('tabvalue').value;                
             if(ls_tab == "A"){ 
                 document.getElementById('bacorp1').value = arg1;  
                 document.getElementById('bacorp2').value = arg2;  
@@ -1136,7 +1139,7 @@
                 document.getElementById('asaname').value = arg6; 
                 $("#winnamemodal_btn").trigger("click"); 
                 searchList_rtn(ls_tab) 
-            }else if(ls_tab == "C"){
+            }else if(ls_tab == "C" ){
                 document.getElementById('jacorp1').value = arg1;  
                 document.getElementById('jacorp2').value = arg2;  
                 document.getElementById('jacorp3').value = arg3;  
@@ -1199,6 +1202,11 @@
                     }   
                     if(ls_jcifname == null || ls_jcifname.length == 0 || ls_jcifname == ""){ 
                         alert("업체명을 등록하세요") 
+                        document.getElementById("jcifname").focus(); 
+                        return ;               
+                    }   
+                    if(ls_jacorp1 == null || ls_jacorp1.length == 0 || ls_jacorp1 == ""){ 
+                        alert("업체명을 선택하세요") 
                         document.getElementById("jcifname").focus(); 
                         return ;               
                     }   
