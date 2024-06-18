@@ -43,7 +43,7 @@
             and isnull(userid,'0') Like concat('%',#{userid},'%')
             and isnull(as_gongjang,'0') Like concat('%',#{as_gongjang},'%')
             and isnull(as_damdang,'0') Like concat('%',#{as_damdang},'%')
-            ORDER BY as_key1 desc, as_key2 desc
+            ORDER BY as_key1 desc, as_key2
         ]]>
     </select>
 
@@ -86,7 +86,7 @@
           and isnull(userid,'0') Like concat('%',#{userid},'%')
           and isnull(as_gongjang,'0') Like concat('%',#{as_gongjang},'%')
           and isnull(as_damdang,'0') Like concat('%',#{as_damdang},'%')
-        ORDER BY as_key1 desc, as_key2 desc
+        ORDER BY as_key1 desc, as_key2
         ]]>
     </select>
 
