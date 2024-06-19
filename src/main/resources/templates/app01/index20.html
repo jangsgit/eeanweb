@@ -1573,9 +1573,7 @@
                     if(asKey1Arr.length == null || asKey1Arr.length == 0){ 
                         alert("삭제할 내역을 선택하세요") 
                         return ;               
-                    }  
-                    console.log(asKey1Arr)
-                    console.log(asKey2Arr)
+                    }   
                     $.ajax({
                         url: '/app01m/jupsudellist',  
                         type:"POST",
@@ -1640,8 +1638,7 @@
                     }    
                     if(ls_misflag == "주문구분"){ 
                         ls_misflag = "%";
-                    }    
-                    console.log(gsUserid) 
+                    }     
                     $.ajax({
                         url: '/app02m/index11/list01',  
                         type:"POST",
@@ -1889,6 +1886,9 @@
             cols.width = 150;  
             cols.cellTemplate = ls_css
             wtab01Grid.columns.push(cols); 
+            var ll_rowcnt = Number(wtab01Dto.length);
+            if(ll_rowcnt > 15){ll_rowcnt = ll_rowcnt - 1} 
+            wtab01Grid.scrollIntoView(ll_rowcnt, -1);
         }     
        
         function tabB_grid(data){
@@ -2056,8 +2056,7 @@
                 // as_key1, as_key2, as_model, as_color,as_suri,
                 // as_yumu,as_gongjang,as_acorp,as_acorp1,as_acorp2,
                 // as_acorp3,as_memo,as_memo2,as_memo3,as_aname, 
-                // s_damdang 
-                console.log(arg15)
+                // s_damdang  
                 arg15 = arg15.trim(); 
                 document.getElementById('asaskey1').value = arg1;  
                 document.getElementById('asaskey2').value = arg2;   
