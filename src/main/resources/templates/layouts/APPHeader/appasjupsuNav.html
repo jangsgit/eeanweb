@@ -12,15 +12,26 @@
                                 이안옵틱AS접수
                             </button>
                         </a> 
-                    </div> 
+                    </div>  
                     <ul>
                         <li><a th:href="@{/app01/index20}"><i><img class="dot1" th:src="@{/assets/images/i_dot_header.png}" alt=""><img class="dot2" th:src="@{/assets/images/i_dot_header2.png}" alt=""></i>접수등록</a></li>
                         <li><a th:href="@{/app01/index21}"><i><img class="dot1" th:src="@{/assets/images/i_dot_header.png}" alt=""><img class="dot2" th:src="@{/assets/images/i_dot_header2.png}" alt=""></i>접수현황</a></li> 
                         <li><a th:href="@{/app01/index22}"><i><img class="dot1" th:src="@{/assets/images/i_dot_header.png}" alt=""><img class="dot2" th:src="@{/assets/images/i_dot_header2.png}" alt=""></i>주문현황</a></li> 
                         <li><a th:href="@{/app01/index021}"><i><img class="dot1" th:src="@{/assets/images/i_dot_header.png}" alt=""><img class="dot2" th:src="@{/assets/images/i_dot_header2.png}" alt=""></i>거래처등록</a></li>
+                        <li><a th:href="@{/app01/index030}"><i><img class="dot1" th:src="@{/assets/images/i_dot_header.png}" alt=""><img class="dot2" th:src="@{/assets/images/i_dot_header2.png}" alt=""></i>품목등록</a></li>     
                         <li><a th:href="@{/app01/index01m}"><i><img class="dot1" th:src="@{/assets/images/i_dot_header.png}" alt=""><img class="dot2" th:src="@{/assets/images/i_dot_header2.png}" alt=""></i>기초코드</a></li>
                     </ul>
                 </div>     
+            </li> 
+            <li>
+                <button type="button"><img th:src="@{/assets/images/check_on.png}" alt=""></button> 
+                <div class="depth2 on">
+                    <div class="dep_main">   
+                        <button id="userinfo" onclick="accmodal()">
+                            사용자정보
+                        </button>  
+                    </div> 
+                </div>
             </li> 
             <li>
                 <button type="button"><img th:src="@{/assets/images/check_on.png}" alt=""></button> 
@@ -35,19 +46,20 @@
         </ul>
     </th:block>
 
-
-
-    <input class="form-control form-control-sm"  type="hidden" id="userinfobtn" data-bs-toggle="modal" data-bs-target="#userinfomodal"  />
  
+<input class="form-control form-control-sm"  type="hidden" id="userinfobtn" data-bs-toggle="modal" data-bs-target="#userinfomodal"  />
+ 
+
 
     <script type="text/javascript" th:inline="javascript">
         //마이페이지 모달 호출
         // document.getElementById("userinfo").addEventListener("click",function() {
         //     document.getElementById("userinfobtn").click();
 
-        // });
-
-
+        // }); 
+        function accmodal(){
+            document.getElementById("userinfobtn").click();
+        }
         function save_btn3(){
             var ls_passwd = document.getElementById('actpasswdz').value;
             var ls_name = document.getElementById('actnamez').value;

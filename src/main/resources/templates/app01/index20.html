@@ -1941,7 +1941,8 @@
                     atelno: wtab02Dto[i]["atelno"],     
                     ajuso: wtab02Dto[i]["ajuso"],     
                     aascodetxt: wtab02Dto[i]["aascodetxt"],     
-                    pname: wtab02Dto[i]["pname"],     
+                    pname: wtab02Dto[i]["pname"],        
+                    pmodel: wtab02Dto[i]["pmodel"],     
                     qty: wtab02Dto[i]["qty"],     
                     remark: wtab02Dto[i]["remark"],     
                     message: wtab02Dto[i]["message"],      
@@ -1956,7 +1957,7 @@
                     eeasano: wtab02Dto[i]["eeasano"],      
                     eeaname: wtab02Dto[i]["eeaname"],      
                     eeupte: wtab02Dto[i]["eeupte"],      
-                    eeajong: wtab02Dto[i]["eeajong"],      
+                    eeajong: wtab02Dto[i]["eeajong"],   
                     eeajuso: ls_eeajuso,         
                     eeacodetxt: ls_eeacodetxt,       
                     eeatelno: wtab02Dto[i]["eeatelno"],        
@@ -1991,8 +1992,8 @@
             cols.width = 120;  
             wtab02Grid.columns.push(cols);   
             cols = new wijmo.grid.Column(); 
-            cols.binding = 'misnum';
-            cols.header = '전표번호';
+            cols.binding = 'pmodel';
+            cols.header = '모델';
             cols.align = "left";
             cols.width = 100;  
             wtab02Grid.columns.push(cols);  

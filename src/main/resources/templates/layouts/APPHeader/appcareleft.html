@@ -96,11 +96,21 @@
       </div>
     </li>
     <li>
+        <button type="button"><img th:src="@{/assets/images/check_on.png}" alt=""></button> 
+        <div class="depth2 on">
+            <div class="dep_main">   
+                <button id="userinfo" onclick="accmodal()">
+                  사용자정보
+                </button>  
+            </div> 
+        </div>
+    </li> 
+    <li>
       <button type="button"><img th:src="@{/assets/images/check_on.png}" alt=""></button>
       <div class="depth2 on">
           <div class="dep_main">   
               <button id="logout" onclick="logout()">
-                  로그아웃
+                로그아웃
               </button>  
           </div> 
       </div>
@@ -126,6 +136,9 @@
       var link_15 = document.getElementById('index15Link');
       link_15.href += "?" + params.toString();
   }    
+  function accmodal(){
+      document.getElementById("userinfobtn").click();
+  }
   function logout(){   
       if (!confirm("로그아웃하시겠습니까?") ){
         return    
