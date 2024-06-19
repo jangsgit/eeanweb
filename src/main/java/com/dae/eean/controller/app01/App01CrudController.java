@@ -4601,6 +4601,7 @@ public class App01CrudController {
             ,@RequestParam( value =  "asrnum") String asrnum
             ,@RequestParam( value =  "userid") String userid
             ,@RequestParam( value =  "usernm") String usernm
+            ,@RequestParam( value =  "jchgoga")  Integer jchgoga
             , Model model
             , HttpServletRequest request){
 
@@ -4643,6 +4644,7 @@ public class App01CrudController {
             _index20Dto.setAs_aname(asaname);
             _index20Dto.setUserid(userid);
             _index20Dto.setUsernm(usernm);
+            _index20Dto.setJchgoga(jchgoga);
 //            log.info("asaskey1 =====>" + asaskey1);
 //            log.info("asaskey2 =====>" + asaskey2);
 //            log.info("asrnum =====>" + asrnum);
@@ -4903,11 +4905,11 @@ public class App01CrudController {
                     _indexDa024Dto.setMisdate(ls_misdate);
                     _indexDa024Dto.setMisnum(ls_misnum);
                     _indexDa024Dto.setMisgubun("AA");
-                    _indexDa024Dto.setPcode(_index20DtoRe.getJkey());
+                    _indexDa024Dto.setPcode("BAS00A00000000");  //_index20DtoRe.getJkey()
                     _indexDa024Dto.setPname(_index20DtoRe.getAs_yumu());
                     _indexDa024Dto.setPsize("");
                     _indexDa024Dto.setPbonsa(_index20DtoRe.getJbonsa_code2());
-                    _indexDa024Dto.setPmodel(_index20DtoRe.getJmodel_code2());
+                    _indexDa024Dto.setPmodel("AS");  //_index20DtoRe.getJmodel_code2()
                     _indexDa024Dto.setPcolor(_index20DtoRe.getJcolor_code());
                     _indexDa024Dto.setCltcd(_index20DtoRe.getAcode());
                     _indexDa024Dto.setAcorp(_index20DtoRe.getAs_acorp());

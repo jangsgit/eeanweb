@@ -76,7 +76,7 @@
     <select id="GetAsJumsuDataYU" parameterType="com.dae.eean.DTO.App01.Index20Dto" resultType="com.dae.eean.DTO.App01.Index20Dto">
         <![CDATA[
             select   as_key1, as_key2, as_model ,as_color, as_suri, as_yumu,as_memo,as_gongjang,as_acorp,as_acorp1,as_acorp2,as_acorp3, as_acorp1 + CAST(as_acorp2 as varchar) as acode,
-                     as_computer,as_damdang,as_memo2,as_aname,as_key4,as_date2,as_memo3, as_devflag, D.jkey, D.jchgoga0, D.jbonsa_code2, D.jmodel_code2, D.jcolor_code, D.jpb_gubn,
+                     as_computer,as_damdang,as_memo2,as_aname,as_key4,as_date2,as_memo3, as_devflag, D.jkey, jchgoga as jchgoga0, D.jbonsa_code2, D.jmodel_code2, D.jcolor_code, D.jpb_gubn,
                      unsongnum, as_devflag, misflag, isnull(misdate, '') as misdate, misnum, E.abonsadam1 as perid,
                      (select pernm from tb_xusers  WITH (NOLOCK) where PERID = E.abonsadam1 and flag = 'CC') AS pernm
             from as_jupsu  WITH (NOLOCK)
@@ -105,9 +105,9 @@
 
     <insert id="InsertJupsu" parameterType="com.dae.eean.DTO.App01.Index20Dto" >
         insert into as_jupsu (as_key1, as_key2, as_model ,as_color, as_suri, as_yumu,as_memo,as_gongjang,as_acorp,as_acorp1,as_acorp2,as_acorp3,
-                              as_computer,as_damdang,as_memo2,as_aname,as_key4,as_date2,as_memo3, as_devflag, userid, usernm) values
+                              as_computer,as_damdang,as_memo2,as_aname,as_key4,as_date2,as_memo3, as_devflag, userid, usernm, jchgoga) values
             (#{as_key1}, #{as_key2}, #{as_model} , #{as_color}, #{as_suri}, #{as_yumu}, #{as_memo}, #{as_gongjang}, #{as_acorp}, #{as_acorp1}, #{as_acorp2}, #{as_acorp3},
-             #{as_computer}, #{as_damdang}, #{as_memo2}, #{as_aname}, #{as_key4}, #{as_date2}, #{as_memo3}, #{as_devflag}, #{userid}, #{usernm} )
+             #{as_computer}, #{as_damdang}, #{as_memo2}, #{as_aname}, #{as_key4}, #{as_date2}, #{as_memo3}, #{as_devflag}, #{userid}, #{usernm}, #{jchgoga} )
     </insert>
 
 
@@ -126,6 +126,7 @@
                            , as_memo3 = #{as_memo3}
                            , userid = #{userid}
                            , usernm = #{usernm}
+                           , jchgoga = #{jchgoga}
         where as_key1  = #{as_key1} and as_key2 = #{as_key2}
         ]]>
     </update>
@@ -169,6 +170,8 @@
         <if test="as_devdate != null">as_devdate=#{as_devdate}</if>
         <if test="unsongnum != null ">,</if>
         <if test="unsongnum != null">unsongnum=#{unsongnum}</if>
+        <if test="jchgoga != null ">,</if>
+        <if test="jchgoga != null">jchgoga=#{jchgoga}</if>
         where as_key1  = #{as_key1} and as_key2 = #{as_key2}
     </update>
 

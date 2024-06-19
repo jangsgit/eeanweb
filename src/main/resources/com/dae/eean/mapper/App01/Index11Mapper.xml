@@ -33,6 +33,7 @@
                  ,misdate
                  ,misnum
                  ,misflag
+                 ,jchgoga
                  , CONVERT(CHAR(19),as_devdate,20) as as_devdate
             from as_jupsu WITH (NOLOCK)
                 LEFT JOIN TB_CA510 B ON com_code <> '00' and com_cls = '002' and com_code=as_jupsu.as_aname
@@ -77,6 +78,7 @@
              ,misdate
              ,misnum
              ,misflag
+             ,jchgoga
              , CONVERT(CHAR(19),as_devdate,20) as as_devdate
         from as_jupsu WITH (NOLOCK)
              LEFT JOIN TB_CA510 B ON com_code <> '00' and com_cls = '002' and com_code=as_jupsu.as_aname
@@ -120,6 +122,7 @@
              ,misdate
              ,misnum
              ,misflag
+             ,jchgoga
              , CONVERT(CHAR(19),as_devdate,20) as as_devdate
         from as_jupsu WITH (NOLOCK)
         where  as_key1 + convert(nvarchar(4), as_key2 )   in

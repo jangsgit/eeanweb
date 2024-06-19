@@ -105,20 +105,29 @@
                             </div>   
                             <div class="col-2 col-sm-2">                             
                                 <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">유/무상</span> 
+                                    <select class="form-select"  name="asasyumu" id="asasyumu"> 
+                                        <option value="무상">무상</option>
+                                        <option value="유상">유상</option> 
+                                    </select>                                                             
+                           
+                                </div> 
+                            </div>   
+                            <!-- <div class="col-2 col-sm-2">                             
+                                <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">유/무상</span> 
                                     <select class="form-select" th:field="*{yumucodeList}" name="asasyumu" id="asasyumu"> 
                                         <option value="무상">무상</option>
+                                        <option value="유상">유상</option>
                                         <option th:each="val : ${yumucodeList}" th:value="${val.jpum}" th:text="${val.jchgoga0}">
                                     </select>                                                             
                            
                                 </div> 
-                            </div>     
-                            <div class="col-2 col-sm-2">                                            
-                                <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">구분</span> 
-                                    <select class="form-select" th:field="*{index01ListDto}" name="asaname" id="asaname"> 
-                                        <option th:each="val : ${index01ListDto}" th:value="${val.com_code}" th:text="${val.com_rem1}">
-                                    </select>                                                             
-                                </div>  
-                            </div>  
+                            </div>    -->
+                            <div class="col-2 col-sm-2">
+                                <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">금액</span> 
+                                    <input class="form-control form-control-sm" id="jchgoga" type="number"    autocomplete="off"  placeholder="">                                               
+                                </div> 
+                            </div>   
+                             
                             
                             <!-- Force next columns to break to new line -->
                             <div class="w-100"></div>     
@@ -126,7 +135,14 @@
                                 <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">출고일자</span>                                                        
                                     <input type="text"  class="form-control datetimepicker" id="as_date" autocomplete="off"  placeholder="Y-m-d" disabled > 
                                 </div> 
-                            </div>   
+                            </div> 
+                            <div class="col-2 col-sm-2">                                            
+                                <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">구분</span> 
+                                    <select class="form-select" th:field="*{index01ListDto}" name="asaname" id="asaname"> 
+                                        <option th:each="val : ${index01ListDto}" th:value="${val.com_code}" th:text="${val.com_rem1}">
+                                    </select>                                                             
+                                </div>  
+                            </div>    
                             <div class="col-3 col-sm-2">
                                 <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">메모</span> 
                                     <input class="form-control form-control-sm" id="asasmemo" type="text"    autocomplete="off"  placeholder="">                                               
@@ -534,28 +550,7 @@
                 ], 
                 itemsSource: view_p01tab01page
             });   
-             
-            // wtab01Grid.formatItem.addHandler((s, e) => {
-            //     if (e.panel == s.cells) {
-            //         var val = s.getCellData(e.row,0); 
-            //         if(val == null || val.length == 0 || val == ""){  
-            //             return 
-            //         } else {
-            //             var pos1 = val.indexOf('<');
-            //             if (pos1 > 0 ){
-            //                 return 
-            //             } 
-            //         }  
-            //         // 짝수 행 일 때
-            //         if (e.row % 2 == 0) {
-            //             e.cell.style.backgroundColor = "rgb(232, 241, 255)";
-            //         }
-            //         // 홀수 행 일 때
-            //         else if (e.row % 2 == 1) {
-            //             e.cell.style.backgroundColor = "rgb(255,255,255)";
-            //         }
-            //     }
-            // }); 
+              
             function updateCurrentInfo() {
                 selItemElement.innerHTML = wijmo.format(theGrid.collectionView.currentItem);
             }
@@ -896,6 +891,24 @@
         document.getElementById("inbigobtn").addEventListener("click",function(){
             document.getElementById("wbigomodal_btn").focus(); 
         }) 
+        document.addEventListener("DOMContentLoaded", function() {
+            var selectElement = document.getElementById("asasyumu");
+            var inputElement = document.getElementById("jchgoga");
+
+            function updateInputState() {
+                if (selectElement.value === "무상") {
+                    inputElement.disabled = true;
+                    inputElement.value = ""; // 비활성화할 때 값 초기화
+                } else {
+                    inputElement.disabled = false;
+                }
+            }
+
+            selectElement.addEventListener("change", updateInputState);
+
+            // 페이지 로드 시 초기 상태 설정
+            updateInputState();
+        });
         //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 모달 검색@@@@@@@@@@@@@@@@@@@@@@@@@@@
         //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
                 
@@ -1176,9 +1189,11 @@
             var ls_asasmemo = document.getElementById('asasmemo').value; 
             var ls_asasmemo2 = document.getElementById('asasmemo2').value; 
             var ls_asasmemo3 = document.getElementById('asasmemo3').value; 
-            var ls_asaname = document.getElementById('asaname').value;           
+            var ls_asaname = document.getElementById('asaname').value;      
+            var ls_jchgoga = document.getElementById('jchgoga').value;    
             var lsCustnm = window.localStorage.getItem("custnm");                  
-            var lsRnum = window.localStorage.getItem("rnum");         
+            var lsRnum = window.localStorage.getItem("rnum");      
+                   
             if(arg =="A") {
                 if (!confirm("저장하시겠습니까?")) {
                     return ; 
@@ -1209,7 +1224,17 @@
                         alert("업체명을 선택하세요") 
                         document.getElementById("jcifname").focus(); 
                         return ;               
+                    }    
+                    if(ls_asasyumu == "무상"){ 
+                        ls_jchgoga = 0;              
+                    }else{
+                        if (ls_jchgoga == 0 || ls_jchgoga == "" ){
+                            alert("유상입니다. 금액을 입력하세요.") 
+                            document.getElementById("jcifname").focus(); 
+                            return ;                                           
+                        }
                     }   
+                    
                         $.ajax({
                             url: '/app01m/jupsusave',  
                             type:"POST",
@@ -1233,7 +1258,8 @@
                                 "ascustnm"      : lsCustnm  ,  
                                 "asrnum"      : gsRnum  ,  
                                 "userid"      : gsUserid  ,  
-                                "usernm"      : gsUsernm  , 
+                                "usernm"      : gsUsernm  ,     
+                                "jchgoga"      : ls_jchgoga  ,
                             }, 
                             async:false,
                             success:function(data){   
@@ -1743,12 +1769,13 @@
                     misdate:  wtab01Dto[i]["misdate"],    
                     misnum:  wtab01Dto[i]["misnum"],  
                     as_comrem:  wtab01Dto[i]["as_comrem"],  
+                    jchgoga:  wtab01Dto[i]["jchgoga"],
                      
                     as_devflag:  bfixflag,                                                 
                 });
                 cnt++;
             }   
-            // console.log("wtab01_data",wtab01_data) 
+             console.log("wtab01_data",wtab01_data) 
             // console.log(wtab01_data.length);            
             wtab01Grid.columns.clear();  
             wtab01Grid.autoGenerateColumns = false; 
@@ -1761,7 +1788,7 @@
             cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
                 text: '<b>${item.as_key1}</b>',
                 click: (e, ctx) => {
-                    wjupsuChk_a(ctx.item.as_key1, ctx.item.as_key2, ctx.item.as_model, ctx.item.as_color,ctx.item.as_suri,ctx.item.as_yumu,ctx.item.as_gongjang,ctx.item.as_acorp,ctx.item.as_acorp1,ctx.item.as_acorp2,ctx.item.as_acorp3,ctx.item.as_memo,ctx.item.as_memo2,ctx.item.as_memo3,ctx.item.as_aname, ctx.item.as_damdang  );                    
+                    wjupsuChk_a(ctx.item.as_key1, ctx.item.as_key2, ctx.item.as_model, ctx.item.as_color,ctx.item.as_suri,ctx.item.as_yumu,ctx.item.as_gongjang,ctx.item.as_acorp,ctx.item.as_acorp1,ctx.item.as_acorp2,ctx.item.as_acorp3,ctx.item.as_memo,ctx.item.as_memo2,ctx.item.as_memo3,ctx.item.as_aname, ctx.item.as_damdang , ctx.item.jchgoga );                    
                     
                 }
             });
@@ -1821,6 +1848,13 @@
             cols.header = '유무상';
             cols.align = "center";
             cols.width = 80;  
+            cols.cellTemplate = ls_css
+            wtab01Grid.columns.push(cols);  
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'jchgoga';
+            cols.header = ' 금액';
+            cols.align = "right";
+            cols.width = 100;  
             cols.cellTemplate = ls_css
             wtab01Grid.columns.push(cols); 
             cols = new wijmo.grid.Column(); 
@@ -2048,7 +2082,7 @@
  
         }     
  
-        function wjupsuChk_a(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10,arg11, arg12, arg13, arg14, arg15, arg16){ 
+        function wjupsuChk_a(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10,arg11, arg12, arg13, arg14, arg15, arg16, arg17){ 
                 // ctx.item.as_key1, ctx.item.as_key2,     ctx.item.as_model, ctx.item.as_color,ctx.item.as_suri,
                 // ctx.item.as_yumu, ctx.item.as_gongjang,ctx.item.as_acorp,  ctx.item.as_acorp1,ctx.item.as_acorp2,
                 // ctx.item.as_acorp3,ctx.item.as_memo,ctx.item.as_memo2,ctx.item.as_memo3, as_aname  , 
@@ -2074,6 +2108,18 @@
                 document.getElementById('asasmemo3').value = arg14;   
                 document.getElementById('asaname').value = arg15; 
                 document.getElementById('condamdang').value = arg16; 
+                document.getElementById('jchgoga').value = arg17;
+
+                var selectElement = document.getElementById("asasyumu");
+                var inputElement = document.getElementById("jchgoga");
+                if (arg6 === "무상") {
+                    inputElement.disabled = true;
+                    inputElement.value = 0; // 비활성화할 때 값 초기화
+                } else {
+                    inputElement.disabled = false;
+                } 
+ 
+                
 
         }  
         function clear_rtn(){ 
@@ -2094,7 +2140,8 @@
                 document.getElementById('asasmemo2').value = "";   
                 document.getElementById('asasmemo3').value = "";   
                 document.getElementById('asaname').value = "B"; 
-                document.getElementById('condamdang').value = ls_condamdang;                 
+                document.getElementById('condamdang').value = ls_condamdang; 
+                document.getElementById('jchgoga').value = 0;                
 
                 document.getElementById("asasgong").focus(); 
         }
