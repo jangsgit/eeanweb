@@ -25,6 +25,9 @@ public class Index03Dto {
     private String jsayong_gubn;
     private String jpum;
     private String jgugek;
+    private String jgugek2;
+    private String jgugek3;
+    private String jgugek4;
     private String jsize;
     private String jchgoga0;
     private String jbigo;

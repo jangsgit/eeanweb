@@ -186,7 +186,7 @@
     <select id="GetJpumModelList" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
         <![CDATA[
         select   jkey, jpb_gubn, jgong_code, jdan_code, jmodel_code, jcolor_code, jcustomer_code,
-                 jbonsa_code, jsayong_gubn, jpum, jgugek, jsize,   convert(int , jchgoga0)  as jchgoga0, jbigo,
+                 jbonsa_code, jsayong_gubn, jpum, jgugek, isnull(jgugek2,'') as jgugek2, isnull(jgugek3,'') as jgugek3, isnull(jgugek4,'') as jgugek4, jsize,   convert(int , jchgoga0)  as jchgoga0, jbigo,
                  convert(integer, DBO.DF_TB_PCODE_JQTY(jkey,  #{frdate},  #{todate}) )   as jqty
         from JCODE3 WITH (NOLOCK)
         WHERE isnull(jmodel_code,'')   = #{jmodel_code}
