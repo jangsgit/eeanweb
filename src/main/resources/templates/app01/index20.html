@@ -1964,10 +1964,14 @@
                 }else{
                     bfixflag = "신용" 
                 } 
-                //비거래이고 무상이 아니라면 착불
-                if(ls_agita == "Z" && ls_asyumu != "무상" ){
+                //비거래이고 무상
+                if(ls_agita == "Z" && ls_asyumu == "무상" ){
                     bfixflag = "착불"                     
                 }
+                //비거래이고 유상
+                if(ls_agita == "Z" && ls_asyumu != "무상" ){
+                    bfixflag = "신용"                     
+                }                
                 var ls_eeacodetxt = '05408';        //wtab02Dto[i]["eeacodetxt"]    
                 var ls_eeajuso    = '서울 강동구 성내동 440-4 만성재빌딩 4층'    //wtab02Dto[i]["eeajuso"]
                 wtab02_data.push({
