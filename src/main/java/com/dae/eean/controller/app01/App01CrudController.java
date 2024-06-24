@@ -1150,6 +1150,8 @@ public class App01CrudController {
             ,@RequestParam("jpbgubn") String jpbgubn
             ,@RequestParam("ordercd") String ordercd
             ,@RequestParam("perid") String perid
+            ,@RequestParam("userid") String userid
+            ,@RequestParam("usernm") String usernm
             , Model model
             , HttpServletRequest request){
 
@@ -1279,6 +1281,8 @@ public class App01CrudController {
             _indexDa024Dto.setPernm(_index02Dto.getInname01());
             _indexDa024Dto.setPerid(_index02Dto.getAbonsadam1());
             _indexDa024Dto.setJpb_gubn(jpbgubn);
+            _indexDa024Dto.setUserid(userid);
+            _indexDa024Dto.setUsernm(usernm);
 
             //재고체크 ------------------------------------------
 
