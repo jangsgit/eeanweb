@@ -271,8 +271,8 @@
                     { binding: 'qty', header: '수량', align: "center", width: 80 },  
                     { binding: 'uamt', header: '단가', align: "center", width: 100 },  
                     { binding: 'samt', header: '금액', align: "center", width: 150 },
-                    // { binding: 'delteim', header: '삭제일자', align: "center", width: 100 },   
-                    // { binding: 'fixdatetime', header: '출력일자', align: "center", width: 200 },        
+                    { binding: 'userid', header: '주문id', align: "center", width: 100 },   
+                    { binding: 'usernm', header: '주문자명', align: "center", width: 200 },        
                 ], 
                 itemsSource: view_p01tab01page
             });  
@@ -692,18 +692,18 @@
             // cols.align = "center"; 
             // cols.width = 200;  
             // wtab01Grid.columns.push(cols);        
-            // cols = new wijmo.grid.Column(); 
-            // cols.binding = 'userid';
-            // cols.header = '주문ID';
-            // cols.align = "center"; 
-            // cols.width = 120;  
-            // wtab01Grid.columns.push(cols);          
-            // cols = new wijmo.grid.Column(); 
-            // cols.binding = 'usernm';
-            // cols.header = '주문User';
-            // cols.align = "center"; 
-            // cols.width = 200;  
-            // wtab01Grid.columns.push(cols);    
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'userid';
+            cols.header = '주문ID';
+            cols.align = "center"; 
+            cols.width = 120;  
+            wtab01Grid.columns.push(cols);          
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'usernm';
+            cols.header = '주문자명';
+            cols.align = "center"; 
+            cols.width = 200;  
+            wtab01Grid.columns.push(cols);    
  
         }
              
