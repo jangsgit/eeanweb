@@ -68,6 +68,10 @@ public class Index14Service {
     public List<IndexDa024Dto> SelectDa024ListDel(IndexDa024Dto parm){
         return  appMapper.SelectDa024ListDel(parm);
     }
+    public List<IndexDa024Dto> SelectDa024ListMakflag(IndexDa024Dto parm){
+        return  appMapper.SelectDa024ListMakflag(parm);
+    }
+
     public List<IndexDa024Dto> SelectDa024ListLike(IndexDa024Dto parm){
 
 //        MapSqlParameterSource paramMap = new MapSqlParameterSource();

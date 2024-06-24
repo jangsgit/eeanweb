@@ -780,6 +780,7 @@
                     var ls_todate = document.getElementById('todate').value; 
                     var ls_asflag = document.getElementById('asflag').value; 
                     var ls_bacode = document.getElementById('bacode').value;   
+                    var ls_bcifname = document.getElementById('bcifname').value;   
                     var ls_misflag = document.getElementById('misflag').value; 
                     var ls_asasgong = document.getElementById('asasgong').value; 
                     var ls_condamdang = document.getElementById('condamdang').value; 
@@ -793,7 +794,10 @@
                             alert("종료일자를 입력하세요") 
                             document.getElementById("todate").focus(); 
                             return ;               
-                    }    
+                    }     
+                    if(ls_bcifname == null || ls_bcifname.length == 0 || ls_bcifname == ""){ 
+                        ls_bacode = "%";
+                    }   
                     if(ls_asflag == "발송구분"){ 
                         ls_asflag = "%";
                     }      

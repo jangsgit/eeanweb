@@ -777,6 +777,27 @@ public class App01Controller {
         return "App01/index17";
     }
 
+    //장바구니현황
+    @GetMapping(value="/index18")
+    public String App18_index( Model model, HttpServletRequest request) throws Exception{
+        CommDto.setMenuTitle("장바구니현황");
+        CommDto.setMenuUrl("기준정보>장바구니현황");
+        CommDto.setMenuCode("index18");
+        try {
+            HttpSession session = request.getSession();
+            UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+            model.addAttribute("userformDto",userformDto);
+//            index03Dto.setJpb_gubn("%");
+//            index03List = service03.GetJBonsaCodeList(index03Dto);
+//            model.addAttribute("index03List",index03List);
+        } catch (Exception ex) {
+            log.info("App18_index Exception ================================================================");
+            log.info("Exception =====>" + ex.toString());
+            return "redirect:http://eean.co.kr";
+        }
+
+        return "App01/index18";
+    }
     //사원별매출현황
     @GetMapping(value="/index06")
     public String App06_index( Model model, HttpServletRequest request) throws Exception{
@@ -975,11 +996,15 @@ public class App01Controller {
         CommDto.setMenuUrl("통계관리>AS주문현황");
         CommDto.setMenuCode("index22");
         try {
+            List<Index01Dto> _index01UserDto = new ArrayList<>();
             HttpSession session = request.getSession();
             UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
             model.addAttribute("userformDto",userformDto);
+            index01Dto.setCom_cls("002");
+            _index01UserDto   = service01.getWperidlist(index01Dto);
 //            popupListDto = svcpopup.getCifCodeList(popupDto);
 
+            model.addAttribute("index01UserDto",_index01UserDto);
             model.addAttribute("cifcodeList",popupListDto);
         } catch (Exception ex) {
             log.info("App22_index Exception  ====");

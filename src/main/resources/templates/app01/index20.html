@@ -1925,7 +1925,7 @@
             wtab01Grid.scrollIntoView(ll_rowcnt, -1);
         }     
        
-        function tabB_grid(data){
+        function tabB_grid(data){ 
             var wtab02Dto  = data;  
             var cnt = 1;
             var bfixflag = "신용" 
@@ -1943,7 +1943,7 @@
                 ls_message = wtab02Dto[i]["message"];
                 ls_payflag = wtab02Dto[i]["payflag"];
                 ls_eeacorp = wtab02Dto[i]["eeacorp"];
-                ls_eeasano = wtab02Dto[i]["eeasano"];
+                ls_eeasano = wtab02Dto[i]["eeasano"]; 
                 ls_eeaname = wtab02Dto[i]["eeaname"];
                 ls_eeupte = wtab02Dto[i]["eeupte"];
                 ls_eeajong = wtab02Dto[i]["eeajong"];
@@ -1952,6 +1952,8 @@
                 ls_eeatelno = wtab02Dto[i]["eeatelno"]; 
                 ls_misdate = wtab02Dto[i]["misdate"];
                 ls_misnum = wtab02Dto[i]["misnum"];
+                ls_agita = wtab02Dto[i]["agita"];
+                ls_asyumu = wtab02Dto[i]["as_yumu"];
                 ls_mistxt = "";
                 ls_mistxt = wtab02Dto[i]["misdate"]; 
                 ls_mistxt = ls_mistxt.substring(0,4) + ls_mistxt.substring(5,7) + ls_mistxt.substring(8,10);
@@ -1962,6 +1964,10 @@
                 }else{
                     bfixflag = "신용" 
                 } 
+                //비거래이고 무상이 아니라면 착불
+                if(ls_agita == "Z" && ls_asyumu != "무상" ){
+                    bfixflag = "착불"                     
+                }
                 var ls_eeacodetxt = '05408';        //wtab02Dto[i]["eeacodetxt"]    
                 var ls_eeajuso    = '서울 강동구 성내동 440-4 만성재빌딩 4층'    //wtab02Dto[i]["eeajuso"]
                 wtab02_data.push({

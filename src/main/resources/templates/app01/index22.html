@@ -128,7 +128,7 @@
                                                     <option value="1">출력</option>
                                                     <option value="0">미출력</option>
                                                   </select> 
-                                            </div>    
+                                            </div>   
                                             <div class="col-1 col-sm-1">  
                                                 <table>
                                                     <tr>
@@ -152,12 +152,27 @@
                                                 </table> 
                                             </div>   
                                         </div>  
+                                        <div class="row gx-3" style="  margin: 10px 10px 10px;">   
+                                            <div class="col-2 col-sm-2">
+                                                <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">접수자</span> 
+                                                    <select class="form-select" th:field="*{index01UserDto}" name="condamdang" id="condamdang"  > 
+                                                        <option th:each="val : ${index01UserDto}" th:value="${val.insano}" th:text="${val.insano}">
+                                                    </select>                 
+                                                </div>                                                      
+                                            </div>
+                                            <div class="col-2 col-sm-2">
+                                                <input class="form-check-input" type="checkbox" value="%" id="checkall">
+                                                <label class="form-check-label" for="checkall">
+                                                  전체조회
+                                                </label>
+                                            </div> 
+                                        </div>
                                         <div class="container-fluid"> 
                                             <p>
                                                 현재 <b><span id="checked-count">0</span></b> 개의 항목이 선택되었습니다. 
                                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>수량을 수정하실경우 수량을 먼저 수정한 후에 체크박스를 선택해야 적용됩니다. </b> 
                                             </p>
-                                            <div id="wtab01Grid_div" style="overflow:scroll; width:1700px;     height:800px;    margin:0 auto; "></div>  
+                                            <div id="wtab01Grid_div" style="overflow:scroll; width:1700px;     height:750px;    margin:0 auto; "></div>  
                                             <!-- <div id="tab01Pager"></div> -->
                                         </div>   
                                     </div> 
@@ -1042,6 +1057,8 @@
                     var ls_asflag = document.getElementById('asflag').value; 
                     var ls_bacode = document.getElementById('bacode').value; 
                     var ls_bcifname = document.getElementById('bcifname').value;  
+                    var ls_checkall = document.getElementById('checkall').checked;  
+                    var ls_condamdang = document.getElementById('condamdang').value;  
                     if(ls_frdate == null || ls_frdate.length == 0 || ls_frdate == ""){ 
                             alert("시작일자를 입력하세요") 
                             document.getElementById("frdate").focus(); 
@@ -1061,6 +1078,9 @@
                     if(ls_asflag == "출력구분"){ 
                         ls_asflag = "%";
                     }       
+                    if(ls_checkall){ 
+                        ls_condamdang = "%";
+                    }    
                     $.ajax({
                         url: '/app01m/index14/listjupsu',  
                         type:"POST",
@@ -1068,7 +1088,8 @@
                             "frdate"      : ls_frdate, 
                             "todate"      : ls_todate,  
                             "asflag"      : ls_asflag, 
-                            "asacorp"      : ls_bacode 
+                            "asacorp"      : ls_bacode , 
+                            "condamdang"      : ls_condamdang
                         }, 
                         async:false,
                         success:function(data){   
@@ -2079,7 +2100,8 @@
             lsUserid = window.localStorage.getItem("userid")
             gsUserid = window.localStorage.getItem("userid");                             
             gsUsernm = window.localStorage.getItem("username");
-            const ls_role = window.localStorage.getItem("role");  
+            const ls_role = window.localStorage.getItem("role");            
+            document.getElementById('condamdang').value = lsUserid;   
             document.getElementById('asflag').value = "0";
             if(ls_role == null || ls_role.length == 0 || ls_role == ""){ 
                 ls_role = '%'             
