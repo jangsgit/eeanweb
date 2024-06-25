@@ -306,6 +306,8 @@
                     { binding: 'as_model', header: '모델', align: "center",   width: 80 },
                     { binding: 'as_color', header: '칼라', align: "center",   width: 80 },
                     { binding: 'as_suri', header: '수리부위', align: "center",   width: 150 },
+                    { binding: 'as_yumu', header: '유무상', align: "center",   width: 150 },
+                    { binding: 'jchulgo', header: '금액', align: "center",   width: 150 },
                     { binding: 'as_memo', header: '메모', align: "center",   width: 200 },        
                     { binding: 'as_yumu', header: '유무상', align: "center",   width: 80 }, 
                     { binding: 'as_memo2', header: '메모2', align: "center",   width: 200 },      
@@ -910,6 +912,7 @@
                     misdate:  wtab01Dto[i]["misdate"],    
                     misnum:  wtab01Dto[i]["misnum"],  
                     as_comrem:  wtab01Dto[i]["as_comrem"],  
+                    jchgoga:  wtab01Dto[i]["jchgoga"],
                                                    
                 });
                 cnt++;
@@ -994,6 +997,13 @@
             cols.header = '유무상';
             cols.align = "center";
             cols.width = 80;  
+            cols.cellTemplate = ls_css
+            wtab01Grid.columns.push(cols);   
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'jchgoga';
+            cols.header = '금액';
+            cols.align = "right";
+            cols.width = 120;  
             cols.cellTemplate = ls_css
             wtab01Grid.columns.push(cols); 
             cols = new wijmo.grid.Column(); 
