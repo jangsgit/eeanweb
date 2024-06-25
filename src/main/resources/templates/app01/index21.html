@@ -986,13 +986,6 @@
             cols.cellTemplate = ls_css
             wtab01Grid.columns.push(cols);   
             cols = new wijmo.grid.Column(); 
-            cols.binding = 'as_memo';
-            cols.header = '메모';
-            cols.align = "left";
-            cols.width = 200;  
-            cols.cellTemplate = ls_css
-            wtab01Grid.columns.push(cols);   
-            cols = new wijmo.grid.Column(); 
             cols.binding = 'as_yumu';
             cols.header = '유무상';
             cols.align = "center";
@@ -1006,6 +999,13 @@
             cols.width = 120;  
             cols.cellTemplate = ls_css
             wtab01Grid.columns.push(cols); 
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'as_memo';
+            cols.header = '메모';
+            cols.align = "left";
+            cols.width = 200;  
+            cols.cellTemplate = ls_css
+            wtab01Grid.columns.push(cols);   
             cols = new wijmo.grid.Column(); 
             cols.binding = 'as_memo2';
             cols.header = '메모2';
