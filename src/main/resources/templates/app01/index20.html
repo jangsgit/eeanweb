@@ -595,8 +595,8 @@
                     }  
                     
                     if(icnt >= 2){
-                        alert("확인: " + askey[p] + " / " + acorp[p] + "  " + icnt + "건 입니다.");
-                        return 
+                        //alert("확인: " + askey[p] + " / " + acorp[p] + "  " + icnt + "건 입니다.");
+                        //return 
                     }
                     icnt = 0;
                 }         
@@ -1033,7 +1033,9 @@
             view_innamepage.sourceCollection  = wtab02_data;
             winnameGrid.hostElement.addEventListener("keyup",function(e){  
                     if(e.key === "Enter" && lb_entkey){    
-                            var llrow = winnameGrid._activeCell['wj-cell-index'].row -1 ;       //속성경로복사 이용할것. 
+                            var llrow = winnameGrid._activeCell['wj-cell-index'].row -1 ;       //속성경로복사 이용할것. .
+                            
+                            if(llrow < 0 ){llrow = 0 } 
                             let ls_cltcd = winnameGrid.getCellData(llrow,0);
                             let ls_cltnm = winnameGrid.getCellData(llrow,1); 
                             let ls_acorp1 = winnameGrid.getCellData(llrow,4); 

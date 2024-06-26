@@ -4916,7 +4916,8 @@ public class App01CrudController {
                     String year = asKey1Arr.get(i).substring(0,4);
                     String month = asKey1Arr.get(i).substring(5,7);
                     String day = asKey1Arr.get(i).substring(8,10);
-                    String ls_misdate = year + month + day ;
+//                    String ls_misdate = year + month + day ;  //요청에 의해 당일일자로 변경함.
+                    String ls_misdate = getToDate() ;
                     String ls_misnum = "";
                     String ls_yumu = asYumu.get(i);
                     String ls_aname = asAname.get(i);
