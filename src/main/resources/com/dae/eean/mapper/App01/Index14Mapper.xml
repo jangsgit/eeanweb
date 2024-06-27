@@ -803,11 +803,11 @@
         insert into TB_DA024 (custcd, spjangcd, cltcd, misgubun, misdate, misnum, seq,
         pcode, pname, psize,    punit,  qty,  uamt, samt, addamt,
         amt, indate, inperid, pbonsa, pbonsa2, pmodel, pcolor, acorp, pernm, perid, jpb_gubn, userid, usernm, makflag, misdatetime ,
-        devflag, unsongnum) values
+        devflag, unsongnum, jbp_gubn) values
         ('EEAN', 'ZZ', #{cltcd},    #{misgubun}, #{misdate},  #{misnum}, #{seq},
         #{pcode}, #{pname}, #{psize}, #{punit}, #{qty},   #{uamt},  #{samt},  #{addamt},
         #{amt},  #{indate}, #{inperid} , #{pbonsa} , #{pbonsa2} , #{pmodel} , #{pcolor}, #{acorp}, #{pernm} , #{perid}, #{jpb_gubn}, #{userid}, #{usernm}, '1', getdate(),
-        #{devflag},#{unsongnum})
+        #{devflag},#{unsongnum}, #{jpb_gubn})
     </insert>
 
 
