@@ -1319,6 +1319,11 @@
                         }else{
                             fixflagArr[i] = "1";
                         }
+                        var ls_misdate      = misdateArr[i];  
+                        if(ls_misdate == null || ls_misdate.length == 0 ){ 
+                            alert("주문등록한 후에 발송출력해주세요." + asKey1Arr[i] + '/' + asKey2Arr[i]) ; 
+                            return ;               
+                        }  
                     }   
                     // while (asKey1Arr.length > 0) {
                     //     asKey1Arr.pop();
@@ -1399,8 +1404,8 @@
                         }
                         var ls_misdate      = misdateArr[i];  
                         if(ls_misdate != null && ls_misdate.length > 0 ){ 
-                            alert("이미 주문된 자료가 있습니다. 확인하세요") ; 
-                            return ;               
+                            //alert("이미 주문된 자료가 있습니다. 확인하세요") ; 
+                            //return ;               
                         }  
                     }    
                     //console.log(asAname)

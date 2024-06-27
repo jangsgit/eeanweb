@@ -142,6 +142,7 @@
                       isnull(B.makflag, '0') as makflag,
                       B.amt, B.acorp, pbonsa, pmodel, pcolor , B.pernm as inname, B.misgubun, isnull(B.fixflag,'0') as fixflag,isnull(B.devflag,'0') as devflag,   B.pernm as pernm,
                       B.fixdate,  CONVERT(CHAR(19),B.fixdatetime,20) as fixdatetime ,  CONVERT(CHAR(19),B.misdatetime,20) as misdatetime , 0 as jqty,
+                      CONVERT(CHAR(19),B.devdatetime,20) as devdatetime ,
                       B.userid, B.usernm
                   from  TB_DA024 B WITH (NOLOCK)
                   where B.CLTCD Like concat('%',#{cltcd},'%')
@@ -850,6 +851,10 @@
         <if test="usernm != null">usernm=#{usernm}</if>
         <if test="devflag != null ">,</if>
         <if test="devflag != null">devflag=#{devflag}</if>
+        <if test="devdatetime != null ">,</if>
+        <if test="devdatetime != null">devdatetime=#{devdatetime}</if>
+        <if test="reservnum != null ">,</if>
+        <if test="reservnum != null">reservnum=#{reservnum}</if>
         <if test="unsongnum != null ">,</if>
         <if test="unsongnum != null">unsongnum=#{unsongnum}</if>
         where misdate   = #{misdate} and misnum = #{misnum} and misgubun = #{misgubun}  and pmodel='AS'

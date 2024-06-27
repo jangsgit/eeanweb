@@ -4857,6 +4857,8 @@ public class App01CrudController {
             Date date      = new Date(System.currentTimeMillis());
             String ls_date2 = formatter.format(date);
             Index20Dto _index20Dto = new Index20Dto();
+            Index20Dto _index20DtoRe = new Index20Dto();
+            IndexDa024Dto _indexDa024Dto = new IndexDa024Dto();
             if( asKey1Arr.size() > 0){
                 for(int i = 0; i < asKey1Arr.size(); i++){
                     String year = asKey1Arr.get(i).substring(0,4);
@@ -4874,12 +4876,27 @@ public class App01CrudController {
 //                    }
                     _index20Dto.setAs_devcode(ls_misdate + asKey2Arr.get(i) );
                     result = service01.UpdateDevJupsu(_index20Dto);
-                    log.info("result  =====>" + result);
+//                    log.info("result  =====>" + result);
 //                    log.info("setAs_date2  =====>" + ls_date2);
 //                    log.info("getMisdate  =====>" + indexDa024Dto.getMisdate());
                     if (!result){
                         return "error";
                     }
+                    _index20DtoRe = service01.GetAsJumsuDataYU(_index20Dto);
+                    _indexDa024Dto.setMisdate(_index20DtoRe.getMisdate());
+                    _indexDa024Dto.setMisnum(_index20DtoRe.getMisnum());
+                    _indexDa024Dto.setCltcd(_index20DtoRe.getAcode());
+                    _indexDa024Dto.setDevflag(_index20DtoRe.getAs_devflag());
+                    _indexDa024Dto.setDevdatetime(_index20DtoRe.getAs_devdate());
+                    _indexDa024Dto.setUnsongnum(_index20DtoRe.getUnsongnum());
+                    _indexDa024Dto.setReservnum(_index20DtoRe.getReservnum());
+                    _indexDa024Dto.setMisgubun("AA");
+                    result = service14.UpdateDa024Jumsu(_indexDa024Dto);
+                    if (!result){
+                        return "error";
+                    }
+
+
                 }
             }
             return "success";

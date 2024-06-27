@@ -1210,6 +1210,7 @@
                     fixdate: wtab01Dto[i]["fixdate"],   
                     fixdatetime: wtab01Dto[i]["fixdatetime"],  
                     misdatetime: wtab01Dto[i]["misdatetime"],  
+                    devdatetime: wtab01Dto[i]["devdatetime"],  
                     userid: wtab01Dto[i]["userid"],  
                     usernm: wtab01Dto[i]["usernm"],  
                     unsongnum: ls_unsongnum, 
@@ -1343,6 +1344,12 @@
             cols.align = "center";
             cols.width = 100;  
             cols.cssClass = 'switch'
+            wtab01Grid.columns.push(cols);   
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'devdatetime'; 
+            cols.header = '발송시간';
+            cols.align = "center";
+            cols.width = 200;   
             wtab01Grid.columns.push(cols);  
             cols = new wijmo.grid.Column(); 
             cols.binding = 'misdatetime';

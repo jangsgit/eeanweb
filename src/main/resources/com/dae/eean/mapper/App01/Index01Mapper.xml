@@ -76,8 +76,8 @@
     <select id="GetAsJumsuDataYU" parameterType="com.dae.eean.DTO.App01.Index20Dto" resultType="com.dae.eean.DTO.App01.Index20Dto">
         <![CDATA[
             select   as_key1, as_key2, as_model ,as_color, as_suri, as_yumu,as_memo,as_gongjang,as_acorp,as_acorp1,as_acorp2,as_acorp3, as_acorp1 + CAST(as_acorp2 as varchar) as acode,
-                     as_computer,as_damdang,as_memo2,as_aname,as_key4,as_date2,as_memo3, as_devflag, D.jkey, jchgoga as jchgoga0, D.jbonsa_code2, D.jmodel_code2, D.jcolor_code, D.jpb_gubn,
-                     unsongnum, as_devflag, misflag, isnull(misdate, '') as misdate, misnum, E.abonsadam1 as perid,
+                     as_computer,as_damdang,as_memo2,as_aname,as_key4,as_date2,as_memo3,  D.jkey, jchgoga as jchgoga0, D.jbonsa_code2, D.jmodel_code2, D.jcolor_code, D.jpb_gubn,
+                     as_devflag, as_devdate, as_devcode, reservnum, unsongnum, misflag, isnull(misdate, '') as misdate, misnum, E.abonsadam1 as perid,
                      (select pernm from tb_xusers  WITH (NOLOCK) where PERID = E.abonsadam1 and flag = 'CC') AS pernm
             from as_jupsu  WITH (NOLOCK)
                  Left outer JOIN JCODE3 D ON as_yumu = D.jpum AND isnull(D.jpb_gubn,'')  Like concat('%',#{jpb_gubn},'%')
@@ -91,9 +91,9 @@
     <select id="GetAsJumsuDataMU" parameterType="com.dae.eean.DTO.App01.Index20Dto" resultType="com.dae.eean.DTO.App01.Index20Dto">
         <![CDATA[
             select   as_key1, as_key2, as_model ,as_color, as_suri, as_yumu,as_memo,as_gongjang,as_acorp,as_acorp1,as_acorp2,as_acorp3, as_acorp1 + CAST(as_acorp2 as varchar) as acode,
-                     as_computer,as_damdang,as_memo2,as_aname,as_key4,as_date2,as_memo3, as_devflag, '' AS jkey,
+                     as_computer,as_damdang,as_memo2,as_aname,as_key4,as_date2,as_memo3, '' AS jkey,
                      0 AS jchgoga0, '' AS  jbonsa_code2, 'AS' AS jmodel_code2, '' AS jcolor_code, '' AS jpb_gubn,
-                     unsongnum, as_devflag, misflag, isnull(misdate, '') as misdate, misnum, E.abonsadam1 as perid,
+                     as_devflag, as_devdate, as_devcode, reservnum, unsongnum, misflag, isnull(misdate, '') as misdate, misnum, E.abonsadam1 as perid,
                      (select pernm from tb_xusers  WITH (NOLOCK) where PERID = E.abonsadam1 and flag = 'CC') AS pernm
             from as_jupsu  WITH (NOLOCK)
                 Left outer JOIN  cif E WITH (NOLOCK)  ON  as_acorp1 = E.acorp1 and as_acorp2 = E.acorp2 and as_acorp3 = E.acorp3
