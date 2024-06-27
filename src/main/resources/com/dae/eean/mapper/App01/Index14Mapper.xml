@@ -7,15 +7,19 @@
 
 
     <select id="SelectCheckMisnum" parameterType="com.dae.eean.DTO.App01.IndexDa023Dto" resultType="String">
-        <![CDATA[  select top 1 misnum  from tb_da023 WITH (NOLOCK) where misdate = #{misdate} and cltcd=#{cltcd} and misgubun = #{misgubun} and ( Len(isnull(makflag,'')) = 0 OR makflag = '0')   order by misdate, misnum     ]]>
+        <![CDATA[  select top 1 misnum  from tb_da024 WITH (NOLOCK) where misdate = #{misdate} and cltcd=#{cltcd} and misgubun = #{misgubun} and isnull(pmodel,'') <> 'AS' and ( Len(isnull(makflag,'')) = 0 OR makflag = '0')    order by misdate, misnum     ]]>
     </select>
 
     <select id="SelectCheckMisnumMkflag" parameterType="com.dae.eean.DTO.App01.IndexDa023Dto" resultType="String">
-        <![CDATA[  select top 1 misnum  from tb_da023 WITH (NOLOCK) where misdate = #{misdate}     order by misdate, misnum desc     ]]>
+        <![CDATA[  select top 1 misnum  from tb_da024 WITH (NOLOCK) where misdate = #{misdate} and isnull(pmodel,'') <> 'AS'     order by misdate, misnum desc     ]]>
+    </select>
+
+    <select id="SelectCheckMisnumMkflagJupsu" parameterType="com.dae.eean.DTO.App01.IndexDa023Dto" resultType="String">
+        <![CDATA[  select top 1 misnum  from tb_da024 WITH (NOLOCK) where misdate = #{misdate} and isnull(pmodel,'') = 'AS'     order by misdate, misnum desc     ]]>
     </select>
 
     <select id="SelectCheckMisnumOrd" parameterType="com.dae.eean.DTO.App01.IndexDa023Dto" resultType="String">
-        <![CDATA[  select top 1 misnum  from tb_da023 WITH (NOLOCK) where misdate = #{omisdate} and cltcd=#{cltcd} and misgubun = #{misgubun}  order by misdate, misnum     ]]>
+        <![CDATA[  select top 1 misnum  from tb_da024 WITH (NOLOCK) where misdate = #{omisdate} and cltcd=#{cltcd} and misgubun = #{misgubun} and isnull(pmodel,'') <> 'AS' order by misdate, misnum     ]]>
     </select>
 
     <select id="SelectCheckMisnumWish" parameterType="com.dae.eean.DTO.App01.IndexDa023Dto" resultType="String">

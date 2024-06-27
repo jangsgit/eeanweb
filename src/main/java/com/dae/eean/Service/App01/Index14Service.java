@@ -36,6 +36,10 @@ public class Index14Service {
     public String SelectCheckMisnumMkflag(IndexDa023Dto parm){
         return  appMapper.SelectCheckMisnumMkflag(parm);
     }
+    public String SelectCheckMisnumMkflagJupsu(IndexDa023Dto parm){
+        return  appMapper.SelectCheckMisnumMkflagJupsu(parm);
+    }
+
 
     public String SelectCheckMisnumOrd(IndexDa023Dto parm){
         return  appMapper.SelectCheckMisnumOrd(parm);

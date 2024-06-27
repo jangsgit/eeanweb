@@ -4950,9 +4950,9 @@ public class App01CrudController {
                     _indexDa024Dto.setUnsongnum(_index20DtoRe.getUnsongnum());
 
                     if(ls_misdateCHK.length() == 0 || ls_misdateCHK == null || ls_misdateCHK.equals("")){
-                        ls_misnum = service14.SelectCheckMisnumMkflag(_indexDa023Dto);  //주문된 순번max 찾기
+                        ls_misnum = service14.SelectCheckMisnumMkflagJupsu(_indexDa023Dto);  //주문된 순번max 찾기
                         if(ls_misnum == null){
-                            ls_misnum = "0001";
+                            ls_misnum = "5001";
                         }else{
                             Integer ll_misnum = Integer.parseInt(ls_misnum) + 1;
                             ls_misnum = ll_misnum.toString();

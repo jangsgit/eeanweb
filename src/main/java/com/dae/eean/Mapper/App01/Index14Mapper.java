@@ -13,6 +13,7 @@ public interface Index14Mapper {
     public String SelectMaxMisnum(IndexDa023Dto parm) ;
     public String SelectCheckMisnum(IndexDa023Dto parm) ;
     public String SelectCheckMisnumMkflag(IndexDa023Dto parm) ;
+    public String SelectCheckMisnumMkflagJupsu(IndexDa023Dto parm) ;
 
     public String SelectCheckMisnumOrd(IndexDa023Dto parm) ;
     public  IndexDa024Dto SelectCheckJpum024(IndexDa024Dto parm) ;
