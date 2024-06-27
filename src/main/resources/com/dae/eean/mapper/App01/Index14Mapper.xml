@@ -15,7 +15,7 @@
     </select>
 
     <select id="SelectCheckMisnumMkflagJupsu" parameterType="com.dae.eean.DTO.App01.IndexDa023Dto" resultType="String">
-        <![CDATA[  select top 1 misnum  from tb_da024 WITH (NOLOCK) where misdate = #{misdate} and isnull(pmodel,'') = 'AS'     order by misdate, misnum desc     ]]>
+        <![CDATA[  select top 1 misnum  from tb_da024 WITH (NOLOCK) where misdate = #{misdate} and isnull(pmodel,'') = 'AS' and left(misnum,1) = '5'    order by misdate, misnum desc     ]]>
     </select>
 
     <select id="SelectCheckMisnumOrd" parameterType="com.dae.eean.DTO.App01.IndexDa023Dto" resultType="String">
