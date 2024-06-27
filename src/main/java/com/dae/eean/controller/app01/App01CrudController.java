@@ -4946,7 +4946,6 @@ public class App01CrudController {
                     _indexDa023Dto.setMisgubun("AA");
                     _indexDa024Dto.setUserid(userid);
                     _indexDa024Dto.setUsernm(usernm);
-                    _indexDa024Dto.setJpb_gubn(_index20DtoRe.getAs_aname());
                     _indexDa024Dto.setDevflag(_index20DtoRe.getAs_devflag());
                     _indexDa024Dto.setUnsongnum(_index20DtoRe.getUnsongnum());
 
@@ -4961,7 +4960,7 @@ public class App01CrudController {
                                 ls_misnum = "000" + ls_misnum;
                             }else if(ls_misnum.length() == 2){
                                 ls_misnum = "00" + ls_misnum;
-                            }else {
+                            }else if(ls_misnum.length() == 3){
                                 ls_misnum = "0" + ls_misnum;
                             }
                         }
@@ -4999,6 +4998,7 @@ public class App01CrudController {
                     _indexDa024Dto.setAcorp(_index20DtoRe.getAs_acorp());
                     _indexDa024Dto.setPernm(_index20DtoRe.getPernm());
                     _indexDa024Dto.setPerid(_index20DtoRe.getPerid());
+                    _indexDa024Dto.setJpb_gubn(_index20DtoRe.getAs_aname());
 
                     _indexDa024Dto.setAddamt(0);
                     _indexDa024Dto.setSeq("001");
