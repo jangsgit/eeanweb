@@ -1305,6 +1305,8 @@
                         asYumu.pop();   
                     }    
                     for (var i = 0; i < chkTabA.length; i++) {  
+                        var ls_asYumu = chkTabA[i]._data.as_yumu;  
+                        ls_asYumu = ls_asYumu.trim(); 
                         misdateArr[i]   = chkTabA[i]._data.misdate;
                         misnumArr[i]   = chkTabA[i]._data.misnum;
                         ascorp1     = chkTabA[i]._data.as_acorp1;
@@ -1321,8 +1323,10 @@
                         }else{
                             fixflagArr[i] = "1";
                         }
-                        var ls_asYumu = chkTabA[i]._data.as_yumu;  
-                        ls_asYumu = ls_asYumu.trim(); 
+                        if(ls_asYumu == null || ls_asYumu.length == 0){
+                            alert("유무상을 등록한 후에 발송출력해주세요." + asKey1Arr[i] + '/' + asKey2Arr[i]) ; 
+                            return ;       
+                        }
                         var ls_misdate      = misdateArr[i];  
                         if((ls_misdate == null || ls_misdate.length == 0) && ls_asYumu == '유상' ){ 
                             alert("주문등록한 후에 발송출력해주세요." + asKey1Arr[i] + '/' + asKey2Arr[i]) ; 
