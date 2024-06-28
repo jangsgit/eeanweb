@@ -4864,6 +4864,7 @@ public class App01CrudController {
     @RequestMapping(value="/index20/deliv")
     public String index21Deliv(@RequestParam(value = "asKey1Arr[]") List<String> asKey1Arr
             ,@RequestParam( value =  "asKey2Arr[]") List<String> asKey2Arr
+            ,@RequestParam( value =  "asYumu[]") List<String> asYumu
             , Model model
             , HttpServletRequest request){
 
@@ -4876,11 +4877,13 @@ public class App01CrudController {
             Index20Dto _index20Dto = new Index20Dto();
             Index20Dto _index20DtoRe = new Index20Dto();
             IndexDa024Dto _indexDa024Dto = new IndexDa024Dto();
+            String lsYumu = "";
             if( asKey1Arr.size() > 0){
                 for(int i = 0; i < asKey1Arr.size(); i++){
                     String year = asKey1Arr.get(i).substring(0,4);
                     String month = asKey1Arr.get(i).substring(5,7);
                     String day = asKey1Arr.get(i).substring(8,10);
+                           lsYumu = asYumu.get(i);
                     String ls_misdate = year + month + day ;
                     _index20Dto.setAs_key1(asKey1Arr.get(i));
                     _index20Dto.setAs_key2(asKey2Arr.get(i));
@@ -4899,18 +4902,20 @@ public class App01CrudController {
                     if (!result){
                         return "error";
                     }
-                    _index20DtoRe = service01.GetAsJumsuDataYU(_index20Dto);
-                    _indexDa024Dto.setMisdate(_index20DtoRe.getMisdate());
-                    _indexDa024Dto.setMisnum(_index20DtoRe.getMisnum());
-                    _indexDa024Dto.setCltcd(_index20DtoRe.getAcode());
-                    _indexDa024Dto.setDevflag(_index20DtoRe.getAs_devflag());
-                    _indexDa024Dto.setDevdatetime(_index20DtoRe.getAs_devdate());
-                    _indexDa024Dto.setUnsongnum(_index20DtoRe.getUnsongnum());
-                    _indexDa024Dto.setReservnum(_index20DtoRe.getReservnum());
-                    _indexDa024Dto.setMisgubun("AA");
-                    result = service14.UpdateDa024Jumsu(_indexDa024Dto);
-                    if (!result){
-                        return "error";
+                    if(lsYumu.equals("유상")){
+                        _index20DtoRe = service01.GetAsJumsuDataYU(_index20Dto);
+                        _indexDa024Dto.setMisdate(_index20DtoRe.getMisdate());
+                        _indexDa024Dto.setMisnum(_index20DtoRe.getMisnum());
+                        _indexDa024Dto.setCltcd(_index20DtoRe.getAcode());
+                        _indexDa024Dto.setDevflag(_index20DtoRe.getAs_devflag());
+                        _indexDa024Dto.setDevdatetime(_index20DtoRe.getAs_devdate());
+                        _indexDa024Dto.setUnsongnum(_index20DtoRe.getUnsongnum());
+                        _indexDa024Dto.setReservnum(_index20DtoRe.getReservnum());
+                        _indexDa024Dto.setMisgubun("AA");
+                        result = service14.UpdateDa024Jumsu(_indexDa024Dto);
+                        if (!result){
+                            return "error";
+                        }
                     }
 
 

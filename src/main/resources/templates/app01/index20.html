@@ -1302,6 +1302,7 @@
                         asKey1Arr.pop();
                         asKey2Arr.pop(); 
                         fixflagArr.pop(); 
+                        asYumu.pop();   
                     }    
                     for (var i = 0; i < chkTabA.length; i++) {  
                         misdateArr[i]   = chkTabA[i]._data.misdate;
@@ -1313,14 +1314,17 @@
                         gubunArr[i]  = 'AA'; 
                         asKey1Arr[i]   = chkTabA[i]._data.as_key1;
                         asKey2Arr[i]   = chkTabA[i]._data.as_key2; 
+                        asYumu[i]      = chkTabA[i]._data.as_yumu;  
                         fixflagArr[i]  = '1';  
                         if(!fixflagArr[i]){
                             fixflagArr[i] = "0";
                         }else{
                             fixflagArr[i] = "1";
                         }
+                        var ls_asYumu = chkTabA[i]._data.as_yumu;  
+                        ls_asYumu = ls_asYumu.trim(); 
                         var ls_misdate      = misdateArr[i];  
-                        if(ls_misdate == null || ls_misdate.length == 0 ){ 
+                        if((ls_misdate == null || ls_misdate.length == 0) && ls_asYumu == '유상' ){ 
                             alert("주문등록한 후에 발송출력해주세요." + asKey1Arr[i] + '/' + asKey2Arr[i]) ; 
                             return ;               
                         }  
@@ -1342,7 +1346,8 @@
                         type:"POST",
                         data: { 
                             "asKey1Arr"  : asKey1Arr,  
-                            "asKey2Arr"   : asKey2Arr 
+                            "asKey2Arr"   : asKey2Arr ,   
+                            "asYumu"   : asYumu , 
                         }, 
                         async:false,
                         success:function(data){   
@@ -1428,8 +1433,7 @@
                             "asYumu"   : asYumu , 
                             "asAname"   : asAname ,        
                             "userid"  : gsUserid   ,      
-                            "usernm"  : gsUsernm   ,      
-                            "misdate"  : ls_misdate  
+                            "usernm"  : gsUsernm   
                         }, 
                         async:false,
                         success:function(data){   
