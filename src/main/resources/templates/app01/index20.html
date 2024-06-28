@@ -1389,26 +1389,32 @@
                         misdateArr.pop(); 
                         misnumArr.pop();
                     }    
+                    var ichkcnt = 0
                     for (var i = 0; i < chkTabA.length; i++) { 
-                        asKey1Arr[i]   = chkTabA[i]._data.as_key1;
-                        asKey2Arr[i]   = chkTabA[i]._data.as_key2; 
-                        asYumu[i]      = chkTabA[i]._data.as_yumu; 
-                        misdateArr[i]      = chkTabA[i]._data.misdate; 
-                        misnumArr[i]      = chkTabA[i]._data.misnum; 
-                        var ls_asname      = chkTabA[i]._data.as_aname; 
-                        ls_asname = ls_asname.trim();
-                        asAname[i] = ls_asname; 
+                        var ls_asname = chkTabA[i]._data.as_aname; 
+                        var ls_asYumu = chkTabA[i]._data.as_yumu;  
+                        var ls_misdate = chkTabA[i]._data.misdate
+                            ls_asname = ls_asname.trim();
+                            ls_asYumu = ls_asYumu.trim(); 
                         if (ls_asname == 'Z'){
-                            alert("비거래가 선택되었습니다. 확인하세요") 
-                            return ;   
-                        }
-                        var ls_misdate      = misdateArr[i];  
+                            //alert("비거래가 선택되었습니다. 확인하세요") 
+                            //return ;   
+                            continue;
+                        }  
+                        if (ls_asYumu == '무상'){
+                            continue;
+                        }; 
                         if(ls_misdate != null && ls_misdate.length > 0 ){ 
                             //alert("이미 주문된 자료가 있습니다. 확인하세요") ; 
-                            //return ;               
+                            //return ; 
+                            continue;              
                         }  
-                    }    
-                    //console.log(asAname)
+                        asKey1Arr[ichkcnt]   = chkTabA[i]._data.as_key1;
+                        asKey2Arr[ichkcnt]   = chkTabA[i]._data.as_key2; 
+                        misdateArr[ichkcnt]      = chkTabA[i]._data.misdate; 
+                        misnumArr[ichkcnt]      = chkTabA[i]._data.misnum; 
+                        ichkcnt++;
+                    }     
                     if(asKey1Arr.length == null || asKey1Arr.length == 0){ 
                         alert("주문등록할 내역을 선택하세요") 
                         return ;               
@@ -1782,8 +1788,7 @@
                     as_devflag:  bfixflag,                                                 
                 });
                 cnt++;
-            }   
-             console.log("wtab01_data",wtab01_data) 
+            }    
             // console.log(wtab01_data.length);            
             wtab01Grid.columns.clear();  
             wtab01Grid.autoGenerateColumns = false; 
