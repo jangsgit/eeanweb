@@ -420,6 +420,7 @@
                     if(ls_bcifname == null || ls_bcifname.length == 0 || ls_bcifname == ""){  
                         ls_bacode = "%";
                     }   
+                    var ls_checkAS = "%";
                     var ls_makflag = "1" ;
                     $.ajax({
                         url: '/app01m/index14/list',  
@@ -435,6 +436,7 @@
                             "misgubun"    : '%',
                             "jpbgubn"    : ls_jpbgubn,
                             "makflag"    : ls_makflag,
+                            "checkAS"    : ls_checkAS,
                             "mflag"  : 'BB'   ,  
                         },    
                         async:false,

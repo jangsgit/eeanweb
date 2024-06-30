@@ -157,7 +157,7 @@
                                                     <option value="BB">거래처</option>
                                                     <option value="CC">영업사원</option>
                                                   </select> 
-                                            </div>   
+                                            </div> 
                                             <div class="col-1 col-sm-1">  
                                                 <table>
                                                     <tr>
@@ -192,8 +192,13 @@
                                         <div class="container-fluid">
                                             <p>
                                                 현재 <b><span id="checked-count">0</span></b> 개의 항목이 선택되었습니다. 
-                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>수량을 수정하실경우 수량을 먼저 수정한 후에 체크박스를 선택해야 적용됩니다. </b>
-                                            </p>  
+                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>수량을 수정하실경우 수량을 먼저 수정한 후에 체크박스를 선택해야 적용됩니다. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </b>
+                                                  
+                                                <input class="form-check-input" type="checkbox" value="AS" id="checkAS">
+                                                <label class="form-check-label" for="checkall" style="color: blue;  font-size: 15px;">
+                                                    AS접수 주문포함 
+                                                </label> 
+                                            </p>   
                                             <div id="wtab02Grid_div"  style="overflow:scroll;   height:700px;    margin:0 auto; "></div>  
                                             <!-- <div id="tab02Pager"></div> -->
                                         </div>
@@ -501,7 +506,7 @@
           
          var misdateWArr = new Array();
          var misnumWArr = new Array();
-         var seqWArr    = new Array(); 
+         var seqWArr    = new Array();  
          var cltcdWArr    = new Array();
          var gubunWArr    = new Array(); 
          var gubunWArr    = new Array();  
@@ -2221,7 +2226,8 @@
                     var ls_misdevflag = document.getElementById('misdevflag').value; 
                     var ls_misgubun = document.getElementById('misgubun').value; 
                     var ls_bjpbgubn = document.getElementById('bjpbgubn').value;  
-                    
+                    var ls_checkAS = document.getElementById('checkAS').value;  
+                    var ls_chkbool = document.getElementById('checkAS').checked;  
                     if(ls_frdate == null || ls_frdate.length == 0 || ls_frdate == ""){ 
                         alert("조회일자를 등록하세요") 
                         document.getElementById("frdate").focus(); 
@@ -2240,13 +2246,16 @@
                     }    
                     if(ls_misgubun == "주문구분"){ 
                         ls_misgubun = "%";
-                    }    
+                    }     
+                    if(!ls_chkbool) {
+                        ls_checkAS = "%"
+                    }   
                     if(ls_bcifname == null || ls_bcifname.length == 0 || ls_bcifname == ""){  
                         ls_bacode = "%";
                     }   
                     ls_abonsadam1 = "";
-                    // console.log(ls_misfixflag)
-                    // console.log(ls_misdevflag)
+                     console.log(ls_checkAS)
+                     console.log(ls_chkbool)
                     // console.log(ls_misgubun)
 
                     $.ajax({
@@ -2262,6 +2271,7 @@
                             "devflag"    : ls_misdevflag,
                             "misgubun"    : ls_misgubun,
                             "jpbgubn"    : ls_bjpbgubn,
+                            "checkAS"    : ls_checkAS,
                             "makflag"    : '1',
                             "mflag"  : 'AA'   ,  
                         }, 

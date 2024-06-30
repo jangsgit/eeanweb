@@ -2388,6 +2388,7 @@ public class App01CrudController {
                                   @RequestParam("jpbgubn") String jpbgubn,
                                   @RequestParam("makflag") String makflag,
                                   @RequestParam("mflag") String mflag,
+                                  @RequestParam("checkAS") String checkAS,
                                   Model model, HttpServletRequest request) throws Exception{
         CommDto.setMenuTitle("주문등록");
         CommDto.setMenuUrl("주문등록>주문현황");
@@ -2461,11 +2462,24 @@ public class App01CrudController {
 //            log.info("jpbgubn =====>" + jpbgubn);
 //            log.info("makflag =====>" + misgubun);
 //            log.info("mflag =====>" + mflag);
-            if(acode.equals("%")){
-                _indexDa024ListDto = service14.SelectDa024ListLike(_indexDa024Dto);
+
+
+            if(checkAS.equals("AS")){
+                //as접수 포함
+                if(acode.equals("%")){
+                    _indexDa024ListDto = service14.SelectDa024ListLikeAS(_indexDa024Dto);
+                }else{
+                    _indexDa024ListDto = service14.SelectDa024ListAS(_indexDa024Dto);
+                }
             }else{
-                _indexDa024ListDto = service14.SelectDa024List(_indexDa024Dto);
+                //as접수 미포함
+                if(acode.equals("%")){
+                    _indexDa024ListDto = service14.SelectDa024ListLike(_indexDa024Dto);
+                }else{
+                    _indexDa024ListDto = service14.SelectDa024List(_indexDa024Dto);
+                }
             }
+
 //            log.info("misgubun2 =====>" + misgubun);
             model.addAttribute("indexDa024ListDto",_indexDa024ListDto);
 
@@ -4904,17 +4918,22 @@ public class App01CrudController {
                     }
                     if(lsYumu.equals("유상")){
                         _index20DtoRe = service01.GetAsJumsuDataYU(_index20Dto);
-                        _indexDa024Dto.setMisdate(_index20DtoRe.getMisdate());
-                        _indexDa024Dto.setMisnum(_index20DtoRe.getMisnum());
-                        _indexDa024Dto.setCltcd(_index20DtoRe.getAcode());
-                        _indexDa024Dto.setDevflag(_index20DtoRe.getAs_devflag());
-                        _indexDa024Dto.setDevdatetime(_index20DtoRe.getAs_devdate());
-                        _indexDa024Dto.setUnsongnum(_index20DtoRe.getUnsongnum());
-                        _indexDa024Dto.setReservnum(_index20DtoRe.getReservnum());
-                        _indexDa024Dto.setMisgubun("AA");
-                        result = service14.UpdateDa024Jumsu(_indexDa024Dto);
-                        if (!result){
-                            return "error";
+                        String ls_misate = _index20DtoRe.getMisdate();
+                        if(ls_misate == null){ls_misate = "";}
+                        //접수등록한 건만 업데이트
+                        if(ls_misate != null && ls_misate.length() > 0){
+                            _indexDa024Dto.setMisdate(_index20DtoRe.getMisdate());
+                            _indexDa024Dto.setMisnum(_index20DtoRe.getMisnum());
+                            _indexDa024Dto.setCltcd(_index20DtoRe.getAcode());
+                            _indexDa024Dto.setDevflag(_index20DtoRe.getAs_devflag());
+                            _indexDa024Dto.setDevdatetime(_index20DtoRe.getAs_devdate());
+                            _indexDa024Dto.setUnsongnum(_index20DtoRe.getUnsongnum());
+                            _indexDa024Dto.setReservnum(_index20DtoRe.getReservnum());
+                            _indexDa024Dto.setMisgubun("AA");
+                            result = service14.UpdateDa024Jumsu(_indexDa024Dto);
+                            if (!result){
+                                return "error";
+                            }
                         }
                     }
 

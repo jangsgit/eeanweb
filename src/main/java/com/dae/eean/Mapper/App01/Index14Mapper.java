@@ -82,11 +82,13 @@ public interface Index14Mapper {
     public Boolean UpdateDA026Amt(IndexDa024Dto parm) ;
 
     public List<IndexDa024Dto> SelectDa024List(IndexDa024Dto parm) ;
+    public List<IndexDa024Dto> SelectDa024ListAS(IndexDa024Dto parm) ;
     public List<IndexDa024Dto> SelectDa024ListJang(IndexDa024Dto parm) ;
     public List<IndexDa024Dto> SelectDa024ListDel(IndexDa024Dto parm) ;
     public List<IndexDa024Dto> SelectDa024ListMakflag(IndexDa024Dto parm) ;
 
     public List<IndexDa024Dto> SelectDa024ListLike(IndexDa024Dto parm) ;
+    public List<IndexDa024Dto> SelectDa024ListLikeAS(IndexDa024Dto parm) ;
     public List<IndexDa024Dto> SelectDa024ListLikeJang(IndexDa024Dto parm) ;
     public List<IndexDa024Dto> SelectDa024ListLikeJupsu(IndexDa024Dto parm) ;
 

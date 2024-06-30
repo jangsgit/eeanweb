@@ -1353,6 +1353,7 @@
                         document.getElementById("bcifname").focus(); 
                         return ;               
                     }    
+                    var ls_checkAS = "%";
                     ls_perid = "";
                     $.ajax({
                         url: '/app01m/index14/list',  
@@ -1366,6 +1367,7 @@
                             "fixflag"    : '%',
                             "devflag"    : '%',
                             "jpbgubn"    : ls_bjpbgubn,
+                            "checkAS"    : ls_checkAS,
                             "misgubun"    : '%',
                             "mflag"  : 'BB'   ,      
                         }, 

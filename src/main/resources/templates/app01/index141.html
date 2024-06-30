@@ -631,7 +631,7 @@
                     if(ls_jpumnm == null || ls_jpumnm.length == 0 || ls_jpumnm == ""){  
                         ls_jkey = "%"; 
                     }  
-                     
+                    var ls_checkAS = "%";
                     var ls_makflag = "1" ;  
                     $.ajax({
                         url: '/app01m/index14/list',  
@@ -647,6 +647,7 @@
                             "misgubun"    : '%',
                             "jpbgubn"    : '%',
                             "makflag"    : ls_makflag,
+                            "checkAS"    : ls_checkAS,
                             "mflag"  : '%'   ,  
                         },    
                         async:false,

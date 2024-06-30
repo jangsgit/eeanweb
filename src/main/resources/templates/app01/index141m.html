@@ -516,6 +516,7 @@
                         ls_jkey = "%";
                     }  
                      
+                    var ls_checkAS = "%";
                     var ls_makflag = "1" ; 
                     $.ajax({
                         url: '/app01m/index14/list',   
@@ -531,6 +532,7 @@
                             "misgubun"    : '%',
                             "jpbgubn"    :'%' ,
                             "makflag"    : ls_makflag,
+                            "checkAS"    : ls_checkAS,
                             "mflag"  : 'CC'   ,  
                         },    
                         async:false,
