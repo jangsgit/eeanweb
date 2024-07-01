@@ -5079,6 +5079,11 @@ public class App01CrudController {
                         _indexDa024Dto.setAmt(0);
                         _indexDa024Dto.setSamt(0);
                     };
+//                    log.info("misnum  =====>" + _indexDa024Dto.getMisnum());
+//                    log.info("setUamt  =====>" + _indexDa024Dto.getUamt());
+//                    log.info("setAddamt  =====>" + _indexDa024Dto.getAddamt());
+//                    log.info("setAmt  =====>" + _indexDa024Dto.getAmt());
+//                    log.info("setSamt  =====>" + _indexDa024Dto.getSamt());
                     _indexDa024Dto.setIndate(getToDate());
                     _indexDa024Dto.setInperid(userid);
                     _indexDa024Dto.setPunit("EA");
