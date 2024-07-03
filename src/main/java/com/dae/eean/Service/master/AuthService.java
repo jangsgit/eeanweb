@@ -35,6 +35,7 @@ public class AuthService {
 
     public UserFormDto GetUserInfoDto(UserFormDto parm){return authMapper.GetUserInfoDto(parm);}
     public UserFormDto GetUserInfoDto2(UserFormDto parm){return authMapper.GetUserInfoDto2(parm);}
+    public UserFormDto GetUserInfoDto3(UserFormDto parm){return authMapper.GetUserInfoDto3(parm);}
 
     public String GetClientInfo(UserFormDto parm){return authMapper.GetClientInfo(parm);}
     public String GetClientInfoName(UserFormDto parm){return authMapper.GetClientInfoName(parm);}
@@ -82,6 +83,17 @@ public class AuthService {
     public boolean UpdateUserInfoCC(UserFormDto parm){
         int queryResult = 1;
         queryResult = authMapper.UpdateUserInfoCC(parm);
+        if(queryResult < 1){
+            queryResult = 0;
+        }
+        return (queryResult > 0);
+    }
+
+    //사용자사용여부
+    @Transactional
+    public boolean UpdateUserInfoBB(UserFormDto parm){
+        int queryResult = 1;
+        queryResult = authMapper.UpdateUserInfoBB(parm);
         if(queryResult < 1){
             queryResult = 0;
         }

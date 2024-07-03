@@ -266,6 +266,37 @@ public class App01CrudController {
             String ls_acode = _index02Dto.getAcode();
             String ls_acorp2 = "";
             Boolean result = false;
+            String ls_userid = "";
+            //사용자등록/////////////////////////////////////////////////////////////////
+            ls_userid = _index02Dto.getAsano1() + _index02Dto.getAsano2() + _index02Dto.getAsano3();
+
+            if(_index02Dto.getAgita().equals("P")){
+                _appUserFormDto.setRole(_index02Dto.getAgita());
+                _appUserFormDto.setCustnm("피오비노");
+            }else if(_index02Dto.getAgita().equals("B")){
+                _appUserFormDto.setRole(_index02Dto.getAgita());
+                _appUserFormDto.setCustnm("블리스");
+            }else{
+                _appUserFormDto.setRole("%");
+                _appUserFormDto.setCustnm("%");
+            }
+            _appUserFormDto.setSpjangcd("ZZ");
+            _appUserFormDto.setUserid(ls_userid);
+            _appUserFormDto.setSaupnum(_index02Dto.getAsano1() + _index02Dto.getAsano2() + _index02Dto.getAsano3() );
+            _appUserFormDto.setPhone(_index02Dto.getAtelno());
+            _appUserFormDto.setUseyn("Y");
+            _appUserFormDto.setRole(_index02Dto.getAgita());
+            _appUserFormDto.setUsername(_index02Dto.getAcorp());
+            _appUserFormDto.setPernm(_index02Dto.getAcorp());
+            _appUserFormDto.setPasswd1(_index02Dto.getAsano3());
+            _appUserFormDto.setPasswd2(_index02Dto.getAsano3());
+            _appUserFormDto.setFlag("BB");
+            _appUserFormDto.setRnum("0");
+            _appUserFormDto.setCustcd("actcd");
+            _appUserFormDto.setCustnm(_index02Dto.getAcorp());
+            _appUserFormDto.setPerid(_index02Dto.getAcorp1() + _index02Dto.getAcorp2());
+
+            ///////////////////////////////////////////////////////////////////
             if (ls_acode == null || ls_acode.equals("")) {
                 Integer ll_acorp2 = Integer.parseInt(service02.getIndex02MaxSeq(_index02Dto.getAcorp1())) + 1;
                 ls_acorp2 = ll_acorp2.toString();
@@ -274,41 +305,22 @@ public class App01CrudController {
                 if (!result) {
                     return "error";
                 }
-                //사용자등록
-                if(_index02Dto.getAgita().equals("P")){
-                    _appUserFormDto.setRole(_index02Dto.getAgita());
-                    _appUserFormDto.setCustnm("피오비노");
-                }else if(_index02Dto.getAgita().equals("B")){
-                    _appUserFormDto.setRole(_index02Dto.getAgita());
-                    _appUserFormDto.setCustnm("블리스");
-                }else{
-                    _appUserFormDto.setRole("%");
-                    _appUserFormDto.setCustnm("%");
+
+            } else {
+                result = service02.UpdateCif(_index02Dto);
+                if (!result) {
+                    return "error";
                 }
-                String ls_userid = "";
-                ls_userid = _index02Dto.getAsano1() + _index02Dto.getAsano2() + _index02Dto.getAsano3();
-                _appUserFormDto.setSpjangcd("ZZ");
-                _appUserFormDto.setUserid(ls_userid);
-                _appUserFormDto.setSaupnum(ls_userid);
-                _appUserFormDto.setPhone(_index02Dto.getAtelno());
-                _appUserFormDto.setUseyn("Y");
-                _appUserFormDto.setRole(_index02Dto.getAgita());
-                _appUserFormDto.setUsername(_index02Dto.getAcorp());
-                _appUserFormDto.setPernm(_index02Dto.getAname());
-                _appUserFormDto.setPasswd1(_index02Dto.getAsano3());
-                _appUserFormDto.setPasswd2(_index02Dto.getAsano3());
-                _appUserFormDto.setFlag("BB");
-                _appUserFormDto.setRnum("0");
-                _appUserFormDto.setCustcd("actcd");
-                _appUserFormDto.setCustnm(_index02Dto.getAcorp());
-                _appUserFormDto.setPerid(_index02Dto.getAcorp1() + _index02Dto.getAcorp2());
+            }
+            UserFormDto _appUserDto = service_auth.GetUserInfoDto3(_appUserFormDto);
+            if (_appUserDto == null){
                 result = service_auth.TB_XUSERS_INSERT(_appUserFormDto);
                 if (!result) {
                     return "error";
                 }
-
-            } else {
-                result = service02.UpdateCif(_index02Dto);
+            }else{
+                _appUserFormDto.setSeq(_appUserDto.getSeq());
+                result = service_auth.UpdateUserInfoBB(_appUserFormDto);
                 if (!result) {
                     return "error";
                 }

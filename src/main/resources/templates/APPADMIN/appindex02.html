@@ -193,6 +193,7 @@
         document.getElementById('actuseyn').value = arg3;  
         document.getElementById('actusernamez').value = arg4;  
         document.getElementById('actuserpwz').value = arg5;  
+        //seq, userid, useyn, username, passwd1
         // document.getElementById("actnmbtn").click();
         // document.getElementById('searchtext').value = arg1;  
         // listUp02(); 
@@ -239,12 +240,6 @@
             cols.header = '아이디';
             cols.align = "center";
             cols.width = '*'; 
-            cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
-                text: '<b>${item.userid}</b>',
-                click: (e, ctx) => {
-                    menumodal_click(ctx.item.seq, ctx.item.userid, ctx.item.useyn, ctx.item.username, ctx.item.passwd1);
-                }
-            }); 
             wapp04Grid.columns.push(cols);  
             cols = new wijmo.grid.Column(); 
             cols.binding = 'passwd1';
@@ -257,6 +252,12 @@
             cols.header = '사용자';
             cols.align = "center";
             cols.width = '*'; 
+            cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
+                text: '<b>${item.username}</b>',
+                click: (e, ctx) => {
+                    menumodal_click(ctx.item.seq, ctx.item.userid, ctx.item.useyn, ctx.item.username, ctx.item.passwd1);
+                }
+            }); 
             wapp04Grid.columns.push(cols);  
             cols = new wijmo.grid.Column(); 
             cols.binding = 'custnm';
@@ -566,16 +567,16 @@
                                 wactnmChk_2(ctx.item.seq, ctx.item.userid, ctx.item.useyn, ctx.item.username, ctx.item.passwd1  );
                             }
                         })
-                    },     
-                { binding: 'userid', header: '아이디', width: '*',   align:"center",  isReadOnly: true ,
+                    },   
+                { binding: 'userid', header: '아이디', width: '*', format: '*' , align:"center", isReadOnly: true},   
+                { binding: 'passwd1', header: '비밀번호', width: '*', format: '*' , align:"center", isReadOnly: true}, 
+                { binding: 'username', header: '사용자', width: '*',   align:"center",  isReadOnly: true ,
                         cellTemplate: wijmo.grid.cellmaker.CellMaker.makeLink({ 
-                            text: '<b>${item.userid}</b>',
+                            text: '<b>${item.username}</b>',
                             click: (e, ctx) => {
                                 menumodal_click(ctx.item.seq, ctx.item.userid, ctx.item.useyn, ctx.item.username, ctx.item.passwd1   );
                             }
                         })} , 
-                { binding: 'passwd1', header: '비밀번호', width: '*', format: '*' , align:"center", isReadOnly: true}, 
-                { binding: 'username', header: '사용자', width: '*', format: '*' , align:"center", isReadOnly: true}, 
                 { binding: 'custnm', header: '거래처명', width: '*', format: '*', align:"center", isReadOnly: true },  
                 { binding: 'phone', header: '전화번호', width: '*', format: '*', align:"center", isReadOnly: true },  
             ], 

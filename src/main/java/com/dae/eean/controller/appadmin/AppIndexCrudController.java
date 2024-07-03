@@ -264,6 +264,7 @@ public class AppIndexCrudController {
             appUserFormDto.setPerid(userid);
             appUserFormDto.setPassword(passwd1);
             appUserFormDto.setRole("%");
+            appUserFormDto.setSaupnum("");
             boolean result = service.TB_XUSERS_INSERT(appUserFormDto);
             if (!result) {
                 return "error";
@@ -313,7 +314,7 @@ public class AppIndexCrudController {
             appUserFormDto.setRnum("0");
             appUserFormDto.setCustcd("actcd");
             appUserFormDto.setPerid(perid);
-
+            appUserFormDto.setSaupnum("");
             boolean result = service.TB_XUSERS_INSERT(appUserFormDto);
             if (!result) {
                 return "error";

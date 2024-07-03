@@ -15,6 +15,7 @@ public interface AuthDBMapper {
     public void TBXUSERS_Insert(UserFormDto userinfo);
     public UserFormDto GetUserInfo(UserFormDto userinfo);
     public UserFormDto GetUserInfoDto2(UserFormDto userinfo);
+    public UserFormDto GetUserInfoDto3(UserFormDto userinfo);
 
     public UserFormDto GetCustInfo(UserFormDto userinfo);
     public UserFormDto GetAdminInfo(UserFormDto userinfo);
@@ -51,6 +52,7 @@ public interface AuthDBMapper {
 
     public int UpdateUserInfo(UserFormDto Parm);
     public int UpdateUserInfoCC(UserFormDto Parm);
+    public int UpdateUserInfoBB(UserFormDto Parm);
 
     public int TB_XUSERS_INSERT(UserFormDto Parm);
 
