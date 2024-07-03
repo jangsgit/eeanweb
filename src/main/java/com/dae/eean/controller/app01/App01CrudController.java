@@ -4851,8 +4851,6 @@ public class App01CrudController {
                 for(int i = 0; i < asKey1Arr.size(); i++){
                     _index20Dto.setAs_key1(asKey1Arr.get(i));
                     _index20Dto.setAs_key2(asKey2Arr.get(i));
-                    log.info("asKey1Arr =====>" + _index20Dto.getAs_key1());
-                    log.info("asKey2Arr =====>" + _index20Dto.getAs_key2());
                     _index20DtoRe = service01.GetAsJumsuDataMU(_index20Dto);
                     String ls_misdate = _index20DtoRe.getMisdate();
                     if(ls_misdate == null || ls_misdate.equals("")){
