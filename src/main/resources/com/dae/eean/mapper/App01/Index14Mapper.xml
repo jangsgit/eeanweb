@@ -97,7 +97,7 @@
                     AND Isnull(B.misgubun, '') Like concat('%',#{misgubun},'%')
                     AND Isnull(B.makflag, '0') Like concat('%',#{makflag},'%')
                     and isnull(B.jpb_gubn,'') Like concat('%',#{jpbgubn},'%')
-                    and isnull(B.pname, '') <> '유상'
+                    and isnull(B.pname, '') not in ('AS', '유상')
                   ORDER BY  B.misdate desc, B.misnum, B.seq
         ]]>
     </select>
@@ -151,7 +151,7 @@
                     AND Isnull(B.misgubun, '') Like concat('%',#{misgubun},'%')
                     AND Isnull(B.makflag, '0') Like concat('%',#{makflag},'%')
                     and isnull(B.jpb_gubn,'') Like concat('%',#{jpbgubn},'%')
-                    and isnull(B.pname, '') <> '유상'
+                    and isnull(B.pname, '') not in ('AS', '유상')
                   ORDER BY  B.misdate desc, B.misnum, B.seq
         ]]>
 

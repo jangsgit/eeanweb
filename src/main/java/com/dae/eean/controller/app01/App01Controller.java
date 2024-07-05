@@ -240,6 +240,28 @@ public class App01Controller {
         return "App01/index030";
     }
 
+    //제품등록
+    @GetMapping(value="/index031")
+    public String App031_index( Model model, HttpServletRequest request) throws Exception{
+        CommDto.setMenuTitle("제품등록");
+        CommDto.setMenuUrl("기준정보>제품정보");
+        CommDto.setMenuCode("index031");
+        try {
+            HttpSession session = request.getSession();
+            UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+            model.addAttribute("userformDto",userformDto);
+            index03Dto.setJpum("%");
+            index03List = service03.GetJpumList(index03Dto);
+
+            model.addAttribute("index03List",index03List);
+        } catch (Exception ex) {
+            log.info("App03_index Exception ================================================================");
+            log.info("Exception =====>" + ex.toString());
+            return "redirect:http://eean.co.kr/";
+        }
+
+        return "App01/index031";
+    }
     //재고등록
     @GetMapping(value="/index04")
     public String App04_index( Model model, HttpServletRequest request) throws Exception{

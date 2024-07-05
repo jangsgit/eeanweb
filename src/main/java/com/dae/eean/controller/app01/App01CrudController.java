@@ -5056,7 +5056,7 @@ public class App01CrudController {
                     _indexDa024Dto.setMisnum(ls_misnum);
                     _indexDa024Dto.setMisgubun("AA");
                     _indexDa024Dto.setPcode("BAS00A00000000");  //_index20DtoRe.getJkey()
-                    _indexDa024Dto.setPname(_index20DtoRe.getAs_yumu());
+                    _indexDa024Dto.setPname("AS");
                     _indexDa024Dto.setPsize("");
                     _indexDa024Dto.setPbonsa(_index20DtoRe.getJbonsa_code2());
                     _indexDa024Dto.setPmodel("AS");  //_index20DtoRe.getJmodel_code2()
