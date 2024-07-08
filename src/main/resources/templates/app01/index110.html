@@ -118,13 +118,14 @@
                                                     
                                                 </div>
                                             </div>
-                                            <div class="col-1 col-sm-1">  
-                                                <select class="form-select" id="asflag"  >   
-                                                    <option selected="">발송구분</option> 
-                                                    <option value="1">발송전</option>  
-                                                    <option value="2">발송완료</option>  
-                                                </select>                                      
-                                            </div> 
+                                            <div class="col-1 col-sm-1">
+                                                <select class="form-select form-select-sm" id="devflag" aria-label=".form-select-sm example">
+                                                    <option selected="">발송구분</option>
+                                                    <option value="%">전체</option>
+                                                    <option value="1">발송완료</option>
+                                                    <option value="0">발송전</option>
+                                                  </select> 
+                                            </div>     
                                             <div class="col-1 col-sm-1">  
                                                 <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="retrieveBtn" type="button"  >조회
                                                 </button>
@@ -651,7 +652,7 @@
                 case 'A':
                     var ls_frdate = document.getElementById('frdate').value; 
                     var ls_todate = document.getElementById('todate').value; 
-                    var ls_asflag = document.getElementById('asflag').value; 
+                    var ls_asflag = document.getElementById('devflag').value; 
                     var ls_bacode = document.getElementById('bacode').value; 
                     var ls_userid = '%';
                     var ls_asasgong = '%';
