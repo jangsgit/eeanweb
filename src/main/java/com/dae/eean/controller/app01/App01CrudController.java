@@ -2933,6 +2933,7 @@ public class App01CrudController {
                                   @RequestParam("makflag") String makflag,
                                   @RequestParam("jpbgubn") String jpbgubn,
                                   @RequestParam("sflag") String sflag,
+                                  @RequestParam("jkey") String jkey,
                                   Model model, HttpServletRequest request) throws Exception{
         CommDto.setMenuTitle("주문등록");
         CommDto.setMenuUrl("주문등록>주문현황");
@@ -2961,6 +2962,7 @@ public class App01CrudController {
             _indexDa024Dto.setCltcd(acode);
             _indexDa024Dto.setFixflag(fixflag);
             _indexDa024Dto.setMakflag(makflag);
+            _indexDa024Dto.setPcode(jkey);
             if(perid == null || perid.equals("")){
                 perid = "%";
             }
@@ -3007,6 +3009,7 @@ public class App01CrudController {
                                        @RequestParam("makflag") String makflag,
                                        @RequestParam("jpbgubn") String jpbgubn,
                                        @RequestParam("sflag") String sflag,
+                                       @RequestParam("jkey") String jkey,
                                        Model model, HttpServletRequest request) throws Exception{
         CommDto.setMenuTitle("주문등록");
         CommDto.setMenuUrl("주문등록>주문현황");
@@ -3055,6 +3058,7 @@ public class App01CrudController {
             _indexDa024Dto.setPerid(perid);
             _indexDa024Dto.setMisgubun(mflag);
             _indexDa024Dto.setJpbgubn(jpbgubn);
+            _indexDa024Dto.setPcode(jkey);
             //출력일 기준
             if(sflag.equals("0")){
                 _indexDa024ListDto = service14.SelectDa024ListPeridGroup(_indexDa024Dto);
@@ -3151,6 +3155,7 @@ public class App01CrudController {
                                        @RequestParam("makflag") String makflag,
                                        @RequestParam("jpbgubn") String jpbgubn,
                                        @RequestParam("sflag") String sflag,
+                                            @RequestParam("jkey") String jkey,
                                        Model model, HttpServletRequest request) throws Exception{
         CommDto.setMenuTitle("주문등록");
         CommDto.setMenuUrl("주문등록>주문현황");
@@ -3179,6 +3184,7 @@ public class App01CrudController {
             _indexDa024Dto.setCltcd(acode);
             _indexDa024Dto.setFixflag(fixflag);
             _indexDa024Dto.setMakflag(makflag);
+            _indexDa024Dto.setPcode(jkey);
             if(perid == null || perid.equals("")){
                 perid = "%";
             }

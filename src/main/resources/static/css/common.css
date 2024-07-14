@@ -8,6 +8,8 @@
     font-weight: normal;
 }
 
+
+  
 body * {font-family: 'Noto Sans KR' ,serif;}
 /*추가 작성분*/
 input[name=userid]::placeholder {

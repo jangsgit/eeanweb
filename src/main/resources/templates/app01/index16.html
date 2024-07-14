@@ -2391,7 +2391,7 @@
                         ls_bjpbgubn = "%";
                     }  
                     ls_abonsadam1 = "";
-                    $.ajax({
+                    $.ajax({ 
                         url: '/app01m/index14/listwish',  
                         type:"POST",
                         data: { 
@@ -3179,6 +3179,12 @@
             });
             wtab04Grid.columns.push(cols);  
             cols = new wijmo.grid.Column(); 
+            cols.binding = 'inname';
+            cols.header = '담당사원';
+            cols.align = "center";
+            cols.width = 100;  
+            wtab04Grid.columns.push(cols);   
+            cols = new wijmo.grid.Column(); 
             cols.binding = 'acorp';
             cols.header = '거래처';
             cols.align = "center";
@@ -3252,13 +3258,7 @@
             cols.header = '영업점비고';
             cols.align = "left"; 
             cols.width = 200;  
-            wtab04Grid.columns.push(cols);  
-            cols = new wijmo.grid.Column(); 
-            cols.binding = 'inname';
-            cols.header = '담당사원';
-            cols.align = "center";
-            cols.width = 100;  
-            wtab04Grid.columns.push(cols);       
+            wtab04Grid.columns.push(cols);      
             cols = new wijmo.grid.Column(); 
             cols.binding = 'usernm'; 
             cols.header = '등록자';

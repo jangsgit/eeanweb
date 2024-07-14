@@ -425,6 +425,41 @@
     </div>   
     <!--------------------------------------------------------------------------------------->     
      
+
+    <!--  비고모달 처리 -->
+    <input class="form-control form-control-sm"  type="hidden" id="inbigobtn" data-bs-toggle="modal" data-bs-target="#cifbigomodal"  /> 
+    <!--------------------------------------------------------------------------------------->   
+    <div class="modal fade" id="cifbigomodal" data-bs-keyboard="false"
+    data-bs-backdrop="static" tabindex="-1" aria-labelledby="staticBackdropLabel"
+    aria-hidden="true">
+        <div class="modal-dialog modal-lg mt-6" role="document" id = "modalForm01"
+            style="max-width: 800px">
+            <div class="modal-content border-0">
+                <div class="modal-body p-0" > 
+                    <div class="rounded-top-lg py-3 ps-4 pe-6 bg-light">                            
+                        <div class="search">       
+                            <div class="col-auto">
+                                <div class="input-group mb-3" > 
+                                    <textarea class="form-control"   rows="6" id="abigo"  disabled=true></textarea>
+                                </div>
+                            </div>   
+                        </div>                             
+                    </div>    
+                </div>    
+                <div class="modal-footer">
+                    <div class="row g-1">
+                        <div class="col-auto">
+                            <button class="badge-soft-primary dropdown-item rounded-1"
+                                type="button"  id="wbigomodal_btn" data-bs-dismiss="modal">Close</button>
+                        </div> 
+                    </div>
+                </div>   
+
+            </div>
+        </div> 
+    </div>   
+    <!--------------------------------------------------------------------------------------->    
+
     <!--  주문 모달 처리 -->
     <!-- <input class="form-control form-control-sm"  type="hidden" id="inorderbtn" data-bs-toggle="modal" data-bs-target="#ordermodal"  />  
     <div class="modal fade" id="ordermodal" data-bs-keyboard="false"
@@ -1797,7 +1832,7 @@ aria-hidden="true">
             cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
                 text: '<b>${item.acode}</b>',
                 click: (e, ctx) => {
-                    wcifChk_a(ctx.item.acorp1, ctx.item.acorp2, ctx.item.acorp3, ctx.item.acode,   ctx.item.acorp,  arg,   ctx.item.atelno,   ctx.item.ajusotxt );                    
+                    wcifChk_a(ctx.item.acorp1, ctx.item.acorp2, ctx.item.acorp3, ctx.item.acode,   ctx.item.acorp,  arg,   ctx.item.atelno,   ctx.item.ajusotxt,   ctx.item.abigo );                    
                     
                 }
             });
@@ -1825,7 +1860,7 @@ aria-hidden="true">
             winnameGrid.columns.push(cols); 
         }
                 
-        function wcifChk_a(arg1, arg2, arg3, arg4, arg5,arg6, arg7,arg8){   
+        function wcifChk_a(arg1, arg2, arg3, arg4, arg5,arg6, arg7,arg8,arg9){   
             //console.log(arg6)  ;
             switch(arg6){
                 case 'A':
@@ -1836,7 +1871,17 @@ aria-hidden="true">
                     //document.getElementById('searchCode').value = arg5;
                     document.getElementById('cifname').value = arg5;  
                     document.getElementById('atelno').value = arg7;  
-                    document.getElementById('ajusotxt').value = arg8;  
+                    document.getElementById('ajusotxt').value = arg8; 
+                    document.getElementById('abigo').value = arg9; 
+                    if(arg1 == "02"){
+                        document.getElementById('jpbgubn').value = "P";
+                    }else{
+                        document.getElementById('jpbgubn').value = "B";
+                    }   
+                    $("#winnamemodal_btn").trigger("click"); 
+                    if(arg9.length > 0){
+                        document.getElementById("inbigobtn").click(); 
+                    }
                     break;
                 case 'B':
                     document.getElementById('bacorp1').value = arg1;  
@@ -1845,6 +1890,7 @@ aria-hidden="true">
                     document.getElementById('bacode').value = arg4;  
                     //document.getElementById('searchCode').value = arg5;
                     document.getElementById('bcifname').value = arg5;  
+                    $("#winnamemodal_btn").trigger("click");
                     break;                    
                 case 'C':
                     document.getElementById('dacorp1').value = arg1;  
@@ -1852,18 +1898,13 @@ aria-hidden="true">
                     document.getElementById('dacorp3').value = arg3;  
                     document.getElementById('dacode').value = arg4;  
                     //document.getElementById('searchCode').value = arg5;
-                    document.getElementById('dcifname').value = arg5;  
+                    document.getElementById('dcifname').value = arg5; 
+                    $("#winnamemodal_btn").trigger("click"); 
                     break;                    
                 default:
                     break;                    
 
             }
-            if(arg1 == "02"){
-                document.getElementById('jpbgubn').value = "P";
-            }else{
-                document.getElementById('jpbgubn').value = "B";
-            }  
-            $("#winnamemodal_btn").trigger("click");
             
         }  
         function wOrderChk_a(arg1, arg2){  

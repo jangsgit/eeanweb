@@ -84,6 +84,12 @@
                                                 </div>
                                             </div>
                                             <div class="col-2 col-sm-2">
+                                                <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">품목</span> 
+                                                    <input class="form-control form-control-sm" id="jpumname01" type="text"    autocomplete="off"  placeholder=""     >
+                                                    <input class="form-control form-control-sm" id="jkey01" type="hidden"  /> 
+                                                </div>
+                                            </div>
+                                            <div class="col-2 col-sm-1">
                                                 <select class="form-select form-select-sm" id="misfixflag" aria-label=".form-select-sm example">
                                                     <option selected="">출력구분</option>
                                                     <option value="%">전체</option>
@@ -91,7 +97,7 @@
                                                     <option value="0">미출력</option>
                                                     </select> 
                                             </div>  
-                                            <div class="col-2 col-sm-2">
+                                            <div class="col-2 col-sm-1">
                                                 <select class="form-select form-select-sm" id="sflag01" aria-label=".form-select-sm example">
                                                     <option selected="">조회기준</option>                                                    
                                                     <option value="0">출력일</option>
@@ -128,6 +134,12 @@
                                                 </div>
                                             </div>
                                             <div class="col-2 col-sm-2">
+                                                <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">품목</span> 
+                                                    <input class="form-control form-control-sm" id="jpumname02" type="text"    autocomplete="off"  placeholder=""     >
+                                                    <input class="form-control form-control-sm" id="jkey02" type="hidden"  /> 
+                                                </div>
+                                            </div>
+                                            <div class="col-2 col-sm-1">
                                                 <select class="form-select form-select-sm" id="misfixflag02" aria-label=".form-select-sm example">
                                                     <option selected="">출력구분</option>
                                                     <option value="%">전체</option>
@@ -135,7 +147,7 @@
                                                     <option value="0">미출력</option> 
                                                     </select> 
                                             </div>   
-                                            <div class="col-2 col-sm-2">
+                                            <div class="col-2 col-sm-1">
                                                 <select class="form-select form-select-sm" id="sflag02" aria-label=".form-select-sm example">
                                                     <option selected="">조회기준</option>                                                    
                                                     <option value="0">출력일</option>
@@ -174,6 +186,12 @@
                                                 </div>
                                             </div> 
                                             <div class="col-2 col-sm-2">
+                                                <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">품목</span> 
+                                                    <input class="form-control form-control-sm" id="jpumname03" type="text"    autocomplete="off"  placeholder=""     >
+                                                    <input class="form-control form-control-sm" id="jkey03" type="hidden"  /> 
+                                                </div>
+                                            </div>
+                                            <div class="col-2 col-sm-1">
                                                 <select class="form-select form-select-sm" id="misfixflag03" aria-label=".form-select-sm example">
                                                     <option selected="">출력구분</option>
                                                     <option value="%">전체</option>
@@ -181,7 +199,7 @@
                                                     <option value="0">미출력</option> 
                                                     </select> 
                                             </div>  
-                                            <div class="col-2 col-sm-2">
+                                            <div class="col-2 col-sm-1">
                                                 <select class="form-select form-select-sm" id="sflag03" aria-label=".form-select-sm example">
                                                     <option selected="">조회기준</option>                                                    
                                                     <option value="0">출력일</option>
@@ -219,6 +237,12 @@
                                                 </div>
                                             </div> 
                                             <div class="col-2 col-sm-2">
+                                                <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">품목</span> 
+                                                    <input class="form-control form-control-sm" id="jpumname04" type="text"    autocomplete="off"  placeholder=""     >
+                                                    <input class="form-control form-control-sm" id="jkey04" type="hidden"  /> 
+                                                </div>
+                                            </div>
+                                            <div class="col-2 col-sm-1">
                                                 <select class="form-select form-select-sm" id="misfixflag04" aria-label=".form-select-sm example">
                                                     <option selected="">출력구분</option>
                                                     <option value="%">전체</option>
@@ -226,7 +250,7 @@
                                                     <option value="0">미출력</option> 
                                                     </select> 
                                             </div>  
-                                            <div class="col-2 col-sm-2">
+                                            <div class="col-2 col-sm-1">
                                                 <select class="form-select form-select-sm" id="sflag04" aria-label=".form-select-sm example">
                                                     <option selected="">조회기준</option>                                                    
                                                     <option value="0">출력일</option>
@@ -299,6 +323,48 @@
   
 
 
+  
+    <!--  모달 처리 -->
+    <input class="form-control form-control-sm"  type="hidden" id="injpumbtn" data-bs-toggle="modal" data-bs-target="#cifmodal"  /> 
+    <!--------------------------------------------------------------------------------------->   
+    <div class="modal fade" id="cifmodal" data-bs-keyboard="false"
+    data-bs-backdrop="static" tabindex="-1" aria-labelledby="staticBackdropLabel"
+    aria-hidden="true">
+        <div class="modal-dialog modal-lg mt-6" role="document" id = "modalForm01"
+            style="max-width: 600px">
+            <div class="modal-content border-0">
+                <div class="modal-body p-0" > 
+                    <div class="rounded-top-lg py-3 ps-4 pe-6 bg-light">                            
+                        <div class="search">
+                            <div class="input_wrap">  
+                                <input class="form-control form-control-sm" id="searchCodejkey" type="text"   onkeyup="if(window.event.keyCode==13){JpumSearchList_rtn('M')}"
+                                placeholder="품목명 "     />                                      
+                            </div>
+
+                            <button id="winjpumBtn">
+                                <img th:src="@{/assets/images/i_search.png}" alt=""> 
+                            </button>
+                        </div>                             
+                    </div>   
+                    <div class="container-fluid"> 
+                        <div id="winjpumGrid_div" ></div>
+                        <!-- <div id="thePager03"></div> -->
+                    </div>   
+                </div>  
+
+                <div class="modal-footer">
+                    <div class="row g-1">
+                        <div class="col-auto">
+                            <button class="badge-soft-primary dropdown-item rounded-1"
+                                type="button"  id="winjpummodal_btn" data-bs-dismiss="modal">Close</button>
+                        </div> 
+                    </div>
+                </div>   
+
+            </div>
+        </div> 
+    </div>   
+
 
 
 
@@ -311,12 +377,14 @@
          var view_p01tab04page; 
          var view_p01tab05page; 
          var view_innamepage; 
+         var view_injcodepage;  
          var wtab01Grid;
          var wtab02Grid;
          var wtab03Grid; 
          var wtab04Grid; 
          var wtab05Grid; 
          var winnameGrid; 
+         var winjpumGrid; 
 
          var misdateArr = new Array();
          var misnumArr = new Array();
@@ -504,40 +572,8 @@
                 }) 
                 //itemsSource: view_p01tab04page
             });  
-
-            // wtab04Grid.formatItem.addHandler((s, e) => {
-            //     if (e.panel == s.cells) {
-            //         var val = s.getCellData(e.row,0); 
-            //         if(val == null || val.length == 0 || val == ""){  
-            //             return 
-            //         } else {
-            //             var pos1 = val.indexOf('<');
-            //             if (pos1 > 0 ){
-            //                 return 
-            //             } 
-            //         }   
-            //         // 짝수 행 일 때
-            //         if (e.row % 2 == 0) {
-            //             e.cell.style.backgroundColor = "rgb(232, 241, 255)";
-            //         }
-            //         // 홀수 행 일 때
-            //         else if (e.row % 2 == 1) {
-            //             e.cell.style.backgroundColor = "rgb(255,255,255)";
-            //         }
-            //     }
-            // }); 
-            new FlexGridContextMenu(wtab04Grid);  
-            // setGroups02(true); 
-            // function setGroups02(groupsOn) {
-            //     let groups = view_p01tab04page.groupDescriptions;
-            //     groups.clear();
-            //     if (groupsOn) {
-                    
-            //         groups.push(new wijmo.collections.PropertyGroupDescription('pernm'));
-            //         // groups.push(new wijmo.collections.PropertyGroupDescription('pernm'), new wijmo.collections.PropertyGroupDescription('misdate'));
-            //     }
-            // }
-            // 헤더 열 전환
+ 
+            new FlexGridContextMenu(wtab04Grid);   
             setHeaderColumn02(false); 
             function setHeaderColumn02(headerOn) {
                 wtab04Grid.headersVisibility = headerOn
@@ -654,28 +690,7 @@
                     
                 ], 
                 itemsSource: view_p01tab05page, 
-            }); 
-            // wtab05Grid.formatItem.addHandler((s, e) => {
-            //     if (e.panel == s.cells) {
-            //         var val = s.getCellData(e.row,0); 
-            //         if(val == null || val.length == 0 || val == ""){  
-            //             return 
-            //         } else {
-            //             var pos1 = val.indexOf('<');
-            //             if (pos1 > 0 ){
-            //                 return 
-            //             } 
-            //         }  
-            //         // 짝수 행 일 때
-            //         if (e.row % 2 == 0) {
-            //             e.cell.style.backgroundColor = "rgb(232, 241, 255)";
-            //         }
-            //         // 홀수 행 일 때
-            //         else if (e.row % 2 == 1) {
-            //             e.cell.style.backgroundColor = "rgb(255,255,255)";
-            //         }
-            //     }
-            // });                     
+            });                    
             // 그룹 전환 
             setGroups05(true); 
             function setGroups05(groupsOn) {
@@ -700,16 +715,10 @@
             wtab05Grid.focus(); 
 
             // // ################################################################ 
-            //거래처현황 Modalㅁ
+            //사원현황 Modalㅁ
             view_innamepage = new wijmo.collections.CollectionView(getData_wlist2(), {
                 // pageSize: 12
-            });
-            // 거래처 페이지 이동
-            // new wijmo.input.CollectionViewNavigator('#thePager03', {
-            //     byPage: true,
-            //     headerFormat: 'Page {currentPage:n0} of {pageCount:n0}',
-            //     cv: view_innamepage
-            // });     
+            });    
             winnameGrid = new wijmo.grid.FlexGrid('#winnameGrid_div', {  
                 autoGenerateColumns: false,
                 isReadOnly: false, 
@@ -726,9 +735,42 @@
             winnameGrid.showMarquee = true;
             winnameGrid.focus();
             wijmo.toggleClass(winnameGrid.hostElement, 'highlightActive', true);
-            winnameGrid.focus();
+            winnameGrid.focus();   
+
+            // // ################################################################  
+            //품목현황 Modalㅁ
+            view_injcodepage = new wijmo.collections.CollectionView(getData_wlist2(), {
+               // pageSize: 12
+            }); 
+            winjpumGrid = new wijmo.grid.FlexGrid('#winjpumGrid_div', {  
+                autoGenerateColumns: false,
+                isReadOnly: false, 
+                allowSorting: 'MultiColumn',
+                selectionMode: 'RowRange',
+                alternatingRowStep: 0,
+                columns: [     
+                    { binding: 'jkey', header: '코드', align: "center", width: '1*' },
+                    { binding: 'pname', header: '품목', align: "left", width: '1*' },
+                    { binding: 'psize', header: '규격', align: "left", width: '1*' },
+                    { binding: 'pbonsa', header: '코드', align: "center", width: '1*' },
+                    { binding: 'pmodel', header: '모델', align: "center", width: '1*' },
+                    { binding: 'pcolor', header: '컬러', align: "center", width: '1*' },
+                ], 
+                itemsSource: view_injcodepage
+            });  
+            
+            winjpumGrid.showMarquee = true; 
+            wijmo.toggleClass(winjpumGrid.hostElement, 'highlightActive', true);
+            winjpumGrid.focus();
 
 
+            setHeaderColumn4(false);
+            function setHeaderColumn4(headerOn) {
+                winjpumGrid.headersVisibility = headerOn
+                ? wijmo.grid.HeadersVisibility.All
+                : wijmo.grid.HeadersVisibility.Column; 
+            } 
+           // // ################################################################   
 
         } 
 
@@ -850,7 +892,185 @@
                 insaflag = "D"; 
                 insaSearchList_rtn("D"); 
             }
-        });    
+        });     
+        //품목검색 01
+        document.getElementById("jpumname01").addEventListener("keyup", (e)=>{ 
+            if(e.keyCode === 13){  
+                document.getElementById("injpumbtn").click(); 
+                JpumSearchList_rtn("A"); 
+            }
+        });  
+        //품목검색 02
+        document.getElementById("jpumname02").addEventListener("keyup", (e)=>{ 
+            if(e.keyCode === 13){  
+                document.getElementById("injpumbtn").click(); 
+                JpumSearchList_rtn("B"); 
+            }
+        });  
+        //품목검색 03
+        document.getElementById("jpumname03").addEventListener("keyup", (e)=>{ 
+            if(e.keyCode === 13){  
+                document.getElementById("injpumbtn").click(); 
+                JpumSearchList_rtn("C"); 
+            }
+        });  
+        //품목검색 04
+        document.getElementById("jpumname04").addEventListener("keyup", (e)=>{ 
+            if(e.keyCode === 13){  
+                document.getElementById("injpumbtn").click(); 
+                JpumSearchList_rtn("D"); 
+            }
+        });  
+        //품목검색 04
+        document.getElementById("searchCodejkey").addEventListener("keyup", (e)=>{ 
+            if(e.keyCode === 13){  
+                document.getElementById("injpumbtn").click(); 
+                JpumSearchList_rtn("M"); 
+            }
+        }); 
+            
+           
+        function JpumSearchList_rtn(arg){  
+            var searchCode = "";  
+            if(arg == "M"){
+                searchCode = document.getElementById('searchCode').value;   
+            }else if(arg == "A"){
+                searchCode = document.getElementById('jpumname01').value;   
+            }else if(arg == "B"){
+                searchCode = document.getElementById('jpumname02').value;   
+            }else if(arg == "C"){
+                searchCode = document.getElementById('jpumname03').value;   
+            }else if(arg == "D"){
+                searchCode = document.getElementById('jpumname04').value;   
+            }   
+            if(searchCode == null || searchCode.length == 0 || searchCode == ""){ 
+                searchCode = "%"         ;
+            }     
+            var ls_jpbgubn = document.getElementById('jpbgubn').value;   
+            if(ls_jpbgubn == null || ls_jpbgubn.length == 0 || ls_jpbgubn == ""){ 
+                ls_jpbgubn = "%"         ;
+            }     
+            $.ajax({
+                    url: '/app01m/index03/list',  
+                    type:"POST",
+                    data: { 
+                            "searchtxt" :searchCode, 
+                            "jpbgubn" :ls_jpbgubn, 
+                    }, 
+                    async:false,
+                    success:function(data){   
+                        chkLogin(data)  
+                        tabPop_grid(data, arg);
+                    },error:function(e){
+                        console.log("error");                            
+                    }
+                }).done(function(fragment){           
+
+                })    
+
+            }        
+        //  거래처팝업 grid data 수집
+        function tabPop_grid(data, arg){
+            
+            var wtab01Dto  = data;    
+            var wtab01_data = [];
+            var cnt = 1;  
+            for (var i = 0; i < wtab01Dto.length; i++) {
+                wtab01_data.push({
+                    id: i, 
+                    index: cnt,  
+                    jkey: wtab01Dto[i]["jkey"], 
+                    jpb_gubn: wtab01Dto[i]["jpb_gubn"], 
+                    jgong_code: wtab01Dto[i]["jgong_code"], 
+                    jdan_code: wtab01Dto[i]["jdan_code"], 
+                    jmodel_code: wtab01Dto[i]["jmodel_code"], 
+                    jcolor_code: wtab01Dto[i]["jcolor_code"], 
+                    jcustomer_code: wtab01Dto[i]["jcustomer_code"], 
+                    jbonsa_code: wtab01Dto[i]["jbonsa_code"], 
+                    jsayong_gubn: wtab01Dto[i]["jsayong_gubn"], 
+                    jpum: wtab01Dto[i]["jpum"], 
+                    jgugek: wtab01Dto[i]["jgugek"], 
+                    jsize: wtab01Dto[i]["jsize"], 
+                    jchgoga0: wtab01Dto[i]["jchgoga0"], 
+                    jchgoga0: wtab01Dto[i]["jchgoga0"],
+                    jbigo: wtab01Dto[i]["jbigo"],     
+                });
+                cnt++;
+            }     
+                winjpumGrid.columns.clear();  
+                winjpumGrid.autoGenerateColumns = false; 
+                view_injcodepage.sourceCollection  = wtab01_data;
+
+                var cols = new wijmo.grid.Column(); 
+                cols.binding = 'jkey';
+                cols.header = '코드';
+                cols.align = "center";
+                cols.width = 180; 
+                cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
+                    text: '<b>${item.jkey}</b>',
+                    click: (e, ctx) => {
+                        wcifChk_a(arg, ctx.item.jkey, ctx.item.jpum, ctx.item.jgugek,  ctx.item.jsize, ctx.item.jmodel_code, ctx.item.jcolor_code,   ctx.item.jbonsa_code );                    
+                        
+                    }
+                });
+                winjpumGrid.columns.push(cols);  
+
+                cols = new wijmo.grid.Column(); 
+                cols.binding = 'jpum';
+                cols.header = '품명'; 
+                cols.align = "left"; 
+                cols.width = 150;
+                winjpumGrid.columns.push(cols); 
+
+                cols = new wijmo.grid.Column(); 
+                cols.binding = 'jgugek';
+                cols.header = '규격'; 
+                cols.align = "center"; 
+                cols.width = 100;
+                winjpumGrid.columns.push(cols);  
+
+                cols = new wijmo.grid.Column(); 
+                cols.binding = 'jmodel_code';
+                cols.header = '모델라인'; 
+                cols.align = "center"; 
+                cols.width = 100;
+                winjpumGrid.columns.push(cols);  
+
+                cols = new wijmo.grid.Column(); 
+                cols.binding = 'jcolor_code';
+                cols.header = '모델칼라'; 
+                cols.align = "center"; 
+                cols.width = 100;
+                winjpumGrid.columns.push(cols);  
+        }
+  
+        function wcifChk_a(arg0, arg1, arg2, arg3, arg4, arg5){   
+            var ls_tab = document.getElementById('tabvalue').value;   
+            if(ls_tab == "A"){ 
+                document.getElementById('jkey01').value = arg1;   
+                document.getElementById('jpumname01').value = arg2;  
+                searchList_rtn(ls_tab)
+                $("#winjpummodal_btn").trigger("click");
+            }else if(ls_tab == "B"){ 
+                document.getElementById('jkey02').value = arg1;   
+                document.getElementById('jpumname02').value = arg2;   
+                searchList_rtn(ls_tab)
+                $("#winjpummodal_btn").trigger("click"); 
+            }else if(ls_tab == "C"){ 
+                document.getElementById('jkey03').value = arg1;   
+                document.getElementById('jpumname03').value = arg2;   
+                searchList_rtn(ls_tab)
+                $("#winjpummodal_btn").trigger("click"); 
+            }else if(ls_tab == "D"){ 
+                document.getElementById('jkey04').value = arg1;   
+                document.getElementById('jpumname04').value = arg2;   
+                searchList_rtn(ls_tab)
+                $("#winjpummodal_btn").trigger("click");
+
+            }   
+
+        }  
+
 
         function searchList_rtn(arg1){ 
             //주문완료
@@ -865,6 +1085,8 @@
                     var ls_inname01   = document.getElementById('inname01').value; 
                     var ls_misfixflag = document.getElementById('misfixflag').value; 
                     var ls_sflag = document.getElementById('sflag01').value; 
+                    var ls_jkey = document.getElementById('jkey01').value; 
+                    var ls_jpumname = document.getElementById('jpumname01').value; 
                     if(ls_frdate == null || ls_frdate.length == 0 || ls_frdate == ""){ 
                         alert("조회일자를 등록하세요") 
                         document.getElementById("frdate").focus(); 
@@ -880,6 +1102,9 @@
                     }    
                     if(ls_inname01 == null || ls_inname01.length == 0 || ls_inname01 == ""){  
                         ls_abonsadam1 = "%";
+                    }     
+                    if(ls_jpumname == null || ls_jpumname.length == 0 || ls_jpumname == ""){  
+                        ls_jkey = "%";
                     }    
                     $.ajax({
                         url: '/app01m/index14/listperidgroup',  
@@ -893,7 +1118,8 @@
                             "makflag"    : ls_makflag,
                             "mflag"  : 'AA'   ,   
                             "jpbgubn" :ls_jpbgubn ,   
-                            "sflag" :ls_sflag 
+                            "sflag" :ls_sflag ,   
+                            "jkey" :ls_jkey 
                         }, 
                         async:false,
                         success:function(data){  
@@ -916,6 +1142,8 @@
                     var ls_inname02   = document.getElementById('inname02').value; 
                     var ls_misfixflag = document.getElementById('misfixflag02').value;  
                     var ls_sflag = document.getElementById('sflag02').value;  
+                    var ls_jkey = document.getElementById('jkey02').value; 
+                    var ls_jpumname = document.getElementById('jpumname02').value; 
                     if(ls_misfixflag == "출력구분"){ 
                         ls_misfixflag = "%";
                     }     
@@ -932,6 +1160,9 @@
                     if(ls_inname02 == null || ls_inname02.length == 0 || ls_inname02 == ""){  
                         ls_abonsadam2 = "%";
                     }     
+                    if(ls_jpumname == null || ls_jpumname.length == 0 || ls_jpumname == ""){  
+                        ls_jkey = "%";
+                    }    
                     $.ajax({
                         url: '/app01m/index14/listperid',  
                         type:"POST",
@@ -944,7 +1175,8 @@
                             "makflag"    : ls_makflag,
                             "mflag"  : 'AA'   ,   
                             "jpbgubn" :ls_jpbgubn  ,   
-                            "sflag" :ls_sflag 
+                            "sflag" :ls_sflag ,   
+                            "jkey" :ls_jkey 
                         }, 
                         async:false,
                         success:function(data){  
@@ -966,6 +1198,11 @@
                     var ls_inname03   = document.getElementById('inname03').value;  
                     var ls_misfixflag = document.getElementById('misfixflag03').value; 
                     var ls_sflag = document.getElementById('sflag03').value; 
+                    var ls_jkey = document.getElementById('jkey03').value; 
+                    var ls_jpumname = document.getElementById('jpumname03').value;    
+                    if(ls_jpumname == null || ls_jpumname.length == 0 || ls_jpumname == ""){  
+                        ls_jkey = "%";
+                    }  
                     if(ls_frdate == null || ls_frdate.length == 0 || ls_frdate == ""){ 
                         alert("조회일자를 등록하세요") 
                         document.getElementById("frdate").focus(); 
@@ -982,7 +1219,7 @@
                      
                     if(ls_inname03 == null || ls_inname03.length == 0 || ls_inname03 == ""){  
                         ls_abonsadam3 = "%";
-                    }     
+                    }      
                     $.ajax({
                         url: '/app01m/index14/listcltcdgroup',  
                         type:"POST",
@@ -995,7 +1232,8 @@
                             "makflag"    : ls_makflag,
                             "mflag"  : 'AA'   ,   
                             "jpbgubn" :ls_jpbgubn  ,   
-                            "sflag" :ls_sflag  
+                            "sflag" :ls_sflag  ,   
+                            "jkey" :ls_jkey 
                         }, 
                         async:false,
                         success:function(data){  
@@ -1018,6 +1256,11 @@
                     var ls_inname04   = document.getElementById('inname04').value;   
                     var ls_misfixflag = document.getElementById('misfixflag04').value; 
                     var ls_sflag = document.getElementById('sflag04').value; 
+                    var ls_jkey = document.getElementById('jkey04').value; 
+                    var ls_jpumname = document.getElementById('jpumname04').value;    
+                    if(ls_jpumname == null || ls_jpumname.length == 0 || ls_jpumname == ""){  
+                        ls_jkey = "%";
+                    }  
                     if(ls_frdate == null || ls_frdate.length == 0 || ls_frdate == ""){ 
                         alert("조회일자를 등록하세요") 
                         document.getElementById("frdate").focus(); 
@@ -1035,6 +1278,7 @@
                     if(ls_inname04 == null || ls_inname04.length == 0 || ls_inname04 == ""){  
                         ls_abonsadam4 = "%";
                     }    
+                    console.log(ls_jkey)
                     $.ajax({
                         url: '/app01m/index14/listjkeygroup',  
                         type:"POST",
@@ -1048,7 +1292,8 @@
                             "makflag"    : ls_makflag,
                             "mflag"  : 'AA'   ,   
                             "jpbgubn" :ls_jpbgubn  ,   
-                            "sflag" :ls_sflag  
+                            "sflag" :ls_sflag  ,   
+                            "jkey" :ls_jkey 
                         }, 
                         async:false,
                         success:function(data){  
@@ -1080,7 +1325,7 @@
                     index: cnt,
                     select: false, 
                     perid: wtab02Dto[i]["perid"],  
-                    pernm: wtab02Dto[i]["pernm"],     
+                    pernm: wtab02Dto[i]["pernm"],      
                     rownum: wtab02Dto[i]["rownum"],      
                     qty: wtab02Dto[i]["qty"],   
                     samt: wtab02Dto[i]["samt"],    
@@ -1638,8 +1883,7 @@
         // })
     })
 
-    function test_rtn(arg1){
-        console.log(arg1);
+    function test_rtn(arg1){ 
         const disHtml = `
             <div class="tab-pane fade show active" id=${arg1} role="tabpanel" aria-labelledby="profile-tab">${arg1}</div>`
         $('#btnDiv02').before(disHtml);

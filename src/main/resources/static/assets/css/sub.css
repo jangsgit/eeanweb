@@ -23,6 +23,11 @@
     background-color:rgb(64, 136, 243) !important;
 }
 
+.wj-cells .wj-cell.wj-state-selected{
+    background: #4DD0E1;
+  }
+
+  
 .po-val {
     color: rgb(29, 84, 238);
     font-weight: bold;

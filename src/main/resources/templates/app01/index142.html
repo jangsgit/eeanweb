@@ -277,7 +277,7 @@
         var wseries_data = [0]; 
         let includeColumnHeader = false;
         let Chknum = 0; 
-            localStorage.setItem("setpage", "app03p001"); 
+         
          window.onload = init; 
         function init() { 
             //일자별주문현황 popup list
@@ -608,6 +608,17 @@
                 }else{
                     bfixflag = false;
                 }
+                if(wtab02Dto[i]["seq"] == "001"){
+                    ls_remark01 = wtab02Dto[i]["remarkaa"];
+                }else{
+                    ls_remark01 = "";
+                }     
+                if(wtab02Dto[i]["seq"] == "001"){
+                    ls_remark02 = wtab02Dto[i]["remarkbb"];
+                }else{
+                    ls_remark02 = "";
+                }     
+ 
                 wtab02_data.push({
                     id: i, 
                     index: cnt,
@@ -623,11 +634,18 @@
                     qty: wtab02Dto[i]["qty"],    
                     uamt: wtab02Dto[i]["uamt"], 
                     samt: wtab02Dto[i]["samt"],  
-                    cltcd: wtab02Dto[i]["cltcd"],      
-                    inname: wtab02Dto[i]["inname"],    
-                    misgubun: wtab02Dto[i]["misgubun"],              
-                    remark: wtab02Dto[i]["remarkbb"],          
-                    fixflag: bfixflag,                                        
+                    cltcd: wtab02Dto[i]["cltcd"],  
+                    inname: wtab02Dto[i]["inname"],     
+                    misgubun: wtab02Dto[i]["misgubun"],  
+                    omisdate: wtab02Dto[i]["omisdate"],
+                    omisnum: wtab02Dto[i]["omisnum"],     
+                    oseq: wtab02Dto[i]["oseq"],       
+                    jqty: wtab02Dto[i]["jqty"],         
+                    userid: wtab02Dto[i]["userid"],       
+                    usernm: wtab02Dto[i]["usernm"],   
+                    remarkaa: ls_remark01,  
+                    remarkbb: ls_remark02,       
+                    fixflag: bfixflag,                      
                 });
                 cnt++;
             }   
@@ -646,20 +664,20 @@
             cols.binding = 'misdate';
             cols.header = '예약일자';
             cols.align = "center";
-            cols.width = 160; 
+            cols.width = 120; 
             wtab02Grid.columns.push(cols);  
-            // cols = new wijmo.grid.Column(); 
-            // cols.binding = 'misnum';
-            // cols.header = '예약번호';
-            // cols.align = "center";
-            // cols.width = 80;  
-            // wtab02Grid.columns.push(cols);  
-            // cols = new wijmo.grid.Column(); 
-            // cols.binding = 'seq';
-            // cols.header = '순번';
-            // cols.align = "center";
-            // cols.width = 80;   
-            // wtab02Grid.columns.push(cols);   
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'misnum';
+            cols.header = '예약번호';
+            cols.align = "center";
+            cols.width = 80;  
+            wtab02Grid.columns.push(cols);  
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'seq';
+            cols.header = '순번';
+            cols.align = "center";
+            cols.width = 80;   
+            wtab02Grid.columns.push(cols);   
             cols = new wijmo.grid.Column(); 
             cols.binding = 'inname';
             cols.header = '담당사원';
@@ -704,11 +722,18 @@
             // wtab02Grid.columns.push(cols);   
             cols = new wijmo.grid.Column(); 
             cols.binding = 'qty';
-            cols.header = '수량';
+            cols.header = '예약수량';
             cols.align = "center";
             cols.aggregate = 'Sum';
             cols.width = 80;  
             wtab02Grid.columns.push(cols);   
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'jqty';
+            cols.header = '재고수량';
+            cols.align = "center";
+            cols.aggregate = 'Sum';
+            cols.width = 80;  
+            wtab02Grid.columns.push(cols);    
             cols = new wijmo.grid.Column(); 
             cols.binding = 'uamt';
             cols.header = '단가';
@@ -721,20 +746,49 @@
             cols.align = "center";
             cols.aggregate = 'Sum';
             cols.width = 150;  
-            wtab02Grid.columns.push(cols);      
+            wtab02Grid.columns.push(cols);     
             cols = new wijmo.grid.Column(); 
-            cols.binding = 'remark';
-            cols.header = '요청사항';
+            cols.binding = 'remarkaa';
+            cols.header = '본사비고';
             cols.align = "left"; 
             cols.width = 200;  
-            wtab02Grid.columns.push(cols);    
+            wtab02Grid.columns.push(cols);     
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'remarkbb';
+            cols.header = '영업점비고';
+            cols.align = "left"; 
+            cols.width = 200;  
+            wtab02Grid.columns.push(cols);      
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'usernm'; 
+            cols.header = '등록자';
+            cols.align = "center";
+            cols.width = 100;   
             cols = new wijmo.grid.Column(); 
             cols.binding = 'fixflag'; 
             cols.header = '주문';
             cols.align = "center";
             cols.width = 100;  
             cols.cssClass = 'switch'
-            wtab02Grid.columns.push(cols);  
+            wtab02Grid.columns.push(cols);   
+            // cols = new wijmo.grid.Column(); 
+            // cols.binding = 'omisdate'; 
+            // cols.header = '주문일자';
+            // cols.align = "center";
+            // cols.width = 150;   
+            // wtab02Grid.columns.push(cols);   
+            // cols = new wijmo.grid.Column(); 
+            // cols.binding = 'omisnum'; 
+            // cols.header = '번호';
+            // cols.align = "center";
+            // cols.width = 80;   
+            // wtab02Grid.columns.push(cols);   
+            // cols = new wijmo.grid.Column(); 
+            // cols.binding = 'oseq'; 
+            // cols.header = '순번';
+            // cols.align = "center";
+            // cols.width = 80;   
+            // wtab02Grid.columns.push(cols);   
  
         }
           
