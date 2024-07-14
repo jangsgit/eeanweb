@@ -784,6 +784,7 @@
 
         function searchList_rtn(arg1){ 
             var ls_makflag = "1" ;
+            var ls_jkey = '%';
             switch(arg1){ 
                 case 'A': 
                     var ls_frdate = document.getElementById('frdate').value; 
@@ -822,7 +823,8 @@
                             "makflag"    : ls_makflag,
                             "mflag"  : 'AA'   ,  
                             "jpbgubn" : '%',   
-                            "sflag" :ls_sflag 
+                            "sflag" :ls_sflag  ,   
+                            "jkey" :ls_jkey 
                         }, 
                         async:false,
                         success:function(data){  
@@ -875,7 +877,8 @@
                             "makflag"    : ls_makflag,
                             "mflag"  : 'AA'   ,  
                             "jpbgubn"  : '%'   ,   
-                            "sflag" :ls_sflag 
+                            "sflag" :ls_sflag  ,   
+                            "jkey" :ls_jkey 
                         }, 
                         async:false,
                         success:function(data){      
@@ -926,7 +929,8 @@
                             "makflag"    : ls_makflag,
                             "mflag"  : 'AA'   ,  
                             "jpbgubn"  : '%'  ,   
-                            "sflag" :ls_sflag 
+                            "sflag" :ls_sflag  ,   
+                            "jkey" :ls_jkey 
                         }, 
                         async:false,
                         success:function(data){     
@@ -977,7 +981,8 @@
                             "makflag"    : ls_makflag,
                             "mflag"  : 'AA'   ,  
                             "jpbgubn"  : '%'  ,   
-                            "sflag" :ls_sflag 
+                            "sflag" :ls_sflag  ,   
+                            "jkey" :ls_jkey 
                         }, 
                         async:false,
                         success:function(data){  
