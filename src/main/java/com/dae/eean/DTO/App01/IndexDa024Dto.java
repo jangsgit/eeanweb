@@ -81,5 +81,6 @@ public class IndexDa024Dto {
     private String deluserid;
     private String agita;
     private String reservnum;
+    private String as_yumu;
 
 }

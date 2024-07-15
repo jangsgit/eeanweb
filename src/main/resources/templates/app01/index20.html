@@ -1951,7 +1951,7 @@
             var wtab02Dto  = data;  
             var cnt = 1;
             var bfixflag = "신용" 
-            var ls_mistxt = ''     
+            var ls_mistxt = ''       
             wtab02_data = [];
             for (var i = 0; i < wtab02Dto.length; i++) { 
                 ls_acorp = wtab02Dto[i]["acorp"]; 
@@ -1991,7 +1991,7 @@
                     bfixflag = "착불"                     
                 }else if(ls_agita == "Z" && ls_asyumu != "무상" ){   //비거래이고 유상
                     bfixflag = "신용"                     
-                }                
+                }      
                 var ls_eeacodetxt = '05408';        //wtab02Dto[i]["eeacodetxt"]    
                 var ls_eeajuso    = '서울 강동구 성내동 440-4 만성재빌딩 4층'    //wtab02Dto[i]["eeajuso"]
                 wtab02_data.push({
@@ -2000,7 +2000,7 @@
                     select: false,
                     misdate: wtab02Dto[i]["misdate"],
                     misnum: wtab02Dto[i]["misnum"], 
-                    miskey: ls_miskey,  
+                    miskey: ls_miskey,   
                     acorp: wtab02Dto[i]["acorp"],     
                     atelno: wtab02Dto[i]["atelno"],     
                     ajuso: wtab02Dto[i]["ajuso"],     
