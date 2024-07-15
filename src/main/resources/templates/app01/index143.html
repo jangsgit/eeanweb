@@ -86,8 +86,18 @@
                                             <div class="col-2 col-sm-2">
                                                 <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">사원명</span> 
                                                     <input type="text" name="inname01" id="inname01" placeholder=""  disabled > 
-                                                    <input type="hidden" name="abonsadam1" id="abonsadam1" placeholder=""  >   
+                                                    <input type="hidden" name="abonsadam1" id="abonsadam1" placeholder=""  >  
+                                                    <input class="form-control form-control-sm" id="jpbgubn" type="hidden"  />  
                                                     
+                                                </div>
+                                            </div>
+                                            <div class="col-2 col-sm-2">
+                                                <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">거래처</span> 
+                                                    <input class="form-control form-control-sm" id="cifname" type="text"    autocomplete="off"  placeholder=""     >
+                                                    <input class="form-control form-control-sm" id="acorp1" type="hidden"  />
+                                                    <input class="form-control form-control-sm" id="acorp2" type="hidden"  />
+                                                    <input class="form-control form-control-sm" id="acorp3" type="hidden"  />
+                                                    <input class="form-control form-control-sm" id="acode" type="hidden"  />   
                                                 </div>
                                             </div>
                                             <div class="col-2 col-sm-2">
@@ -125,6 +135,15 @@
                                                     <input type="text" name="inname02" id="inname02" placeholder=""  disabled  > 
                                                     <input type="hidden" name="abonsadam2" id="abonsadam2" placeholder=""  >    
                                                     
+                                                </div>
+                                            </div>
+                                            <div class="col-2 col-sm-2">
+                                                <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">거래처</span> 
+                                                    <input class="form-control form-control-sm" id="bcifname" type="text"    autocomplete="off"  placeholder=""     >
+                                                    <input class="form-control form-control-sm" id="bacorp1" type="hidden"  />
+                                                    <input class="form-control form-control-sm" id="bacorp2" type="hidden"  />
+                                                    <input class="form-control form-control-sm" id="bacorp3" type="hidden"  />
+                                                    <input class="form-control form-control-sm" id="bacode" type="hidden"  />   
                                                 </div>
                                             </div>
                                             <div class="col-2 col-sm-2">
@@ -167,6 +186,15 @@
                                                 </div>
                                             </div> 
                                             <div class="col-2 col-sm-2">
+                                                <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">거래처</span> 
+                                                    <input class="form-control form-control-sm" id="ccifname" type="text"    autocomplete="off"  placeholder=""     >
+                                                    <input class="form-control form-control-sm" id="cacorp1" type="hidden"  />
+                                                    <input class="form-control form-control-sm" id="cacorp2" type="hidden"  />
+                                                    <input class="form-control form-control-sm" id="cacorp3" type="hidden"  />
+                                                    <input class="form-control form-control-sm" id="cacode" type="hidden"  />   
+                                                </div>
+                                            </div>
+                                            <div class="col-2 col-sm-2">
                                                 <select class="form-select form-select-sm" id="misfixflag03" aria-label=".form-select-sm example">
                                                     <option selected="">출력구분</option>
                                                     <option value="%">전체</option>
@@ -204,6 +232,15 @@
                                                     
                                                 </div>
                                             </div> 
+                                            <div class="col-2 col-sm-2">
+                                                <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">거래처</span> 
+                                                    <input class="form-control form-control-sm" id="dcifname" type="text"    autocomplete="off"  placeholder=""     >
+                                                    <input class="form-control form-control-sm" id="dacorp1" type="hidden"  />
+                                                    <input class="form-control form-control-sm" id="dacorp2" type="hidden"  />
+                                                    <input class="form-control form-control-sm" id="dacorp3" type="hidden"  />
+                                                    <input class="form-control form-control-sm" id="dacode" type="hidden"  />   
+                                                </div>
+                                            </div>
                                             <div class="col-2 col-sm-2">
                                                 <select class="form-select form-select-sm" id="misfixflag04" aria-label=".form-select-sm example">
                                                     <option selected="">출력구분</option>
@@ -277,6 +314,46 @@
  <!--------------------------------------------------------------------------------------->         
   
 
+         <!--  모달 처리 -->
+         <input class="form-control form-control-sm"  type="hidden" id="incltnmbtn" data-bs-toggle="modal" data-bs-target="#cifmodal"  /> 
+         <!--------------------------------------------------------------------------------------->   
+         <div class="modal fade" id="cifmodal" data-bs-keyboard="false"
+         data-bs-backdrop="static" tabindex="-1" aria-labelledby="staticBackdropLabel"
+         aria-hidden="true">
+             <div class="modal-dialog modal-lg mt-6" role="document" id = "modalForm01"
+                 style="max-width: 600px">
+                 <div class="modal-content border-0">
+                     <div class="modal-body p-0" > 
+                         <div class="rounded-top-lg py-3 ps-4 pe-6 bg-light">                            
+                             <div class="search">
+                                 <div class="input_wrap">  
+                                     <input class="form-control form-control-sm" id="searchCode" type="text"   onkeyup="if(window.event.keyCode==13){CifSearchList_rtn('M')}"
+                                     placeholder="업체명 "     />                                      
+                                 </div>
+ 
+                                 <button id="wincltnmBtn">
+                                     <img th:src="@{/assets/images/i_search.png}" alt=""> 
+                                 </button>
+                             </div>                             
+                         </div>   
+                         <div class="container-fluid"> 
+                             <div id="wincltnmGrid_div"  style="overflow:scroll;   height:500px;   margin:0 auto; "></div> 
+                             <!-- <div id="thePager03"></div> -->
+                         </div>   
+                     </div>  
+ 
+                     <div class="modal-footer">
+                         <div class="row g-1">
+                             <div class="col-auto">
+                                 <button class="badge-soft-primary dropdown-item rounded-1"
+                                     type="button"  id="wincltnmmodal_btn" data-bs-dismiss="modal">Close</button>
+                             </div> 
+                         </div>
+                     </div>   
+ 
+                 </div>
+             </div> 
+         </div>   
 
 
 
@@ -288,7 +365,8 @@
          var view_p01tab02page;
          var view_p01tab03page; 
          var view_p01tab04page; 
-         var view_p01tab05page; 
+         var view_p01tab05page;
+         var view_incltnmpage 
          var view_innamepage; 
          var wtab01Grid;
          var wtab02Grid;
@@ -296,6 +374,7 @@
          var wtab04Grid; 
          var wtab05Grid; 
          var winnameGrid; 
+         var wincltnmGrid;
 
          var misdateArr = new Array();
          var misnumArr = new Array();
@@ -361,28 +440,7 @@
                     
                 ], 
                 itemsSource: view_p01tab02page, 
-            }); 
-            // wtab02Grid.formatItem.addHandler((s, e) => {
-            //     if (e.panel == s.cells) {
-            //         var val = s.getCellData(e.row,0); 
-            //         if(val == null || val.length == 0 || val == ""){  
-            //             return 
-            //         } else {
-            //             var pos1 = val.indexOf('<');
-            //             if (pos1 > 0 ){
-            //                 return 
-            //             } 
-            //         }  
-            //         // 짝수 행 일 때
-            //         if (e.row % 2 == 0) {
-            //             e.cell.style.backgroundColor = "rgb(232, 241, 255)";
-            //         }
-            //         // 홀수 행 일 때
-            //         else if (e.row % 2 == 1) {
-            //             e.cell.style.backgroundColor = "rgb(255,255,255)";
-            //         }
-            //     }
-            // });                 
+            });                 
             function showCheckedCount() {
                 let cnt = document.getElementById('checked-count'), sel = wtab02Grid.rows.filter(r => r.isSelected);
                 cnt.textContent = sel.length.toString();    
@@ -461,28 +519,7 @@
                 ], 
                 itemsSource: view_p01tab04page
             });  
-
-            // wtab04Grid.formatItem.addHandler((s, e) => {
-            //     if (e.panel == s.cells) {
-            //         var val = s.getCellData(e.row,0); 
-            //         if(val == null || val.length == 0 || val == ""){  
-            //             return 
-            //         } else {
-            //             var pos1 = val.indexOf('<');
-            //             if (pos1 > 0 ){
-            //                 return 
-            //             } 
-            //         }  
-            //         // 짝수 행 일 때
-            //         if (e.row % 2 == 0) {
-            //             e.cell.style.backgroundColor = "rgb(232, 241, 255)";
-            //         }
-            //         // 홀수 행 일 때
-            //         else if (e.row % 2 == 1) {
-            //             e.cell.style.backgroundColor = "rgb(255,255,255)";
-            //         }
-            //     }
-            // }); 
+ 
             new FlexGridContextMenu(wtab04Grid);  
             setGroups02(true); 
             function setGroups02(groupsOn) {
@@ -536,28 +573,7 @@
                     
                 ], 
                 itemsSource: view_p01tab03page, 
-            }); 
-            // wtab03Grid.formatItem.addHandler((s, e) => {
-            //     if (e.panel == s.cells) {
-            //         var val = s.getCellData(e.row,0); 
-            //         if(val == null || val.length == 0 || val == ""){  
-            //             return 
-            //         } else {
-            //             var pos1 = val.indexOf('<');
-            //             if (pos1 > 0 ){
-            //                 return 
-            //             } 
-            //         }  
-            //         // 짝수 행 일 때
-            //         if (e.row % 2 == 0) {
-            //             e.cell.style.backgroundColor = "rgb(232, 241, 255)";
-            //         }
-            //         // 홀수 행 일 때
-            //         else if (e.row % 2 == 1) {
-            //             e.cell.style.backgroundColor = "rgb(255,255,255)";
-            //         }
-            //     }
-            // });                     
+            });             
             // 그룹 전환 
             setGroups03(true); 
             function setGroups03(groupsOn) {
@@ -580,7 +596,29 @@
             }
             new FlexGridContextMenu(wtab03Grid); 
             wtab03Grid.focus();
- 
+  
+            //////////////////////////////////////////////////////////////////////////////////////////////////////////
+            //거래처현황 Modalㅁ
+            view_incltnmpage = new wijmo.collections.CollectionView(getData_wlist2(), {
+               // pageSize: 12
+            });   
+            wincltnmGrid = new wijmo.grid.FlexGrid('#wincltnmGrid_div', {  
+                autoGenerateColumns: false,
+                isReadOnly: false, 
+                allowSorting: 'MultiColumn',
+                selectionMode: 'MultiRange',
+                alternatingRowStep: 0,
+                columns: [     
+                    { binding: 'acode', header: '코드', align: "center", width: '1*' },
+                    { binding: 'acorp', header: '거래처명', align: "center", width: '1*' },
+                ], 
+                itemsSource: view_incltnmpage
+            });  
+            
+            wincltnmGrid.showMarquee = true;
+            wincltnmGrid.focus();
+            wijmo.toggleClass(wincltnmGrid.hostElement, 'highlightActive', true);
+            wincltnmGrid.focus();
             //////////////////////////////////////////////////////////////////////////////////////////////////////////  
             //품목별주문현황 popup list
             view_p01tab05page = new wijmo.collections.CollectionView(getData_wlist());    
@@ -806,7 +844,32 @@
                 insaflag = "D"; 
                 insaSearchList_rtn("D"); 
             }
-        });    
+        });               
+        document.getElementById("cifname").addEventListener("keyup", (e)=>{ 
+            if(e.keyCode === 13){  
+                document.getElementById("incltnmbtn").click(); 
+                CifSearchList_rtn("A"); 
+            }
+        });   
+        document.getElementById("bcifname").addEventListener("keyup", (e)=>{ 
+            if(e.keyCode === 13){  
+                document.getElementById("incltnmbtn").click(); 
+                CifSearchList_rtn("B"); 
+            }
+        });        
+        document.getElementById("ccifname").addEventListener("keyup", (e)=>{ 
+            if(e.keyCode === 13){  
+                document.getElementById("incltnmbtn").click(); 
+                CifSearchList_rtn("C"); 
+            }
+        });        
+        document.getElementById("dcifname").addEventListener("keyup", (e)=>{ 
+            if(e.keyCode === 13){  
+                document.getElementById("incltnmbtn").click(); 
+                CifSearchList_rtn("D"); 
+            }
+        }); 
+            
 
         function searchList_rtn(arg1){ 
             var ls_makflag = "1" ;
@@ -818,6 +881,8 @@
                     var ls_abonsadam1   = document.getElementById('abonsadam1').value; 
                     var ls_inname01   = document.getElementById('inname01').value; 
                     var ls_misfixflag = document.getElementById('misfixflag').value; 
+                    var ls_acode = document.getElementById('acode').value; 
+                    var ls_cifname = document.getElementById('cifname').value; 
                     var ls_sflag = "0" ; //출력일기준
                     if(ls_frdate == null || ls_frdate.length == 0 || ls_frdate == ""){ 
                         alert("조회일자를 등록하세요") 
@@ -835,7 +900,10 @@
                     if(ls_inname01 == null || ls_inname01.length == 0 || ls_inname01 == ""){ 
                         alert("사원명이 없습니다.")  
                         return ;               
-                    }    
+                    }        
+                    if(ls_cifname == null || ls_cifname.length == 0 || ls_cifname == ""){  
+                        ls_acode = "%";
+                    }  
                     
                     $.ajax({
                         url: '/app01m/index14/listperidgroup',  
@@ -843,7 +911,7 @@
                         data: { 
                             "frdate"      : ls_frdate,
                             "todate"      : ls_todate,
-                            "acode"      : '%',   
+                            "acode"      : ls_acode,   
                             "perid"      : ls_abonsadam1,  
                             "fixflag"    : ls_misfixflag,
                             "makflag"    : ls_makflag,
@@ -872,6 +940,8 @@
                     var ls_abonsadam2   = document.getElementById('abonsadam2').value; 
                     var ls_inname02   = document.getElementById('inname02').value; 
                     var ls_misfixflag = document.getElementById('misfixflag02').value; 
+                    var ls_acode = document.getElementById('bacode').value; 
+                    var ls_cifname = document.getElementById('bcifname').value; 
                     var ls_sflag = "0" ; //출력일기준
                         
                     if(ls_frdate == null || ls_frdate.length == 0 || ls_frdate == ""){ 
@@ -890,14 +960,17 @@
                     }   
                     if(ls_misfixflag == "출력구분"){  
                         ls_misfixflag = "%";
-                    }    
+                    }     
+                    if(ls_cifname == null || ls_cifname.length == 0 || ls_cifname == ""){  
+                        ls_acode = "%";
+                    }  
                     $.ajax({
                         url: '/app01m/index14/listperid',  
                         type:"POST",
                         data: { 
                             "frdate"      : ls_frdate,
                             "todate"      : ls_todate,
-                            "acode"      : '%',   
+                            "acode"      : ls_acode,   
                             "perid"      : ls_abonsadam2,   
                             "fixflag"    : ls_misfixflag, 
                             "makflag"    : ls_makflag,
@@ -924,7 +997,9 @@
                     var ls_todate = document.getElementById('todate03').value;          
                     var ls_abonsadam3   = document.getElementById('abonsadam3').value; 
                     var ls_inname03   = document.getElementById('inname03').value;  
-                    var ls_misfixflag = document.getElementById('misfixflag03').value; 
+                    var ls_misfixflag = document.getElementById('misfixflag03').value;   
+                    var ls_acode = document.getElementById('cacode').value; 
+                    var ls_cifname = document.getElementById('ccifname').value; 
                     var ls_sflag = "0" ; //출력일기준
                     if(ls_frdate == null || ls_frdate.length == 0 || ls_frdate == ""){ 
                         alert("조회일자를 등록하세요") 
@@ -942,14 +1017,17 @@
                     if(ls_inname03 == null || ls_inname03.length == 0 || ls_inname03 == ""){  
                         alert("사원명이 없습니다.")  
                         return ;               
-                    }    
+                    }       
+                    if(ls_cifname == null || ls_cifname.length == 0 || ls_cifname == ""){  
+                        ls_acode = "%";
+                    }  
                     $.ajax({
                         url: '/app01m/index14/listcltcdgroup',  
                         type:"POST",
                         data: { 
                             "frdate"      : ls_frdate,
                             "todate"      : ls_todate,
-                            "acode"      : '%',   
+                            "acode"      : ls_acode,   
                             "perid"      : ls_abonsadam3,  
                             "fixflag"    : ls_misfixflag,
                             "makflag"    : ls_makflag,
@@ -976,7 +1054,9 @@
                     var ls_todate = document.getElementById('todate04').value;          
                     var ls_abonsadam4   = document.getElementById('abonsadam4').value; 
                     var ls_inname04   = document.getElementById('inname04').value;   
-                    var ls_misfixflag = document.getElementById('misfixflag04').value;
+                    var ls_misfixflag = document.getElementById('misfixflag04').value;  
+                    var ls_acode = document.getElementById('dacode').value; 
+                    var ls_cifname = document.getElementById('dcifname').value; 
                     var ls_sflag = "0" ; //출력일기준 
                     if(ls_frdate == null || ls_frdate.length == 0 || ls_frdate == ""){ 
                         alert("조회일자를 등록하세요") 
@@ -993,14 +1073,17 @@
                     if(ls_inname04 == null || ls_inname04.length == 0 || ls_inname04 == ""){  
                         alert("사원명이 없습니다.")  
                         return ;               
-                    }    
+                    }          
+                    if(ls_cifname == null || ls_cifname.length == 0 || ls_cifname == ""){  
+                        ls_acode = "%";
+                    }   
                     $.ajax({
                         url: '/app01m/index14/listjkeygroup',  
                         type:"POST",
                         data: { 
                             "frdate"      : ls_frdate,
                             "todate"      : ls_todate,
-                            "acode"      : '%',   
+                            "acode"      : ls_acode,   
                             "jkey"        : '%',                               
                             "perid"      : ls_abonsadam4,  
                             "fixflag"    : ls_misfixflag,
@@ -1485,6 +1568,152 @@
             $("#winnamemodal_btn").trigger("click");
         }    
 
+  
+        function CifSearchList_rtn(arg){   
+            var searchCode = ""; 
+            var ls_jpbgubn = document.getElementById('jpbgubn').value; 
+            if(arg == "M"){
+                searchCode = document.getElementById('searchCode').value;   
+            } 
+            if(arg == "A"){
+                searchCode = document.getElementById('cifname').value;   
+            } 
+            if(arg == "B"){
+                searchCode = document.getElementById('bcifname').value;   
+            } 
+            if(arg == "C"){
+                searchCode = document.getElementById('ccifname').value;   
+            } 
+            if(arg == "D"){
+                searchCode = document.getElementById('dcifname').value;   
+            } 
+            if(searchCode == null || searchCode.length == 0 || searchCode == ""){ 
+                searchCode = "%"         ;
+            } 
+            if(ls_jpbgubn == null || ls_jpbgubn.length == 0 || ls_jpbgubn == ""){ 
+                ls_jpbgubn = "%"         ;
+            }      
+            let ls_conacorp1 = "%";  
+            let ls_conagita = "%";   
+            let ls_abonsadam1 = "%";
+            $.ajax({
+                        url: '/app01m/index02/listtot',  
+                    type:"POST",
+                    data: { 
+                        "conacorp1" :ls_conacorp1, 
+                        "conacorp" :searchCode, 
+                        "conagita" :ls_conagita, 
+                        "abonsadam1" :ls_abonsadam1, 
+                        "jpbgubn" :ls_jpbgubn,  
+                    }, 
+                    async:false,
+                    success:function(data){  
+                        tabcltnmPop_grid(data, arg);
+                    },error:function(e){
+                        console.log("error");                            
+                    }
+                }).done(function(fragment){           
+
+                })    
+
+        }     
+       //  거래처팝업 grid data 수집
+       function tabcltnmPop_grid(data, arg){
+        // console.log(data);
+            var wtab02Dto  = data;    
+            var wtab02_data = [];
+            var cnt = 1;
+            for (var i = 0; i < wtab02Dto.length; i++) {
+                wtab02_data.push({
+                    id: i, 
+                    index: cnt, 
+                    acorp1: wtab02Dto[i]["acorp1"], 
+                    acorp2: wtab02Dto[i]["acorp2"], 
+                    acorp3: wtab02Dto[i]["acorp3"],  
+                    acode: wtab02Dto[i]["acode"], 
+                    acorp: wtab02Dto[i]["acorp"] , 
+                    abigo: wtab02Dto[i]["abigo"]       
+                });
+                cnt++;
+            }   
+
+            // console.log(winnameGrid);
+
+            wincltnmGrid.columns.clear();  
+            wtab02Grid.selectionMode = "MultiRange"
+            wincltnmGrid.autoGenerateColumns = false; 
+            view_incltnmpage.sourceCollection  = wtab02_data;
+
+            var cols = new wijmo.grid.Column(); 
+            cols.binding = 'acode';
+            cols.header = '코드';
+            cols.align = "center";
+            cols.width = 80;
+            cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
+                text: '<b>${item.acode}</b>',
+                click: (e, ctx) => {
+                    wcifChk_a(ctx.item.acorp1, ctx.item.acorp2, ctx.item.acorp3, ctx.item.acode,   ctx.item.acorp  );                    
+                    
+                }
+            });
+            wincltnmGrid.columns.push(cols);  
+
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'acorp';
+            cols.header = '거래처명'; 
+            cols.align = "left"; 
+            cols.width = 200;
+            wincltnmGrid.columns.push(cols); 
+
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'abigo';
+            cols.header = '비고'; 
+            cols.align = "left"; 
+            cols.width = 200;
+            wincltnmGrid.columns.push(cols); 
+
+         
+        }
+                
+        function wcifChk_a(arg1, arg2, arg3, arg4, arg5){  
+            var ls_tab = document.getElementById('tabvalue').value;    
+            if(ls_tab == "A"){ 
+                document.getElementById('acorp1').value = arg1;  
+                document.getElementById('acorp2').value = arg2;  
+                document.getElementById('acorp3').value = arg3;  
+                document.getElementById('acode').value = arg4;   
+                document.getElementById('cifname').value = arg5;  
+                searchList_rtn(ls_tab)
+                $("#wincltnmmodal_btn").trigger("click");
+            }else if(ls_tab == "B"){
+                document.getElementById('bacorp1').value = arg1;  
+                document.getElementById('bacorp2').value = arg2;  
+                document.getElementById('bacorp3').value = arg3;  
+                document.getElementById('bacode').value = arg4;   
+                document.getElementById('bcifname').value = arg5;  
+                searchList_rtn(ls_tab)
+                $("#wincltnmmodal_btn").trigger("click"); 
+            }else if(ls_tab == "C"){
+                document.getElementById('cacorp1').value = arg1;  
+                document.getElementById('cacorp2').value = arg2;  
+                document.getElementById('cacorp3').value = arg3;  
+                document.getElementById('cacode').value = arg4;   
+                document.getElementById('ccifname').value = arg5; 
+                searchList_rtn(ls_tab) 
+                $("#wincltnmmodal_btn").trigger("click"); 
+            }else if(ls_tab == "D"){
+                document.getElementById('dacorp1').value = arg1;  
+                document.getElementById('dacorp2').value = arg2;  
+                document.getElementById('dacorp3').value = arg3;  
+                document.getElementById('dacode').value = arg4;   
+                document.getElementById('dcifname').value = arg5; 
+                searchList_rtn(ls_tab) 
+                $("#wincltnmmodal_btn").trigger("click"); 
+            }
+            
+        }   
+
+        
         function insaSearchList_rtn(arg){  
             var insaText = "";
             if(arg == "M"){
@@ -1665,6 +1894,11 @@
         document.getElementById('misfixflag02').value = "1"; 
         document.getElementById('misfixflag03').value = "1"; 
         document.getElementById('misfixflag04').value = "1"; 
+        const ls_role = window.localStorage.getItem("role");  
+        if(ls_role == null || ls_role.length == 0 || ls_role == ""){ 
+            ls_role = '%'             
+        } 
+        document.getElementById('jpbgubn').value = ls_role; 
             // lsUserid = window.localStorage.getItem("userid")
             // if (lsUserid == "pvadmin"){ 
             //     document.getElementById('bjpbgubn').value = "P";  
