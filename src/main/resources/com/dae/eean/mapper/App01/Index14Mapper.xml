@@ -536,7 +536,7 @@
         <![CDATA[ select count(*) as rownum,  sum(B.qty) as qty,  sum(B.samt) as samt, sum(B.addamt) as addamt,
                          sum(B.amt) as amt,   B.pernm as pernm, B.perid AS perid
            from  TB_DA024 B WITH (NOLOCK)
-           where   B.cltcd Like    #{cltcd} + '%'
+           where   B.cltcd Like  #{cltcd}
              AND isnull(B.perid,'')  Like concat('%',#{perid},'%')
              AND isnull(B.misgubun,'')  Like concat('%',#{misgubun},'%')
             AND B.fixdate between #{frdate} and #{todate}
@@ -557,7 +557,7 @@
         <![CDATA[ select count(*) as rownum,  sum(B.qty) as qty,  sum(B.samt) as samt, sum(B.addamt) as addamt,
                          sum(B.amt) as amt,   B.pernm as pernm, B.perid AS perid
            from  TB_DA024 B WITH (NOLOCK)
-           where   B.cltcd Like     #{cltcd} + '%'
+           where   B.cltcd Like  #{cltcd}
              AND isnull(B.perid,'')  Like concat('%',#{perid},'%')
              AND isnull(B.misgubun,'')  Like concat('%',#{misgubun},'%')
             AND B.misdate between #{frdate} and #{todate}
@@ -582,7 +582,7 @@
                       B.unsongnum as unsongnum,
                       B.fixdate,  CONVERT(CHAR(19),B.fixdatetime,20) as fixdatetime,  CONVERT(CHAR(19),B.misdatetime,20) as misdatetime
                   from  TB_DA024 B WITH (NOLOCK)
-                  where    B.cltcd Like    #{cltcd} + '%'
+                  where    B.cltcd Like    #{cltcd}
                     AND isnull(B.perid,'')  Like concat('%',#{perid},'%')
                     AND isnull(B.misgubun,'')  Like concat('%',#{misgubun},'%')
                     AND B.fixdate between #{frdate} and #{todate}
@@ -606,7 +606,7 @@
                       B.unsongnum as unsongnum,
                       B.fixdate,  CONVERT(CHAR(19),B.fixdatetime,20) as fixdatetime,  CONVERT(CHAR(19),B.misdatetime,20) as misdatetime
                   from  TB_DA024 B WITH (NOLOCK)
-                  where    B.cltcd Like  #{cltcd} + '%'
+                  where    B.cltcd Like  #{cltcd}
                     AND isnull(B.perid,'')  Like concat('%',#{perid},'%')
                     AND isnull(B.misgubun,'')  Like concat('%',#{misgubun},'%')
                     AND B.misdate between #{frdate} and #{todate}
@@ -626,7 +626,7 @@
                                  B.amt, B.acorp, pbonsa, pmodel, pcolor ,   B.misgubun, isnull(B.fixflag,'0') as fixflag, B.pernm as pernm,
                                  B.fixdate,  CONVERT(CHAR(19),B.fixdatetime,20) as fixdatetime
                    from  TB_DA024 B WITH (NOLOCK)
-                   where  B.cltcd Like #{cltcd} + '%'
+                   where  B.cltcd Like #{cltcd}
                      AND isnull(B.perid,'')  Like concat('%',#{perid},'%')
                      AND isnull(B.misgubun,'')  Like concat('%',#{misgubun},'%')
                     AND B.fixdate between #{frdate} and #{todate}
@@ -646,7 +646,7 @@
                         sum(B.qty) as qty, sum(B.samt) as samt, sum(B.addamt) as addamt,
                       sum(B.amt) as amt, B.acorp, B.pernm as inname, max(B.misgubun) as misgubun, isnull(B.fixflag,'0') as fixflag, B.pernm as pernm
                   from  TB_DA024 B WITH (NOLOCK)
-                  where  B.cltcd Like #{cltcd} + '%'
+                  where  B.cltcd Like #{cltcd}
                     AND isnull(B.perid,'')  Like concat('%',#{perid},'%')
                     AND B.fixdate between #{frdate} and #{todate}
                     AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
@@ -666,7 +666,7 @@
                         sum(B.qty) as qty, sum(B.samt) as samt, sum(B.addamt) as addamt,
                       sum(B.amt) as amt, B.acorp, B.pernm as inname, max(B.misgubun) as misgubun, isnull(B.fixflag,'0') as fixflag, B.pernm as pernm
                   from  TB_DA024 B WITH (NOLOCK)
-                  where  B.cltcd Like #{cltcd} + '%'
+                  where  B.cltcd Like #{cltcd}
                     AND isnull(B.perid,'')  Like concat('%',#{perid},'%')
                     AND B.misdate between #{frdate} and #{todate}
                     AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
@@ -701,7 +701,7 @@
         <![CDATA[ select    B.pcode, B.pname, B.psize, sum(B.qty) as qty, sum(B.samt) as samt, sum(B.addamt) as addamt,  count(*) as rownum,
                             sum(B.amt) as amt, B.acorp, B.pernm as inname, B.misgubun, isnull(B.fixflag,'0') as fixflag, B.pernm as pernm
                   from  TB_DA024 B WITH (NOLOCK)
-                  where  B.cltcd Like #{cltcd} + '%'
+                  where  B.cltcd Like #{cltcd}
                     AND isnull(B.perid,'')  Like concat('%',#{perid},'%')
                     AND isnull(B.misgubun,'')  Like concat('%',#{misgubun},'%')
                     AND B.fixdate between #{frdate} and #{todate}
@@ -720,7 +720,7 @@
         <![CDATA[ select    B.pcode, B.pname, B.psize, sum(B.qty) as qty, sum(B.samt) as samt, sum(B.addamt) as addamt,  count(*) as rownum,
                             sum(B.amt) as amt, B.acorp, B.pernm as inname, B.misgubun, isnull(B.fixflag,'0') as fixflag, B.pernm as pernm
                   from  TB_DA024 B WITH (NOLOCK)
-                  where  B.cltcd Like #{cltcd} + '%'
+                  where  B.cltcd Like #{cltcd}
                     AND isnull(B.perid,'')  Like concat('%',#{perid},'%')
                     AND isnull(B.misgubun,'')  Like concat('%',#{misgubun},'%')
                     AND B.misdate between #{frdate} and #{todate}
@@ -779,7 +779,7 @@
                          B.amt, B.acorp, pbonsa, pmodel, pcolor, B.pernm as inname, B.misgubun, isnull(B.fixflag,'0') as fixflag, B.pernm as pernm,
                          B.omisdate, B.omisnum, B.oseq
            from  TB_DA026 B WITH (NOLOCK)
-           where  B.cltcd Like concat('%',#{cltcd},'%')
+           where  B.cltcd Like  #{cltcd}
              AND isnull(B.perid,'')  Like concat('%',#{perid},'%')
             AND B.misdate between #{frdate} and #{todate}
              AND isnull(B.misgubun,'')  Like concat('%',#{misgubun},'%')
@@ -797,7 +797,7 @@
                          B.amt, B.acorp, pbonsa, pmodel, pcolor, B.pernm as inname, B.misgubun, isnull(B.fixflag,'0') as fixflag, B.pernm as pernm,
                          B.omisdate, B.omisnum, B.oseq
            from  TB_DA026 B WITH (NOLOCK)
-           where   B.cltcd Like concat('%',#{cltcd},'%')
+           where   B.cltcd Like  #{cltcd}
              AND isnull(B.perid,'')  Like concat('%',#{perid},'%')
             AND B.misdate between #{frdate} and #{todate}
              AND isnull(B.misgubun,'')  Like concat('%',#{misgubun},'%')
@@ -815,7 +815,7 @@
                          B.amt, B.acorp, pbonsa, pmodel, pcolor, B.pernm as inname, B.misgubun, isnull(B.fixflag,'0') as fixflag, B.pernm as pernm,
                          B.omisdate, B.omisnum, B.oseq
            from  TB_DA026 B WITH (NOLOCK)
-           where  B.cltcd Like concat('%',#{cltcd},'%')
+           where  B.cltcd Like  #{cltcd}
              AND isnull(B.pcode,'')  Like concat('%',#{pcode},'%')
             AND B.misdate between #{frdate} and #{todate}
              AND isnull(B.misgubun,'')  Like concat('%',#{misgubun},'%')
