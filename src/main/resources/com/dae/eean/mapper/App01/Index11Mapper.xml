@@ -14,7 +14,7 @@
                  ,as_yumu
                  ,as_memo
                  ,as_gongjang
-                 ,as_acorp
+                 ,C.acorp as as_acorp
                  ,as_acorp1
                  ,as_acorp2
                  ,as_acorp3
@@ -37,6 +37,7 @@
                  , CONVERT(CHAR(19),as_devdate,20) as as_devdate
             from as_jupsu WITH (NOLOCK)
                 LEFT JOIN TB_CA510 B ON com_code <> '00' and com_cls = '002' and com_code=as_jupsu.as_aname
+                LEFT JOIN cif C ON as_acorp1 = C.acorp1 and as_acorp2 = C.acorp2
             WHERE as_acorp1 + CAST(as_acorp2 as varchar)   Like #{ascode}
             and as_key1 between #{frdate} and #{todate}
             and isnull(as_devflag,'') Like concat('%',#{as_devflag},'%')
@@ -59,7 +60,7 @@
              ,as_yumu
              ,as_memo
              ,as_gongjang
-             ,as_acorp
+             ,C.acorp as as_acorp
              ,as_acorp1
              ,as_acorp2
              ,as_acorp3
@@ -81,6 +82,7 @@
              , CONVERT(CHAR(19),as_devdate,20) as as_devdate
         from as_jupsu WITH (NOLOCK)
              LEFT JOIN TB_CA510 B ON com_code <> '00' and com_cls = '002' and com_code=as_jupsu.as_aname
+             LEFT JOIN cif C ON as_acorp1 = C.acorp1 and as_acorp2 = C.acorp2
         WHERE as_acorp1 + CAST(as_acorp2 as varchar)  Like #{ascode}
           and as_key1 between #{frdate} and #{todate}
           and isnull(as_devflag,'0') Like concat('%',#{as_devflag},'%')
@@ -103,7 +105,7 @@
              ,as_yumu
              ,as_memo
              ,as_gongjang
-             ,as_acorp
+             ,C.acorp as as_acorp
              ,as_acorp1
              ,as_acorp2
              ,as_acorp3
@@ -123,6 +125,7 @@
              ,jchgoga
              , CONVERT(CHAR(19),as_devdate,20) as as_devdate
         from as_jupsu WITH (NOLOCK)
+             LEFT JOIN cif C ON as_acorp1 = C.acorp1 and as_acorp2 = C.acorp2
         where  as_key1 + convert(nvarchar(4), as_key2 )   in
             <foreach collection="itemcdArr" item="itemcd"  open="(" close=")" separator=",">
                  #{itemcd}

@@ -85,10 +85,11 @@
                       isnull(B.remarkbb,'') as remarkbb,
                       B.unsongnum as unsongnum,
                       isnull(B.makflag, '0') as makflag,
-                      B.amt, B.acorp, pbonsa, pmodel, pcolor , B.pernm as inname, B.misgubun, isnull(B.fixflag,'0') as fixflag,isnull(B.devflag,'0') as devflag,    B.pernm as pernm,
+                      B.amt, C.acorp, pbonsa, pmodel, pcolor , B.pernm as inname, B.misgubun, isnull(B.fixflag,'0') as fixflag,isnull(B.devflag,'0') as devflag,    B.pernm as pernm,
                       B.fixdate,  CONVERT(CHAR(19),B.fixdatetime,20) as fixdatetime , CONVERT(CHAR(19),B.misdatetime,20) as misdatetime, 0 as jqty,
                       B.userid, B.usernm
                   from  TB_DA024 B WITH (NOLOCK)
+                       LEFT JOIN cif C ON B.cltcd = C.acorp1 + CAST(C.acorp2 as varchar)
                   where  B.cltcd = #{cltcd}
                     AND isnull(B.perid,'')  Like concat('%',#{perid},'%')
                     AND B.misdate between #{frdate} and #{todate}
@@ -112,10 +113,11 @@
                       isnull(B.remarkbb,'') as remarkbb,
                       B.unsongnum as unsongnum,
                       isnull(B.makflag, '0') as makflag,
-                      B.amt, B.acorp, pbonsa, pmodel, pcolor , B.pernm as inname, B.misgubun, isnull(B.fixflag,'0') as fixflag,isnull(B.devflag,'0') as devflag,    B.pernm as pernm,
+                      B.amt, C.acorp, pbonsa, pmodel, pcolor , B.pernm as inname, B.misgubun, isnull(B.fixflag,'0') as fixflag,isnull(B.devflag,'0') as devflag,    B.pernm as pernm,
                       B.fixdate,  CONVERT(CHAR(19),B.fixdatetime,20) as fixdatetime , CONVERT(CHAR(19),B.misdatetime,20) as misdatetime, 0 as jqty,
                       B.userid, B.usernm
                   from  TB_DA024 B WITH (NOLOCK)
+                       LEFT JOIN cif C ON B.cltcd = C.acorp1 + CAST(C.acorp2 as varchar)
                   where  B.cltcd = #{cltcd}
                     AND isnull(B.perid,'')  Like concat('%',#{perid},'%')
                     AND B.misdate between #{frdate} and #{todate}
@@ -139,10 +141,11 @@
                       isnull(B.remarkbb,'') as remarkbb,
                       B.unsongnum as unsongnum,
                       isnull(B.makflag, '0') as makflag,
-                      B.amt, B.acorp, pbonsa, pmodel, pcolor , B.pernm as inname, B.misgubun, isnull(B.fixflag,'0') as fixflag,isnull(B.devflag,'0') as devflag,   B.pernm as pernm,
+                      B.amt, C.acorp, pbonsa, pmodel, pcolor , B.pernm as inname, B.misgubun, isnull(B.fixflag,'0') as fixflag,isnull(B.devflag,'0') as devflag,   B.pernm as pernm,
                       B.fixdate,  CONVERT(CHAR(19),B.fixdatetime,20) as fixdatetime ,  CONVERT(CHAR(19),B.misdatetime,20) as misdatetime , 0 as jqty,
                       B.userid, B.usernm
                   from  TB_DA024 B WITH (NOLOCK)
+                       LEFT JOIN cif C ON B.cltcd = C.acorp1 + CAST(C.acorp2 as varchar)
                   where B.CLTCD Like concat('%',#{cltcd},'%')
                     AND isnull(B.perid,'')  Like concat('%',#{perid},'%')
                     AND B.misdate between #{frdate} and #{todate}
@@ -168,10 +171,11 @@
                       isnull(B.remarkbb,'') as remarkbb,
                       B.unsongnum as unsongnum,
                       isnull(B.makflag, '0') as makflag,
-                      B.amt, B.acorp, pbonsa, pmodel, pcolor , B.pernm as inname, B.misgubun, isnull(B.fixflag,'0') as fixflag,isnull(B.devflag,'0') as devflag,   B.pernm as pernm,
+                      B.amt, C.acorp, pbonsa, pmodel, pcolor , B.pernm as inname, B.misgubun, isnull(B.fixflag,'0') as fixflag,isnull(B.devflag,'0') as devflag,   B.pernm as pernm,
                       B.fixdate,  CONVERT(CHAR(19),B.fixdatetime,20) as fixdatetime ,  CONVERT(CHAR(19),B.misdatetime,20) as misdatetime , 0 as jqty,
                       B.userid, B.usernm
                   from  TB_DA024 B WITH (NOLOCK)
+                       LEFT JOIN cif C ON B.cltcd = C.acorp1 + CAST(C.acorp2 as varchar)
                   where B.CLTCD Like concat('%',#{cltcd},'%')
                     AND isnull(B.perid,'')  Like concat('%',#{perid},'%')
                     AND B.misdate between #{frdate} and #{todate}
@@ -196,11 +200,12 @@
                       isnull(B.remarkbb,'') as remarkbb,
                       B.unsongnum as unsongnum,
                       isnull(B.makflag, '0') as makflag,
-                      B.amt, B.acorp, pbonsa, pmodel, pcolor , B.pernm as inname, B.misgubun, isnull(B.fixflag,'0') as fixflag,isnull(B.devflag,'0') as devflag,   B.pernm as pernm,
+                      B.amt, C.acorp, pbonsa, pmodel, pcolor , B.pernm as inname, B.misgubun, isnull(B.fixflag,'0') as fixflag,isnull(B.devflag,'0') as devflag,   B.pernm as pernm,
                       B.fixdate,  CONVERT(CHAR(19),B.fixdatetime,20) as fixdatetime ,  CONVERT(CHAR(19),B.misdatetime,20) as misdatetime , 0 as jqty,
                       CONVERT(CHAR(19),B.devdatetime,20) as devdatetime ,
                       B.userid, B.usernm
                   from  TB_DA024 B WITH (NOLOCK)
+                        LEFT JOIN cif C ON B.cltcd = C.acorp1 + CAST(C.acorp2 as varchar)
                   where B.CLTCD Like concat('%',#{cltcd},'%')
                     AND B.misdate between #{frdate} and #{todate}
                     AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
@@ -220,9 +225,10 @@
                       isnull(B.remarkbb,'') as remarkbb,
                       B.unsongnum as unsongnum,
                       isnull(B.makflag, '0') as makflag,
-                      B.amt, B.acorp, pbonsa, pmodel, pcolor , B.pernm as inname, B.misgubun, isnull(B.fixflag,'0') as fixflag,isnull(B.devflag,'0') as devflag,   B.PERNM as pernm,
+                      B.amt, C.acorp, pbonsa, pmodel, pcolor , B.pernm as inname, B.misgubun, isnull(B.fixflag,'0') as fixflag,isnull(B.devflag,'0') as devflag,   B.PERNM as pernm,
                       B.fixdate,  CONVERT(CHAR(19),B.fixdatetime,20) as fixdatetime ,  DBO.DF_TB_PCODE_JQTY(B.pcode,  #{jfrdate},  #{jtodate})  as jqty
                   from  TB_DA024 B WITH (NOLOCK)
+                       LEFT JOIN cif C ON B.cltcd = C.acorp1 + CAST(C.acorp2 as varchar)
                   where   B.cltcd = #{cltcd}
                     AND isnull(B.perid,'')  Like concat('%',#{perid},'%')
                     AND B.misdate between #{frdate} and #{todate}
@@ -245,9 +251,10 @@
                       isnull(B.remarkbb,'') as remarkbb,
                       B.unsongnum as unsongnum,
                       isnull(B.makflag, '0') as makflag,
-                      B.amt, B.acorp, pbonsa, pmodel, pcolor , B.pernm as inname, B.misgubun, isnull(B.fixflag,'0') as fixflag,isnull(B.devflag,'0') as devflag,   B.pernm as pernm,
+                      B.amt, C.acorp, pbonsa, pmodel, pcolor , B.pernm as inname, B.misgubun, isnull(B.fixflag,'0') as fixflag,isnull(B.devflag,'0') as devflag,   B.pernm as pernm,
                       B.fixdate,  CONVERT(CHAR(19),B.fixdatetime,20) as fixdatetime ,  DBO.DF_TB_PCODE_JQTY(B.pcode,  #{jfrdate},  #{jtodate})  as jqty
                   from  TB_DA024 B WITH (NOLOCK)
+                       LEFT JOIN cif C ON B.cltcd = C.acorp1 + CAST(C.acorp2 as varchar)
                   where  B.cltcd Like concat('%',#{cltcd},'%')
                     AND isnull(B.perid,'')  Like concat('%',#{perid},'%')
                     AND B.misdate between #{frdate} and #{todate}
@@ -438,7 +445,7 @@
             substring(B.as_key1, 1,4)+ '년 ' + substring(B.as_key1, 6,2)+ '월 ' + substring(B.as_key1, 9,2) + '일' as misdatetxt,
             sum(isnull(E.qty,0)) as qty,   sum(isnull(E.samt,0)) as samt, sum(isnull(E.addamt,0)) as addamt, sum(isnull(E.amt,0)) as amt,
             case when sum(isnull(E.qty,0)) = 1 then  MAX(isnull(E.pname,'')) when sum(isnull(E.qty,0)) = 0 then '무상'  else Max(isnull(E.pname,'')) + ' 외' + cast(sum(isnull(E.qty,0)) - 1 as varchar(100)) + '건' end  as pname,
-            B.as_acorp as acorp, max(A.atelno) as atelno, max(ajuso1) + ' ' + max(ajuso2) as ajuso , '안경원입니다.' as remark,
+            A.as_acorp as acorp, max(A.atelno) as atelno, max(ajuso1) + ' ' + max(ajuso2) as ajuso , '안경원입니다.' as remark,
             '안경원입니다! 인수자  서명 부탁드립니다.' as message, isnull(max(E.payflag), '0') AS payflag,
             ROW_NUMBER() OVER(ORDER BY (SELECT 1)) AS rownum,
             MAX(A.aascode1) + '-' + MAX(A.aascode2) as aascodetxt,
@@ -576,12 +583,13 @@
     <select id="SelectDa024ListPerid"  parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" resultType="com.dae.eean.DTO.App01.IndexDa024Dto">
         <![CDATA[ select B.cltcd as cltcd, Left(B.misdate,4) + '-' + substring(B.misdate, 5,2)+ '-' + substring(B.misdate, 7,2) as misdate, B.misnum, B.seq,
                       B.pcode, B.pname, B.psize,    B.punit,  B.qty,  B.uamt, B.samt, B.addamt,
-                      B.amt, B.acorp, pbonsa, pmodel, pcolor , B.pernm as inname, B.misgubun, isnull(B.fixflag,'0') as fixflag, B.pernm as pernm,
+                      B.amt, C.acorp, pbonsa, pmodel, pcolor , B.pernm as inname, B.misgubun, isnull(B.fixflag,'0') as fixflag, B.pernm as pernm,
                       isnull(B.remarkaa,'') as remarkaa,
                       isnull(B.remarkbb,'') as remarkbb,
                       B.unsongnum as unsongnum,
                       B.fixdate,  CONVERT(CHAR(19),B.fixdatetime,20) as fixdatetime,  CONVERT(CHAR(19),B.misdatetime,20) as misdatetime
                   from  TB_DA024 B WITH (NOLOCK)
+                       LEFT JOIN cif C ON B.cltcd = C.acorp1 + CAST(C.acorp2 as varchar)
                   where    B.cltcd Like    #{cltcd}
                     AND isnull(B.perid,'')  Like concat('%',#{perid},'%')
                     AND isnull(B.misgubun,'')  Like concat('%',#{misgubun},'%')
@@ -600,12 +608,13 @@
     <select id="SelectDa024ListPeridJumun"  parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" resultType="com.dae.eean.DTO.App01.IndexDa024Dto">
         <![CDATA[ select B.cltcd as cltcd, Left(B.misdate,4) + '-' + substring(B.misdate, 5,2)+ '-' + substring(B.misdate, 7,2) as misdate, B.misnum, B.seq,
                       B.pcode, B.pname, B.psize,    B.punit,  B.qty,  B.uamt, B.samt, B.addamt,
-                      B.amt, B.acorp, pbonsa, pmodel, pcolor , B.pernm as inname, B.misgubun, isnull(B.fixflag,'0') as fixflag, B.pernm as pernm,
+                      B.amt, C.acorp, pbonsa, pmodel, pcolor , B.pernm as inname, B.misgubun, isnull(B.fixflag,'0') as fixflag, B.pernm as pernm,
                       isnull(B.remarkaa,'') as remarkaa,
                       isnull(B.remarkbb,'') as remarkbb,
                       B.unsongnum as unsongnum,
                       B.fixdate,  CONVERT(CHAR(19),B.fixdatetime,20) as fixdatetime,  CONVERT(CHAR(19),B.misdatetime,20) as misdatetime
                   from  TB_DA024 B WITH (NOLOCK)
+                       LEFT JOIN cif C ON B.cltcd = C.acorp1 + CAST(C.acorp2 as varchar)
                   where    B.cltcd Like  #{cltcd}
                     AND isnull(B.perid,'')  Like concat('%',#{perid},'%')
                     AND isnull(B.misgubun,'')  Like concat('%',#{misgubun},'%')
@@ -623,9 +632,10 @@
     <select id="SelectDa024ListCltcd"  parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" resultType="com.dae.eean.DTO.App01.IndexDa024Dto">
                 <![CDATA[ select B.cltcd as cltcd, Left(B.misdate,4) + '-' + substring(B.misdate, 5,2)+ '-' + substring(B.misdate, 7,2) as misdate, B.misnum, B.seq,
                                  B.pcode, B.pname, B.psize,    B.punit,  B.qty,  B.uamt, B.samt, B.addamt,
-                                 B.amt, B.acorp, pbonsa, pmodel, pcolor ,   B.misgubun, isnull(B.fixflag,'0') as fixflag, B.pernm as pernm,
+                                 B.amt, C.acorp, pbonsa, pmodel, pcolor ,   B.misgubun, isnull(B.fixflag,'0') as fixflag, B.pernm as pernm,
                                  B.fixdate,  CONVERT(CHAR(19),B.fixdatetime,20) as fixdatetime
                    from  TB_DA024 B WITH (NOLOCK)
+                       LEFT JOIN cif C ON B.cltcd = C.acorp1 + CAST(C.acorp2 as varchar)
                    where  B.cltcd Like #{cltcd}
                      AND isnull(B.perid,'')  Like concat('%',#{perid},'%')
                      AND isnull(B.misgubun,'')  Like concat('%',#{misgubun},'%')
@@ -683,9 +693,10 @@
     <select id="SelectDa024ListJpum"  parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" resultType="com.dae.eean.DTO.App01.IndexDa024Dto">
         <![CDATA[ select B.cltcd as cltcd, Left(B.misdate,4) + '-' + substring(B.misdate, 5,2)+ '-' + substring(B.misdate, 7,2) as misdate, B.misnum, B.seq,
                          B.pcode, B.pname, B.psize,    B.punit,  B.qty,  B.uamt, B.samt, B.addamt,
-                         B.amt, B.acorp, pbonsa, pmodel, pcolor , '' AS inname, B.misgubun, isnull(B.fixflag,'0') as fixflag, B.pernm as pernm,
+                         B.amt, C.acorp, pbonsa, pmodel, pcolor , '' AS inname, B.misgubun, isnull(B.fixflag,'0') as fixflag, B.pernm as pernm,
                          B.fixdate,  CONVERT(CHAR(19),B.fixdatetime,20) as fixdatetime
            from  TB_DA024 B WITH (NOLOCK)
+                 LEFT JOIN cif C ON B.cltcd = C.acorp1 + CAST(C.acorp2 as varchar)
            where    isnull(B.makflag, '0') = '1'
              AND isnull(B.pcode,'')  Like concat('%',#{pcode},'%')
              AND isnull(B.misgubun,'')  Like concat('%',#{misgubun},'%')
@@ -718,8 +729,9 @@
 
     <select id="SelectDa024ListJpumGroupJumun"  parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" resultType="com.dae.eean.DTO.App01.IndexDa024Dto">
         <![CDATA[ select    B.pcode, B.pname, B.psize, sum(B.qty) as qty, sum(B.samt) as samt, sum(B.addamt) as addamt,  count(*) as rownum,
-                            sum(B.amt) as amt, B.acorp, B.pernm as inname, B.misgubun, isnull(B.fixflag,'0') as fixflag, B.pernm as pernm
+                            sum(B.amt) as amt, C.acorp, B.pernm as inname, B.misgubun, isnull(B.fixflag,'0') as fixflag, B.pernm as pernm
                   from  TB_DA024 B WITH (NOLOCK)
+                       LEFT JOIN cif C ON B.cltcd = C.acorp1 + CAST(C.acorp2 as varchar)
                   where  B.cltcd Like #{cltcd}
                     AND isnull(B.perid,'')  Like concat('%',#{perid},'%')
                     AND isnull(B.misgubun,'')  Like concat('%',#{misgubun},'%')
@@ -776,9 +788,10 @@
     <select id="SelectDa026ListPerid"  parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" resultType="com.dae.eean.DTO.App01.IndexDa024Dto">
         <![CDATA[ select B.cltcd as cltcd, Left(B.misdate,4) + '-' + substring(B.misdate, 5,2)+ '-' + substring(B.misdate, 7,2) as misdate, B.misnum, B.seq,
                          B.pcode, B.pname, B.psize,    B.punit,  B.qty,  B.uamt, B.samt, B.addamt,
-                         B.amt, B.acorp, pbonsa, pmodel, pcolor, B.pernm as inname, B.misgubun, isnull(B.fixflag,'0') as fixflag, B.pernm as pernm,
+                         B.amt, C.acorp, pbonsa, pmodel, pcolor, B.pernm as inname, B.misgubun, isnull(B.fixflag,'0') as fixflag, B.pernm as pernm,
                          B.omisdate, B.omisnum, B.oseq
            from  TB_DA026 B WITH (NOLOCK)
+                 LEFT JOIN cif C ON B.cltcd = C.acorp1 + CAST(C.acorp2 as varchar)
            where  B.cltcd Like  #{cltcd}
              AND isnull(B.perid,'')  Like concat('%',#{perid},'%')
             AND B.misdate between #{frdate} and #{todate}
@@ -794,9 +807,10 @@
     <select id="SelectDa026ListCltcd"  parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" resultType="com.dae.eean.DTO.App01.IndexDa024Dto">
         <![CDATA[ select B.cltcd as cltcd, Left(B.misdate,4) + '-' + substring(B.misdate, 5,2)+ '-' + substring(B.misdate, 7,2) as misdate, B.misnum, B.seq,
                          B.pcode, B.pname, B.psize,    B.punit,  B.qty,  B.uamt, B.samt, B.addamt,
-                         B.amt, B.acorp, pbonsa, pmodel, pcolor, B.pernm as inname, B.misgubun, isnull(B.fixflag,'0') as fixflag, B.pernm as pernm,
+                         B.amt, C.acorp, pbonsa, pmodel, pcolor, B.pernm as inname, B.misgubun, isnull(B.fixflag,'0') as fixflag, B.pernm as pernm,
                          B.omisdate, B.omisnum, B.oseq
            from  TB_DA026 B WITH (NOLOCK)
+                 LEFT JOIN cif C ON B.cltcd = C.acorp1 + CAST(C.acorp2 as varchar)
            where   B.cltcd Like  #{cltcd}
              AND isnull(B.perid,'')  Like concat('%',#{perid},'%')
             AND B.misdate between #{frdate} and #{todate}
@@ -812,9 +826,10 @@
     <select id="SelectDa026ListJpum"  parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" resultType="com.dae.eean.DTO.App01.IndexDa024Dto">
         <![CDATA[ select B.cltcd as cltcd, Left(B.misdate,4) + '-' + substring(B.misdate, 5,2)+ '-' + substring(B.misdate, 7,2) as misdate, B.misnum, B.seq,
                          B.pcode, B.pname, B.psize,    B.punit,  B.qty,  B.uamt, B.samt, B.addamt,
-                         B.amt, B.acorp, pbonsa, pmodel, pcolor, B.pernm as inname, B.misgubun, isnull(B.fixflag,'0') as fixflag, B.pernm as pernm,
+                         B.amt, C.acorp, pbonsa, pmodel, pcolor, B.pernm as inname, B.misgubun, isnull(B.fixflag,'0') as fixflag, B.pernm as pernm,
                          B.omisdate, B.omisnum, B.oseq
            from  TB_DA026 B WITH (NOLOCK)
+                 LEFT JOIN cif C ON B.cltcd = C.acorp1 + CAST(C.acorp2 as varchar)
            where  B.cltcd Like  #{cltcd}
              AND isnull(B.pcode,'')  Like concat('%',#{pcode},'%')
             AND B.misdate between #{frdate} and #{todate}
