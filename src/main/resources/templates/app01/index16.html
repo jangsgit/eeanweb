@@ -548,6 +548,7 @@
          var ls_atelno = "";
          var ls_eeatelno = ""; 
          var ls_misdatetxt = "" ;
+         var ls_fixdatetxt = "" ;
          var ls_remark = "" ;
          var wtab03_data = [];
          var wtab05_data = [];
@@ -2014,7 +2015,8 @@
 
                 // doc.moveDown(1);
                 // * draw captions *
-                doc.drawText('작  성   일  자 : ' + ls_misdatetxt + ' [' + ls_misnum + ']', 10, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11), align: 0, underline:false});
+                //doc.drawText('작  성   일  자 : ' + ls_misdatetxt + ' [' + ls_misnum + ']', 10, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11), align: 0, underline:false});
+                doc.drawText('출  력   일  자 : ' + ls_fixdatetxt + ' [' + ls_misdate + '-'+ ls_misnum + ']', 10, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11), align: 0, underline:false});
                 //
                 //doc.drawText('등록번호 : ' + ls_eeasano, 320, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11),  underline:false});         //이안옵틱             
                 //
@@ -2679,6 +2681,7 @@
                 ls_misdate = wtab05Dto[i]["misdate"];
                 ls_misnum = wtab05Dto[i]["misnum"];
                 ls_misdatetxt = wtab05Dto[i]["misdatetxt"]; 
+                ls_fixdatetxt = wtab05Dto[i]["fixdatetime"]; 
                 // ll_sumqty = ll_sumqty + wtab05Dto[i]["qty"]
                 // ll_sumsamt = ll_sumsamt + wtab05Dto[i]["samt"]
                 // ll_sumaddamt = ll_sumaddamt + wtab05Dto[i]["addamt"]
@@ -2703,7 +2706,8 @@
                     eeaname: wtab05Dto[i]["eeaname"],      
                     eeupte: wtab05Dto[i]["eeupte"],      
                     eeajong: wtab05Dto[i]["eeajong"],      
-                    eeajuso: wtab05Dto[i]["eeajuso"]         
+                    eeajuso: wtab05Dto[i]["eeajuso"]  
+                            
                 });
                 cnt++;
             }   

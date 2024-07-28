@@ -397,6 +397,7 @@
         select B.cltcd as cltcd,  B.misdate as misdate, B.misnum,
             (case when len(isnull(max(B.remarkaa),'')) > 0 then max(B.remarkaa)  when len(isnull(max(B.remarkbb),'')) > 0 then max(B.remarkbb) else '' END ) AS remark,
             substring(B.misdate, 1,4)+ '년 ' + substring(B.misdate, 5,2)+ '월 ' + substring(B.misdate, 7,2) + '일' as misdatetxt,
+            substring(CONVERT(VARCHAR, max(B.fixdatetime), 112), 1,4)+ '년 ' + substring(CONVERT(VARCHAR, max(B.fixdatetime), 112), 5,2)+ '월 ' + substring(CONVERT(VARCHAR, max(B.fixdatetime), 112), 7,2) + '일' as fixdatetime,
             sum(B.qty) as qty,   sum(B.samt) as samt, sum(B.addamt) as addamt, sum(B.amt) as amt, MAX(isnull(B.pmodel,'')) as pmodel, MAX(isnull(B.pcolor,'')) as pcolor,
             B.acorp, ROW_NUMBER() OVER(ORDER BY (SELECT 1)) AS rownum,
             MAX(F.acorp) as eeacorp, MAX(F.asano) as eeasano, MAX(F.aname) as eeaname, MAX(F.aupte) as eeupte,
