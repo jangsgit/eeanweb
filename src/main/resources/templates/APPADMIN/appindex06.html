@@ -69,7 +69,7 @@
     
                 </div> 
                 <div class="section ">                
-                    <div class="sec_con" style="width: 100%;">
+                    <div class="sec_con" style="width: 70%;">
                         <div class="box_wrap">  
                             <div class="row gx-3" style="  margin: 10px 10px 10px;">   
                                  
@@ -106,7 +106,7 @@
                             <form action="">
                                  
                                 <div class="container-fluid"> 
-                                    <div id="mGrid_div" style="overflow:scroll;   height:600px;    margin:0 auto; "></div>  
+                                    <div id="mGrid_div" style="overflow:scroll;   height:600px;     margin:0 auto; "></div>  
                                     <!-- <div id="thePager01"></div> -->
                                 </div>   
 
@@ -373,7 +373,7 @@
             async:false,
             success:function(data){
                 if(data == "success"){
-                    console.log("deletefile", data);
+                    // console.log("deletefile", data);
                     const target = $(elem).parents('div[data-name="fileDiv"]');
                     target.remove();
                 }else{
@@ -439,7 +439,7 @@
             const selectedFile = [...fileInput.files];
             for (s = 0; s <= selectedFile.length - 1; s++){
                 formData.append("file", selectedFile[s]);
-                console.log(selectedFile[s]);
+                // console.log(selectedFile[s]);
             }
 
         }
@@ -468,7 +468,7 @@
                 // console.log("등록OK", data);
                 if(data == "success"){
                     alert("저장되었습니다.")
-                    console.log("save", data);
+                    // console.log("save", data);
                     $("#CloseBtn").trigger("click");
                     listUp();
                 }else{
@@ -506,7 +506,7 @@
             success:function(data){
                 if(data == "success"){
                     alert("삭제되었습니다.")
-                    console.log("delete", data);
+                    // console.log("delete", data);
                     $("#CloseBtn").trigger("click");
                     listUp();
                 }else{
@@ -525,7 +525,7 @@
             window.location.href = '/admin/index06';
     }
     function clear_rtn(elem){
-            console.log("clear rtn");
+            // console.log("clear rtn");
             document.getElementById('actnseqz').value= "";
             document.getElementById('actnsubjectz').value= "";
             document.getElementById('actnpernmz').value= "";
@@ -566,8 +566,8 @@
             alternatingRowStep: 0,
             columns: [
 
-                { binding: 'nseq', header: '번호', width: '*', format: '*' , align:"center", isReadOnly: true},
-                { binding: 'cnam', header: '분류', width: '*', format: '*', align:"center", isReadOnly: true },
+                { binding: 'nseq', header: '번호', width: 100, format: '*' , align:"center", isReadOnly: true},
+                { binding: 'cnam', header: '분류', width: 120, format: '*', align:"center", isReadOnly: true },
                 { binding: 'nsubject',width: '*', header: '제목', width: '*', align:"left", format: '*' ,
                     cellTemplate: wijmo.grid.cellmaker.CellMaker.makeLink({
                         text: '<b>${item.nsubject}</b>',
@@ -576,15 +576,15 @@
                         }
                     })
                 },
-                { binding: 'npernm', header: '작성자', width: '*',   align:"center", isReadOnly: true } ,
-                { binding: 'attcnt', header: '첨부파일건수', width: '*', format: 'n0',  align:"center", isReadOnly: true,
+                { binding: 'npernm', header: '작성자', width: 100,   align:"center", isReadOnly: true } ,
+                { binding: 'attcnt', header: '첨부파일건수', width: 150, format: 'n0',  align:"center", isReadOnly: true,
                     cellTemplate: wijmo.grid.cellmaker.CellMaker.makeLink({
                         text: '<b>${item.attcnt}건 보기</b>',
                         click: (e, ctx) => {
                             viewFilePage(ctx.item.nseq );
                         }
                     }) } ,
-                { binding: 'ninputdate', header: '등록일자', width: '*',   align:"center",  isReadOnly: true }
+                { binding: 'ninputdate', header: '등록일자', width: 150,   align:"center",  isReadOnly: true }
 
             ],
             itemsSource: view_Mnoticepage
@@ -593,7 +593,7 @@
         wapp04Grid.hostElement.addEventListener("click",function(e){
             var ht = wapp04Grid.hitTest(e);
             if(ht.cellType === wijmo.grid.CellType.Cell){
-                console.log(ht._p._rows );
+                // console.log(ht._p._rows );
                 //  data = ht.RowCollection(ht.row); // e.getCellData(ht.row, 0, false); 
                 // console.log(data);
 
@@ -603,8 +603,7 @@
             var mapp05Dto = [[${App05Dto}]];
             var data01 = [];
             var cnt = 1;
-
-            console.log(mapp05Dto);
+ 
             for (var i = 0; i < mapp05Dto.length; i++) {
                 data01.push({
                     id: i,
@@ -620,8 +619,7 @@
                     nflag : mapp05Dto[i]["nflag"]
                 });
                 cnt++;
-            }
-            console.log(data01);
+            } 
             return data01                                
         } 
         
@@ -646,22 +644,21 @@
                     var cnt = 0;
 
                     const filelistDiv = $('div[data-name="filelistDiv"]');
-                    filelistDiv.empty();
-                    console.log(data);
+                    filelistDiv.empty(); 
                     if(wfileDto.length > 0){
                         for (var i = 0; i < wfileDto.length; i++) {
                                 var  id = i;
                                 var  idx = wfileDto[i]["idx"];
                                 var  boardIdx = wfileDto[i]["boardIdx"];
                                 var  originalName = wfileDto[i]["originalName"];
-                                console.log(id, idx, boardIdx, originalName);
+                                // console.log(id, idx, boardIdx, originalName);
 
                                 const fileHtml = `
                                 <div data-name="filelistDiv" class="form-group filebox bs3-primary">
                                     <a href="/appx/download?actidxz=${idx}&actboardz=${boardIdx}&actflagz=NN" target="_blank" > ${originalName} 다운로드 </a>
                                 </div>
                                 `;
-                                console.log(fileHtml);
+                                // console.log(fileHtml);
                                 $('#filelistDiv').after(fileHtml);
                                 $('#btnDiv02').before(fileHtml);
 
