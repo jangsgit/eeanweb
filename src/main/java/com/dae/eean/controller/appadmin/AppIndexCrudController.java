@@ -40,7 +40,7 @@ public class AppIndexCrudController {
     AttachDTO attachDTO = new AttachDTO();
     private final AppUploadServiceImpl appServiceImpl;
     private final AppUploadService appUploadService;
-    private final String uploadPath = Paths.get("C:", "develop", "upload","mnotice", getToDate()).toString();
+    private final String uploadPath = Paths.get("D:", "EEAN", "upload","mnotice", getToDate()).toString();
 
     protected Log log =  LogFactory.getLog(this.getClass());
 
