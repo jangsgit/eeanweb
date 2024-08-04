@@ -3,6 +3,8 @@ package com.dae.eean.controller.app01;
 import com.dae.eean.DTO.AttachDTO;
 import com.dae.eean.Service.impl.AppUploadServiceImpl;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +27,7 @@ public class FileDownload {
     AttachDTO attachDTO = new AttachDTO();
     private final AppUploadServiceImpl appServiceImpl;
 
+    protected Log log =  LogFactory.getLog(this.getClass());
     public FileDownload(AppUploadServiceImpl appServiceImpl) {
         this.appServiceImpl = appServiceImpl;
     }
@@ -56,6 +59,8 @@ public class FileDownload {
         String filename = attachDTO.getOriginalName();
         File file = new File(uploadPath, attachDTO.getSaveName());
 
+        log.info("uploadPath >>>>" + uploadPath);
+        log.info("filename >>>>" + filename);
         try {
             byte[] data =   FileUtils.readFileToByteArray(file);
             response.setContentType("application/octet-stream");
@@ -67,9 +72,11 @@ public class FileDownload {
             response.getOutputStream().flush();
             response.getOutputStream().close();
         } catch (IOException e) {
+            log.info("IOException >>>>" + e.getMessage());
             throw new RuntimeException("파일 다운로드에 실패하였습니다.");
 
         } catch (Exception e) {
+            log.info("Exception >>>>" + e.getMessage());
             throw new RuntimeException("시스템에 문제가 발생하였습니다.");
         }
     }
