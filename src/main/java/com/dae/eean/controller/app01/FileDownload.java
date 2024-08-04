@@ -43,32 +43,7 @@ public class FileDownload {
         if (attachDTO == null ) {
             throw new RuntimeException("파일 정보를 찾을 수 없습니다.");
         }
-
-        switch (mflag){
-            case "MM":
-                mflag = "mmanul";
-                break;
-            case "DD":
-                mflag = "mdevmanual";
-                break;
-            case "EE":
-                mflag = "metcmanual";
-            case "MH":
-                mflag = "mhmanual";
-                break;
-            case "MB":
-                mflag = "mbmanual";
-                break;
-            case "MF":
-                mflag = "mfix";
-                break;
-            case "NN":
-                mflag = "mnotice";
-                break;
-            default:
-                mflag = "mmanul";
-                break;
-        }
+        mflag = "mnotice";
         String uploadDate = attachDTO.getInserttime();
 
         String ls_yeare = uploadDate.substring(0,4);
@@ -76,7 +51,7 @@ public class FileDownload {
         String ls_dd = uploadDate.substring(8,10);
         uploadDate =  ls_yeare + ls_mm + ls_dd;
 
-        String uploadPath = Paths.get("C:", "develop", "upload", mflag, uploadDate).toString();
+        String uploadPath = Paths.get("D:", "EEAN", "upload", mflag, uploadDate).toString();
 
         String filename = attachDTO.getOriginalName();
         File file = new File(uploadPath, attachDTO.getSaveName());
