@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- mapper >> interface 매핑 : id 값 중요 (interface 메소드) -->
+<mapper namespace="com.dae.eean.Mapper.MattachElvlrtMapper">
+    <sql id="attachColumns">
+        board_idx
+        , original_name
+        , save_name
+        , size
+        , flag
+        , delete_yn
+        , insert_time
+        , delete_time
+    </sql>
+    <insert id="InsertAttach" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="idx">
+
+        INSERT INTO tb_mattach (
+        <include refid="attachColumns" />
+        ) VALUES
+        <foreach collection="list" item="item" separator=",">
+            (
+            #{item.boardIdx}
+            , #{item.originalName}
+            , #{item.saveName}
+            , #{item.size}
+            , #{item.flag}
+            , 'N'
+            , GETDATE()
+            , NULL
+            )
+        </foreach>
+
+    </insert>
+    <update id="deleteAttach" parameterType="com.dae.eean.DTO.App05ElvlrtDto"  >
+        UPDATE tb_mattach
+        SET
+        delete_yn = 'Y'
+        , delete_time = GETDATE()
+        WHERE
+        board_idx = #{mseq}
+        and flag  = #{mflag}
+
+    </update>
+
+    <update id="deleteAttachDetail" parameterType="com.dae.eean.DTO.AttachDTO"  >
+        UPDATE tb_mattach
+        SET
+        delete_yn = 'Y'
+        , delete_time = GETDATE()
+        WHERE
+        idx = #{idx}
+
+    </update>
+
+    <select id="selectAttachList" parameterType="com.dae.eean.DTO.App05ElvlrtDto" resultType="com.dae.eean.DTO.AttachDTO">
+        SELECT idx,
+        board_idx as boardIdx
+        , original_name as originalName
+        , save_name as saveName
+        , size
+        , flag
+        , delete_yn as deleteyn
+        , insert_time as inserttime
+        , delete_time as deletetime
+        FROM
+        tb_mattach with (nolock)
+        WHERE
+        delete_yn = 'N'
+        AND board_idx = #{mseq}
+        and flag  = #{mflag}
+    </select>
+
+
+    <select id="selectAttachDeteil" parameterType="com.dae.eean.DTO.AttachDTO" resultType="com.dae.eean.DTO.AttachDTO">
+        SELECT idx,
+        board_idx as boardIdx
+        , original_name as originalName
+        , save_name as saveName
+        , size
+        , flag
+        , delete_yn as deleteyn
+        , insert_time as inserttime
+        , delete_time as deletetime
+        FROM
+        tb_mattach with (nolock)
+        WHERE
+        delete_yn = 'N'
+        AND idx = #{idx}
+        AND board_idx = #{boardIdx}
+        and flag  = #{flag}
+    </select>
+
+    <select id="selectAttachTotalCount" parameterType="long" resultType="int">
+        SELECT
+        COUNT(*)
+        FROM
+        tb_mattach with (nolock)
+        WHERE
+        delete_yn = 'N'
+        AND
+        board_idx = #{board_idx}
+
+    </select>
+</mapper>

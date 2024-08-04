@@ -1,6 +1,7 @@
 package com.dae.eean.Service;
 
 import com.dae.eean.DTO.App01.Index02Dto;
+import com.dae.eean.DTO.App05ElvlrtDto;
 import com.dae.eean.DTO.Popup.PopupDto;
 import com.dae.eean.Mapper.PopupMapper;
 import lombok.RequiredArgsConstructor;
@@ -28,5 +29,38 @@ public class PopupService {
     public Boolean InsertCifCode(PopupDto parm){ return  appMapper.InsertCifCode(parm);}
     public Boolean UpdateCifCode(PopupDto parm){  return  appMapper.UpdateCifCode(parm);  }
     public Boolean DeleteCifCode(PopupDto parm){  return  appMapper.DeleteCifCode(parm);  }
+    public String getMNoticeMaxSeq(String parm){  return  appMapper.getMNoticeMaxSeq(parm);  }
 
+    public boolean InsertMNotice(App05ElvlrtDto parm){
+        int queryResult = 1;
+        queryResult = appMapper.InsertMNotice(parm);
+        if(queryResult < 1){
+            queryResult = 0;
+        }
+        return (queryResult > 0);
+
+    }
+    public boolean UpdateMNotice(App05ElvlrtDto parm){
+        int queryResult = 1;
+        queryResult = appMapper.UpdateMNotice(parm);
+        if(queryResult < 1){
+            queryResult = 0;
+        }
+        return (queryResult > 0);
+
+    }
+    public boolean DeleteMNotice(App05ElvlrtDto parm){
+        int queryResult = 1;
+        queryResult = appMapper.DeleteMNotice(parm);
+        if(queryResult < 1){
+            queryResult = 0;
+        }
+        return (queryResult > 0);
+
+    }
+
+    /** 글 목록 */
+    public Object GetMNoticeList(App05ElvlrtDto parm){
+       return  appMapper.GetMNoticeList(parm);
+    }
 }

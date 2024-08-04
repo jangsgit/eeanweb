@@ -1,11 +1,13 @@
 package com.dae.eean.controller.appadmin;
 
 import com.dae.eean.DTO.App01.Index01Dto;
+import com.dae.eean.DTO.App05ElvlrtDto;
 import com.dae.eean.DTO.Popup.PopupDto;
 import com.dae.eean.DTO.TBXLoginDTO;
 import com.dae.eean.DTO.TBXa012VO;
 import com.dae.eean.DTO.UserFormDto;
 import com.dae.eean.Service.App01.Index01Service;
+import com.dae.eean.Service.PopupService;
 import com.dae.eean.Service.master.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.logging.Log;
@@ -18,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -28,6 +32,7 @@ import java.util.List;
 public class AppIndexController {
     private final AuthService service;
     private final Index01Service service01;
+    private final PopupService popservice;
     List<UserFormDto> appUserFormListDto ;
     List<TBXLoginDTO> appUserLoginListDto ;
     UserFormDto appUserFormDto  = new UserFormDto();
@@ -167,6 +172,49 @@ public class AppIndexController {
         return "appadmin/appindex05";
     }
 
+
+    // 공지사항 index
+    @GetMapping(value="/index06")
+    public String AppIndex06Form(Model model, HttpServletRequest request) throws  Exception{
+
+
+        Index01Dto _index01Dto = new Index01Dto();
+        List<Index01Dto> _index01ListDto = new ArrayList<>();
+        HttpSession session = request.getSession();
+        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        appUserFormDto.setFlag("DD");
+        appUserFormDto.setUsername("%");
+        appUserFormDto.setCustcd(userformDto.getCustcd());
+        appUserFormDto.setUserid("%");
+        appUserFormListDto = service.GetUserListDto(appUserFormDto);
+        userformDto.setPagetree01("관리자모드");
+        userformDto.setPagenm("공지사항");
+        model.addAttribute("userformDto",userformDto);
+        try {
+            List<App05ElvlrtDto> App05ListDto;
+            App05ElvlrtDto _App05Dto = new App05ElvlrtDto();
+            _index01Dto.setCom_cls("004");
+            _index01ListDto    = service01.GetComcodeDetailList(_index01Dto);
+            model.addAttribute("index01ListDto",_index01ListDto);
+            model.addAttribute("appUserListDto",appUserFormListDto);
+            model.addAttribute("userformDto",userformDto);
+
+
+            Date nowData = new Date();
+            SimpleDateFormat endDate = new SimpleDateFormat("yyyyMMdd");
+            String indate = endDate.format(nowData).toString();
+            _App05Dto.setYyyymm(indate.substring(0,6));
+            _App05Dto.setNinputdate(indate);
+            _App05Dto.setNgourpcd("%");
+            model.addAttribute("App05Dto",popservice.GetMNoticeList(_App05Dto));
+
+
+        } catch (Exception ex) {
+//                dispatchException = ex;
+            log.debug("Exception =====>" + ex.toString() );
+        }
+        return "appadmin/appindex06";
+    }
 
 
 

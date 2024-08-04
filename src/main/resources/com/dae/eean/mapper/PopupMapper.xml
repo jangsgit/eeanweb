@@ -36,6 +36,46 @@
         DELETE  CIFCODE   where cifcode  = #{cifcode}
     </update>
 
+    <select id="getMNoticeMaxSeq"  parameterType="string" resultType="java.lang.String">
+        select max(nseq) from tb_mnotice  where Left(nseq,6) = #{nseq}
+    </select>
 
 
+    <insert id="InsertMNotice" parameterType="com.dae.eean.DTO.App05ElvlrtDto" >
+        insert into tb_mnotice (custcd, spjangcd, nseq, ninputdate, ngourpcd, nsubject, nmemo, npernm, nflag) values (#{custcd}, #{spjangcd}, #{nseq}, #{ninputdate}, #{ngourpcd}, #{nsubject}, #{nmemo}, #{npernm}, #{nflag})
+    </insert>
+
+    <update id="UpdateMNotice" parameterType="com.dae.eean.DTO.App05ElvlrtDto">
+        update tb_mnotice set
+        ngourpcd = #{ngourpcd}
+        <if test="nsubject != null ">,</if>
+        <if test="nsubject != null">nsubject=#{nsubject}</if>
+        <if test="nfilename != null ">,</if>
+        <if test="nfilename != null">nfilename=#{nfilename}</if>
+        <if test="nmemo != null ">,</if>
+        <if test="nmemo != null">nmemo=#{nmemo}</if>
+        <if test="ninputdate != null ">,</if>
+        <if test="ninputdate != null">ninputdate=#{ninputdate}</if>
+        <if test="npernm != null ">,</if>
+        <if test="npernm != null">npernm=#{npernm}</if>
+        <if test="nflag != null ">,</if>
+        <if test="nflag != null">nflag=#{nflag}</if>
+        where nseq = #{nseq}
+    </update>
+
+
+    <delete id="DeleteMNotice" parameterType="com.dae.eean.DTO.App05ElvlrtDto">
+        delete from tb_mnotice where nseq = #{nseq}
+    </delete>
+
+    <select id="GetMNoticeList"  parameterType="com.dae.eean.DTO.App05ElvlrtDto" resultType="com.dae.eean.DTO.App05ElvlrtDto">
+        <![CDATA[
+            select  nseq, ninputdate, ngourpcd, nsubject, nfilename, npernm, nmemo, nflag, isnull((select com_rem1 from tb_ca510 where com_cls = '004' and com_code <> '00' and com_code=ngourpcd),'') as cnam,
+            (select Count(*) from tb_mattach where flag='NN' and board_idx=nseq and delete_yn = 'N') as attcnt
+            from tb_mnotice WITH (NOLOCK)
+            Where 1 = 1
+            AND nsubject like concat('%',#{nsubject},'%') and ngourpcd like concat('%',#{ngourpcd},'%')
+            order by nseq desc;
+        ]]>
+    </select>
 </mapper>
