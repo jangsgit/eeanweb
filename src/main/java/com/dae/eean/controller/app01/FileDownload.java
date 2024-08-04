@@ -38,6 +38,7 @@ public class FileDownload {
             , @RequestParam("actflagz") String mflag
             , Model model, HttpServletResponse response){
         if (idx == null) throw new RuntimeException("올바르지 않은 접근입니다.");
+        log.info("mflag >>>>" + mflag);
         attachDTO.setIdx(idx);
         attachDTO.setBoardIdx(mseq);
         attachDTO.setFlag(mflag);
@@ -46,6 +47,7 @@ public class FileDownload {
         if (attachDTO == null ) {
             throw new RuntimeException("파일 정보를 찾을 수 없습니다.");
         }
+
         mflag = "mnotice";
         String uploadDate = attachDTO.getInserttime();
 

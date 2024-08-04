@@ -658,7 +658,7 @@
 
                                 const fileHtml = `
                                 <div data-name="filelistDiv" class="form-group filebox bs3-primary">
-                                    <a href="/nappx/download?actidxz=${idx}&actboardz=${boardIdx}&actflagz=NN" target="_blank" > ${originalName} 다운로드 </a>
+                                    <a href="/appx/download?actidxz=${idx}&actboardz=${boardIdx}&actflagz=NN" target="_blank" > ${originalName} 다운로드 </a>
                                 </div>
                                 `;
                                 console.log(fileHtml);
@@ -684,7 +684,7 @@
         // 첨부파일 다운로드 호출  get 방식으로만 가능함.
         function fileDownload(arg1, arg2 ){
             $.ajax({
-                url: '/nappx/download',
+                url: '/appx/download',
                 type:"GET",
                 data: {
                     "actidxz"     : arg1,
