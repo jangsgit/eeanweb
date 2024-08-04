@@ -582,7 +582,7 @@ public class AppIndexCrudController {
             }
             result = appServiceImpl.registerMNoticeDel(App05Dto);
             if(!result){
-                return  "error";
+                //return  "error";
             }
             model.addAttribute("userformDto",userformDto);
 
