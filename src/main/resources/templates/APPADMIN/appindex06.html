@@ -285,7 +285,7 @@
     </form>
 
 
-    
+
     <script type="text/javascript" th:inline="javascript"> 
 
     let formData = new FormData();
@@ -298,6 +298,96 @@
 
     })   
     
+    
+    let fileIdx = 0; /*[- 파일 인덱스 처리용 전역 변수 -]*/
+
+    function addFile() {
+
+        const fileDivs = $('div[data-name="fileDiv"]');
+        if (fileDivs.length > 2) {
+            alert('파일은 최대 세 개까지 업로드 할 수 있습니다.');
+            return false;
+        }
+
+        fileIdx++;
+        const fileHtml = `
+        <div data-name="fileDiv" class="form-group filebox bs3-primary">
+            <div class="table table_style3">
+                <table>
+                    <tr>
+                        <th style="width: 7%;">첨부파일</th>
+                        <td colspan="5">
+                            <!-- <label for="file_${fileIdx}" class="col-sm-2 control-label">파일1</label> -->
+                            <div class="col-sm-15">
+                                <input type="text" class="upload-name" value="파일 찾기" readonly />
+                                <label for="file_${fileIdx}" class="control-label">찾아보기</label>
+                                <input type="file" name="files_${fileIdx}" id="file_${fileIdx}" multiple='multiple'  class="upload-hidden" onchange="changeFilename(this)" />
+
+                                <button type="button" onclick="removeFile(this)" class="btn btn-bordered btn-xs visible-xs-inline visible-sm-inline visible-md-inline visible-lg-inline">
+                                    <i class="fa fa-minus" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        `;
+
+
+        $('#btnDiv').before(fileHtml);
+    }
+
+    function removeFile(elem) {
+
+        const prevTag = $(elem).prev().prop('tagName');
+        if (prevTag === 'BUTTON') {
+            const file = $(elem).prevAll('input[type="file"]');
+            const filename = $(elem).prevAll('input[type="text"]');
+            file.val('');
+            filename.val('파일 찾기');
+            return false;
+        }
+
+        const target = $(elem).parents('div[data-name="fileDiv"]');
+        fileIdx = fileIdx - 1;
+        target.remove();
+    }
+
+
+    function deleteFile(elem, arg1, arg2) {
+
+        if (!confirm("파일을 삭제하시겠습니까?")) {
+            return ;
+        }
+
+        //도면 파일 삭제
+        $.ajax({
+            url: '/appadmod/filedel',
+            type:"POST",
+            data: {
+                "actidxz"     : arg1 ,
+                "actnseqz"    : arg2 ,
+                "actnflagz"    : "NN"
+            },
+            async:false,
+            success:function(data){
+                if(data == "success"){
+                    console.log("deletefile", data);
+                    const target = $(elem).parents('div[data-name="fileDiv"]');
+                    target.remove();
+                }else{
+                    alert("삭제중 오류가 발생했습니다. 관리자에게 문의하세요.")
+                }
+            },error:function(e){
+                console.log('error',e);
+            }
+        }).done(function(fragment){
+
+        })
+
+
+    } 
     function changeFilename(file) { 
         file = $(file);
         const filename = file[0].files[0].name;
