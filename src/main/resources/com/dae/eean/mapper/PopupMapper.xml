@@ -74,7 +74,8 @@
             (select Count(*) from tb_mattach where flag='NN' and board_idx=nseq and delete_yn = 'N') as attcnt
             from tb_mnotice WITH (NOLOCK)
             Where 1 = 1
-            AND nsubject like concat('%',#{nsubject},'%') and ngourpcd like concat('%',#{ngourpcd},'%')
+            AND nsubject like concat('%',#{nsubject},'%')
+            AND ( ngourpcd like concat('%',#{ngourpcd},'%') OR nflag = 'Y')
             order by nseq desc;
         ]]>
     </select>

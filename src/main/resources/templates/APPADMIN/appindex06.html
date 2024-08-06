@@ -599,6 +599,12 @@
 
             }
         }) 
+        setHeaderColumn2(false);
+        function setHeaderColumn2(headerOn) {
+            wapp04Grid.headersVisibility = headerOn
+            ? wijmo.grid.HeadersVisibility.All
+            : wijmo.grid.HeadersVisibility.Column; 
+        }  
         function getData_wlist(){
             var mapp05Dto = [[${App05Dto}]];
             var data01 = [];
@@ -701,7 +707,7 @@
         }
 
 
-        function viewPage(arg1,arg2,arg3,arg4,arg5,arg6,arg7,arg8,arg9  ){
+        function viewPage(arg1,arg2,arg3,arg4,arg5,arg6,arg7,arg8,arg9  ){ 
             $("#listmodal_btn").trigger("click");
             document.getElementById('actnseqz').value= arg1;
             document.getElementById('actnsubjectz').value= arg3;
@@ -712,6 +718,11 @@
             document.getElementById('actngroupcdz').value= arg7;
             document.getElementById('actnmemoz').value= arg8;
             document.getElementById('actnflagz').value= arg9;
+            if(arg9 =="Y"){
+                document.getElementById('actnflagz').checked = true
+            }else{ 
+                document.getElementById('actnflagz').checked = false
+            }
 
             var wfile_data = [];
             $.ajax({

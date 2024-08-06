@@ -217,5 +217,91 @@ public class AppIndexController {
     }
 
 
+    // 공지사항 영업사원 index
+    @GetMapping(value="/index07")
+    public String AppIndex07Form(Model model, HttpServletRequest request) throws  Exception{
+
+
+        Index01Dto _index01Dto = new Index01Dto();
+        List<Index01Dto> _index01ListDto = new ArrayList<>();
+        HttpSession session = request.getSession();
+        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        appUserFormDto.setFlag("DD");
+        appUserFormDto.setUsername("%");
+        appUserFormDto.setCustcd(userformDto.getCustcd());
+        appUserFormDto.setUserid("%");
+        appUserFormListDto = service.GetUserListDto(appUserFormDto);
+        userformDto.setPagetree01("관리자모드");
+        userformDto.setPagenm("공지사항");
+        model.addAttribute("userformDto",userformDto);
+        try {
+            List<App05ElvlrtDto> App05ListDto;
+            App05ElvlrtDto _App05Dto = new App05ElvlrtDto();
+            _index01Dto.setCom_cls("004");
+            _index01ListDto    = service01.GetComcodeDetailList(_index01Dto);
+            model.addAttribute("index01ListDto",_index01ListDto);
+            model.addAttribute("appUserListDto",appUserFormListDto);
+            model.addAttribute("userformDto",userformDto);
+
+
+            Date nowData = new Date();
+            SimpleDateFormat endDate = new SimpleDateFormat("yyyyMMdd");
+            String indate = endDate.format(nowData).toString();
+            _App05Dto.setYyyymm(indate.substring(0,6));
+            _App05Dto.setNinputdate(indate);
+            _App05Dto.setNgourpcd("01");
+            model.addAttribute("App05Dto",popservice.GetMNoticeList(_App05Dto));
+
+
+        } catch (Exception ex) {
+//                dispatchException = ex;
+            log.debug("Exception =====>" + ex.toString() );
+        }
+        return "appadmin/appindex07";
+    }
+
+    // 공지사항 영업점 index
+    @GetMapping(value="/index08")
+    public String AppIndex08Form(Model model, HttpServletRequest request) throws  Exception{
+
+
+        Index01Dto _index01Dto = new Index01Dto();
+        List<Index01Dto> _index01ListDto = new ArrayList<>();
+        HttpSession session = request.getSession();
+        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        appUserFormDto.setFlag("DD");
+        appUserFormDto.setUsername("%");
+        appUserFormDto.setCustcd(userformDto.getCustcd());
+        appUserFormDto.setUserid("%");
+        appUserFormListDto = service.GetUserListDto(appUserFormDto);
+        userformDto.setPagetree01("관리자모드");
+        userformDto.setPagenm("공지사항");
+        model.addAttribute("userformDto",userformDto);
+        try {
+            List<App05ElvlrtDto> App05ListDto;
+            App05ElvlrtDto _App05Dto = new App05ElvlrtDto();
+            _index01Dto.setCom_cls("004");
+            _index01ListDto    = service01.GetComcodeDetailList(_index01Dto);
+            model.addAttribute("index01ListDto",_index01ListDto);
+            model.addAttribute("appUserListDto",appUserFormListDto);
+            model.addAttribute("userformDto",userformDto);
+
+
+            Date nowData = new Date();
+            SimpleDateFormat endDate = new SimpleDateFormat("yyyyMMdd");
+            String indate = endDate.format(nowData).toString();
+            _App05Dto.setYyyymm(indate.substring(0,6));
+            _App05Dto.setNinputdate(indate);
+            _App05Dto.setNgourpcd("02");
+            model.addAttribute("App05Dto",popservice.GetMNoticeList(_App05Dto));
+
+
+        } catch (Exception ex) {
+//                dispatchException = ex;
+            log.debug("Exception =====>" + ex.toString() );
+        }
+        return "appadmin/appindex08";
+    }
+
 
 }
