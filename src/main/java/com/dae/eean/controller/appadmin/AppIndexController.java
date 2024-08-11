@@ -294,7 +294,7 @@ public class AppIndexController {
             _App05Dto.setNinputdate(indate);
             _App05Dto.setNgourpcd("02");
             model.addAttribute("App05Dto",popservice.GetMNoticeList(_App05Dto));
-
+            log.debug("indate =====>" +indate );
 
         } catch (Exception ex) {
 //                dispatchException = ex;
