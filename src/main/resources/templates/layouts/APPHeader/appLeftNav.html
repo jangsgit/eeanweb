@@ -157,13 +157,13 @@
         // });
 
         function set_init(){ 
-             lsUserid = window.localStorage.getItem("userid");
-             lsMflag = window.localStorage.getItem("flag");
-             lsRole = window.localStorage.getItem("role");
-             lsPerid = window.localStorage.getItem("perid");
+             lsUserid = window.localStorage.getItem("userid_AA");
+             lsMflag = window.localStorage.getItem("flag_AA");
+             lsRole = window.localStorage.getItem("role_AA");
+             lsPerid = window.localStorage.getItem("perid_AA");
             var params = new URLSearchParams();
             params.append('userid', lsUserid)
-            params.append('flag', lsMflag)
+            params.append('flag', lsMflag) 
             params.append('role', lsRole)
             params.append('perid', lsPerid)
             var link_15 = document.getElementById('index15Link');
@@ -228,11 +228,15 @@
             if (!confirm("로그아웃하시겠습니까?") ){
                 return    
             }
-            localStorage.removeItem("perid");
-            localStorage.removeItem("pernm");
-            localStorage.removeItem("userid");
-            localStorage.removeItem("flag");
-            localStorage.removeItem("custnm") ;
+            localStorage.removeItem("perid_AA");
+            localStorage.removeItem("pernm_AA");
+            localStorage.removeItem("userid_AA");
+            localStorage.removeItem("username_AA");
+            localStorage.removeItem("flag_AA");
+            localStorage.removeItem("custnm_AA") ;
+            localStorage.removeItem("role_AA") ;
+            localStorage.removeItem("rnum_AA") ;
+            localStorage.removeItem("userpw_AA") ;  
             location.href = "/" ;
         }   
     </script>

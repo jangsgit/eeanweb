@@ -53,13 +53,13 @@
       set_init() 
   })
   function set_init(){ 
-        lsUserid = window.localStorage.getItem("userid");
-        lsMflag = window.localStorage.getItem("flag");
-        lsRole = window.localStorage.getItem("role");
-        lsPerid = window.localStorage.getItem("perid");
+        lsUserid = window.localStorage.getItem("userid_CC");
+        lsMflag = window.localStorage.getItem("flag_CC");
+        lsRole = window.localStorage.getItem("role_CC");
+        lsPerid = window.localStorage.getItem("perid_CC");
       var params = new URLSearchParams();
       params.append('userid', lsUserid)
-      params.append('flag', lsMflag)
+      params.append('flag', lsMflag) 
       params.append('role', lsRole)
       params.append('perid', lsPerid)
       var link_15 = document.getElementById('index15Link');
@@ -72,11 +72,15 @@
       if (!confirm("로그아웃하시겠습니까?") ){
         return    
       }
-      localStorage.removeItem("perid");
-      localStorage.removeItem("pernm");
-      localStorage.removeItem("userid");
-      localStorage.removeItem("flag");
-      localStorage.removeItem("custnm") ;
+      localStorage.removeItem("perid_CC");
+      localStorage.removeItem("pernm_CC");
+      localStorage.removeItem("userid_CC");
+      localStorage.removeItem("username_CC");
+      localStorage.removeItem("flag_CC");
+      localStorage.removeItem("custnm_CC") ;
+      localStorage.removeItem("role_CC") ;
+      localStorage.removeItem("rnum_CC") ;
+      localStorage.removeItem("userpw_CC") ; 
       location.href = "/" ;
   }  
 </script>

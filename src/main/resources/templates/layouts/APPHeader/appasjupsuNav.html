@@ -119,11 +119,16 @@
             if (!confirm("로그아웃하시겠습니까?") ){
                 return    
             }
-            localStorage.removeItem("perid");
-            localStorage.removeItem("pernm");
-            localStorage.removeItem("userid");
-            localStorage.removeItem("flag");
-            localStorage.removeItem("custnm") ;
+            
+            localStorage.removeItem("perid_DD");
+            localStorage.removeItem("pernm_DD");
+            localStorage.removeItem("userid_DD");
+            localStorage.removeItem("username_DD");
+            localStorage.removeItem("flag_DD");
+            localStorage.removeItem("custnm_DD") ;
+            localStorage.removeItem("role_DD") ;
+            localStorage.removeItem("rnum_DD") ;
+            localStorage.removeItem("userpw_DD") ;  
             location.href = "/" ;
         }   
     </script>
