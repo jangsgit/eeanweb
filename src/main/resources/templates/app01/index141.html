@@ -1184,12 +1184,12 @@
     }
 
     function fn_egov_init_date(){
-            const ls_perid = window.localStorage.getItem("perid");
-            const ls_pernm = window.localStorage.getItem("pernm");
-            const ls_role = window.localStorage.getItem("role"); 
+            const ls_perid = window.localStorage.getItem("perid_CC");
+            const ls_pernm = window.localStorage.getItem("pernm_CC");
+            const ls_role = window.localStorage.getItem("role_CC"); 
             document.getElementById('abonsadam1').value = ls_perid;
             document.getElementById('pernm').value = ls_pernm; 
-            lsUserid = window.localStorage.getItem("userid")
+            lsUserid = window.localStorage.getItem("userid_CC")
             document.getElementById('jpbgubn').value = ls_role;  
             document.getElementById('bjpbgubn').value = ls_role;
             // if(ls_role == "P"){ 

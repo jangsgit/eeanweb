@@ -1039,12 +1039,12 @@
     }
 
     function fn_egov_init_date(){
-        const ls_role = window.localStorage.getItem("role");  
+        const ls_role = window.localStorage.getItem("role_AA");  
         if(ls_role == null || ls_role.length == 0 || ls_role == ""){ 
             ls_role = '%'             
         }   
         document.getElementById('bjpbgubn').value = ls_role;
-        lsUserid = window.localStorage.getItem("userid")
+        lsUserid = window.localStorage.getItem("userid_AA")
         // if (lsUserid == "pvadmin"){ 
         //     document.getElementById('bjpbgubn').value = "P";  
         // }else if(lsUserid == "bladmin"){ 

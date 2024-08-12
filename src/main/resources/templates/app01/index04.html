@@ -1831,14 +1831,14 @@
         }
  
         function fn_egov_init_date(){
-            lsUserid = window.localStorage.getItem("userid")
+            lsUserid = window.localStorage.getItem("userid_AA")
             //console.log('lsUserid==>' + lsUserid)
             if(lsUserid == null || lsUserid.length == 0 || lsUserid == ""){ 
                 alert("로그인을 다시하세요") 
                 location.href = "/" ;
                 return ;               
             }   
-            const ls_role = window.localStorage.getItem("role");  
+            const ls_role = window.localStorage.getItem("role_AA");  
             if(ls_role == null || ls_role.length == 0 || ls_role == ""){ 
                 ls_role = '%'             
             }   

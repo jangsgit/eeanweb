@@ -39,7 +39,7 @@
                 <!-- ## Left navigator include -->
                 <th:block th:include="layouts/APPHeader/appLeftNav" />
             </div>
-            <div class="right">           
+            <div class="right">            
             </div>
         </div> 
         <div class="con">
@@ -1242,7 +1242,7 @@
             var ls_seq   = document.getElementById('bseq').value;                
             var ls_cltcd   = document.getElementById('bcltcd').value;  //비고등록시 거래처코드
             var ls_tabchk = document.getElementById('tabvalue').value;    
-            var lsPerid = window.localStorage.getItem("perid");                              
+            var lsPerid = window.localStorage.getItem("perid_AA");                              
             // const warnning_grid = document.getElementById('inwarnning_grid'); 
             var ls_pcode  =  [];        
             var ll_qty    =  [];    
@@ -1564,7 +1564,7 @@
             var  ls_jpbgubn    = document.getElementById('jpbgubn').value;                        
             var ls_bonsacd =   document.getElementById('jbonsacd').value ; 
             const warnning_grid = document.getElementById('inwarnning_grid');    
-            var lsPerid = window.localStorage.getItem("perid");
+            var lsPerid = window.localStorage.getItem("perid_AA");
             var ls_pcode  =  [];        
             var ll_qty    =  [];    
             var ls_jcode  =  [];        
@@ -1830,8 +1830,8 @@
             //         return ;               
             // }  
             if(ls_cifname == null || ls_cifname.length == 0 || ls_cifname == ""){  
-                lsUserid = window.localStorage.getItem("userid")
-                ls_jpbgubn  = window.localStorage.getItem("role") 
+                lsUserid = window.localStorage.getItem("userid_AA")
+                ls_jpbgubn  = window.localStorage.getItem("role_AA") 
                 // if (lsUserid == "pvadmin"){
                 //     ls_jpbgubn = "P"; 
                 // }else if(lsUserid == "bladmin"){
@@ -2594,7 +2594,7 @@
 
                 
                 document.getElementById('dacorp1').value = arg1;  
-                document.getElementById('dacorp2').value = arg2;  
+                document.getElementById('dacorp2').value = arg2;   
                 document.getElementById('dacorp3').value = arg3;  
                 document.getElementById('dacode').value = arg4;   
                 document.getElementById('dcifname').value = arg5;  
@@ -3486,11 +3486,11 @@
         }
 
         function fn_egov_init_date(){  
-            gsUserid = window.localStorage.getItem("userid");                             
-            gsUsernm = window.localStorage.getItem("username");  
-            lsUserid = window.localStorage.getItem("userid");
-            gsMflag = window.localStorage.getItem("flag"); 
-            const ls_role = window.localStorage.getItem("role");  
+            gsUserid = window.localStorage.getItem("userid_AA");                             
+            gsUsernm = window.localStorage.getItem("username_AA");  
+            lsUserid = window.localStorage.getItem("userid_AA");
+            gsMflag = window.localStorage.getItem("flag_AA"); 
+            const ls_role = window.localStorage.getItem("role_AA");  
             if(ls_role == null || ls_role.length == 0 || ls_role == ""){ 
                 ls_role = '%'             
             }   

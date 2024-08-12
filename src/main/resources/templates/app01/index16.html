@@ -3711,18 +3711,18 @@
     }
 
     function fn_egov_init_date(){ 
-        gsUserid = window.localStorage.getItem("userid");                             
-        gsUsernm = window.localStorage.getItem("username");
+        gsUserid = window.localStorage.getItem("userid_AA");                             
+        gsUsernm = window.localStorage.getItem("username_AA");
         document.getElementById('misfixflag').value = "0";
         document.getElementById('wishfixflag').value = "0";
         document.getElementById('misgubunflag').value = "%";
         document.getElementById('misgubun').value = "%";
-        const ls_role = window.localStorage.getItem("role");  
+        const ls_role = window.localStorage.getItem("role_AA");  
         if(ls_role == null || ls_role.length == 0 || ls_role == ""){ 
             ls_role = '%'             
         } 
         
-        lsUserid = window.localStorage.getItem("userid")
+        lsUserid = window.localStorage.getItem("userid_AA")
         document.getElementById('bjpbgubn').value = ls_role; 
         // if (lsUserid == "pvadmin"){ 
         //     document.getElementById('bjpbgubn').value = "P";  

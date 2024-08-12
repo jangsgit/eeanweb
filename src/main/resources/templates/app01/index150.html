@@ -1256,7 +1256,7 @@ aria-hidden="true">
                         ls_makflag = "%"               
                     }  
                     //console.log(ls_makflag)
-                    ls_perid = "";
+                    ls_perid = ""; 
                     $.ajax({
                         url: '/app01m/index14/listjang',   
                         type:"POST",
@@ -1973,7 +1973,7 @@ aria-hidden="true">
             var ls_seq   = document.getElementById('bseq').value;                
             var ls_cltcd   = document.getElementById('bcltcd').value;  //비고등록시 거래처코드
             var ls_tabchk = document.getElementById('tabvalue').value;      
-            var lsPerid = window.localStorage.getItem("perid");                                    
+            var lsPerid = window.localStorage.getItem("perid_BB");                                    
             // const warnning_grid = document.getElementById('inwarnning_grid'); 
             var ls_pcode  =  [];        
             var ll_qty    =  [];    
@@ -2272,7 +2272,7 @@ aria-hidden="true">
             var ls_seq   = document.getElementById('bseq').value;                
             var ls_cltcd   = document.getElementById('bcltcd').value;  
             var ls_tabchk = document.getElementById('tabvalue').value;          
-            var lsPerid = window.localStorage.getItem("perid");                                  
+            var lsPerid = window.localStorage.getItem("perid_BB");                                  
             // const warnning_grid = document.getElementById('inwarnning_grid'); 
             var ls_pcode  =  [];        
             var ll_qty    =  [];    
@@ -2389,7 +2389,7 @@ aria-hidden="true">
             var ls_seq   = document.getElementById('bseq').value;                  
             var ls_cltcd   = document.getElementById('bcltcd').value; 
             var ls_tabchk = document.getElementById('tabvalue').value;     
-            var lsPerid = window.localStorage.getItem("perid");                                                  
+            var lsPerid = window.localStorage.getItem("perid_BB");                                                  
             // const warnning_grid = document.getElementById('inwarnning_grid'); 
             var ls_pcode  =  [];        
             var ll_qty    =  [];    
@@ -2555,11 +2555,11 @@ aria-hidden="true">
         }
 
         function fn_egov_init_date(){ 
-            gsUserid = window.localStorage.getItem("userid");   
-            gsUsernm = window.localStorage.getItem("username");  
-            const ls_perid = window.localStorage.getItem("perid");
-            const ls_pernm = window.localStorage.getItem("pernm");
-            const ls_custnm = window.localStorage.getItem("custnm");
+            gsUserid = window.localStorage.getItem("userid_BB");   
+            gsUsernm = window.localStorage.getItem("username_BB");  
+            const ls_perid = window.localStorage.getItem("perid_BB");
+            const ls_pernm = window.localStorage.getItem("pernm_BB");
+            const ls_custnm = window.localStorage.getItem("custnm_BB");
             document.getElementById('makflag01').value = "0";
             document.getElementById('makflag02').value = "0";
             document.getElementById('acode').value = ls_perid;

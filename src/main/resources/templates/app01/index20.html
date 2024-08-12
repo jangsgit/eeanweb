@@ -1194,8 +1194,8 @@
             var ls_asasmemo3 = document.getElementById('asasmemo3').value; 
             var ls_asaname = document.getElementById('asaname').value;      
             var ls_jchgoga = document.getElementById('jchgoga').value;    
-            var lsCustnm = window.localStorage.getItem("custnm");                  
-            var lsRnum = window.localStorage.getItem("rnum");      
+            var lsCustnm = window.localStorage.getItem("custnm_DD");                  
+            var lsRnum = window.localStorage.getItem("rnum_DD");      
                    
             if(arg =="A") {
                 if (!confirm("저장하시겠습니까?")) {
@@ -1659,7 +1659,7 @@
         } 
         
         function searchList_rtn(arg1){  
-            switch(arg1){
+            switch(arg1){ 
                 case 'A':
                     var ls_frdate = document.getElementById('frdate').value; 
                     var ls_todate = document.getElementById('todate').value; 
@@ -2288,10 +2288,10 @@
         }
 
         function fn_egov_init_date(){ 
-            gsUserid = window.localStorage.getItem("userid");                             
-            gsUsernm = window.localStorage.getItem("username"); 
-            lsUserid = window.localStorage.getItem("userid");   
-            gsRnum = window.localStorage.getItem("rnum");            
+            gsUserid = window.localStorage.getItem("userid_DD");                             
+            gsUsernm = window.localStorage.getItem("username_DD"); 
+            lsUserid = window.localStorage.getItem("userid_DD");   
+            gsRnum = window.localStorage.getItem("rnum_DD");            
             document.getElementById('condamdang').value = lsUserid;  
             
             let today = new Date();   

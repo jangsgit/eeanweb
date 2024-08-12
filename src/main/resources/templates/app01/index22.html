@@ -2104,10 +2104,10 @@
         }
 
         function fn_egov_init_date(){ 
-            lsUserid = window.localStorage.getItem("userid")
-            gsUserid = window.localStorage.getItem("userid");                             
-            gsUsernm = window.localStorage.getItem("username");
-            const ls_role = window.localStorage.getItem("role");            
+            lsUserid = window.localStorage.getItem("userid_DD")
+            gsUserid = window.localStorage.getItem("userid_DD");                             
+            gsUsernm = window.localStorage.getItem("username_DD");
+            const ls_role = window.localStorage.getItem("role_DD");            
             document.getElementById('condamdang').value = lsUserid;   
             document.getElementById('asflag').value = "0";
             if(ls_role == null || ls_role.length == 0 || ls_role == ""){ 

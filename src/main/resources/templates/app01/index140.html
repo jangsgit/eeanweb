@@ -1211,7 +1211,7 @@
             var ls_seq   = document.getElementById('bseq').value;                
             var ls_cltcd   = document.getElementById('bcltcd').value;  //비고등록시 거래처코드
             var ls_tabchk = document.getElementById('tabvalue').value;       
-            var lsPerid = window.localStorage.getItem("perid");                                   
+            var lsPerid = window.localStorage.getItem("perid_CC");                                   
             // const warnning_grid = document.getElementById('inwarnning_grid'); 
             var ls_pcode  =  [];        
             var ll_qty    =  [];    
@@ -1523,7 +1523,7 @@
             var  ls_jpbgubn    = document.getElementById('jpbgubn').value;                         
             var ls_bonsacd =   document.getElementById('jbonsacd').value ;                                    
             const warnning_grid = document.getElementById('inwarnning_grid');  
-            var lsPerid = window.localStorage.getItem("perid");  
+            var lsPerid = window.localStorage.getItem("perid_CC");  
             var ls_pcode  =  [];        
             var ll_qty    =  [];    
             var ls_jcode  =  [];        
@@ -1882,7 +1882,7 @@
             document.getElementById("inorderlistbtn").click();  
         }
         //예약장바구니 버튼 
-        function wishorderlist_rtn(){
+        function wishorderlist_rtn(){ 
             searchList_rtn('C');
             document.getElementById("inwishlistbtn").click();  
         }
@@ -3277,17 +3277,17 @@
         }
 
         function fn_egov_init_date(){ 
-            gsUserid = window.localStorage.getItem("userid");                             
-            gsUsernm = window.localStorage.getItem("username"); 
-            gsMflag = window.localStorage.getItem("flag"); 
-            const ls_perid = window.localStorage.getItem("perid");
-            const ls_pernm = window.localStorage.getItem("pernm");
-            const ls_role = window.localStorage.getItem("role"); 
+            gsUserid = window.localStorage.getItem("userid_CC");                             
+            gsUsernm = window.localStorage.getItem("username_CC"); 
+            gsMflag = window.localStorage.getItem("flag_CC"); 
+            const ls_perid = window.localStorage.getItem("perid_CC");
+            const ls_pernm = window.localStorage.getItem("pernm_CC");
+            const ls_role = window.localStorage.getItem("role_CC"); 
             document.getElementById('abonsadam1').value = ls_perid;
             document.getElementById('pernm').value = ls_pernm; 
             document.getElementById('makflag01').value = "0";
             document.getElementById('makflag02').value = "0";
-            lsUserid = window.localStorage.getItem("userid")
+            lsUserid = window.localStorage.getItem("userid_CC")
             // console.log(ls_role)
             if(ls_role == "P"){ 
                 document.getElementById('jpbgubn').value = "P"; 

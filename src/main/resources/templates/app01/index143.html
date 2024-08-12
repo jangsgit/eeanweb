@@ -903,8 +903,7 @@
                     }        
                     if(ls_cifname == null || ls_cifname.length == 0 || ls_cifname == ""){  
                         ls_acode = "%";
-                    }  
-                    
+                    }   
                     $.ajax({
                         url: '/app01m/index14/listperidgroup',  
                         type:"POST",
@@ -1879,9 +1878,9 @@
 
     function fn_egov_init_date(){
         
-        const ls_flag = window.localStorage.getItem("flag")
-        const ls_perid = window.localStorage.getItem("perid");
-        const ls_pernm = window.localStorage.getItem("pernm"); 
+        const ls_flag = window.localStorage.getItem("flag_CC")
+        const ls_perid = window.localStorage.getItem("perid_CC");
+        const ls_pernm = window.localStorage.getItem("pernm_CC"); 
         document.getElementById('abonsadam1').value = ls_perid;
         document.getElementById('abonsadam2').value = ls_perid;
         document.getElementById('abonsadam3').value = ls_perid;
@@ -1894,7 +1893,7 @@
         document.getElementById('misfixflag02').value = "1"; 
         document.getElementById('misfixflag03').value = "1"; 
         document.getElementById('misfixflag04').value = "1"; 
-        const ls_role = window.localStorage.getItem("role");  
+        const ls_role = window.localStorage.getItem("role_CC");  
         if(ls_role == null || ls_role.length == 0 || ls_role == ""){ 
             ls_role = '%'             
         } 
