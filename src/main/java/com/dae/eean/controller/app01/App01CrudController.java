@@ -326,7 +326,7 @@ public class App01CrudController {
                 }
             }
 //            model.addAttribute("userformDto",userformDto);
-        }catch (IllegalStateException e){
+        }catch (Exception e){
             model.addAttribute("errorMessage", e.getMessage());
             return "error";
         }
@@ -708,7 +708,7 @@ public class App01CrudController {
                 }
             }
 //            model.addAttribute("userformDto",userformDto);
-        }catch (IllegalStateException e){
+        }catch (Exception e){
             model.addAttribute("errorMessage", e.getMessage());
             return "error";
         }
@@ -921,7 +921,7 @@ public class App01CrudController {
                 }
             }
 
-        }catch (IllegalStateException e){
+        }catch (Exception e){
             model.addAttribute("errorMessage", e.getMessage());
             return "error";
         }
@@ -1385,8 +1385,9 @@ public class App01CrudController {
                 return "error";
             }
 
-        }catch (IllegalStateException e){
-            model.addAttribute("index14Save errorMessage", e.getMessage());
+        }catch (Exception e){
+            log.info("index14/save  오류 메시지: " + e.getMessage());
+            e.printStackTrace();
             return "error";
         }
         return "success";
@@ -1586,8 +1587,9 @@ public class App01CrudController {
                 return "error";
             }
 
-        }catch (IllegalStateException e){
-            model.addAttribute("index14SaveWish errorMessage", e.getMessage());
+        }catch (Exception e){
+            log.info("index14/savewish 오류 메시지: " + e.getMessage());
+            e.printStackTrace();
             return "error";
         }
         return "success";
@@ -1882,8 +1884,9 @@ public class App01CrudController {
                 return "error";
             }
 
-        }catch (IllegalStateException e){
-            model.addAttribute("index14Save errorMessage", e.getMessage());
+        }catch (Exception e){
+            log.info("index14/savecust 오류 메시지: " + e.getMessage());
+            e.printStackTrace();
             return "error";
         }
         return "success";
@@ -1970,8 +1973,9 @@ public class App01CrudController {
                 return "success";
             }
 
-        }catch (IllegalStateException e){
-            model.addAttribute("index14Save errorMessage", e.getMessage());
+        } catch (Exception e){
+            log.info("index14/savecustdel 오류 메시지: " + e.getMessage());
+            e.printStackTrace();
             return "error";
         }
         return "success";
@@ -2044,8 +2048,9 @@ public class App01CrudController {
                 return "success";
             }
 
-        }catch (IllegalStateException e){
-            model.addAttribute("index14Save errorMessage", e.getMessage());
+        } catch (Exception e){
+            log.info("index14/savecustwishdel 오류 메시지: " + e.getMessage());
+            e.printStackTrace();
             return "error";
         }
         return "success";
@@ -2091,8 +2096,10 @@ public class App01CrudController {
                 //return "error";
             }
 
-        } catch (Exception ex) {
-            log.info("App14Del_index Exception =====>" + ex.toString());
+        } catch (Exception e){
+            log.info("index14/del 오류 메시지: " + e.getMessage());
+            e.printStackTrace();
+            return "error";
         }
         return "SUCCESS";
     }
@@ -2138,8 +2145,10 @@ public class App01CrudController {
                 return "error";
             }
 
-        } catch (Exception ex) {
-            log.info("App14DelWish_index Exception =====>" + ex.toString());
+        }  catch (Exception e){
+            log.info("index14/delwish 오류 메시지: " + e.getMessage());
+            e.printStackTrace();
+            return "error";
         }
         return "SUCCESS";
     }
@@ -2380,8 +2389,9 @@ public class App01CrudController {
                 return "error";
             }
 
-        }catch (IllegalStateException e){
-            model.addAttribute("index14SaveWish errorMessage", e.getMessage());
+        } catch (Exception e){
+            log.info("index14/savecustwish 오류 메시지: " + e.getMessage());
+            e.printStackTrace();
             return "error";
         }
         return "success";
@@ -2697,8 +2707,10 @@ public class App01CrudController {
             _indexDa024ListDto = service14.SelectDa024ListDel(_indexDa024Dto);
             model.addAttribute("indexDa024ListDto",_indexDa024ListDto);
 
-        } catch (Exception ex) {
-            log.info("App14List_index Exception =====>" + ex.toString());
+        } catch (Exception e){
+            log.info("index14/listdel 오류 메시지: " + e.getMessage());
+            e.printStackTrace();
+            return "error";
         }
 
         return _indexDa024ListDto;
@@ -3556,8 +3568,10 @@ public class App01CrudController {
             _indexDa024ListDto = service14.SelectDa024ListJpumAreaGugun(_indexDa024Dto);
             model.addAttribute("indexDa024ListDto",_indexDa024ListDto);
 
-        } catch (Exception ex) {
-            log.info("App14ListGugun_index Exception =====>" + ex.toString());
+        } catch (Exception e){
+            log.info("index14/listgugun 오류 메시지: " + e.getMessage());
+            e.printStackTrace();
+            return "error";
         }
 
         return _indexDa024ListDto;
@@ -3643,8 +3657,10 @@ public class App01CrudController {
             }
             model.addAttribute("indexDa024ListDto",_indexDa024ListDto);
 
-        } catch (Exception ex) {
-            log.info("App14ListWish_index Exception =====>" + ex.toString());
+        } catch (Exception e){
+            log.info("index14/listwish 오류 메시지: " + e.getMessage());
+            e.printStackTrace();
+            return "error";
         }
 
         return _indexDa024ListDto;
@@ -3722,8 +3738,10 @@ public class App01CrudController {
             }
             model.addAttribute("indexDa024ListDto",_indexDa024ListDto);
 
-        } catch (Exception ex) {
-            log.info("App14ListWish_index Exception =====>" + ex.toString());
+        } catch (Exception e){
+            log.info("index14/listwishjang 오류 메시지: " + e.getMessage());
+            e.printStackTrace();
+            return "error";
         }
 
         return _indexDa024ListDto;
@@ -3797,8 +3815,10 @@ public class App01CrudController {
 
             model.addAttribute("indexDa024ListDto",_indexDa024ListDto);
 
-        } catch (Exception ex) {
-            log.info("App14ListWish_index Exception =====>" + ex.toString());
+        } catch (Exception e){
+            log.info("index14/listwishdel 오류 메시지: " + e.getMessage());
+            e.printStackTrace();
+            return "error";
         }
 
         return _indexDa024ListDto;
@@ -3862,8 +3882,10 @@ public class App01CrudController {
             _indexDa024ListDto = service14.SelectDa026ListPerid(_indexDa024Dto);
             model.addAttribute("indexDa024ListDto",_indexDa024ListDto);
 
-        } catch (Exception ex) {
-            log.info("App14ListWish_index Exception =====>" + ex.toString());
+        } catch (Exception e){
+            log.info("index14/listwishperid 오류 메시지: " + e.getMessage());
+            e.printStackTrace();
+            return "error";
         }
 
         return _indexDa024ListDto;
@@ -3930,8 +3952,10 @@ public class App01CrudController {
             _indexDa024ListDto = service14.SelectDa026ListCltcd(_indexDa024Dto);
             model.addAttribute("indexDa024ListDto",_indexDa024ListDto);
 
-        } catch (Exception ex) {
-            log.info("App14ListWish_index Exception =====>" + ex.toString());
+        } catch (Exception e){
+            log.info("index14/listwishcltcd 오류 메시지: " + e.getMessage());
+            e.printStackTrace();
+            return "error";
         }
 
         return _indexDa024ListDto;
@@ -4001,8 +4025,10 @@ public class App01CrudController {
             _indexDa024ListDto = service14.SelectDa026ListJpum(_indexDa024Dto);
             model.addAttribute("indexDa024ListDto",_indexDa024ListDto);
 
-        } catch (Exception ex) {
-            log.info("App14ListWish_index Exception =====>" + ex.toString());
+        } catch (Exception e){
+            log.info("index14/listwishjkey 오류 메시지: " + e.getMessage());
+            e.printStackTrace();
+            return "error";
         }
 
         return _indexDa024ListDto;
@@ -4076,8 +4102,9 @@ public class App01CrudController {
 
             }
 
-        }catch (IllegalStateException e){
-            model.addAttribute("index16Save errorMessage", e.getMessage());
+        }catch (Exception e){
+            log.info("index16/save 오류 메시지: " + e.getMessage());
+            e.printStackTrace();
             return "error";
         }
         return "success";
@@ -4141,8 +4168,9 @@ public class App01CrudController {
 
             }
 
-        }catch (IllegalStateException e){
-            model.addAttribute("index16Save errorMessage", e.getMessage());
+        }catch (Exception e){
+            log.info("index16/modify 오류 메시지: " + e.getMessage());
+            e.printStackTrace();
             return "error";
         }
         return "success";
@@ -4181,8 +4209,9 @@ public class App01CrudController {
             }
             return "success";
 
-        }catch (IllegalStateException e){
-            model.addAttribute("index16Save errorMessage", e.getMessage());
+        }catch (Exception e){
+            log.info("index16/modifyremk 오류 메시지: " + e.getMessage());
+            e.printStackTrace();
             return "error";
         }
     }
@@ -4242,8 +4271,9 @@ public class App01CrudController {
 
             }
 
-        }catch (IllegalStateException e){
-            model.addAttribute("index16Save errorMessage", e.getMessage());
+        }catch (Exception e){
+            log.info("index16/delarr 오류 메시지: " + e.getMessage());
+            e.printStackTrace();
             return "error";
         }
         return "success";
@@ -4283,9 +4313,9 @@ public class App01CrudController {
                 return "success";
             }
 
-        }catch (IllegalStateException e){
-            log.info("index16Save errorMessage =====>" +  e.getMessage());
-            model.addAttribute("index16Save errorMessage", e.getMessage());
+        }catch (Exception e){
+            log.info("savedev 오류 메시지: " + e.getMessage());
+            e.printStackTrace();
             return "error";
         }
         return "success";
@@ -4396,8 +4426,9 @@ public class App01CrudController {
 
             }
 
-        }catch (IllegalStateException e){
-            model.addAttribute("index16Save errorMessage", e.getMessage());
+        }catch (Exception e){
+            log.info("savewish 오류 메시지: " + e.getMessage());
+            e.printStackTrace();
             return "error";
         }
         return "success";
@@ -4460,8 +4491,9 @@ public class App01CrudController {
 
             }
 
-        }catch (IllegalStateException e){
-            model.addAttribute("index16Save errorMessage", e.getMessage());
+        }catch (Exception e){
+            log.info("modifywish 오류 메시지: " + e.getMessage());
+            e.printStackTrace();
             return "error";
         }
         return "success";
@@ -4512,8 +4544,9 @@ public class App01CrudController {
 
             }
 
-        }catch (IllegalStateException e){
-            model.addAttribute("index16Save errorMessage", e.getMessage());
+        }catch (Exception e){
+            log.info("delarrwish 오류 메시지: " + e.getMessage());
+            e.printStackTrace();
             return "error";
         }
         return "success";
@@ -4702,8 +4735,9 @@ public class App01CrudController {
             index01ListDto = service01.GetComcodeDetailList(index01Dto);
             model.addAttribute("index01ListDto",index01ListDto);
 
-        } catch (Exception ex) {
-            log.info("App01ComdodeDetailList_index Exception =====>" + ex.toString());
+        } catch (Exception e) {
+            log.info("jupsusave 오류 메시지: " + e.getMessage());
+            e.printStackTrace();
         }
 
         return index01ListDto;
@@ -4793,8 +4827,10 @@ public class App01CrudController {
             }
             return "success";
 
-        }catch (IllegalStateException e){
-            model.addAttribute("index20JupsuSave errorMessage", e.getMessage());
+        }catch (Exception e){
+//            model.addAttribute("index20JupsuSave errorMessage", e.getMessage());
+            log.info("jupsusave 오류 메시지: " + e.getMessage());
+            e.printStackTrace();
             return "error";
         }
     }
@@ -4828,8 +4864,9 @@ public class App01CrudController {
             }
             return "success";
 
-        }catch (IllegalStateException e){
-            model.addAttribute("index20JupsuDel errorMessage", e.getMessage());
+        }catch (Exception e){
+            log.info("jupsudel 오류 메시지: " + e.getMessage());
+            e.printStackTrace();
             return "error";
         }
     }
@@ -4885,8 +4922,9 @@ public class App01CrudController {
 
             }
             return "success";
-        }catch (IllegalStateException e){
-            model.addAttribute("index20JupsuDel errorMessage", e.getMessage());
+        }catch (Exception e){
+            log.info("jupsudellist 오류 메시지: " + e.getMessage());
+            e.printStackTrace();
             return "error";
         }
     }
@@ -4958,8 +4996,9 @@ public class App01CrudController {
             }
             return "success";
 
-        }catch (IllegalStateException e){
-            model.addAttribute("index21Deliv errorMessage", e.getMessage());
+        }catch (Exception e){
+            log.info("deliv 오류 메시지: " + e.getMessage());
+            e.printStackTrace();
             return "error";
         }
     }
@@ -5040,7 +5079,6 @@ public class App01CrudController {
                     }else{
                         ls_misnum =  _index20DtoRe.getMisnum();
                     }
-
                     _indexDa023Dto.setMisnum(ls_misnum);
                     _indexDa023Dto.setCltcd(_index20DtoRe.getAcode());
                     _indexDa023Dto.setPerid("");
@@ -5130,8 +5168,11 @@ public class App01CrudController {
             }
             return "success";
 
-        }catch (IllegalStateException e){
-            model.addAttribute("index21Deliv errorMessage", e.getMessage());
+        }catch (Exception  e){
+//            model.addAttribute("index21Deliv errorMessage", e.getMessage());
+            log.info("jumunsav AS->주문처리 중 오류 메시지: " + e.getMessage());
+            // 스택 트레이스를 출력하여 오류의 발생 위치를 확인
+            e.printStackTrace();
             return "error";
         }
     }
@@ -5172,8 +5213,9 @@ public class App01CrudController {
                 return "success";
             }
 
-        }catch (IllegalStateException e){
-            model.addAttribute("index20SaveDev errorMessage", e.getMessage());
+        }catch (Exception e){
+            log.info("savedev 오류 메시지: " + e.getMessage());
+            e.printStackTrace();
             return "error";
         }
         return "success";
