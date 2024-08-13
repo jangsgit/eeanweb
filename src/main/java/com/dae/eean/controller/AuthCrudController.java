@@ -131,6 +131,14 @@ public class AuthCrudController {
             , @RequestParam("flag") String select
             , Model model
             , HttpServletRequest request) throws Exception{
+
+        if(loginid == null || loginid.equals("")){
+            return "error";
+        }
+
+        if(logpass == null || logpass.equals("")){
+            return "error";
+        }
         userformDto.setUserid(loginid);
         userformDto.setPasswd1(logpass);
         Optional<UserFormDto> userFlagDto = Optional.ofNullable(authService.GetFlagInfo(userformDto));

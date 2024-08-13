@@ -189,6 +189,18 @@
           var ls_ipaddr    = document.getElementById('ipaddr').value;
           var ls_select  = 'FF'; //document.getElementById('select').value;
           var ls_actcustcdz = "EEAN" ; //document.getElementById('actcustcdz').value; 
+
+          if(ls_loginid == null || ls_loginid.length == 0 || ls_loginid == ""){ 
+                alert("아이디를 입력하세요") 
+                document.getElementById("loginid").focus(); 
+                return ;               
+            }   
+          if(ls_logpass == null || ls_logpass.length == 0 || ls_logpass == ""){ 
+              alert("비빌번호를 입력하세요") 
+              document.getElementById("logpass").focus(); 
+              return ;               
+          }    
+
           $.ajax({
               url: '/authcrud/login',
               type:"POST",
