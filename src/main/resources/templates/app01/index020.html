@@ -62,7 +62,7 @@
                                         <div class="tab-content" >                                        
                                             <div class="tab-pane fade show active"  >  
                                                     <div class="container-fluid" id="op1" >
-                                                    <div id="wtab01Grid_div"  style="overflow:scroll;   height:600px;    margin:0 auto; "></div>
+                                                    <div id="wtab01Grid_div"  style="overflow:scroll;   height:600px; width: 900px;   margin:0 auto; "></div>
                                                     <!-- <div style="display: flex; margin: 0 auto; " id="tab01Pager"></div> -->
                                                 </div>                                               
                                             </div>                                        
@@ -453,6 +453,7 @@
                 }, 
                 { binding: 'acorp', header: '거래처명', align: "left", width: 200 },  
                 { binding: 'atelno', header: '전화번호', align: "center", width: 150 },                      
+                { binding: 'asano', header: '사업자번호', align: "center", width: 150 },  
                 { binding: 'aemail', header: '메일', align: "left", width: 200 },  
                 { binding: 'ajusotxt', header: '주소', align: "center", width: 200 },   
                 { binding: 'inname01', header: '담당', align: "center", width: 80 },                    
@@ -499,6 +500,7 @@
                 start = 0;
             rowCount = wtab01Dto.length; 
             for (var i = 0; i < rowCount; i++) {
+                var ls_asano = wtab01Dto[i]["asano1"] + '-' + wtab01Dto[i]["asano2"] + '-' + wtab01Dto[i]["asano3"]
                 wactnm_data.push({
                     id: i + start, 
                     index: cnt,
@@ -507,6 +509,7 @@
                     acorp3: wtab01Dto[i]["acorp3"], 
                     acode: wtab01Dto[i]["acode"], 
                     acorp: wtab01Dto[i]["acorp"], 
+                    asano: ls_asano, 
                     asano1: wtab01Dto[i]["asano1"], 
                     asano2: wtab01Dto[i]["asano2"], 
                     asano3: wtab01Dto[i]["asano3"], 
@@ -1236,6 +1239,7 @@
             var cnt = 1; 
             chkLogin(wtab01Dto)  
             for (var i = 0; i < wtab01Dto.length; i++) {
+                var ls_asano = wtab01Dto[i]["asano1"]  + '-' + wtab01Dto[i]["asano2"] + '-' + wtab01Dto[i]["asano3"]
                 wtab01_data.push({
                     id: i, 
                     index: cnt, 
@@ -1244,6 +1248,7 @@
                     acorp3: wtab01Dto[i]["acorp3"], 
                     acode: wtab01Dto[i]["acode"], 
                     acorp: wtab01Dto[i]["acorp"], 
+                    asano: ls_asano, 
                     asano1: wtab01Dto[i]["asano1"], 
                     asano2: wtab01Dto[i]["asano2"], 
                     asano3: wtab01Dto[i]["asano3"], 
@@ -1314,6 +1319,13 @@
                     wcifChk_a(ctx.item.acorp1, ctx.item.acorp2, ctx.item.acorp3, ctx.item.acode, ctx.item.acorp,ctx.item.asano1, ctx.item.asano2, ctx.item.asano3, ctx.item.aname, ctx.item.aupte, ctx.item.ajong,ctx.item.apost1, ctx.item.ajuso1, ctx.item.ajuso2, ctx.item.abigo, ctx.item.agita, ctx.item.ajumi1, ctx.item.ajumi2,ctx.item.aascode1, ctx.item.aascode2, ctx.item.atelno, ctx.item.atelno2, ctx.item.aemail, ctx.item.ahand, ctx.item.abonsadam1, ctx.item.abonsadam2, ctx.item.abonsadam3, ctx.item.adomain, ctx.item.afax, ctx.item.inname01, ctx.item.inname02, ctx.item.inname03 );                    
                 }
             });
+            wtab01Grid.columns.push(cols);  
+
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'asano';
+            cols.header = '사업자번호';
+            cols.align = "center";
+            cols.width = 150;                  
             wtab01Grid.columns.push(cols);  
 
             cols = new wijmo.grid.Column(); 

@@ -62,7 +62,7 @@
                                       <div class="tab-content" >                                        
                                         <div class="tab-pane fade show active"  >  
                                                 <div class="container-fluid" id="op1" >
-                                                <div id="wtab01Grid_div"  style="overflow:scroll;   height:600px;    margin:0 auto; "></div>
+                                                <div id="wtab01Grid_div"  style="overflow:scroll;   height:600px;  width: 900px;    margin:0 auto; "></div>
                                                 <!-- <div style="display: flex; margin: 0 auto; " id="tab01Pager"></div> -->
                                             </div>                                               
                                         </div>                                        
@@ -472,7 +472,7 @@
             columns: [     
                 {
                     binding: 'acode',
-                    width: '1*',
+                    width: 100,
                     header: '코드', 
                     align:"center",
                     cellTemplate: wijmo.grid.cellmaker.CellMaker.makeLink({ 
@@ -482,10 +482,12 @@
                         }
                     })
                 }, 
-                { binding: 'acorp', header: '거래처명', align: "center", width: '*' },  
-                { binding: 'atelno', header: '전화번호', align: "left", width: '*' },                      
-                { binding: 'aemail', header: '메일', align: "left", width: '*' },  
-                { binding: 'ajusotxt', header: '주소', align: "center", width: '*' },                     
+                { binding: 'acorp', header: '거래처명', align: "left", width: 200 },  
+                { binding: 'atelno', header: '전화번호', align: "center", width: 150 },                      
+                { binding: 'asano', header: '사업자번호', align: "center", width: 150 },  
+                { binding: 'aemail', header: '메일', align: "left", width: 200 },  
+                { binding: 'ajusotxt', header: '주소', align: "center", width: 200 },   
+                { binding: 'inname01', header: '담당', align: "center", width: 80 },                         
                 
             ], 
             itemsSource: view_p01tab01page,  
@@ -538,6 +540,7 @@
                 start = 0;
             rowCount = wtab01Dto.length; 
             for (var i = 0; i < rowCount; i++) {
+                var ls_sano = wtab01Dto[i]["asano1"] + '-' + wtab01Dto[i]["asano2"] + '-' + wtab01Dto[i]["asano3"]
                 wactnm_data.push({
                     id: i + start, 
                     index: cnt,
@@ -546,6 +549,7 @@
                     acorp3: wtab01Dto[i]["acorp3"], 
                     acode: wtab01Dto[i]["acode"], 
                     acorp: wtab01Dto[i]["acorp"], 
+                    asano: ls_sano, 
                     asano1: wtab01Dto[i]["asano1"], 
                     asano2: wtab01Dto[i]["asano2"], 
                     asano3: wtab01Dto[i]["asano3"], 
@@ -1250,6 +1254,7 @@
             var wtab01_data = [];
             var cnt = 1;
             for (var i = 0; i < wtab01Dto.length; i++) {
+                var ls_sano = wtab01Dto[i]["asano1"] + '-' + wtab01Dto[i]["asano2"] + '-' + wtab01Dto[i]["asano3"]
                 wtab01_data.push({
                     id: i, 
                     index: cnt, 
@@ -1258,6 +1263,7 @@
                     acorp3: wtab01Dto[i]["acorp3"], 
                     acode: wtab01Dto[i]["acode"], 
                     acorp: wtab01Dto[i]["acorp"], 
+                    asano: ls_sano, 
                     asano1: wtab01Dto[i]["asano1"], 
                     asano2: wtab01Dto[i]["asano2"], 
                     asano3: wtab01Dto[i]["asano3"], 
@@ -1321,7 +1327,7 @@
             cols.binding = 'atelno';
             cols.header = '전화번호';
             cols.align = "center";
-            cols.width = '*'; 
+            cols.width = 150; 
             cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
                 text: '<b>${item.atelno}</b>',
                 click: (e, ctx) => {
@@ -1331,17 +1337,31 @@
             wtab01Grid.columns.push(cols);  
 
             cols = new wijmo.grid.Column(); 
+            cols.binding = 'asano';
+            cols.header = '사업자번호';
+            cols.align = "center";
+            cols.width = 150;                  
+            wtab01Grid.columns.push(cols);  
+
+            cols = new wijmo.grid.Column(); 
             cols.binding = 'aemail';
             cols.header = '메일';
             cols.align = "left";
-            cols.width = '*';                  
+            cols.width = 200;                  
             wtab01Grid.columns.push(cols);  
 
             cols = new wijmo.grid.Column(); 
             cols.binding = 'ajusotxt';
             cols.header = '주소';
             cols.align = "left";
-            cols.width = '*';           
+            cols.width = 200;           
+            wtab01Grid.columns.push(cols);
+
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'inname01';
+            cols.header = '담당';
+            cols.align = "center";
+            cols.width = 80;           
             wtab01Grid.columns.push(cols);
       
         }        
