@@ -199,8 +199,12 @@
                   "flag"    : ls_select 
               },
               async:false,
-              success:function(userFormDto){
-
+              success:function(data){
+                if (data == "error"){
+                    alert("사용자를 찾을 수 없습니다.")
+                }else{
+                  userFormDto = data
+                }
                 var ListDto = userFormDto;
                 var ls_userid = userFormDto["userid"]
                 var ls_username = userFormDto["username"]                
@@ -266,6 +270,7 @@
                 }
 
               },error:function(e){
+                   alert("kkkk")
                   wrongPasswd();
               }
           }).done(function(fragment){

@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -132,16 +133,17 @@ public class AuthCrudController {
             , HttpServletRequest request) throws Exception{
         userformDto.setUserid(loginid);
         userformDto.setPasswd1(logpass);
-
-        //log.info("001 ========");
-        UserFormDto userFlagDto = authService.GetFlagInfo(userformDto);
-        if (userFlagDto == null){
-            return 0;
-        }else{
-            select = userFlagDto.getFlag();
+        Optional<UserFormDto> userFlagDto = Optional.ofNullable(authService.GetFlagInfo(userformDto));
+        if (userFlagDto.isPresent()) {
+            select = userFlagDto.get().getFlag();
+            // userDto가 null이 아닐 때의 로직
+        } else {
+            return "error";
+            // userDto가 null일 때의 로직
         }
-        userformDto.setFlag(userFlagDto.getFlag());
-        //log.info("002 ========");
+//        log.info("002 ========" + userFlagDto.get().getFlag());
+        userformDto.setFlag(userFlagDto.get().getFlag());
+
         UserFormDto userReturnDto = authService.GetUserInfo(userformDto);
         if (userReturnDto == null){
             return 0;
