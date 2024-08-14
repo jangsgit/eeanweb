@@ -4736,7 +4736,7 @@ public class App01CrudController {
             model.addAttribute("index01ListDto",index01ListDto);
 
         } catch (Exception e) {
-            log.info("jupsusave 오류 메시지: " + e.getMessage());
+            log.info("comcodedetaillist 오류 메시지: " + e.getMessage());
             e.printStackTrace();
         }
 
@@ -5202,6 +5202,9 @@ public class App01CrudController {
                     index20Dto.setAs_key1(devnum03.get(i).substring(0,8));
                     index20Dto.setAs_key2(devnum03.get(i).substring(8,12));
                     ls_cltcd = devnum03.get(i);
+                    if(ls_cltcd.length() < 12){
+                        continue;
+                    }
                     ls_cltcd = ls_cltcd.substring(12, ls_cltcd.length());
                     index20Dto.setAs_acorp1(ls_cltcd);
                     result = service01.UpdateDevJupsuUnsong(index20Dto);
