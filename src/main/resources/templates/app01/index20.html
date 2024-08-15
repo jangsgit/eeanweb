@@ -1810,7 +1810,7 @@
             cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
                 text: '<b>${item.as_key1}</b>',
                 click: (e, ctx) => {
-                    wjupsuChk_a(ctx.item.as_key1, ctx.item.as_key2, ctx.item.as_model, ctx.item.as_color,ctx.item.as_suri,ctx.item.as_yumu,ctx.item.as_gongjang,ctx.item.as_acorp,ctx.item.as_acorp1,ctx.item.as_acorp2,ctx.item.as_acorp3,ctx.item.as_memo,ctx.item.as_memo2,ctx.item.as_memo3,ctx.item.as_aname, ctx.item.as_damdang , ctx.item.jchgoga );                    
+                    wjupsuChk_a(ctx.item.as_key1, ctx.item.as_key2, ctx.item.as_model, ctx.item.as_color,ctx.item.as_suri,ctx.item.as_yumu,ctx.item.as_gongjang,ctx.item.as_acorp,ctx.item.as_acorp1,ctx.item.as_acorp2,ctx.item.as_acorp3,ctx.item.as_memo,ctx.item.as_memo2,ctx.item.as_memo3,ctx.item.as_aname, ctx.item.as_damdang , ctx.item.jchgoga, ctx.item.misdate );                    
                     
                 }
             });
@@ -2112,15 +2112,11 @@
  
         }     
  
-        function wjupsuChk_a(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10,arg11, arg12, arg13, arg14, arg15, arg16, arg17){ 
-                // ctx.item.as_key1, ctx.item.as_key2,     ctx.item.as_model, ctx.item.as_color,ctx.item.as_suri,
-                // ctx.item.as_yumu, ctx.item.as_gongjang,ctx.item.as_acorp,  ctx.item.as_acorp1,ctx.item.as_acorp2,
-                // ctx.item.as_acorp3,ctx.item.as_memo,ctx.item.as_memo2,ctx.item.as_memo3, as_aname  , 
-                // ctx.item.as_damdang 
+        function wjupsuChk_a(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10,arg11, arg12, arg13, arg14, arg15, arg16, arg17, arg18){ 
                 // as_key1, as_key2, as_model, as_color,as_suri,
                 // as_yumu,as_gongjang,as_acorp,as_acorp1,as_acorp2,
                 // as_acorp3,as_memo,as_memo2,as_memo3,as_aname, 
-                // s_damdang  
+                // as_damdang , jchgoga, misdste 
                 arg15 = arg15.trim(); 
                 document.getElementById('asaskey1').value = arg1;  
                 document.getElementById('asaskey2').value = arg2;   
@@ -2138,8 +2134,7 @@
                 document.getElementById('asasmemo3').value = arg14;   
                 document.getElementById('asaname').value = arg15; 
                 document.getElementById('condamdang').value = arg16; 
-                document.getElementById('jchgoga').value = arg17;
-
+                document.getElementById('jchgoga').value = arg17;   
                 var selectElement = document.getElementById("asasyumu");
                 var inputElement = document.getElementById("jchgoga");
                 if (arg6 === "무상") {
@@ -2147,6 +2142,17 @@
                     inputElement.value = 0; // 비활성화할 때 값 초기화
                 } else {
                     inputElement.disabled = false;
+                }  
+                if(arg18 == null || arg18.length == 0 || arg18 == ""){  
+                    document.getElementById('jcifname').disabled = false;  
+                    document.getElementById('jchgoga').disabled = false; 
+                    document.getElementById('asasyumu').disabled = false; 
+                    document.getElementById('condamdang').disabled = false;          
+                }else{                    
+                    document.getElementById('jcifname').disabled = true;  
+                    document.getElementById('jchgoga').disabled = true; 
+                    document.getElementById('asasyumu').disabled = true; 
+                    document.getElementById('condamdang').disabled = true;        
                 } 
  
                 
@@ -2171,8 +2177,11 @@
                 document.getElementById('asasmemo3').value = "";   
                 document.getElementById('asaname').value = "B"; 
                 document.getElementById('condamdang').value = ls_condamdang; 
-                document.getElementById('jchgoga').value = 0;                
-
+                document.getElementById('jcifname').disabled = false; 
+                document.getElementById('jchgoga').disabled = false; 
+                document.getElementById('asasyumu').disabled = false; 
+                document.getElementById('condamdang').disabled = false; 
+                document.getElementById('jchgoga').value = 0;                 
                 document.getElementById("asasgong").focus(); 
         }
    
