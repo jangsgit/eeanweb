@@ -166,10 +166,17 @@
         //   console.error(error);
         // }
         
-        lsUserid = window.localStorage.getItem("userid") 
-        lsUserpw = window.localStorage.getItem("userpw") 
-        if(lsUserid == null || lsUserid.length == 0 || lsUserid == "" || lsUserid =="undefined"){ 
-          lsUserid = '';            
+        lsUserid = window.localStorage.getItem("userid_AA") 
+        lsUserpw = window.localStorage.getItem("userpw_AA") 
+        if(lsUserid == null || lsUserid.length == 0 || lsUserid == "" || lsUserid =="undefined"){  
+          lsUserid = window.localStorage.getItem("userid_BB") 
+          lsUserpw = window.localStorage.getItem("userpw_BB")       
+          if(lsUserid == null || lsUserid.length == 0 || lsUserid == "" || lsUserid =="undefined"){    
+            lsUserid = window.localStorage.getItem("userid_CC") 
+            lsUserpw = window.localStorage.getItem("userpw_CC")  
+          }else{
+            lsUserid = "";
+          }          
         }   
         //document.getElementById('select').value = lsFlag
         document.getElementById('loginid').value = lsUserid
