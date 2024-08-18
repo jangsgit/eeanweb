@@ -182,9 +182,26 @@
         if(lstimeDD == null || lstimeDD.length == 0 || lstimeDD == "" || lstimeDD =="undefined"){
           lstimeDD = "";
         }  
-        const mostRecentTime = findMostRecentTime(lstimeAA, lstimeBB, lstimeCC, lstimeDD);
-        console.log(mostRecentTime)
-        console.log("---------")
+        const mostRecentTime = findMostRecentTime(lstimeAA, lstimeBB, lstimeCC, lstimeDD); 
+        if(mostRecentTime == null || mostRecentTime.length == 0 || mostRecentTime == "" || mostRecentTime =="undefined"){
+          lsUserid = window.localStorage.getItem("userid_AA") 
+          lsUserpw = window.localStorage.getItem("userpw_AA")  
+          if(lsUserid == null || lsUserid.length == 0 || lsUserid == "" || lsUserid =="undefined"){            
+            lsUserid = window.localStorage.getItem("userid_BB") 
+            lsUserpw = window.localStorage.getItem("userpw_BB")  
+            if(lsUserid == null || lsUserid.length == 0 || lsUserid == "" || lsUserid =="undefined"){                
+              lsUserid = window.localStorage.getItem("userid_CC") 
+              lsUserpw = window.localStorage.getItem("userpw_CC")   
+              if(lsUserid == null || lsUserid.length == 0 || lsUserid == "" || lsUserid =="undefined"){                  
+                lsUserid = window.localStorage.getItem("userid_DD") 
+                lsUserpw = window.localStorage.getItem("userpw_DD")  
+              } 
+            }          
+          }    
+          document.getElementById('loginid').value = lsUserid
+          document.getElementById('logpass').value = lsUserpw
+          return 
+        }
         if(mostRecentTime == lstimeAA) {
           lsUserid = window.localStorage.getItem("userid_AA") 
           sUserpw = window.localStorage.getItem("userpw_AA") 
@@ -213,23 +230,7 @@
           document.getElementById('logpass').value = lsUserpw
           return 
         }
-        // lsUserid = window.localStorage.getItem("userid_AA") 
-        // lsUserpw = window.localStorage.getItem("userpw_AA")  
-        // if(lsUserid == null || lsUserid.length == 0 || lsUserid == "" || lsUserid =="undefined"){            
-        //   lsUserid = window.localStorage.getItem("userid_BB") 
-        //   lsUserpw = window.localStorage.getItem("userpw_BB")  
-        //   if(lsUserid == null || lsUserid.length == 0 || lsUserid == "" || lsUserid =="undefined"){                
-        //     lsUserid = window.localStorage.getItem("userid_CC") 
-        //     lsUserpw = window.localStorage.getItem("userpw_CC")   
-        //     if(lsUserid == null || lsUserid.length == 0 || lsUserid == "" || lsUserid =="undefined"){                  
-        //       lsUserid = window.localStorage.getItem("userid_DD") 
-        //       lsUserpw = window.localStorage.getItem("userpw_DD")  
-        //     } 
-        //   }          
-        // }   
-        // //document.getElementById('select').value = lsFlag
-        // document.getElementById('loginid').value = lsUserid
-        // document.getElementById('logpass').value = lsUserpw
+
         
       }
 
