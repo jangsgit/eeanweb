@@ -168,17 +168,22 @@
         
         lsUserid = window.localStorage.getItem("userid_AA") 
         lsUserpw = window.localStorage.getItem("userpw_AA") 
-        if(lsUserid == null || lsUserid.length == 0 || lsUserid == "" || lsUserid =="undefined"){  
+        alert("AA->" + lsUserid )
+        if(lsUserid == null || lsUserid.length == 0 || lsUserid == "" || lsUserid =="undefined"){            
           lsUserid = window.localStorage.getItem("userid_BB") 
           lsUserpw = window.localStorage.getItem("userpw_BB")       
-          if(lsUserid == null || lsUserid.length == 0 || lsUserid == "" || lsUserid =="undefined"){    
+          alert("BB->" + lsUserid )
+          if(lsUserid == null || lsUserid.length == 0 || lsUserid == "" || lsUserid =="undefined"){                
             lsUserid = window.localStorage.getItem("userid_CC") 
             lsUserpw = window.localStorage.getItem("userpw_CC")  
-            if(lsUserid == null || lsUserid.length == 0 || lsUserid == "" || lsUserid =="undefined"){    
+            alert("CC->" + lsUserid )
+            if(lsUserid == null || lsUserid.length == 0 || lsUserid == "" || lsUserid =="undefined"){                  
               lsUserid = window.localStorage.getItem("userid_DD") 
               lsUserpw = window.localStorage.getItem("userpw_DD")                
-            }else{
+              alert("DD->" + lsUserid )
+            }else{              
               lsUserid = "";
+              alert("XX->" + lsUserid )
             }
           }          
         }   
