@@ -167,24 +167,17 @@
         // }
         
         lsUserid = window.localStorage.getItem("userid_AA") 
-        lsUserpw = window.localStorage.getItem("userpw_AA") 
-        alert("AA->" + lsUserid )
+        lsUserpw = window.localStorage.getItem("userpw_AA")  
         if(lsUserid == null || lsUserid.length == 0 || lsUserid == "" || lsUserid =="undefined"){            
           lsUserid = window.localStorage.getItem("userid_BB") 
-          lsUserpw = window.localStorage.getItem("userpw_BB")       
-          alert("BB->" + lsUserid )
+          lsUserpw = window.localStorage.getItem("userpw_BB")  
           if(lsUserid == null || lsUserid.length == 0 || lsUserid == "" || lsUserid =="undefined"){                
             lsUserid = window.localStorage.getItem("userid_CC") 
-            lsUserpw = window.localStorage.getItem("userpw_CC")  
-            alert("CC->" + lsUserid )
+            lsUserpw = window.localStorage.getItem("userpw_CC")   
             if(lsUserid == null || lsUserid.length == 0 || lsUserid == "" || lsUserid =="undefined"){                  
               lsUserid = window.localStorage.getItem("userid_DD") 
-              lsUserpw = window.localStorage.getItem("userpw_DD")                
-              alert("DD->" + lsUserid )
-            }else{              
-              lsUserid = "";
-              alert("XX->" + lsUserid )
-            }
+              lsUserpw = window.localStorage.getItem("userpw_DD")  
+            } 
           }          
         }   
         //document.getElementById('select').value = lsFlag
