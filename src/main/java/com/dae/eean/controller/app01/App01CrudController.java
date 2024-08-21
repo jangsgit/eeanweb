@@ -301,6 +301,7 @@ public class App01CrudController {
                 Integer ll_acorp2 = Integer.parseInt(service02.getIndex02MaxSeq(_index02Dto.getAcorp1())) + 1;
                 ls_acorp2 = ll_acorp2.toString();
                 _index02Dto.setAcorp2(ls_acorp2);
+                _appUserFormDto.setPerid(_index02Dto.getAcorp1() + _index02Dto.getAcorp2());
                 result = service02.InsertCif(_index02Dto);
                 if (!result) {
                     return "error";
