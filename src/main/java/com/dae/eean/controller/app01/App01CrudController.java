@@ -2046,7 +2046,7 @@ public class App01CrudController {
                 }
                 result = service14.DeleteDA025(_indexDa024Dto);
                 if (!result){
-                    return "error";
+                    //return "error";
                 }
                 return "success";
             }
