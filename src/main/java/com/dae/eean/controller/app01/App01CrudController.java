@@ -320,6 +320,9 @@ public class App01CrudController {
                 }
             }else{
                 _appUserFormDto.setSeq(_appUserDto.getSeq());
+                if (_index02Dto.getAgita().equals("Z")){
+                    _appUserFormDto.setUseyn("N");  //비거래가 아닐경우 임의로 N을 넣은경우가 있어 비거래만 체크하여 업데이트함.
+                }
                 result = service_auth.UpdateUserInfoBB(_appUserFormDto);
                 if (!result) {
                     return "error";

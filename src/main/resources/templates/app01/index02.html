@@ -1948,7 +1948,7 @@ function sample4_execDaumPostcode() {
                         // 내보내기
                         case 'X_CSV':
                             let rng = new wijmo.grid.CellRange(0, 0, grid.rows.length - 1, grid.columns.length - 1), csv = grid.getClipString(rng, wijmo.grid.ClipStringOptions.CSV, true, false);
-                            wijmo.saveFile(csv, '사원별매출현황.csv');
+                            wijmo.saveFile(csv, '거래처목록.csv');
                             break;
                         case 'X_XLSX':
                             const gridView = grid.collectionView;
@@ -1957,7 +1957,7 @@ function sample4_execDaumPostcode() {
                             grid.beginUpdate();
                             gridView.pageSize = 0;
 
-                            wijmo.grid.xlsx.FlexGridXlsxConverter.saveAsync(grid, {includeCellStyles: true, includeColumnHeaders: true}, '사원별매출현황.xlsx',
+                            wijmo.grid.xlsx.FlexGridXlsxConverter.saveAsync(grid, {includeCellStyles: true, includeColumnHeaders: true}, '거래처목록.xlsx',
                             saved => {
                             gridView.pageSize = oldPgSize;
                             gridView.moveToPage(oldPgIndex);
@@ -1966,14 +1966,14 @@ function sample4_execDaumPostcode() {
                             ); 
                             break;
                         case 'X_PDF':
-                            wijmo.grid.pdf.FlexGridPdfConverter.export(grid, '사원별매출현황.pdf', {
+                            wijmo.grid.pdf.FlexGridPdfConverter.export(grid, '거래처목록.pdf', {
                                 maxPages: 10,
                                 scaleMode: wijmo.grid.pdf.ScaleMode.PageWidth,
                                 documentOptions: {
                                 compress: true,
                                 header: { declarative: { text: '\t&[Page] of &[Pages]' } },
                                 footer: { declarative: { text: '\t&[Page] of &[Pages]' } },
-                                info: { author: 'GrapeCity', title: '사원별매출현황' }
+                                info: { author: 'GrapeCity', title: '거래처목록' }
                                 },
                                 //내장된 폰트 정보
                                 embeddedFonts: [

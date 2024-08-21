@@ -64,7 +64,7 @@
                                     </div>
                                 </a>
                                 <!-- more inner pages-->
-                            </li> 
+                            </li>  
                             <!-- <li class="nav-item">
                                 <a class="nav-link" th:href="@{/appcom02/list?line=00&wflag=00020&fdate=20000101&tdate=20221231&cltcd=&pcode=&plan_no=''&wseq=''   }" aria-expanded="false" >
                                     <div class="d-flex align-items-center"><span
@@ -163,10 +163,10 @@
     })
     
     function set_init(){ 
-            lsUserid = window.localStorage.getItem("userid");
-            lsMflag = window.localStorage.getItem("flag");
-            lsRole = window.localStorage.getItem("role");
-            lsPerid = window.localStorage.getItem("perid");
+            lsUserid = window.localStorage.getItem("userid_CC");
+            lsMflag = window.localStorage.getItem("flag_CC");
+            lsRole = window.localStorage.getItem("role_CC");
+            lsPerid = window.localStorage.getItem("perid_CC");
         var params = new URLSearchParams();
         console.log('lsUserid-------------------------------------------------->' + lsUserid)
         params.append('userid', lsUserid)

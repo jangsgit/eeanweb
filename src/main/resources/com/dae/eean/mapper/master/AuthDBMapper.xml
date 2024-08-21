@@ -89,7 +89,7 @@
     </update>
 
     <update id="UpdateUserInfoBB" parameterType="com.dae.eean.DTO.UserFormDto"  >
-        UPDATE TB_XUSERS SET  perid = #{perid},  userid=#{userid}, username=#{username}, passwd1=#{passwd1}, passwd2=#{passwd1}, custnm=#{custnm}, saupnum=#{saupnum}, rnum='0'
+        UPDATE TB_XUSERS SET  perid = #{perid},  userid=#{userid}, username=#{username}, passwd1=#{passwd1}, passwd2=#{passwd1}, custnm=#{custnm}, saupnum=#{saupnum}, rnum='0', USEYN=#{useyn}
          where seq=#{seq} and flag = #{flag}
     </update>
 

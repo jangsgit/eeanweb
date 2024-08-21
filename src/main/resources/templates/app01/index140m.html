@@ -3170,17 +3170,17 @@
    }
 
    function fn_egov_init_date(){ 
-        gsUserid = window.localStorage.getItem("userid");                             
-        gsUsernm = window.localStorage.getItem("username");
-        gsMflag = window.localStorage.getItem("flag"); 
-       const ls_perid = window.localStorage.getItem("perid");
-       const ls_pernm = window.localStorage.getItem("pernm");
-       const ls_role = window.localStorage.getItem("role"); 
+        gsUserid = window.localStorage.getItem("userid_CC");                             
+        gsUsernm = window.localStorage.getItem("username_CC");
+        gsMflag = window.localStorage.getItem("flag_CC"); 
+       const ls_perid = window.localStorage.getItem("perid_CC");
+       const ls_pernm = window.localStorage.getItem("pernm_CC");
+       const ls_role = window.localStorage.getItem("role_CC"); 
        document.getElementById('abonsadam1').value = ls_perid;
        document.getElementById('pernm').value = ls_pernm; 
        document.getElementById('makflag01').value = "0"; 
        document.getElementById('makflag02').value = "0";
-       lsUserid = window.localStorage.getItem("userid") 
+       lsUserid = window.localStorage.getItem("userid_CC") 
         if(ls_role == "P"){ 
             document.getElementById('jpbgubn').value = "P"; 
             document.getElementById('djpbgubn').value = "P"; 

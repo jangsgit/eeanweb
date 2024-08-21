@@ -8,15 +8,15 @@
     })
     
     function set_init(){ 
-            lsUserid = window.localStorage.getItem("userid");
-            lsMflag = window.localStorage.getItem("flag");
-            lsRole = window.localStorage.getItem("role");
-            lsPerid = window.localStorage.getItem("perid");
+            lsUserid = window.localStorage.getItem("userid_BB");
+            lsMflag = window.localStorage.getItem("flag_BB");
+            lsRole = window.localStorage.getItem("role_BB");
+            lsPerid = window.localStorage.getItem("perid_BB");
         var params = new URLSearchParams();
         params.append('userid', lsUserid)
         params.append('flag', lsMflag)
         params.append('role', lsRole)
-        params.append('perid', lsPerid)
+        params.append('perid', lsPerid) 
         var link_15 = document.getElementById('index15Link');
         link_15.href += "?" + params.toString();
     }  
