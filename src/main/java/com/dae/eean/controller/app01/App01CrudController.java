@@ -125,6 +125,7 @@ public class App01CrudController {
             if(abonsadam1 == null || abonsadam1.equals("")){
                 abonsadam1 = "%";
             }
+            conacorp = escapeBrackets(conacorp);
             _index02Dto.setAcorp1(conacorp1);
             _index02Dto.setAcorp(conacorp);
             _index02Dto.setAgita(conagita);
@@ -5322,6 +5323,14 @@ public class App01CrudController {
         Date date      = new Date(System.currentTimeMillis());
 
         return date.toString();
+    }
+    public  String escapeBrackets(String input) {
+        if (input == null) {
+            return null;
+        }
+        // Replace [ with [[ and ] with ]]
+
+        return input.replace("[", "[[").replace("]", "]]");
     }
 
 }

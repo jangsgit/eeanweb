@@ -962,7 +962,7 @@
                 searchCode = document.getElementById('jcifname').value; 
                 ls_jpbgubn = document.getElementById('jpbgubn').value; 
                 document.getElementById('searchCode').value = searchCode;     
-            } 
+            }  
             if(searchCode == null || searchCode.length == 0 || searchCode == ""){ 
                 searchCode = "%"         ;
             }   
@@ -1422,13 +1422,17 @@
                         asKey2Arr[ichkcnt]   = chkTabA[i]._data.as_key2; 
                         misdateArr[ichkcnt]      = chkTabA[i]._data.misdate; 
                         misnumArr[ichkcnt]      = chkTabA[i]._data.misnum; 
-                        asYumu[ichkcnt]          = chkTabA[i]._data.as_yumu;   
+                        asYumu[ichkcnt]          = chkTabA[i]._data.as_yumu;
+                        if(asKey1Arr[ichkcnt] == null || asKey1Arr[ichkcnt].length < 10 ){ 
+                            alert(asKey1Arr[ichkcnt] + " : 주문일자를 확인하세요") ; 
+                            return ;               
+                        }  
                         ichkcnt++;
                     }     
                     if(asKey1Arr.length == null || asKey1Arr.length == 0){ 
                         alert("주문등록할 내역을 선택하세요") 
                         return ;               
-                    }  
+                    }   
                     $.ajax({
                         url: '/app01m/index20/jumunsav',  
                         type:"POST",

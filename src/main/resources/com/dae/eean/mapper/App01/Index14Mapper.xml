@@ -62,14 +62,14 @@
     </select>
 
     <select id="SelectDa024Detail" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" resultType="com.dae.eean.DTO.App01.IndexDa024Dto">
-        <![CDATA[  select  uamt, samt, addamt, amt
+        <![CDATA[  select  isnull(uamt,0) as uamt, samt, addamt, amt
                    from tb_da024 WITH (NOLOCK)
                    where misdate = #{misdate} and misnum = #{misnum} and seq = #{seq}
                    and cltcd = #{cltcd} and misgubun = #{misgubun}    ]]>
     </select>
 
     <select id="SelectDa026Detail02" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" resultType="com.dae.eean.DTO.App01.IndexDa024Dto">
-        <![CDATA[  select  uamt, samt, addamt, amt
+        <![CDATA[  select  isnull(uamt,0) as uamt, samt, addamt, amt
                    from tb_da026 WITH (NOLOCK)
                    where misdate = #{misdate} and misnum = #{misnum} and seq = #{seq}
                    and cltcd = #{cltcd}      ]]>
