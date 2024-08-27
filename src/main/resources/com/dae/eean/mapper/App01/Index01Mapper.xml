@@ -21,7 +21,7 @@
     </update>
 
     <update id="DeleteComCode" parameterType="com.dae.eean.DTO.App01.Index01Dto">
-        DELETE  TB_CA510   where com_cls  = #{com_cls}
+        DELETE FROM TB_CA510   where com_cls  = #{com_cls}
     </update>
 
     <select id="GetComcodeDetailList"  parameterType="com.dae.eean.DTO.App01.Index01Dto" resultType="com.dae.eean.DTO.App01.Index01Dto">

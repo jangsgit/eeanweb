@@ -95,9 +95,9 @@
 
     <insert id="TB_XUSERS_INSERT" parameterType="com.dae.eean.DTO.UserFormDto">
         INSERT INTO TB_XUSERS
-            (userid, passwd1, passwd2, custnm, pernm, rnum, username, flag, wrongnum,   USEYN , perid, password, role, custcd, spjangcd, saupnum, encodepw)
+            (userid, passwd1, passwd2, custnm, pernm, rnum, username, flag, wrongnum,   USEYN , perid, password, role, custcd, spjangcd, saupnum, phone, encodepw)
         VALUES
-            (#{userid}, #{passwd1}, #{passwd2}, #{custnm}, #{username}, #{rnum}, #{username},  #{flag}, 0, 'Y', #{perid}, #{passwd1}, #{role}, #{custcd}, #{spjangcd}, #{saupnum}, '$2a$10$GeEZZkFfKQdC.YMvVgvBduyV9DVvucitE9lv97BTjHRem68K29zmum')
+            (#{userid}, #{passwd1}, #{passwd2}, #{custnm}, #{username}, #{rnum}, #{username},  #{flag}, 0, 'Y', #{perid}, #{passwd1}, #{role}, #{custcd}, #{spjangcd}, #{saupnum}, #{phone}, '$2a$10$GeEZZkFfKQdC.YMvVgvBduyV9DVvucitE9lv97BTjHRem68K29zmum')
     </insert>
 
     <update id="UpdateUserMenuInfo" parameterType="com.dae.eean.DTO.TBXuserMenuDTO"  >

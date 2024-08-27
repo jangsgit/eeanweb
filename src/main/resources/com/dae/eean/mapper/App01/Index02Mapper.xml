@@ -164,5 +164,8 @@
     </update>
 
 
+    <delete id="DeleteXuserBB" parameterType="com.dae.eean.DTO.App01.Index02Dto">
+        DELETE  FROM TB_XUSERS  where perid  = #{acode} and flag = 'BB'
+    </delete>
 
 </mapper>

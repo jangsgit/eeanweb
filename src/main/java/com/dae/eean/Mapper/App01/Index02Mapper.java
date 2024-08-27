@@ -20,6 +20,7 @@ public interface Index02Mapper {
     public Boolean InsertCif(Index02Dto  parm) ;
     public Boolean UpdateCif(Index02Dto  parm) ;
     public Boolean DeleteCif(Index02Dto  parm) ;
+    public Boolean DeleteXuserBB(Index02Dto  parm) ;
 
 
 }

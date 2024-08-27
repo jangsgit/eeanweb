@@ -354,6 +354,11 @@ public class App01CrudController {
         if (!result) {
             return "error";
         }
+        result = service02.DeleteXuserBB(_index02Dto);
+        if (!result) {
+            //return "error";
+        }
+
         return "success";
     }
 
