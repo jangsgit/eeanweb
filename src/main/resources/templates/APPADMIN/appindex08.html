@@ -90,45 +90,35 @@
     <input class="form-control form-control-sm"  type="hidden" id="listmodal_btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop"  /> 
     <form   id="form" name="form"  role="form"   method="post"  enctype="multipart/form-data">
         <div class="modal fade" id="staticBackdrop" data-bs-keyboard="false"
-             data-bs-backdrop="static" tabindex="-1" aria-labelledby="staticBackdropLabel"
-             aria-hidden="true">
+                data-bs-backdrop="static" tabindex="-1" aria-labelledby="staticBackdropLabel"
+                aria-hidden="true">
             <div class="modal-dialog modal-lg mt-6" role="document" id = "modalForm01"
-                 style="max-width: 900px">
+                    style="max-width: 900px">
                 <div class="modal-content border-0">
                     <div class="modal-body p-0" >
                         <div class="bg-light rounded-top-lg py-3 ps-4 pe-6">
                             <h4 class="mb-1" id="staticBackdropLabel">공지사항</h4>
                         </div>
-                        <div class="section ">
-
+                        <div class="section "> 
                             <div class="sec_con" style="width: 100%;">
-                                <div class="box_wrap">
-                                    <div class="reference_tit">
-                                        <div class="title">
-                                            제목
-                                        </div>
-                                        <div class="input_wrap">
-                                            <input type="text" name="actnsubjectz" id="actnsubjectz" disabled>
-                                            <input type="hidden" name="actnseqz" id="actnseqz" >
-                                        </div>
-                                        <div class="title" >
-                                            작성일자
-                                        </div>
-                                        <div class="input_wrap date" style="max-width: 235px">
-                                            <input type="text"  class="form-control datetimepicker" id="actninputdatez" autocomplete="off"  placeholder="Y-m-d"   disabled  >
-                                        </div>
-                                    </div>
+                                <div class="box_wrap"> 
                                     <div class="table table_style1">
                                         <table>
+                                            <tr>
+                                                <th>제목</th>
+                                                <td colspan="5">
+                                                    <span id="actnsubjectz"></span>
+                                                </td>
+                                            </tr> 
                                             <tr> 
                                                 <th style="width: 10%;">작성자</th>
-                                                <td style="width: 23%">
-                                                    <input type="text" name="actnpernmz" id="actnpernmz" disabled>
+                                                <td style="width: 23%">                                                
+                                                    <span id="actnpernmz"></span>
+                                                    <!-- <input type="text" name="actnpernmz" id="actnpernmz" disabled> -->
                                                 </td>
-                                                <th style="width: 13%;">전체공지</th>
-                                                <td style="width: 23%">
-                                                    <input type="checkbox" id="actnflagz" value="Y" disabled>
-                                                    <label for="actnflagz" class="check_style1 no_txt"></label>
+                                                <th style="width: 13%;">작성일자</th>
+                                                <td style="width: 23%"  >
+                                                    <span id="actninputdatez"></span>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -137,13 +127,21 @@
                                                     <textarea class="form-control" aria-label="With textarea"  id="actnmemoz" rows="10" disabled></textarea>
                                                 </td>
                                             </tr> 
+                                            <tr>
+                                                <th>첨부파일</th>
+                                                <td colspan="3">
+                                                    <div data-name="filelistDiv" id="filelistDiv" class="table table_style3"></div> 
+                                                </td> 
+                                            </tr> 
                                         </table> 
+                                        <br>
+                                        <span id="spcount"></span>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-
+    
+    
                     </div>
                     <div class="modal-footer">
                         <div class="row g-1">
@@ -157,47 +155,12 @@
                             </div> -->
                         </div>
                     </div>
-
+    
                 </div>
             </div>
         </div>
     </form>
-
-    <!--------------------------------------------------------------------------------------->
-    <!-- ###########  첨부파일 미리보기######################################################-->
-    <!--------------------------------------------------------------------------------------->
-
-    <form   id="form" name="form"  role="form"   method="post"  enctype="multipart/form-data">
-        <div class="modal fade" id="fileBackdrop" data-bs-keyboard="false"
-             data-bs-backdrop="static" tabindex="-1" aria-labelledby="staticBackdropLabel"
-             aria-hidden="true">
-            <div class="modal-dialog modal-lg mt-6" role="document" id = "modalForm02"
-                 style="max-width: 900px">
-                <div class="modal-content border-0">
-                    <div class="modal-body p-0" >
-                        <div class="bg-light rounded-top-lg py-3 ps-4 pe-6">
-                            <h4 class="mb-1" id="staticBackdropLabel">파일다운로드</h4>
-                        </div>
-                        <div class="section ">
-
-                            <div class="sec_con" style="width: 100%;">
-                                <div data-name="filelistDiv" id="filelistDiv" class="table table_style3"></div> 
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <div class="row g-1">
-                            <div class="col-auto">
-                                <button class="badge-soft-primary dropdown-item rounded-1"
-                                        type="button" id="CloseFileBtn"  data-bs-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </form>
+ 
 
 
 
@@ -271,9 +234,9 @@
                 { binding: 'npernm', header: '작성자', width: 100,   align:"center", isReadOnly: true } ,
                 { binding: 'attcnt', header: '첨부파일', width: 150, format: 'n0',  align:"center", isReadOnly: true,
                     cellTemplate: wijmo.grid.cellmaker.CellMaker.makeLink({
-                        text: '<b>다운로드</b>',
+                        text: '<b>${item.attcnt}건</b>',
                         click: (e, ctx) => {
-                            viewFilePage(ctx.item.nseq );
+                            viewPage(ctx.item.nseq, ctx.item.cnam, ctx.item.nsubject, ctx.item.npernm, ctx.item.nfilename, ctx.item.ninputdate , ctx.item.ngourpcd , ctx.item.nmemo, ctx.item.nflag );
                         }
                     }) } , 
                 { binding: 'nseq', header: '번호', width: 100, format: '*' , align:"center", isReadOnly: true}                
@@ -401,20 +364,13 @@
 
         function viewPage(arg1,arg2,arg3,arg4,arg5,arg6,arg7,arg8,arg9  ){
             $("#listmodal_btn").trigger("click");
-            document.getElementById('actnseqz').value= arg1;
-            document.getElementById('actnsubjectz').value= arg3;
-            document.getElementById('actnpernmz').value= arg4;
+            document.getElementById('actnsubjectz').innerHTML= arg3;
+            document.getElementById('actnpernmz').innerHTML= arg4;
             // document.getElementById('actnfilenamez').value= arg5;
             arg6 = arg6.substr(0,4) +  arg6.substr(4, 2) + arg6.substr(6,9);
-            document.getElementById('actninputdatez').value= arg6;
+            document.getElementById('actninputdatez').innerHTML= arg6;
             // document.getElementById('actngroupcdz').value= arg7;/
-            document.getElementById('actnmemoz').value= arg8;
-            document.getElementById('actnflagz').value= arg9;
-            if(arg9 =="Y"){
-                document.getElementById('actnflagz').checked = true
-            }else{ 
-                document.getElementById('actnflagz').checked = false
-            }
+            document.getElementById('actnmemoz').value= arg8;  
 
             var wfile_data = [];
             $.ajax({
@@ -477,6 +433,53 @@
                 }).done(function(fragment){
 
                 })
+
+                
+                var wfile_data = [];
+                    const fileHtml = '';
+                    $.ajax({
+                        url: '/appadmod/flist',
+                        type:"POST",
+                        data: {
+                            "actnseqz"     : arg1,
+                            "actnflagz"     : "NN",
+                        },
+                        async:false,
+                        success:function(data){
+                            var wfileDto  = data;
+                            var cnt = 0;
+
+                            const filelistDiv = $('div[data-name="filelistDiv"]');
+                            filelistDiv.empty(); 
+                            if(wfileDto.length > 0){
+                                for (var i = 0; i < wfileDto.length; i++) {
+                                        var  id = i;
+                                        var  idx = wfileDto[i]["idx"];
+                                        var  boardIdx = wfileDto[i]["boardIdx"];
+                                        var  originalName = wfileDto[i]["originalName"];
+                                        // console.log(id, idx, boardIdx, originalName);
+
+                                        const fileHtml = `
+                                        <div data-name="filelistDiv" class="form-group filebox bs3-primary">
+                                            <a href="/appx/download?actidxz=${idx}&actboardz=${boardIdx}&actflagz=NN" target="_blank" > ${originalName} 다운로드 </a>
+                                        </div>
+                                        `;
+                                        // console.log(fileHtml);
+                                        $('#filelistDiv').after(fileHtml);
+                                        $('#btnDiv02').before(fileHtml);
+
+                                    cnt++;
+                                }
+                            } else{
+                                // const fileHtml = `  `;
+                                // $('#filelistDiv').after(fileHtml);
+                            }
+                        },error:function(e){
+
+                        }
+                    }).done(function(fragment){
+
+                    })   
 
         }
 

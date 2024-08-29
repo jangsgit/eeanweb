@@ -986,65 +986,7 @@ aria-hidden="true">
             }else{ 
                 document.getElementById("spcount").innerHTML = "<strong>공지사항</strong>";
             }
-
-            // var wfile_data = [];
-            // $.ajax({
-            //         url: '/appadmod/flist',
-            //         type:"POST",
-            //         data: {
-            //             "actnseqz"     : ls_arg1,
-            //             "actnflagz"     : "NN",
-            //         },
-            //         async:false,
-            //         success:function(data){
-            //             var wfileDto  = data;
-            //             console.log(wfileDto)
-            //             var cnt = 0;
-            //             if(wfileDto.length > 0){
-            //                 for (var i = 0; i < wfileDto.length; i++) { 
-            //                         var  id = i;
-            //                         var  idx = wfileDto[i]["idx"];
-            //                         var  boardIdx = wfileDto[i]["boardIdx"];
-            //                         var  originalName = wfileDto[i]["originalName"];
-
-            //                     const fileHtml = `
-            //                     <div data-name="fileDiv" class="form-group filebox bs3-primary">
-            //                         <div class="table table_style3">
-            //                             <table>
-            //                                 <tr>
-            //                                     <th style="width: 7%;">첨부파일</th>
-            //                                     <td colspan="5">
-            //                                         <div class="col-sm-15">
-            //                                             <input type="hidden" name="fileIdxs" value="${idx}" />
-            //                                             <input type="text" class="upload-name" value="${originalName}" readonly />
-
-            //                                             <button type="button" onclick="deleteFile(this, ${idx},  ${boardIdx})" class="btn btn-bordered btn-xs visible-xs-inline visible-sm-inline visible-md-inline visible-lg-inline">
-            //                                                 <i class="fa fa-minus" aria-hidden="true"></i>
-            //                                             </button>
-            //                                         </div>
-            //                                     </td>
-            //                                 </tr>
-            //                             </table>
-            //                         </div>
-            //                     </div>
-            //                     `;
-            //                     $('#btnDiv').before(fileHtml);
-
-            //                     cnt++;
-            //                 }
-            //             } else{
-            //                 const fileHtml = `  `;
-            //                 $('#btnDiv').before(fileHtml);
-            //             }
-            //         },error:function(e){
-
-            //         }
-            //     }).done(function(fragment){
-
-            //     })
-
-
-
+ 
                 var wfile_data = [];
                 const fileHtml = '';
                 $.ajax({
