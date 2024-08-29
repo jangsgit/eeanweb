@@ -62,8 +62,8 @@ public class FileDownload {
         String filename = attachDTO.getOriginalName();
         File file = new File(uploadPath, attachDTO.getSaveName());
 
-        log.info("uploadPath >>>>" + uploadPath);
-        log.info("filename >>>>" + filename);
+//        log.info("uploadPath >>>>" + uploadPath);
+//        log.info("filename >>>>" + filename);
         try {
             byte[] data =   FileUtils.readFileToByteArray(file);
             response.setContentType("application/octet-stream");
