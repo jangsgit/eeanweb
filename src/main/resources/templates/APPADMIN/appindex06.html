@@ -178,8 +178,18 @@
                                             <tr>
                                                 <th>내용</th>
                                                 <td colspan="5">
-                                                    <textarea class="form-control" aria-label="With textarea"  id="actnmemoz" rows="10"></textarea>
+                                                    <textarea class="form-control" aria-label="With textarea"  id="actnmemoz" rows="8"></textarea>
                                                 </td>
+                                            </tr>
+                                            <tr>
+                                                <th style="width: 7%;">알림 시작일</th>
+                                                <td style="width: 24%" colspan="2"> 
+                                                    <input type="text"  class="form-control datetimepicker" id="actfrdate"  placeholder="Y-m-d"     >
+                                                </td>
+                                                <th style="width: 10%;">알림 종료일</th>
+                                                <td style="width: 23%" colspan="2">
+                                                    <input type="text"  class="form-control datetimepicker" id="acttodate"  placeholder="Y-m-d"     >
+                                                </td> 
                                             </tr>
                                             <div data-name="fileDiv" class="form-group filebox bs3-primary">
                                                 <tr>
@@ -188,7 +198,7 @@
                                                         <!-- <label for="file_0" class="col-sm-2 control-label">파일1</label> -->
                                                         <div class="col-sm-15">
                                                             <input type="text" class="upload-name" value="파일 찾기" readonly />
-                                                            <label for="file_0" class="control-label">찾아보기</label>
+                                                            <label for="file_0" class="control-label">.</label>
                                                             <input type="file" name="files_0" id="file_0" multiple='multiple'  class="upload-hidden" onchange="changeFilename(this)" />
 
                                                             <button type="button" onclick="addFile()" class="btn btn-bordered btn-xs visible-xs-inline visible-sm-inline visible-md-inline visible-lg-inline">
@@ -255,7 +265,8 @@
                         <div class="section ">
 
                             <div class="sec_con" style="width: 100%;">
-                                <div class="box_wrap">
+                                <div data-name="filelistDiv" id="filelistDiv" class="table table_style3"></div>
+                                <!-- <div class="box_wrap">
                                     <table>
                                         <tr>
                                             <th style="width: 10%;">파일목록</th>
@@ -266,7 +277,7 @@
                                             </td>
                                         </tr>
                                     </table>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
@@ -412,6 +423,10 @@
         // var ls_actmfilenamez   = document.getElementById('actmfilenamez').value;
         var ls_actnpernmz   =  document.getElementById('actnpernmz').value;
         var ls_actnmemoz   = document.getElementById('actnmemoz').value;
+        var ls_actfrdate   = document.getElementById('actfrdate').value;
+        var ls_acttodate   = document.getElementById('acttodate').value;
+        
+        
         if(document.getElementById('actnflagz').checked){
             ls_actnflagz = "Y"
         }else{
@@ -426,6 +441,14 @@
         }
         if(!ls_actnmemoz){
             alert("본문을 입력하세요")
+            return
+        }
+        if(!ls_actfrdate){
+            alert("공지 게시 시작일을 입력하세요")
+            return
+        }
+        if(!ls_acttodate){
+            alert("공지 게시 종료일을 입력하세요")
             return
         }
         if(!ls_actnflagz){
@@ -450,7 +473,9 @@
             "actnsubjectz"      : ls_actnsubjectz ,
             "actnpernmz"   : ls_actnpernmz   ,
             "actnmemoz"   : ls_actnmemoz,
-            "actnflagz"   : ls_actnflagz
+            "actnflagz"   : ls_actnflagz,
+            "actfrdate"   : ls_actfrdate,
+            "acttodate"   : ls_acttodate
         }
 
 
@@ -552,6 +577,8 @@
         if(date > 0 && date < 10) {date = "0" + date};
         let ls_today = year + '-' + month + '-' + date
         document.getElementById('actninputdatez').value = ls_today;
+        document.getElementById('actfrdate').value = ls_today;
+        document.getElementById('acttodate').value = ls_today;
     }
 
 //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
@@ -572,14 +599,14 @@
                     cellTemplate: wijmo.grid.cellmaker.CellMaker.makeLink({
                         text: '<b>${item.nsubject}</b>',
                         click: (e, ctx) => {
-                            viewPage(ctx.item.nseq, ctx.item.cnam, ctx.item.nsubject, ctx.item.npernm, ctx.item.nfilename, ctx.item.ninputdate , ctx.item.ngourpcd , ctx.item.nmemo, ctx.item.nflag );
+                            viewPage(ctx.item.nseq, ctx.item.cnam, ctx.item.nsubject, ctx.item.npernm, ctx.item.nfilename, ctx.item.ninputdate , ctx.item.ngourpcd , ctx.item.nmemo, ctx.item.nflag, ctx.item.frdate, ctx.item.todate );
                         }
                     })
                 },
                 { binding: 'npernm', header: '작성자', width: 100,   align:"center", isReadOnly: true } ,
-                { binding: 'attcnt', header: '첨부파일건수', width: 150, format: 'n0',  align:"center", isReadOnly: true,
+                { binding: 'attcnt', header: '첨부파일', width: 150, format: 'n0',  align:"center", isReadOnly: true,
                     cellTemplate: wijmo.grid.cellmaker.CellMaker.makeLink({
-                        text: '<b>${item.attcnt}건 보기</b>',
+                        text: '<b>다운로드</b>',
                         click: (e, ctx) => {
                             viewFilePage(ctx.item.nseq );
                         }
@@ -622,7 +649,9 @@
                     ninputdate : mapp05Dto[i]["ninputdate"].substr(0,4) + "-" + mapp05Dto[i]["ninputdate"].substr(4,2)+"-"+mapp05Dto[i]["ninputdate"].substr(6,2) ,
                     ngourpcd : mapp05Dto[i]["ngourpcd"]     ,
                     nmemo : mapp05Dto[i]["nmemo"]     ,
-                    nflag : mapp05Dto[i]["nflag"]
+                    nflag : mapp05Dto[i]["nflag"] ,
+                    frdate : mapp05Dto[i]["frdate"] ,
+                    todate : mapp05Dto[i]["todate"]
                 });
                 cnt++;
             } 
@@ -707,7 +736,7 @@
         }
 
 
-        function viewPage(arg1,arg2,arg3,arg4,arg5,arg6,arg7,arg8,arg9  ){ 
+        function viewPage(arg1,arg2,arg3,arg4,arg5,arg6,arg7,arg8,arg9,arg10,arg11  ){ 
             $("#listmodal_btn").trigger("click");
             document.getElementById('actnseqz').value= arg1;
             document.getElementById('actnsubjectz').value= arg3;
@@ -718,6 +747,8 @@
             document.getElementById('actngroupcdz').value= arg7;
             document.getElementById('actnmemoz').value= arg8;
             document.getElementById('actnflagz').value= arg9;
+            document.getElementById('actfrdate').value= arg10;
+            document.getElementById('acttodate').value= arg11;
             if(arg9 =="Y"){
                 document.getElementById('actnflagz').checked = true
             }else{ 

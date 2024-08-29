@@ -468,6 +468,12 @@ public class AppIndexCrudController {
                 case "actnflagz":
                     App05Dto.setNflag(values.toString());
                     break;
+                case "actfrdate":
+                    App05Dto.setFrdate(values.toString());
+                    break;
+                case "acttodate":
+                    App05Dto.setTodate(values.toString());
+                    break;
                 default:
                     break;
             }
@@ -482,6 +488,22 @@ public class AppIndexCrudController {
         String ls_dd = ninputdate.substring(8,10);
         ninputdate =  ls_yeare + ls_mm + ls_dd;
         App05Dto.setNinputdate(ninputdate);
+
+        String ls_frdate  = App05Dto.getFrdate();
+        ls_yeare = ls_frdate.substring(0,4);
+        ls_mm = ls_frdate.substring(5,7);
+        ls_dd = ls_frdate.substring(8,10);
+        ls_frdate =  ls_yeare + ls_mm + ls_dd;
+        App05Dto.setFrdate(ls_frdate);
+
+        String ls_todate  = App05Dto.getTodate();
+        ls_yeare = ls_todate.substring(0,4);
+        ls_mm = ls_todate.substring(5,7);
+        ls_dd = ls_todate.substring(8,10);
+        ls_todate =  ls_yeare + ls_mm + ls_dd;
+        App05Dto.setTodate(ls_todate);
+
+
         if(nseq == null || nseq.equals("")){
             App05Dto.setNseq(CountSeq(ls_yeare + ls_mm));
         }else{
