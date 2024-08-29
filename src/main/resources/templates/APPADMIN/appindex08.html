@@ -209,7 +209,8 @@
                         <div class="section ">
 
                             <div class="sec_con" style="width: 100%;">
-                                <div class="box_wrap">
+                                <div data-name="filelistDiv" id="filelistDiv" class="table table_style3"></div>
+                                <!-- <div class="box_wrap">
                                     <table>
                                         <tr>
                                             <th style="width: 10%;">파일목록</th>
@@ -220,7 +221,7 @@
                                             </td>
                                         </tr>
                                     </table>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
@@ -310,9 +311,9 @@
                     })
                 },
                 { binding: 'npernm', header: '작성자', width: 100,   align:"center", isReadOnly: true } ,
-                { binding: 'attcnt', header: '첨부파일건수', width: 150, format: 'n0',  align:"center", isReadOnly: true,
+                { binding: 'attcnt', header: '첨부파일', width: 150, format: 'n0',  align:"center", isReadOnly: true,
                     cellTemplate: wijmo.grid.cellmaker.CellMaker.makeLink({
-                        text: '<b>${item.attcnt}건 보기</b>',
+                        text: '<b>다운로드</b>',
                         click: (e, ctx) => {
                             viewFilePage(ctx.item.nseq );
                         }
