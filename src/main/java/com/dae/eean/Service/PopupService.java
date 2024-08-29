@@ -60,7 +60,14 @@ public class PopupService {
     }
 
     /** 글 목록 */
-    public Object GetMNoticeList(App05ElvlrtDto parm){
+    public List<App05ElvlrtDto>  GetMNoticeList(App05ElvlrtDto parm){
        return  appMapper.GetMNoticeList(parm);
     }
+    /** 글 목록 */
+    public List<App05ElvlrtDto>  GetTodayMNoticeList(App05ElvlrtDto parm){
+        return  appMapper.GetTodayMNoticeList(parm);
+    }
+
+
+
 }

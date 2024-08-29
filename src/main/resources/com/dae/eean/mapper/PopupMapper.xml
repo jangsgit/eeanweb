@@ -86,4 +86,18 @@
             order by nseq desc;
         ]]>
     </select>
+    <select id="GetTodayMNoticeList"  parameterType="com.dae.eean.DTO.App05ElvlrtDto" resultType="com.dae.eean.DTO.App05ElvlrtDto">
+        <![CDATA[
+            select   nseq,  ngourpcd, nsubject, nfilename, npernm, nmemo, nflag, isnull((select com_rem1 from tb_ca510 where com_cls = '004' and com_code <> '00' and com_code=ngourpcd),'') as cnam,
+            (select Count(*) from tb_mattach where flag='NN' and board_idx=nseq and delete_yn = 'N') as attcnt,
+            Left(ninputdate,4) + '-' + substring(ninputdate, 5,2)+ '-' + substring(ninputdate, 7,2) as  ninputdate,
+            Left(frdate,4) + '-' + substring(frdate, 5,2)+ '-' + substring(frdate, 7,2) as  frdate,
+            Left(todate,4) + '-' + substring(todate, 5,2)+ '-' + substring(todate, 7,2) as  todate
+            from tb_mnotice WITH (NOLOCK)
+            Where 1 = 1
+            AND frdate <= #{ninputdate} and todate >= #{ninputdate}
+            AND ( ngourpcd like concat('%',#{ngourpcd},'%') OR nflag = 'Y')
+            order by nseq desc;
+        ]]>
+    </select>
 </mapper>

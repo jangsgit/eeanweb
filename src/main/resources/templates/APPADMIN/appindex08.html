@@ -85,7 +85,7 @@
 
 
     <!--------------------------------------------------------------------------------------->
-    <!-- ###########  공지등록 #############################################################-->
+    <!-- ###########  공지확인 #############################################################-->
     <!--------------------------------------------------------------------------------------->
     <input class="form-control form-control-sm"  type="hidden" id="listmodal_btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop"  /> 
     <form   id="form" name="form"  role="form"   method="post"  enctype="multipart/form-data">
@@ -120,16 +120,7 @@
                                     </div>
                                     <div class="table table_style1">
                                         <table>
-                                            <tr>
-                                                <th style="width: 7%;">분류</th>
-                                                <td style="width: 24%">
-                                                    <div class="input_wrap" style="max-width: 235px;">
-                                                        <select class="form-select" th:field="*{index01ListDto}" name="actngroupcdz" id="actngroupcdz" disabled> 
-                                                            <option value="">선택</option>
-                                                            <option th:each="val : ${index01ListDto}" th:value="${val.com_code}" th:text="${val.com_rem1}">
-                                                        </select>  
-                                                    </div>
-                                                </td>
+                                            <tr> 
                                                 <th style="width: 10%;">작성자</th>
                                                 <td style="width: 23%">
                                                     <input type="text" name="actnpernmz" id="actnpernmz" disabled>
@@ -145,26 +136,7 @@
                                                 <td colspan="5">
                                                     <textarea class="form-control" aria-label="With textarea"  id="actnmemoz" rows="10" disabled></textarea>
                                                 </td>
-                                            </tr>
-                                            <!-- <div data-name="fileDiv" class="form-group filebox bs3-primary">
-                                                <tr>
-                                                    <th>첨부파일</th>
-                                                    <td colspan="5"> 
-                                                        <div class="col-sm-15">
-                                                            <input type="text" class="upload-name" value="파일 찾기" readonly />
-                                                            <label for="file_0" class="control-label">찾아보기</label>
-                                                            <input type="file" name="files_0" id="file_0" multiple='multiple'  class="upload-hidden" onchange="changeFilename(this)" />
-
-                                                            <button type="button" onclick="addFile()" class="btn btn-bordered btn-xs visible-xs-inline visible-sm-inline visible-md-inline visible-lg-inline">
-                                                                <i class="fa fa-plus" aria-hidden="true"></i>
-                                                            </button>
-                                                            <button type="button" onclick="removeFile(this)" class="btn btn-bordered btn-xs visible-xs-inline visible-sm-inline visible-md-inline visible-lg-inline">
-                                                                <i class="fa fa-minus" aria-hidden="true"></i>
-                                                            </button>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </div>  -->
+                                            </tr> 
                                         </table> 
                                     </div>
                                 </div>
@@ -209,19 +181,7 @@
                         <div class="section ">
 
                             <div class="sec_con" style="width: 100%;">
-                                <div data-name="filelistDiv" id="filelistDiv" class="table table_style3"></div>
-                                <!-- <div class="box_wrap">
-                                    <table>
-                                        <tr>
-                                            <th style="width: 10%;">파일목록</th>
-                                        </tr>
-                                        <tr>
-                                            <td style="width: 90%">
-                                                <div data-name="filelistDiv" id="filelistDiv" class="table table_style3"></div>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </div> -->
+                                <div data-name="filelistDiv" id="filelistDiv" class="table table_style3"></div> 
                             </div>
                         </div>
                     </div>
@@ -265,7 +225,7 @@
             document.getElementById('actnpernmz').value= "";
             // document.getElementById('actnfilenamez').value= "";
             document.getElementById('actninputdatez').value= "";
-            document.getElementById('actngroupcdz').value= "";
+            // document.getElementById('actngroupcdz').value= "";
             document.getElementById('actnmemoz').value= "";
             document.getElementById('actnflagz').value= "";
             const target = $(elem).parents('div[data-name="fileDiv"]');
@@ -299,9 +259,7 @@
             selectionMode: 'RowRange',
             alternatingRowStep: 0,
             columns: [
-
-                { binding: 'nseq', header: '번호', width: 100, format: '*' , align:"center", isReadOnly: true},
-                { binding: 'cnam', header: '분류', width: 120, format: '*', align:"center", isReadOnly: true },
+                { binding: 'ninputdate', header: '등록일자', width: 150,   align:"center",  isReadOnly: true },
                 { binding: 'nsubject',width: '*', header: '제목', width: '*', align:"left", format: '*' ,
                     cellTemplate: wijmo.grid.cellmaker.CellMaker.makeLink({
                         text: '<b>${item.nsubject}</b>',
@@ -317,8 +275,8 @@
                         click: (e, ctx) => {
                             viewFilePage(ctx.item.nseq );
                         }
-                    }) } ,
-                { binding: 'ninputdate', header: '등록일자', width: 150,   align:"center",  isReadOnly: true }
+                    }) } , 
+                { binding: 'nseq', header: '번호', width: 100, format: '*' , align:"center", isReadOnly: true}                
 
             ],
             itemsSource: view_Mnoticepage
@@ -449,7 +407,7 @@
             // document.getElementById('actnfilenamez').value= arg5;
             arg6 = arg6.substr(0,4) +  arg6.substr(4, 2) + arg6.substr(6,9);
             document.getElementById('actninputdatez').value= arg6;
-            document.getElementById('actngroupcdz').value= arg7;
+            // document.getElementById('actngroupcdz').value= arg7;/
             document.getElementById('actnmemoz').value= arg8;
             document.getElementById('actnflagz').value= arg9;
             if(arg9 =="Y"){

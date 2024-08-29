@@ -593,7 +593,7 @@
             alternatingRowStep: 0,
             columns: [
 
-                { binding: 'nseq', header: '번호', width: 100, format: '*' , align:"center", isReadOnly: true},
+                { binding: 'ninputdate', header: '등록일자', width: 150,   align:"center",  isReadOnly: true },
                 { binding: 'cnam', header: '분류', width: 120, format: '*', align:"center", isReadOnly: true },
                 { binding: 'nsubject',width: '*', header: '제목', width: '*', align:"left", format: '*' ,
                     cellTemplate: wijmo.grid.cellmaker.CellMaker.makeLink({
@@ -611,7 +611,9 @@
                             viewFilePage(ctx.item.nseq );
                         }
                     }) } ,
-                { binding: 'ninputdate', header: '등록일자', width: 150,   align:"center",  isReadOnly: true }
+                { binding: 'frdate', header: '알림시작일', width: 150,   align:"center",  isReadOnly: true },
+                { binding: 'todate', header: '알림종료일', width: 150,   align:"center",  isReadOnly: true },                
+                { binding: 'nseq', header: '번호', width: 100, format: '*' , align:"center", isReadOnly: true},
 
             ],
             itemsSource: view_Mnoticepage

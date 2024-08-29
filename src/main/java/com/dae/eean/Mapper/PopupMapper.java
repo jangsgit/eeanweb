@@ -24,4 +24,8 @@ public interface PopupMapper {
 
 
     public List<App05ElvlrtDto>  GetMNoticeList(App05ElvlrtDto perm);
+    public List<App05ElvlrtDto>  GetTodayMNoticeList(App05ElvlrtDto perm);
+
+
+
 }

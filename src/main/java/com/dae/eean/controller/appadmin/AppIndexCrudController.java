@@ -667,6 +667,36 @@ public class AppIndexCrudController {
     }
 
 
+    @RequestMapping(value="/bbslist")
+    public Object mnoticeBBSlist(@RequestParam("ngroupcd") String ngroupcd,
+                                 Model model, HttpServletRequest request){
+        List<App05ElvlrtDto> App05ListDto;
+        App05ElvlrtDto _App05Dto = new App05ElvlrtDto();
+        try {
+            HttpSession session = request.getSession();
+            UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+
+            Date nowData = new Date();
+            SimpleDateFormat endDate = new SimpleDateFormat("yyyyMMdd");
+            String indate = endDate.format(nowData).toString();
+            _App05Dto.setYyyymm(indate.substring(0,6));
+            _App05Dto.setNinputdate(indate);
+            if(ngroupcd.equals("BB")){
+                _App05Dto.setNgourpcd("02");
+            }else{
+                _App05Dto.setNgourpcd("01");
+            }
+            App05ListDto = popservice.GetTodayMNoticeList(_App05Dto);
+
+        }catch (IllegalStateException e){
+            model.addAttribute("errorMessage", e.getMessage());
+            return "error";
+        }
+        return App05ListDto;
+    }
+
+
+
     public String CountSeq(String yyyymm){
         String ls_nseq = popservice.getMNoticeMaxSeq(yyyymm);
         int ll_nseq = 0;
