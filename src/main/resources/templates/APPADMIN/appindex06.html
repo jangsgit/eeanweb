@@ -430,7 +430,12 @@
         if(document.getElementById('actnflagz').checked){
             ls_actnflagz = "Y"
         }else{
-            ls_actnflagz = "N"
+            //전체공지
+            if(ls_actngroupcdz == "03"){
+                ls_actnflagz = "Y"
+            }else{
+                ls_actnflagz = "N"
+            }
         };
         if(!ls_actninputdatez){
             ls_actninputdatez = ls_todate;
