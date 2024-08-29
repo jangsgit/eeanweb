@@ -50,13 +50,14 @@ public class FileDownload {
 
         mflag = "mnotice";
         String uploadDate = attachDTO.getInserttime();
+        String board_idx = attachDTO.getBoardIdx();
 
         String ls_yeare = uploadDate.substring(0,4);
         String ls_mm = uploadDate.substring(5,7);
         String ls_dd = uploadDate.substring(8,10);
         uploadDate =  ls_yeare + ls_mm + ls_dd;
 
-        String uploadPath = Paths.get("D:", "EEAN", "upload", mflag, uploadDate).toString();
+        String uploadPath = Paths.get("D:", "EEAN", "upload", mflag, board_idx).toString();
 
         String filename = attachDTO.getOriginalName();
         File file = new File(uploadPath, attachDTO.getSaveName());

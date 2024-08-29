@@ -40,7 +40,7 @@ public class AppIndexCrudController {
     AttachDTO attachDTO = new AttachDTO();
     private final AppUploadServiceImpl appServiceImpl;
     private final AppUploadService appUploadService;
-    private final String uploadPath = Paths.get("D:", "EEAN", "upload","mnotice", getToDate()).toString();
+//    private final String uploadPath = Paths.get("D:", "EEAN", "upload","mnotice", getToDate()).toString();
 
     protected Log log =  LogFactory.getLog(this.getClass());
 
@@ -522,9 +522,10 @@ public class AppIndexCrudController {
             }
         }
         model.addAttribute("userformDto",userformDto);
-
+        String ls_nseq = App05Dto.getNseq();
+        String _uploadPath = Paths.get("D:", "EEAN", "upload","mnotice", ls_nseq).toString();
         /* uploadPath에 해당하는 디렉터리가 존재하지 않으면, 부모 디렉터리를 포함한 모든 디렉터리를 생성 */
-        File dir = new File(uploadPath);
+        File dir = new File(_uploadPath);
         if (dir.exists() == false) {
             dir.mkdirs();
         }
@@ -548,9 +549,9 @@ public class AppIndexCrudController {
                 final String saveName = getRandomString() + "." + extension;
 
                 /* 업로드 경로에 saveName과 동일한 이름을 가진 파일 생성 */
-                File target = new File(uploadPath, saveName);
+                File target = new File(_uploadPath, saveName);
 
-                log.info("uploadPath : " + uploadPath);
+                log.info("uploadPath : " + _uploadPath);
                 log.info("saveName : " + saveName);
 
                 multipartFile.transferTo(target);
