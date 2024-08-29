@@ -509,9 +509,9 @@ public class AppIndexCrudController {
         try {
 
             for(MultipartFile multipartFile : file){
-//                log.info("================================================================");
-//                log.info("upload file name : " + multipartFile.getOriginalFilename());
-//                log.info("upload file name : " + multipartFile.getSize());
+                log.info("================================================================");
+                log.info("upload file name : " + multipartFile.getOriginalFilename());
+                log.info("upload file name : " + multipartFile.getSize());
                 ls_fileName = multipartFile.getOriginalFilename();
 
 
@@ -527,6 +527,10 @@ public class AppIndexCrudController {
 
                 /* 업로드 경로에 saveName과 동일한 이름을 가진 파일 생성 */
                 File target = new File(uploadPath, saveName);
+
+                log.info("uploadPath : " + uploadPath);
+                log.info("saveName : " + saveName);
+
                 multipartFile.transferTo(target);
                 String nseq1 = App05Dto.getNseq();
                 /* 파일 정보 저장 */
