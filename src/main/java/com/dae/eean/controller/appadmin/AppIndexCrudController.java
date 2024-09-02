@@ -683,8 +683,10 @@ public class AppIndexCrudController {
             _App05Dto.setNinputdate(indate);
             if(ngroupcd.equals("BB")){
                 _App05Dto.setNgourpcd("02");
-            }else{
+            }else if(ngroupcd.equals("CC")){
                 _App05Dto.setNgourpcd("01");
+            }else{
+                _App05Dto.setNgourpcd("%");
             }
             App05ListDto = popservice.GetTodayMNoticeList(_App05Dto);
 
@@ -695,6 +697,30 @@ public class AppIndexCrudController {
         return App05ListDto;
     }
 
+
+    @RequestMapping(value="/noticelist")
+    public Object mnoticeNoticelist(@RequestParam("actcustnm") String actcustnm
+            ,@RequestParam("flag") String flag
+            , Model model, HttpServletRequest request){
+        List<App05ElvlrtDto> App05ListDto;
+        App05ElvlrtDto _App05Dto = new App05ElvlrtDto();
+        try {
+            HttpSession session = request.getSession();
+            UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+            if(userformDto == null){
+                log.info("mnoticeNoticelist Exception =====> relogin userformDto null");
+                return "relogin";
+            }
+            _App05Dto.setNsubject(actcustnm);
+            _App05Dto.setNgourpcd(flag);
+            App05ListDto = popservice.GetMNoticeList(_App05Dto);
+
+        }catch (IllegalStateException e){
+            model.addAttribute("errorMessage", e.getMessage());
+            return "error";
+        }
+        return App05ListDto;
+    }
 
 
     public String CountSeq(String yyyymm){

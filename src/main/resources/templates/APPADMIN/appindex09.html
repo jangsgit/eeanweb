@@ -36,7 +36,7 @@
                     </div>
                     <div class="nav_bg"></div>
                     <!-- ## Left navigator include -->
-                    <th:block th:include="layouts/APPHeader/appbusileft" />
+                    <th:block th:include="layouts/APPHeader/appLeftNav" />
                 </div>
                 <div class="right">
                 </div> 
@@ -49,7 +49,6 @@
                     <div class="left">
                         공지사항
                     </div> 
-    
                 </div> 
                 <div class="section ">                
                     <div class="sec_con" style="width: 70%;">
@@ -86,7 +85,7 @@
 
 
     <!--------------------------------------------------------------------------------------->
-    <!-- ###########  공지등록 #############################################################-->
+    <!-- ###########  공지확인 #############################################################-->
     <!--------------------------------------------------------------------------------------->
     <input class="form-control form-control-sm"  type="hidden" id="listmodal_btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop"  /> 
     <form   id="form" name="form"  role="form"   method="post"  enctype="multipart/form-data">
@@ -133,7 +132,7 @@
                                                 <td colspan="3">
                                                     <div data-name="filelistDiv" id="filelistDiv" class="table table_style3"></div> 
                                                 </td> 
-                                            </tr>  
+                                            </tr> 
                                         </table> 
                                         <br>
                                         <span id="spcount"></span>
@@ -164,6 +163,7 @@
  
 
 
+
     <script type="text/javascript" th:inline="javascript"> 
 
     let formData = new FormData();
@@ -182,8 +182,8 @@
             selectionMode: 'RowRange',
             alternatingRowStep: 0,
             columns: [
-
                 { binding: 'ninputdate', header: '등록일자', width: 150,   align:"center",  isReadOnly: true },
+                { binding: 'cnam', header: '구분', width: 150,   align:"center",  isReadOnly: true },
                 { binding: 'nsubject',width: '*', header: '제목', width: '*', align:"left", format: '*' ,
                     cellTemplate: wijmo.grid.cellmaker.CellMaker.makeLink({
                         text: '<b>${item.nsubject}</b>',
@@ -192,15 +192,15 @@
                         }
                     })
                 },
-                { binding: 'npernm', header: '작성자', width: 100,   align:"center", isReadOnly: true } ,
+                { binding: 'npernm', header: '작성자', width: 150,   align:"center", isReadOnly: true } ,
                 { binding: 'attcnt', header: '첨부파일', width: 150, format: 'n0',  align:"center", isReadOnly: true,
                     cellTemplate: wijmo.grid.cellmaker.CellMaker.makeLink({
                         text: '<b>${item.attcnt}건</b>',
                         click: (e, ctx) => {
                             viewPage(ctx.item.nseq, ctx.item.cnam, ctx.item.nsubject, ctx.item.npernm, ctx.item.nfilename, ctx.item.ninputdate , ctx.item.ngourpcd , ctx.item.nmemo, ctx.item.nflag );
                         }
-                    }) }  ,
-                { binding: 'nseq', header: '번호', width: 100, format: '*' , align:"center", isReadOnly: true}, 
+                    }) } , 
+                { binding: 'nseq', header: '번호', width: 100, format: '*' , align:"center", isReadOnly: true}                
 
             ],
             itemsSource: view_Mnoticepage
@@ -322,44 +322,41 @@
 
         }
 
-    }
-   
 
-    document.getElementById("retrieveBtn").addEventListener("click",function(){  
-        listUp(); 
-    })   
-    
-    
+    }
+
+    document.getElementById("retrieveBtn").addEventListener("click",function(){ 
+        listUp();
+
+    })    
     let fileIdx = 0; /*[- 파일 인덱스 처리용 전역 변수 -]*/
     function listUp(){
-        var ls_actcustnm = document.getElementById('actcustnm').value;
-        var ls_flag = "01"; 
-        console.log(ls_actcustnm)
-        $.ajax({
-            url: '/appadmod/noticelist',  
-            type:"POST",
-            data: { 
-                "actcustnm" :ls_actcustnm ,
-                "flag" :ls_flag
-            }, 
-            async:false,
-            success:function(data){        
-                if(data == "relogin"){
-                    alert("다시 로그인해주세요")
-                    window.location.href='http://eean.co.kr';
-                    return 
-                }    
-                wtab01Dto  = data;  
-                chkLogin(wtab01Dto)  
-                tabA_grid(data);
-            },error:function(e){
-                console.log("error");                            
-            }
-        }).done(function(fragment){           
+            var ls_actcustnm = document.getElementById('actcustnm').value; 
+            console.log(ls_actcustnm)
+            $.ajax({
+                url: '/appadmod/noticelist',  
+                type:"POST",
+                data: { 
+                    "actcustnm" :ls_actcustnm ,
+                    "flag" :"%"
+                }, 
+                async:false,
+                success:function(data){        
+                    if(data == "relogin"){
+                        alert("다시 로그인해주세요")
+                        window.location.href='http://eean.co.kr';
+                        return 
+                    }    
+                    wtab01Dto  = data;  
+                    chkLogin(wtab01Dto)  
+                    tabA_grid(data);
+                },error:function(e){
+                    console.log("error");                            
+                }
+            }).done(function(fragment){           
 
-        })   
+            })      
     } 
-    
     function tabA_grid(data){ 
         var wtab04Dto  = data;    
         var wtab04_data = [];
@@ -391,17 +388,17 @@
         cols.align = "center";
         cols.width = 150;  
         wapp04Grid.columns.push(cols);  
-        // cols = new wijmo.grid.Column();      
-        // cols.binding = 'cnam';
-        // cols.header = '구분';
-        // cols.align = "center";
-        // cols.width = 150;  
-        // wapp04Grid.columns.push(cols); 
+        cols = new wijmo.grid.Column();      
+        cols.binding = 'cnam';
+        cols.header = '구분';
+        cols.align = "center";
+        cols.width = 150;  
+        wapp04Grid.columns.push(cols); 
         cols = new wijmo.grid.Column();     
         cols.binding = 'nsubject';
         cols.header = '제목';
         cols.align = "left";
-        cols.width = "*" ; 
+        cols.width = "*";  ; 
         cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
             text: '<b>${item.nsubject}</b>',
             click: (e, ctx) => {
@@ -422,7 +419,7 @@
         cols.align = "center";
         cols.width = 150;  
         cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
-            text: '<b>${item.attcnt}건</b>',
+            text: '<b>${item.nsubject}</b>',
             click: (e, ctx) => {
                 viewPage(ctx.item.nseq, ctx.item.cnam, ctx.item.nsubject, ctx.item.npernm, ctx.item.nfilename, ctx.item.ninputdate , ctx.item.ngourpcd , ctx.item.nmemo, ctx.item.nflag );
                 
@@ -435,23 +432,86 @@
         cols.align = "center";
         cols.width = 100;  
         wapp04Grid.columns.push(cols);   
-    }   
-    
- 
+    }    
+
+
 
     function viewPage(arg1,arg2,arg3,arg4,arg5,arg6,arg7,arg8,arg9  ){
-            $("#listmodal_btn").trigger("click");
-            document.getElementById('actnsubjectz').innerHTML= arg3;
-            document.getElementById('actnpernmz').innerHTML= arg4;
-            // document.getElementById('actnfilenamez').value= arg5;
-            arg6 = arg6.substr(0,4) +  arg6.substr(4, 2) + arg6.substr(6,9);
-            document.getElementById('actninputdatez').innerHTML= arg6;
-            // document.getElementById('actngroupcdz').value= arg7;/
-            document.getElementById('actnmemoz').value= arg8;  
- 
+        $("#listmodal_btn").trigger("click");
+        document.getElementById('actnsubjectz').innerHTML= arg3;
+        document.getElementById('actnpernmz').innerHTML= arg4;
+        // document.getElementById('actnfilenamez').value= arg5;
+        arg6 = arg6.substr(0,4) +  arg6.substr(4, 2) + arg6.substr(6,9);
+        document.getElementById('actninputdatez').innerHTML= arg6;
+        // document.getElementById('actngroupcdz').value= arg7;/
+        document.getElementById('actnmemoz').value= arg8;  
 
+        var wfile_data = [];
+        $.ajax({
+                url: '/appadmod/flist',
+                type:"POST",
+                data: {
+                    "actnseqz"     : arg1,
+                    "actnflagz"     : "NN",
+                },
+                async:false,
+                success:function(data){
+                    var wfileDto  = data;
+                    var cnt = 0;
+                    if(wfileDto.length > 0){
+                        for (var i = 0; i < wfileDto.length; i++) {
+                            // wfile_data.push({
+                            //     id: i,
+                            //     index: cnt,
+                            //     idx: wfileDto[i]["idx"],
+                            //     boardIdx: wfileDto[i]["boardIdx"],
+                            //     originalName: wfileDto[i]["originalName"],
+                            // });
+                                var  id = i;
+                                var  idx = wfileDto[i]["idx"];
+                                var  boardIdx = wfileDto[i]["boardIdx"];
+                                var  originalName = wfileDto[i]["originalName"];
+
+                            const fileHtml = `
+                            <div data-name="fileDiv" class="form-group filebox bs3-primary">
+                                <div class="table table_style3">
+                                    <table>
+                                        <tr>
+                                            <th style="width: 7%;">첨부파일</th>
+                                            <td colspan="5">
+                                                <div class="col-sm-15">
+                                                    <input type="hidden" name="fileIdxs" value="${idx}" />
+                                                    <input type="text" class="upload-name" value="${originalName}" readonly />
+
+                                                    <button type="button" onclick="deleteFile(this, ${idx},  ${boardIdx})" class="btn btn-bordered btn-xs visible-xs-inline visible-sm-inline visible-md-inline visible-lg-inline">
+                                                        <i class="fa fa-minus" aria-hidden="true"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            `;
+                            $('#btnDiv').before(fileHtml);
+
+                            cnt++;
+                        }
+                    } else{
+                        const fileHtml = `  `;
+                        $('#btnDiv').before(fileHtml);
+                    }
+                },error:function(e){
+
+                }
+            }).done(function(fragment){
+
+            })
+
+            
             var wfile_data = [];
-            $.ajax({
+                const fileHtml = '';
+                $.ajax({
                     url: '/appadmod/flist',
                     type:"POST",
                     data: {
@@ -462,117 +522,42 @@
                     success:function(data){
                         var wfileDto  = data;
                         var cnt = 0;
+
+                        const filelistDiv = $('div[data-name="filelistDiv"]');
+                        filelistDiv.empty(); 
                         if(wfileDto.length > 0){
                             for (var i = 0; i < wfileDto.length; i++) {
-                                // wfile_data.push({
-                                //     id: i,
-                                //     index: cnt,
-                                //     idx: wfileDto[i]["idx"],
-                                //     boardIdx: wfileDto[i]["boardIdx"],
-                                //     originalName: wfileDto[i]["originalName"],
-                                // });
                                     var  id = i;
                                     var  idx = wfileDto[i]["idx"];
                                     var  boardIdx = wfileDto[i]["boardIdx"];
                                     var  originalName = wfileDto[i]["originalName"];
+                                    // console.log(id, idx, boardIdx, originalName);
 
-                                const fileHtml = `
-                                <div data-name="fileDiv" class="form-group filebox bs3-primary">
-                                    <div class="table table_style3">
-                                        <table>
-                                            <tr>
-                                                <th style="width: 7%;">첨부파일</th>
-                                                <td colspan="5">
-                                                    <div class="col-sm-15">
-                                                        <input type="hidden" name="fileIdxs" value="${idx}" />
-                                                        <input type="text" class="upload-name" value="${originalName}" readonly />
-
-                                                        <button type="button" onclick="deleteFile(this, ${idx},  ${boardIdx})" class="btn btn-bordered btn-xs visible-xs-inline visible-sm-inline visible-md-inline visible-lg-inline">
-                                                            <i class="fa fa-minus" aria-hidden="true"></i>
-                                                        </button>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        </table>
+                                    const fileHtml = `
+                                    <div data-name="filelistDiv" class="form-group filebox bs3-primary">
+                                        <a href="/appx/download?actidxz=${idx}&actboardz=${boardIdx}&actflagz=NN" target="_blank" > ${originalName} 다운로드 </a>
                                     </div>
-                                </div>
-                                `;
-                                $('#btnDiv').before(fileHtml);
+                                    `;
+                                    // console.log(fileHtml);
+                                    $('#filelistDiv').after(fileHtml);
+                                    $('#btnDiv02').before(fileHtml);
 
                                 cnt++;
                             }
                         } else{
-                            const fileHtml = `  `;
-                            $('#btnDiv').before(fileHtml);
+                            // const fileHtml = `  `;
+                            // $('#filelistDiv').after(fileHtml);
                         }
                     },error:function(e){
 
                     }
                 }).done(function(fragment){
 
-                })
+                })   
 
-                    
-                var wfile_data = [];
-                    const fileHtml = '';
-                    $.ajax({
-                        url: '/appadmod/flist',
-                        type:"POST",
-                        data: {
-                            "actnseqz"     : arg1,
-                            "actnflagz"     : "NN",
-                        },
-                        async:false,
-                        success:function(data){
-                            var wfileDto  = data;
-                            var cnt = 0;
-
-                            const filelistDiv = $('div[data-name="filelistDiv"]');
-                            filelistDiv.empty(); 
-                            if(wfileDto.length > 0){
-                                for (var i = 0; i < wfileDto.length; i++) {
-                                        var  id = i;
-                                        var  idx = wfileDto[i]["idx"];
-                                        var  boardIdx = wfileDto[i]["boardIdx"];
-                                        var  originalName = wfileDto[i]["originalName"];
-                                        // console.log(id, idx, boardIdx, originalName);
-
-                                        const fileHtml = `
-                                        <div data-name="filelistDiv" class="form-group filebox bs3-primary">
-                                            <a href="/appx/download?actidxz=${idx}&actboardz=${boardIdx}&actflagz=NN" target="_blank" > ${originalName} 다운로드 </a>
-                                        </div>
-                                        `;
-                                        // console.log(fileHtml);
-                                        $('#filelistDiv').after(fileHtml);
-                                        $('#btnDiv02').before(fileHtml);
-
-                                    cnt++;
-                                }
-                            } else{
-                                // const fileHtml = `  `;
-                                // $('#filelistDiv').after(fileHtml);
-                            }
-                        },error:function(e){
-
-                        }
-                    }).done(function(fragment){
-
-                    })   
+    }
 
 
-
-
-
-        }
-
-   
-    function chkLogin(argdata){
-        if(argdata == "relogin"){
-                alert("다시 로그인해주세요")
-                window.location.href='http://eean.co.kr';
-                return 
-        }    
-    }   
     function clear_rtn(elem){
             // console.log("clear rtn");
             document.getElementById('actnseqz').value= "";
@@ -589,7 +574,16 @@
             fileDivs.remove();
             getToday()
         }
-        
+
+
+    function chkLogin(argdata){
+        if(argdata == "relogin"){
+                alert("다시 로그인해주세요")
+                window.location.href='http://eean.co.kr';
+                return 
+        }    
+    }        
+
     function getToday(){
         let today = new Date();
 
@@ -602,7 +596,7 @@
         let ls_today = year + '-' + month + '-' + date
         document.getElementById('actninputdatez').value = ls_today;
     }
-
+   
 
     </script>
 

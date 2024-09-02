@@ -171,46 +171,6 @@
     //현장 검색   
     var wapp04Grid ;
     var view_Mmanualpage;
-    document.getElementById("retrieveBtn").addEventListener("click",function(){ 
-        listUp();
-
-    })   
-    
-    
-    let fileIdx = 0; /*[- 파일 인덱스 처리용 전역 변수 -]*/
-    function listUp(){
-            window.location.href = '/admin/index08';
-    } 
-    function clear_rtn(elem){
-            // console.log("clear rtn");
-            document.getElementById('actnseqz').value= "";
-            document.getElementById('actnsubjectz').value= "";
-            document.getElementById('actnpernmz').value= "";
-            // document.getElementById('actnfilenamez').value= "";
-            document.getElementById('actninputdatez').value= "";
-            // document.getElementById('actngroupcdz').value= "";
-            document.getElementById('actnmemoz').value= "";
-            document.getElementById('actnflagz').value= "";
-            const target = $(elem).parents('div[data-name="fileDiv"]');
-            fileIdx = 0;
-            const fileDivs = $('div[data-name="fileDiv"]');
-            fileDivs.remove();
-            getToday()
-        }
-        
-    function getToday(){
-        let today = new Date();
-
-        let year = today.getFullYear(); // 년도
-        let month = today.getMonth() + 1;  // 월
-        let date = today.getDate();  // 날짜
-        let day = today.getDay();  // 요일
-        if(month > 0 && month < 10) {month = "0" + month};
-        if(date > 0 && date < 10) {date = "0" + date};
-        let ls_today = year + '-' + month + '-' + date
-        document.getElementById('actninputdatez').value = ls_today;
-    }
-
 //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
     window.onload = function() { 
         document.getElementById("filemodal_btn").style.display="none";
@@ -362,7 +322,123 @@
         }
 
 
-        function viewPage(arg1,arg2,arg3,arg4,arg5,arg6,arg7,arg8,arg9  ){
+    }
+   
+
+    document.getElementById("retrieveBtn").addEventListener("click",function(){ 
+        listUp();
+
+    })   
+    
+    
+    let fileIdx = 0; /*[- 파일 인덱스 처리용 전역 변수 -]*/
+    function listUp(){
+        var ls_actcustnm = document.getElementById('actcustnm').value;
+        var ls_flag = "02"; 
+        console.log(ls_actcustnm)
+        $.ajax({
+            url: '/appadmod/noticelist',  
+            type:"POST",
+            data: { 
+                "actcustnm" :ls_actcustnm ,
+                "flag" :ls_flag
+            }, 
+            async:false,
+            success:function(data){        
+                if(data == "relogin"){
+                    alert("다시 로그인해주세요")
+                    window.location.href='http://eean.co.kr';
+                    return 
+                }    
+                wtab01Dto  = data;  
+                chkLogin(wtab01Dto)  
+                tabA_grid(data);
+            },error:function(e){
+                console.log("error");                            
+            }
+        }).done(function(fragment){           
+
+        })    
+    }  
+    function tabA_grid(data){ 
+        var wtab04Dto  = data;    
+        var wtab04_data = [];
+        var cnt = 1; 
+        for (var i = 0; i < wtab04Dto.length; i++) { 
+            wtab04_data.push({
+                id: i,
+                index: cnt,
+                nseq:     wtab04Dto[i]["nseq"],
+                cnam:     wtab04Dto[i]["cnam"],
+                nsubject: wtab04Dto[i]["nsubject"],
+                npernm:   wtab04Dto[i]["npernm"],
+                attcnt : wtab04Dto[i]["attcnt"] ,
+                ninputdate : wtab04Dto[i]["ninputdate"].substr(0,4) + "-" + wtab04Dto[i]["ninputdate"].substr(4,2)+"-"+wtab04Dto[i]["ninputdate"].substr(6,2) ,
+                ngourpcd : wtab04Dto[i]["ngourpcd"]     ,
+                nmemo : wtab04Dto[i]["nmemo"]     ,
+                nflag : wtab04Dto[i]["nflag"]        
+            });
+            cnt++;
+        }   
+
+        wapp04Grid.columns.clear();  
+        wapp04Grid.autoGenerateColumns = false; 
+        view_Mnoticepage.sourceCollection  = wtab04_data;  
+
+        var cols = new wijmo.grid.Column(); 
+        cols.binding = 'ninputdate';
+        cols.header = '등록일자';
+        cols.align = "center";
+        cols.width = 150;  
+        wapp04Grid.columns.push(cols);  
+        // cols = new wijmo.grid.Column();      
+        // cols.binding = 'cnam';
+        // cols.header = '구분';
+        // cols.align = "center";
+        // cols.width = 150;  
+        // wapp04Grid.columns.push(cols); 
+        cols = new wijmo.grid.Column();     
+        cols.binding = 'nsubject';
+        cols.header = '제목';
+        cols.align = "left";
+        cols.width = "*";  
+        cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
+            text: '<b>${item.nsubject}</b>',
+            click: (e, ctx) => {
+                viewPage(ctx.item.nseq, ctx.item.cnam, ctx.item.nsubject, ctx.item.npernm, ctx.item.nfilename, ctx.item.ninputdate , ctx.item.ngourpcd , ctx.item.nmemo, ctx.item.nflag );
+                
+            }
+        });
+        wapp04Grid.columns.push(cols);   
+        cols = new wijmo.grid.Column(); 
+        cols.binding = 'npernm';
+        cols.header = '작성자';
+        cols.align = "center";
+        cols.width = 150;  
+        wapp04Grid.columns.push(cols);  
+        cols = new wijmo.grid.Column(); 
+        cols.binding = 'attcnt';
+        cols.header = '첨부파일';
+        cols.align = "center";
+        cols.width = 150;  
+        cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
+            text: '<b>${item.attcnt}건</b>',
+            click: (e, ctx) => {
+                viewPage(ctx.item.nseq, ctx.item.cnam, ctx.item.nsubject, ctx.item.npernm, ctx.item.nfilename, ctx.item.ninputdate , ctx.item.ngourpcd , ctx.item.nmemo, ctx.item.nflag );
+                
+            }
+        });
+        wapp04Grid.columns.push(cols); 
+        cols = new wijmo.grid.Column(); 
+        cols.binding = 'nseq';
+        cols.header = '번호';
+        cols.align = "center";
+        cols.width = 100;  
+        wapp04Grid.columns.push(cols);   
+    }    
+
+
+    function viewPage(arg1,arg2,arg3,arg4,arg5,arg6,arg7,arg8,arg9  ){
             $("#listmodal_btn").trigger("click");
             document.getElementById('actnsubjectz').innerHTML= arg3;
             document.getElementById('actnpernmz').innerHTML= arg4;
@@ -482,10 +558,43 @@
                     })   
 
         }
+    
+    function chkLogin(argdata){
+        if(argdata == "relogin"){
+                alert("다시 로그인해주세요")
+                window.location.href='http://eean.co.kr';
+                return 
+        }    
+    }   
+    function clear_rtn(elem){
+            // console.log("clear rtn");
+            document.getElementById('actnseqz').value= "";
+            document.getElementById('actnsubjectz').value= "";
+            document.getElementById('actnpernmz').value= "";
+            // document.getElementById('actnfilenamez').value= "";
+            document.getElementById('actninputdatez').value= "";
+            // document.getElementById('actngroupcdz').value= "";
+            document.getElementById('actnmemoz').value= "";
+            document.getElementById('actnflagz').value= "";
+            const target = $(elem).parents('div[data-name="fileDiv"]');
+            fileIdx = 0;
+            const fileDivs = $('div[data-name="fileDiv"]');
+            fileDivs.remove();
+            getToday()
+        }
+        
+    function getToday(){
+        let today = new Date();
 
-
+        let year = today.getFullYear(); // 년도
+        let month = today.getMonth() + 1;  // 월
+        let date = today.getDate();  // 날짜
+        let day = today.getDay();  // 요일
+        if(month > 0 && month < 10) {month = "0" + month};
+        if(date > 0 && date < 10) {date = "0" + date};
+        let ls_today = year + '-' + month + '-' + date
+        document.getElementById('actninputdatez').value = ls_today;
     }
-   
 
     </script>
 
