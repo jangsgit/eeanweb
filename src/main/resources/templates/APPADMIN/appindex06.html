@@ -450,7 +450,8 @@
             toolbar: 'undo redo | styles | bold italic | alignleft aligncenter alignright alignjustify | ' +
                 ' link image ', 
             images_upload_url: '/uploadImage',   
-            automatic_uploads: true,         
+            automatic_uploads: true,   
+            readonly: false,  // 에디터를 수정 가능하게 설정      
             content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:16px }',
             images_upload_handler: function (blobInfo, success, failure) {
                 var xhr, formData;
