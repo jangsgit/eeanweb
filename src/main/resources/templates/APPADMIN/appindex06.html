@@ -470,6 +470,7 @@
                         failure('Invalid JSON: ' + xhr.responseText);
                         return;
                     }
+                    console.log(json.location)
                     success(json.location);
                 };
                 
