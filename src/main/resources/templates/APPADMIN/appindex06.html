@@ -699,6 +699,7 @@
                     // console.log("save", data);
                     //$("#CloseBtn").trigger("click");
                     listUp();
+                    activateStep01();
                 }else{
                     alert("저장중 오류가 발생했습니다. 관리자에게 문의하세요.")
                 }
@@ -1052,6 +1053,31 @@
     }
 
     
+    function activateStep01() {
+            // 현재 활성화된 탭의 'active' 클래스 제거
+            var activeTab = document.querySelector('.nav-link.active');
+            if (activeTab) {
+                activeTab.classList.remove('active');
+            }
+
+            // step01 탭을 활성화
+            var step01Tab = document.querySelector('a[href="#step01"]');
+            if (step01Tab) {
+                step01Tab.classList.add('active');
+            }
+
+            // 현재 활성화된 탭 콘텐츠에서 'active' 클래스 제거
+            var activeContent = document.querySelector('.tab-pane.active');
+            if (activeContent) {
+                activeContent.classList.remove('active', 'show');
+            }
+
+            // step01 콘텐츠를 활성화
+            var step01Content = document.getElementById('step01');
+            if (step01Content) {
+                step01Content.classList.add('active', 'show');
+            }
+        }
     function activateStep02() {
             // 현재 활성화된 탭의 'active' 클래스 제거
             var activeTab = document.querySelector('.nav-link.active');
