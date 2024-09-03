@@ -604,7 +604,7 @@
                                         <tr>
                                             <th>내용</th>
                                             <td colspan="5">
-                                                <textarea class="form-control" aria-label="With textarea"  id="actnmemoz" rows="10" disabled></textarea>
+                                                <span id="actnmemoz"></span> 
                                             </td>
                                         </tr> 
                                         <tr>
@@ -1208,7 +1208,7 @@
             ls_arg6 = ls_arg6.substr(0,4) +  ls_arg6.substr(4, 2) + ls_arg6.substr(6,9);
             document.getElementById('actninputdatez').innerHTML= ls_arg6;
             // document.getElementById('actngroupcdz').value= arg7;/
-            document.getElementById('actnmemoz').value= ls_arg8; 
+            document.getElementById('actnmemoz').innerHTML= ls_arg8; 
             if(ls_arg10 > 1){ 
                 ls_arg10 = ls_arg10 - 1;
                 document.getElementById("spcount").innerHTML = "<strong>" + ls_arg3 + " </strong> 외 " + ls_arg10 + "건의 공지가 있습니다. 공지사항 메뉴에서 확인하세요.";

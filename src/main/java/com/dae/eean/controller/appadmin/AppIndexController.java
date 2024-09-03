@@ -336,7 +336,7 @@ public class AppIndexController {
             String indate = endDate.format(nowData).toString();
             _App05Dto.setYyyymm(indate.substring(0,6));
             _App05Dto.setNinputdate(indate);
-            _App05Dto.setNgourpcd("%");
+            _App05Dto.setNgourpcd("03");
             model.addAttribute("App05Dto",popservice.GetMNoticeList(_App05Dto));
             log.debug("indate =====>" +indate );
 
@@ -380,7 +380,7 @@ public class AppIndexController {
             String indate = endDate.format(nowData).toString();
             _App05Dto.setYyyymm(indate.substring(0,6));
             _App05Dto.setNinputdate(indate);
-            _App05Dto.setNgourpcd("%");
+            _App05Dto.setNgourpcd("03");
             model.addAttribute("App05Dto",popservice.GetMNoticeList(_App05Dto));
             log.debug("indate =====>" +indate );
 

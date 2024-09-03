@@ -667,6 +667,79 @@ public class AppIndexCrudController {
     }
 
 
+    @RequestMapping(value="/uploadImage")   //공지사항 이미지 등록
+    public String UploadImage ( @RequestPart(value = "file",required = false) List<MultipartFile> file
+            , Model model
+            , HttpServletRequest request){
+        String ls_fileName = "";
+        String ls_errmsg = "";
+        String imageUrl = "";
+        /* 업로드 파일 정보를 담을 비어있는 리스트 */
+        List<AttachDTO> attachList = new ArrayList<>();
+
+
+        HttpSession session = request.getSession();
+        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        String ls_custcd = "EEAN";
+        String ls_spjangcd = "ZZ";
+
+
+        model.addAttribute("userformDto",userformDto);
+        String ls_nseq = App05Dto.getNseq();
+        String _uploadPath = Paths.get("D:", "EEAN", "upload","mnoticeimg", ls_nseq).toString();
+        /* uploadPath에 해당하는 디렉터리가 존재하지 않으면, 부모 디렉터리를 포함한 모든 디렉터리를 생성 */
+        File dir = new File(_uploadPath);
+        if (dir.exists() == false) {
+            dir.mkdirs();
+        }
+        try {
+
+            for(MultipartFile multipartFile : file){
+                log.info("================================================================");
+                log.info("upload file img name : " + multipartFile.getOriginalFilename());
+                log.info("upload file img name : " + multipartFile.getSize());
+                ls_fileName = multipartFile.getOriginalFilename();
+
+
+                /* 파일이 비어있으면 비어있는 리스트 반환 */
+                if (multipartFile.getSize() < 1) {
+                    ls_errmsg = "success";
+                    return ls_errmsg;
+                }
+                /* 파일 확장자 */
+                final String extension = FilenameUtils.getExtension(multipartFile.getOriginalFilename());
+                /* 서버에 저장할 파일명 (랜덤 문자열 + 확장자) */
+                final String saveName = ls_fileName;
+
+                /* 업로드 경로에 saveName과 동일한 이름을 가진 파일 생성 */
+                File target = new File(_uploadPath, saveName);
+
+                log.info("uploadPath : " + _uploadPath);
+                log.info("saveName : " + saveName);
+
+                multipartFile.transferTo(target);
+
+                // 이미지 URL 반환
+                imageUrl = _uploadPath + saveName;
+            }
+
+        }catch (DataAccessException e){
+            log.info("UploadImage DataAccessException ================================================================");
+            log.info(e.toString());
+            throw new AttachFileException("[" + ls_fileName + "] DataAccessException to save");
+            //utils.showMessageWithRedirect("데이터베이스 처리 과정에 문제가 발생하였습니다", "/App05/App05list/", Method.GET, model);
+        } catch (Exception  e){
+            /*log.info("memberUpload Exception ================================================================");
+            log.info(e.toString());
+            ls_errmsg = "[" + ls_fileName + "] failed to save";
+            throw new AttachFileException("[" + ls_fileName + "] failed to save");*/
+            //utils.showMessageWithRedirect("시스템에 문제가 발생하였습니다", "/app05/App05list/", Method.GET, model);
+        }
+        log.info("imageUrl--->" + imageUrl);
+        return imageUrl;
+//        utils.showMessageWithRedirect("게시글 등록이 완료되었습니다", "/app05/App05list/", Method.GET, model);
+    }
+
     @RequestMapping(value="/bbslist")
     public Object mnoticeBBSlist(@RequestParam("ngroupcd") String ngroupcd,
                                  Model model, HttpServletRequest request){
@@ -682,9 +755,11 @@ public class AppIndexCrudController {
             _App05Dto.setYyyymm(indate.substring(0,6));
             _App05Dto.setNinputdate(indate);
             if(ngroupcd.equals("BB")){
-                _App05Dto.setNgourpcd("02");
+                _App05Dto.setNgourpcd("02");       //영업점
             }else if(ngroupcd.equals("CC")){
-                _App05Dto.setNgourpcd("01");
+                _App05Dto.setNgourpcd("01");        //영업사원
+            }else if(ngroupcd.equals("AA")){
+                _App05Dto.setNgourpcd("03");       //본사
             }else{
                 _App05Dto.setNgourpcd("%");
             }

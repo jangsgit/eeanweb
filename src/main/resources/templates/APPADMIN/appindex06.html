@@ -108,9 +108,7 @@
                             </div> 
                         </div>
 
-                        <div class="tab-pane fade" id="step02">  
-
-
+                        <div class="tab-pane fade" id="step02"> 
                             <div class="section ">
 
                                 <div class="sec_con" style="width: 60%;">
@@ -231,7 +229,58 @@
                         <div class="bg-light rounded-top-lg py-3 ps-4 pe-6">
                             <h4 class="mb-1" id="staticBackdropLabel">공지등록</h4>
                         </div>
-
+                        <div class="section "> 
+                            <div class="sec_con" style="width: 100%;">
+                                <div class="box_wrap"> 
+                                    <div class="table table_style1">
+                                        <table>
+                                            <tr>
+                                                <th>제목</th>
+                                                <td colspan="5">
+                                                    <span id="actnsubjectz_v"></span>
+                                                </td>
+                                            </tr> 
+                                            <tr> 
+                                                <th style="width: 10%;">작성자</th>
+                                                <td style="width: 23%">                                                
+                                                    <span id="actnpernmz_v"></span>
+                                                    <!-- <input type="text" name="actnpernmz" id="actnpernmz" disabled> -->
+                                                </td>
+                                                <th style="width: 13%;">작성일자</th>
+                                                <td style="width: 23%"  >
+                                                    <span id="actninputdatez_v"></span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>내용</th>
+                                                <td colspan="5">
+                                                    <span  id="actnmemoz_v"  ></textarea>
+                                                </td>
+                                            </tr> 
+                                            <tr> 
+                                                <th style="width: 7%;">알림 시작일</th>
+                                                <td style="width: 24%">                                                
+                                                    <span id="actfrdate_v"></span>
+                                                    <!-- <input type="text" name="actnpernmz" id="actnpernmz" disabled> -->
+                                                </td>
+                                                <th style="width: 10%;">알림 종료일</th>
+                                                <td style="width: 23%"  >
+                                                    <span id="acttodate_v"></span>
+                                                </td>
+                                            </tr>  
+                                            <tr>
+                                                <th>첨부파일</th>
+                                                <td colspan="3">
+                                                    <div data-name="filelistDiv_v" id="filelistDiv_v" class="table table_style3"></div> 
+                                                </td> 
+                                            </tr> 
+                                        </table> 
+                                        <br>
+                                        <span id="spcount"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                     </div>
                     <div class="modal-footer">
@@ -308,7 +357,8 @@
     //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
     //현장 검색   
     var wapp04Grid ;
-    var view_Mmanualpage; 
+    var view_Mmanualpage;  
+    var tinymce;
 //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
     window.onload = function() { 
         document.getElementById("filemodal_btn").style.display="none";
@@ -386,8 +436,8 @@
                 cnt++;
             } 
             return data01                                
-        } 
-        
+        }  
+
         tinymce.init({
             selector: 'textarea#actnmemoz', 
             height: 400,
@@ -397,9 +447,34 @@
                 'table', 'emoticons', 'help'
             ],
             toolbar: 'undo redo | styles | bold italic | alignleft aligncenter alignright alignjustify | ' +
-                ' link image ',
-            
-            content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:16px }'
+                ' link image ', 
+            images_upload_url: '/uploadImage',   
+            automatic_uploads: true,         
+            content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:16px }',
+            images_upload_handler: function (blobInfo, success, failure) {
+                var xhr, formData;
+                xhr = new XMLHttpRequest();
+                xhr.withCredentials = false;
+                xhr.open('POST', '/appadmod/uploadImage');
+                
+                xhr.onload = function() {
+                    var json;
+                    if (xhr.status != 200) {
+                        failure('HTTP Error: ' + xhr.status);
+                        return;
+                    }
+                    json = JSON.parse(xhr.responseText);
+                    if (!json || typeof json.location != 'string') {
+                        failure('Invalid JSON: ' + xhr.responseText);
+                        return;
+                    }
+                    success(json.location);
+                };
+                
+                formData = new FormData();
+                formData.append('file', blobInfo.blob(), blobInfo.filename());
+                xhr.send(formData);
+            }            
         }); 
 
     }
@@ -533,8 +608,14 @@
         var ls_actngroupcdz = document.getElementById('actngroupcdz').value;
         var ls_actnsubjectz   = document.getElementById('actnsubjectz').value;
         // var ls_actmfilenamez   = document.getElementById('actmfilenamez').value;
-        var ls_actnpernmz   =  document.getElementById('actnpernmz').value;
-        var ls_actnmemoz   = document.getElementById('actnmemoz').value;
+        var ls_actnpernmz   =  document.getElementById('actnpernmz').value; 
+        var editor = tinymce.get('actnmemoz');
+        if (editor) {
+            var ls_actnmemoz = editor.getContent();
+        } else {
+            console.error('TinyMCE editor is not initialized.');
+        }
+        //var ls_actnmemoz   = document.getElementById('actnmemoz').value;
         var ls_actfrdate   = document.getElementById('actfrdate').value;
         var ls_acttodate   = document.getElementById('acttodate').value;
         
@@ -543,7 +624,7 @@
             ls_actnflagz = "Y"
         }else{
             //전체공지
-            if(ls_actngroupcdz == "03"){
+            if(ls_actngroupcdz == "04"){
                 ls_actnflagz = "Y"
             }else{
                 ls_actnflagz = "N"
@@ -567,10 +648,11 @@
         if(!ls_acttodate){
             alert("공지 게시 종료일을 입력하세요")
             return
-        }
-        if(!ls_actnflagz){
-            ls_actnflagz = "Y";
-        }
+        } 
+        // if(!ls_actnflagz){
+        //     ls_actnflagz = "Y";
+        // }
+        console.log(ls_actnflagz)
         for (h = 0; h <= fileIdx; h++ ){
             ls_fileid = 'file_' + h;
 
@@ -611,7 +693,7 @@
                 if(data == "success"){
                     alert("저장되었습니다.")
                     // console.log("save", data);
-                    $("#CloseBtn").trigger("click");
+                    //$("#CloseBtn").trigger("click");
                     listUp();
                 }else{
                     alert("저장중 오류가 발생했습니다. 관리자에게 문의하세요.")
@@ -625,6 +707,7 @@
         })
 
     }
+
     function delete_btn(){
 
         if (!confirm("삭제하시겠습니까?")) {
@@ -689,8 +772,7 @@
 
         })      
     }
-            
-
+          
     function tabA_grid(data){ 
         var wtab04Dto  = data;    
         var wtab04_data = [];
@@ -707,7 +789,9 @@
                 ninputdate : wtab04Dto[i]["ninputdate"].substr(0,4) + "-" + wtab04Dto[i]["ninputdate"].substr(4,2)+"-"+wtab04Dto[i]["ninputdate"].substr(6,2) ,
                 ngourpcd : wtab04Dto[i]["ngourpcd"]     ,
                 nmemo : wtab04Dto[i]["nmemo"]     ,
-                nflag : wtab04Dto[i]["nflag"]        
+                nflag : wtab04Dto[i]["nflag"]      ,
+                frdate : wtab04Dto[i]["frdate"]      ,
+                todate : wtab04Dto[i]["todate"]        
             });
             cnt++;
         }   
@@ -735,9 +819,8 @@
         cols.width = "*";  ; 
         cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
             text: '<b>${item.nsubject}</b>',
-            click: (e, ctx) => {
-                viewPage(ctx.item.nseq, ctx.item.cnam, ctx.item.nsubject, ctx.item.npernm, ctx.item.nfilename, ctx.item.ninputdate , ctx.item.ngourpcd , ctx.item.nmemo, ctx.item.nflag );
-                
+            click: (e, ctx) => {                
+                viewPage(ctx.item.nseq, ctx.item.cnam, ctx.item.nsubject, ctx.item.npernm, ctx.item.nfilename, ctx.item.ninputdate , ctx.item.ngourpcd , ctx.item.nmemo, ctx.item.nflag, ctx.item.frdate, ctx.item.todate );
             }
         });
         wapp04Grid.columns.push(cols);   
@@ -755,11 +838,26 @@
         cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
             text: '<b>${item.nsubject}</b>',
             click: (e, ctx) => {
-                viewPage(ctx.item.nseq, ctx.item.cnam, ctx.item.nsubject, ctx.item.npernm, ctx.item.nfilename, ctx.item.ninputdate , ctx.item.ngourpcd , ctx.item.nmemo, ctx.item.nflag );
+                viewPage(ctx.item.nseq, ctx.item.cnam, ctx.item.nsubject, ctx.item.npernm, ctx.item.nfilename, ctx.item.ninputdate , ctx.item.ngourpcd , ctx.item.nmemo, ctx.item.nflag, ctx.item.frdate, ctx.item.todate );
                 
             }
         });
         wapp04Grid.columns.push(cols); 
+        
+        cols = new wijmo.grid.Column(); 
+        cols.binding = 'frdate';
+        cols.header = '시작일';
+        cols.align = "center";
+        cols.width = 100;  
+        wapp04Grid.columns.push(cols);   
+        
+        cols = new wijmo.grid.Column(); 
+        cols.binding = 'todate';
+        cols.header = '종료일';
+        cols.align = "center";
+        cols.width = 100;  
+        wapp04Grid.columns.push(cols);   
+
         cols = new wijmo.grid.Column(); 
         cols.binding = 'nseq';
         cols.header = '번호';
@@ -846,7 +944,8 @@
 
 
     function viewPage(arg1,arg2,arg3,arg4,arg5,arg6,arg7,arg8,arg9,arg10,arg11  ){ 
-        // $("#listmodal_btn").trigger("click");
+        // $("#listmodal_btn").trigger("click"); 
+        activateStep02()
         document.getElementById('actnseqz').value= arg1;
         document.getElementById('actnsubjectz').value= arg3;
         document.getElementById('actnpernmz').value= arg4;
@@ -855,6 +954,14 @@
         document.getElementById('actninputdatez').value= arg6;
         document.getElementById('actngroupcdz').value= arg7;
         document.getElementById('actnmemoz').value= arg8;
+        var editor = tinymce.get('actnmemoz');
+        if (editor) {
+            editor.setContent(arg8);
+        } else {
+            console.error('TinyMCE editor is not initialized.');
+        }
+
+        //tinymce.get('content').setContent(arg8);
         document.getElementById('actnflagz').value= arg9;
         document.getElementById('actfrdate').value= arg10;
         document.getElementById('acttodate').value= arg11;
@@ -864,6 +971,18 @@
             document.getElementById('actnflagz').checked = false
         }
 
+
+         
+        document.getElementById('actnsubjectz_v').innerHTML= arg3;
+        document.getElementById('actnpernmz_v').innerHTML= arg4;
+        // document.getElementById('actnfilenamez').innerHTML= arg5;
+        arg6 = arg6.substr(0,4) +  arg6.substr(4, 2) + arg6.substr(6,9);
+        document.getElementById('actninputdatez_v').innerHTML= arg6; 
+        document.getElementById('actnmemoz_v').innerHTML= arg8; 
+        document.getElementById('actfrdate_v').innerHTML= arg10;
+        document.getElementById('acttodate_v').innerHTML= arg11; 
+
+        
         var wfile_data = [];
         $.ajax({
                 url: '/appadmod/flist',
@@ -929,6 +1048,31 @@
     }
 
     
+    function activateStep02() {
+            // 현재 활성화된 탭의 'active' 클래스 제거
+            var activeTab = document.querySelector('.nav-link.active');
+            if (activeTab) {
+                activeTab.classList.remove('active');
+            }
+
+            // step02 탭을 활성화
+            var step02Tab = document.querySelector('a[href="#step02"]');
+            if (step02Tab) {
+                step02Tab.classList.add('active');
+            }
+
+            // 현재 활성화된 탭 콘텐츠에서 'active' 클래스 제거
+            var activeContent = document.querySelector('.tab-pane.active');
+            if (activeContent) {
+                activeContent.classList.remove('active', 'show');
+            }
+
+            // step02 콘텐츠를 활성화
+            var step02Content = document.getElementById('step02');
+            if (step02Content) {
+                step02Content.classList.add('active', 'show');
+            }
+        }
     function clear_rtn(elem){
             // console.log("clear rtn");
             document.getElementById('actnseqz').value= "";
