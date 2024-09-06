@@ -31,7 +31,7 @@
     <!-- 처리자 MODAL FROM  -->
     <form    th:object="${userformDto}" method="post" ></form>
         <div class="modal fade" id="userinfomodal" data-bs-keyboard="false"
-            data-bs-backdrop="static" tabindex="-1" aria-labelledby="staticBackdropLabel"
+            data-bs-backdrop="static" tabindex="-1" aria-labelledby="staticBackdropLabel" 
             aria-hidden="true">
             <div class="modal-dialog modal-lg mt-6" role="document" id = "modalForm01"
                 style="max-width: 500px">
@@ -41,9 +41,9 @@
                             <label>비밀번호</label>
                             <input class="form-control form-control-sm" type="text"  th:value="${userformDto.passwd1}" id="actpasswdz" onchange="check_pw()">
                             <label>이름</label>
-                            <input class="form-control form-control-sm" type="text"  th:value="${userformDto.username}" id="actnamez">
+                            <input class="form-control form-control-sm" type="text"  th:value="${userformDto.username}" id="actnamez" disabled>
                             <label>핸드폰번호</label>
-                            <input class="form-control form-control-sm" type="text"  th:value="${userformDto.phone}" id="actphonez">
+                            <input class="form-control form-control-sm" type="text"  th:value="${userformDto.phone}" id="actphonez" disabled>
                         </div>
 
                     </div>
