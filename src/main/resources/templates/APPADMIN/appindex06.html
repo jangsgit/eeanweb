@@ -823,7 +823,7 @@
         cols.binding = 'nsubject';
         cols.header = '제목';
         cols.align = "left";
-        cols.width = "*";  ; 
+        cols.width = "200";  ; 
         cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
             text: '<b>${item.nsubject}</b>',
             click: (e, ctx) => {                
@@ -835,7 +835,7 @@
         cols.binding = 'npernm';
         cols.header = '작성자';
         cols.align = "center";
-        cols.width = 150;  
+        cols.width = 120;  
         wapp04Grid.columns.push(cols);  
         cols = new wijmo.grid.Column(); 
         cols.binding = 'attcnt';
