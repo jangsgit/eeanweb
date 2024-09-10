@@ -506,7 +506,14 @@ public class AppIndexCrudController {
         _App05Dto.setTodate(ls_todate);
 
 
-        log.info("_App05Dto memo========>" + _App05Dto.getNmemo());
+        log.info("_App05Dto getNseq========>" + _App05Dto.getNseq());
+        log.info("_App05Dto getNinputdate========>" + _App05Dto.getNinputdate());
+        log.info("_App05Dto getNgourpcd========>" + _App05Dto.getNgourpcd());
+        log.info("_App05Dto getNsubject========>" + _App05Dto.getNsubject());
+        log.info("_App05Dto getNflag========>" + _App05Dto.getNflag());
+        log.info("_App05Dto getFrdate========>" + _App05Dto.getFrdate());
+        log.info("_App05Dto getTodate========>" + _App05Dto.getTodate());
+        log.info("_App05Dto getNmemo========>" + _App05Dto.getNmemo());
 
         if(nseq == null || nseq.equals("")){
             _App05Dto.setNseq(CountSeq(ls_yeare + ls_mm));
