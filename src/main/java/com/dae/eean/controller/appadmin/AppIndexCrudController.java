@@ -18,14 +18,16 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 import org.apache.commons.io.FilenameUtils;
-
+import org.json.JSONObject;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(value = "/appadmod", method = RequestMethod.POST)
@@ -668,9 +670,10 @@ public class AppIndexCrudController {
 
 
     @RequestMapping(value="/uploadImage")   //공지사항 이미지 등록
-    public String UploadImage ( @RequestPart(value = "file",required = false) List<MultipartFile> file
+    public void UploadImage ( @RequestPart(value = "file",required = false) List<MultipartFile> file
             , Model model
-            , HttpServletRequest request){
+            , HttpServletRequest request
+            , HttpServletResponse response) throws IOException {
         String ls_fileName = "";
         String ls_errmsg = "";
         String imageUrl = "";
@@ -685,13 +688,15 @@ public class AppIndexCrudController {
 
 
         model.addAttribute("userformDto",userformDto);
-        String ls_nseq = App05Dto.getNseq();
-        String _uploadPath = Paths.get("D:", "EEAN", "upload","mnoticeimg", ls_nseq).toString();
+        String ls_nseq = getToDate().substring(0, 6);
+        ls_nseq = CountSeq(getToDate().substring(0, 5));;
+        String _uploadPath = Paths.get("D:", "EEAN", "upload","mnoticeimg", ls_nseq  ).toString();
         /* uploadPath에 해당하는 디렉터리가 존재하지 않으면, 부모 디렉터리를 포함한 모든 디렉터리를 생성 */
         File dir = new File(_uploadPath);
         if (dir.exists() == false) {
             dir.mkdirs();
         }
+
         try {
 
             for(MultipartFile multipartFile : file){
@@ -704,7 +709,7 @@ public class AppIndexCrudController {
                 /* 파일이 비어있으면 비어있는 리스트 반환 */
                 if (multipartFile.getSize() < 1) {
                     ls_errmsg = "success";
-                    return ls_errmsg;
+                    return ;
                 }
                 /* 파일 확장자 */
                 final String extension = FilenameUtils.getExtension(multipartFile.getOriginalFilename());
@@ -718,9 +723,18 @@ public class AppIndexCrudController {
                 log.info("saveName : " + saveName);
 
                 multipartFile.transferTo(target);
-
+                _uploadPath = _uploadPath + "/";
                 // 이미지 URL 반환
-                imageUrl = _uploadPath + '\\' + saveName;
+                imageUrl = _uploadPath + saveName;
+                log.info("imageUrl====>" + imageUrl);
+                // JSON 응답 생성
+                JSONObject jsonResponse = new JSONObject();
+                jsonResponse.put("location", imageUrl);
+
+                // 응답에 JSON 전송
+                response.setContentType("application/json");
+                response.setCharacterEncoding("UTF-8");
+                response.getWriter().write(jsonResponse.toString());
             }
 
         }catch (DataAccessException e){
@@ -735,8 +749,7 @@ public class AppIndexCrudController {
             throw new AttachFileException("[" + ls_fileName + "] failed to save");*/
             //utils.showMessageWithRedirect("시스템에 문제가 발생하였습니다", "/app05/App05list/", Method.GET, model);
         }
-        log.info("imageUrl--->" + imageUrl);
-        return imageUrl;
+        return ;
 //        utils.showMessageWithRedirect("게시글 등록이 완료되었습니다", "/app05/App05list/", Method.GET, model);
     }
 
