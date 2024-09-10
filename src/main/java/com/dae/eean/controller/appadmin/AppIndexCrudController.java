@@ -440,7 +440,7 @@ public class AppIndexCrudController {
         String ls_errmsg = "";
         /* 업로드 파일 정보를 담을 비어있는 리스트 */
         List<AttachDTO> attachList = new ArrayList<>();
-
+        App05ElvlrtDto _App05Dto = new App05ElvlrtDto();
 
         HttpSession session = request.getSession();
         UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
@@ -450,81 +450,83 @@ public class AppIndexCrudController {
         param.forEach((key, values) -> {
             switch (key){
                 case "actnseqz":
-                    App05Dto.setNseq(values.toString());
+                    _App05Dto.setNseq(values.toString());
                     break;
                 case "actninputdatez":
-                    App05Dto.setNinputdate(values.toString());
+                    _App05Dto.setNinputdate(values.toString());
                     break;
                 case "actngroupcdz":
-                    App05Dto.setNgourpcd(values.toString());
+                    _App05Dto.setNgourpcd(values.toString());
                     break;
                 case "actnsubjectz":
-                    App05Dto.setNsubject(values.toString());
+                    _App05Dto.setNsubject(values.toString());
                     break;
                 case "actnpernmz":
-                    App05Dto.setNpernm(values.toString());
+                    _App05Dto.setNpernm(values.toString());
                     break;
                 case "actnmemoz":
-                    App05Dto.setNmemo(values.toString());
+                    _App05Dto.setNmemo(values.toString());
                     break;
                 case "actnflagz":
-                    App05Dto.setNflag(values.toString());
+                    _App05Dto.setNflag(values.toString());
                     break;
                 case "actfrdate":
-                    App05Dto.setFrdate(values.toString());
+                    _App05Dto.setFrdate(values.toString());
                     break;
                 case "acttodate":
-                    App05Dto.setTodate(values.toString());
+                    _App05Dto.setTodate(values.toString());
                     break;
                 default:
                     break;
             }
         });
-        String nseq = App05Dto.getNseq();
-        App05Dto.setCustcd(ls_custcd);
-        App05Dto.setSpjangcd(ls_spjangcd);
-        App05Dto.setNpernm(userformDto.getUsername());
-        String ninputdate = App05Dto.getNinputdate();
+        String nseq = _App05Dto.getNseq();
+        _App05Dto.setCustcd(ls_custcd);
+        _App05Dto.setSpjangcd(ls_spjangcd);
+        _App05Dto.setNpernm(userformDto.getUsername());
+        String ninputdate = _App05Dto.getNinputdate();
         String ls_yeare = ninputdate.substring(0,4);
         String ls_mm = ninputdate.substring(5,7);
         String ls_dd = ninputdate.substring(8,10);
         ninputdate =  ls_yeare + ls_mm + ls_dd;
-        App05Dto.setNinputdate(ninputdate);
+        _App05Dto.setNinputdate(ninputdate);
 
-        String ls_frdate  = App05Dto.getFrdate();
+        String ls_frdate  = _App05Dto.getFrdate();
         ls_yeare = ls_frdate.substring(0,4);
         ls_mm = ls_frdate.substring(5,7);
         ls_dd = ls_frdate.substring(8,10);
         ls_frdate =  ls_yeare + ls_mm + ls_dd;
-        App05Dto.setFrdate(ls_frdate);
+        _App05Dto.setFrdate(ls_frdate);
 
-        String ls_todate  = App05Dto.getTodate();
+        String ls_todate  = _App05Dto.getTodate();
         ls_yeare = ls_todate.substring(0,4);
         ls_mm = ls_todate.substring(5,7);
         ls_dd = ls_todate.substring(8,10);
         ls_todate =  ls_yeare + ls_mm + ls_dd;
-        App05Dto.setTodate(ls_todate);
+        _App05Dto.setTodate(ls_todate);
 
+
+        log.info("_App05Dto memo========>" + _App05Dto.getNmemo());
 
         if(nseq == null || nseq.equals("")){
-            App05Dto.setNseq(CountSeq(ls_yeare + ls_mm));
+            _App05Dto.setNseq(CountSeq(ls_yeare + ls_mm));
         }else{
-            App05Dto.setNseq(nseq);
+            _App05Dto.setNseq(nseq);
         }
-        App05Dto.setYyyymm(ls_yeare + ls_mm);
+        _App05Dto.setYyyymm(ls_yeare + ls_mm);
         if(nseq == null || nseq.equals("")){
-            boolean result = popservice.InsertMNotice(App05Dto);
+            boolean result = popservice.InsertMNotice(_App05Dto);
             if(!result){
                 return  "error";
             }
         }else{
-            boolean result = popservice.UpdateMNotice(App05Dto);
+            boolean result = popservice.UpdateMNotice(_App05Dto);
             if(!result){
                 return  "error";
             }
         }
         model.addAttribute("userformDto",userformDto);
-        String ls_nseq = App05Dto.getNseq();
+        String ls_nseq = _App05Dto.getNseq();
         String _uploadPath = Paths.get("D:", "EEAN", "upload","mnotice", ls_nseq).toString();
         /* uploadPath에 해당하는 디렉터리가 존재하지 않으면, 부모 디렉터리를 포함한 모든 디렉터리를 생성 */
         File dir = new File(_uploadPath);
@@ -557,7 +559,7 @@ public class AppIndexCrudController {
                 log.info("saveName : " + saveName);
 
                 multipartFile.transferTo(target);
-                String nseq1 = App05Dto.getNseq();
+                String nseq1 = _App05Dto.getNseq();
                 /* 파일 정보 저장 */
                 AttachDTO attach = new AttachDTO();
                 attach.setBoardIdx(nseq1);
@@ -568,7 +570,7 @@ public class AppIndexCrudController {
                 /* 파일 정보 추가 */
                 attachList.add(attach);
             }
-            boolean result  = appServiceImpl.registerMNotice(App05Dto, attachList);
+            boolean result  = appServiceImpl.registerMNotice(_App05Dto, attachList);
             if(!result){
                 return  "error";
             }
