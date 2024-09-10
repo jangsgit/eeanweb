@@ -383,15 +383,15 @@
                     })
                 },
                 { binding: 'npernm', header: '작성자', width: 100,   align:"center", isReadOnly: true } ,
-                { binding: 'attcnt', header: '첨부파일', width: 150, format: 'n0',  align:"center", isReadOnly: true,
+                { binding: 'attcnt', header: '첨부파일', width: 100, format: 'n0',  align:"center", isReadOnly: true,
                     cellTemplate: wijmo.grid.cellmaker.CellMaker.makeLink({
                         text: '<b>다운로드</b>',
                         click: (e, ctx) => {
                             viewFilePage(ctx.item.nseq );
                         }
                     }) } ,
-                { binding: 'frdate', header: '알림시작일', width: 150,   align:"center",  isReadOnly: true },
-                { binding: 'todate', header: '알림종료일', width: 150,   align:"center",  isReadOnly: true },                
+                { binding: 'frdate', header: '알림시작일', width: 130,   align:"center",  isReadOnly: true },
+                { binding: 'todate', header: '알림종료일', width: 130,   align:"center",  isReadOnly: true },                
                 { binding: 'nseq', header: '번호', width: 100, format: '*' , align:"center", isReadOnly: true},
 
             ],
@@ -465,7 +465,7 @@
                         failure('HTTP Error: ' + xhr.status);
                         return;
                     }
-                    console.log(xhr.responseText)
+                     
                     json = JSON.parse(xhr.responseText);
                     if (!json || typeof json.location != 'string') {
                         failure('Invalid JSON: ' + xhr.responseText);
@@ -841,7 +841,7 @@
         cols.binding = 'attcnt';
         cols.header = '첨부파일';
         cols.align = "center";
-        cols.width = 150;  
+        cols.width = 100;  
         cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
             text: '<b>${item.nsubject}</b>',
             click: (e, ctx) => {
@@ -855,14 +855,14 @@
         cols.binding = 'frdate';
         cols.header = '시작일';
         cols.align = "center";
-        cols.width = 100;  
+        cols.width = 130;  
         wapp04Grid.columns.push(cols);   
         
         cols = new wijmo.grid.Column(); 
         cols.binding = 'todate';
         cols.header = '종료일';
         cols.align = "center";
-        cols.width = 100;  
+        cols.width = 130;  
         wapp04Grid.columns.push(cols);   
 
         cols = new wijmo.grid.Column(); 
