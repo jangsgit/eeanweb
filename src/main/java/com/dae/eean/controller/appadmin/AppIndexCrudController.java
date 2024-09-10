@@ -720,7 +720,7 @@ public class AppIndexCrudController {
                 multipartFile.transferTo(target);
 
                 // 이미지 URL 반환
-                imageUrl = _uploadPath + '/' + saveName;
+                imageUrl = _uploadPath + '\\' + saveName;
             }
 
         }catch (DataAccessException e){
