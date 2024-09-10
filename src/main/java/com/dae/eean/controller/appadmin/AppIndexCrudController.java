@@ -505,16 +505,6 @@ public class AppIndexCrudController {
         ls_todate =  ls_yeare + ls_mm + ls_dd;
         _App05Dto.setTodate(ls_todate);
 
-
-        log.info("_App05Dto getNseq========>" + _App05Dto.getNseq());
-        log.info("_App05Dto getNinputdate========>" + _App05Dto.getNinputdate());
-        log.info("_App05Dto getNgourpcd========>" + _App05Dto.getNgourpcd());
-        log.info("_App05Dto getNsubject========>" + _App05Dto.getNsubject());
-        log.info("_App05Dto getNflag========>" + _App05Dto.getNflag());
-        log.info("_App05Dto getFrdate========>" + _App05Dto.getFrdate());
-        log.info("_App05Dto getTodate========>" + _App05Dto.getTodate());
-        log.info("_App05Dto getNmemo========>" + _App05Dto.getNmemo());
-
         if(nseq == null || nseq.equals("")){
             _App05Dto.setNseq(CountSeq(ls_yeare + ls_mm));
         }else{
@@ -709,9 +699,9 @@ public class AppIndexCrudController {
         try {
 
             for(MultipartFile multipartFile : file){
-                log.info("================================================================");
-                log.info("upload file img name : " + multipartFile.getOriginalFilename());
-                log.info("upload file img name : " + multipartFile.getSize());
+//                log.info("================================================================");
+//                log.info("upload file img name : " + multipartFile.getOriginalFilename());
+//                log.info("upload file img name : " + multipartFile.getSize());
                 ls_fileName = multipartFile.getOriginalFilename();
 
 
@@ -727,15 +717,10 @@ public class AppIndexCrudController {
 
                 /* 업로드 경로에 saveName과 동일한 이름을 가진 파일 생성 */
                 File target = new File(_uploadPath, saveName);
-
-                log.info("uploadPath : " + _uploadPath);
-                log.info("saveName : " + saveName);
-
                 multipartFile.transferTo(target);
                 _uploadPath = _uploadPath + "\\";
                 // 이미지 URL 반환
                 imageUrl = _uploadPath + saveName;
-                log.info("imageUrl====>" + imageUrl);
                 // JSON 응답 생성
                 JSONObject jsonResponse = new JSONObject();
                 jsonResponse.put("location", imageUrl);
