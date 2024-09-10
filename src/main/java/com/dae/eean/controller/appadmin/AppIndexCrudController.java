@@ -723,7 +723,7 @@ public class AppIndexCrudController {
                 log.info("saveName : " + saveName);
 
                 multipartFile.transferTo(target);
-                _uploadPath = _uploadPath + "/";
+                _uploadPath = _uploadPath + "\\";
                 // 이미지 URL 반환
                 imageUrl = _uploadPath + saveName;
                 log.info("imageUrl====>" + imageUrl);
