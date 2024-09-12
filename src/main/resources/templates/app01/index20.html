@@ -982,6 +982,12 @@
             document.getElementById('actninputdatez').innerHTML= ls_arg6;
             // document.getElementById('actngroupcdz').value= arg7;/
             document.getElementById('actnmemoz').innerHTML= ls_arg8; 
+            // 이미지가 span#memo에 추가된 후 사이즈를 조정
+            let images = document.querySelectorAll('#actnmemoz img');
+            images.forEach(function(image) {
+                image.style.maxWidth = '100%';  // 부모 요소의 크기에 맞게 조정
+                image.style.height = 'auto';    // 비율에 맞게 높이 자동 조정
+            });
             if(ls_arg10 > 1){ 
                 ls_arg10 = ls_arg10 - 1;
                 document.getElementById("spcount").innerHTML = "<strong>" + ls_arg3 + " </strong> 외 " + ls_arg10 + "건의 공지가 있습니다. 공지사항 메뉴에서 확인하세요.";
