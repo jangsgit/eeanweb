@@ -445,6 +445,12 @@
         document.getElementById('actninputdatez').innerHTML= arg6;
         // document.getElementById('actngroupcdz').value= arg7;/
         document.getElementById('actnmemoz').innerHTML=  arg8;  
+        // 이미지가 span#memo에 추가된 후 사이즈를 조정
+        let images = document.querySelectorAll('#actnmemoz img');
+        images.forEach(function(image) {
+            image.style.maxWidth = '100%';  // 부모 요소의 크기에 맞게 조정
+            image.style.height = 'auto';    // 비율에 맞게 높이 자동 조정
+        });
 
         var wfile_data = [];
         $.ajax({
