@@ -12,6 +12,8 @@ import java.util.List;
 public interface Index14Mapper {
     public String SelectMaxMisnum(IndexDa023Dto parm) ;
     public String SelectCheckMisnum(IndexDa023Dto parm) ;
+    public String SelectCheckMisnumJupsu(IndexDa023Dto parm) ;
+
     public String SelectCheckMisnumMkflag(IndexDa023Dto parm) ;
     public String SelectCheckMisnumMkflagJupsu(IndexDa023Dto parm) ;
 

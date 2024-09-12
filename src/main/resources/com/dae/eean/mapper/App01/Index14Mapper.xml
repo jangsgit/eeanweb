@@ -10,6 +10,10 @@
         <![CDATA[  select top 1 misnum  from tb_da024 WITH (NOLOCK) where misdate = #{misdate} and cltcd=#{cltcd} and misgubun = #{misgubun} and isnull(pmodel,'') <> 'AS' and ( Len(isnull(makflag,'')) = 0 OR makflag = '0')    order by misdate, misnum     ]]>
     </select>
 
+    <select id="SelectCheckMisnumJupsu" parameterType="com.dae.eean.DTO.App01.IndexDa023Dto" resultType="String">
+        <![CDATA[  select top 1 misnum  from tb_da024 WITH (NOLOCK) where misdate = #{misdate} and cltcd=#{cltcd} and misgubun = #{misgubun} and isnull(pmodel,'') = 'AS' and ( Len(isnull(makflag,'')) = 0 OR makflag = '0')    order by misdate, misnum     ]]>
+    </select>
+
     <select id="SelectCheckMisnumMkflag" parameterType="com.dae.eean.DTO.App01.IndexDa023Dto" resultType="String">
         <![CDATA[  select top 1 misnum  from tb_da024 WITH (NOLOCK) where misdate = #{misdate} and isnull(pmodel,'') <> 'AS'     order by misdate, misnum desc     ]]>
     </select>
@@ -653,7 +657,7 @@
 
 
     <select id="SelectDa024ListCltcdGroup"  parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" resultType="com.dae.eean.DTO.App01.IndexDa024Dto">
-        <![CDATA[ select B.cltcd as cltcd, count(*) as rownum,
+        <![CDATA[ select B.cltcd as cltcd, count(*) as rownum, B.misdate, B.misnum,
                         sum(B.qty) as qty, sum(B.samt) as samt, sum(B.addamt) as addamt,
                       sum(B.amt) as amt, B.acorp, B.pernm as inname, max(B.misgubun) as misgubun, isnull(B.fixflag,'0') as fixflag, B.pernm as pernm
                   from  TB_DA024 B WITH (NOLOCK)
@@ -665,8 +669,8 @@
                     and isnull(B.jpb_gubn,'') Like concat('%',#{jpbgubn},'%')
                     AND Len(ISNULL(B.pernm,'')) > 0
                     and isnull(B.pcode,'') Like  #{pcode} + '%'
-                  Group by B.cltcd,  B.pernm,   B.acorp, B.fixflag
-                  ORDER BY B.pernm, sum(B.qty ) desc, b.acorp
+                  Group by B.cltcd,  B.pernm,   B.acorp, B.fixflag, B.misdate, B.misnum
+                  ORDER BY B.pernm, b.acorp, B.misdate, B.misnum,sum(B.qty ) desc
         ]]>
 
     </select>

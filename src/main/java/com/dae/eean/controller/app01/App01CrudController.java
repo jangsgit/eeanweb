@@ -1232,7 +1232,12 @@ public class App01CrudController {
             _indexDa023Dto.setMisgubun(mflag);
             _indexDa023Dto.setMisdate(frdate);
             String ls_misnum = "";
-            String ls_chknull = service14.SelectCheckMisnum(_indexDa023Dto);
+            String ls_chknull = "";
+            if(jmodel.equals("AS")){
+                ls_chknull = service14.SelectCheckMisnumJupsu(_indexDa023Dto);
+            }else{
+                ls_chknull = service14.SelectCheckMisnum(_indexDa023Dto);
+            }
             if(ls_chknull == null){
                 ls_chknull = "";
             }
@@ -3236,9 +3241,9 @@ public class App01CrudController {
 //            log.info("jpbgubn =====>" +jpbgubn);
             //출력일기준
             if(sflag.equals("0")){
-                _indexDa024ListDto = service14.SelectDa024ListCltcdGroup(_indexDa024Dto);
+                _indexDa024ListDto = service14.SelectDa024ListCltcdGroup(_indexDa024Dto); //출력일
             }else{
-                _indexDa024ListDto = service14.SelectDa024ListCltcdGroupJumun(_indexDa024Dto);
+                _indexDa024ListDto = service14.SelectDa024ListCltcdGroupJumun(_indexDa024Dto); //주문일
             }
             model.addAttribute("indexDa024ListDto",_indexDa024ListDto);
 

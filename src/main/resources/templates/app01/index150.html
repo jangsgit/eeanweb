@@ -105,7 +105,7 @@
                                                 </button>
                                             </div> 
                                             <div class="col-1 col-sm-1">  
-                                                <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="wishBtn" type="button" onclick="wishorderlist_rtn()" disabled>예약장바구니
+                                                <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="wishBtn" type="hidden" onclick="wishorderlist_rtn()" disabled>예약장바구니
                                                 </button>
                                             </div>    
                                         </div> 
@@ -832,7 +832,7 @@ aria-hidden="true">
                     // { binding: 'pbonsa', header: '코드', align: "center", width: 100 },  
                     // { binding: 'pmodel', header: '모델', align: "center", width: 100 },  
                     // { binding: 'pcolor', header: '컬러', align: "center", width: 100 },  
-                    { binding: 'qty', header: '수량', align: "center", width: 80 },  
+                    { binding: 'qty', header: '수량', align: "center", dataMap:getNumbers(), width: 80 },  
                     { binding: 'uamt', header: '단가', align: "center", width: 100 },   
                     { binding: 'samt', header: '금액', align: "center", width: 150 },   
                     { binding: 'remark', header: '요청등록', align: "center", width: 300 },    
@@ -910,6 +910,17 @@ aria-hidden="true">
                 }     
                 return wactnm_data;                           
             } 
+            
+
+            function getNumbers() {
+                var num_data = [];
+                for(var h=1; h <=30; h++){
+                    num_data.push({
+                        id: h  
+                    })
+                }
+                return num_data
+            }
          //공지체크       
          viewPage()                
         } 
@@ -1656,6 +1667,7 @@ aria-hidden="true">
             cols.align = "center";
             cols.aggregate = 'Sum';
             cols.width = 80;  
+            cols.dataMap = new wijmo.grid.DataMap(getNumbers02(), 'id', 'name');    
             wtab02Grid.columns.push(cols);    
             cols = new wijmo.grid.Column(); 
             cols.binding = 'jqty';
@@ -1711,6 +1723,17 @@ aria-hidden="true">
             // wtab02Grid.columns.push(cols);  
              
         }     
+        
+        function getNumbers02() {
+                var num_data = [];
+                for(var h=1; h <=30; h++){
+                    num_data.push({
+                        id: h ,
+                        name: h 
+                    })
+                }
+                return num_data
+        }
         function tabC_grid(data){
             //console.log(data);
             var wtab03Dto  = data;    

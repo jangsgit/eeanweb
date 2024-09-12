@@ -1231,7 +1231,9 @@
             var wtab03_data = [];
             var cnt = 1;
             var bfixflag = false
+            var ls_mistxt = "";
             for (var i = 0; i < wtab03Dto.length; i++) { 
+                ls_mistxt = wtab03Dto[i]["misdate"] + "/" + wtab03Dto[i]["misnum"];
                 wtab03_data.push({
                     id: i, 
                     index: cnt,
@@ -1243,7 +1245,10 @@
                     uamt: wtab03Dto[i]["uamt"], 
                     samt: wtab03Dto[i]["samt"],  
                     cltcd: wtab03Dto[i]["cltcd"],  
-                    inname: wtab03Dto[i]["inname"]            
+                    inname: wtab03Dto[i]["inname"] ,  
+                    misdate: wtab03Dto[i]["misdate"],  
+                    misnum: wtab03Dto[i]["misnum"]  ,  
+                    mistxt: ls_mistxt                      
                 });
                 cnt++;
             }     
@@ -1267,7 +1272,7 @@
             cols.binding = 'acorp';
             cols.header = '거래처';
             cols.align = "center";
-            cols.width = 150;  
+            cols.width = 250;  
             wtab03Grid.columns.push(cols);   
             cols = new wijmo.grid.Column(); 
             cols.binding = 'rownum';
@@ -1288,7 +1293,13 @@
             cols.align = "center";
             cols.aggregate = 'Sum';
             cols.width = 120;  
-            wtab03Grid.columns.push(cols);   
+            wtab03Grid.columns.push(cols);          
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'mistxt'; 
+            cols.header = '순번';
+            cols.align = "center"; 
+            cols.width = 250;  
+            wtab03Grid.columns.push(cols);  
  
         }
             

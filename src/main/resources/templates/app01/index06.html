@@ -660,27 +660,27 @@
                 ], 
                 itemsSource: view_p01tab03page, 
             }); 
-            wtab03Grid.formatItem.addHandler((s, e) => {
-                if (e.panel == s.cells) {
-                    var val = s.getCellData(e.row,0); 
-                    if(val == null || val.length == 0 || val == ""){  
-                        return 
-                    } else {
-                        var pos1 = val.indexOf('<');
-                        if (pos1 > 0 ){
-                            return 
-                        } 
-                    }  
-                    // 짝수 행 일 때
-                    if (e.row % 2 == 0) {
-                        e.cell.style.backgroundColor = "rgb(232, 241, 255)";
-                    }
-                    // 홀수 행 일 때
-                    else if (e.row % 2 == 1) {
-                        e.cell.style.backgroundColor = "rgb(255,255,255)";
-                    }
-                }
-            });                     
+            // wtab03Grid.formatItem.addHandler((s, e) => {
+            //     if (e.panel == s.cells) {
+            //         var val = s.getCellData(e.row,0); 
+            //         if(val == null || val.length == 0 || val == ""){  
+            //             return 
+            //         } else {
+            //             var pos1 = val.indexOf('<');
+            //             if (pos1 > 0 ){
+            //                 return 
+            //             } 
+            //         }  
+            //         // 짝수 행 일 때
+            //         if (e.row % 2 == 0) {
+            //             e.cell.style.backgroundColor = "rgb(232, 241, 255)";
+            //         }
+            //         // 홀수 행 일 때
+            //         else if (e.row % 2 == 1) {
+            //             e.cell.style.backgroundColor = "rgb(255,255,255)";
+            //         }
+            //     }
+            // });                     
             // 그룹 전환 
             setGroups03(true); 
             function setGroups03(groupsOn) {
@@ -1692,8 +1692,10 @@
             var wtab03Dto  = data;    
             var wtab03_data = []; 
             var cnt = 1;
+            var ls_mistxt = "";
             var bfixflag = false
             for (var i = 0; i < wtab03Dto.length; i++) { 
+                ls_mistxt = wtab03Dto[i]["misdate"] + "/" + wtab03Dto[i]["misnum"];
                 wtab03_data.push({
                     id: i, 
                     index: cnt,
@@ -1705,7 +1707,10 @@
                     uamt: wtab03Dto[i]["uamt"], 
                     samt: wtab03Dto[i]["samt"],  
                     cltcd: wtab03Dto[i]["cltcd"],  
-                    inname: wtab03Dto[i]["inname"]            
+                    inname: wtab03Dto[i]["inname"] ,  
+                    misdate: wtab03Dto[i]["misdate"],  
+                    misnum: wtab03Dto[i]["misnum"]  ,  
+                    mistxt: ls_mistxt           
                 });
                 cnt++;
             }      
@@ -1715,7 +1720,7 @@
             wtab03Grid.itemsSource = new wijmo.collections.CollectionView(wtab03_data, {
                     groupDescriptions: [
                         grandTotalsGroup,
-                        'pernm'
+                        'pernm', 'acorp'
                     ]
                 })  
             var cols = new wijmo.grid.Column();
@@ -1728,7 +1733,7 @@
             cols.binding = 'acorp';
             cols.header = '거래처';
             cols.align = "center";
-            cols.width = 150;  
+            cols.width = 250;  
             wtab03Grid.columns.push(cols);   
             cols = new wijmo.grid.Column(); 
             cols.binding = 'rownum';
@@ -1749,6 +1754,12 @@
             cols.align = "center";
             cols.aggregate = 'Sum';
             cols.width = 120;  
+            wtab03Grid.columns.push(cols);        
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'mistxt'; 
+            cols.header = '순번';
+            cols.align = "center"; 
+            cols.width = 250;  
             wtab03Grid.columns.push(cols);   
  
         }
