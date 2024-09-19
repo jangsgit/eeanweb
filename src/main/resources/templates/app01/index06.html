@@ -658,6 +658,22 @@
                     // { binding: 'fixflag', header: '확정', align: "center", width: 150, cssClass: 'switch'   },  
                     
                 ], 
+                formatItem: function(s,e){
+                    if(e.panel.cellType == wijmo.grid.CellType.Cell && s.columns[e.col].binding === 'qty'){
+                        var groupRow = s.rows[e.row];
+                        if(groupRow instanceof wijmo.grid.GroupRow && groupRow.hasChildren){
+                            var cellElement = e.cell;
+                            cellElement.style.fontWeight = 'bold';
+                        }
+                    }
+                    if(e.panel.cellType == wijmo.grid.CellType.Cell && s.columns[e.col].binding === 'samt'){
+                        var groupRow = s.rows[e.row];
+                        if(groupRow instanceof wijmo.grid.GroupRow && groupRow.hasChildren){
+                            var cellElement = e.cell;
+                            cellElement.style.fontWeight = 'bold';
+                        }
+                    }
+                },
                 itemsSource: view_p01tab03page, 
             }); 
             // wtab03Grid.formatItem.addHandler((s, e) => {
@@ -1735,12 +1751,12 @@
             cols.align = "center";
             cols.width = 250;  
             wtab03Grid.columns.push(cols);   
-            cols = new wijmo.grid.Column(); 
-            cols.binding = 'rownum';
-            cols.header = '건수';
-            cols.align = "center";
-            cols.width = 100;  
-            wtab03Grid.columns.push(cols);      
+            // cols = new wijmo.grid.Column(); 
+            // cols.binding = 'rownum';
+            // cols.header = '건수';
+            // cols.align = "center";
+            // cols.width = 100;  
+            // wtab03Grid.columns.push(cols);      
             cols = new wijmo.grid.Column(); 
             cols.binding = 'qty';
             cols.header = '수량';
