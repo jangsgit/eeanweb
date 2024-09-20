@@ -661,18 +661,31 @@
                 formatItem: function(s,e){
                     if(e.panel.cellType == wijmo.grid.CellType.Cell && s.columns[e.col].binding === 'qty'){
                         var groupRow = s.rows[e.row];
-                        if(groupRow instanceof wijmo.grid.GroupRow && groupRow.hasChildren){
+                        console.log(groupRow instanceof wijmo.grid.GroupRow)
+                        
+                        if(groupRow instanceof wijmo.grid.GroupRow  ){
                             var cellElement = e.cell;
                             cellElement.style.fontWeight = 'bold';
+                        }else{
+                            var cellElement = e.cell;
+                            cellElement.style.fontWeight = 'normal';                            
                         }
                     }
                     if(e.panel.cellType == wijmo.grid.CellType.Cell && s.columns[e.col].binding === 'samt'){
                         var groupRow = s.rows[e.row];
-                        if(groupRow instanceof wijmo.grid.GroupRow && groupRow.hasChildren){
+                        if(groupRow instanceof wijmo.grid.GroupRow ){
                             var cellElement = e.cell;
                             cellElement.style.fontWeight = 'bold';
+                        }else{
+                            var cellElement = e.cell;
+                            cellElement.style.fontWeight = 'normal';     
                         }
-                    }
+                    } 
+                    if(e.panel.cellType == wijmo.grid.CellType.Cell && s.columns[e.col].binding === 'acorp'){
+                        var groupRow = s.rows[e.row]; 
+                            var cellElement = e.cell;
+                            cellElement.style.fontWeight = 'normal';  
+                    } 
                 },
                 itemsSource: view_p01tab03page, 
             }); 

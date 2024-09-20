@@ -1768,20 +1768,24 @@ public class App01CrudController {
                 ls_chknull = "";
             }
             if(ls_chknull.length() == 0){
-                ls_misnum = service14.SelectCheckMisnumMkflag(_indexDa023Dto);  //주문된 순번max 찾기
-                if(ls_misnum == null){
-                    ls_misnum = "0001";
-                }else{
-                    Integer ll_misnum = Integer.parseInt(ls_misnum) + 1;
-                    ls_misnum = ll_misnum.toString();
-                    if (ls_misnum.length() == 1){
-                        ls_misnum = "000" + ls_misnum;
-                    }else if(ls_misnum.length() == 2){
-                        ls_misnum = "00" + ls_misnum;
-                    }else {
-                        ls_misnum = "0" + ls_misnum;
-                    }
+                ls_misnum = GetTrackNum(_indexDa023Dto.getMisdate());
+                if(ls_misnum.equals("error")){
+                    return "error";
                 }
+//                ls_misnum = service14.SelectCheckMisnumMkflag(_indexDa023Dto);  //주문된 순번max 찾기
+//                if(ls_misnum == null){
+//                    ls_misnum = "0001";
+//                }else{
+//                    Integer ll_misnum = Integer.parseInt(ls_misnum) + 1;
+//                    ls_misnum = ll_misnum.toString();
+//                    if (ls_misnum.length() == 1){
+//                        ls_misnum = "000" + ls_misnum;
+//                    }else if(ls_misnum.length() == 2){
+//                        ls_misnum = "00" + ls_misnum;
+//                    }else {
+//                        ls_misnum = "0" + ls_misnum;
+//                    }
+//                }
             }else{
                 ls_misnum = ls_chknull;
             }
