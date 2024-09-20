@@ -27,6 +27,16 @@ public class Index14Service {
     public String SelectMaxMisnum(IndexDa023Dto parm){
         return  appMapper.SelectMaxMisnum(parm);
     }
+    public Integer SelectTrackMisnum(String parm){
+        return  appMapper.SelectTrackMisnum(parm);
+    }
+    public Boolean InsertTrackMisnum(IndexDa024Dto parm){
+        return  appMapper.InsertTrackMisnum(parm);
+    }
+    public Boolean UpdateTrackMisnum(IndexDa024Dto parm){
+        return  appMapper.UpdateTrackMisnum(parm);
+    }
+
     public String SelectMaxMisnumWish(IndexDa023Dto parm){
         return  appMapper.SelectMaxMisnumWish(parm);
     }

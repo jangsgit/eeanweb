@@ -11,6 +11,11 @@ import java.util.List;
 @Mapper
 public interface Index14Mapper {
     public String SelectMaxMisnum(IndexDa023Dto parm) ;
+    public Integer SelectTrackMisnum(String parm) ;
+    public Boolean InsertTrackMisnum(IndexDa024Dto parm) ;
+    public Boolean UpdateTrackMisnum(IndexDa024Dto parm) ;
+
+
     public String SelectCheckMisnum(IndexDa023Dto parm) ;
     public String SelectCheckMisnumJupsu(IndexDa023Dto parm) ;
 

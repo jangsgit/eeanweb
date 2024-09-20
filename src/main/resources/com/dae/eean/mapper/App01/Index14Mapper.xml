@@ -46,6 +46,21 @@
         <![CDATA[  select  max(misnum)  from tb_da023  WITH (NOLOCK) where misdate = #{misdate}      ]]>
     </select>
 
+    <select id="SelectTrackMisnum" parameterType="String" resultType="Integer">
+        <![CDATA[  select  mnum  from tb_da024_mnum  WITH (NOLOCK) where misdate = #{misdate}      ]]>
+    </select>
+
+
+    <insert id="InsertTrackMisnum" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
+        insert into TB_DA024_MNUM ( misdate, mnum ) values  ( #{misdate}, #{mnum} )
+    </insert>
+
+
+    <update id="UpdateTrackMisnum" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
+        update TB_DA024_MNUM  set  mnum  = #{mnum} where misdate = #{misdate}
+    </update>
+
+
     <select id="SelectMaxMisnumWish" parameterType="com.dae.eean.DTO.App01.IndexDa023Dto" resultType="String">
         <![CDATA[  select  max(misnum)  from tb_da025  WITH (NOLOCK) where misdate = #{misdate}      ]]>
     </select>

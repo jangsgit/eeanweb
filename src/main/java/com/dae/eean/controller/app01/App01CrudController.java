@@ -17,6 +17,7 @@ import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.transaction.Transactional;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -1258,20 +1259,24 @@ public class App01CrudController {
                         }
                     }
                 }else{
-                    ls_misnum = service14.SelectCheckMisnumMkflag(_indexDa023Dto);  //주문된 순번max 찾기
-                    if(ls_misnum == null){
-                        ls_misnum = "0001";
-                    }else{
-                        Integer ll_misnum = Integer.parseInt(ls_misnum) + 1;
-                        ls_misnum = ll_misnum.toString();
-                        if (ls_misnum.length() == 1){
-                            ls_misnum = "000" + ls_misnum;
-                        }else if(ls_misnum.length() == 2){
-                            ls_misnum = "00" + ls_misnum;
-                        }else {
-                            ls_misnum = "0" + ls_misnum;
-                        }
-                    }
+                      ls_misnum = GetTrackNum(_indexDa023Dto.getMisdate());
+                      if(ls_misnum.equals("error")){
+                          return "error";
+                      }
+//                    ls_misnum = service14.SelectCheckMisnumMkflag(_indexDa023Dto);  //주문된 순번max 찾기
+//                    if(ls_misnum == null){
+//                        ls_misnum = "0001";
+//                    }else{
+//                        Integer ll_misnum = Integer.parseInt(ls_misnum) + 1;
+//                        ls_misnum = ll_misnum.toString();
+//                        if (ls_misnum.length() == 1){
+//                            ls_misnum = "000" + ls_misnum;
+//                        }else if(ls_misnum.length() == 2){
+//                            ls_misnum = "00" + ls_misnum;
+//                        }else {
+//                            ls_misnum = "0" + ls_misnum;
+//                        }
+//                    }
                 }
             }else{
                 ls_misnum = ls_chknull;
@@ -5237,6 +5242,39 @@ public class App01CrudController {
             return "error";
         }
         return "success";
+    }
+
+    @Transactional
+    public synchronized  String GetTrackNum(String agDate){
+        IndexDa024Dto _indexDa024Dto = new IndexDa024Dto();
+        Integer ll_misnum = 0;
+        String ls_misnum = "";
+        Boolean lb_result = false;
+        ll_misnum = service14.SelectTrackMisnum(agDate);
+        try {
+            if (ll_misnum == null){
+                ll_misnum = 1;
+                _indexDa024Dto.setMisdate(agDate);
+                _indexDa024Dto.setMnum(ll_misnum);
+                lb_result = service14.InsertTrackMisnum(_indexDa024Dto);
+            }else{
+                ll_misnum += 1;
+                _indexDa024Dto.setMisdate(agDate);
+                _indexDa024Dto.setMnum(ll_misnum);
+                lb_result = service14.UpdateTrackMisnum(_indexDa024Dto);
+            }
+            if (!lb_result){
+                log.info("GetTrackNum 오류 메시지: " + agDate + " / " + lb_result);
+                return "error";
+            }
+        }catch (Exception e){
+            log.info("GetTrackNum 오류 메시지: " + e.getMessage());
+            e.printStackTrace();
+            return "error";
+        }
+        // mnum을 4자리 문자열로 변환
+        ls_misnum = String.format("%04d", ll_misnum);
+        return ls_misnum;
     }
 
     public String GetMaxNum(String agDate){
