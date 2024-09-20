@@ -1195,6 +1195,7 @@
                     if(ls_makflag == null || ls_makflag.length == 0 || ls_makflag == "" || ls_makflag == "구분"){  
                         ls_makflag = "%"               
                     }  
+                    console.log(ls_makflag)
                     ls_perid = "";
                     $.ajax({
                         url: '/app01m/index14/listjang',  
@@ -1296,117 +1297,116 @@
 
 
 
-        function searchList_rtn(arg1){ 
-            switch(arg1){
-                case 'A': 
-                    break;
-                case 'B': 
-                    var ls_frdate = document.getElementById('frdate').value; 
-                    var ls_todate = document.getElementById('todate').value;          
-                    var ls_bacode   = document.getElementById('acode').value;       
-                    var ls_bcifname   = document.getElementById('bcifname').value;  
-                    var ls_bjpbgubn = document.getElementById('jpbgubn').value;  
-                    if(ls_frdate == null || ls_frdate.length == 0 || ls_frdate == ""){ 
-                        alert("조회일자를 등록하세요") 
-                        document.getElementById("frdate").focus(); 
-                        return ;               
-                    }   
-                    if(ls_todate == null || ls_todate.length == 0 || ls_todate == ""){ 
-                        alert("조회일자를 등록하세요") 
-                        document.getElementById("todate").focus(); 
-                        return ;               
-                    }     
-                    if(ls_bacode == null || ls_bacode.length == 0 || ls_bacode == ""){  
-                        alert("거래처를 등록하세요") 
-                        document.getElementById("bcifname").focus(); 
-                        return ;               
-                    }    
-                    var ls_checkAS = "%";
-                    ls_perid = "";
-                    $.ajax({
-                        url: '/app01m/index14/list',  
-                        type:"POST",
-                        data: {  
-                            "frdate"      : ls_frdate,
-                            "todate"      : ls_todate,
-                            "acode"      : ls_bacode,         
-                            "jcode"    : '%',      
-                            "perid"      : ls_perid,  
-                            "fixflag"    : '%',
-                            "devflag"    : '%',
-                            "jpbgubn"    : ls_bjpbgubn,
-                            "checkAS"    : ls_checkAS,
-                            "misgubun"    : '%',
-                            "mflag"  : 'BB'   ,      
-                        }, 
-                        async:false,
-                        success:function(data){      
-                            chkLogin(data)       
-                            tabB_grid(data);
-                        },error:function(e){
-                            console.log("error");
-                            // alert(data.code);
-                            // alert(data.message);
-                        }
-                    }).done(function(fragment){           
+        // function searchList_rtn(arg1){ 
+        //     switch(arg1){
+        //         case 'A': 
+        //             break;
+        //         case 'B': 
+        //             var ls_frdate = document.getElementById('frdate').value; 
+        //             var ls_todate = document.getElementById('todate').value;          
+        //             var ls_bacode   = document.getElementById('acode').value;       
+        //             var ls_bcifname   = document.getElementById('bcifname').value;  
+        //             var ls_bjpbgubn = document.getElementById('jpbgubn').value;  
+        //             if(ls_frdate == null || ls_frdate.length == 0 || ls_frdate == ""){ 
+        //                 alert("조회일자를 등록하세요") 
+        //                 document.getElementById("frdate").focus(); 
+        //                 return ;               
+        //             }   
+        //             if(ls_todate == null || ls_todate.length == 0 || ls_todate == ""){ 
+        //                 alert("조회일자를 등록하세요") 
+        //                 document.getElementById("todate").focus(); 
+        //                 return ;               
+        //             }     
+        //             if(ls_bacode == null || ls_bacode.length == 0 || ls_bacode == ""){  
+        //                 alert("거래처를 등록하세요") 
+        //                 document.getElementById("bcifname").focus(); 
+        //                 return ;               
+        //             }    
+        //             var ls_checkAS = "%";
+        //             ls_perid = "";
+        //             console.log(ls_makflag) 
+        //             $.ajax({
+        //                 url: '/app01m/index14/listjang',  
+        //                 type:"POST",
+        //                 data: {  
+        //                     "frdate"      : ls_frdate,
+        //                     "todate"      : ls_todate,
+        //                     "acode"      : ls_bacode,         
+        //                     "jcode"    : '%',      
+        //                     "perid"      : ls_perid,  
+        //                     "fixflag"    : '%',
+        //                     "devflag"    : '%',
+        //                     "jpbgubn"    : ls_bjpbgubn,
+        //                     "checkAS"    : ls_checkAS,
+        //                     "misgubun"    : '%',
+        //                     "mflag"  : 'BB'   ,      
+        //                 }, 
+        //                 async:false,
+        //                 success:function(data){      
+        //                     chkLogin(data)       
+        //                     tabB_grid(data);
+        //                 },error:function(e){
+        //                     console.log("error"); 
+        //                 }
+        //             }).done(function(fragment){           
 
-                    })  
-                    break;
-                case 'C': 
-                    var ls_frdate = document.getElementById('frdate02').value; 
-                    var ls_todate = document.getElementById('todate02').value;          
-                    var ls_bacode   = document.getElementById('acode').value;          
-                    var ls_dcifname   = document.getElementById('dcifname').value;  
-                    var ls_bjpbgubn = document.getElementById('jpbgubn').value;  
-                    if(ls_frdate == null || ls_frdate.length == 0 || ls_frdate == ""){ 
-                        alert("조회일자를 등록하세요") 
-                        document.getElementById("frdate02").focus(); 
-                        return ;               
-                    }   
-                    if(ls_todate == null || ls_todate.length == 0 || ls_todate == ""){ 
-                        alert("조회일자를 등록하세요") 
-                        document.getElementById("todate02").focus(); 
-                        return ;               
-                    }     
-                    if(ls_bacode == null || ls_bacode.length == 0 || ls_bacode == ""){  
-                        alert("거래처를 등록하세요") 
-                        document.getElementById("bcifname").focus(); 
-                        return ;               
-                    }   
-                    ls_perid = "";
-                    $.ajax({
-                        url: '/app01m/index14/listwish',   
-                        type:"POST",
-                        data: { 
-                            "frdate"      : ls_frdate,
-                            "todate"      : ls_todate,
-                            "acode"      : ls_bacode,    
-                            "jcode"    : '%',      
-                            "fixflag"    : '%',
-                            "perid"      : ls_perid, 
-                            "misgubun"    : '%', 
-                            "mflag"  : 'BB'   ,  
-                            "jpbgubn" :ls_bjpbgubn, 
-                        }, 
-                        async:false,
-                        success:function(data){      
-                            chkLogin(data)       
-                            tabC_grid(data);
-                        },error:function(e){
-                            console.log("error");
-                            // alert(data.code);
-                            // alert(data.message);
-                        }
-                    }).done(function(fragment){           
+        //             })  
+        //             break;
+        //         case 'C': 
+        //             var ls_frdate = document.getElementById('frdate02').value; 
+        //             var ls_todate = document.getElementById('todate02').value;          
+        //             var ls_bacode   = document.getElementById('acode').value;          
+        //             var ls_dcifname   = document.getElementById('dcifname').value;  
+        //             var ls_bjpbgubn = document.getElementById('jpbgubn').value;  
+        //             if(ls_frdate == null || ls_frdate.length == 0 || ls_frdate == ""){ 
+        //                 alert("조회일자를 등록하세요") 
+        //                 document.getElementById("frdate02").focus(); 
+        //                 return ;               
+        //             }   
+        //             if(ls_todate == null || ls_todate.length == 0 || ls_todate == ""){ 
+        //                 alert("조회일자를 등록하세요") 
+        //                 document.getElementById("todate02").focus(); 
+        //                 return ;               
+        //             }     
+        //             if(ls_bacode == null || ls_bacode.length == 0 || ls_bacode == ""){  
+        //                 alert("거래처를 등록하세요") 
+        //                 document.getElementById("bcifname").focus(); 
+        //                 return ;               
+        //             }   
+        //             ls_perid = "";
+        //             $.ajax({
+        //                 url: '/app01m/index14/listwishjang',   
+        //                 type:"POST",
+        //                 data: { 
+        //                     "frdate"      : ls_frdate,
+        //                     "todate"      : ls_todate,
+        //                     "acode"      : ls_bacode,    
+        //                     "jcode"    : '%',      
+        //                     "fixflag"    : '%',
+        //                     "perid"      : ls_perid, 
+        //                     "misgubun"    : '%', 
+        //                     "mflag"  : 'BB'   ,  
+        //                     "jpbgubn" :ls_bjpbgubn, 
+        //                 }, 
+        //                 async:false,
+        //                 success:function(data){      
+        //                     chkLogin(data)       
+        //                     tabC_grid(data);
+        //                 },error:function(e){
+        //                     console.log("error");
+        //                     // alert(data.code);
+        //                     // alert(data.message);
+        //                 }
+        //             }).done(function(fragment){           
 
-                    })  
-                    break;                
-                default:    
-                    break;                
-            }
+        //             })  
+        //             break;                
+        //         default:    
+        //             break;                
+        //     }
         
 
-        }   
+        // }   
         
         
         function tabB_grid(data){
