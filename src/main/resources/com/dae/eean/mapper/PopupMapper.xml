@@ -97,7 +97,7 @@
             Where 1 = 1
             AND frdate <= #{ninputdate} and todate >= #{ninputdate}
             AND ( ngourpcd like concat('%',#{ngourpcd},'%') OR nflag = 'Y')
-            order by nseq desc;
+            order by nseq  ;
         ]]>
     </select>
 </mapper>
