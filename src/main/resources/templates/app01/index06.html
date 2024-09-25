@@ -643,6 +643,7 @@
                 columns: [     
                     // { binding: 'active', header: '선택', align: "center", width: 80  ,dataType:3,allowSorting: false, dataType: wijmo.DataType.Boolean  }, 
                     { binding: 'pernm', header: '사원명', align: "center", width: 120 }, 
+                    { binding: 'misdate', header: '일자', align: "center", width: 120 }, 
                     { binding: 'acorp', header: '거래처', align: "center", width: 150 , },  
                     // { binding: 'misdate', header: '주문일자', align: "center", width: 120 }, 
                     // { binding: 'misnum', header: '주문번호', align: "center", width: 80 },  
@@ -655,6 +656,8 @@
                     { binding: 'qty', header: '수량', align: "center", width: 80 ,  aggregate: 'Sum'},  
                     { binding: 'uamt', header: '단가', align: "center", width: 100 },  
                     { binding: 'samt', header: '금액', align: "center", width: 150,  aggregate: 'Sum' },  
+                    { binding: 'misnum', header: '순번', align: "center", width: 100 },  
+                    { binding: 'misgubun', header: '비고', align: "center", width: 100 },  
                     // { binding: 'fixflag', header: '확정', align: "center", width: 150, cssClass: 'switch'   },  
                     
                 ], 
@@ -682,6 +685,11 @@
                         }
                     } 
                     if(e.panel.cellType == wijmo.grid.CellType.Cell && s.columns[e.col].binding === 'acorp'){
+                        var groupRow = s.rows[e.row]; 
+                            var cellElement = e.cell;
+                            cellElement.style.fontWeight = 'normal';  
+                    } 
+                    if(e.panel.cellType == wijmo.grid.CellType.Cell && s.columns[e.col].binding === 'misdate'){
                         var groupRow = s.rows[e.row]; 
                             var cellElement = e.cell;
                             cellElement.style.fontWeight = 'normal';  
@@ -1725,6 +1733,13 @@
             var bfixflag = false
             for (var i = 0; i < wtab03Dto.length; i++) { 
                 ls_mistxt = wtab03Dto[i]["misdate"] + "/" + wtab03Dto[i]["misnum"];
+                if(wtab03Dto[i]["misgubun"] == "AA"){
+                    ls_misgubun = "본사";
+                }else if(wtab03Dto[i]["misgubun"] == "BB"){
+                    ls_misgubun = "거래처";
+                }else if(wtab03Dto[i]["misgubun"] == "CC"){
+                    ls_misgubun = "사원";
+                } 
                 wtab03_data.push({
                     id: i, 
                     index: cnt,
@@ -1739,7 +1754,8 @@
                     inname: wtab03Dto[i]["inname"] ,  
                     misdate: wtab03Dto[i]["misdate"],  
                     misnum: wtab03Dto[i]["misnum"]  ,  
-                    mistxt: ls_mistxt           
+                    mistxt: ls_mistxt            ,  
+                    misgubun: ls_misgubun           
                 });
                 cnt++;
             }      
@@ -1759,17 +1775,17 @@
             cols.width = 150; 
             wtab03Grid.columns.push(cols);     
             cols = new wijmo.grid.Column(); 
+            cols.binding = 'misdate';
+            cols.header = '일자';
+            cols.align = "center";
+            cols.width = 100;  
+            wtab03Grid.columns.push(cols);       
+            cols = new wijmo.grid.Column(); 
             cols.binding = 'acorp';
             cols.header = '거래처';
             cols.align = "center";
             cols.width = 250;  
-            wtab03Grid.columns.push(cols);   
-            // cols = new wijmo.grid.Column(); 
-            // cols.binding = 'rownum';
-            // cols.header = '건수';
-            // cols.align = "center";
-            // cols.width = 100;  
-            // wtab03Grid.columns.push(cols);      
+            wtab03Grid.columns.push(cols);  
             cols = new wijmo.grid.Column(); 
             cols.binding = 'qty';
             cols.header = '수량';
@@ -1785,10 +1801,16 @@
             cols.width = 120;  
             wtab03Grid.columns.push(cols);        
             cols = new wijmo.grid.Column(); 
-            cols.binding = 'mistxt'; 
+            cols.binding = 'misnum'; 
             cols.header = '순번';
             cols.align = "center"; 
-            cols.width = 250;  
+            cols.width = 80;  
+            wtab03Grid.columns.push(cols);          
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'misgubun'; 
+            cols.header = '비고';
+            cols.align = "center"; 
+            cols.width = 80;  
             wtab03Grid.columns.push(cols);   
  
         }

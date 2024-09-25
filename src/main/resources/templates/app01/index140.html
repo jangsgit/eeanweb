@@ -586,40 +586,35 @@
                                     <table>
                                         <tr>
                                             <!-- <th>제목</th> -->
-                                            <td colspan="5">
+                                            <td colspan="3">
                                                 <span id="actnsubjectz"></span>
                                             </td>
                                         </tr> 
                                         <tr> 
                                             <!-- <th style="width: 10%;">작성자</th> -->
-                                            <td style="width: 23%">                                                
+                                            <td >                                                
                                                 <span id="actnpernmz"></span>
                                                 <!-- <input type="text" name="actnpernmz" id="actnpernmz" disabled> -->
                                             </td>
-                                            <th style="width: 13%;">작성일자</th>
-                                            <td style="width: 23%"  >
+                                            <th >작성일자</th>
+                                            <td >
                                                 <span id="actninputdatez"></span>
-                                            </td> 
-                                            <th ><input type="checkbox" id="closeflag" value="Y" onclick="close_rtn()"  >오늘그만보기</th>
+                                            </td>
+                                            <!-- <th ><input type="checkbox" id="closeflag" value="Y" onclick="close_rtn()"  >오늘그만보기</th> -->
                                         </tr>
                                         <tr>
                                             <!-- <th>내용</th> -->
-                                            <td colspan="5">
+                                            <td colspan="3">
                                                 <span id="actnmemoz"></span> 
                                             </td>
-                                        </tr> 
-                                        <tr>
-                                            <!-- <th>첨부파일</th> -->
-                                            <td colspan="5">
-                                                <div data-name="filelistDiv" id="filelistDiv" class="table table_style3"></div> 
-                                            </td>
-                                            <!-- <td >
-                                                <input type="checkbox" id="closeflag" value="Y" onclick="close_rtn()"  >오늘그만보기
-                                            </td> -->
-                                        </tr> 
-                                    </table> 
+                                        </tr>  
+                                    </table>  
                                     <br>
-                                    <span id="spcount"></span>
+                                    <!-- <span id="spcount"></span> --> 
+                                    <div data-name="filelistDiv" id="filelistDiv" class="table table_style3"></div> 
+                                    <div style="float: right;">
+                                        <input type="checkbox" id="closeflag" value="Y" onclick="close_rtn()"  >오늘그만보기 
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1218,9 +1213,9 @@
             });
             if(ls_arg10 > 1){ 
                 ls_arg10 = ls_arg10 - 1;
-                document.getElementById("spcount").innerHTML = "<strong>" + ls_arg3 + " </strong> 외 " + ls_arg10 + "건의 공지가 있습니다. 공지사항 메뉴에서 확인하세요.";
+                // document.getElementById("spcount").innerHTML = "<strong>" + ls_arg3 + " </strong> 외 " + ls_arg10 + "건의 공지가 있습니다. 공지사항 메뉴에서 확인하세요.";
             }else{ 
-                document.getElementById("spcount").innerHTML = "<strong>공지사항</strong>";
+                // document.getElementById("spcount").innerHTML = "<strong>공지사항</strong>";
             }
               
                 var wfile_data = [];
