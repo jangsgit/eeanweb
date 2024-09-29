@@ -751,7 +751,8 @@
         }).done(function(fragment){
 
         }) 
-        listUp(); 
+        //listUp(); 
+        listUp02(); 
     } 
     function listUp(){
         var ls_actcustnm = document.getElementById('actcustnm').value;  
@@ -779,7 +780,12 @@
 
         })      
     }
-          
+        
+    
+    function listUp02(){
+        window.location.href = '/admin/index06';
+    }; 
+
     function tabA_grid(data){ 
         var wtab04Dto  = data;    
         var wtab04_data = [];

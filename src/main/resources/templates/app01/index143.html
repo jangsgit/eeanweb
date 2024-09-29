@@ -85,7 +85,7 @@
                                             </div> 
                                             <div class="col-2 col-sm-2">
                                                 <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">사원명</span> 
-                                                    <input type="text" name="inname01" id="inname01" placeholder=""  disabled > 
+                                                    <input class="form-control form-control-sm" type="text" name="inname01" id="inname01" placeholder=""  style="width: 150px;  "  disabled > 
                                                     <input type="hidden" name="abonsadam1" id="abonsadam1" placeholder=""  >  
                                                     <input class="form-control form-control-sm" id="jpbgubn" type="hidden"  />  
                                                     
@@ -132,7 +132,7 @@
                                             </div> 
                                             <div class="col-2 col-sm-2">
                                                 <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">사원명</span> 
-                                                    <input type="text" name="inname02" id="inname02" placeholder=""  disabled  > 
+                                                    <input class="form-control form-control-sm" type="text" name="inname02" id="inname02" placeholder="" style="width: 150px;  "  disabled  > 
                                                     <input type="hidden" name="abonsadam2" id="abonsadam2" placeholder=""  >    
                                                     
                                                 </div>
@@ -180,7 +180,7 @@
                                             </div> 
                                             <div class="col-1 col-sm-2">
                                                 <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">사원명</span> 
-                                                    <input type="text" name="inname03" id="inname03" placeholder="" disabled  > 
+                                                    <input class="form-control form-control-sm" type="text" name="inname03" id="inname03" style="width: 150px;  " placeholder="" disabled  > 
                                                     <input type="hidden" name="abonsadam3" id="abonsadam3" placeholder=""  >   
                                                     
                                                 </div>
@@ -227,7 +227,7 @@
                                             </div> 
                                             <div class="col-2 col-sm-2">
                                                 <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">사원명</span> 
-                                                    <input type="text" name="inname04" id="inname04" placeholder="" disabled  > 
+                                                    <input class="form-control form-control-sm" type="text" name="inname04" id="inname04" placeholder="" style="width: 150px;  "  disabled  > 
                                                     <input type="hidden" name="abonsadam4" id="abonsadam4" placeholder=""  >   
                                                     
                                                 </div>
@@ -603,7 +603,17 @@
                             var cellElement = e.cell;
                             cellElement.style.fontWeight = 'normal';  
                     } 
-                    if(e.panel.cellType == wijmo.grid.CellType.Cell && s.columns[e.col].binding === 'misdate'){
+                    if(e.panel.cellType == wijmo.grid.CellType.Cell && s.columns[e.col].binding === 'misnum'){
+                        var groupRow = s.rows[e.row]; 
+                            var cellElement = e.cell;
+                            cellElement.style.fontWeight = 'normal';  
+                    } 
+                    if(e.panel.cellType == wijmo.grid.CellType.Cell && s.columns[e.col].binding === 'remarkaa'){
+                        var groupRow = s.rows[e.row]; 
+                            var cellElement = e.cell;
+                            cellElement.style.fontWeight = 'normal';  
+                    } 
+                    if(e.panel.cellType == wijmo.grid.CellType.Cell && s.columns[e.col].binding === 'remarkbb'){
                         var groupRow = s.rows[e.row]; 
                             var cellElement = e.cell;
                             cellElement.style.fontWeight = 'normal';  
@@ -1269,6 +1279,8 @@
             var cnt = 1;
             var bfixflag = false
             var ls_mistxt = "";
+            var ls_remark01 = "";
+            var ls_remark02 = "";
             for (var i = 0; i < wtab03Dto.length; i++) { 
                 ls_mistxt = wtab03Dto[i]["misdate"] + "/" + wtab03Dto[i]["misnum"];
                 if(wtab03Dto[i]["misgubun"] == "AA"){
@@ -1278,6 +1290,16 @@
                 }else if(wtab03Dto[i]["misgubun"] == "CC"){
                     ls_misgubun = "사원";
                 } 
+                if(wtab03Dto[i]["remarkaa"].length > 0){
+                    ls_remark01 = wtab03Dto[i]["remarkaa"];
+                }else{
+                    ls_remark01 = "";
+                }  
+                if(wtab03Dto[i]["remarkbb"].length > 0){
+                    ls_remark02 = wtab03Dto[i]["remarkbb"];
+                }else{
+                    ls_remark02 = "";
+                }  
                 wtab03_data.push({
                     id: i, 
                     index: cnt,
@@ -1293,7 +1315,9 @@
                     misdate: wtab03Dto[i]["misdate"],  
                     misnum: wtab03Dto[i]["misnum"] ,  
                     mistxt: ls_mistxt            ,  
-                    misgubun: ls_misgubun                   
+                    misgubun: ls_misgubun   ,
+                    remarkaa: ls_remark01,  
+                    remarkbb: ls_remark02,                  
                 });
                 cnt++;
             }     
@@ -1314,11 +1338,17 @@
             cols.width = 150; 
             wtab03Grid.columns.push(cols);      
             cols = new wijmo.grid.Column(); 
-            cols.binding = 'misdate';
-            cols.header = '일자';
-            cols.align = "center";
-            cols.width = 100;  
-            wtab03Grid.columns.push(cols);     
+            cols.binding = 'misnum'; 
+            cols.header = '순번';
+            cols.align = "center"; 
+            cols.width = 80;  
+            wtab03Grid.columns.push(cols);       
+            // cols = new wijmo.grid.Column(); 
+            // cols.binding = 'misdate';
+            // cols.header = '일자';
+            // cols.align = "center";
+            // cols.width = 100;  
+            // wtab03Grid.columns.push(cols);     
             cols = new wijmo.grid.Column(); 
             cols.binding = 'acorp';
             cols.header = '거래처';
@@ -1346,17 +1376,17 @@
             cols.width = 120;  
             wtab03Grid.columns.push(cols);        
             cols = new wijmo.grid.Column(); 
-            cols.binding = 'misnum'; 
-            cols.header = '순번';
-            cols.align = "center"; 
-            cols.width = 80;  
-            wtab03Grid.columns.push(cols);          
+            cols.binding = 'remarkaa'; 
+            cols.header = '본사비고';
+            cols.align = "left"; 
+            cols.width = 200;  
+            wtab03Grid.columns.push(cols);     
             cols = new wijmo.grid.Column(); 
-            cols.binding = 'misgubun'; 
-            cols.header = '비고';
-            cols.align = "center"; 
-            cols.width = 80;  
-            wtab03Grid.columns.push(cols);   
+            cols.binding = 'remarkbb'; 
+            cols.header = '영업점비고';
+            cols.align = "left"; 
+            cols.width = 200;  
+            wtab03Grid.columns.push(cols);  
  
         }
             

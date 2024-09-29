@@ -764,11 +764,11 @@ public class AppIndexCrudController {
             if(ngroupcd.equals("BB")){
                 _App05Dto.setNgourpcd("02");       //영업점
             }else if(ngroupcd.equals("CC")){
-                _App05Dto.setNgourpcd("01");        //영업사원
+                _App05Dto.setNgourpcd("01");        //영업사원-직원공지
             }else if(ngroupcd.equals("AA")){
-                _App05Dto.setNgourpcd("03");       //본사
+                _App05Dto.setNgourpcd("01");       //본사-직원공지
             }else{
-                _App05Dto.setNgourpcd("%");
+                _App05Dto.setNgourpcd("%");         // 전체공지
             }
             App05ListDto = popservice.GetTodayMNoticeList(_App05Dto);
 

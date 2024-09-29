@@ -674,7 +674,8 @@
     <select id="SelectDa024ListCltcdGroup"  parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" resultType="com.dae.eean.DTO.App01.IndexDa024Dto">
         <![CDATA[ select B.cltcd as cltcd, count(*) as rownum, Left(B.misdate,4) + '-' + substring(B.misdate, 5,2)+ '-' + substring(B.misdate, 7,2) as misdate, B.misnum,
                         sum(B.qty) as qty, sum(B.samt) as samt, sum(B.addamt) as addamt,
-                      sum(B.amt) as amt, B.acorp, B.pernm as inname, B.misgubun as misgubun, isnull(B.fixflag,'0') as fixflag, B.pernm as pernm
+                      sum(B.amt) as amt, B.acorp, B.pernm as inname, B.misgubun as misgubun, isnull(B.fixflag,'0') as fixflag, B.pernm as pernm,
+                      max(isnull(B.remarkaa,'')) as remarkaa, max(isnull(B.remarkbb,'')) as remarkbb
                   from  TB_DA024 B WITH (NOLOCK)
                   where  B.cltcd Like #{cltcd}
                     AND isnull(B.perid,'')  Like concat('%',#{perid},'%')

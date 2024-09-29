@@ -96,7 +96,7 @@
             from tb_mnotice WITH (NOLOCK)
             Where 1 = 1
             AND frdate <= #{ninputdate} and todate >= #{ninputdate}
-            AND ( ngourpcd like concat('%',#{ngourpcd},'%') OR nflag = 'Y')
+            AND ( ngourpcd like concat('%',#{ngourpcd},'%') OR nflag = 'Y' OR ngourpcd = '03')
             order by nseq  ;
         ]]>
     </select>
