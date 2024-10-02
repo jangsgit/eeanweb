@@ -155,7 +155,7 @@
                                 </div>    
                             </div>             
                             <div class="col-3 col-sm-2">     
-                                <button class="btn btn-falcon-primary me-1 mb-1 btn-md" id="listBtn" type="button" onclick="clear_rtn()" >신규
+                                <button class="btn btn-falcon-primary me-1 mb-1 btn-md" id="listBtn" type="button" onclick="clear_rtn_new()" >신규
                                 </button> 
                                 <!-- <button class="btn btn-danger me-1 mb-1 btn-md" id="DelBtn" type="button"  >삭제
                                 </button> -->
@@ -2529,6 +2529,32 @@
         }  
         function clear_rtn(){ 
                 //getToday()
+                var ls_condamdang = document.getElementById('condamdang').value;
+                var ls_asasgong = document.getElementById('asasgong').value;
+                document.getElementById('asaskey2').value = "";   
+                document.getElementById('asasmodel').value = "";   
+                document.getElementById('asascolor').value = "";   
+                document.getElementById('asassuri').value = "";   
+                document.getElementById('asasyumu').value = "무상";  
+                document.getElementById('asasgong').value = ls_asasgong;  
+                document.getElementById('jcifname').value = "";   
+                document.getElementById('jacorp1').value = "";   
+                document.getElementById('jacorp2').value = "";   
+                document.getElementById('jacorp3').value = "";     
+                document.getElementById('asasmemo').value = "";   
+                document.getElementById('asasmemo2').value = "";   
+                document.getElementById('asasmemo3').value = "";   
+                document.getElementById('asaname').value = "B"; 
+                document.getElementById('condamdang').value = ls_condamdang; 
+                document.getElementById('jcifname').disabled = false; 
+                document.getElementById('jchgoga').disabled = false; 
+                document.getElementById('asasyumu').disabled = false; 
+                document.getElementById('condamdang').disabled = false; 
+                document.getElementById('jchgoga').value = 0;                 
+                document.getElementById("asasgong").focus(); 
+        }
+        function clear_rtn_new(){ 
+                getToday()
                 var ls_condamdang = document.getElementById('condamdang').value;
                 var ls_asasgong = document.getElementById('asasgong').value;
                 document.getElementById('asaskey2').value = "";   
