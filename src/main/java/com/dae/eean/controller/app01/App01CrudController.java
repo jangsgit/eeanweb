@@ -773,7 +773,8 @@ public class App01CrudController {
             index03Dto_S.setJbonsa_code(jbonsacode);
             index03Dto_S.setJpb_gubn(jpbgubn);
             index03Dto_S.setTodate(getToDate());
-            if(flag.equals("AA")) {
+            index03Dto_S.setJsayong_gubn(flag); //AA 본사 BB 영업점  CC 영어사원
+            if(flag.equals("AA") || flag.equals("CC")) {
                 _index03List = service03.GetGanListBonsa01(index03Dto_S);
             }else{
                 _index03List = service03.GetGanListBonsa01BB(index03Dto_S);

@@ -1305,7 +1305,29 @@
             if(e.key === "Enter"){   
                 save_btn("A")
             }
-        }); 
+        });  
+
+        document.getElementById("asaskey1").addEventListener("input", function(){  
+           // 입력된 날짜 값 가져오기
+           var inputDate = this.value;
+            // 날짜 형식 검사 (YYYY-MM-DD 형식만 허용)
+            var datePattern = /^\d{4}-\d{2}-\d{2}$/;  // YYYY-MM-DD 형식 정규식
+            if (datePattern.test(inputDate)) {
+                var date = new Date(inputDate);  // 입력된 값을 Date 객체로 변환
+                if (!isNaN(date.getTime())) {    // 유효한 날짜인지 확인
+                    var dayOfWeek = date.getDay();  // 요일 계산 (0: 일요일, 6: 토요일)
+
+                    // 토요일(6) 또는 일요일(0)인 경우 경고창 표시
+                    if (dayOfWeek === 0 || dayOfWeek === 6) {
+                        alert('선택하신 날짜는 주말입니다! 다른 날짜를 선택해주세요.');
+                    }
+                } else {
+                    alert('유효하지 않은 날짜입니다.');
+                }
+            } else if (inputDate !== '') {
+                alert('날짜 형식이 잘못되었습니다. YYYY-MM-DD 형식으로 입력해주세요.');
+            }
+        });         
   
         function CifSearchList_rtn(arg){  
 
@@ -2638,6 +2660,7 @@
         $(document).ready(function() { 
             getToday()
             fn_egov_init_date() 
+ 
             //
             // $('datetimepicker').datetimepicker({
                 

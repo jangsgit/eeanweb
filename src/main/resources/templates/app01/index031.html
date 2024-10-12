@@ -62,7 +62,7 @@
                             </div>                              
                             <!-- //여기서부터 그래프 -->
                             <div class="table table_style2">
-                                <div class="card-body bg-light">   
+                                  
                                       <div class="tab-content" >                                        
                                         <div class="tab-pane fade show active"  >  
                                                 <div class="container-fluid" id="op1" >
@@ -70,8 +70,7 @@
                                                 <!-- <div style="display: flex; margin: 0 auto; " id="tab01Pager"></div> -->
                                             </div>                                               
                                         </div>                                        
-                                      </div>
-                                </div>
+                                      </div> 
                             </div>                       
                                                         
                         </div>
@@ -479,7 +478,7 @@
                 { binding: 'jcolor_code', header: '모델칼라', align: "center", width: 100 },                      
                 { binding: 'jpum', header: '품명', align: "left", width: 150 },                       
                 { binding: 'jgugek', header: '규격', align: "center", width: 100 },  
-                { binding: 'jchgoga0', header: '단가', align: "right", width: 100 },                     
+                { binding: 'jchgoga0', header: '단가', align: "right",width: 100 , format: 'n0' },                     
                 
             ], 
             itemsSource: view_p01tab01page
@@ -538,8 +537,9 @@
             var wtab01Dto = [[${index03List}]];   
             var wactnm_data = [];       
             var cnt = 1;   
-            
+            var ll_jchgoga0 = 0;
             for (var i = 0; i < wtab01Dto.length; i++) {
+                ll_jchgoga0 = Number(wtab01Dto[i]["jchgoga0"])
                 wactnm_data.push({
                     id: i, 
                     index: cnt, 
@@ -562,8 +562,7 @@
                     jpum: wtab01Dto[i]["jpum"], 
                     jgugek: wtab01Dto[i]["jgugek"], 
                     jsize: wtab01Dto[i]["jsize"], 
-                    jchgoga0: wtab01Dto[i]["jchgoga0"], 
-                    jchgoga0: wtab01Dto[i]["jchgoga0"],
+                    jchgoga0: ll_jchgoga0, 
                     jbigo: wtab01Dto[i]["jbigo"],     
                     jopt: wtab01Dto[i]["jopt"],        
                     delflag: wtab01Dto[i]["delflag"],   
@@ -949,7 +948,10 @@
             var wtab01Dto  = data;    
             var wtab01_data = [];
             var cnt = 1;
+            var ll_jchgoga0 = 0; 
+
             for (var i = 0; i < wtab01Dto.length; i++) {
+                ll_jchgoga0 = Number(wtab01Dto[i]["jchgoga0"])
                 wtab01_data.push({
                     id: i, 
                     index: cnt, 
@@ -972,8 +974,7 @@
                     jpum: wtab01Dto[i]["jpum"], 
                     jgugek: wtab01Dto[i]["jgugek"], 
                     jsize: wtab01Dto[i]["jsize"], 
-                    jchgoga0: wtab01Dto[i]["jchgoga0"], 
-                    jchgoga0: wtab01Dto[i]["jchgoga0"],
+                    jchgoga0: ll_jchgoga0,  
                     jbigo: wtab01Dto[i]["jbigo"],     
                     jopt: wtab01Dto[i]["jopt"],        
                     delflag: wtab01Dto[i]["delflag"],    
@@ -1040,7 +1041,8 @@
             cols.binding = 'jchgoga0';
             cols.header = '단가';
             cols.align = "right";
-            cols.width = 100;           
+            cols.width = 100;         
+            cols.format= 'n0'  
             wtab01Grid.columns.push(cols);
       
         }        

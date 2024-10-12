@@ -314,7 +314,8 @@
                 exec SP_GetGanListBonsa01
                     #{jpb_gubn, jdbcType=VARCHAR},
                     #{jbonsa_code, jdbcType=VARCHAR},
-                    #{todate, jdbcType=VARCHAR}
+                    #{todate, jdbcType=VARCHAR},
+                    #{jsayong_gubn, jdbcType=VARCHAR}
          ]]>
     </select>
 

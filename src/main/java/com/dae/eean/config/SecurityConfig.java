@@ -22,6 +22,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception{
+//        http
+//                .requiresChannel()
+//                .anyRequest()
+//                .requiresSecure();  // 모든 HTTP 요청을 HTTPS로 리디렉션
         http.csrf().disable();
         http.authorizeRequests()
                 .antMatchers("/members/user/**").authenticated()        //인증만되면 들어갈수있는 주소 .
