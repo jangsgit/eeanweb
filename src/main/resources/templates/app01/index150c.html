@@ -841,7 +841,7 @@
                 type:"POST",
                 data: { 
                     "searchtxt" :arg,   
-                    "jpbgubn" : ls_jpbgubn 
+                    "jpbgubn" : ls_jpbgubn  
                 }, 
                 async:false,
                 success:function(data){  
@@ -866,7 +866,8 @@
                     data: { 
                         "jcust" :arg, 
                         "jmodel" :ls_jmodel,  
-                        "jpbgubn" : argjpb
+                        "jpbgubn" : argjpb, 
+                        "flag" : 'BB'
                     }, 
                     async:false,
                     success:function(data){  

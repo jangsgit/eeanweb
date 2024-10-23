@@ -26,7 +26,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .requiresChannel()
 //                .anyRequest()
 //                .requiresSecure();  // 모든 HTTP 요청을 HTTPS로 리디렉션
-        http.csrf().disable();
+        http.csrf().disable();        //spring boot auto login 사용하지 않음
         http.authorizeRequests()
                 .antMatchers("/members/user/**").authenticated()        //인증만되면 들어갈수있는 주소 .
                 .antMatchers("/members/manager/**").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER')")

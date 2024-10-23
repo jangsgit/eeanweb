@@ -954,7 +954,7 @@ aria-hidden="true">
                 async:false,
                 success:function(data){  
                     jcust_grid(arg, data, ls_jpbgubn);
-                },error:function(e){
+                },error:function(e){ 
                     console.log("error");                            
                 }
             }).done(function(fragment){           
@@ -974,7 +974,8 @@ aria-hidden="true">
                     data: { 
                         "jcust" :arg, 
                         "jmodel" :ls_jmodel, 
-                        "jpbgubn" : argjpb
+                        "jpbgubn" : argjpb, 
+                        "flag" : 'CC'
                     }, 
                     async:false,
                     success:function(data){  

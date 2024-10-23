@@ -192,6 +192,13 @@
         WHERE isnull(jmodel_code,'')   = #{jmodel_code}
           and isnull(jcustomer_code,'')   = #{jcustomer_code}
           and isnull(jpb_gubn,'') Like concat('%',#{jpb_gubn},'%')
+          AND (
+                    (#{flag} = 'AA' AND jsayong_gubn IN ('1','2','3'))
+                    OR
+                    (#{flag} = 'CC' AND jsayong_gubn IN ('1','2'))
+                    OR
+                    (#{flag} = 'BB' AND jsayong_gubn IN ('1'))
+		        )
           and jsayong_gubn <> '4'
         ORDER BY jmodel_code, CONVERT(float, jcolor_code3),jkey
         ]]>

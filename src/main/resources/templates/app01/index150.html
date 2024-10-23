@@ -1207,7 +1207,7 @@ aria-hidden="true">
             window.localStorage.setItem("bbs_BB",  ls_today)
             $("#CloseBtn").trigger("click");
         }
-
+ 
         function wcustcodeChk_a(arg){  
             // div 초기화 
             const ListDivs = $('div[data-name="ListDiv"]');
@@ -1251,7 +1251,8 @@ aria-hidden="true">
                     data: { 
                         "jcust" :arg, 
                         "jmodel" :ls_jmodel, 
-                        "jpbgubn" : argjpb
+                        "jpbgubn" : argjpb, 
+                         "flag" : 'BB'
                     }, 
                     async:false,
                     success:function(data){        
