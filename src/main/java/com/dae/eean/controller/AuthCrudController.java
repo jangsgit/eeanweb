@@ -131,7 +131,6 @@ public class AuthCrudController {
             , @RequestParam("flag") String select
             , Model model
             , HttpServletRequest request) throws Exception{
-
         if(loginid == null || loginid.equals("")){
             return "error";
         }

@@ -22,11 +22,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception{
-        http
-                .requiresChannel()
-                .anyRequest()
-                .requiresSecure();  // 모든 HTTP 요청을 HTTPS로 리디렉션
-//        http.csrf().disable();
+//        http
+//                .requiresChannel()
+//                .anyRequest()
+//                .requiresSecure();  // 모든 HTTP 요청을 HTTPS로 리디렉션
+        http.csrf().disable();
         http.authorizeRequests()
                 .antMatchers("/members/user/**").authenticated()        //인증만되면 들어갈수있는 주소 .
                 .antMatchers("/members/manager/**").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER')")
@@ -34,15 +34,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().permitAll()
                 .and()
                 .formLogin()
-                    .loginPage("/members/loginForm")
-                    .loginProcessingUrl("/login") //login 주소가 호출이되면 시큐리티가 낚아채서 대신 로그인을 진행해준다.
-                    .defaultSuccessUrl("/members/user")
-                    .failureUrl("/members/login/error")
+                .loginPage("/members/loginForm")
+                .loginProcessingUrl("/login") //login 주소가 호출이되면 시큐리티가 낚아채서 대신 로그인을 진행해준다.
+                .defaultSuccessUrl("/members/user")
+                .failureUrl("/members/login/error")
                 .and()
                 .logout()
-                    .logoutUrl("/members/logout")
-    //                .logoutRequestMatcher(new AntPathRequestMatcher("/members/logout"))
-                    .logoutSuccessUrl("/members/logout");
+                .logoutUrl("/members/logout")
+                //                .logoutRequestMatcher(new AntPathRequestMatcher("/members/logout"))
+                .logoutSuccessUrl("/members/logout");
 
 
         http.exceptionHandling()
