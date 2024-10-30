@@ -98,8 +98,12 @@
                                                     <input class="form-control form-control-sm" id="acorp2" type="hidden"  />
                                                     <input class="form-control form-control-sm" id="acorp3" type="hidden"  />
                                                     <input class="form-control form-control-sm" id="acode" type="hidden"  />   
-                                                </div>
+                                                </div> 
                                             </div>
+                                            <div class="col-1 col-sm-1">  
+                                                <button class="btn btn-falcon-primary me-1 mb-1 btn-sm" id="ciflistBtn01" type="button"  >검색
+                                                </button>
+                                            </div>  
                                             <div class="col-2 col-sm-2">
                                                 <select class="form-select form-select-sm" id="misfixflag" aria-label=".form-select-sm example">
                                                     <option selected="">출력구분</option>
@@ -146,6 +150,10 @@
                                                     <input class="form-control form-control-sm" id="bacode" type="hidden"  />   
                                                 </div>
                                             </div>
+                                            <div class="col-1 col-sm-1">  
+                                                <button class="btn btn-falcon-primary me-1 mb-1 btn-sm" id="ciflistBtn02" type="button"  >검색
+                                                </button>
+                                            </div>  
                                             <div class="col-2 col-sm-2">
                                                 <select class="form-select form-select-sm" id="misfixflag02" aria-label=".form-select-sm example">
                                                     <option selected="">출력구분</option>
@@ -194,6 +202,10 @@
                                                     <input class="form-control form-control-sm" id="cacode" type="hidden"  />   
                                                 </div>
                                             </div>
+                                            <div class="col-1 col-sm-1">  
+                                                <button class="btn btn-falcon-primary me-1 mb-1 btn-sm" id="ciflistBtn03" type="button"  >검색
+                                                </button>
+                                            </div>  
                                             <div class="col-2 col-sm-2">
                                                 <select class="form-select form-select-sm" id="misfixflag03" aria-label=".form-select-sm example">
                                                     <option selected="">출력구분</option>
@@ -241,6 +253,10 @@
                                                     <input class="form-control form-control-sm" id="dacode" type="hidden"  />   
                                                 </div>
                                             </div>
+                                            <div class="col-1 col-sm-1">  
+                                                <button class="btn btn-falcon-primary me-1 mb-1 btn-sm" id="ciflistBtn04" type="button"  >검색
+                                                </button>
+                                            </div> 
                                             <div class="col-2 col-sm-2">
                                                 <select class="form-select form-select-sm" id="misfixflag04" aria-label=".form-select-sm example">
                                                     <option selected="">출력구분</option>
@@ -897,25 +913,41 @@
                 document.getElementById("incltnmbtn").click(); 
                 CifSearchList_rtn("A"); 
             }
+        });           
+        document.getElementById("ciflistBtn01").addEventListener("click", (e)=>{             
+                document.getElementById("incltnmbtn").click(); 
+                CifSearchList_rtn("A"); 
         });   
         document.getElementById("bcifname").addEventListener("keyup", (e)=>{ 
             if(e.keyCode === 13){  
                 document.getElementById("incltnmbtn").click(); 
                 CifSearchList_rtn("B"); 
             }
-        });        
+        });                
+        document.getElementById("ciflistBtn02").addEventListener("click", (e)=>{             
+                document.getElementById("incltnmbtn").click(); 
+                CifSearchList_rtn("B"); 
+        }); 
         document.getElementById("ccifname").addEventListener("keyup", (e)=>{ 
             if(e.keyCode === 13){  
                 document.getElementById("incltnmbtn").click(); 
                 CifSearchList_rtn("C"); 
             }
-        });        
+        });                 
+        document.getElementById("ciflistBtn03").addEventListener("click", (e)=>{             
+                document.getElementById("incltnmbtn").click(); 
+                CifSearchList_rtn("C"); 
+        });      
         document.getElementById("dcifname").addEventListener("keyup", (e)=>{ 
             if(e.keyCode === 13){  
                 document.getElementById("incltnmbtn").click(); 
                 CifSearchList_rtn("D"); 
             }
-        }); 
+        });              
+        document.getElementById("ciflistBtn04").addEventListener("click", (e)=>{             
+                document.getElementById("incltnmbtn").click(); 
+                CifSearchList_rtn("D"); 
+        });  
             
 
         function searchList_rtn(arg1){ 
