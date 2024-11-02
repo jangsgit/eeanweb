@@ -73,24 +73,16 @@
                                 <div class="tab-content">
                                     <div class="tab-pane fade show active" id="step01"> 
                                         <div class="row gx-3" style="  margin: 10px 10px 10px;">   
-                                            <div class="col-2 col-sm-2">
+                                            <div class="col-auto">
                                                 <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">출력일자</span>
                                                     <input type="text"  class="form-control datetimepicker" id="frdate" autocomplete="off"  placeholder="Y-m-d"     >
                                                 </div> 
                                             </div>   
-                                            <div class="col-2 col-sm-2"> 
+                                            <div class="col-auto"> 
                                                 <div class="input-group input-group-sm mb-3"> 
                                                     <input type="text"  class="form-control datetimepicker" id="todate" autocomplete="off"  placeholder="Y-m-d"     >
                                                 </div>
                                             </div> 
-                                            <div class="col-2 col-sm-2">
-                                                <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">사원명</span> 
-                                                    <input class="form-control form-control-sm" type="text" name="inname01" id="inname01" placeholder=""  style="width: 150px;  "  disabled > 
-                                                    <input type="hidden" name="abonsadam1" id="abonsadam1" placeholder=""  >  
-                                                    <input class="form-control form-control-sm" id="jpbgubn" type="hidden"  />  
-                                                    
-                                                </div>
-                                            </div>
                                             <div class="col-2 col-sm-2">
                                                 <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">거래처</span> 
                                                     <input class="form-control form-control-sm" id="cifname" type="text"    autocomplete="off"  placeholder=""     >
@@ -104,7 +96,7 @@
                                                 <button class="btn btn-falcon-primary me-1 mb-1 btn-sm" id="ciflistBtn01" type="button"  >검색
                                                 </button>
                                             </div>  
-                                            <div class="col-2 col-sm-2">
+                                            <div class="col-1 col-sm-2">
                                                 <select class="form-select form-select-sm" id="misfixflag" aria-label=".form-select-sm example">
                                                     <option selected="">출력구분</option>
                                                     <option value="%">전체</option>
@@ -112,6 +104,14 @@
                                                     <option value="0">미출력</option>
                                                     </select> 
                                             </div>  
+                                            <div class="col-1 col-sm-1">
+                                                <div class="input-group input-group-sm mb-3"> 
+                                                    <input class="form-control form-control-sm" type="text" name="inname01" id="inname01" placeholder=""  style="width: 150px;  "  disabled > 
+                                                    <input type="hidden" name="abonsadam1" id="abonsadam1" placeholder=""  >  
+                                                    <input class="form-control form-control-sm" id="jpbgubn" type="hidden"  />  
+                                                    
+                                                </div>
+                                            </div>
                                             <div class="col-1 col-sm-1">  
                                                 <button class="btn btn-falcon-primary me-1 mb-1 btn-sm" id="listBtn" type="button"  >조회
                                                 </button>
@@ -124,23 +124,16 @@
                                     
                                     <div class="tab-pane fade" id="step02"> 
                                         <div class="row gx-3" style="  margin: 10px 10px 10px;">   
-                                            <div class="col-2 col-sm-2">
+                                            <div class="col-auto">
                                                 <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">출력기간</span>
                                                     <input type="text"  class="form-control datetimepicker" id="frdate02" autocomplete="off"  placeholder="Y-m-d"     >
                                                 </div> 
                                             </div>   
-                                            <div class="col-2 col-sm-2"> 
+                                            <div class="col-auto"> 
                                                 <div class="input-group input-group-sm mb-3"> 
                                                     <input type="text"  class="form-control datetimepicker" id="todate02" autocomplete="off"  placeholder="Y-m-d"     >
                                                 </div>
                                             </div> 
-                                            <div class="col-2 col-sm-2">
-                                                <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">사원명</span> 
-                                                    <input class="form-control form-control-sm" type="text" name="inname02" id="inname02" placeholder="" style="width: 150px;  "  disabled  > 
-                                                    <input type="hidden" name="abonsadam2" id="abonsadam2" placeholder=""  >    
-                                                    
-                                                </div>
-                                            </div>
                                             <div class="col-2 col-sm-2">
                                                 <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">거래처</span> 
                                                     <input class="form-control form-control-sm" id="bcifname" type="text"    autocomplete="off"  placeholder=""     >
@@ -154,14 +147,21 @@
                                                 <button class="btn btn-falcon-primary me-1 mb-1 btn-sm" id="ciflistBtn02" type="button"  >검색
                                                 </button>
                                             </div>  
-                                            <div class="col-2 col-sm-2">
+                                            <div class="col-1 col-sm-2">
                                                 <select class="form-select form-select-sm" id="misfixflag02" aria-label=".form-select-sm example">
                                                     <option selected="">출력구분</option>
                                                     <option value="%">전체</option>
                                                     <option value="1">출력</option>
                                                     <option value="0">미출력</option>
                                                     </select> 
-                                            </div>  
+                                            </div> 
+                                            <div class="col-1 col-sm-1">
+                                                <div class="input-group input-group-sm mb-3"> 
+                                                    <input class="form-control form-control-sm" type="text" name="inname02" id="inname02" placeholder="" style="width: 150px;  "  disabled  > 
+                                                    <input type="hidden" name="abonsadam2" id="abonsadam2" placeholder=""  >    
+                                                    
+                                                </div>
+                                            </div> 
                                             <div class="col-1 col-sm-1">  
                                                 <button class="btn btn-falcon-primary me-1 mb-1 btn-sm" id="listBtn02" type="button"  >조회
                                                 </button>
@@ -176,21 +176,14 @@
 
                                     <div class="tab-pane fade" id="step03">  
                                         <div class="row gx-3" style="  margin: 10px 10px 10px;">   
-                                            <div class="col-2 col-sm-2">
+                                            <div class="col-auto">
                                                 <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">출력일자</span>
                                                     <input type="text"  class="form-control datetimepicker" id="frdate03" autocomplete="off"  placeholder="Y-m-d"     >
                                                 </div> 
                                             </div>   
-                                            <div class="col-2 col-sm-2"> 
+                                            <div class="col-auto"> 
                                                 <div class="input-group input-group-sm mb-3"> 
                                                     <input type="text"  class="form-control datetimepicker" id="todate03" autocomplete="off"  placeholder="Y-m-d"     >
-                                                </div>
-                                            </div> 
-                                            <div class="col-1 col-sm-2">
-                                                <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">사원명</span> 
-                                                    <input class="form-control form-control-sm" type="text" name="inname03" id="inname03" style="width: 150px;  " placeholder="" disabled  > 
-                                                    <input type="hidden" name="abonsadam3" id="abonsadam3" placeholder=""  >   
-                                                    
                                                 </div>
                                             </div> 
                                             <div class="col-2 col-sm-2">
@@ -206,13 +199,20 @@
                                                 <button class="btn btn-falcon-primary me-1 mb-1 btn-sm" id="ciflistBtn03" type="button"  >검색
                                                 </button>
                                             </div>  
-                                            <div class="col-2 col-sm-2">
+                                            <div class="col-1 col-sm-2">
                                                 <select class="form-select form-select-sm" id="misfixflag03" aria-label=".form-select-sm example">
                                                     <option selected="">출력구분</option>
                                                     <option value="%">전체</option>
                                                     <option value="1">출력</option>
                                                     <option value="0">미출력</option>
                                                     </select> 
+                                            </div> 
+                                            <div class="col-1 col-sm-1">
+                                                <div class="input-group input-group-sm mb-3"> 
+                                                    <input class="form-control form-control-sm" type="text" name="inname03" id="inname03" style="width: 150px;  " placeholder="" disabled  > 
+                                                    <input type="hidden" name="abonsadam3" id="abonsadam3" placeholder=""  >   
+                                                    
+                                                </div>
                                             </div>  
                                             <div class="col-1 col-sm-1">  
                                                 <button class="btn btn-falcon-primary me-1 mb-1 btn-sm" id="listBtn03" type="button"  >조회
@@ -227,21 +227,14 @@
 
                                     <div class="tab-pane fade" id="step04"> 
                                         <div class="row gx-3" style="  margin: 10px 10px 10px;">   
-                                            <div class="col-2 col-sm-2">
+                                            <div class="col-auto">
                                                 <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">출력일자</span>
                                                     <input type="text"  class="form-control datetimepicker" id="frdate04" autocomplete="off"  placeholder="Y-m-d"     >
                                                 </div> 
                                             </div>   
-                                            <div class="col-2 col-sm-2"> 
+                                            <div class="col-auto"> 
                                                 <div class="input-group input-group-sm mb-3"> 
                                                     <input type="text"  class="form-control datetimepicker" id="todate04" autocomplete="off"  placeholder="Y-m-d"     >
-                                                </div>
-                                            </div> 
-                                            <div class="col-2 col-sm-2">
-                                                <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">사원명</span> 
-                                                    <input class="form-control form-control-sm" type="text" name="inname04" id="inname04" placeholder="" style="width: 150px;  "  disabled  > 
-                                                    <input type="hidden" name="abonsadam4" id="abonsadam4" placeholder=""  >   
-                                                    
                                                 </div>
                                             </div> 
                                             <div class="col-2 col-sm-2">
@@ -257,7 +250,7 @@
                                                 <button class="btn btn-falcon-primary me-1 mb-1 btn-sm" id="ciflistBtn04" type="button"  >검색
                                                 </button>
                                             </div> 
-                                            <div class="col-2 col-sm-2">
+                                            <div class="col-1 col-sm-2">
                                                 <select class="form-select form-select-sm" id="misfixflag04" aria-label=".form-select-sm example">
                                                     <option selected="">출력구분</option>
                                                     <option value="%">전체</option>
@@ -265,6 +258,13 @@
                                                     <option value="0">미출력</option>
                                                     </select> 
                                             </div>  
+                                            <div class="col-1 col-sm-1">
+                                                <div class="input-group input-group-sm mb-3"> 
+                                                    <input class="form-control form-control-sm" type="text" name="inname04" id="inname04" placeholder="" style="width: 150px;  "  disabled  > 
+                                                    <input type="hidden" name="abonsadam4" id="abonsadam4" placeholder=""  >   
+                                                    
+                                                </div>
+                                            </div> 
                                             <div class="col-1 col-sm-1">  
                                                 <button class="btn btn-falcon-primary me-1 mb-1 btn-sm" id="listBtn04" type="button"  >조회
                                                 </button>

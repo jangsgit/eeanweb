@@ -24,6 +24,9 @@ public class Index11Service {
         return  appMapper.GetAsJupsuList02(parm);
     }
     public List<Index11Dto> GetAsJupsuList03(HashMap<String,String> parm)  { return  appMapper.GetAsJupsuList03(parm);}
+    public List<Index11Dto> GetAsJupsuList04(Index11Dto parm){
+        return  appMapper.GetAsJupsuList04(parm);
+    }
 
 
 

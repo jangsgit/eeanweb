@@ -137,5 +137,53 @@
     </select>
 
 
+    <select id="GetAsJupsuList04" parameterType="com.dae.eean.DTO.App01.Index11Dto" resultType="com.dae.eean.DTO.App01.Index11Dto">
+        <![CDATA[
+        select as_key1
+             ,as_key2
+             ,as_date
+             ,as_model
+             ,as_color
+             ,as_suri
+             ,as_yumu
+             ,as_memo
+             ,as_gongjang
+             ,cif.acorp as as_acorp
+             ,as_acorp1
+             ,as_acorp2
+             ,as_acorp3
+             ,as_computer
+             ,as_damdang
+             ,as_memo2
+             ,trim(as_aname) as as_name
+             ,B.com_REM1 as as_comrem
+             ,as_key4
+             ,Left(as_date2,10) as as_date2
+             ,as_memo3
+             ,as_devflag
+             ,as_devcode
+             ,unsongnum
+             ,misdate
+             ,misnum
+             ,misflag
+             ,jchgoga
+             , CONVERT(CHAR(19),as_devdate,20) as as_devdate
+        from as_jupsu WITH (NOLOCK)
+             LEFT JOIN TB_CA510 B ON com_code <> '00' and com_cls = '002' and com_code=as_jupsu.as_aname,
+             cif ,
+             tb_xusers
+        WHERE as_acorp1 = cif.acorp1 and as_acorp2 = cif.acorp2
+          and cif.abonsadam1 = tb_xusers.perid
+          and tb_xusers.flag = 'CC'
+          and as_acorp1 + CAST(as_acorp2 as varchar)  Like #{ascode}
+          and as_key1 between #{frdate} and #{todate}
+          and isnull(as_devflag,'0') Like concat('%',#{as_devflag},'%')
+          and isnull(misflag,'0') Like concat('%',#{misflag},'%')
+          and isnull(as_gongjang,'0') Like concat('%',#{as_gongjang},'%')
+          and isnull(as_damdang,'0') Like concat('%',#{as_damdang},'%')
+          and tb_xusers.userid = #{userid}
+        ORDER BY as_key1  , as_key2
+        ]]>
+    </select>
 
 </mapper>

@@ -15,6 +15,7 @@ public interface Index11Mapper {
     public List<Index11Dto> GetAsJupsuList01(Index11Dto parm) ;
     public List<Index11Dto> GetAsJupsuList02(Index11Dto parm) ;
     public List<Index11Dto> GetAsJupsuList03(HashMap<String,String> parm)  ;
+    public List<Index11Dto> GetAsJupsuList04(Index11Dto parm) ;
 
 
 }

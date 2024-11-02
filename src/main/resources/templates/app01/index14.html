@@ -1180,7 +1180,7 @@
           //'IN'을 자동선택하도록 요청함.
           // init_click();
           
-
+ 
           
             // // ################################################################
 
@@ -2321,10 +2321,14 @@
                     }else{
                         ls_todate = ls_ipdate; //ls_todate.substring(0,4) + '12-31'
                     }    
+                    var lsUserid = window.localStorage.getItem("userid_AA");
                     if(ls_bcifname == null || ls_bcifname.length == 0 || ls_bcifname == ""){ 
-                        alert("거래처를 등록하세요") 
-                        document.getElementById("cifname").focus(); 
-                        return ;               
+                        ls_bacode = "%"
+                        // alert("거래처를 등록하세요") 
+                        // document.getElementById("cifname").focus(); 
+                        // return ;               
+                    }else{
+                        lsUserid = ""
                     }      
                     if(ls_misgubun == "주문구분"){ 
                         ls_misgubun = "AA";
@@ -2332,12 +2336,14 @@
                     if(ls_makflag == null || ls_makflag.length == 0 || ls_makflag == "" || ls_makflag == "구분"){  
                         ls_makflag = "%"                 
                     }  
-                    // console.log('ls_frdate->' + ls_frdate)
+                    
+                    
+                    // console.log('lsUserid->' + lsUserid)
                     // console.log('ls_todate->' + ls_todate)
                     // console.log('ls_bacode->' + ls_bacode)
                     // console.log('ls_misgubun->' + ls_misgubun)
                     // console.log('ls_makflag->' + ls_makflag)
-                    ls_abonsadam1 = "";
+                    ls_abonsadam1 = lsUserid;
                     $.ajax({
                         url: '/app01m/index14/listjang',  
                         type:"POST",

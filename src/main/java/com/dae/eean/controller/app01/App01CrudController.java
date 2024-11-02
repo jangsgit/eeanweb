@@ -1736,6 +1736,11 @@ public class App01CrudController {
                         _indexDa024Dto.setSeq(_Da024Dto.getSeq());
                         _indexDa024Dto.setCltcd(_Da024Dto.getCltcd());
                         _indexDa024Dto.setMisgubun(_Da024Dto.getMisgubun());
+//                        log.info("getMisdate >" + _indexDa024Dto.getMisdate() );
+//                        log.info("getMisnum  >" + _indexDa024Dto.getMisnum() );
+//                        log.info("getSeq     >" + _indexDa024Dto.getSeq() );
+//                        log.info("getCltcd   >" + _indexDa024Dto.getCltcd() );
+//                        log.info("getMisgubun>" + _indexDa024Dto.getMisgubun() );
                         _indexDa024Dto = service14.SelectDa024Detail(_indexDa024Dto);
                         Integer _ll_uamt = _indexDa024Dto.getUamt();
                         Integer _ll_samt = 0;

@@ -80,14 +80,18 @@ public class App02CrudController {
 //            log.info("setTodate  ====>" + index11Dto.getTodate());
 //            log.info("setAs_devflag  ====>" + index11Dto.getAs_devflag());
 //            log.info("setMisflag  ====>" + index11Dto.getMisflag());
-//            log.info("setUserid  ====>" + index11Dto.getUserid());
-
-            if(asflag.equals("1")){
-                index11List = service11.GetAsJupsuList02(index11Dto);
-            }else if(asflag.equals("0")){
-                index11List = service11.GetAsJupsuList02(index11Dto);
+//            log.info("setUserid  ====>" + userid.substring(0,2));
+            //영업사원 as현황
+            if(userid.substring(0,2).equals("ee")){
+                index11List = service11.GetAsJupsuList04(index11Dto);
             }else{
-                index11List = service11.GetAsJupsuList01(index11Dto);
+                if(asflag.equals("1")){
+                    index11List = service11.GetAsJupsuList02(index11Dto);
+                }else if(asflag.equals("0")){
+                    index11List = service11.GetAsJupsuList02(index11Dto);
+                }else{
+                    index11List = service11.GetAsJupsuList01(index11Dto);
+                }
             }
             model.addAttribute("index11List",index11List);
 
