@@ -76,15 +76,12 @@ public class App02CrudController {
             index11Dto.setAs_gongjang(asasgong);
             index11Dto.setAs_damdang(condamdang);
 //            log.info("setAscode  ====>" + index11Dto.getAscode());
-//            log.info("setFrdate  ====>" + index11Dto.getFrdate());
+            log.info("setFrdate  ====>" + index11Dto.getFrdate());
 //            log.info("setTodate  ====>" + index11Dto.getTodate());
 //            log.info("setAs_devflag  ====>" + index11Dto.getAs_devflag());
 //            log.info("setMisflag  ====>" + index11Dto.getMisflag());
-//            log.info("setUserid  ====>" + userid.substring(0,2));
-            //영업사원 as현황
-            if(userid.substring(0,2).equals("ee")){
-                index11List = service11.GetAsJupsuList04(index11Dto);
-            }else{
+            log.info("setUserid  ====>" + userid);
+            if (userid.equals("%")){
                 if(asflag.equals("1")){
                     index11List = service11.GetAsJupsuList02(index11Dto);
                 }else if(asflag.equals("0")){
@@ -92,11 +89,15 @@ public class App02CrudController {
                 }else{
                     index11List = service11.GetAsJupsuList01(index11Dto);
                 }
+            }else if(userid.substring(0,2).equals("ee")){
+                //영업사원 as현황
+                index11List = service11.GetAsJupsuList04(index11Dto);
             }
+
             model.addAttribute("index11List",index11List);
 
         } catch (Exception ex) {
-            log.info("App11List_index Exception =====>" + ex.toString());
+            log.info("App02List_index Exception =====>" + ex.toString());
         }
 
         return index11List;
