@@ -1204,7 +1204,7 @@ aria-hidden="true">
             if(month > 0 && month < 10) {month = "0" + month};
             if(date > 0 && date < 10) {date = "0" + date};
             let ls_today = year + '-' + month + '-' + date  
-            window.localStorage.setItem("bbs_BB",  ls_today)
+            window.localStorage.setItem("bbs_BB",  ls_today) 
             $("#CloseBtn").trigger("click");
         }
  
@@ -1221,7 +1221,8 @@ aria-hidden="true">
                 type:"POST",
                 data: { 
                     "searchtxt" :arg,   
-                    "jpbgubn" : ls_jpbgubn 
+                    "jpbgubn" : ls_jpbgubn , 
+                    "flag" : 'BB'
                 }, 
                 async:false,
                 success:function(data){        
@@ -1229,8 +1230,9 @@ aria-hidden="true">
                         alert("다시 로그인해주세요")
                         window.location.href='http://eean.co.kr';
                         return 
-                    }     
-                    jcust_grid(arg,data, ls_jpbgubn);
+                    }       
+                    jmodel_grid(data);
+                    // jcust_grid(arg,data, ls_jpbgubn);
                 },error:function(e){
                     console.log("error");                            
                 }
@@ -1274,7 +1276,8 @@ aria-hidden="true">
         }
 
         function jmodel_grid(data){  
-            var DivHtml01 = " <div class='row flex-nowrap  overflow-auto' data-name='ListDiv'> ";  
+            var ls_modeltemp = "";
+            // var DivHtml01 = " <div class='row flex-nowrap  overflow-auto' data-name='ListDiv'> ";  
             // var ls_imgurl = "https://www-prd-kr.gentlemonster.com/media/catalog/product/cache/6c6f229b8a7ab97f51028776641e27d1/1/1/";  //11001_1240442012214252104_01.jpg
             var ls_imgurl = "/images/glassimg/"
             for (var i = 0; i < data.length; i++) {
@@ -1294,6 +1297,9 @@ aria-hidden="true">
                 var ls_jcolorcode = data[i]["jcolor_code"]  
                 var ls_jqty = data[i]["jqty"]   
                 var ls_argstr = "'" + ls_jpum + "','" + ls_jkey + "'";
+                if(ls_modeltemp !== ls_jmodelcode){
+                    var DivHtml01 = " <div class='row flex-nowrap  overflow-auto' data-name='ListDiv'> ";   
+                }
                 //console.log(ls_jchgoga0);
                 //---------------------------------------------------------------------------------- 
                 DivHtml01 = DivHtml01 +  "    <div class='col-2'  > "; 
@@ -1322,14 +1328,25 @@ aria-hidden="true">
 
                 DivHtml01 = DivHtml01 +  "    </div> "; 
                  DivHtml01 = DivHtml01 +  "   </div> ";                  
-                
-                //---------------------------------------------------------------------------------                                     
-  
-            }    
-            DivHtml01 = DivHtml01 +  "</div> "; 
-            DivHtml01 = DivHtml01 +  "  <p> </p>";
+                    
+                //---------------------------------------------------------------------------------   
+                //사용한 모델코드 체크하여 div 분리        
+                ls_modeltemp = ls_jmodelcode  
+                if(i == (data.length- 1)) {
+                    DivHtml01 = DivHtml01 +  "</div> "; 
+                    DivHtml01 = DivHtml01 +  "  <p> </p>";
+                    
+                    $('#btnDiv').before(DivHtml01 );  
 
-            $('#btnDiv').before(DivHtml01 ); 
+                }
+                else if (ls_modeltemp !== data[i + 1]["jmodel_code"] ){
+                    DivHtml01 = DivHtml01 +  "</div> "; 
+                    DivHtml01 = DivHtml01 +  "  <p> </p>";
+                    
+                    $('#btnDiv').before(DivHtml01 );  
+                }                                       
+  
+            }  
         }
         function order_fnc(){
             alert("주문등록");

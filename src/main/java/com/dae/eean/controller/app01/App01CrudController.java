@@ -547,6 +547,7 @@ public class App01CrudController {
     @GetMapping(value="/index03/custlist")
     public Object App03CustList_index(@RequestParam("searchtxt") String searchtxt,
                                       @RequestParam("jpbgubn") String jpbgubn,
+                                      @RequestParam("flag") String flag,
                                   Model model, HttpServletRequest request) throws Exception{
         CommDto.setMenuTitle("제품등록");
         CommDto.setMenuUrl("기준정보>제품정보");
@@ -567,6 +568,9 @@ public class App01CrudController {
             }
             index03Dto_S.setJcustomer_code(searchtxt);
             index03Dto_S.setJpb_gubn(jpbgubn);
+            index03Dto_S.setFrdate("20100101");
+            index03Dto_S.setTodate(getToDate());
+            index03Dto_S.setFlag(flag);
             _index03List = service03.GetJpumCustList(index03Dto_S);
             model.addAttribute("index03CustList",_index03List);
 

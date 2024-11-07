@@ -931,7 +931,7 @@ aria-hidden="true">
         //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
         //선택한 탭 체크 
          function tabchk_rtn(arg){
-            document.getElementById('tabvalue').value = arg; 
+            document.getElementById('tabvalue').value = arg;  
         } 
 
 
@@ -949,11 +949,13 @@ aria-hidden="true">
                 type:"POST",
                 data: { 
                     "searchtxt" :arg, 
-                    "jpbgubn" : ls_jpbgubn
+                    "jpbgubn" : ls_jpbgubn, 
+                    "flag" : 'CC'
                 }, 
                 async:false,
-                success:function(data){  
-                    jcust_grid(arg, data, ls_jpbgubn);
+                success:function(data){    
+                    jmodel_grid(data);
+                    // jcust_grid(arg, data, ls_jpbgubn);
                 },error:function(e){ 
                     console.log("error");                            
                 }
@@ -992,7 +994,8 @@ aria-hidden="true">
         }
 
         function jmodel_grid(data){  
-            var DivHtml01 = " <div class='row flex-nowrap  overflow-auto' data-name='ListDiv'> ";  
+            var ls_modeltemp = "";
+            // var DivHtml01 = " <div class='row flex-nowrap  overflow-auto' data-name='ListDiv'> ";  
             // var ls_imgurl = "https://www-prd-kr.gentlemonster.com/media/catalog/product/cache/6c6f229b8a7ab97f51028776641e27d1/1/1/";  //11001_1240442012214252104_01.jpg
             var ls_imgurl = "/images/glassimg/"
             for (var i = 0; i < data.length; i++) {
@@ -1012,6 +1015,9 @@ aria-hidden="true">
                 var ls_jcolorcode = data[i]["jcolor_code"]  
                 var ls_jqty = data[i]["jqty"]   
                 var ls_argstr = "'" + ls_jpum + "','" + ls_jkey + "'";
+                if(ls_modeltemp !== ls_jmodelcode){
+                    var DivHtml01 = " <div class='row flex-nowrap  overflow-auto' data-name='ListDiv'> ";  
+                }
                 //console.log(ls_jchgoga0);
 
                 //---------------------------------------------------------------------------------- 
@@ -1040,14 +1046,25 @@ aria-hidden="true">
 
                 DivHtml01 = DivHtml01 +  "    </div> "; 
                  DivHtml01 = DivHtml01 +  "   </div> ";                  
-                
-                //---------------------------------------------------------------------------------                                      
+                  
+                //---------------------------------------------------------------------------------   
+                //사용한 모델코드 체크하여 div 분리        
+                ls_modeltemp = ls_jmodelcode  
+                if(i == (data.length- 1)) {
+                    DivHtml01 = DivHtml01 +  "</div> "; 
+                    DivHtml01 = DivHtml01 +  "  <p> </p>";
+                    
+                    $('#btnDiv').before(DivHtml01 );  
+
+                }
+                else if (ls_modeltemp !== data[i + 1]["jmodel_code"] ){
+                    DivHtml01 = DivHtml01 +  "</div> "; 
+                    DivHtml01 = DivHtml01 +  "  <p> </p>";
+                    
+                    $('#btnDiv').before(DivHtml01 );  
+                }                                        
   
             }    
-            DivHtml01 = DivHtml01 +  "</div> "; 
-            DivHtml01 = DivHtml01 +  "  <p> </p>";
-
-            $('#btnDiv').before(DivHtml01 ); 
         }
         function order_fnc(){
             alert("주문등록");
