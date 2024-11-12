@@ -96,10 +96,10 @@
                                                     
                                                 </div>
                                             </div>
-                                            <div class="col-1 col-sm-1">  
-                                                <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="retrieveBtn"  type="button" onclick="retrieveClick01()">조회
+                                            <!-- <div class="col-1 col-sm-1">  
+                                                <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="retrieveBtn"  type="button" onclick="retrieveClick01()" disabled>조회
                                                 </button>
-                                            </div>  
+                                            </div>   -->
                                             <div class="col-1 col-sm-1">  
                                                 <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="orderBtn" type="button" onclick="orderlist_rtn()">주문장바구니
                                                 </button>
@@ -172,7 +172,7 @@
                                                   </select> 
                                             </div>  
                                             <div class="col-1 col-sm-1">  
-                                                <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="listBtn" type="button"  >조회
+                                                <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="listBtn" type="button"   >조회
                                                 </button>
                                             </div> 
                                             <div class="col-1 col-sm-1">  
@@ -1435,11 +1435,11 @@ aria-hidden="true">
         //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
                                      
         // tab01 검색   
-        document.getElementById("retrieveBtn").addEventListener("click",function(){ 
+        // document.getElementById("retrieveBtn").addEventListener("click",function(){ 
             
-            var ls_tab = document.getElementById('tabvalue').value;   
-            searchList_rtn(ls_tab);
-        })   
+        //     var ls_tab = document.getElementById('tabvalue').value;   
+        //     searchList_rtn(ls_tab);
+        // })   
                           
         // tab02 검색   
         document.getElementById("listBtn").addEventListener("click",function(){ 
