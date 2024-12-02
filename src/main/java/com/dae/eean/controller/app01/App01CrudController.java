@@ -128,8 +128,8 @@ public class App01CrudController {
             }
             conacorp = escapeBrackets(conacorp);
             _index02Dto.setAcorp1(conacorp1);
-            _index02Dto.setAcorp(conacorp);
             _index02Dto.setAgita(conagita);
+            _index02Dto.setAcorp(conacorp);
             _index02Dto.setAbonsadam1(abonsadam1);
             if (jpbgubn.equals("P")){
                 _index02Dto.setAcorp1("02");
@@ -138,11 +138,17 @@ public class App01CrudController {
             }else{
                 //index02Dto.setAcorp1("%");
             }
-            if (jpbgubn.equals("DD")){
-                //비거래 포함
+            if(conagita.equals("all")){
+                _index02Dto.setAgita("%");
+                //비거래 포함 접수 조회화면
                 _index02List = service02.GetCifListTotJupsu(_index02Dto);
             }else{
-                _index02List = service02.GetCifListTot(_index02Dto);
+                if (jpbgubn.equals("DD")){
+                    //비거래 포함
+                    _index02List = service02.GetCifListTotJupsu(_index02Dto);
+                }else{
+                    _index02List = service02.GetCifListTot(_index02Dto);
+                }
             }
 
             model.addAttribute("index02List",_index02List);
