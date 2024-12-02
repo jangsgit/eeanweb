@@ -138,7 +138,7 @@
                             </div> 
                             <div class="col-2 col-sm-2">                                            
                                 <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">구분</span> 
-                                    <select class="form-select" th:field="*{index01ListDto}" name="asaname" id="asaname" disabled> 
+                                    <select class="form-select" th:field="*{index01ListDto}" name="asaname" id="asaname"  > 
                                         <option th:each="val : ${index01ListDto}" th:value="${val.com_code}" th:text="${val.com_rem1}">
                                     </select>                                                             
                                 </div>  
