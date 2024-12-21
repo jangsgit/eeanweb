@@ -51,9 +51,14 @@
                                     <li class="nav-item">
                                       <a class="nav-link active" data-toggle="tab" href="#step01" onclick="tabchk_rtn('A')">주문삭제자료</a>
                                     </li>  
+                                    <li class="nav-item">
+                                      <a class="nav-link" data-toggle="tab" href="#step02"  onclick="tabchk_rtn('B')">                                        
+                                        <span style ="display:inline-block;  font-weight:bold;">로그현황</span>
+                                      </a>
+                                    </li>
                                     <input type="hidden" id="tabvalue" value="A">
                                   </ul>
-                                  <div class="tab-content">
+                                  <div class="tab-content"> 
                                     <div class="tab-pane fade show active" id="step01"> 
                                         <div class="row gx-3" style="  margin: 10px 10px 10px;">   
                                             <div class="col-2 col-sm-2">
@@ -67,31 +72,22 @@
                                                 </div>
                                             </div> 
                                             <div class="col-2 col-sm-2">
-                                                <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">거래처</span> 
+                                                <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">구분</span> 
                                                     <input class="form-control form-control-sm" id="bcifname" type="text"    autocomplete="off"  placeholder=""     >
                                                     <input class="form-control form-control-sm" id="bacorp1" type="hidden"  />
                                                     <input class="form-control form-control-sm" id="bacorp2" type="hidden"  />
                                                     <input class="form-control form-control-sm" id="bacorp3" type="hidden"  />
                                                     <input class="form-control form-control-sm" id="bacode" type="hidden"  /> 
-                                                    <input class="form-control form-control-sm" id="bjpbgubn" type="hidden"  /> 
-                                                    
+                                                    <input class="form-control form-control-sm" id="bjpbgubn" type="hidden"  />  
                                                 </div>
                                             </div>
                                             <div class="col-2 col-sm-2">
-                                                <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">품명</span> 
+                                                <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">메뉴</span> 
                                                     <input class="form-control form-control-sm" id="jpumnm02" type="text"    autocomplete="off"  placeholder=""     >
                                                     <input class="form-control form-control-sm" id="jkey02" type="hidden"  /> 
                                                     
                                                 </div>
-                                            </div>   
-                                            <!-- <div class="col-2 col-sm-2">
-                                                <select class="form-select form-select-sm" id="misfixflag" aria-label=".form-select-sm example">
-                                                    <option selected="">확정구분</option>
-                                                    <option value="%">전체</option>
-                                                    <option value="1">확정</option>
-                                                    <option value="0">미확정</option>
-                                                  </select> 
-                                            </div>   -->
+                                            </div>    
                                             <div class="col-1 col-sm-1">  
                                                 <button class="btn btn-falcon-primary me-1 mb-1 btn-sm" id="listBtn02" type="button"  >조회
                                                 </button>
@@ -102,6 +98,45 @@
                                         </div> 
                                     </div> 
                                     
+                                    <div class="tab-pane fade" id="step02"> 
+                                        <div class="row gx-3" style="  margin: 10px 10px 10px;">   
+                                            <div class="col-2 col-sm-2">
+                                                <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">조회일자</span>
+                                                    <input type="text"  class="form-control datetimepicker" id="frdate03" autocomplete="off"  placeholder="Y-m-d"     >
+                                                </div>
+                                            </div>    
+                                            <div class="col-2 col-sm-2"> 
+                                                <div class="input-group input-group-sm mb-3"> 
+                                                    <input type="text"  class="form-control datetimepicker" id="todate03" autocomplete="off"  placeholder="Y-m-d"     >
+                                                </div>
+                                            </div> 
+                                            <div class="col-2 col-sm-1">  
+                                                <select class="form-select form-select-sm" aria-label=".form-select-sm example" th:field="*{typeList}" name="typeflag" id="typeflag">
+                                                    <option value="">로그구분</option>
+                                                    <option th:each="val : ${typeList}" th:value="${val.type}" th:text="${val.type}">
+                                                </select> 
+                                            </div>   
+                                            <div class="col-1 col-sm-1">
+                                                <select  class="form-select form-select-sm" aria-label=".form-select-sm example" th:field="*{menuList}" name="menuflag" id="menuflag">
+                                                    <option value="">메뉴구분</option>
+                                                    <option th:each="val : ${menuList}" th:value="${val.menunm}" th:text="${val.menunm}">
+                                                </select>  
+                                            </div>   
+                                            <div class="col-1 col-sm-1">   
+                                                <table>
+                                                    <tr>
+                                                        <td>
+                                                            <button class="btn btn-falcon-primary me-1 mb-1 btn-sm" id="listBtn03" type="button"  >조회
+                                                            </button>
+                                                        </td> 
+                                                    </tr>
+                                                </table> 
+                                            </div>  
+                                        </div> 
+                                        <div class="container-fluid"> 
+                                            <div id="wtab02Grid_div"  style="overflow:scroll;   height:700px;    margin:0 auto; "></div>  
+                                        </div>
+                                    </div> 
                                   </div>
                             </div>
                         <!-- </div> 
@@ -316,8 +351,40 @@
             } 
             //////////////////////////////////////////////////////////////////////////////////////////////////////////
   
-
+            //////////////////////////////////////////////////////////////////////////////////////////////////////////  
+           //주문삭제현황 popup list
+           view_p01tab02page = new wijmo.collections.CollectionView(getData_wlist(), {
+                // pageSize: 100
+            });    
+            wtab02Grid = new wijmo.grid.FlexGrid('#wtab02Grid_div', { 
+                deferResizing: true,
+                showMarquee: true,
+                alternatingRowStep: 0,
+                allowSorting: 'MultiColumn',
+                autoGenerateColumns: false,
+                columns: [     
+                    { binding: 'id', header: 'id', align: "center", width: 80 }, 
+                    { binding: 'type', header: '로그구분', align: "center", width: 100 },  
+                    { binding: 'menunm', header: '메뉴명', align: "center", width: 150 },  
+                    { binding: 'source', header: 'Transaction', align: "center", width: 150 },  
+                    { binding: 'message', header: '상세내용', align: "center", width: 350 },   
+                    { binding: 'userid', header: '아이디', align: "center", width: 150 },   
+                    { binding: 'usernm', header: '사용자', align: "center", width: 150 },  
+                    { binding: '_created', header: '일자/시간', align: "center", width: 200 },       
+                ], 
+                itemsSource: view_p01tab02page
+            });  
+            new FlexGridContextMenu(wtab02Grid);  
+            // 헤더 열 전환
+            setHeaderColumn03(false); 
+            function setHeaderColumn03(headerOn) {
+                wtab02Grid.headersVisibility = headerOn
+                ? wijmo.grid.HeadersVisibility.All
+                : wijmo.grid.HeadersVisibility.Column; 
+            } 
             
+
+
             // // ################################################################  
             //거래처현황 Modalㅁ
             view_innamepage = new wijmo.collections.CollectionView(getData_wlist(), {
@@ -469,10 +536,10 @@
             searchList_rtn(ls_tab);
         })        
         // tab01 검색   
-        // document.getElementById("listBtn03").addEventListener("click",function(){  
-        //     var ls_tab = document.getElementById('tabvalue').value;   
-        //     searchList_rtn(ls_tab);
-        // })  
+        document.getElementById("listBtn03").addEventListener("click",function(){  
+            var ls_tab = document.getElementById('tabvalue').value;   
+            searchList_rtn(ls_tab);
+        })  
         //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 모달 검색@@@@@@@@@@@@@@@@@@@@@@@@@@@
         //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
                           
@@ -570,7 +637,55 @@
                     }).done(function(fragment){           
 
                     })     
-                    break;  
+                    break;
+                 case 'B':   
+                    var ls_frdate = document.getElementById('frdate03').value; 
+                    var ls_todate = document.getElementById('todate03').value;  
+                    var ls_typeflag    = document.getElementById('typeflag').value;  
+                    var ls_menuflag    = document.getElementById('menuflag').value; 
+                    if(ls_frdate == null || ls_frdate.length == 0 || ls_frdate == ""){ 
+                        alert("조회일자를 등록하세요") 
+                        document.getElementById("frdate02").focus(); 
+                        return ;               
+                    }   
+                    if(ls_todate == null || ls_todate.length == 0 || ls_todate == ""){ 
+                        alert("조회일자를 등록하세요") 
+                        document.getElementById("todate02").focus(); 
+                        return ;               
+                    }    
+                    if(ls_typeflag == null || ls_typeflag.length == 0 || ls_typeflag == "" || ls_typeflag =="로그구분"){ 
+                        ls_typeflag = "%"           
+                    }     
+                    if(ls_menuflag == null || ls_menuflag.length == 0 || ls_menuflag == "" || ls_menuflag =="메뉴구분"){ 
+                        ls_menuflag = "%"           
+                    }  
+                    console.log(ls_frdate)         
+                    console.log(ls_todate)         
+                    console.log(ls_typeflag)         
+                    console.log(ls_menuflag)  
+                    $.ajax({
+                        url: '/app01m/index14/loglist',  
+                        type:"POST",
+                        data: { 
+                            "frdate"      : ls_frdate,
+                            "todate"      : ls_todate,
+                            "typeflag"      : ls_typeflag,   
+                            "menuflag"      : ls_menuflag,   
+                        }, 
+                        async:false,
+                        success:function(data){      
+                            chkLogin(data)       
+                            tabC_grid(data);
+                        },error:function(e){
+                            console.log("error");
+                            // alert(data.code);
+                            // alert(data.message);
+                        }
+                    }).done(function(fragment){           
+
+                    })     
+                    break;       
+                    
                  default:    
                     break;                
             }
@@ -711,6 +826,85 @@
             cols.width = 200;  
             wtab01Grid.columns.push(cols);   
  
+        }
+            
+        function tabC_grid(data){ 
+            var wtab02Dto  = data;    
+            var wtab02_data = [];
+            var cnt = 1;
+            var bfixflag = false
+            for (var i = 0; i < wtab02Dto.length; i++) {
+                if(wtab02Dto[i]["fixflag"] == "1"){
+                    bfixflag = true;
+                }else{
+                    bfixflag = false;
+                }
+                wtab02_data.push({
+                    id: i, 
+                    index: cnt, 
+                    type: wtab02Dto[i]["type"],     
+                    menunm: wtab02Dto[i]["menunm"],    
+                    source: wtab02Dto[i]["source"],    
+                    message: wtab02Dto[i]["message"],    
+                    userid: wtab02Dto[i]["userid"],    
+                    usernm: wtab02Dto[i]["usernm"],    
+                    _created: wtab02Dto[i]["_created"]                                     
+                });
+                cnt++;
+            }   
+  
+
+            wtab02Grid.columns.clear();  
+            wtab02Grid.autoGenerateColumns = false; 
+            view_p01tab02page.sourceCollection  = wtab02_data;
+            var cols = new wijmo.grid.Column(); 
+            cols.binding = 'id';
+            cols.header = 'id';
+            cols.align = "center";
+            cols.width = 80; 
+            wtab02Grid.columns.push(cols);  
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'type';
+            cols.header = '로그구분';
+            cols.align = "center";
+            cols.width = 100;  
+            wtab02Grid.columns.push(cols);   
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'menunm';
+            cols.header = '메뉴명';
+            cols.align = "center";
+            cols.width = 150;  
+            wtab02Grid.columns.push(cols);     
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'source';
+            cols.header = 'Transaction';
+            cols.align = "left";
+            cols.width = 300;  
+            wtab02Grid.columns.push(cols);   
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'message';
+            cols.header = '상세내용';
+            cols.align = "left";
+            cols.width = 350;  
+            wtab02Grid.columns.push(cols);   
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'userid';
+            cols.header = '아이디';
+            cols.align = "center";
+            cols.width = 150;  
+            wtab02Grid.columns.push(cols);     
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'usernm';
+            cols.header = '사용자';
+            cols.align = "center"; 
+            cols.width = 150;  
+            wtab02Grid.columns.push(cols);   
+            cols = new wijmo.grid.Column(); 
+            cols.binding = '_created';
+            cols.header = '일자/시간';
+            cols.align = "left";
+            cols.width = 200;  
+            wtab02Grid.columns.push(cols);   
         }
              
         function CifSearchList_rtn(arg){   
@@ -1025,8 +1219,8 @@
         // document.getElementById('todate').value = ls_today; 
         document.getElementById('frdate02').value = ls_frday;
         document.getElementById('todate02').value = ls_today; 
-        // document.getElementById('frdate03').value = ls_frday;
-        // document.getElementById('todate03').value = ls_today; 
+        document.getElementById('frdate03').value = ls_frday;
+        document.getElementById('todate03').value = ls_today; 
         // document.getElementById('frdate02').value = ls_frday;
         // document.getElementById('todate02').value = ls_today; 
         // document.getElementById('todate').value = ls_today;

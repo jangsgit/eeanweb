@@ -5,12 +5,14 @@ import com.dae.eean.DTO.App01.Index02Dto;
 import com.dae.eean.DTO.App01.Index03Dto;
 import com.dae.eean.DTO.CommonDto;
 import com.dae.eean.DTO.Popup.PopupDto;
+import com.dae.eean.DTO.Popup.SyslogDto;
 import com.dae.eean.DTO.UserFormDto;
 import com.dae.eean.Service.App01.Index01Service;
 import com.dae.eean.Service.App01.Index02Service;
 import com.dae.eean.Service.App01.Index03Service;
 import com.dae.eean.Service.Appcom01Service;
 import com.dae.eean.Service.PopupService;
+import com.dae.eean.Service.master.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -33,6 +35,7 @@ public class App01Controller {
     private final Index01Service service01;
     private final Index02Service service02;
     private final Index03Service service03;
+    private final AuthService service_auth;
     private final PopupService svcpopup;
 
     CommonDto CommDto = new CommonDto();
@@ -783,10 +786,17 @@ public class App01Controller {
         CommDto.setMenuTitle("예약현황");
         CommDto.setMenuUrl("기준정보>예약현황");
         CommDto.setMenuCode("index14");
+        SyslogDto _syslogDto = new SyslogDto();
+        List<SyslogDto> _typeList = new ArrayList<>();
+        List<SyslogDto> _menuList = new ArrayList<>();
         try {
             HttpSession session = request.getSession();
             UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
             model.addAttribute("userformDto",userformDto);
+            _typeList = service_auth.TB_GET_TYPE(_syslogDto);
+            _menuList = service_auth.TB_GET_MENUNM(_syslogDto);
+            model.addAttribute("typeList",_typeList);
+            model.addAttribute("menuList",_menuList);
 //            index03Dto.setJpb_gubn("%");
 //            index03List = service03.GetJBonsaCodeList(index03Dto);
 //            model.addAttribute("index03List",index03List);

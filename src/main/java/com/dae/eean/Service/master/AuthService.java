@@ -1,6 +1,7 @@
 package com.dae.eean.Service.master;
 
 import com.dae.eean.DTO.Popup.PopupDto;
+import com.dae.eean.DTO.Popup.SyslogDto;
 import com.dae.eean.DTO.TBXLoginDTO;
 import com.dae.eean.DTO.TBXuserMenuDTO;
 import com.dae.eean.DTO.UserFormDto;
@@ -31,6 +32,12 @@ public class AuthService {
     public List<TBXLoginDTO> GetLogListDto(UserFormDto parm){return authMapper.GetLogListDto(parm);}
     public List<TBXuserMenuDTO> GetXusersMenuList(TBXuserMenuDTO parm){return authMapper.GetXusersMenuList(parm);}
     public List<TBXuserMenuDTO> GetXMenuList(TBXuserMenuDTO parm){return authMapper.GetXMenuList(parm);}
+
+
+    public List<SyslogDto> TB_GET_TYPE(SyslogDto parm){return authMapper.TB_GET_TYPE(parm);}
+    public List<SyslogDto> TB_GET_MENUNM(SyslogDto parm){return authMapper.TB_GET_MENUNM(parm);}
+    public List<SyslogDto> TB_GET_LOGLIST(SyslogDto parm){return authMapper.TB_GET_LOGLIST(parm);}
+
 
 
     public UserFormDto GetUserInfoDto(UserFormDto parm){return authMapper.GetUserInfoDto(parm);}
@@ -133,6 +140,17 @@ public class AuthService {
         return (queryResult > 0);
     }
 
+
+    //로그등록
+    @Transactional
+    public boolean TB_SYSLOG_INSERT(SyslogDto parm){
+        int queryResult = 1;
+        queryResult = authMapper.TB_SYSLOG_INSERT(parm);
+        if(queryResult < 1){
+            queryResult = 0;
+        }
+        return (queryResult > 0);
+    }
 
     public String TB_GET_PUSHID(PopupDto parm){
         return authMapper.TB_GET_PUSHID(parm);

@@ -4,6 +4,7 @@ import com.dae.eean.DTO.Popup.PopupDto;
 import com.dae.eean.DTO.TBXLoginDTO;
 import com.dae.eean.DTO.TBXuserMenuDTO;
 import com.dae.eean.DTO.UserFormDto;
+import com.dae.eean.DTO.Popup.SyslogDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -50,6 +51,11 @@ public interface AuthDBMapper {
     public List<TBXuserMenuDTO> GetXusersMenuList(TBXuserMenuDTO Parm);
     public List<TBXuserMenuDTO> GetXMenuList(TBXuserMenuDTO Parm);
 
+
+    public List<SyslogDto> TB_GET_TYPE(SyslogDto Parm);
+    public List<SyslogDto> TB_GET_MENUNM(SyslogDto Parm);
+    public List<SyslogDto> TB_GET_LOGLIST(SyslogDto Parm);
+
     public int UpdateUserInfo(UserFormDto Parm);
     public int UpdateUserInfoCC(UserFormDto Parm);
     public int UpdateUserInfoBB(UserFormDto Parm);
@@ -60,6 +66,7 @@ public interface AuthDBMapper {
 
     public int Updatepushid(UserFormDto Parm);
     public String TB_GET_PUSHID(PopupDto Parm);
+    public int TB_SYSLOG_INSERT(SyslogDto Parm);
 
 
 

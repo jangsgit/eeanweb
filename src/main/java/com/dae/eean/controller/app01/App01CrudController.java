@@ -2,6 +2,7 @@ package com.dae.eean.controller.app01;
 
 import com.dae.eean.DTO.App01.*;
 import com.dae.eean.DTO.CommonDto;
+import com.dae.eean.DTO.Popup.SyslogDto;
 import com.dae.eean.DTO.TBXuserMenuDTO;
 import com.dae.eean.DTO.UserFormDto;
 import com.dae.eean.Service.App01.*;
@@ -903,6 +904,7 @@ public class App01CrudController {
             , HttpServletRequest request){
 
         try {
+            SyslogDto _syslogDto = new SyslogDto();
             Index04Dto _index04Dto = new Index04Dto();
             HttpSession session = request.getSession();
             UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
@@ -911,7 +913,7 @@ public class App01CrudController {
                 return "relogin";
             }
             model.addAttribute("userformDto",userformDto);
-
+            Integer ll_count = jcode.size();
             String year = frdate.substring(0,4) ;
             String month = frdate.substring(5,7) ;
             String day   = frdate.substring(8,10) ;
@@ -941,6 +943,17 @@ public class App01CrudController {
                    // }
                     if (!result){
                         return "error";
+                    }else{
+                        _syslogDto.setType("저장");
+                        _syslogDto.setMenunm("재고등록");
+                        _syslogDto.setMessage(_index04Dto.getKey1() + "/" +  _index04Dto.getJepm() + "/" + _index04Dto.getIjaego_su1().toString());
+                        _syslogDto.setSource(ll_count.toString() + "건 등록");
+                        _syslogDto.setUserid(userformDto.getUserid());
+                        _syslogDto.setUsernm(userformDto.getUsername());
+                        result = service_auth.TB_SYSLOG_INSERT(_syslogDto);
+                        if (!result) {
+                            //return "error";
+                        }
                     }
                 }
             }
@@ -964,6 +977,7 @@ public class App01CrudController {
             log.info("index04Delete Exception =====> relogin userformDto null");
             return "relogin";
         }
+        SyslogDto _syslogDto = new SyslogDto();
         Index04Dto _index04Dto = new Index04Dto();
         model.addAttribute("userformDto",userformDto);
         _index04Dto.setKey1(ipdate);
@@ -977,6 +991,17 @@ public class App01CrudController {
         }
         if (!result) {
             return "error";
+        }else{
+            _syslogDto.setType("삭제");
+            _syslogDto.setMenunm("재고등록");
+            _syslogDto.setMessage(_index04Dto.getKey1() + "/" +  _index04Dto.getJepm()  );
+            _syslogDto.setSource(jepm + " 삭제");
+            _syslogDto.setUserid(userformDto.getUserid());
+            _syslogDto.setUsernm(userformDto.getUsername());
+            result = service_auth.TB_SYSLOG_INSERT(_syslogDto);
+            if (!result) {
+                //return "error";
+            }
         }
         return "success";
     }
@@ -1192,6 +1217,7 @@ public class App01CrudController {
             , HttpServletRequest request){
 
         try {
+            SyslogDto _syslogDto = new SyslogDto();
             HttpSession session = request.getSession();
             UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
             if(userformDto == null){
@@ -1382,6 +1408,17 @@ public class App01CrudController {
                         result = service14.UpdateDA024QtySame(_indexDa024Dto);
                         if (!result){
                             return "error";
+                        }else{
+                            _syslogDto.setType("수정");
+                            _syslogDto.setMenunm("주문등록");
+                            _syslogDto.setSource("장바구니수정");
+                            _syslogDto.setMessage(_indexDa024Dto.getMisdate() + "/" + _indexDa024Dto.getMisnum());
+                            _syslogDto.setUserid(userformDto.getUserid());
+                            _syslogDto.setUsernm(userformDto.getUsername());
+                            result = service_auth.TB_SYSLOG_INSERT(_syslogDto);
+                            if (!result) {
+                                //return "error";
+                            }
                         }
                         return "success";
                     }else{
@@ -1416,6 +1453,17 @@ public class App01CrudController {
             result = service14.InsertDa024(_indexDa024Dto);
             if (!result){
                 return "error";
+            }else{
+                _syslogDto.setType("등록");
+                _syslogDto.setMenunm("주문등록");
+                _syslogDto.setSource("장바구니등록");
+                _syslogDto.setMessage(_indexDa024Dto.getMisdate() + "/" + _indexDa024Dto.getMisnum() + "/" + _indexDa024Dto.getSeq());
+                _syslogDto.setUserid(userformDto.getUserid());
+                _syslogDto.setUsernm(userformDto.getUsername());
+                result = service_auth.TB_SYSLOG_INSERT(_syslogDto);
+                if (!result) {
+                   // return "error";
+                }
             }
 
         }catch (Exception e){
@@ -1443,7 +1491,7 @@ public class App01CrudController {
             , HttpServletRequest request){
 
         try {
-
+            SyslogDto _syslogDto = new SyslogDto();
             HttpSession session = request.getSession();
             UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
             if(userformDto == null){
@@ -1583,6 +1631,17 @@ public class App01CrudController {
                         result = service14.UpdateDA026QtySame(_indexDa024Dto);
                         if (!result){
                             return "error";
+                        }else{
+                            _syslogDto.setType("수정");
+                            _syslogDto.setMenunm("예약등록");
+                            _syslogDto.setSource("주문예약수정");
+                            _syslogDto.setMessage(_indexDa024Dto.getMisdate() + "/" + _indexDa024Dto.getMisnum());
+                            _syslogDto.setUserid(userformDto.getUserid());
+                            _syslogDto.setUsernm(userformDto.getUsername());
+                            result = service_auth.TB_SYSLOG_INSERT(_syslogDto);
+                            if (!result) {
+                                //return "error";
+                            }
                         }
                         return "success";
                     }else{
@@ -1618,6 +1677,17 @@ public class App01CrudController {
             result = service14.InsertDa026(_indexDa024Dto);
             if (!result){
                 return "error";
+            }else{
+                _syslogDto.setType("등록");
+                _syslogDto.setMenunm("예약등록");
+                _syslogDto.setSource("주문예약수정");
+                _syslogDto.setMessage(_indexDa024Dto.getMisdate() + "/" + _indexDa024Dto.getMisnum());
+                _syslogDto.setUserid(userformDto.getUserid());
+                _syslogDto.setUsernm(userformDto.getUsername());
+                result = service_auth.TB_SYSLOG_INSERT(_syslogDto);
+                if (!result) {
+                    //return "error";
+                }
             }
 
         }catch (Exception e){
@@ -1652,7 +1722,7 @@ public class App01CrudController {
         try {
 
             //Index03Dto index03Dto_S = new Index03Dto();
-
+            SyslogDto _syslogDto = new SyslogDto();
             IndexDa024Dto _index024Dto = new IndexDa024Dto();
             IndexDa024Dto _indexDa024Dto = new IndexDa024Dto();
             IndexDa023Dto _indexDa023Dto = new IndexDa023Dto();
@@ -1772,6 +1842,17 @@ public class App01CrudController {
                         result = service14.UpdateDA024Qty(_Da024Dto);
                         if (!result){
                             return "error";
+                        }else{
+                            _syslogDto.setType("등록");
+                            _syslogDto.setMenunm("주문등록");
+                            _syslogDto.setSource("주문확정");
+                            _syslogDto.setMessage(_Da024Dto.getMisdate() + "/" + _Da024Dto.getMisnum() + "/" + _Da024Dto.getSeq());
+                            _syslogDto.setUserid(userformDto.getUserid());
+                            _syslogDto.setUsernm(userformDto.getUsername());
+                            result = service_auth.TB_SYSLOG_INSERT(_syslogDto);
+                            if (!result) {
+                                //return "error";
+                            }
                         }
                     }
                 }
@@ -1884,6 +1965,17 @@ public class App01CrudController {
                         result = service14.UpdateDA024QtySame(_Da024Dto);
                         if (!result){
                             return "error";
+                        }else{
+                            _syslogDto.setType("수정");
+                            _syslogDto.setMenunm("주문등록");
+                            _syslogDto.setSource("주문확정");
+                            _syslogDto.setMessage(_Da024Dto.getMisdate() + "/" + _Da024Dto.getMisnum() + "/" + _Da024Dto.getSeq());
+                            _syslogDto.setUserid(userformDto.getUserid());
+                            _syslogDto.setUsernm(userformDto.getUsername());
+                            result = service_auth.TB_SYSLOG_INSERT(_syslogDto);
+                            if (!result) {
+                                //return "error";
+                            }
                         }
                         return "success";
                     }else{
@@ -1924,6 +2016,17 @@ public class App01CrudController {
             result = service14.InsertDa024(_Da024Dto);
             if (!result){
                 return "error";
+            }else{
+                _syslogDto.setType("등록");
+                _syslogDto.setMenunm("일반주문등록");
+                _syslogDto.setSource("일반주문 장바구니등록");
+                _syslogDto.setMessage(_Da024Dto.getMisdate() + "/" + _Da024Dto.getMisnum() + "/" + _Da024Dto.getSeq());
+                _syslogDto.setUserid(userformDto.getUserid());
+                _syslogDto.setUsernm(userformDto.getUsername());
+                result = service_auth.TB_SYSLOG_INSERT(_syslogDto);
+                if (!result) {
+                    //return "error";
+                }
             }
 
         }catch (Exception e){
@@ -1951,6 +2054,7 @@ public class App01CrudController {
             , HttpServletRequest request){
 
         try {
+            SyslogDto _syslogDto = new SyslogDto();
             HttpSession session = request.getSession();
             UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
             if(userformDto == null){
@@ -2008,6 +2112,17 @@ public class App01CrudController {
                         result = service14.UpdateDA024Del(_indexDa024Dto);
                         if (!result){
                             //return "error";
+                        }else{
+                            _syslogDto.setType("삭제");
+                            _syslogDto.setMenunm("주문등록");
+                            _syslogDto.setSource("주문삭제");
+                            _syslogDto.setMessage(_indexDa024Dto.getMisdate() + "/" + _indexDa024Dto.getMisnum() + "/" + _indexDa024Dto.getSeq());
+                            _syslogDto.setUserid(userformDto.getUserid());
+                            _syslogDto.setUsernm(userformDto.getUsername());
+                            result = service_auth.TB_SYSLOG_INSERT(_syslogDto);
+                            if (!result) {
+                                //return "error";
+                            }
                         }
 
                     }
@@ -2039,6 +2154,7 @@ public class App01CrudController {
             , HttpServletRequest request){
 
         try {
+            SyslogDto _syslogDto = new SyslogDto();
             HttpSession session = request.getSession();
             UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
             if(userformDto == null){
@@ -2080,6 +2196,17 @@ public class App01CrudController {
                         result = service14.UpdateDA026Del(_indexDa024Dto);
                         if (!result){
                             //return "error";
+                        }else{
+                            _syslogDto.setType("삭제");
+                            _syslogDto.setMenunm("주문등록");
+                            _syslogDto.setSource("주문예약삭제");
+                            _syslogDto.setMessage(_indexDa024Dto.getMisdate() + "/" + _indexDa024Dto.getMisnum() + "/" + _indexDa024Dto.getSeq());
+                            _syslogDto.setUserid(userformDto.getUserid());
+                            _syslogDto.setUsernm(userformDto.getUsername());
+                            result = service_auth.TB_SYSLOG_INSERT(_syslogDto);
+                            if (!result) {
+                                //return "error";
+                            }
                         }
                     }
                 }
@@ -2119,6 +2246,7 @@ public class App01CrudController {
         IndexDa024Dto _indexDa024Dto = new IndexDa024Dto();
 
         try {
+            SyslogDto _syslogDto = new SyslogDto();
             String year = misdate.substring(0,4) ;
             String month = misdate.substring(5,7) ;
             String day   = misdate.substring(8,10) ;
@@ -2132,6 +2260,17 @@ public class App01CrudController {
             result = service14.DeleteDA024(_indexDa024Dto);
             if (!result){
                 return "error";
+            }else{
+                _syslogDto.setType("삭제");
+                _syslogDto.setMenunm("주문등록");
+                _syslogDto.setSource("주문삭제");
+                _syslogDto.setMessage(_indexDa024Dto.getMisdate() + "/" + _indexDa024Dto.getMisnum() + "/" + _indexDa024Dto.getSeq());
+                _syslogDto.setUserid(userformDto.getUserid());
+                _syslogDto.setUsernm(userformDto.getUsername());
+                result = service_auth.TB_SYSLOG_INSERT(_syslogDto);
+                if (!result) {
+                    //return "error";
+                }
             }
             result = service14.DeleteDA023(_indexDa024Dto);
             if (!result){
@@ -2168,6 +2307,7 @@ public class App01CrudController {
         IndexDa024Dto _indexDa024Dto = new IndexDa024Dto();
 
         try {
+            SyslogDto _syslogDto = new SyslogDto();
             String year = misdate.substring(0,4) ;
             String month = misdate.substring(5,7) ;
             String day   = misdate.substring(8,10) ;
@@ -2181,6 +2321,17 @@ public class App01CrudController {
             result = service14.DeleteDA026(_indexDa024Dto);
             if (!result){
                 return "error";
+            }else{
+                _syslogDto.setType("삭제");
+                _syslogDto.setMenunm("예약등록");
+                _syslogDto.setSource("예약삭제");
+                _syslogDto.setMessage(_indexDa024Dto.getMisdate() + "/" + _indexDa024Dto.getMisnum() + "/" + _indexDa024Dto.getSeq());
+                _syslogDto.setUserid(userformDto.getUserid());
+                _syslogDto.setUsernm(userformDto.getUsername());
+                result = service_auth.TB_SYSLOG_INSERT(_syslogDto);
+                if (!result) {
+                    //return "error";
+                }
             }
             result = service14.DeleteDA025(_indexDa024Dto);
             if (!result){
@@ -2217,7 +2368,7 @@ public class App01CrudController {
             , HttpServletRequest request){
 
         try {
-
+            SyslogDto _syslogDto = new SyslogDto();
             HttpSession session = request.getSession();
             UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
             if(userformDto == null){
@@ -2314,6 +2465,17 @@ public class App01CrudController {
                         result = service14.UpdateDA026Qty(_Da024Dto);
                         if (!result){
                             return "error";
+                        }else{
+                            _syslogDto.setType("수정");
+                            _syslogDto.setMenunm("예약등록");
+                            _syslogDto.setSource("예약수정");
+                            _syslogDto.setMessage(_indexDa024Dto.getMisdate() + "/" + _indexDa024Dto.getMisnum() + "/" + _indexDa024Dto.getSeq());
+                            _syslogDto.setUserid(userformDto.getUserid());
+                            _syslogDto.setUsernm(userformDto.getUsername());
+                            result = service_auth.TB_SYSLOG_INSERT(_syslogDto);
+                            if (!result) {
+                                //return "error";
+                            }
                         }
                     }
                 }
@@ -2429,6 +2591,17 @@ public class App01CrudController {
             result = service14.InsertDa026(_Da024Dto);
             if (!result){
                 return "error";
+            }else{
+                _syslogDto.setType("등록");
+                _syslogDto.setMenunm("예약등록");
+                _syslogDto.setSource("예약등록");
+                _syslogDto.setMessage(_Da024Dto.getMisdate() + "/" + _Da024Dto.getMisnum() + "/" + _Da024Dto.getSeq());
+                _syslogDto.setUserid(userformDto.getUserid());
+                _syslogDto.setUsernm(userformDto.getUsername());
+                result = service_auth.TB_SYSLOG_INSERT(_syslogDto);
+                if (!result) {
+                    //return "error";
+                }
             }
 
         } catch (Exception e){
@@ -2760,6 +2933,51 @@ public class App01CrudController {
         return _indexDa024ListDto;
     }
 
+
+    //주문현황 리스트
+    @GetMapping(value="/index14/loglist")
+    public Object App14Loglist_index(@RequestParam("frdate") String frdate,
+                                     @RequestParam("todate") String todate,
+                                     @RequestParam("typeflag") String typeflag,
+                                     @RequestParam("menuflag") String menuflag,
+                                     Model model, HttpServletRequest request) throws Exception{
+        CommDto.setMenuTitle("주문등록");
+        CommDto.setMenuUrl("주문등록>로그현황");
+        CommDto.setMenuCode("index14");
+        HttpSession session = request.getSession();
+        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        SyslogDto _syslogDto = new SyslogDto();
+        List<SyslogDto> _syslogDtoListDto = new ArrayList<>();
+        if(userformDto == null){
+            log.info("App14List_index Exception =====> relogin userformDto null");
+            return "relogin";
+        }
+        model.addAttribute("userformDto",userformDto);
+
+        try {
+            String year = frdate.substring(0,4) ;
+            String month = frdate.substring(5,7) ;
+            String day   = frdate.substring(8,10) ;
+            frdate = year + month + day ;
+            year = todate.substring(0,4) ;
+            month = todate.substring(5,7) ;
+            day   = todate.substring(8,10) ;
+            todate = year + month + day ;
+            _syslogDto.setFrdate(frdate);
+            _syslogDto.setTodate(todate);
+            _syslogDto.setType(typeflag);
+            _syslogDto.setMenunm(menuflag);
+            _syslogDtoListDto = service_auth.TB_GET_LOGLIST(_syslogDto);
+            model.addAttribute("_syslogDtoListDto",_syslogDtoListDto);
+
+        } catch (Exception e){
+            log.info("index14/loglist 오류 메시지: " + e.getMessage());
+            e.printStackTrace();
+            return "error";
+        }
+
+        return _syslogDtoListDto;
+    }
 
     //장바구니현황 리스트
     @GetMapping(value="/index14/listmakflag")
@@ -4169,7 +4387,9 @@ public class App01CrudController {
 
         try {
             boolean result = false;
-
+            HttpSession session = request.getSession();
+            UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+            SyslogDto _syslogDto = new SyslogDto();
             IndexDa024Dto _indexDa024Dto = new IndexDa024Dto();
             if( misdatearr.size() > 0){
                 for(int i = 0; i < misdatearr.size(); i++){
@@ -4207,6 +4427,17 @@ public class App01CrudController {
 
                     if (!result){
                         return "error";
+                    }else{
+                        _syslogDto.setType("수정");
+                        _syslogDto.setMenunm("주문현황");
+                        _syslogDto.setSource("주문현황에서 수정");
+                        _syslogDto.setMessage(_indexDa024Dto.getMisdate() + "/" + _indexDa024Dto.getMisnum() + "/" + _indexDa024Dto.getSeq());
+                        _syslogDto.setUserid(userformDto.getUserid());
+                        _syslogDto.setUsernm(userformDto.getUsername());
+                        result = service_auth.TB_SYSLOG_INSERT(_syslogDto);
+                        if (!result) {
+                            //return "error";
+                        }
                     }
                 }
 
@@ -4276,7 +4507,9 @@ public class App01CrudController {
             boolean result = false;
             IndexDa024Dto _indexDa024Dto = new IndexDa024Dto();
             Index20Dto _indexDa020Dto = new Index20Dto();
-
+            SyslogDto _syslogDto = new SyslogDto();
+            HttpSession session = request.getSession();
+            UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
             if( misdatearr.size() > 0){
                 for(int i = 0; i < misdatearr.size(); i++){
                     String year = misdatearr.get(i).substring(0,4);
@@ -4301,6 +4534,17 @@ public class App01CrudController {
                     result = service14.UpdateDA024Del(_indexDa024Dto);
                     if (!result){
                         //return "error";
+                    }else{
+                        _syslogDto.setType("삭제");
+                        _syslogDto.setMenunm("주문현황");
+                        _syslogDto.setSource("주문현황에서 삭제");
+                        _syslogDto.setMessage(_indexDa024Dto.getMisdate() + "/" + _indexDa024Dto.getMisnum() + "/" + _indexDa024Dto.getSeq());
+                        _syslogDto.setUserid(userformDto.getUserid());
+                        _syslogDto.setUsernm(userformDto.getUsername());
+                        result = service_auth.TB_SYSLOG_INSERT(_syslogDto);
+                        if (!result) {
+                            //return "error";
+                        }
                     }
                     //접수 주문 업데이트
                     _indexDa020Dto.setMisdate(ls_misdate);
@@ -4816,6 +5060,7 @@ public class App01CrudController {
 
         try {
             HttpSession session = request.getSession();
+            SyslogDto _syslogDto = new SyslogDto();
             UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
             if(userformDto == null){
                 log.info("App01ComdodeDetailList_index Exception =====> relogin userformDto null");
@@ -4863,8 +5108,33 @@ public class App01CrudController {
                     _index20Dto.setAs_devflag("0");
                     _index20Dto.setMisflag("0");
                     result = service01.InsertJupsu(_index20Dto);
+                    if(result){
+                        _syslogDto.setType("등록");
+                        _syslogDto.setMenunm("AS접수등록");
+                        _syslogDto.setSource(_index20Dto.getAs_acorp() + " AS등록");
+                        _syslogDto.setMessage(_index20Dto.getAs_key1() + "/" + _index20Dto.getAs_key2());
+                        _syslogDto.setUserid(userformDto.getUserid());
+                        _syslogDto.setUsernm(userformDto.getUsername());
+                        result = service_auth.TB_SYSLOG_INSERT(_syslogDto);
+                        if (!result) {
+                            //return "error";
+                        }
+                    }
+
                 }else{
                     result = service01.UpdateJupsu(_index20Dto);
+                    if(result){
+                        _syslogDto.setType("수정");
+                        _syslogDto.setMenunm("AS접수등록");
+                        _syslogDto.setSource(_index20Dto.getAs_acorp() + " AS수정");
+                        _syslogDto.setMessage(_index20Dto.getAs_key1() + "/" + _index20Dto.getAs_key2());
+                        _syslogDto.setUserid(userformDto.getUserid());
+                        _syslogDto.setUsernm(userformDto.getUsername());
+                        result = service_auth.TB_SYSLOG_INSERT(_syslogDto);
+                        if (!result) {
+                            //return "error";
+                        }
+                    }
                 }
             if (!result){
                 return "error";
@@ -4888,7 +5158,7 @@ public class App01CrudController {
             , HttpServletRequest request){
 
         try {
-
+            SyslogDto _syslogDto = new SyslogDto();
             HttpSession session = request.getSession();
             UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
             if(userformDto == null){
@@ -4905,6 +5175,17 @@ public class App01CrudController {
             result = service01.DeleteJupsu(_index20Dto);
             if (!result){
                 return "error";
+            }else{
+                _syslogDto.setType("삭제");
+                _syslogDto.setMenunm("AS접수등록");
+                _syslogDto.setSource("AS삭제");
+                _syslogDto.setMessage(_index20Dto.getAs_key1() + "/" + _index20Dto.getAs_key2());
+                _syslogDto.setUserid(userformDto.getUserid());
+                _syslogDto.setUsernm(userformDto.getUsername());
+                result = service_auth.TB_SYSLOG_INSERT(_syslogDto);
+                if (!result) {
+                    //return "error";
+                }
             }
             return "success";
 
@@ -5059,6 +5340,7 @@ public class App01CrudController {
 
         try {
             boolean result = false;
+            SyslogDto _syslogDto = new SyslogDto();
             Index20Dto _index20Dto = new Index20Dto();
             Index20Dto _index20DtoRe = new Index20Dto();
             IndexDa024Dto _indexDa024Dto = new IndexDa024Dto();
@@ -5195,11 +5477,33 @@ public class App01CrudController {
                         result = service14.InsertDa024Jumsu(_indexDa024Dto);
                         if (!result){
                             return "error";
+                        }else{
+                            _syslogDto.setType("등록");
+                            _syslogDto.setMenunm("AS접수등록");
+                            _syslogDto.setSource("AS주문번호:" + _indexDa024Dto.getMisdate() + "/" + _indexDa024Dto.getMisnum());
+                            _syslogDto.setMessage("AS접수번호:" + _index20Dto.getAs_key1() + "/" + _index20Dto.getAs_key2());
+                            _syslogDto.setUserid(userformDto.getUserid());
+                            _syslogDto.setUsernm(userformDto.getUsername());
+                            result = service_auth.TB_SYSLOG_INSERT(_syslogDto);
+                            if (!result) {
+                                //return "error";
+                            }
                         }
                     }else{
                         result = service14.UpdateDa024Jumsu(_indexDa024Dto);
                         if (!result){
                             return "error";
+                        }else{
+                            _syslogDto.setType("수정");
+                            _syslogDto.setMenunm("AS접수등록");
+                            _syslogDto.setSource("AS주문번호:" + _indexDa024Dto.getMisdate() + "/" + _indexDa024Dto.getMisnum());
+                            _syslogDto.setMessage("AS접수번호:" + _index20Dto.getAs_key1() + "/" + _index20Dto.getAs_key2());
+                            _syslogDto.setUserid(userformDto.getUserid());
+                            _syslogDto.setUsernm(userformDto.getUsername());
+                            result = service_auth.TB_SYSLOG_INSERT(_syslogDto);
+                            if (!result) {
+                                //return "error";
+                            }
                         }
                     }
                     result = service01.UpdateMisJupsu(_index20DtoRe);

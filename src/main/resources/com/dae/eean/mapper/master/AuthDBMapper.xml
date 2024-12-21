@@ -183,4 +183,32 @@
             username = #{username}, passwd1 = #{passwd1}, passwd2 = #{passwd2}, phone = #{phone}
         WHERE userid = #{userid} and custcd= #{custcd} and flag = #{flag}
     </update>
+
+
+    <insert id="TB_SYSLOG_INSERT" parameterType="com.dae.eean.DTO.Popup.SyslogDto">
+        INSERT INTO sys_log
+        (type, menunm, source, message, userid, usernm, _created)
+        VALUES
+        (#{type}, #{menunm},  #{source},  #{message}, #{userid},#{usernm}, getDate() )
+    </insert>
+
+
+    <select id="TB_GET_TYPE" parameterType="com.dae.eean.DTO.Popup.SyslogDto" resultType="com.dae.eean.DTO.Popup.SyslogDto">
+        select type from sys_log group by type
+    </select>
+
+    <select id="TB_GET_MENUNM" parameterType="com.dae.eean.DTO.Popup.SyslogDto" resultType="com.dae.eean.DTO.Popup.SyslogDto">
+        select menunm from sys_log group by menunm
+    </select>
+
+    <select id="TB_GET_LOGLIST" parameterType="com.dae.eean.DTO.Popup.SyslogDto" resultType="com.dae.eean.DTO.Popup.SyslogDto">
+        <![CDATA[
+            select id, type, menunm, source, message, userid, usernm, _created
+            from sys_log
+            where CONVERT(VARCHAR(8), _created, 112) between #{frdate} and #{todate}
+            AND type Like concat('%',#{type},'%')
+            AND menunm Like concat('%',#{menunm},'%')
+        ]]>
+    </select>
+
 </mapper>
