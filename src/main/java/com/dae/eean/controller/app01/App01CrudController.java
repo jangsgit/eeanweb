@@ -1413,8 +1413,8 @@ public class App01CrudController {
                             _syslogDto.setMenunm("주문등록");
                             _syslogDto.setSource("장바구니수정");
                             _syslogDto.setMessage(_indexDa024Dto.getMisdate() + "/" + _indexDa024Dto.getMisnum());
-                            _syslogDto.setUserid(userformDto.getUserid());
-                            _syslogDto.setUsernm(userformDto.getUsername());
+                            _syslogDto.setUserid(userid);
+                            _syslogDto.setUsernm(usernm);
                             result = service_auth.TB_SYSLOG_INSERT(_syslogDto);
                             if (!result) {
                                 //return "error";
@@ -1458,8 +1458,8 @@ public class App01CrudController {
                 _syslogDto.setMenunm("주문등록");
                 _syslogDto.setSource("장바구니등록");
                 _syslogDto.setMessage(_indexDa024Dto.getMisdate() + "/" + _indexDa024Dto.getMisnum() + "/" + _indexDa024Dto.getSeq());
-                _syslogDto.setUserid(userformDto.getUserid());
-                _syslogDto.setUsernm(userformDto.getUsername());
+                _syslogDto.setUserid(userid);
+                _syslogDto.setUsernm(usernm);
                 result = service_auth.TB_SYSLOG_INSERT(_syslogDto);
                 if (!result) {
                    // return "error";
@@ -1847,8 +1847,8 @@ public class App01CrudController {
                             _syslogDto.setMenunm("주문등록");
                             _syslogDto.setSource("주문확정");
                             _syslogDto.setMessage(_Da024Dto.getMisdate() + "/" + _Da024Dto.getMisnum() + "/" + _Da024Dto.getSeq());
-                            _syslogDto.setUserid(userformDto.getUserid());
-                            _syslogDto.setUsernm(userformDto.getUsername());
+                            _syslogDto.setUserid(userid);
+                            _syslogDto.setUsernm(usernm);
                             result = service_auth.TB_SYSLOG_INSERT(_syslogDto);
                             if (!result) {
                                 //return "error";
@@ -1970,8 +1970,8 @@ public class App01CrudController {
                             _syslogDto.setMenunm("주문등록");
                             _syslogDto.setSource("주문확정");
                             _syslogDto.setMessage(_Da024Dto.getMisdate() + "/" + _Da024Dto.getMisnum() + "/" + _Da024Dto.getSeq());
-                            _syslogDto.setUserid(userformDto.getUserid());
-                            _syslogDto.setUsernm(userformDto.getUsername());
+                            _syslogDto.setUserid(userid);
+                            _syslogDto.setUsernm(usernm);
                             result = service_auth.TB_SYSLOG_INSERT(_syslogDto);
                             if (!result) {
                                 //return "error";
@@ -2021,8 +2021,8 @@ public class App01CrudController {
                 _syslogDto.setMenunm("일반주문등록");
                 _syslogDto.setSource("일반주문 장바구니등록");
                 _syslogDto.setMessage(_Da024Dto.getMisdate() + "/" + _Da024Dto.getMisnum() + "/" + _Da024Dto.getSeq());
-                _syslogDto.setUserid(userformDto.getUserid());
-                _syslogDto.setUsernm(userformDto.getUsername());
+                _syslogDto.setUserid(userid);
+                _syslogDto.setUsernm(usernm);
                 result = service_auth.TB_SYSLOG_INSERT(_syslogDto);
                 if (!result) {
                     //return "error";
@@ -2469,7 +2469,7 @@ public class App01CrudController {
                             _syslogDto.setType("수정");
                             _syslogDto.setMenunm("예약등록");
                             _syslogDto.setSource("예약수정");
-                            _syslogDto.setMessage(_indexDa024Dto.getMisdate() + "/" + _indexDa024Dto.getMisnum() + "/" + _indexDa024Dto.getSeq());
+                            _syslogDto.setMessage(_Da024Dto.getMisdate() + "/" + _Da024Dto.getMisnum() + "/" + _Da024Dto.getSeq());
                             _syslogDto.setUserid(userformDto.getUserid());
                             _syslogDto.setUsernm(userformDto.getUsername());
                             result = service_auth.TB_SYSLOG_INSERT(_syslogDto);
