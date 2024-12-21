@@ -789,14 +789,17 @@ public class App01Controller {
         SyslogDto _syslogDto = new SyslogDto();
         List<SyslogDto> _typeList = new ArrayList<>();
         List<SyslogDto> _menuList = new ArrayList<>();
+        List<SyslogDto> _usernmList = new ArrayList<>();
         try {
             HttpSession session = request.getSession();
             UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
             model.addAttribute("userformDto",userformDto);
             _typeList = service_auth.TB_GET_TYPE(_syslogDto);
             _menuList = service_auth.TB_GET_MENUNM(_syslogDto);
+            _usernmList = service_auth.TB_GET_USERNM(_syslogDto);
             model.addAttribute("typeList",_typeList);
             model.addAttribute("menuList",_menuList);
+            model.addAttribute("usernmList",_usernmList);
 //            index03Dto.setJpb_gubn("%");
 //            index03List = service03.GetJBonsaCodeList(index03Dto);
 //            model.addAttribute("index03List",index03List);

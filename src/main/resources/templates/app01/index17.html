@@ -121,7 +121,18 @@
                                                     <option value="">메뉴구분</option>
                                                     <option th:each="val : ${menuList}" th:value="${val.menunm}" th:text="${val.menunm}">
                                                 </select>  
+                                            </div>     
+                                            <div class="col-1 col-sm-1">
+                                                <select  class="form-select form-select-sm" aria-label=".form-select-sm example" th:field="*{usernmList}" name="userflag" id="userflag">
+                                                    <option value="">사용자</option>
+                                                    <option th:each="val : ${usernmList}" th:value="${val.usernm}" th:text="${val.usernm}">
+                                                </select>  
                                             </div>   
+                                            <div class="col-2 col-sm-2">
+                                                <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">상세내용</span> 
+                                                    <input class="form-control form-control-sm" id="messagetxt" type="text"    autocomplete="off"  placeholder=""     >  
+                                                </div>
+                                            </div>
                                             <div class="col-1 col-sm-1">   
                                                 <table>
                                                     <tr>
@@ -639,10 +650,13 @@
                     })     
                     break;
                  case 'B':   
+ 
                     var ls_frdate = document.getElementById('frdate03').value; 
                     var ls_todate = document.getElementById('todate03').value;  
                     var ls_typeflag    = document.getElementById('typeflag').value;  
-                    var ls_menuflag    = document.getElementById('menuflag').value; 
+                    var ls_menuflag    = document.getElementById('menuflag').value;  
+                    var ls_userflag    = document.getElementById('userflag').value;
+                    var ls_messagetxt    = document.getElementById('messagetxt').value;
                     if(ls_frdate == null || ls_frdate.length == 0 || ls_frdate == ""){ 
                         alert("조회일자를 등록하세요") 
                         document.getElementById("frdate02").focus(); 
@@ -658,11 +672,18 @@
                     }     
                     if(ls_menuflag == null || ls_menuflag.length == 0 || ls_menuflag == "" || ls_menuflag =="메뉴구분"){ 
                         ls_menuflag = "%"           
-                    }  
+                    }     
+                    if(ls_userflag == null || ls_userflag.length == 0 || ls_userflag == "" || ls_userflag =="사용자"){ 
+                        ls_userflag = "%"           
+                    }    
+                    if(ls_messagetxt == null || ls_messagetxt.length == 0 || ls_messagetxt == "" ){ 
+                        ls_messagetxt = "%"           
+                    } 
                     console.log(ls_frdate)         
                     console.log(ls_todate)         
                     console.log(ls_typeflag)         
-                    console.log(ls_menuflag)  
+                    console.log(ls_menuflag)          
+                    console.log(ls_userflag) 
                     $.ajax({
                         url: '/app01m/index14/loglist',  
                         type:"POST",
@@ -670,7 +691,9 @@
                             "frdate"      : ls_frdate,
                             "todate"      : ls_todate,
                             "typeflag"      : ls_typeflag,   
-                            "menuflag"      : ls_menuflag,   
+                            "menuflag"      : ls_menuflag,    
+                            "userflag"      : ls_userflag,   
+                            "messagetxt"      : ls_messagetxt,  
                         }, 
                         async:false,
                         success:function(data){      

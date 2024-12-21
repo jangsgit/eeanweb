@@ -36,6 +36,7 @@ public class AuthService {
 
     public List<SyslogDto> TB_GET_TYPE(SyslogDto parm){return authMapper.TB_GET_TYPE(parm);}
     public List<SyslogDto> TB_GET_MENUNM(SyslogDto parm){return authMapper.TB_GET_MENUNM(parm);}
+    public List<SyslogDto> TB_GET_USERNM(SyslogDto parm){return authMapper.TB_GET_USERNM(parm);}
     public List<SyslogDto> TB_GET_LOGLIST(SyslogDto parm){return authMapper.TB_GET_LOGLIST(parm);}
 
 

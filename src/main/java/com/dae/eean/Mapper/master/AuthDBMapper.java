@@ -54,6 +54,7 @@ public interface AuthDBMapper {
 
     public List<SyslogDto> TB_GET_TYPE(SyslogDto Parm);
     public List<SyslogDto> TB_GET_MENUNM(SyslogDto Parm);
+    public List<SyslogDto> TB_GET_USERNM(SyslogDto Parm);
     public List<SyslogDto> TB_GET_LOGLIST(SyslogDto Parm);
 
     public int UpdateUserInfo(UserFormDto Parm);

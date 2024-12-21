@@ -2940,6 +2940,8 @@ public class App01CrudController {
                                      @RequestParam("todate") String todate,
                                      @RequestParam("typeflag") String typeflag,
                                      @RequestParam("menuflag") String menuflag,
+                                     @RequestParam("userflag") String userflag,
+                                     @RequestParam("messagetxt") String messagetxt,
                                      Model model, HttpServletRequest request) throws Exception{
         CommDto.setMenuTitle("주문등록");
         CommDto.setMenuUrl("주문등록>로그현황");
@@ -2967,6 +2969,8 @@ public class App01CrudController {
             _syslogDto.setTodate(todate);
             _syslogDto.setType(typeflag);
             _syslogDto.setMenunm(menuflag);
+            _syslogDto.setUsernm(userflag);
+            _syslogDto.setMessage(messagetxt);
             _syslogDtoListDto = service_auth.TB_GET_LOGLIST(_syslogDto);
             model.addAttribute("_syslogDtoListDto",_syslogDtoListDto);
 

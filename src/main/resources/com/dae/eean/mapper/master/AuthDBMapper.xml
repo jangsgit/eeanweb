@@ -201,12 +201,18 @@
         select menunm from sys_log group by menunm
     </select>
 
+    <select id="TB_GET_USERNM" parameterType="com.dae.eean.DTO.Popup.SyslogDto" resultType="com.dae.eean.DTO.Popup.SyslogDto">
+        select usernm from sys_log group by usernm
+    </select>
+
     <select id="TB_GET_LOGLIST" parameterType="com.dae.eean.DTO.Popup.SyslogDto" resultType="com.dae.eean.DTO.Popup.SyslogDto">
         <![CDATA[
             select id, type, menunm, source, message, userid, usernm, _created
             from sys_log
             where CONVERT(VARCHAR(8), _created, 112) between #{frdate} and #{todate}
             AND type Like concat('%',#{type},'%')
+            AND usernm Like concat('%',#{usernm},'%')
+            AND message Like concat('%',#{message},'%')
             AND menunm Like concat('%',#{menunm},'%')
         ]]>
     </select>
