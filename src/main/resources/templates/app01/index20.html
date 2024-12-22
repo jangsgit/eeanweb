@@ -1960,7 +1960,9 @@
                         type:"POST",
                         data: { 
                             "asaskey1"      : ls_asaskey1,  
-                            "asaskey2"      : ls_asaskey2 
+                            "asaskey2"      : ls_asaskey2 ,
+                            "userid"      : gsUserid  ,  
+                            "usernm"      : gsUsernm  , 
                         }, 
                         async:false,
                         success:function(data){   
@@ -2003,7 +2005,7 @@
                     }     
                       
                     while (asKey1Arr.length > 0) {
-                        asKey1Arr.pop();
+                        asKey1Arr.pop(); 
                         asKey2Arr.pop();  
                     }    
                     for (var i = 0; i < chkTabA.length; i++) { 
@@ -2019,7 +2021,9 @@
                         type:"POST",
                         data: { 
                             "asKey1Arr"  : asKey1Arr,  
-                            "asKey2Arr"   : asKey2Arr   
+                            "asKey2Arr"   : asKey2Arr    ,
+                            "userid"  : gsUserid   ,      
+                            "usernm"  : gsUsernm   
                         }, 
                         async:false,
                         success:function(data){   

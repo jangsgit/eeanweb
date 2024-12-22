@@ -5132,8 +5132,8 @@ public class App01CrudController {
                         _syslogDto.setMenunm("AS접수등록");
                         _syslogDto.setSource(_index20Dto.getAs_acorp() + " AS수정");
                         _syslogDto.setMessage(_index20Dto.getAs_key1() + "/" + _index20Dto.getAs_key2());
-                        _syslogDto.setUserid(userformDto.getUserid());
-                        _syslogDto.setUsernm(userformDto.getUsername());
+                        _syslogDto.setUserid(userid);
+                        _syslogDto.setUsernm(usernm);
                         result = service_auth.TB_SYSLOG_INSERT(_syslogDto);
                         if (!result) {
                             //return "error";
@@ -5158,6 +5158,8 @@ public class App01CrudController {
     @RequestMapping(value="/jupsudel")
     public String index20JupsuDel(@RequestParam(value = "asaskey1") String asaskey1
             ,@RequestParam( value =  "asaskey2") String asaskey2
+            ,@RequestParam( value =  "userid") String userid
+            ,@RequestParam( value =  "usernm") String usernm
             , Model model
             , HttpServletRequest request){
 
@@ -5182,10 +5184,10 @@ public class App01CrudController {
             }else{
                 _syslogDto.setType("삭제");
                 _syslogDto.setMenunm("AS접수등록");
-                _syslogDto.setSource("AS삭제");
+                _syslogDto.setSource("AS접수등록 삭제");
                 _syslogDto.setMessage(_index20Dto.getAs_key1() + "/" + _index20Dto.getAs_key2());
-                _syslogDto.setUserid(userformDto.getUserid());
-                _syslogDto.setUsernm(userformDto.getUsername());
+                _syslogDto.setUserid(userid);
+                _syslogDto.setUsernm(usernm);
                 result = service_auth.TB_SYSLOG_INSERT(_syslogDto);
                 if (!result) {
                     //return "error";
@@ -5204,9 +5206,12 @@ public class App01CrudController {
     @RequestMapping(value="/jupsudellist")
     public String index20JupsuDelList(@RequestParam(value = "asKey1Arr[]") List<String> asKey1Arr
             ,@RequestParam( value =  "asKey2Arr[]") List<String> asKey2Arr
+            ,@RequestParam( value =  "userid") String userid
+            ,@RequestParam( value =  "usernm") String usernm
             , Model model
             , HttpServletRequest request){
         try {
+            SyslogDto _syslogDto = new SyslogDto();
             HttpSession session = request.getSession();
             UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
             if(userformDto == null){
@@ -5246,6 +5251,21 @@ public class App01CrudController {
                     result = service01.DeleteJupsu(_index20Dto);
                     if (!result){
                         return "error";
+                    }else{
+                        _syslogDto.setType("삭제");
+                        _syslogDto.setMenunm("AS접수등록");
+                        if(ls_misdate.length() > 0 ) {
+                            _syslogDto.setSource("주문:" + _indexDa024Dto.getMisdate() + "/" + _indexDa024Dto.getMisnum());
+                        }else{
+                            _syslogDto.setSource("AS접수등록 삭제");
+                        }
+                        _syslogDto.setMessage("접수:" + _index20Dto.getAs_key1() + "/" + _index20Dto.getAs_key2());
+                        _syslogDto.setUserid(userid);
+                        _syslogDto.setUsernm(usernm);
+                        result = service_auth.TB_SYSLOG_INSERT(_syslogDto);
+                        if (!result) {
+                            //return "error";
+                        }
                     }
                 }
 
