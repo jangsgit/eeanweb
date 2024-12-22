@@ -202,7 +202,7 @@
     </select>
 
     <select id="TB_GET_USERNM" parameterType="com.dae.eean.DTO.Popup.SyslogDto" resultType="com.dae.eean.DTO.Popup.SyslogDto">
-        select usernm from sys_log group by usernm
+        select usernm from sys_log group by usernm order by usernm
     </select>
 
     <select id="TB_GET_LOGLIST" parameterType="com.dae.eean.DTO.Popup.SyslogDto" resultType="com.dae.eean.DTO.Popup.SyslogDto">

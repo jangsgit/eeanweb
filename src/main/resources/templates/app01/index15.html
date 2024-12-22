@@ -164,7 +164,7 @@
                                                     <input class="form-control form-control-sm" id="bacorp3" type="hidden"  />
                                                     <input class="form-control form-control-sm" id="bacode" type="hidden"  /> 
                                                     <input class="form-control form-control-sm" id="bjpbgubn" type="hidden"  /> 
-                                                    <input class="form-control form-control-sm" id="bmisdate" type="hidden"  /> 
+                                                    <!-- <input class="form-control form-control-sm" id="bmisdate" type="hidden"  />  -->
                                                     <input class="form-control form-control-sm" id="bmisnum" type="hidden"  /> 
                                                     <input class="form-control form-control-sm" id="bcltcd" type="hidden"  /> 
                                                     <input class="form-control form-control-sm" id="bseq" type="hidden"  /> 
@@ -322,6 +322,11 @@
                                 </div>   
                             </div>                                    -->
                             <div class="row"  >
+                                <div class="col-auto">
+                                    <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">주문일자</span>
+                                        <input type="text"  class="form-control datetimepicker" id="bmisdate" autocomplete="off"  placeholder="Y-m-d"     >
+                                    </div>
+                                </div>
                                 <div class="col">
                                     <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">요청사항</span> 
                                         <input class="form-control form-control-sm" id="mremark" type="text"    autocomplete="off"  placeholder="예) SF31번 코, DN01번 힌지나사"     > 
@@ -729,7 +734,7 @@ aria-hidden="true">
                 selectionMode: 'RowRange',
                 alternatingRowStep: 0,
                 columns: [     
-                    { binding: 'misdate', header: '주문일자', align: "center", width: 120 }, 
+                    { binding: 'misdate', header: '장바구니일자', align: "center", width: 120 }, 
                     // { binding: 'misnum', header: '주문번호', align: "center", width: 80 },  
                     // { binding: 'seq', header: '순번', align: "center", width: 80 },  
                     { binding: 'acorp', header: '거래처', align: "center", width: 150 },  
@@ -1498,7 +1503,7 @@ aria-hidden="true">
             view_p01tab02page.sourceCollection  = wtab02_data;
             var cols = new wijmo.grid.Column(); 
             cols.binding = 'misdate';
-            cols.header = '주문일자';
+            cols.header = '장바구니일자';
             cols.align = "center";
             cols.width = 120; 
             cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
@@ -2664,6 +2669,8 @@ aria-hidden="true">
             document.getElementById('ipdate').value = ls_today;
             document.getElementById('frdate02').value = ls_frday;
             document.getElementById('todate02').value = ls_today;
+            document.getElementById('bmisdate').value = ls_today;
+            
             // document.getElementById('todate').value = ls_today;
         }
 
