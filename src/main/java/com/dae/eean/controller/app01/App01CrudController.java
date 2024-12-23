@@ -5506,8 +5506,8 @@ public class App01CrudController {
                             _syslogDto.setMenunm("AS접수등록");
                             _syslogDto.setSource("AS주문번호:" + _indexDa024Dto.getMisdate() + "/" + _indexDa024Dto.getMisnum());
                             _syslogDto.setMessage("AS접수번호:" + _index20Dto.getAs_key1() + "/" + _index20Dto.getAs_key2());
-                            _syslogDto.setUserid(userformDto.getUserid());
-                            _syslogDto.setUsernm(userformDto.getUsername());
+                            _syslogDto.setUserid(userid);
+                            _syslogDto.setUsernm(usernm);
                             result = service_auth.TB_SYSLOG_INSERT(_syslogDto);
                             if (!result) {
                                 //return "error";
@@ -5522,8 +5522,8 @@ public class App01CrudController {
                             _syslogDto.setMenunm("AS접수등록");
                             _syslogDto.setSource("AS주문번호:" + _indexDa024Dto.getMisdate() + "/" + _indexDa024Dto.getMisnum());
                             _syslogDto.setMessage("AS접수번호:" + _index20Dto.getAs_key1() + "/" + _index20Dto.getAs_key2());
-                            _syslogDto.setUserid(userformDto.getUserid());
-                            _syslogDto.setUsernm(userformDto.getUsername());
+                            _syslogDto.setUserid(userid);
+                            _syslogDto.setUsernm(usernm);
                             result = service_auth.TB_SYSLOG_INSERT(_syslogDto);
                             if (!result) {
                                 //return "error";
