@@ -530,7 +530,7 @@
          var gubunArr    = new Array(); 
          var fixflagArr    = new Array();  
          var misqty    = new Array();
-         var mjqty    = new Array();
+         var mjqty    = new Array(); 
         let includeColumnHeader = false;
         let Chknum = 0;
          var gsUserid = "";                             
@@ -1176,7 +1176,11 @@
             $("#winwishmodal_btn").trigger("click"); 
         })  
         //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$  
-        document.getElementById("DelBtnSave").addEventListener("click",function(){  
+        document.getElementById("DelBtnSave").addEventListener("click",function(){   
+            if (wtab02Grid.rows.length === 0) {
+                alert("삭제내역을 확인하세요")
+                return 
+            } 
             savechk_rtn()
             var ls_mgubun = document.getElementById('mgubun').value; 
             var arg1 = document.getElementById('mjpumnm').value; 
@@ -1465,6 +1469,7 @@
             var cnt = 1;
             var bfixflag = false
             var ls_unsongnum = "";
+            jangcount = wtab02Dto.length;  //장바구니 count
             for (var i = 0; i < wtab02Dto.length; i++) {
                 if(wtab02Dto[i]["fixflag"] == "1"){
                     bfixflag = true;
@@ -2113,7 +2118,7 @@
                             misdateArr[0] = '0000'
                             misnumArr[0] = '0000'
                             seqArr[0] = '0000'
-                            misqty[0] = '0'  
+                            misqty[0] = '0'   
                             document.getElementById('mremark').value = ""; 
                             searchList_rtn(ls_tabchk) 
                             $("#winorderlistmodal_btn").trigger("click");
@@ -2219,7 +2224,11 @@
             
             if (!confirm("삭제하시겠습니까?")) { 
                 return false; 
-            }                   
+            }    
+            if (wtab02Grid.rows.length === 0) {
+                alert("삭제내역을 확인하세요")
+                return 
+            }                  
             //요청사항 
             if(arg3 == null || arg3.length == 0 || arg3 == ""){ 
                 arg3 = ""          ;

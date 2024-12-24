@@ -628,6 +628,7 @@ aria-hidden="true">
          var fixflagArr    = new Array(); 
          var misqty    = new Array();
          var mjqty    = new Array();
+          
         var wseries_data = [0]; 
         let includeColumnHeader = false;
          var gsUserid = "";                             
@@ -1240,7 +1241,7 @@ aria-hidden="true">
 
             })        
 
-        }    
+        }     
 
         function jcust_grid(arg, custdata, argjpb){  
             var wactnm_data = [];          
@@ -1530,7 +1531,11 @@ aria-hidden="true">
             $("#winwishmodal_btn").trigger("click"); 
         })  
         //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$  
-        document.getElementById("DelBtnSave").addEventListener("click",function(){  
+        document.getElementById("DelBtnSave").addEventListener("click",function(){   
+            if (wtab02Grid.rows.length === 0) {
+                alert("삭제내역을 확인하세요")
+                return 
+            } 
             savechk_rtn()
             var ls_mgubun = document.getElementById('mgubun').value; 
             var arg1 = document.getElementById('mjpumnm').value; 
@@ -1705,7 +1710,7 @@ aria-hidden="true">
             var bfixflag = false
             var bmakflag = false
             var ls_remark = "";
-            var ls_unsongnum = "";
+            var ls_unsongnum = ""; 
             for (var i = 0; i < wtab02Dto.length; i++) {
                 if(wtab02Dto[i]["fixflag"] == "1"){
                     bfixflag = true;
@@ -2155,8 +2160,7 @@ aria-hidden="true">
             winnameGrid.columns.push(cols); 
         }
                 
-        function wcifChk_a(arg1, arg2, arg3, arg4, arg5,arg6){   
-            console.log(arg6)  ;
+        function wcifChk_a(arg1, arg2, arg3, arg4, arg5,arg6){  
             switch(arg6){
                 case 'A':
                     document.getElementById('acorp1').value = arg1;  
@@ -2392,6 +2396,10 @@ aria-hidden="true">
                             misnumArr[0] = '0000'
                             seqArr[0] = '0000'
                             misqty[0] = '0'  
+                            misdateArr = [];
+                            misnumArr = [];
+                            seqArr = [];
+                            misqty = [];  
                             document.getElementById('mremark').value = ""; 
                             searchList_rtn(ls_tabchk) 
                             $("#winorderlistmodal_btn").trigger("click");
@@ -2493,11 +2501,19 @@ aria-hidden="true">
             var ls_jcode  =  [];        
             var ll_jqty    =  []; 
             var llCount = 0;  
-            ls_tabchk = arg5;  
-            
+            ls_tabchk = arg5;   
             if (!confirm("삭제하시겠습니까?")) { 
                 return false; 
-            }                   
+            }      
+            if (wtab02Grid.rows.length === 0) {
+                alert("삭제내역을 확인하세요")
+                return 
+            }     
+            if (misdateArr[0] == '0000' ) {
+                alert("삭제내역을 확인하세요")
+                return 
+            }  
+                            
             //요청사항 
             if(arg3 == null || arg3.length == 0 || arg3 == ""){ 
                 arg3 = ""          ;
@@ -2556,9 +2572,7 @@ aria-hidden="true">
                 }).done(function(fragment){           
 
                 }) 
-            }else{ 
-                console.log(ls_misdate)
-                console.log(misdateArr)
+            }else{  
                 $.ajax({
                         url: '/app01m/index14/savecustwishdel',  
                         type:"POST",
@@ -2634,8 +2648,7 @@ aria-hidden="true">
             var ll_qty    =  [];    
             var ls_jcode  =  [];        
             var ll_jqty    =  []; 
-            var llCount = 0;       
-            console.log(ls_acode)           
+            var llCount = 0;              
             if(ls_tabchk == "B"   ){
                 ls_acode = ls_cltcd    //비고등록시 거래처코드
             } 
@@ -2654,7 +2667,7 @@ aria-hidden="true">
                         alert("거래처를 등록하세요") 
                         document.getElementById("cifname").focus(); 
                         return ;               
-                    }       
+                    }        
                     if(misdateArr.length == 0){
                         misdateArr[0] = '0000'
                         misnumArr[0] = '0000'
@@ -2677,7 +2690,7 @@ aria-hidden="true">
                     //수량
                     if(arg4 == null ){ 
                         arg4 = 1         ;
-                    }  
+                    }    
                     $.ajax({
                         url: '/app01m/index14/savecust',  
                         type:"POST",
@@ -2701,7 +2714,7 @@ aria-hidden="true">
                             "usernm"  : gsUsernm   
                         }, 
                         async:false,
-                        success:function(data){      
+                        success:function(data){   
                             chkLogin(data)       
                             if(data == "success"){
                                 toastOn() 
@@ -2872,8 +2885,7 @@ aria-hidden="true">
             fn_egov_init_date() 
         })
 
-        function test_rtn(arg1){
-            console.log(arg1);
+        function test_rtn(arg1){ 
             const disHtml = `
                 <div class="tab-pane fade show active" id=${arg1} role="tabpanel" aria-labelledby="profile-tab">${arg1}</div>`
             $('#btnDiv02').before(disHtml);
