@@ -2117,8 +2117,8 @@ public class App01CrudController {
                             _syslogDto.setMenunm("주문등록");
                             _syslogDto.setSource("주문삭제");
                             _syslogDto.setMessage(_indexDa024Dto.getMisdate() + "/" + _indexDa024Dto.getMisnum() + "/" + _indexDa024Dto.getSeq());
-                            _syslogDto.setUserid(userformDto.getUserid());
-                            _syslogDto.setUsernm(userformDto.getUsername());
+                            _syslogDto.setUserid(userid);
+                            _syslogDto.setUsernm(usernm);
                             result = service_auth.TB_SYSLOG_INSERT(_syslogDto);
                             if (!result) {
                                 //return "error";
@@ -2232,6 +2232,8 @@ public class App01CrudController {
                                   @RequestParam("argmisseq") String seq,
                                   @RequestParam("argcltcd") String cltcd,
                                  @RequestParam("mflag") String mflag,
+                                 @RequestParam("userid") String userid,
+                                 @RequestParam("usernm") String usernm,
                                   Model model, HttpServletRequest request) throws Exception{
         CommDto.setMenuTitle("주문등록");
         CommDto.setMenuUrl("주문등록>주문현황");
@@ -2265,8 +2267,8 @@ public class App01CrudController {
                 _syslogDto.setMenunm("주문등록");
                 _syslogDto.setSource("주문삭제");
                 _syslogDto.setMessage(_indexDa024Dto.getMisdate() + "/" + _indexDa024Dto.getMisnum() + "/" + _indexDa024Dto.getSeq());
-                _syslogDto.setUserid(userformDto.getUserid());
-                _syslogDto.setUsernm(userformDto.getUsername());
+                _syslogDto.setUserid(userid);
+                _syslogDto.setUsernm(usernm);
                 result = service_auth.TB_SYSLOG_INSERT(_syslogDto);
                 if (!result) {
                     //return "error";
@@ -4543,8 +4545,8 @@ public class App01CrudController {
                         _syslogDto.setMenunm("주문현황");
                         _syslogDto.setSource("주문현황에서 삭제");
                         _syslogDto.setMessage(_indexDa024Dto.getMisdate() + "/" + _indexDa024Dto.getMisnum() + "/" + _indexDa024Dto.getSeq());
-                        _syslogDto.setUserid(userformDto.getUserid());
-                        _syslogDto.setUsernm(userformDto.getUsername());
+                        _syslogDto.setUserid(userid);
+                        _syslogDto.setUsernm(usernm);
                         result = service_auth.TB_SYSLOG_INSERT(_syslogDto);
                         if (!result) {
                             //return "error";
