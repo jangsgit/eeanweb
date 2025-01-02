@@ -3262,7 +3262,7 @@ public class App01CrudController {
             }
             _indexDa024Dto.setPerid(perid);
             _indexDa024Dto.setMisgubun(mflag);
-            _indexDa024Dto.setJpbgubn(jpbgubn);
+            _indexDa024Dto.setJpbgubn("%");
             //출력일
             if(sflag.equals("0")){
                 _indexDa024ListDto = service14.SelectDa024ListPerid(_indexDa024Dto);
@@ -3337,7 +3337,7 @@ public class App01CrudController {
             }
             _indexDa024Dto.setPerid(perid);
             _indexDa024Dto.setMisgubun(mflag);
-            _indexDa024Dto.setJpbgubn(jpbgubn);
+            _indexDa024Dto.setJpbgubn("%");
             _indexDa024Dto.setPcode(jkey);
             //출력일 기준
             if(sflag.equals("0")){
@@ -3484,7 +3484,7 @@ public class App01CrudController {
 //                    break;
 //            }
             _indexDa024Dto.setMisgubun(mflag);
-            _indexDa024Dto.setJpbgubn(jpbgubn);
+            _indexDa024Dto.setJpbgubn("%");
 
 //            log.info("acode =====>" +acode);
 //            log.info("fixflag =====>" +fixflag);
@@ -3690,7 +3690,7 @@ public class App01CrudController {
             _indexDa024Dto.setPerid(perid);
             _indexDa024Dto.setMisgubun(mflag);
             _indexDa024Dto.setPcode(jkey);
-            _indexDa024Dto.setJpbgubn(jpbgubn);
+            _indexDa024Dto.setJpbgubn("%");
             //출력일기준
             if(sflag.equals("0")){
                 _indexDa024ListDto = service14.SelectDa024ListJpumGroup(_indexDa024Dto);
