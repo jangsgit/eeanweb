@@ -1186,6 +1186,10 @@
             if (wtab02Grid.rows.length === 0) {
                 alert("삭제내역을 확인하세요")
                 return 
+            }
+            if(chkTabA.length == 0){
+                alert("삭제할 자료를 선택하세요")
+                return  
             } 
             savechk_rtn()
             var ls_mgubun = document.getElementById('mgubun').value; 
@@ -2124,7 +2128,8 @@
                             misdateArr[0] = '0000'
                             misnumArr[0] = '0000'
                             seqArr[0] = '0000'
-                            misqty[0] = '0'   
+                            misqty[0] = '0' 
+                            chkTabA = [];  
                             document.getElementById('mremark').value = ""; 
                             searchList_rtn(ls_tabchk) 
                             $("#winorderlistmodal_btn").trigger("click");
@@ -2275,6 +2280,7 @@
                             misnumArr[0] = '0000'
                             seqArr[0] = '0000'
                             misqty[0] = '0'  
+                            chkTabA = [];
                             searchList_rtn(ls_tabchk) 
                             return true;
                             // searchList_rtn(ls_tab);  
@@ -2324,6 +2330,7 @@
                                 misnumArr[0] = '0000'
                                 seqArr[0] = '0000'
                                 misqty[0] = '0'  
+                                chkTabB = [];
                                 searchList_rtn(ls_tabchk) 
                                 return true;
                                 // searchList_rtn(ls_tab);  
