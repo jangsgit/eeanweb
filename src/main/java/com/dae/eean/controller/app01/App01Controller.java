@@ -3,6 +3,7 @@ package com.dae.eean.controller.app01;
 import com.dae.eean.DTO.App01.Index01Dto;
 import com.dae.eean.DTO.App01.Index02Dto;
 import com.dae.eean.DTO.App01.Index03Dto;
+import com.dae.eean.DTO.App01.IndexMonCDto;
 import com.dae.eean.DTO.CommonDto;
 import com.dae.eean.DTO.Popup.PopupDto;
 import com.dae.eean.DTO.Popup.SyslogDto;
@@ -271,12 +272,18 @@ public class App01Controller {
         CommDto.setMenuTitle("재고등록");
         CommDto.setMenuUrl("기준정보>재고등록");
         CommDto.setMenuCode("index04");
+        List<IndexMonCDto> _indexMonCDtoList = new ArrayList<>();
+        IndexMonCDto _indexMonCDto = new IndexMonCDto();
         try {
             HttpSession session = request.getSession();
             UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
             model.addAttribute("userformDto",userformDto);
             index03List = service03.GetJcustomCodeTot(index03Dto);
+            _indexMonCDto.setPcode("%");
+            _indexMonCDtoList = service03.GetMonthCloseList(_indexMonCDto);
+
             model.addAttribute("index04List",index03List);
+            model.addAttribute("indexMonthList",_indexMonCDtoList);
         } catch (Exception ex) {
             log.info("App04_index Exception ================================================================");
             log.info("Exception =====>" + ex.toString());

@@ -68,6 +68,9 @@
                                     <li class="nav-item">
                                       <a class="nav-link" data-toggle="tab" href="#step04"  onclick="tabchk_rtn('D')">기간별재고현황</a>
                                     </li>
+                                    <li class="nav-item">
+                                      <a class="nav-link" data-toggle="tab" href="#step05"  onclick="tabchk_rtn('E')">월재고마감</a>
+                                    </li>
                                     <input type="hidden" id="tabvalue" value="A">
                                   </ul>
                                   <div class="tab-content">
@@ -212,7 +215,58 @@
                                             </table>
                                         </div>  
                                     </div>
-                                  </div>
+                                    <div class="tab-pane fade" id="step05">    
+                                        <div class="row gx-3" style="  margin: 10px 10px 10px;">   
+                                            <!-- <div class="col-2 col-sm-2">
+                                                <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">조회일자</span>
+                                                    <input type="text"  class="form-control datetimepicker" id="fromdt02" autocomplete="off"  placeholder="Y-m-d"     >
+                                                </div>
+                                            </div>    
+                                            <div class="col-2 col-sm-2"> 
+                                                <div class="input-group input-group-sm mb-3"> 
+                                                    <input type="text"  class="form-control datetimepicker" id="todaydt02" autocomplete="off"  placeholder="Y-m-d"     >
+                                                </div>
+                                            </div>  -->
+                                            <div class="col-2 col-sm-2">
+                                                <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">품목</span> 
+                                                    <input class="form-control form-control-sm" id="jpumname04" type="text"    autocomplete="off"  placeholder=""     >
+                                                    <input class="form-control form-control-sm" id="jkey04" type="hidden"  /> 
+                                                    <input class="form-control form-control-sm" id="yymmcode" type="hidden"  /> 
+                                                </div>
+                                            </div>
+                                            <div class="col-1 col-sm-1">  
+                                                <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="retrieveBtn"  type="button" onclick="searchList_rtn('E')">조회
+                                                </button>
+                                            </div>  
+                                            <div class="col-auto"> 
+                                                <button class="btn btn-falcon-primary me-1 mb-1 btn-sm" type="button" id="saveJaego">재고마감
+                                                </button> 
+                                            </div> 
+                                            <div class="col-auto"> 
+                                                <button class="btn btn-falcon-primary me-1 mb-1 btn-sm" type="button" id="saveJaegoDel" onclick="saveclosedel_btn()">재고마감삭제
+                                                </button> 
+                                            </div> 
+                                        </div> 
+                                        <div class="table-responsive">  
+                                            <table class="table table-borderless" style="height: 100px; cellpadding:0px" >
+                                                <tbody>
+                                                    <tr style="padding-top:0; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; "> 
+                                                      <td class="align-top"  style="padding-top:0; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; "> 
+                                                        <div class="container-fluid">   
+                                                            <div id="wtab06Grid_div"  style="overflow:scroll;   height:680px;  width:100px; margin:0 auto; "></div>  
+                                                        </div>  
+                                                      </td>
+                                                      <td class="align-top" style="padding-top:0; padding-bottom: 0px; padding-left: 0px; padding-right: 0px;">                                                         
+                                                        <div class="container-fluid"  style="overflow:scroll;     margin:0 auto; " >                                                         
+                                                            <div id="wtab07Grid_div"  style="overflow:scroll;   height:750px; width:1600px;  margin:0 auto; "></div> 
+                                                         </div>  
+                                                      </td> 
+                                                    </tr>
+                                                 </tbody> 
+                                            </table>
+                                        </div>  
+                                    </div>
+                                </div>
                             </div>
                         <!-- </div> 
                     </div>       
@@ -331,9 +385,46 @@
     </div>   
  
  
-<!--------------------------------------------------------------------------------------->     
+    <!---------------------------------------------------------------------------------------> 
+    <!--  재고마감 -->
+    <input class="form-control form-control-sm"  type="hidden" id="insavebtn02" data-bs-toggle="modal" data-bs-target="#savejaemodal"  /> 
+    <!--------------------------------------------------------------------------------------->   
+    <div class="modal fade" id="savejaemodal" data-bs-keyboard="false"
+    data-bs-backdrop="static" tabindex="-1" aria-labelledby="staticBackdropLabel"
+    aria-hidden="true">
+        <div class="modal-dialog modal-lg mt-6" role="document" id = "modalForm01"
+            style="max-width: 600px">
+            <div class="modal-content border-0">
+                <div class="modal-body p-0" >  
+                    <div class="row gx-4" style="  margin: 10px 10px 10px;">   
+                        <div class="col-auto">
+                            <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">마감년월</span>
+                                <input type="text"  class="form-control datetimepicker" id="savejaedate" autocomplete="off"  placeholder="Y-m"     >
+                            </div>
+                        </div>  
+                        <div class="col-auto">
+                            <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" type="button" onclick="saveclose_btn()">마감등록
+                            </button>
+                        </div> 
+                    </div> 
+                </div>  
 
+                <div class="modal-footer">
+                    <div class="row g-1">
+                        <div class="col-auto">
+                            <button class="badge-soft-primary dropdown-item rounded-1"
+                                type="button"  id="wsavejaemodal_btn" data-bs-dismiss="modal">Close</button>
+                        </div> 
+                    </div>
+                </div>   
+
+            </div>
+        </div> 
+    </div>   
+ 
+<!--------------------------------------------------------------------------------------->   
 <input class="form-control form-control-sm"  type="hidden" id="actnmbtn" data-bs-toggle="modal" data-bs-target="#savemodal"  /> 
+<input class="form-control form-control-sm"  type="hidden" id="actnmbtn02" data-bs-toggle="modal" data-bs-target="#savejaemodal"  /> 
 
 
 
@@ -347,6 +438,8 @@
          var view_p01tab03page; 
          var view_p01tab04page; 
          var view_p01tab05page; 
+         var view_p01tab06page; 
+         var view_p01tab07page; 
          var view_innamepage; 
          var view_injcodepage; 
          var wtab01Grid;
@@ -354,13 +447,17 @@
          var wtab03Grid; 
          var wtab04Grid; 
          var wtab05Grid; 
+         var wtab06Grid; 
+         var wtab07Grid; 
          var winnameGrid; 
          var winjcodeGrid; 
          var excelIOSheet;
          var typeMenu;  
          var treemap;
          let barchart;
-         let ani;
+         let ani; 
+         var gsUserid = "";                             
+         var gsUsernm  = ""; 
         var wseries_data = [0]; 
         let includeColumnHeader = false;
 
@@ -689,18 +786,112 @@
             wtab05Grid.focus();
 
 
+            //// ################################################################  
+            // 월마감된 리스트 
+            view_p01tab06page = new wijmo.collections.CollectionView(getData_tab06(), {
+               // pageSize: 100
+            }); 
+            wtab06Grid = new wijmo.grid.FlexGrid('#wtab06Grid_div', { 
+                autoGenerateColumns: false,
+                showMarquee: true,
+                showSelectedHeaders: 'All',
+                isReadOnly: true, 
+                selectionMode: 'RowRange',
+                allowSorting: 'MultiColumn',
+                alternatingRowStep: 0,
+                columns: [       
+                    {
+                        binding: 'yymm',
+                        width: 80,
+                        header: '월마감', 
+                        align:"center",
+                        cellTemplate: wijmo.grid.cellmaker.CellMaker.makeLink({ 
+                            text: '<b>${item.yymm}</b>',
+                            click: (e, ctx) => {
+                                wyymmChk_a(ctx.item.yymm );                    
+                            }
+                        })
+                    },                       
+                ], 
+                 
+                itemsSource: view_p01tab06page
+                
+            });          
+            // 첫번째 항목(정렬/그룹화한 후)을 선택
+            wtab06Grid.select(new wijmo.grid.CellRange(0, 0), true);
+            wijmo.toggleClass(wtab06Grid.hostElement, 'highlightActive', true);
+            wtab06Grid.focus();
+            var rowCount = 50;
+            var cellCount = 20;
+              // tab01검색 데이터 수집
+            function getData_tab06(){       
+                var wtab06Dto = [[${indexMonthList}]];    
+                 var wactnm_data = [];          
+                var cnt = 1;
+                for (var i = 0; i < wtab06Dto.length; i++) {
+                    wactnm_data.push({
+                        id: i, 
+                        index: cnt,
+                        yymm: wtab06Dto[i]["yymm"], 
+                    });
+                    cnt++;
+                }     
+                return wactnm_data;                                          
+            }  
+     
+            setHeaderColumn13(false);
+            function setHeaderColumn13(headerOn) {
+                wtab06Grid.headersVisibility = headerOn
+                ? wijmo.grid.HeadersVisibility.All
+                : wijmo.grid.HeadersVisibility.Column; 
+            } 
+
+
+
+            // // ################################################################  
+            // 마감리스트현황  list
+            view_p01tab07page = new wijmo.collections.CollectionView(getData_tab04(), { 
+            });   
+            wtab07Grid = new wijmo.grid.FlexGrid('#wtab07Grid_div', {  
+                autoGenerateColumns: false, 
+                isReadOnly: false, 
+                allowSorting: 'MultiColumn',
+                selectionMode: 'RowRange',
+                alternatingRowStep: 0,
+                columns: [     
+                    { binding: 'yymm', header: '마감년월', align: "center", width: '1*' }, 
+                    { binding: 'jkey', header: '품목코드', align: "center", width: '1*' }, 
+                    { binding: 'jpum', header: '품목', align: "center", width: '1*' }, 
+                    { binding: 'jgugek', header: '규격', align: "center", width: '1*' }, 
+                    { binding: 'jsize', header: '사이즈', align: "center", width: '1*' }, 
+                    { binding: 'jmodel_code', header: '모델코드', align: "center", width: '1*' }, 
+                    { binding: 'jcolor_code', header: '컬러코드', align: "center", width: '1*' }, 
+                    { binding: 'jcustomer_code', header: '고객코드', align: "center", width: '1*' }, 
+                    { binding: 'junqty', header: '전재고', align: "center", width: '1*', format: 'n0' }, 
+                    { binding: 'ipqty', header: '입고수량', align: "center", width: '1*', format: 'n0' }, 
+                    { binding: 'chqty', header: '출고수량', align: "center", width: '1*', format: 'n0' }, 
+                    { binding: 'jqty', header: '마감수량', align: "center", width: '1*', format: 'n0' },  
+                ],  
+                itemsSource: view_p01tab07page, 
+            });   
+
+            //new FlexGridContextMenu(wtab07Grid);   
+            setHeaderColumn12(false);
+            function setHeaderColumn12(headerOn) {
+                wtab07Grid.headersVisibility = headerOn
+                ? wijmo.grid.HeadersVisibility.All
+                : wijmo.grid.HeadersVisibility.Column; 
+            } 
+            wtab07Grid.showMarquee = true;
+            wtab07Grid.focus();
+            wijmo.toggleClass(wtab07Grid.hostElement, 'highlightActive', true);
+            wtab07Grid.focus();
 
             // // ################################################################  
             //품목현황 Modalㅁ
             view_innamepage = new wijmo.collections.CollectionView(getData_wlist2(), {
                // pageSize: 12
-            });
-            // 품목 페이지 이동
-            // new wijmo.input.CollectionViewNavigator('#thePager03', {
-            //     byPage: true,
-            //     headerFormat: 'Page {currentPage:n0} of {pageCount:n0}',
-            //     cv: view_innamepage
-            // });     
+            });    
             winnameGrid = new wijmo.grid.FlexGrid('#winnameGrid_div', {  
                 autoGenerateColumns: false,
                 isReadOnly: false, 
@@ -808,8 +999,12 @@
         document.getElementById("saveInd").addEventListener("click",function(){ 
                 document.getElementById("actnmbtn").click(); 
             
+        })   
+        //재고마감
+        document.getElementById("saveJaego").addEventListener("click",function(){ 
+                document.getElementById("actnmbtn02").click(); 
+            
         })  
-
           
         //입고조회 품목검색 
         document.getElementById("jpumname02").addEventListener("keyup", (e)=>{ 
@@ -832,6 +1027,13 @@
                 JpumSearchList_rtn("D"); 
             }
         });  
+        //마감조회 품목검색 
+        document.getElementById("jpumname04").addEventListener("keyup", (e)=>{ 
+            if(e.keyCode === 13){  
+                document.getElementById("innamebtn").click(); 
+                JpumSearchList_rtn("E"); 
+            }
+        });  
         
         //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
         //선택한 탭 체크 
@@ -839,6 +1041,26 @@
             document.getElementById('tabvalue').value = arg; 
         } 
 
+        //월마감현황 선택 
+        function wyymmChk_a(arg){  
+            document.getElementById('yymmcode').value = arg; 
+            $.ajax({
+                url: '/app01m/index04/monthlist',  
+                type:"POST",
+                data: {  
+                    "yymm" :arg,  
+                }, 
+                async:false,
+                success:function(data){    
+                    chkLogin(data)  
+                    tabE_grid(data);
+                },error:function(e){
+                    console.log("error");                            
+                }
+            }).done(function(fragment){           
+
+            })        
+        }
         //재고현황 선택     
         // function wcustcodeChk_a(arg){   
         //     var ls_tab = document.getElementById('tabvalue').value;
@@ -998,7 +1220,9 @@
                 data: { 
                     "frdate"  : ls_savedate,  
                     "jcode"   : ls_jcode     ,
-                    "jqty"     : ll_jqty   ,  
+                    "jqty"     : ll_jqty   ,      
+                    "userid"  : gsUserid   ,      
+                    "usernm"  : gsUsernm     
                 }, 
                 async:false,
                 success:function(data){   
@@ -1054,7 +1278,9 @@
                         data: { 
                             "ipdate"      : ls_ipdate,   
                             "acorp"       : ls_acorp,    
-                            "jepm"        : ls_jepm,    
+                            "jepm"        : ls_jepm,      
+                            "userid"  : gsUserid   ,      
+                            "usernm"  : gsUsernm      
                         }, 
                         async:false,
                         success:function(data){   
@@ -1100,6 +1326,105 @@
             } 
 
         }
+
+
+
+        function saveclose_btn(arg){ 
+            var ls_savejaedate = document.getElementById('savejaedate').value;  
+            if (!confirm(ls_savejaedate + " : 해당기간으로 마감을 하시겠습니까?")) {
+                    return ; 
+            }   
+             
+            if(ls_savejaedate == null || ls_savejaedate.length == 0 || ls_savejaedate == ""){ 
+                alert("마감일자를 등록하세요") 
+                document.getElementById("savejaedate").focus(); 
+                return ;               
+            }   
+            const [year, month] = ls_savejaedate.split('-')
+            var ls_yymm = year + month;
+            $.ajax({
+                url: '/app01m/index04/monthsave',  
+                type:"POST",
+                data: { 
+                    "yymm"  : ls_yymm,      
+                    "userid"  : gsUserid   ,      
+                    "usernm"  : gsUsernm    
+                }, 
+                async:false,
+                success:function(data){   
+                    console.log(data)
+                    if(data == "success"){
+                        alert("마감되었습니다.")   
+                        searchList_rtn("F");    
+                        $("#wsavejaemodal_btn").trigger("click");  
+                        // clear_rtn(ls_tab);        
+                    }else if(data = "Duplicate"){
+                        alert("마감된 자료가 있습니다.")   
+                    }else{
+                        if(data == "relogin"){
+                            alert("다시 로그인해주세요")
+                            window.location.href='http://eean.co.kr';
+                            return 
+                        }                              
+                        alert("저장중 오류가 발생했습니다. 관리자에게 문의하세요.")
+                        // listUp();
+                        console.log(data);  
+                    }
+                    
+                },error:function(e){
+                    console.log("error"); 
+                }
+            }).done(function(fragment){           
+
+            })   
+
+        } 
+
+
+
+        function saveclosedel_btn(){ 
+            var ls_savejaedate = document.getElementById('yymmcode').value;  
+            if (!confirm(ls_savejaedate + " : 재고마감을 삭제 하시겠습니까?")) {
+                    return ; 
+            }    
+            if(ls_savejaedate == null || ls_savejaedate.length == 0 || ls_savejaedate == ""){ 
+                alert("마감일자를 선택하세요")  
+                return ;               
+            }    
+            $.ajax({
+                url: '/app01m/index04/monthsavedel',  
+                type:"POST",
+                data: { 
+                    "yymm"  : ls_savejaedate,      
+                    "userid"  : gsUserid   ,      
+                    "usernm"  : gsUsernm    
+                }, 
+                async:false,
+                success:function(data){   
+                    if(data == "success"){
+                        alert("마감삭제 되었습니다.")   
+                        searchList_rtn("F");  
+                        // clear_rtn(ls_tab);        
+                    }else{
+                        if(data == "relogin"){
+                            alert("다시 로그인해주세요")
+                            window.location.href='http://eean.co.kr';
+                            return 
+                        }                              
+                        alert("저장중 오류가 발생했습니다. 관리자에게 문의하세요.")
+                        // listUp();
+                        console.log(data);  
+                    }
+                    
+                },error:function(e){
+                    console.log("error"); 
+                }
+            }).done(function(fragment){           
+
+            })   
+
+        } 
+
         //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
                                      
         // tab01 검색   
@@ -1208,7 +1533,63 @@
                     }).done(function(fragment){           
 
                     })  
-                    break;                  
+                    break;     
+                case 'E':
+                    var ls_yymm = document.getElementById('yymmcode').value; 
+                    var ls_jkey = document.getElementById('jkey04').value;  
+                    var ls_jpumname = document.getElementById('jpumname04').value;  
+                    
+                    if(ls_jpumname == null || ls_jpumname.length == 0 || ls_jpumname == ""){ 
+                        ls_jkey = '%';            
+                    }     
+                    $.ajax({
+                        url: '/app01m/index04/monthcloselistPcode',  
+                        type:"POST",
+                        data: { 
+                            "searchtxt" : ls_jkey  ,
+                            "yymm" : ls_yymm  
+                        }, 
+                        async:false,
+                        success:function(data){   
+                            chkLogin(data)  
+                            tabE_grid(data);     
+                        },error:function(e){
+                            console.log("error");
+                            // alert(data.code);
+                            // alert(data.message);
+                        }
+                    }).done(function(fragment){           
+
+                    })  
+                    break;       
+                case 'F':
+                    var ls_yymm = document.getElementById('yymmcode').value; 
+                    var ls_jkey = document.getElementById('jkey04').value;  
+                    var ls_jpumname = document.getElementById('jpumname04').value;  
+                    
+                    if(ls_jpumname == null || ls_jpumname.length == 0 || ls_jpumname == ""){ 
+                        ls_jkey = '%';            
+                    }     
+                    $.ajax({
+                        url: '/app01m/index04/monthcloselist',  
+                        type:"POST",
+                        data: { 
+                            "searchtxt" : ls_jkey  ,
+                            "yymm" : ls_yymm  
+                        }, 
+                        async:false,
+                        success:function(data){   
+                            chkLogin(data)  
+                            tabF_grid(data);     
+                        },error:function(e){
+                            console.log("error");
+                            // alert(data.code);
+                            // alert(data.message);
+                        }
+                    }).done(function(fragment){           
+
+                    })  
+                    break;                
                 default:    
                     break;                
             }
@@ -1567,6 +1948,176 @@
 
         }    
            
+
+ 
+        function tabE_grid(data){ 
+            var wtab07Dto  = data;    
+            var wtab07_data = [];
+            var cnt = 1;
+            var ll_jqty = 0;
+            //console.log(wtab07Dto)
+            for (var i = 0; i < wtab07Dto.length; i++) {
+                ll_junqty = wtab07Dto[i]["jqty"]; 
+                ll_ipsu = wtab07Dto[i]["iqty"]; 
+                ll_chulsu = wtab07Dto[i]["cqty"]; 
+                ll_jqty = wtab07Dto[i]["qty"];  
+                wtab07_data.push({ 
+                    id: i, 
+                    index: cnt,
+                    yymm: wtab07Dto[i]["yymm"],
+                    jkey: wtab07Dto[i]["pcode"],
+                    jpum: wtab07Dto[i]["jpum"],
+                    jgugek: wtab07Dto[i]["jgugek"], 
+                    jsize: wtab07Dto[i]["jsize"], 
+                    jmodel_code: wtab07Dto[i]["jmodel_code"],
+                    jcolor_code: wtab07Dto[i]["jcolor_code"], 
+                    jcustomer_code: wtab07Dto[i]["jcustomer_code"], 
+                    junqty: ll_junqty, 
+                    ipqty: ll_ipsu, 
+                    chqty: ll_chulsu, 
+                    jqty: ll_jqty, 
+                    
+                });
+                cnt++;
+            }     
+             //console.log(wtab07_data);
+            wtab07Grid.columns.clear();  
+            wtab07Grid.autoGenerateColumns = false; 
+            view_p01tab07page.sourceCollection  = wtab07_data;
+            var cols = new wijmo.grid.Column(); 
+            cols.binding = 'yymm';
+            cols.header = '마감년월';
+            cols.align = "center";
+            cols.width = 120; 
+            wtab07Grid.columns.push(cols);  
+
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'jkey';
+            cols.header = '코드';
+            cols.align = "center";
+            cols.width = 200; 
+            wtab07Grid.columns.push(cols);  
+
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'jpum';
+            cols.header = '품목';
+            cols.align = "center";
+            cols.width = 200;  
+            wtab07Grid.columns.push(cols);   
+
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'jgugek';
+            cols.header = '규격';
+            cols.align = "center";
+            cols.width = 100;  
+            wtab07Grid.columns.push(cols);   
+
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'jsize';
+            cols.header = '사이즈';
+            cols.align = "center";
+            cols.width = 100;  
+            wtab07Grid.columns.push(cols);   
+
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'jmodel_code';
+            cols.header = '모델코드';
+            cols.align = "center";
+            cols.width = 100;  
+            wtab07Grid.columns.push(cols);   
+
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'jcolor_code';
+            cols.header = '컬러코드';
+            cols.align = "center";
+            cols.width = 100;  
+            wtab07Grid.columns.push(cols);   
+
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'jcustomer_code';
+            cols.header = '고객코드';
+            cols.align = "center";
+            cols.width = 200;  
+            wtab07Grid.columns.push(cols);   
+   
+            // console.log("cols", cols);  
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'junqty';
+            cols.header = '전재고';
+            cols.align = "center";
+            cols.format = "n0"; 
+            cols.width = 100;  
+            wtab07Grid.columns.push(cols);   
+
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'ipqty';
+            cols.header = '입고수량';
+            cols.align = "center";
+            cols.format = "n0"; 
+            cols.width = 100;  
+            wtab07Grid.columns.push(cols);  
+
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'chqty';
+            cols.header = '출고수량';
+            cols.align = "center";
+            cols.format = "n0"; 
+            cols.width = 100;  
+            wtab07Grid.columns.push(cols);  
+
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'jqty';
+            cols.header = '재고수량';
+            cols.align = "center";
+            cols.format = "n0"; 
+            cols.width = 100;  
+            wtab07Grid.columns.push(cols);  
+ 
+        }            
+        
+
+ 
+        function tabF_grid(data){ 
+            var wtab06Dto  = data;    
+            var wtab06_data = [];
+            var cnt = 1;
+            var ls_yymm = "";
+            console.log(data)
+            for (var i = 0; i < wtab06Dto.length; i++) { 
+                if(i == 0){
+                    ls_yymm = wtab06Dto[i]["yymm"];
+                }
+                wtab06_data.push({ 
+                    id: i, 
+                    index: cnt,
+                    yymm: wtab06Dto[i]["yymm"], 
+                    
+                });
+                cnt++;
+            }     
+             //console.log(wtab06_data);
+            wtab06Grid.columns.clear();  
+            wtab06Grid.autoGenerateColumns = false; 
+            view_p01tab06page.sourceCollection  = wtab06_data;
+            var cols = new wijmo.grid.Column(); 
+            cols.binding = 'yymm';
+            cols.header = '월마감';
+            cols.align = "center";
+            cols.width = 80;              
+            cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
+                text: '<b>${item.yymm}</b>',
+                click: (e, ctx) => {
+                    wyymmChk_a(ctx.item.yymm);                    
+                    
+                }
+            });
+            wtab06Grid.columns.push(cols);  
+             
+            if(ls_yymm != null && ls_yymm.length > 0 ){ 
+                wyymmChk_a(ls_yymm);
+            } 
+        }            
+        
         function JpumSearchList_rtn(arg){  
 
             var searchCode = ""; 
@@ -1581,12 +2132,12 @@
                 searchCode = document.getElementById('jpumname02').value;   
             }else if(arg == "D"){
                 searchCode = document.getElementById('jpumname03').value;   
-            }   
+            }else if(arg == "E"){
+                searchCode = document.getElementById('jpumname04').value;   
+            } 
             if(searchCode == null || searchCode.length == 0 || searchCode == ""){ 
                 searchCode = "%"         ;
-            }    
-            console.log(arg) 
-            console.log(searchCode) 
+            }     
             var ls_jpbgubn = document.getElementById('jpbgubn').value;   
             if(ls_jpbgubn == null || ls_jpbgubn.length == 0 || ls_jpbgubn == ""){ 
                 ls_jpbgubn = "%"         ;
@@ -1642,7 +2193,7 @@
             }   
 
              
-            if(arg == "M" || arg == 'C' || arg == 'B' || arg == 'D'){
+            if(arg == "M" || arg == 'C' || arg == 'B' || arg == 'D' || arg == 'E'){
                 winnameGrid.columns.clear();  
                 winnameGrid.autoGenerateColumns = false; 
                 view_innamepage.sourceCollection  = wtab01_data;
@@ -1757,7 +2308,13 @@
                 searchList_rtn(ls_tab)
                 $("#winnamemodal_btn").trigger("click");
 
-            }  
+            }else if(ls_tab == "E"){ 
+                document.getElementById('jkey04').value = arg1;   
+                document.getElementById('jpumname04').value = arg2;   
+                searchList_rtn(ls_tab)
+                $("#winnamemodal_btn").trigger("click");
+
+            }    
 
         }    
         function wcifChk_b(arg1, arg2, arg3, arg4, arg5){   
@@ -1776,8 +2333,12 @@
             fn_egov_init_date()
             // $('datetimepicker').datetimepicker({
                 
-            // }); 
-
+            // });  
+            $("#savejaedate").change(function(e){ 
+                const value = $(this).val(); // 입력된 값 가져오기
+                const [year, month, day] = value.split("-"); 
+                document.getElementById('savejaedate').value = year + '-' + month;
+            })
             // $("#frdate").change(function(e){ 
             //     // console.log("달력클릭");
             //     // console.log(convert_time(e.timestamp));
@@ -1811,7 +2372,10 @@
             document.getElementById('todate').value = ls_today;
             document.getElementById('fromdt').value = ls_today; 
             document.getElementById('todaydt').value = ls_today; 
+            // document.getElementById('fromdt02').value = ls_today; 
+            // document.getElementById('todaydt02').value = ls_today; 
             document.getElementById('savedate').value = ls_today;
+            document.getElementById('savejaedate').value = year + '-' + month;
             document.getElementById('ipfrdate').value = ls_frday;
             document.getElementById('iptodate').value = ls_today;
             
@@ -1832,6 +2396,8 @@
  
         function fn_egov_init_date(){
             lsUserid = window.localStorage.getItem("userid_AA")
+            gsUserid = window.localStorage.getItem("userid_AA");                             
+            gsUsernm = window.localStorage.getItem("username_AA");  
             //console.log('lsUserid==>' + lsUserid)
             if(lsUserid == null || lsUserid.length == 0 || lsUserid == ""){ 
                 alert("로그인을 다시하세요") 

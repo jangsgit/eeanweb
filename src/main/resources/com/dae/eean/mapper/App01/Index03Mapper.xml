@@ -452,4 +452,60 @@
         ]]>
     </select>
 
+    <select id="GetMonthCloseList" parameterType="com.dae.eean.DTO.App01.IndexMonCDto" resultType="com.dae.eean.DTO.App01.IndexMonCDto">
+        <![CDATA[
+        SELECT yymm
+        from TB_JMAGAM WITH (NOLOCK)
+        where isnull(pcode,'') Like concat('%',#{pcode},'%')
+        GROUP BY yymm
+        ORDER  BY  yymm desc
+        ]]>
+    </select>
+
+
+    <select id="GetMonthCloseCount" parameterType="com.dae.eean.DTO.App01.IndexMonCDto" resultType="Integer">
+        <![CDATA[
+        SELECT Count(*) as cnt
+        from TB_JMAGAM WITH (NOLOCK)
+        where isnull(yymm,'') Like concat('%',#{yymm},'%')
+        GROUP BY yymm
+        ]]>
+    </select>
+
+
+    <select id="GetMonthYYMMList" parameterType="com.dae.eean.DTO.App01.IndexMonCDto" resultType="com.dae.eean.DTO.App01.IndexMonCDto">
+        <![CDATA[
+            SELECT 	 A.YYMM as yymm,
+                     A.PCODE as pcode,
+                     B.jpum as jpum,
+                     B.jgugek as jgugek,
+                     B.jsize  as jsize,
+                     B.jmodel_code as jmodel_code,
+                     B.jcolor_code as jcolor_code,
+                     B.jcustomer_code as jcustomer_code,
+                     A.IQTY,
+                     A.CQTY,
+                     A.JQTY,
+                     A.QTY
+             FROM TB_JMAGAM A ,
+                  JCODE3 B
+            WHERE A.pcode = B.jkey
+              and A.yymm = #{yymm}
+              and isnull(A.pcode,'') Like concat('%',#{pcode},'%')
+        ]]>
+    </select>
+
+
+    <select id="GetMonthJaego_PRC" parameterType="com.dae.eean.DTO.App01.IndexMonCDto"  resultType="String">
+        <![CDATA[
+                EXEC SP_MONTHLY_CLOSU @PS_YYMM = #{yymm}
+        ]]>
+    </select>
+
+
+    <delete id="DeleteMonthJaego" parameterType="com.dae.eean.DTO.App01.IndexMonCDto" >
+        delete from TB_JMAGAM
+        where yymm = #{yymm}
+    </delete>
+
 </mapper>

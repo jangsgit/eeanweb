@@ -3,6 +3,7 @@ package com.dae.eean.Service.App01;
 import com.dae.eean.DTO.App01.Index02Dto;
 import com.dae.eean.DTO.App01.Index03ColorDto;
 import com.dae.eean.DTO.App01.Index03Dto;
+import com.dae.eean.DTO.App01.IndexMonCDto;
 import com.dae.eean.Mapper.App01.Index02Mapper;
 import com.dae.eean.Mapper.App01.Index03Mapper;
 import lombok.RequiredArgsConstructor;
@@ -69,6 +70,17 @@ public class Index03Service {
     public List<Index03Dto> GetJpumFromJaegoList(Index03Dto parm){
         return  appMapper.GetJpumFromJaegoList(parm);
     }
+
+    public List<IndexMonCDto> GetMonthCloseList(IndexMonCDto parm){
+        return  appMapper.GetMonthCloseList(parm);
+    }
+
+    public List<IndexMonCDto> GetMonthYYMMList(IndexMonCDto parm){
+        return  appMapper.GetMonthYYMMList(parm);
+    }
+
+
+
     public Index03Dto GetJpumOrderJkey(Index03Dto parm){
         return  appMapper.GetJpumOrderJkey(parm);
     }
@@ -84,6 +96,13 @@ public class Index03Service {
     public Boolean DeleteJpum(Index03Dto parm){  return  appMapper.DeleteJpum(parm);  }
     public String GetJpumCheck(Index03Dto parm){  return  appMapper.GetJpumCheck(parm);  }
     public Index03Dto GetJpumCheck02(String parm){  return  appMapper.GetJpumCheck02(parm);  }
+
+
+
+    public String GetMonthJaego_PRC(IndexMonCDto parm){ return  appMapper.GetMonthJaego_PRC(parm);}
+    public Boolean DeleteMonthJaego(IndexMonCDto parm){ return  appMapper.DeleteMonthJaego(parm);}
+    public Integer GetMonthCloseCount(IndexMonCDto parm){ return  appMapper.GetMonthCloseCount(parm);}
+
 
 
 }

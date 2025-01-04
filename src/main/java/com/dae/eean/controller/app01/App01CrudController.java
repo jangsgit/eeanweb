@@ -900,6 +900,8 @@ public class App01CrudController {
              @RequestParam("frdate") String frdate
             ,@RequestParam( value =  "jcode[]") List<String> jcode
             ,@RequestParam( value =  "jqty[]") List<String> jqty
+            ,@RequestParam("userid") String userid
+            ,@RequestParam("usernm") String usernm
             , Model model
             , HttpServletRequest request){
 
@@ -948,8 +950,8 @@ public class App01CrudController {
                         _syslogDto.setMenunm("재고등록");
                         _syslogDto.setMessage(_index04Dto.getKey1() + "/" +  _index04Dto.getJepm() + "/" + _index04Dto.getIjaego_su1().toString());
                         _syslogDto.setSource(ll_count.toString() + "건 등록");
-                        _syslogDto.setUserid(userformDto.getUserid());
-                        _syslogDto.setUsernm(userformDto.getUsername());
+                        _syslogDto.setUserid(userid);
+                        _syslogDto.setUsernm(usernm);
                         result = service_auth.TB_SYSLOG_INSERT(_syslogDto);
                         if (!result) {
                             //return "error";
@@ -970,6 +972,8 @@ public class App01CrudController {
     public String index04Delete(  @RequestParam("ipdate") String ipdate,
                                   @RequestParam("acorp") String acorp,
                                   @RequestParam("jepm") String jepm,
+                                  @RequestParam("userid") String userid,
+                                  @RequestParam("usernm") String usernm,
                                   Model model,   HttpServletRequest request){
         HttpSession session = request.getSession();
         UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
@@ -996,8 +1000,8 @@ public class App01CrudController {
             _syslogDto.setMenunm("재고등록");
             _syslogDto.setMessage(_index04Dto.getKey1() + "/" +  _index04Dto.getJepm()  );
             _syslogDto.setSource(jepm + " 삭제");
-            _syslogDto.setUserid(userformDto.getUserid());
-            _syslogDto.setUsernm(userformDto.getUsername());
+            _syslogDto.setUserid(userid);
+            _syslogDto.setUsernm(usernm);
             result = service_auth.TB_SYSLOG_INSERT(_syslogDto);
             if (!result) {
                 //return "error";
@@ -1198,6 +1202,196 @@ public class App01CrudController {
 
         return _index03List;
     }
+
+
+    //마감 리스트
+    @GetMapping(value="/index04/monthlist")
+    public Object App04MonthList_index(@RequestParam("yymm") String yymm,
+                                       Model model, HttpServletRequest request) throws Exception{
+        CommDto.setMenuTitle("재고등록");
+        CommDto.setMenuUrl("기준정보>재고현항");
+        CommDto.setMenuCode("index04");
+        List<IndexMonCDto> _indexMonCDtoList = new ArrayList<>();
+        IndexMonCDto _indexMonCDto = new IndexMonCDto();
+        HttpSession session = request.getSession();
+        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        if(userformDto == null){
+            log.info("index04MonthList Exception =====> relogin userformDto null");
+            return "relogin";
+        }
+        model.addAttribute("userformDto",userformDto);
+
+        try {
+            if(yymm == null || yymm.equals("")){
+                yymm = "0000";
+            }
+            _indexMonCDto.setYymm(yymm);
+            _indexMonCDtoList = service03.GetMonthYYMMList(_indexMonCDto);
+            model.addAttribute("index04MonthList",_indexMonCDtoList);
+
+        } catch (Exception ex) {
+            log.info("index04MonthList Exception =====>" + ex.toString());
+        }
+
+        return _indexMonCDtoList;
+    }
+
+
+    @RequestMapping(value="/index04/monthsave")
+    public String index04MonthSave(
+            @RequestParam("yymm") String yymm
+            ,@RequestParam("userid") String userid
+            ,@RequestParam("usernm") String usernm
+            , Model model
+            , HttpServletRequest request){
+
+        try {
+            SyslogDto _syslogDto = new SyslogDto();
+            IndexMonCDto _indexMonCDto = new IndexMonCDto();
+            HttpSession session = request.getSession();
+            Boolean result = false ;
+            String ls_result = "";
+            Integer ll_count = 0;
+            UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+            if(userformDto == null){
+                log.info("index04MonthSave Exception =====> relogin userformDto null");
+                return "relogin";
+            }
+            _indexMonCDto.setYymm(yymm);
+            ll_count = service03.GetMonthCloseCount(_indexMonCDto);
+            log.info(ll_count);
+            if(ll_count == null){
+                ll_count =0;
+            }
+            if(ll_count > 0  ){
+                return "Duplicate";
+            }
+            service03.GetMonthJaego_PRC(_indexMonCDto);
+//            if (!ls_result.equals("SUCCESS")){
+//                return "error";
+//            }else{
+                _syslogDto.setType("저장");
+                _syslogDto.setMenunm("재고월마감");
+                _syslogDto.setMessage(yymm);
+                _syslogDto.setSource(yymm.toString() + "월 마감등록");
+                _syslogDto.setUserid(userid);
+                _syslogDto.setUsernm(usernm);
+                result = service_auth.TB_SYSLOG_INSERT(_syslogDto);
+                if (!result) {
+                    //return "error";
+                }
+//            }
+
+        }catch (Exception e){
+            log.info("index04MonthSave Exception =====> " + e.getMessage());
+            model.addAttribute("errorMessage", e.getMessage());
+            return "error";
+        }
+        return "success";
+    }
+
+
+
+    @RequestMapping(value="/index04/monthsavedel")
+    public String index04MonthSaveDel(
+            @RequestParam("yymm") String yymm
+            ,@RequestParam("userid") String userid
+            ,@RequestParam("usernm") String usernm
+            , Model model
+            , HttpServletRequest request){
+
+        try {
+            SyslogDto _syslogDto = new SyslogDto();
+            IndexMonCDto _indexMonCDto = new IndexMonCDto();
+            HttpSession session = request.getSession();
+            UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+            if(userformDto == null){
+                log.info("index04MonthSave Exception =====> relogin userformDto null");
+                return "relogin";
+            }
+            _indexMonCDto.setYymm(yymm);
+            Boolean result = false;
+            result = service03.DeleteMonthJaego(_indexMonCDto);
+            // }else{
+            //     _index04Dto.setAcorp(ls_acorp);
+            //     result = service04.UpdateJegoIpgo(_index04Dto);
+            // }
+            if (!result){
+                return "error";
+            }else{
+                _syslogDto.setType("삭제");
+                _syslogDto.setMenunm("재고월마감");
+                _syslogDto.setMessage(yymm);
+                _syslogDto.setSource(yymm.toString() + "월 마감삭제");
+                _syslogDto.setUserid(userid);
+                _syslogDto.setUsernm(usernm);
+                result = service_auth.TB_SYSLOG_INSERT(_syslogDto);
+                if (!result) {
+                    //return "error";
+                }
+            }
+
+        }catch (Exception e){
+            model.addAttribute("errorMessage", e.getMessage());
+            return "error";
+        }
+        return "success";
+    }
+
+    //재고마감 리스트
+    @GetMapping(value="/index04/monthcloselist")
+    public Object App04CloseList_index(
+            Model model, HttpServletRequest request) throws Exception{
+        CommDto.setMenuTitle("재고등록");
+        CommDto.setMenuUrl("기준정보>재고등록");
+        CommDto.setMenuCode("index04");
+        List<IndexMonCDto> _indexMonCDtoList = new ArrayList<>();
+        IndexMonCDto _indexMonCDto = new IndexMonCDto();
+        try {
+            HttpSession session = request.getSession();
+            UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+            model.addAttribute("userformDto",userformDto);
+            _indexMonCDtoList = service03.GetMonthCloseList(_indexMonCDto);
+
+            model.addAttribute("indexMonthList",_indexMonCDtoList);
+        } catch (Exception ex) {
+            log.info("App04_index Exception ================================================================");
+            log.info("Exception =====>" + ex.toString());
+            return "error";
+        }
+
+        return _indexMonCDtoList;
+    }
+
+    //재고마감 조회 품목
+    @GetMapping(value="/index04/monthcloselistPcode")
+    public Object App04ClosePcodeList_index(
+            @RequestParam("searchtxt") String searchtxt,
+            @RequestParam("yymm") String yymm,
+            Model model, HttpServletRequest request) throws Exception{
+        CommDto.setMenuTitle("재고등록");
+        CommDto.setMenuUrl("기준정보>재고등록");
+        CommDto.setMenuCode("index04");
+        List<IndexMonCDto> _indexMonCDtoList = new ArrayList<>();
+        IndexMonCDto _indexMonCDto = new IndexMonCDto();
+        try {
+            HttpSession session = request.getSession();
+            UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+            model.addAttribute("userformDto",userformDto);
+            _indexMonCDto.setPcode(searchtxt);
+            _indexMonCDto.setYymm(yymm);
+            _indexMonCDtoList = service03.GetMonthYYMMList(_indexMonCDto);
+
+            model.addAttribute("indexMonthList",_indexMonCDtoList);
+        } catch (Exception ex) {
+            log.info("App04_index Exception ================================================================");
+            log.info("Exception =====>" + ex.toString());
+            return "error";
+        }
+
+        return _indexMonCDtoList;
+    }
+
 
     @RequestMapping(value="/index14/save")
     public String index14Save(
