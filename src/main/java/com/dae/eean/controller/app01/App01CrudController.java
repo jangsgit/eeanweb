@@ -1259,7 +1259,6 @@ public class App01CrudController {
             }
             _indexMonCDto.setYymm(yymm);
             ll_count = service03.GetMonthCloseCount(_indexMonCDto);
-            log.info(ll_count);
             if(ll_count == null){
                 ll_count =0;
             }

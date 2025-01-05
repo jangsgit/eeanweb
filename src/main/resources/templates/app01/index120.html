@@ -1045,6 +1045,24 @@
             document.getElementById('todate').value = ls_today; 
             document.getElementById('frdate02').value = ls_frday;
             document.getElementById('todate02').value = ls_today;
+
+
+
+            // 오늘 날짜에서 100일 전 날짜 계산
+            let pastDate = new Date(today);
+            pastDate.setDate(today.getDate() - 30);
+
+            let pastYear = pastDate.getFullYear();
+            let pastMonth = pastDate.getMonth() + 1;
+            let pastDay = pastDate.getDate();
+
+            if (pastMonth > 0 && pastMonth < 10) { pastMonth = "0" + pastMonth; }
+            if (pastDay > 0 && pastDay < 10) { pastDay = "0" + pastDay; }
+
+            let ls_frday_past = pastYear + '-' + pastMonth + '-' + pastDay;
+            document.getElementById('frdate').value = ls_frday_past;
+            document.getElementById('frdate02').value = ls_frday_past;
+
         }
 
         function convert_time(timestamp){ 
