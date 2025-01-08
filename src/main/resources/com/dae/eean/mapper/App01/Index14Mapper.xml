@@ -599,29 +599,40 @@
 
     </select>
 
-<!--    and isnull(B.jpb_gubn,'') Like concat('%',#{jpbgubn},'%')-->
-    <select id="SelectDa024ListPerid"  parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" resultType="com.dae.eean.DTO.App01.IndexDa024Dto">
-        <![CDATA[ select B.cltcd as cltcd, Left(B.misdate,4) + '-' + substring(B.misdate, 5,2)+ '-' + substring(B.misdate, 7,2) as misdate, B.misnum, B.seq,
-                      B.pcode, B.pname, B.psize,    B.punit,  B.qty,  B.uamt, B.samt, B.addamt,
-                      B.amt, C.acorp, pbonsa, pmodel, pcolor , B.pernm as inname, B.misgubun, isnull(B.fixflag,'0') as fixflag, B.pernm as pernm,
-                      isnull(B.remarkaa,'') as remarkaa,
-                      isnull(B.remarkbb,'') as remarkbb,
-                      isnull(B.unsongnum, isnull(D.unsongnum,'')) as unsongnum,
-                      B.fixdate,  CONVERT(CHAR(19),B.fixdatetime,20) as fixdatetime,  CONVERT(CHAR(19),B.misdatetime,20) as misdatetime
-                  from  TB_DA024 B WITH (NOLOCK)
-                       LEFT JOIN cif C ON B.cltcd = C.acorp1 + CAST(C.acorp2 as varchar)
-                       LEFT JOIN as_jupsu D ON B.misdate = D.misdate and B.misnum = D.misnum
-                  where    B.cltcd Like    #{cltcd}
-                    AND isnull(B.perid,'')  Like concat('%',#{perid},'%')
-                    AND isnull(B.misgubun,'')  Like concat('%',#{misgubun},'%')
-                    AND B.fixdate between #{frdate} and #{todate}
-                    AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
-                    AND Isnull(B.makflag, '0') Like concat('%',#{makflag},'%')
 
-                    AND Len(ISNULL(B.pernm,'')) > 0
-                    and isnull(B.pcode,'') Like  #{pcode} + '%'
-                  ORDER BY B.pernm, B.fixdate, B.misdate, B.misnum, B.seq
-        ]]>
+    <!--        <![CDATA[ select B.cltcd as cltcd, Left(B.misdate,4) + '-' + substring(B.misdate, 5,2)+ '-' + substring(B.misdate, 7,2) as misdate, B.misnum, B.seq,-->
+    <!--                      B.pcode, B.pname, B.psize,    B.punit,  B.qty,  B.uamt, B.samt, B.addamt,-->
+    <!--                      B.amt, C.acorp, pbonsa, pmodel, pcolor , B.pernm as inname, B.misgubun, isnull(B.fixflag,'0') as fixflag, B.pernm as pernm,-->
+    <!--                      isnull(B.remarkaa,'') as remarkaa,-->
+    <!--                      isnull(B.remarkbb,'') as remarkbb,-->
+    <!--                      isnull(B.unsongnum, isnull(D.unsongnum,'')) as unsongnum,-->
+    <!--                      B.fixdate,  CONVERT(CHAR(19),B.fixdatetime,20) as fixdatetime,  CONVERT(CHAR(19),B.misdatetime,20) as misdatetime-->
+    <!--                  from  TB_DA024 B WITH (NOLOCK)-->
+    <!--                       LEFT JOIN cif C ON B.cltcd = C.acorp1 + CAST(C.acorp2 as varchar)-->
+    <!--                       LEFT JOIN as_jupsu D ON B.misdate = D.misdate and B.misnum = D.misnum-->
+    <!--                  where    B.cltcd Like    #{cltcd}-->
+    <!--                    AND isnull(B.perid,'')  Like concat('%',#{perid},'%')-->
+    <!--                    AND isnull(B.misgubun,'')  Like concat('%',#{misgubun},'%')-->
+    <!--                    AND B.fixdate between #{frdate} and #{todate}-->
+    <!--                    AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')-->
+    <!--                    AND Isnull(B.makflag, '0') Like concat('%',#{makflag},'%')-->
+    <!--                    and isnull(B.jpb_gubn,'') Like concat('%',#{jpbgubn},'%')-->
+    <!--                    AND Len(ISNULL(B.pernm,'')) > 0-->
+    <!--                    and isnull(B.pcode,'') Like  #{pcode} + '%'-->
+    <!--                  ORDER BY B.pernm, B.fixdate, B.misdate, B.misnum, B.seq-->
+    <!--        ]]>-->
+
+    <select id="SelectDa024ListPerid"  parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" resultType="com.dae.eean.DTO.App01.IndexDa024Dto">
+
+        exec SP_SelectDa024ListPerid
+            #{cltcd, jdbcType=VARCHAR},
+            #{perid, jdbcType=VARCHAR},
+            #{misgubun, jdbcType=VARCHAR},
+            #{frdate, jdbcType=VARCHAR},
+            #{todate, jdbcType=VARCHAR},
+            #{fixflag, jdbcType=VARCHAR},
+            #{makflag, jdbcType=VARCHAR},
+            #{pcode, jdbcType=VARCHAR}
 
     </select>
 
