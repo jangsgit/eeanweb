@@ -15,6 +15,7 @@ import java.util.List;
 public interface AuthDBMapper {
     public void TBXUSERS_Insert(UserFormDto userinfo);
     public UserFormDto GetUserInfo(UserFormDto userinfo);
+    public UserFormDto GetUserInfoPerid(UserFormDto userinfo);
     public UserFormDto GetUserInfoDto2(UserFormDto userinfo);
     public UserFormDto GetUserInfoDto3(UserFormDto userinfo);
 
@@ -64,6 +65,12 @@ public interface AuthDBMapper {
     public int TB_XUSERS_INSERT(UserFormDto Parm);
 
     public int UpdateUserMenuInfo(TBXuserMenuDTO Parm);
+
+    public int UpdateUserModifyCif(UserFormDto Parm);
+    public int UpdateUserModifyPerid(UserFormDto Parm);
+    public int UpdateUserModifyUserid(UserFormDto Parm);
+
+
 
     public int Updatepushid(UserFormDto Parm);
     public String TB_GET_PUSHID(PopupDto Parm);

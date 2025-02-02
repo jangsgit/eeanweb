@@ -217,6 +217,73 @@ public class AppIndexCrudController {
     }
 
 
+    @RequestMapping(value="/id04perid")   //영업사원 상태 수정
+    public String UserUpdatePerid(@RequestParam("modperid1") String modperid1
+            ,@RequestParam("modpernm1") String modpernm1
+            ,@RequestParam("modperid2") String modperid2
+            ,@RequestParam("modpernm2") String modpernm2
+            , Model model, HttpServletRequest request){
+        try {
+            UserFormDto _UserFormDto01  = new UserFormDto();
+            UserFormDto _UserFormDto02  = new UserFormDto();
+            UserFormDto _UserFormDto  = new UserFormDto();
+            _UserFormDto.setPerid(modperid1);
+            _UserFormDto.setPernm(modpernm1);
+            _UserFormDto.setFlag("CC");
+            _UserFormDto01 = service.GetUserInfoPerid(_UserFormDto);
+            _UserFormDto.setModperid1(modperid1);
+            _UserFormDto.setModpernm1(modpernm1);
+            _UserFormDto.setModuserid1(_UserFormDto01.getUserid());
+            _UserFormDto.setModusernm1(_UserFormDto01.getUsername());
+
+
+//            log.info("modperid1 =====>" + _UserFormDto.getModperid1());
+//            log.info("modpernm1 =====>" + _UserFormDto.getModpernm1() );
+//            log.info("Moduserid1 =====>" + _UserFormDto.getModuserid1() );
+//            log.info("Modusernm1 =====>" + _UserFormDto.getModusernm1() );
+
+            _UserFormDto.setPerid(modperid2);
+            _UserFormDto.setPernm(modpernm2);
+            _UserFormDto02 = service.GetUserInfoPerid(_UserFormDto);
+            _UserFormDto.setModperid2(modperid2);
+            _UserFormDto.setModpernm2(modpernm2);
+            _UserFormDto.setModuserid2(_UserFormDto02.getUserid());
+            _UserFormDto.setModusernm2(_UserFormDto02.getUsername());
+
+
+//            log.info("modperid2 =====>" + _UserFormDto.getModperid2());
+//            log.info("modpernm2 =====>" + _UserFormDto.getModpernm2() );
+//            log.info("Moduserid2 =====>" + _UserFormDto.getModuserid2() );
+//            log.info("Modusernm2 =====>" + _UserFormDto.getModusernm2() );
+
+            boolean result = service.UpdateUserModifyCif(_UserFormDto);
+//            if (!result) {
+//                log.info("UpdateUserModifyCif =====>" + result);
+//                return "error";
+//            }
+
+            result = service.UpdateUserModifyPerid(_UserFormDto);
+//            if (!result) {
+//                log.info("UpdateUserModifyPerid =====>" + result);
+//                return "error";
+//            }
+
+            //userid 가 다를수 있거나 없을수 있음
+            result = service.UpdateUserModifyUserid(_UserFormDto);
+//            if (!result) {
+//                log.info("UpdateUserModifyUserid =====>" + result);
+//                return "error";
+//            }else{
+                return "success";
+//            }
+
+        }catch (IllegalStateException e){
+            model.addAttribute("errorMessage", e.getMessage());
+            return "error";
+        }
+    }
+
+
     @RequestMapping(value="/id05mod")   //영업사원 상태 수정
     public String UserUpdate05(@RequestParam("actseqz") String seq
             ,@RequestParam("actuseridz") String userid

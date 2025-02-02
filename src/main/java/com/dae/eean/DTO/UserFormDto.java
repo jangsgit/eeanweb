@@ -95,6 +95,16 @@ public class UserFormDto {
     private String pagenm;
     /** 화면명 */
     private String pushid;
+    /** 변경전 사원코드 */
+    private String modperid1;
+    private String modpernm1;
+    private String moduserid1;
+    private String modusernm1;
+    /** 변경후 사원코드 */
+    private String modperid2;
+    private String modpernm2;
+    private String moduserid2;
+    private String modusernm2;
 
     private Integer seq;
 

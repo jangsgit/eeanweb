@@ -110,6 +110,10 @@
                                 <div class="col-auto">  
                                     <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" type="button"  id="addBtn" >등록
                                     </button> 
+                                </div>  
+                                <div class="col-auto">  
+                                    <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" type="button"  id="modBtn" >사원코드변경
+                                    </button> 
                                 </div> 
                                 <!-- <div class="col-auto">   
                                     <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" type="button" onclick="delete_btn()">삭제
@@ -132,6 +136,7 @@
 
 
             <input class="form-control form-control-sm"  type="hidden" id="actnmbtn" data-bs-toggle="modal" data-bs-target="#actnmmodal"  />  
+            <input class="form-control form-control-sm"  type="hidden" id="modifybtn" data-bs-toggle="modal" data-bs-target="#modifymodal"  />  
 
     </div>
 
@@ -259,6 +264,65 @@
     </div>   
 <!--------------------------------------------------------------------------------------->  
 
+<!--------------------------------------------------------------------------------------->   
+    <!--  사용자 코드변경 MODAL FROM  -->  
+    <div class="modal fade" id="modifymodal" data-bs-keyboard="false"
+        data-bs-backdrop="static" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg mt-6" role="document" id = "modalForm02" style="max-width: 800px">
+            <div class="modal-content border-0">
+                <div class="modal-body p-0" > 
+                    <div class="rounded-top-lg py-3 ps-4 pe-6 bg-light">                            
+                        <div class="box_con_wrap">
+                            <div class="box_con">
+                                <div class="logo">
+                                    <a th:href="@{/}">
+                                    <img src="/images/logo.png" alt="">
+                                    </a>
+                                </div>
+                                <!--------------------------------------------------------------------------------------->   
+                                <div class="form"> 
+                                    <div class="form_wrap">  
+                                            <div class="input_wrap flex">
+                                                <p>변경전 사원명</p>
+                                                <div class="input_wrap" style="width: 500px;">
+                                                    <select th:field="*{appUserListDto}" name="abonsadam1" id="abonsadam1">
+                                                        <option value="">변경전 사원명</option>
+                                                        <option th:each="val : ${appUserListDto}" th:value="${val.perid}" th:text="${val.pernm}">
+                                                    </select>
+                                                </div> 
+                                            </div>   
+                                            <div class="input_wrap flex"> 
+                                                <p>변경할 사원명</p>
+                                                <div class="input_wrap" style="width: 500px;">
+                                                    <select th:field="*{appUserListDto}" name="abonsadam2" id="abonsadam2">
+                                                        <option value="">변경할 사원명</option>
+                                                        <option th:each="val : ${appUserListDto}" th:value="${val.perid}" th:text="${val.pernm}">
+                                                    </select>
+                                                </div> 
+                                            </div>  
+                                            <div class="btn_wrap">
+                                                <button type="button" name="mod_btn" id="mod_btn" onclick="mod_btn()">담당자코드변경</button>
+                                            </div> 
+                                    </div>
+                                </div>
+                                <!--------------------------------------------------------------------------------------->   
+                            </div>
+                        </div>  
+                    </div> 
+                </div>  
+
+                <div class="modal-footer">
+                    <div class="row g-1"> 
+                        <div class="col-auto">
+                            <button class="badge-soft-primary dropdown-item rounded-1"
+                                type="button"  id="modifymodal_btn" data-bs-dismiss="modal">Close</button>
+                        </div> 
+                    </div>
+                </div>   
+            </div>
+        </div> 
+    </div>   
+<!--------------------------------------------------------------------------------------->  
 
 
 
@@ -276,6 +340,9 @@
     })        
     document.getElementById("addBtn").addEventListener("click",function(){  
         document.getElementById("actnmbtn").click(); 
+    })        
+    document.getElementById("modBtn").addEventListener("click",function(){  
+        document.getElementById("modifybtn").click(); 
     })  
     function menumodal_click(arg1, arg2, arg3, arg4, arg5, arg6, arg7){ 
         document.getElementById('actseq').value = arg1;  
@@ -810,6 +877,58 @@
 
 
  
+        function mod_btn(){  
+            var elmadam1 = document.getElementById("abonsadam1");
+            var elmadam2 = document.getElementById("abonsadam2"); 
+            var ls_abonsperid1 = elmadam1.value;    
+            var ls_abonspernm1 = elmadam1.options[elmadam1.selectedIndex].text;  
+            var ls_abonsperid2 = elmadam2.value ;    
+            var ls_abonspernm2 = elmadam2.options[elmadam2.selectedIndex].text; 
+            
+            if(ls_abonsperid1 == null || ls_abonsperid1.length == 0 || ls_abonsperid1 == ""){ 
+                    alert("변경전 사원을 선택하세요") 
+                    document.getElementById("abonsadam1").focus(); 
+                    return ;               
+            } 
+            
+            if(ls_abonsperid2 == null || ls_abonsperid2.length == 0 || ls_abonsperid2 == ""){ 
+                    alert("변경할 사원을 선택하세요") 
+                    document.getElementById("abonsadam2").focus(); 
+                    return ;               
+            } 
+
+            if (!confirm(ls_abonspernm1 + "[" + ls_abonsperid1 + "] --> " + ls_abonspernm2 + "[" + ls_abonsperid2 + "] 로 변경 하시겠습니까?")) {
+                    return ; 
+            }       
+            $.ajax({
+                url: '/appadmod/id04perid',   
+                type:"POST",
+                data: {
+                    "modperid1"    : ls_abonsperid1 ,
+                    "modpernm1"    : ls_abonspernm1 ,
+                    "modperid2"    : ls_abonsperid2 , 
+                    "modpernm2"    : ls_abonspernm2 
+                },
+                async:false,
+                success:function(data){
+                    if(data == "success"){
+                        alert("변경되었습니다.")
+                        document.getElementById("modifymodal_btn").click();                         
+                    }else{ 
+                        if(data == "relogin"){
+                            alert("다시 로그인해주세요")
+                            window.location.href='http://eean.co.kr';
+                            return 
+                        }       
+                        alert("변경중 오류가 발생했습니다. 관리자에게 문의하세요.")
+                    }
+                },error:function(e){
+                    console.log('error',e);
+                }
+            }).done(function(fragment){
+
+            })
+        }
         function add_btn(){  
             var ls_userid = document.getElementById('useridadd').value;    
             var ls_passwd1 = document.getElementById('passwd1').value ;  

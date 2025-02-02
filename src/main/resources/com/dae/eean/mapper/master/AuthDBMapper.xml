@@ -25,6 +25,10 @@
         select top 1 userid, passwd1,  username, actcd, actnm, saupnum, flag, phone, perid, pernm, useyn, role, dbnm, wrongnum, custcd, custnm, perid, pushid, rnum
          from TB_XUSERS where userid=#{userid} and passwd1=#{passwd1} and flag=#{flag}
     </select>
+    <select id="GetUserInfoPerid" parameterType="com.dae.eean.DTO.UserFormDto"  resultType="com.dae.eean.DTO.UserFormDto">
+        select top 1 userid, passwd1,  username, actcd, actnm, saupnum, flag, phone, perid, pernm, useyn, role, dbnm, wrongnum, custcd, custnm, perid, pushid, rnum
+        from TB_XUSERS where perid=#{perid} and pernm=#{pernm} and flag=#{flag}
+    </select>
     <select id="GetAdminInfo" parameterType="com.dae.eean.DTO.UserFormDto"  resultType="com.dae.eean.DTO.UserFormDto">
         select top 1 userid, passwd1,  username, actcd, actnm, saupnum, flag, phone, perid, pernm, useyn, role, dbnm, wrongnum, custcd, custnm, dbnm, pushid, rnum
         from TB_XUSERS where userid=#{userid} and passwd1=#{passwd1} and flag = #{flag}
@@ -91,6 +95,22 @@
     <update id="UpdateUserInfoBB" parameterType="com.dae.eean.DTO.UserFormDto"  >
         UPDATE TB_XUSERS SET  perid = #{perid},  userid=#{userid}, username=#{username}, passwd1=#{passwd1}, passwd2=#{passwd1}, custnm=#{custnm}, saupnum=#{saupnum}, rnum='0', USEYN=#{useyn}
          where seq=#{seq} and flag = #{flag}
+    </update>
+
+
+    <update id="UpdateUserModifyCif" parameterType="com.dae.eean.DTO.UserFormDto"  >
+        UPDATE CIF  SET  abonsadam1=#{modperid2}
+        where abonsadam1=#{modperid1}
+    </update>
+
+    <update id="UpdateUserModifyPerid" parameterType="com.dae.eean.DTO.UserFormDto"  >
+        UPDATE TB_DA024  SET  perid=#{modperid2}, pernm = #{modpernm2}
+        where perid=#{modperid1} and pernm=#{modpernm1}
+    </update>
+
+    <update id="UpdateUserModifyUserid" parameterType="com.dae.eean.DTO.UserFormDto"  >
+        UPDATE TB_DA024  SET  userid=#{moduserid2}, usernm = #{modusernm2}
+        where userid=#{moduserid1} and usernm=#{modusernm1}
     </update>
 
     <insert id="TB_XUSERS_INSERT" parameterType="com.dae.eean.DTO.UserFormDto">

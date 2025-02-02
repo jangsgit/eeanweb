@@ -24,6 +24,7 @@ public class AuthService {
 
     public void authInsert(UserFormDto parm){authMapper.TBXUSERS_Insert(parm);}
     public UserFormDto GetUserInfo(UserFormDto parm){return authMapper.GetUserInfo(parm);}
+    public UserFormDto GetUserInfoPerid(UserFormDto parm){return authMapper.GetUserInfoPerid(parm);}
     public UserFormDto GetCustInfo(UserFormDto parm){return authMapper.GetUserInfo(parm);}
     public UserFormDto GetFlagInfo(UserFormDto parm){return authMapper.GetFlagInfo(parm);}
 
@@ -129,6 +130,37 @@ public class AuthService {
         }
         return (queryResult > 0);
     }
+    //사원 거래처담당 변경
+    @Transactional
+    public boolean UpdateUserModifyCif(UserFormDto parm){
+        int queryResult = 1;
+        queryResult = authMapper.UpdateUserModifyCif(parm);
+        if(queryResult < 1){
+            queryResult = 0;
+        }
+        return (queryResult > 0);
+    }
+    //주문 사원코드 변경
+    @Transactional
+    public boolean UpdateUserModifyPerid(UserFormDto parm){
+        int queryResult = 1;
+        queryResult = authMapper.UpdateUserModifyPerid(parm);
+        if(queryResult < 1){
+            queryResult = 0;
+        }
+        return (queryResult > 0);
+    }
+    //주문 사용자 아이디 변경
+    @Transactional
+    public boolean UpdateUserModifyUserid(UserFormDto parm){
+        int queryResult = 1;
+        queryResult = authMapper.UpdateUserModifyUserid(parm);
+        if(queryResult < 1){
+            queryResult = 0;
+        }
+        return (queryResult > 0);
+    }
+
 
 //    pushid
     @Transactional
