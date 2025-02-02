@@ -99,7 +99,7 @@
 
 
     <update id="UpdateUserModifyCif" parameterType="com.dae.eean.DTO.UserFormDto"  >
-        UPDATE CIF  SET  abonsadam1=#{modperid2}
+        UPDATE CIF  SET  abonsadam1=#{modperid2}, awebcode1=#{modperid1}
         where abonsadam1=#{modperid1}
     </update>
 
