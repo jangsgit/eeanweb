@@ -284,6 +284,7 @@
                 var ls_cltcd= userFormDto["cltcd"]
                 var ls_dbnm = userFormDto["dbnm"]
                 var ls_flag = userFormDto["flag"]
+                var ls_disflag = userFormDto["disflag"]
                 
                 const now = new Date();
                 const hours = now.getHours(); // 시
@@ -294,6 +295,7 @@
                 var ls_url = 'userid=' + ls_userid
                 var ls_useyn = userFormDto["useyn"]
                 var ls_wrongnum = userFormDto["wrongnum"]
+                var ls_disflag = userFormDto["disflag"]
                 localStorage.removeItem('perid');
                 localStorage.removeItem('pernm');
                 localStorage.removeItem('userid');
@@ -303,6 +305,7 @@
                 localStorage.removeItem('role');
                 localStorage.removeItem('rnum');
                 localStorage.removeItem('userpw');
+                localStorage.removeItem('disflag');
 
                 window.localStorage.setItem("perid" + '_' + ls_flag,  userFormDto["perid"])
                 window.localStorage.setItem("pernm" + '_' + ls_flag,  userFormDto["pernm"])
@@ -312,6 +315,7 @@
                 window.localStorage.setItem("custnm" + '_' + ls_flag,  userFormDto["custnm"])
                 window.localStorage.setItem("role" + '_' + ls_flag,  userFormDto["role"])
                 window.localStorage.setItem("rnum" + '_' + ls_flag,  userFormDto["rnum"])
+                window.localStorage.setItem("disflag" + '_' + ls_flag,  userFormDto["disflag"])
                 window.localStorage.setItem("userpw" + '_' + ls_flag, ls_logpass) 
                 window.localStorage.setItem("logintime" + '_' + ls_flag, now) 
 
@@ -323,7 +327,11 @@
                     if(ls_flag == 'AA'){
                       window.location.href = '/app01/index14';  
                     }else if(ls_flag =='BB'){
-                      window.location.href = '/app01/index150';  
+                      if(ls_disflag == "Y"){
+                        window.location.href = '/app01/index151';  
+                      }else{
+                        window.location.href = '/app01/index150';  
+                      }
                     }else if(ls_flag =='CC'){
                       window.location.href = '/app01/index140';   
                     }else if(ls_flag =='DD'){

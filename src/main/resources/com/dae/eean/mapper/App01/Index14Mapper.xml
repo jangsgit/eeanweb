@@ -183,7 +183,14 @@
     <select id="SelectDa024ListLikeAS"  parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" resultType="com.dae.eean.DTO.App01.IndexDa024Dto">
 
 
-        <![CDATA[ select B.cltcd as cltcd,
+        <![CDATA[
+                WITH JUPSUDATA AS (
+                    SELECT misdate, misnum, unsongnum
+                    FROM as_jupsu
+                    WHERE misdate BETWEEN #{frdate} and #{todate}
+                )
+
+                select B.cltcd as cltcd,
                       Left(B.misdate,4) + '-' + substring(B.misdate, 5,2)+ '-' + substring(B.misdate, 7,2)  as misdate,
                       B.misnum, B.seq,
                       B.pcode, B.pname, B.psize,    B.punit,  B.qty,  B.uamt, B.samt, B.addamt,
@@ -196,7 +203,7 @@
                       B.userid, B.usernm
                   from  TB_DA024 B WITH (NOLOCK)
                        LEFT JOIN cif C ON B.cltcd = C.acorp1 + CAST(C.acorp2 as varchar)
-                       LEFT JOIN as_jupsu D ON B.misdate = D.misdate and B.misnum = D.misnum
+                       LEFT JOIN JUPSUDATA D ON B.misdate = D.misdate and B.misnum = D.misnum
                   where B.CLTCD Like concat('%',#{cltcd},'%')
                     AND isnull(B.perid,'')  Like concat('%',#{perid},'%')
                     AND B.misdate between #{frdate} and #{todate}
@@ -213,7 +220,15 @@
     <select id="SelectDa024ListLikeJupsu"  parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" resultType="com.dae.eean.DTO.App01.IndexDa024Dto">
 
 
-        <![CDATA[ select B.cltcd as cltcd,
+        <![CDATA[
+
+                WITH JUPSUDATA AS (
+                    SELECT misdate, misnum, unsongnum
+                    FROM as_jupsu
+                    WHERE misdate BETWEEN #{frdate} and #{todate}
+                )
+
+                select B.cltcd as cltcd,
                       Left(B.misdate,4) + '-' + substring(B.misdate, 5,2)+ '-' + substring(B.misdate, 7,2)  as misdate,
                       B.misnum, B.seq,
                       B.pcode, B.pname, B.psize,    B.punit,  B.qty,  B.uamt, B.samt, B.addamt,
@@ -227,6 +242,7 @@
                       B.userid, B.usernm
                   from  TB_DA024 B WITH (NOLOCK)
                         LEFT JOIN cif C ON B.cltcd = C.acorp1 + CAST(C.acorp2 as varchar)
+                       LEFT JOIN JUPSUDATA D ON B.misdate = D.misdate and B.misnum = D.misnum
                   where B.CLTCD Like concat('%',#{cltcd},'%')
                     AND B.misdate between #{frdate} and #{todate}
                     AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')

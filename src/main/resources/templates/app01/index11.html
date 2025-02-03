@@ -98,17 +98,17 @@
                                 <div class="tab-content">
                                     <div class="tab-pane fade show active" id="step01">    
                                         <div class="row gx-3" style="  margin: 10px 10px 10px;">   
-                                            <div class="col-2 col-sm-2">
+                                            <div class="col-auto">
                                                 <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">조회일자</span>
                                                     <input type="text"  class="form-control datetimepicker" id="frdate" autocomplete="off"  placeholder="Y-m-d"     >
                                                 </div> 
                                             </div>   
-                                            <div class="col-2 col-sm-2"> 
+                                            <div class="col-auto"> 
                                                 <div class="input-group input-group-sm mb-3"> 
                                                     <input type="text"  class="form-control datetimepicker" id="todate" autocomplete="off"  placeholder="Y-m-d"     >
                                                 </div>
                                             </div> 
-                                            <div class="col-2 col-sm-2">
+                                            <div class="col-auto">
                                                 <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">거래처</span> 
                                                     <input class="form-control form-control-sm" id="bcifname" type="text"    autocomplete="off"  placeholder=""     >
                                                     <input class="form-control form-control-sm" id="bacorp1" type="hidden"  />
@@ -119,7 +119,7 @@
                                                     
                                                 </div>
                                             </div>
-                                            <div class="col-1 col-sm-1">  
+                                            <div class="col-auto">  
                                                 <select class="form-select" id="asflag"  >   
                                                     <option selected="">배송구분</option>
                                                     <option value="0">전체</option>
@@ -143,17 +143,17 @@
                                     </div>
                                     <div class="tab-pane fade" id="step02">
                                         <div class="row gx-3" style="  margin: 10px 10px 10px;">   
-                                            <div class="col-2 col-sm-2">
+                                            <div class="col-auto">
                                                 <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">조회일자</span>
                                                     <input type="text"  class="form-control datetimepicker" id="frdate02" autocomplete="off"  placeholder="Y-m-d"     >
                                                 </div> 
                                             </div>   
-                                            <div class="col-2 col-sm-2"> 
+                                            <div class="col-auto"> 
                                                 <div class="input-group input-group-sm mb-3"> 
                                                     <input type="text"  class="form-control datetimepicker" id="todate02" autocomplete="off"  placeholder="Y-m-d"     >
                                                 </div>
                                             </div> 
-                                            <div class="col-2 col-sm-2">
+                                            <div class="col-auto">
                                                 <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">거래처</span> 
                                                     <input class="form-control form-control-sm" id="dcifname" type="text"    autocomplete="off"  placeholder=""     >
                                                     <input class="form-control form-control-sm" id="dacorp1" type="hidden"  />
@@ -1000,8 +1000,7 @@
                 // console.log("달력클릭");
                 // console.log(convert_time(e.timestamp));
             })
-        })
-
+        }) 
         function test_rtn(arg1){
             console.log(arg1);
             const disHtml = `
@@ -1036,9 +1035,58 @@
             if (pastMonth > 0 && pastMonth < 10) { pastMonth = "0" + pastMonth; }
             if (pastDay > 0 && pastDay < 10) { pastDay = "0" + pastDay; }
 
-            let ls_frday_past = pastYear + '-' + pastMonth + '-' + pastDay;
+            let ls_frday_past = pastYear + '-' + pastMonth + '-' + pastDay; 
             document.getElementById('frdate').value = ls_frday_past;
             document.getElementById('frdate02').value = ls_frday_past;
+ 
+
+            // 원래의 hidden input
+            let frdateInput = document.getElementById('frdate'); 
+            let todateInput = document.getElementById('todate');
+            let frdateInput02 = document.getElementById('frdate02'); 
+            let todateInput02 = document.getElementById('todate02');
+            // flatpickr가 생성한 모바일용 input[type="date"]
+            let mobileInputs = document.querySelectorAll('.flatpickr-mobile');
+
+            if (frdateInput) {
+                frdateInput.value = ls_frday_past;
+                frdateInput.setAttribute('value', ls_frday_past);
+            } 
+
+            if (todateInput) {
+                todateInput.value = ls_today;
+                todateInput.setAttribute('value', ls_today);
+            }
+
+            if (frdateInput02) {
+                frdateInput02.value = ls_frday_past;
+                frdateInput02.setAttribute('value', ls_frday_past);
+            } 
+
+            if (todateInput02) {
+                todateInput02.value = ls_today;
+                todateInput02.setAttribute('value', ls_today);
+            }
+
+            // 모든 flatpickr 모바일 input에 값 설정
+            if (mobileInputs.length === 4) {
+                mobileInputs[0].value = ls_frday_past; // 첫 번째(보통 frdate)
+                mobileInputs[0].setAttribute('value', ls_frday_past);
+
+                mobileInputs[1].value = ls_today; // 두 번째(보통 todate)
+                mobileInputs[1].setAttribute('value', ls_today);
+
+                
+                mobileInputs[2].value = ls_frday_past; // 첫 번째(보통 frdate)
+                mobileInputs[2].setAttribute('value', ls_frday_past);
+
+                mobileInputs[3].value = ls_today; // 두 번째(보통 todate)
+                mobileInputs[3].setAttribute('value', ls_today);
+ 
+            } else {
+                console.warn("Mobile date inputs not found or incorrect count");
+            } 
+
         }
 
         function convert_time(timestamp){ 

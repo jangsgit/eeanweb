@@ -1063,6 +1063,66 @@
             document.getElementById('frdate').value = ls_frday_past;
             document.getElementById('frdate02').value = ls_frday_past;
 
+
+
+            // 원래의 hidden input
+            let frdateInput = document.getElementById('frdate'); 
+            let todateInput = document.getElementById('todate');
+            let frdateInput02 = document.getElementById('frdate02'); 
+            let todateInput02 = document.getElementById('todate02');
+            // flatpickr가 생성한 모바일용 input[type="date"]
+            let mobileInputs = document.querySelectorAll('.flatpickr-mobile');
+
+            if (frdateInput) {
+                frdateInput.value = ls_frday_past;
+                frdateInput.setAttribute('value', ls_frday_past);
+            } 
+
+            if (todateInput) {
+                todateInput.value = ls_today;
+                todateInput.setAttribute('value', ls_today);
+            }
+
+            if (frdateInput02) {
+                frdateInput02.value = ls_frday_past;
+                frdateInput02.setAttribute('value', ls_frday_past);
+            } 
+
+            if (todateInput02) {
+                todateInput02.value = ls_today;
+                todateInput02.setAttribute('value', ls_today);
+            }
+
+            // 모든 flatpickr 모바일 input에 값 설정
+            if (mobileInputs.length === 4) {
+                mobileInputs[0].value = ls_frday_past; // 첫 번째(보통 frdate)
+                mobileInputs[0].setAttribute('value', ls_frday_past);
+
+                mobileInputs[1].value = ls_today; // 두 번째(보통 todate)
+                mobileInputs[1].setAttribute('value', ls_today);
+
+                
+                mobileInputs[2].value = ls_frday_past; // 첫 번째(보통 frdate)
+                mobileInputs[2].setAttribute('value', ls_frday_past);
+
+                mobileInputs[3].value = ls_today; // 두 번째(보통 todate)
+                mobileInputs[3].setAttribute('value', ls_today);
+ 
+            } else {
+                console.warn("Mobile date inputs not found or incorrect count");
+            } 
+
+
+
+
+
+
+
+
+
+
+
+
         }
 
         function convert_time(timestamp){ 

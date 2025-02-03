@@ -86,6 +86,16 @@ public class AuthService {
         }
         return (queryResult > 0);
     }
+    //사용자조회기능여부
+    @Transactional
+    public boolean UpdateUserInfoDis(UserFormDto parm){
+        int queryResult = 1;
+        queryResult = authMapper.UpdateUserInfoDis(parm);
+        if(queryResult < 1){
+            queryResult = 0;
+        }
+        return (queryResult > 0);
+    }
 
     //사용자사용여부
     @Transactional

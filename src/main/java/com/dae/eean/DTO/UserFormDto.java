@@ -106,6 +106,8 @@ public class UserFormDto {
     private String moduserid2;
     private String modusernm2;
 
+    private String disflag;
+
     private Integer seq;
 
 }

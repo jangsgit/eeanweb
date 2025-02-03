@@ -22,11 +22,11 @@
         from TB_XUSERS where userid=#{userid} and passwd1=#{passwd1}
     </select>
     <select id="GetUserInfo" parameterType="com.dae.eean.DTO.UserFormDto"  resultType="com.dae.eean.DTO.UserFormDto">
-        select top 1 userid, passwd1,  username, actcd, actnm, saupnum, flag, phone, perid, pernm, useyn, role, dbnm, wrongnum, custcd, custnm, perid, pushid, rnum
+        select top 1 userid, passwd1,  username, actcd, actnm, saupnum, flag, phone, perid, pernm, useyn, role, dbnm, wrongnum, custcd, custnm, perid, pushid, rnum, disflag
          from TB_XUSERS where userid=#{userid} and passwd1=#{passwd1} and flag=#{flag}
     </select>
     <select id="GetUserInfoPerid" parameterType="com.dae.eean.DTO.UserFormDto"  resultType="com.dae.eean.DTO.UserFormDto">
-        select top 1 userid, passwd1,  username, actcd, actnm, saupnum, flag, phone, perid, pernm, useyn, role, dbnm, wrongnum, custcd, custnm, perid, pushid, rnum
+        select top 1 userid, passwd1,  username, actcd, actnm, saupnum, flag, phone, perid, pernm, useyn, role, dbnm, wrongnum, custcd, custnm, perid, pushid, rnum, disflag
         from TB_XUSERS where perid=#{perid} and pernm=#{pernm} and flag=#{flag}
     </select>
     <select id="GetAdminInfo" parameterType="com.dae.eean.DTO.UserFormDto"  resultType="com.dae.eean.DTO.UserFormDto">
@@ -34,20 +34,21 @@
         from TB_XUSERS where userid=#{userid} and passwd1=#{passwd1} and flag = #{flag}
     </select>
     <select id="GetUserInfoDto" parameterType="com.dae.eean.DTO.UserFormDto"  resultType="com.dae.eean.DTO.UserFormDto">
-        select top 1 seq, userid, passwd1,  username, actcd, actnm, saupnum, flag, phone,  perid, pernm, useyn, role, dbnm, wrongnum, custcd, custnm, pushid, rnum
+        select top 1 seq, userid, passwd1,  username, actcd, actnm, saupnum, flag, phone,  perid, pernm, useyn, role, dbnm, wrongnum, custcd, custnm, pushid, rnum, disflag
         from TB_XUSERS where userid=#{userid} and flag = #{flag}
     </select>
     <select id="GetUserInfoDto2" parameterType="com.dae.eean.DTO.UserFormDto"  resultType="com.dae.eean.DTO.UserFormDto">
-        select top 1 seq,  userid, passwd1,  username, actcd, actnm, saupnum, flag, phone,  perid, pernm, useyn, role, dbnm, wrongnum, custcd, custnm, pushid, rnum
+        select top 1 seq,  userid, passwd1,  username, actcd, actnm, saupnum, flag, phone,  perid, pernm, useyn, role, dbnm, wrongnum, custcd, custnm, pushid, rnum, disflag
         from TB_XUSERS where pernm=#{pernm} and flag = #{flag}
     </select>
     <select id="GetUserInfoDto3" parameterType="com.dae.eean.DTO.UserFormDto"  resultType="com.dae.eean.DTO.UserFormDto">
-        select top 1 seq, userid, passwd1,  username, actcd, actnm, saupnum, flag, phone,  perid, pernm, useyn, role, dbnm, wrongnum, custcd, custnm, pushid, rnum
+        select top 1 seq, userid, passwd1,  username, actcd, actnm, saupnum, flag, phone,  perid, pernm, useyn, role, dbnm, wrongnum, custcd, custnm, pushid, rnum, disflag
         from TB_XUSERS where saupnum=#{saupnum} and flag = #{flag}
     </select>
     <select id="GetUserListDto" parameterType="com.dae.eean.DTO.UserFormDto"  resultType="com.dae.eean.DTO.UserFormDto">
         <![CDATA[ select  seq, userid, passwd1,  username, actcd, actnm, rnum,  phone, perid, pernm, useyn, role, dbnm, wrongnum, custcd, custnm,
-        case useyn when 'Y' THEN '사용' ELSE '미사용' END as flag
+        case useyn when 'Y' THEN '사용' ELSE '미사용' END as flag,
+        case disflag when 'Y' THEN '조회기능' ELSE 'ALL' END as disflag
         from TB_XUSERS where flag like CONCAT('%',#{flag},'%') and flag in  ('AA', 'BB','CC', 'DD')
                          AND (username like CONCAT('%',#{username},'%') or userid like CONCAT('%',#{username},'%') )
                          and len(username) > 0
@@ -87,6 +88,12 @@
               where seq=#{seq} and flag = #{flag}
     </update>
 
+
+    <update id="UpdateUserInfoDis" parameterType="com.dae.eean.DTO.UserFormDto"  >
+        UPDATE TB_XUSERS SET  disflag=#{disflag}
+        where seq=#{seq} and flag = #{flag}
+    </update>
+
     <update id="UpdateUserInfoCC" parameterType="com.dae.eean.DTO.UserFormDto"  >
         UPDATE TB_XUSERS SET  userid=#{userid}, username=#{username}, passwd1=#{passwd1}, passwd2=#{passwd1}, useyn=#{useyn},   custnm=#{custnm}, role=#{role}, rnum=#{rnum}
         where seq=#{seq} and flag = #{flag}
@@ -104,7 +111,7 @@
     </update>
 
     <update id="UpdateUserModifyPerid" parameterType="com.dae.eean.DTO.UserFormDto"  >
-        UPDATE TB_DA024  SET  perid=#{modperid2}, pernm = #{modpernm2}
+        UPDATE TB_DA024  SET  perid=#{modperid2}, pernm = #{modpernm2}, actcd=#{modperid1}, equpnm=#{modpernm1}
         where perid=#{modperid1} and pernm=#{modpernm1}
     </update>
 
@@ -115,9 +122,9 @@
 
     <insert id="TB_XUSERS_INSERT" parameterType="com.dae.eean.DTO.UserFormDto">
         INSERT INTO TB_XUSERS
-            (userid, passwd1, passwd2, custnm, pernm, rnum, username, flag, wrongnum,   USEYN , perid, password, role, custcd, spjangcd, saupnum, phone, encodepw)
+            (userid, passwd1, passwd2, custnm, pernm, rnum, username, flag, wrongnum,   USEYN , perid, password, role, custcd, spjangcd, saupnum, phone, disflag, encodepw)
         VALUES
-            (#{userid}, #{passwd1}, #{passwd2}, #{custnm}, #{username}, #{rnum}, #{username},  #{flag}, 0, 'Y', #{perid}, #{passwd1}, #{role}, #{custcd}, #{spjangcd}, #{saupnum}, #{phone}, '$2a$10$GeEZZkFfKQdC.YMvVgvBduyV9DVvucitE9lv97BTjHRem68K29zmum')
+            (#{userid}, #{passwd1}, #{passwd2}, #{custnm}, #{username}, #{rnum}, #{username},  #{flag}, 0, 'Y', #{perid}, #{passwd1}, #{role}, #{custcd}, #{spjangcd}, #{saupnum}, #{phone}, 'N', '$2a$10$GeEZZkFfKQdC.YMvVgvBduyV9DVvucitE9lv97BTjHRem68K29zmum')
     </insert>
 
     <update id="UpdateUserMenuInfo" parameterType="com.dae.eean.DTO.TBXuserMenuDTO"  >

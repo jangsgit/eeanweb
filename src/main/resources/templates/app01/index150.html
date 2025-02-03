@@ -2942,6 +2942,7 @@ aria-hidden="true">
             const ls_perid = window.localStorage.getItem("perid_BB");
             const ls_pernm = window.localStorage.getItem("pernm_BB");
             const ls_custnm = window.localStorage.getItem("custnm_BB");
+            const ls_disflag = window.localStorage.getItem("disflag_BB");
             document.getElementById('makflag01').value = "0";
             document.getElementById('makflag02').value = "0";
             document.getElementById('acode').value = ls_perid;
@@ -2956,6 +2957,11 @@ aria-hidden="true">
             }else{
                 document.getElementById('jpbgubn').value = "B";
             }  
+            if (ls_disflag =="Y"){
+                alert("조회기능만 가능합니다.")
+                window.location.href = '/app01/index151'; 
+                return  
+            }
         }
 
         function chkLogin(argdata){

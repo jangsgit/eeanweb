@@ -215,7 +215,8 @@
                     phone : wtab01Dto[i]["phone"] ,
                     actcd : wtab01Dto[i]["actcd"] ,
                     custnm : wtab01Dto[i]["custnm"]  ,
-                    passwd1 : wtab01Dto[i]["passwd1"]                                   
+                    passwd1 : wtab01Dto[i]["passwd1"]  ,
+                    disflag : wtab01Dto[i]["disflag"]                                   
                 });
                 cnt++;
             }    
@@ -235,12 +236,27 @@
                 }
             });
             wapp04Grid.columns.push(cols);  
+             
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'disflag';
+            cols.header = '조회기능';
+            cols.align = "center";
+            cols.width = '*'; 
+            cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
+                text: '<b>${item.disflag}</b>',
+                click: (e, ctx) => {
+                    wactnmChk_3(ctx.item.seq, ctx.item.userid, ctx.item.disflag, ctx.item.username, ctx.item.passwd1  );
+                }
+            });
+            wapp04Grid.columns.push(cols);  
+
             cols = new wijmo.grid.Column(); 
             cols.binding = 'userid';
             cols.header = '아이디';
             cols.align = "center";
             cols.width = '*'; 
             wapp04Grid.columns.push(cols);  
+
             cols = new wijmo.grid.Column(); 
             cols.binding = 'passwd1';
             cols.header = '비밀번호';
@@ -383,7 +399,56 @@
  
         }      
 
-        
+         
+        function wactnmChk_3(arg0, arg1, arg2, arg3, arg4){  
+            //ctx.item.seq, ctx.item.userid, ctx.item.disflag, ctx.item.username, ctx.item.passwd1 
+            console.log(arg2)
+            if (arg2 == "Y" || arg2 == "조회기능"){
+                if (!confirm(arg3 + " : 모든기능으로 변경하시겠습니까?")) {
+                    return ;
+                } 
+                arg2 = "N"
+            }else{
+                if (!confirm(arg3 + " : 조회기능으로 변경하시겠습니까?")) {
+                    return ;
+                } 
+                arg2 = "Y"
+            }
+            $.ajax({
+                url: '/appadmod/id02moddis',   
+                type:"POST",
+                data: {
+                    "actseqz"    : arg0 ,
+                    "actuseridz"    : arg1 ,
+                    "actuseynz"    : arg2 ,
+                    "actusernmz"    : arg3,
+                    "actuserpwz"    : arg4
+                },
+                async:false,
+                success:function(data){
+                    if(data == "success"){
+                        alert("변경되었습니다.")
+                        // console.log("MOD", data); 
+                        listUp();
+                    }else{
+                        if(data == "relogin"){
+                            alert("다시 로그인해주세요")
+                            window.location.href='http://eean.co.kr';
+                            return 
+                        }       
+                        alert("변경중 오류가 발생했습니다. 관리자에게 문의하세요.")
+                    }
+                },error:function(e){
+                    console.log('error',e);
+                }
+            }).done(function(fragment){
+
+            })
+
+          listUp();
+ 
+        }      
+
     function listUp(){
         var ls_actusernamez = document.getElementById('actusernamez').value;  
             if(ls_actusernamez == null || ls_actusernamez.length == 0 || ls_actusernamez == ""){
@@ -495,51 +560,51 @@
 
     
 
-    function wactnmChk_3(arg1, arg2, arg3, arg4){  
+    // function wactnmChk_3(arg1, arg2, arg3, arg4){  
         
-            if (arg3 == "사용"){
-                if (!confirm(arg4 + " : 미사용으로 변경하시겠습니까?")) {
-                    return ;
-                } 
-                arg3 = "N"
-            }else{
-                if (!confirm(arg4 + " : 사용으로 변경하시겠습니까?")) {
-                    return ;
-                } 
-                arg3 = "Y"
-            }
-            $.ajax({
-                url: '/appadmod/id01menumod',   
-                type:"POST",
-                data: {
-                    "actuseridz"    : arg1 ,
-                    "actmenuidz"    : arg2,
-                    "actviewz"      : arg3
-                },
-                async:false,
-                success:function(data){
-                    if(data == "success"){
-                        alert("변경되었습니다.")
-                        // console.log("MOD", data); 
-                        listUp();
-                    }else{
-                        if(data == "relogin"){
-                            alert("다시 로그인해주세요")
-                            window.location.href='http://eean.co.kr';
-                            return 
-                        }       
-                        alert("변경중 오류가 발생했습니다. 관리자에게 문의하세요.")
-                    }
-                },error:function(e){
-                    console.log('error',e);
-                }
-            }).done(function(fragment){
+    //         if (arg3 == "사용"){
+    //             if (!confirm(arg4 + " : 미사용으로 변경하시겠습니까?")) {
+    //                 return ;
+    //             } 
+    //             arg3 = "N"
+    //         }else{
+    //             if (!confirm(arg4 + " : 사용으로 변경하시겠습니까?")) {
+    //                 return ;
+    //             } 
+    //             arg3 = "Y"
+    //         }
+    //         $.ajax({
+    //             url: '/appadmod/id01menumod',   
+    //             type:"POST",
+    //             data: {
+    //                 "actuseridz"    : arg1 ,
+    //                 "actmenuidz"    : arg2,
+    //                 "actviewz"      : arg3
+    //             },
+    //             async:false,
+    //             success:function(data){
+    //                 if(data == "success"){
+    //                     alert("변경되었습니다.")
+    //                     // console.log("MOD", data); 
+    //                     listUp();
+    //                 }else{
+    //                     if(data == "relogin"){
+    //                         alert("다시 로그인해주세요")
+    //                         window.location.href='http://eean.co.kr';
+    //                         return 
+    //                     }       
+    //                     alert("변경중 오류가 발생했습니다. 관리자에게 문의하세요.")
+    //                 }
+    //             },error:function(e){
+    //                 console.log('error',e);
+    //             }
+    //         }).done(function(fragment){
 
-            })
+    //         })
 
-          listUp02();
+    //       listUp02();
  
-        }      
+    //     }      
 
     
 
@@ -560,7 +625,7 @@
             alternatingRowStep: 0,
             columns: [   
   
-                { binding: 'phone',width: '*', header: '사용여부', width: '*', align:"center", format: '*' ,
+                { binding: 'flag',width: '*', header: '사용여부', width: '*', align:"center", format: '*' ,
                         cellTemplate: wijmo.grid.cellmaker.CellMaker.makeLink({ 
                             text: '<b>${item.flag}</b>',
                             click: (e, ctx) => {
@@ -568,6 +633,14 @@
                             }
                         })
                     },   
+                { binding: 'disflag',width: '*', header: '조회기능', width: '*', align:"center", format: '*' ,
+                        cellTemplate: wijmo.grid.cellmaker.CellMaker.makeLink({ 
+                            text: '<b>${item.disflag}</b>',
+                            click: (e, ctx) => {
+                                wactnmChk_3(ctx.item.seq, ctx.item.userid, ctx.item.disflag, ctx.item.username, ctx.item.passwd1  );
+                            }
+                        })
+                    },  
                 { binding: 'userid', header: '아이디', width: '*', format: '*' , align:"center", isReadOnly: true},   
                 { binding: 'passwd1', header: '비밀번호', width: '*', format: '*' , align:"center", isReadOnly: true}, 
                 { binding: 'username', header: '사용자', width: '*',   align:"left",  isReadOnly: true ,
@@ -624,7 +697,8 @@
                     phone : mapp04Dto[i]["phone"] ,
                     perid : mapp04Dto[i]["perid"]  ,
                     passwd1 : mapp04Dto[i]["passwd1"],  
-                    custnm : mapp04Dto[i]["custnm"]          
+                    custnm : mapp04Dto[i]["custnm"]  ,  
+                    disflag : mapp04Dto[i]["disflag"]          
                 });
                 cnt++;
             }  

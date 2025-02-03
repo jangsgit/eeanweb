@@ -169,6 +169,39 @@ public class AppIndexCrudController {
     }
 
 
+    @RequestMapping(value="/id02moddis")   //거래처 상태 수정
+    public String UserUpdate03(@RequestParam("actseqz") String seq
+            ,@RequestParam("actuseridz") String userid
+            ,@RequestParam("actuseynz") String useyn
+            ,@RequestParam("actusernmz") String usernm
+            ,@RequestParam("actuserpwz") String userpw
+            , Model model, HttpServletRequest request){
+        try {
+            HttpSession session = request.getSession();
+            UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+            String ls_custcd = userformDto.getCustcd();
+            String ls_spjangcd = userformDto.getSpjangcd();
+            appUserFormDto.setCustcd(ls_custcd);
+            appUserFormDto.setSpjangcd(ls_spjangcd);
+            appUserFormDto.setSeq(Integer.parseInt(seq));
+            appUserFormDto.setUserid(userid);
+            appUserFormDto.setDisflag(useyn);
+            appUserFormDto.setUsername(usernm);
+            appUserFormDto.setPasswd1(userpw);
+            appUserFormDto.setFlag("BB");
+
+            boolean result = service.UpdateUserInfoDis(appUserFormDto);
+            if (!result) {
+                return "error";
+            }else{
+                return "success";
+            }
+        }catch (IllegalStateException e){
+            model.addAttribute("errorMessage", e.getMessage());
+            return "error";
+        }
+    }
+
     @RequestMapping(value="/id04mod")   //영업사원 상태 수정
     public String UserUpdate04(@RequestParam("actseqz") String seq
             ,@RequestParam("actuseridz") String userid
