@@ -193,6 +193,14 @@
     </update>
 
 
+    <update id="ModifyJupsuMemo" parameterType="com.dae.eean.DTO.App01.Index20Dto">
+        <![CDATA[
+         UPDATE  as_jupsu SET as_memo = #{as_memo} , as_memo2 =  #{as_memo2}
+           where as_key1  = #{as_key1} and as_key2 = #{as_key2}
+        ]]>
+    </update>
+
+
     <select id="SelectMaxJupsu" parameterType="com.dae.eean.DTO.App01.Index20Dto" resultType="String">
         <![CDATA[  select  max(as_key2)  from as_jupsu where as_key1 = #{as_key1} and Left(as_key2,1) = Left(#{as_rnum},1)     ]]>
     </select>
@@ -201,7 +209,7 @@
     <update id="UpdateDevJupsu" parameterType="com.dae.eean.DTO.App01.Index20Dto">
         <![CDATA[
         UPDATE  as_jupsu SET as_devflag = #{as_devflag} , as_devdate =  getdate(), as_date2 =  #{as_date2}, as_devcode = #{as_devcode}
-        where as_key1  = #{as_key1} and as_key2 = #{as_key2}
+        where as_key1  = #{as_key1} and as_key2 = #{as_key2} and as_devdate is null
         ]]>
     </update>
 

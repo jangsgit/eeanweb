@@ -5473,6 +5473,67 @@ public class App01CrudController {
         }
     }
 
+
+    @RequestMapping(value="/jupsumodlist")
+    public String index20JupsuModList(@RequestParam(value = "asKey1Arr[]") List<String> asKey1Arr
+            ,@RequestParam( value =  "asKey2Arr[]") List<String> asKey2Arr
+            ,@RequestParam( value =  "asmemoArr[]") List<String> asmemoArr
+            ,@RequestParam( value =  "asmemoArr02[]") List<String> asmemoArr02
+            ,@RequestParam( value =  "userid") String userid
+            ,@RequestParam( value =  "usernm") String usernm
+            , Model model
+            , HttpServletRequest request){
+        try {
+            SyslogDto _syslogDto = new SyslogDto();
+            HttpSession session = request.getSession();
+            UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+            if(userformDto == null){
+                log.info("index20JupsuModList Exception =====> relogin userformDto null");
+                return "relogin";
+            }
+            model.addAttribute("userformDto",userformDto);
+
+            boolean result = false;
+            Index20Dto _index20Dto = new Index20Dto();
+            Index20Dto _index20DtoRe = new Index20Dto();
+            IndexDa024Dto _indexDa024Dto = new IndexDa024Dto();
+            if( asKey1Arr.size() > 0){
+                for(int i = 0; i < asKey1Arr.size(); i++){
+                    _index20Dto.setAs_key1(asKey1Arr.get(i));
+                    _index20Dto.setAs_key2(asKey2Arr.get(i));
+                    _index20Dto.setAs_memo(asmemoArr.get(i));
+                    _index20Dto.setAs_memo2(asmemoArr02.get(i));
+                    result = service01.ModifyJupsuMemo(_index20Dto);
+                    if (!result){
+                        return "error";
+                    }else{
+                        _syslogDto.setType("메모수정");
+                        _syslogDto.setMenunm("AS접수등록");
+                        _syslogDto.setSource("AS접수등록 메모수정");
+                        _syslogDto.setMessage("접수:" + _index20Dto.getAs_key1() + "/" + _index20Dto.getAs_key2());
+                        _syslogDto.setUserid(userid);
+                        _syslogDto.setUsernm(usernm);
+                        result = service_auth.TB_SYSLOG_INSERT(_syslogDto);
+                        if (!result) {
+                            //return "error";
+                        }
+                    }
+                }
+
+            }
+            return "success";
+        }catch (Exception e){
+            log.info("jupsudellist 오류 메시지: " + e.getMessage());
+            e.printStackTrace();
+            return "error";
+        }
+    }
+
+
+
+
+
+
     @RequestMapping(value="/index20/deliv")
     public String index21Deliv(@RequestParam(value = "asKey1Arr[]") List<String> asKey1Arr
             ,@RequestParam( value =  "asKey2Arr[]") List<String> asKey2Arr

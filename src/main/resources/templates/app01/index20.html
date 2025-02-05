@@ -202,7 +202,7 @@
                                         
                                     </div>  
                                 </div>         
-                                <div class="col-3 col-sm-3">   
+                                <div class="col-4 col-sm-4">   
                                     <button class="btn btn-falcon-warning me-1 mb-1 btn-md" id="retrieveBtn" type="button"  >조회
                                     </button>   
                                     <button class="btn btn-success me-1 mb-1 btn-md" id="saveBtn03" type="button"  >발송출력
@@ -210,6 +210,8 @@
                                     <button class="btn btn-primary me-1 mb-1 btn-md" id="saveBtn05" type="button"  >주문등록
                                     </button>
                                     <button class="btn btn-danger me-1 mb-1 btn-md" id="DelBtn02" type="button"  >삭제
+                                    </button>
+                                    <button class="btn btn-info me-1 mb-1 btn-md" id="ModifyBtn02" type="button"  >메모수정
                                     </button>
                                 </div>    
                             </div>  
@@ -595,6 +597,8 @@
          var devnum02    = new Array(); 
          var devnum03    = new Array(); 
          var devnum04    = new Array(); 
+         var asmemoArr      = new Array(); 
+         var asmemoArr02      = new Array(); 
          
         var wtabExl_data = [];
          var gsUserid = "";                             
@@ -615,7 +619,7 @@
             wtab01Grid = new wijmo.grid.FlexGrid('#wtab01Grid_div', {  
                 autoGenerateColumns: false,
                 showMarquee: true,
-                isReadOnly: true, 
+                isReadOnly: false, 
                 selectionMode: 'RowRange',
                 allowSorting: 'MultiColumn',
                 alternatingRowStep: 0,
@@ -671,6 +675,8 @@
                     asYumu[i]     = sel[i]._data.as_yumu;   
                     misdateArr[i]  = sel[i]._data.misdate;   
                     misnumArr[i]  = sel[i]._data.misnum;     
+                    asmemoArr[i]  = sel[i]._data.as_memo;     
+                    asmemoArr02[i]  = sel[i]._data.as_memo2;     
                     cltcdArr[i]  = ascorp1 + ascorp2;  
                     gubunArr[i]  = 'AA';  
                     seqArr[i]  = '001';  
@@ -1224,8 +1230,10 @@
         // })    
         document.getElementById("DelBtn02").addEventListener("click",function(){  
             del_btn_List()
-        }) 
-        
+        })   
+        document.getElementById("ModifyBtn02").addEventListener("click",function(){  
+            mod_btn_List()
+        })  
         // 발송출력
         document.getElementById("saveBtn03").addEventListener("click",function(){
             var ls_tab = document.getElementById('tabvalue').value;     
@@ -1689,7 +1697,7 @@
                         asKey1Arr.pop();
                         asKey2Arr.pop(); 
                         fixflagArr.pop(); 
-                        asYumu.pop();   
+                        asYumu.pop();
                     }    
                     for (var i = 0; i < chkTabA.length; i++) {  
                         var ls_asYumu = chkTabA[i]._data.as_yumu;  
@@ -2024,6 +2032,71 @@
                             "asKey2Arr"   : asKey2Arr    ,
                             "userid"  : gsUserid   ,      
                             "usernm"  : gsUsernm   
+                        }, 
+                        async:false,
+                        success:function(data){   
+                            if(data == "success"){
+                                alert("처리되었습니다.")
+                                searchList_rtn("A");  
+                                clear_rtn();               
+                                return true;
+                                // clear_rtn(ls_tab);        
+                            }else{       
+                                if(data == "relogin"){
+                                    alert("다시 로그인해주세요")
+                                    window.location.href='http://eean.co.kr';
+                                    return 
+                                }                       
+                                alert("처리중 오류가 발생했습니다. 관리자에게 문의하세요.")
+                                // listUp();
+                                console.log(data); 
+                                return false; 
+                            }
+                        
+                        },error:function(e){
+                            console.log("error"); 
+                        }
+                    }).done(function(fragment){           
+
+                    })  
+        } 
+        
+        
+        function mod_btn_List(){ 
+            var ls_tab = document.getElementById('tabvalue').value;
+            var ls_asaskey1 = document.getElementById('asaskey1').value;
+            var ls_asaskey2 = document.getElementById('asaskey2').value; 
+         
+            if (!confirm("메모를 수정하시겠습니까?")) { 
+                        return false; 
+                    }     
+                      
+                    while (asKey1Arr.length > 0) {
+                        asKey1Arr.pop(); 
+                        asKey2Arr.pop(); 
+                        asmemoArr.pop();
+                        asmemoArr02.pop(); 
+                    }    
+                    for (var i = 0; i < chkTabA.length; i++) { 
+                        asKey1Arr[i]   = chkTabA[i]._data.as_key1;
+                        asKey2Arr[i]   = chkTabA[i]._data.as_key2; 
+                        asmemoArr[i]   = chkTabA[i]._data.as_memo; 
+                        asmemoArr02[i]   = chkTabA[i]._data.as_memo2; 
+                    }    
+                    if(asKey1Arr.length == null || asKey1Arr.length == 0){ 
+                        alert("수정할 내역을 선택하세요") 
+                        return ;               
+                    }   
+                    $.ajax({
+                        url: '/app01m/jupsumodlist',  
+                        type:"POST",
+                        data: { 
+                            "asKey1Arr"  : asKey1Arr,  
+                            "asKey2Arr"   : asKey2Arr    ,
+                            "asmemoArr"   : asmemoArr    ,
+                            "asmemoArr02"   : asmemoArr02    ,
+                            "userid"  : gsUserid   ,      
+                            "usernm"  : gsUsernm   ,   
                         }, 
                         async:false,
                         success:function(data){   
@@ -2577,7 +2650,7 @@
                 document.getElementById('asasyumu').disabled = false; 
                 document.getElementById('condamdang').disabled = false; 
                 document.getElementById('jchgoga').value = 0;                 
-                document.getElementById("asasgong").focus(); 
+                document.getElementById("jcifname").focus(); 
         }
         function clear_rtn_new(){ 
                 getToday()
