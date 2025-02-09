@@ -365,14 +365,16 @@
             F.acorp as eeacorp, F.asano as eeasano, F.aname as eeaname, F.aupte as eeupte, F.ajong as eeajong, F.ajuso as eeajuso, F.atelno as eeatelno,
             F.eeacodetxt as eeacodetxt
         from  TB_DA024 B WITH (NOLOCK) ,
+              JCODE3 K  WITH (NOLOCK) ,
             cif A WITH (NOLOCK) Left outer JOIN tb_xusers D ON A.abonsadam1 = D.perid,
             ( select acorp, atelno, asano1 + '-' + asano2 + '-' + asano3 as asano, aname, aupte, ajong, ajuso1 + ' ' + ajuso2 as ajuso,
                 aascode1 + '-' + aascode2 as eeacodetxt
                  from cif where acorp1 + acorp2 + acorp3 = '0000' ) F
-        where  B.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
+        where B.pcode = K.jkey
+        AND B.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
         AND B.misdate = #{misdate} and B.misnum = #{misnum}  and B.cltcd = #{cltcd}
         AND B.fixflag = '1'
-        ORDER BY B.pname, pcolor, B.misdate desc, B.misnum, B.seq
+        ORDER BY  CONVERT(int, K.jbonsa_code_seq), B.pname, pcolor, B.misdate desc, B.misnum, B.seq
     </select>
 
 <!--    <select id="SelectDa024ListPrt"  parameterType="com.dae.eean.DTO.App01.IndexDa024Dto"  resultType="com.dae.eean.DTO.App01.IndexDa024Dto">-->
