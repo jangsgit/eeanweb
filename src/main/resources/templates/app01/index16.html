@@ -2016,7 +2016,14 @@
                 // doc.moveDown(1);
                 // * draw captions *
                 //doc.drawText('작  성   일  자 : ' + ls_misdatetxt + ' [' + ls_misnum + ']', 10, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11), align: 0, underline:false});
-                doc.drawText('www.BENETIQUE.co.kr(베네틱 홈페이지)  / www.eean.co.kr(이안옵틱 주문전용 사이트)' , 10, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11),   underline:false});  
+                if(ls_jpbgubn == "B") {  
+                    doc.drawText('www.eean.co.kr(이안옵틱 주문전용 사이트)' , 10, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11),   underline:false});  
+                }else if(ls_jpbgubn == "P") {  
+                    doc.drawText('www.BENETIQUE.co.kr(베네틱 홈페이지)  / www.eean.co.kr(이안옵틱 주문전용 사이트)' , 10, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11),   underline:false});  
+                }else{
+                    doc.drawText('www.eean.co.kr(이안옵틱 주문전용 사이트)' , 10, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11),   underline:false});  
+                }    
+                //doc.drawText('www.BENETIQUE.co.kr(베네틱 홈페이지)  / www.eean.co.kr(이안옵틱 주문전용 사이트)' , 10, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11),   underline:false});  
                 doc.moveDown(1);
                 y = doc.y; 
                 doc.drawText('출  력   일  자 : ' + ls_fixdatetxt + ' [' + ls_misdate + '-'+ ls_misnum + ']', 10, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11), align: 0, underline:false});
