@@ -5298,8 +5298,8 @@ public class App01CrudController {
             _index20Dto.setUserid(userid);
             _index20Dto.setUsernm(usernm);
             _index20Dto.setJchgoga(jchgoga);
-//            log.info("asaskey1 =====>" + asaskey1);
-//            log.info("asaskey2 =====>" + asaskey2);
+//            log.info("jchgoga =====>" + jchgoga);
+//            log.info("jchgoga2 =====>" + _index20Dto.getJchgoga());
 //            log.info("asrnum =====>" + asrnum);
                 if(asaskey2 == null || asaskey2.equals("")){
                     asaskey2 = GetMaxJupsu(_index20Dto);
@@ -5728,7 +5728,7 @@ public class App01CrudController {
 
 
                     Integer ll_chulgoga = _index20DtoRe.getJchgoga0();
-                    if(ll_chulgoga > 0 ) {
+                    if(ll_chulgoga != 0 ) {
                         _indexDa024Dto.setUamt(ll_chulgoga);
                         _indexDa024Dto.setAddamt(ll_chulgoga / 10);
                         _indexDa024Dto.setAmt(ll_chulgoga + (ll_chulgoga / 10));

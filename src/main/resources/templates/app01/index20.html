@@ -599,7 +599,7 @@
          var devnum04    = new Array(); 
          var asmemoArr      = new Array(); 
          var asmemoArr02      = new Array(); 
-         
+         var asdate2      = new Array(); 
         var wtabExl_data = [];
          var gsUserid = "";                             
          var gsUsernm  = "";                           
@@ -1698,6 +1698,7 @@
                         asKey2Arr.pop(); 
                         fixflagArr.pop(); 
                         asYumu.pop();
+                        asdate2.pop();
                     }    
                     for (var i = 0; i < chkTabA.length; i++) {  
                         var ls_asYumu = chkTabA[i]._data.as_yumu;  
@@ -1711,7 +1712,8 @@
                         gubunArr[i]  = 'AA'; 
                         asKey1Arr[i]   = chkTabA[i]._data.as_key1;
                         asKey2Arr[i]   = chkTabA[i]._data.as_key2; 
-                        asYumu[i]      = chkTabA[i]._data.as_yumu;  
+                        asYumu[i]      = chkTabA[i]._data.as_yumu; 
+                        asdate2[i]     = chkTabA[i]._data.as_date2; 
                         fixflagArr[i]  = '1';  
                         if(!fixflagArr[i]){
                             fixflagArr[i] = "0";
@@ -1722,11 +1724,21 @@
                             alert("유무상을 등록한 후에 발송출력해주세요." + asKey1Arr[i] + '/' + asKey2Arr[i]) ; 
                             return ;       
                         }
-                        var ls_misdate      = misdateArr[i];  
-                        // if((ls_misdate == null || ls_misdate.length == 0) && ls_asYumu == '유상' ){ 
-                        //     alert("주문등록한 후에 발송출력해주세요." + asKey1Arr[i] + '/' + asKey2Arr[i]) ; 
-                        //     return ;               
-                        // }  
+                        var ls_misdate      = misdateArr[i];   
+                        if (!misdateArr[i] || (Array.isArray(misdateArr[i]) && misdateArr[i].every(item => item == null))) { 
+                            alert("발송 내역 중 주문등록이 안 된 내역이 있습니다. 주문등록 후 발송 출력하세요"); 
+                            return;
+                        }  
+                        if (
+                            (asdate2[i] && typeof asdate2[i] === "string" && asdate2[i].length > 0) || 
+                            (asdate2[i] && Array.isArray(asdate2[i]) && asdate2[i].length > 0)
+                        ) { 
+                            console.log(`asdate2[${i}]의 값:`, asdate2[i]); // 디버깅 용도
+                            alert("발송 내역 중 이미 발송등록된 내역이 있습니다. 확인하세요."); 
+                            return;
+                        }
+ 
+   
                     }   
                     // while (asKey1Arr.length > 0) {
                     //     asKey1Arr.pop();
@@ -1736,10 +1748,12 @@
                     //     asKey1Arr[i]   = chkTabA[i]._data.as_key1;
                     //     asKey2Arr[i]   = chkTabA[i]._data.as_key2; 
                     // }    
-                    if(misdateArr.length == null || misdateArr.length == 0){ 
-                        alert("주문등록한 발송할 내역을 선택하세요") 
-                        return ;               
-                    }  
+                    //if (!misdateArr || misdateArr.length === 0 || misdateArr.every(item => item == null)) { 
+
+                    // if(misdateArr.length == null || misdateArr.length == 0 || misdateArr.every(item => item == null)){ 
+                    //     alert("발송할 내역중 주문등록이 안된 내역이 있습니다. 주문등록 후 발송출력하세요") 
+                    //     return ;               
+                    // }   
                     $.ajax({
                         url: '/app01m/index20/deliv',  
                         type:"POST",

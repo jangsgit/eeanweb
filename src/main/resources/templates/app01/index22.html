@@ -1410,7 +1410,8 @@
                     eeaname: wtab05Dto[i]["eeaname"],      
                     eeupte: wtab05Dto[i]["eeupte"],      
                     eeajong: wtab05Dto[i]["eeajong"],      
-                    eeajuso: wtab05Dto[i]["eeajuso"]         
+                    eeajuso: wtab05Dto[i]["eeajuso"] ,
+                    jpb_gubn: wtab05Dto[i]["jpb_gubn"] ,
                 });
                 cnt++;
             }   
@@ -1487,7 +1488,8 @@
                     eeaname: wtab03Dto[i]["eeaname"],      
                     eeupte: wtab03Dto[i]["eeupte"],      
                     eeajong: wtab03Dto[i]["eeajong"],      
-                    eeajuso: wtab03Dto[i]["eeajuso"],   
+                    eeajuso: wtab03Dto[i]["eeajuso"],       
+                    jpb_gubn: wtab03Dto[i]["jpb_gubn"],  
                     fixflag: bfixflag,                          
                 });
                 cnt++;
@@ -1557,6 +1559,7 @@
                         eeupte: '',
                         eeajong: '',
                         eeajuso: '',
+                        jpb_gubn: '',
                         fixflag: '',
                     });
                 cnt++;
@@ -1758,7 +1761,8 @@
             var lsMisdate = salesdata.misdate    
             var lsMisnum =  salesdata.misnum   
             var lsMiscltcd =  salesdata.cltcd   
-            var lsMisgubun =  salesdata.misgubun  
+            var lsMisgubun =  salesdata.misgubun 
+            var lsjpb_gubn = salesdata.jpb_gubn 
             // console.log(lsMisdate + '/' + lsMisnum + '/'  + lsMiscltcd);
               
             //상세매출조회     
@@ -1823,7 +1827,7 @@
                 //footer.cells.setCellData(0, 'samt', ll_sumsamt, false);
                 //footer.cells.setCellData(0, 'addamt', ll_sumaddamt, false);
                 footer.cells.setCellData(0, 'samt', ll_sumamt, false);  
-                var ls_jpbgubn =  document.getElementById('bjpbgubn').value ;  
+                var ls_jpbgubn =  lsjpb_gubn; //document.getElementById('bjpbgubn').value ;  
                 //블리스일경우 전화번호 및 주소 변경
                 if(ls_jpbgubn == "B") {  
                     ls_eeajuso = "서울 강동 양재대로85길17 2,3,4층";
@@ -1835,10 +1839,21 @@
 
                 // doc.moveDown(1);
                 // * draw captions *
-                doc.drawText('작  성   일  자 : ' + ls_misdatetxt + ' [' + ls_misnum + ']', 10, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11), align: 0, underline:false});
-                //
+                //doc.drawText('작  성   일  자 : ' + ls_misdatetxt + ' [' + ls_misnum + ']', 10, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11), align: 0, underline:false});
+                if(ls_jpbgubn == "B") {  
+                    doc.drawText('www.eean.co.kr(이안옵틱 주문전용 사이트)' , 10, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11),   underline:false});  
+                }else if(ls_jpbgubn == "P") {  
+                    doc.drawText('www.BENETIQUE.co.kr(베네틱 홈페이지)  / www.eean.co.kr(이안옵틱 주문전용 사이트)' , 10, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11),   underline:false});  
+                }else{
+                    doc.drawText('www.eean.co.kr(이안옵틱 주문전용 사이트)' , 10, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11),   underline:false});  
+                }  
                 //doc.drawText('등록번호 : ' + ls_eeasano, 320, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11),  underline:false});         //이안옵틱             
                 //
+                doc.moveDown(1);
+                //
+                y = doc.y; 
+                doc.drawText('작  성   일  자 : ' + ls_misdatetxt + ' [' + ls_misnum + ']', 10, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11), align: 0, underline:false});
+                
                 doc.moveDown(1);
                 //
                 y = doc.y; 
@@ -1850,6 +1865,7 @@
                 //
                 y = doc.y;
                 doc.drawText('상              호 :   ' + ls_acorp , 10, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11), underline:false}); 
+                doc.drawText('사 업 자 번 호 :   ' + ls_asano , 367, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11),   underline:false});  
                 //
                 //doc.drawText('대  표  자 : ' + ls_aname , 320, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11),   underline:false});  
                 //doc.drawText('사업장주소 : '  , 320, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11),   underline:false});  
@@ -1857,22 +1873,21 @@
                 //doc.drawText('대 표 자 : ' + ls_eeaname, 430, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11),  underline:false});  //이안옵틱
                 //
                 y = doc.y;
-                doc.drawText('대     표      자 :   ' + ls_aname , 10, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11),   underline:false});  
-
-                y = doc.y;
-                doc.drawText('사 업 자 번 호 :   ' + ls_asano , 10, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11),   underline:false});  
+                doc.drawText('대     표      자 :   ' + ls_aname , 10, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11),   underline:false});   
                 doc.drawText('전체수량 :   ' + ll_sumqty , 420, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 17),   underline:true});  
 
                 y = doc.y; 
                 doc.drawText('연     락      처 :   ' + ls_atelno , 10, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11),   underline:false});  
+                y = doc.y; 
+                doc.drawText('사 업 장 주 소 :   ' + ls_ajuso  , 10, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11),   underline:false});  
 
                 //doc.drawText(ls_eeajuso , 320, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11),   underline:false});                  //이안옵틱
                 //
                 //doc.moveDown(1);
                 //
-                y = doc.y; 
+                //y = doc.y; 
                 //
-                doc.drawText('사 업 장 주 소 :   ' + ls_ajuso  , 10, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11),   underline:false});  
+                //doc.drawText('사 업 장 주 소 :   ' + ls_ajuso  , 10, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11),   underline:false});  
                 // y = doc.y; 
                 // ls_ajuso = ls_ajuso.substr(0, 34)
                 // doc.drawText(ls_ajuso, 10, y, {font: new wijmo.pdf.PdfFont("BMHANNAPro"), align: 0, underline:false});   //아래와 같이 공급합니다.
@@ -1962,7 +1977,10 @@
                     //doc.drawText('순    번 : ' + ls_misnum, 10, doc.y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11),   underline:false}); 
                 }else{
                     //doc.drawText('합계금액 : ' + wijmo.changeType(ll_sumamt, wijmo.DataType.String, 'n0') + '원', 370, doc.y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 13), continue:true, underline:true, align:2});                     
-                    doc.drawText('비    고 : ' + ls_remark, 10, doc.y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 15),   underline:false});  
+                    //doc.drawText('비    고 : ' + ls_remark, 10, doc.y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 15),   underline:false});  
+                    // font: new wjPdf.PdfFont("times", 10, "normal", "bold")
+                    doc.drawText('비    고 : ' + ls_remark, 10, doc.y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 12,  "normal", "bold"),   underline:false});  
+ 
                 }
 
                 y = doc.y; 
