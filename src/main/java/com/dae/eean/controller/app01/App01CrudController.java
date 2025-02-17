@@ -5573,7 +5573,7 @@ public class App01CrudController {
 //                    log.info("setAs_date2  =====>" + ls_date2);
 //                    log.info("getMisdate  =====>" + indexDa024Dto.getMisdate());
                     if (!result){
-                        return "error";
+                       // return "error";
                     }
                     if(lsYumu.equals("유상")){
                         _index20DtoRe = service01.GetAsJumsuDataYU(_index20Dto);
@@ -5591,7 +5591,7 @@ public class App01CrudController {
                             _indexDa024Dto.setMisgubun("AA");
                             result = service14.UpdateDa024Jumsu(_indexDa024Dto);
                             if (!result){
-                                return "error";
+                               // return "error";
                             }
                         }
                     }
