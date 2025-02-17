@@ -1729,14 +1729,14 @@
                             alert("발송 내역 중 주문등록이 안 된 내역이 있습니다. 주문등록 후 발송 출력하세요"); 
                             return;
                         }  
-                        if (
-                            (asdate2[i] && typeof asdate2[i] === "string" && asdate2[i].length > 0) || 
-                            (asdate2[i] && Array.isArray(asdate2[i]) && asdate2[i].length > 0)
-                        ) { 
-                            console.log(`asdate2[${i}]의 값:`, asdate2[i]); // 디버깅 용도
-                            alert("발송 내역 중 이미 발송등록된 내역이 있습니다. 확인하세요."); 
-                            return;
-                        }
+                        // if (
+                        //     (asdate2[i] && typeof asdate2[i] === "string" && asdate2[i].length > 0) || 
+                        //     (asdate2[i] && Array.isArray(asdate2[i]) && asdate2[i].length > 0)
+                        // ) { 
+                        //     console.log(`asdate2[${i}]의 값:`, asdate2[i]); // 디버깅 용도
+                        //     alert("발송 내역 중 이미 발송등록된 내역이 있습니다. 확인하세요."); 
+                        //     return;
+                        // }
  
    
                     }   
