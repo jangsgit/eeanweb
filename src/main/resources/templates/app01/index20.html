@@ -600,6 +600,7 @@
          var asmemoArr      = new Array(); 
          var asmemoArr02      = new Array(); 
          var asdate2      = new Array(); 
+         var acorpArr      = new Array(); 
         var wtabExl_data = [];
          var gsUserid = "";                             
          var gsUsernm  = "";                           
@@ -1713,7 +1714,8 @@
                         asKey1Arr[i]   = chkTabA[i]._data.as_key1;
                         asKey2Arr[i]   = chkTabA[i]._data.as_key2; 
                         asYumu[i]      = chkTabA[i]._data.as_yumu; 
-                        asdate2[i]     = chkTabA[i]._data.as_date2; 
+                        asdate2[i]     = chkTabA[i]._data.as_date2;
+                        acorpArr [i]     = chkTabA[i]._data.as_acorp;
                         fixflagArr[i]  = '1';  
                         if(!fixflagArr[i]){
                             fixflagArr[i] = "0";
@@ -1725,7 +1727,7 @@
                             return ;       
                         }
                         var ls_misdate      = misdateArr[i];   
-                        if (   ( !misdateArr[i] || (Array.isArray(misdateArr[i]) && misdateArr[i].every(item => item == null)) ) && asYumu[i] == '유상'   ) { 
+                        if (   ( !misdateArr[i] || (Array.isArray(misdateArr[i]) && misdateArr[i].every(item => item == null)) ) && asYumu[i] == '유상' && !acorpArr[i].includes("비거래") ) { 
                             alert("발송 내역 중 주문등록이 안 된 내역이 있습니다. 주문등록 후 발송 출력하세요"); 
                             return;
                         }  
