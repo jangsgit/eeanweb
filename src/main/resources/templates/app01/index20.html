@@ -1725,7 +1725,7 @@
                             return ;       
                         }
                         var ls_misdate      = misdateArr[i];   
-                        if (!misdateArr[i] || (Array.isArray(misdateArr[i]) && misdateArr[i].every(item => item == null))) { 
+                        if (   ( !misdateArr[i] || (Array.isArray(misdateArr[i]) && misdateArr[i].every(item => item == null)) ) && asYumu[i] == '유상'   ) { 
                             alert("발송 내역 중 주문등록이 안 된 내역이 있습니다. 주문등록 후 발송 출력하세요"); 
                             return;
                         }  
