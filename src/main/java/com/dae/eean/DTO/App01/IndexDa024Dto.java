@@ -3,18 +3,28 @@ package com.dae.eean.DTO.App01;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 public class IndexDa024Dto {
     private String cltcd;
     private String misdate;
+    private List<String> misdateArr;
+    private String misdateStr;
     private String misnum;
+    private List<String> misnumArr;
+    private String misnumStr;
     private String seq;
+    private List<String> seqArr;
+    private String seqStr;
     private String pcode;
     private String pname;
     private String psize;
     private String punit;
     private Integer qty;
+    private List<String> misqtyArr;
+    private String misqtyStr;
     private Integer jqty;
     private Integer uamt;
     private Integer samt;

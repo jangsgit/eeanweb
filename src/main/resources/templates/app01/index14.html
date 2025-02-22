@@ -181,8 +181,7 @@
                                                     <input class="form-control form-control-sm" id="bacorp2" type="hidden"  />
                                                     <input class="form-control form-control-sm" id="bacorp3" type="hidden"  />
                                                     <input class="form-control form-control-sm" id="bacode" type="hidden"  /> 
-                                                    <input class="form-control form-control-sm" id="bjpbgubn" type="hidden"  /> 
-                                                    <!-- <input class="form-control form-control-sm" id="bmisdate" type="hidden"  />  -->
+                                                    <input class="form-control form-control-sm" id="bjpbgubn" type="hidden"  />  
                                                     <input class="form-control form-control-sm" id="bmisnum" type="hidden"  /> 
                                                     <input class="form-control form-control-sm" id="bcltcd" type="hidden"  /> 
                                                     <input class="form-control form-control-sm" id="bseq" type="hidden"  /> 
@@ -391,7 +390,7 @@
                             <div class="row"  >
                                 <div class="col-auto">
                                     <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">주문일자</span>
-                                        <input type="text"  class="form-control datetimepicker" id="bmisdate" autocomplete="off"  placeholder="Y-m-d"  disabled   >
+                                        <input type="text"  class="form-control datetimepicker" id="bmisdate" autocomplete="off"  placeholder="Y-m-d"      >
                                     </div>
                                 </div>
                                 <div class="col">
@@ -1561,7 +1560,7 @@
                     document.getElementById('mjpumnm').value = chkTabA[i]._data.pname; 
                     document.getElementById('mjkey').value = chkTabA[i]._data.pcode;  
                     document.getElementById('mgubun').value = "O"; 
-                    document.getElementById('bmisdate').value = chkTabA[i]._data.misdate; 
+                    // document.getElementById('bmisdate').value = chkTabA[i]._data.misdate; 
                     document.getElementById('bmisnum').value = chkTabA[i]._data.misnum; 
                     document.getElementById('bseq').value = chkTabA[i]._data.seq;    
                     document.getElementById('bcltcd').value = chkTabA[i]._data.cltcd;     
@@ -1600,7 +1599,7 @@
                     document.getElementById('mjpumnm02').value = chkTabB[i]._data.pname; 
                     document.getElementById('mjkey02').value = chkTabB[i]._data.pcode;  
                     document.getElementById('mgubun02').value = "R"; 
-                    document.getElementById('bmisdate').value = chkTabB[i]._data.misdate; 
+                    // document.getElementById('bmisdate').value = chkTabB[i]._data.misdate; 
                     document.getElementById('bmisnum').value = chkTabB[i]._data.misnum; 
                     document.getElementById('bseq').value = chkTabB[i]._data.seq;    
                     document.getElementById('bcltcd').value = chkTabB[i]._data.cltcd;     
@@ -1620,7 +1619,7 @@
             var ls_jcode  =  [];        
             var ll_jqty    =  []; 
             var llCount = 0;  
-            ls_tabchk = arg5;                  
+            ls_tabchk = arg5;                
             //요청사항 
             if(arg3 == null || arg3.length == 0 || arg3 == ""){ 
                 arg3 = ""          ;

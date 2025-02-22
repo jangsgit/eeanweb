@@ -1143,6 +1143,22 @@
         where misdate=#{misdate} and misnum=#{misnum} and seq=#{seq}
     </update>
 
+    <update  id="UpdateDA024Makfix" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto"  >
+        EXEC SP_UpdateOrderFix
+            #{cltcd},
+            #{misdate},
+            #{misdateStr},
+            #{misnumStr},
+            #{seqStr},
+            #{misqtyStr},
+            #{remarkaa},
+            #{remarkbb},
+            #{userid},
+            #{usernm}
+    </update >
+
+
+
     <update id="UpdateDA024QtySame" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
         UPDATE tb_da024 SET
                 qty=#{qty}, samt=#{samt}, addamt=#{addamt}, amt=#{amt}, userid=#{userid}, usernm=#{usernm}
