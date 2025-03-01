@@ -1303,6 +1303,7 @@
         // });    
         document.getElementById("jcifname").addEventListener("keyup", (e)=>{ 
             if(e.keyCode === 13){  
+                 
                 lb_entkey = true; gs_argflag = "C"
                 document.getElementById("innamebtn").click(); 
                 CifSearchList_rtn("C"); 
@@ -1663,9 +1664,12 @@
                             async:false,
                             success:function(data){   
                                 if(data == "success"){
-                                    alert("저장되었습니다.") 
+                                    //alert("저장되었습니다.") 
                                     searchList_rtn(ls_tab);  
-                                    clear_rtn();             
+                                    setTimeout(() => {
+                                        clear_rtn(); 
+                                    }, 1000); // 3000ms = 3초 
+                                                
                                 }else{   
                                     if(data == "relogin"){
                                         alert("다시 로그인해주세요")
@@ -2662,7 +2666,7 @@
                 document.getElementById('asaname').value = "B"; 
                 document.getElementById('condamdang').value = ls_condamdang; 
                 document.getElementById('jcifname').disabled = false; 
-                document.getElementById('jchgoga').disabled = false; 
+                document.getElementById('jchgoga').disabled = true; 
                 document.getElementById('asasyumu').disabled = false; 
                 document.getElementById('condamdang').disabled = false; 
                 document.getElementById('jchgoga').value = 0;                 
@@ -2688,11 +2692,12 @@
                 document.getElementById('asaname').value = "B"; 
                 document.getElementById('condamdang').value = ls_condamdang; 
                 document.getElementById('jcifname').disabled = false; 
-                document.getElementById('jchgoga').disabled = false; 
+                document.getElementById('jchgoga').disabled = true; 
                 document.getElementById('asasyumu').disabled = false; 
                 document.getElementById('condamdang').disabled = false; 
-                document.getElementById('jchgoga').value = 0;                 
-                document.getElementById("asasgong").focus(); 
+                document.getElementById('jchgoga').value = 0;                     
+                document.getElementById("jcifname").focus();            
+                //document.getElementById("asasgong").focus(); 
         }
    
         function cell_color(){
