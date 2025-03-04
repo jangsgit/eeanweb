@@ -2035,13 +2035,18 @@ public class App01CrudController {
                     _Da024Dto.setSeqStr(seqArrStr);
                     _Da024Dto.setMisqtyStr(misqtyStr);
                     Boolean _liresult = service14.UpdateDA024Makfix(_Da024Dto);
-                    log.info(_liresult);
+                    //log.info(_liresult);
 
                     _syslogDto.setType("등록");
                     _syslogDto.setMenunm("주문등록");
-                    if(!misdate.equals(ls_misdate)) {
+                    String ls_chkmisdate = "";
+                    year = misdate.substring(0,4);
+                    month = misdate.substring(5,7);
+                    day = misdate.substring(8,10);
+                    ls_chkmisdate = year + month + day ;
+                    if(!ls_chkmisdate.equals(ls_misdate)) {
                         _syslogDto.setSource("주문확정(일자변경)");
-                        _syslogDto.setMessage(ls_misdate + "/" + _Da024Dto.getMisnum() + "/" + _Da024Dto.getCltcd() + "->" + misdate + "/" );
+                        _syslogDto.setMessage(ls_misdate + "/" + _Da024Dto.getMisnum() + "/" + _Da024Dto.getCltcd() + "->" + ls_chkmisdate   );
                     }else{
                         _syslogDto.setSource("주문확정");
                         _syslogDto.setMessage(_Da024Dto.getMisdate() + "/" + _Da024Dto.getMisnum() + "/" + _Da024Dto.getSeq());
