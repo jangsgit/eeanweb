@@ -1957,7 +1957,6 @@ public class App01CrudController {
                 log.info("재고 없음 index14SaveCust=====> " + _ll_jqty.toString() );
                 return "jaego";
             }
-            log.info("misdate000 >" + misdate);
             _indexDa023Dto.setCltcd(acode);
             _indexDa023Dto.setMisdate(frdate);
             _Da024Dto.setCltcd(acode);
@@ -2035,7 +2034,6 @@ public class App01CrudController {
                     _Da024Dto.setMisnumStr(misnumArrStr);
                     _Da024Dto.setSeqStr(seqArrStr);
                     _Da024Dto.setMisqtyStr(misqtyStr);
-                    //장바구니일자와 주문일자가 다를경우
                     Boolean _liresult = service14.UpdateDA024Makfix(_Da024Dto);
                     log.info(_liresult);
 

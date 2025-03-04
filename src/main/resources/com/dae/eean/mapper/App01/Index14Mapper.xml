@@ -204,7 +204,7 @@
                   from  TB_DA024 B WITH (NOLOCK)
                        LEFT JOIN cif C ON B.cltcd = C.acorp1 + CAST(C.acorp2 as varchar)
                        LEFT JOIN JUPSUDATA D ON B.misdate = D.misdate and B.misnum = D.misnum
-                  where B.CLTCD Like concat('%',#{cltcd},'%')
+                  where B.CLTCD Like  #{cltcd}
                     AND isnull(B.perid,'')  Like concat('%',#{perid},'%')
                     AND B.misdate between #{frdate} and #{todate}
                     AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
@@ -243,7 +243,7 @@
                   from  TB_DA024 B WITH (NOLOCK)
                         LEFT JOIN cif C ON B.cltcd = C.acorp1 + CAST(C.acorp2 as varchar)
                        LEFT JOIN JUPSUDATA D ON B.misdate = D.misdate and B.misnum = D.misnum
-                  where B.CLTCD Like concat('%',#{cltcd},'%')
+                  where B.CLTCD Like #{cltcd}
                     AND B.misdate between #{frdate} and #{todate}
                     AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
                     AND Isnull(B.userid, '') Like #{userid}
@@ -289,7 +289,7 @@
                       B.fixdate,  CONVERT(CHAR(19),B.fixdatetime,20) as fixdatetime ,  DBO.DF_TB_PCODE_JQTY(B.pcode,  #{jfrdate},  #{jtodate})  as jqty
                   from  TB_DA024 B WITH (NOLOCK)
                        LEFT JOIN cif C ON B.cltcd = C.acorp1 + CAST(C.acorp2 as varchar)
-                  where  B.cltcd Like concat('%',#{cltcd},'%')
+                  where  B.cltcd Like #{cltcd}
                     AND isnull(B.inperid,'')  Like concat('%',#{perid},'%')
                     AND B.misdate between #{frdate} and #{todate}
                     AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
@@ -563,7 +563,7 @@
                          B.amt, B.acorp, pbonsa, pmodel, pcolor, B.pernm as inname, B.misgubun, isnull(B.fixflag,'0') as fixflag, B.pernm as pernm,
                          B.omisdate, B.omisnum, B.oseq, convert(integer, DBO.DF_TB_PCODE_JQTY(B.pcode,  #{jfrdate},  #{jtodate}) ) as jqty, B.userid, B.usernm
            from  TB_DA026 B WITH (NOLOCK)
-           where B.cltcd Like concat('%',#{cltcd},'%')
+           where B.cltcd Like  #{cltcd}
              AND isnull(B.perid,'')  Like concat('%',#{perid},'%')
             AND B.misdate between #{frdate} and #{todate}
              AND isnull(B.misgubun,'')  Like concat('%',#{misgubun},'%')
