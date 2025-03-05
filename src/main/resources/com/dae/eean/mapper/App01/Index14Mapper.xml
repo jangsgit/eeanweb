@@ -468,7 +468,7 @@
               ajuso1 + ' ' + ajuso2 as ajuso, aascode1 + '-' + aascode2 as eeacodetxt, atelno as eeatelno
             from cif where acorp1 + acorp2 + acorp3 = '0000' ) F
         where  B.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
-            AND B.misdate + B.misnum + B.cltcd in
+            AND B.misdate   + B.cltcd in
             <foreach collection="itemcdArr" item="itemcd"  open="(" close=")" separator=",">
                 #{itemcd}
             </foreach>
@@ -1095,7 +1095,7 @@
     <update id="UpdateDA023Unsong" parameterType="com.dae.eean.DTO.App01.IndexDa023Dto" >
         UPDATE tb_da024 SET
                             unsongnum=#{unsongnum} , reservnum =#{reservnum}
-        where misdate=#{misdate} and misnum=#{misnum} and cltcd = #{cltcd}
+        where misdate=#{misdate} and   cltcd = #{cltcd}
     </update>
 
     <update id="UpdateDA024rkaa" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >

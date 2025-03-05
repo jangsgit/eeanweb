@@ -3346,15 +3346,16 @@ public class App01CrudController {
                     }else{
                         ls_misdate = misdatearr.get(i) ;
                     }
-                    if(ls_tempItem.equals( ls_misdate + misnumarr.get(i)  + cltcdarr.get(i))){
+                    //ls_tempItem.equals( ls_misdate + misnumarr.get(i)  + cltcdarr.get(i))
+                    if(ls_tempItem.equals( ls_misdate +   cltcdarr.get(i))){
                         continue;
                     }
-                    itemString[ll_count] = ls_misdate + misnumarr.get(i)  + cltcdarr.get(i);
+                    //ls_misdate + misnumarr.get(i)  + cltcdarr.get(i);
+                    itemString[ll_count] = ls_misdate +  cltcdarr.get(i);
                     ll_count++;
-//                    log.info("ls_misdate=====>" + ls_misdate);
-//                    log.info("misnumarr=====>" + misnumarr.get(i));
 //                    log.info("cltcdarr=====>" +  cltcdarr.get(i));
-                    ls_tempItem = ls_misdate + misnumarr.get(i)  + cltcdarr.get(i);
+                    //ls_tempItem = ls_misdate + misnumarr.get(i)  + cltcdarr.get(i);
+                    ls_tempItem = ls_misdate +   cltcdarr.get(i);
 //                    log.info("itemString =====>" + ls_misdate + misnumarr.get(i) + seqarr.get(i) + cltcdarr.get(i));
                 }
                 hm.put("itemcdArr", itemString);
@@ -4794,13 +4795,15 @@ public class App01CrudController {
                     indexDa023Dto.setReservnum(devnum01.get(i));
                     indexDa023Dto.setUnsongnum(devnum02.get(i));
                     indexDa023Dto.setMisdate(devnum03.get(i).substring(0,8));
-                    indexDa023Dto.setMisnum(devnum03.get(i).substring(8,12));
+                    // indexDa023Dto.setMisnum(devnum03.get(i).substring(8,12));
                     ls_cltcd = devnum03.get(i);
-                    ls_cltcd = ls_cltcd.substring(12, ls_cltcd.length());
+                    //ls_cltcd = ls_cltcd.substring(12, ls_cltcd.length());
+                    ls_cltcd = ls_cltcd.substring(8, ls_cltcd.length());
                     indexDa023Dto.setCltcd(ls_cltcd);
                     result = service14.UpdateDA023Unsong(indexDa023Dto);
                     if (!result){
-                        log.info("배송업로드 없는자료 =====>" +  indexDa023Dto.getMisdate() + '/' + indexDa023Dto.getMisnum() + '/' + indexDa023Dto.getCltcd());
+                         log.info("배송업로드 없는자료 =====>" +  indexDa023Dto.getMisdate() + '/'  + indexDa023Dto.getCltcd());
+                        //log.info("배송업로드 없는자료 =====>" +  indexDa023Dto.getMisdate() + '/' + indexDa023Dto.getMisnum() + '/' + indexDa023Dto.getCltcd());
                         //return "error";
                     }
 
