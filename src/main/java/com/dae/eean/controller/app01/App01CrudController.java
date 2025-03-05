@@ -1957,34 +1957,24 @@ public class App01CrudController {
                 log.info("재고 없음 index14SaveCust=====> " + _ll_jqty.toString() );
                 return "jaego";
             }
+
             _indexDa023Dto.setCltcd(acode);
             _indexDa023Dto.setMisdate(frdate);
-            _Da024Dto.setCltcd(acode);
             _Da024Dto.setUserid(userid);
             _Da024Dto.setUsernm(usernm);
-
-            String ls_misdate = null ;
-            String misdateArrStr = null ;
-            String misnumArrStr = null ;
-            String seqArrStr = null ;
-            String misqtyStr = null ;
-            //장바구니가 존재하는경우
+            //비고업데이트
             if (!misdate.equals("0000")){
-                year = misdateArr.get(0).substring(0,4);
-                month = misdateArr.get(0).substring(5,7);
-                day = misdateArr.get(0).substring(8,10);
-                ls_misdate = year + month + day ;
+                year = misdate.substring(0,4) ;
+                month = misdate.substring(5,7) ;
+                day   = misdate.substring(8,10) ;
+                misdate = year + month + day ;
                 _Da024Dto.setQty(jqty);
-                _Da024Dto.setMisdate(ls_misdate);
+                _Da024Dto.setMisdate(misdate);
                 _Da024Dto.setMisnum(misnum);
                 _Da024Dto.setSeq(seq);
                 _Da024Dto.setCltcd(acode);
                 _Da024Dto.setMisgubun(mflag);
-                if(jremark == null){
-                    jremark = "";
-                }
                 // 개별확정방식으로변경  장바구니에서 체크한것만 주문으로 넘어가도록 방식 변경 23.3.7
-                // 기존주문일자를 기준으로 요청내용을 변경한뒤 변경주문일자로 업데이트
                 switch (mflag){
                     case "AA" :
                         _Da024Dto.setRemarkaa(jremark);
@@ -2004,60 +1994,61 @@ public class App01CrudController {
                 if (!result){
                     return "error";
                 }
-                // 장바구니주문 확정 및 수량 수정 / 주문일자 변경도가능
-                if( misdateArr.size() > 0) {
-                    _Da024Dto.setMisdate(misdate);
-                    _Da024Dto.setMisdateArr(misdateArr);
-                    _Da024Dto.setMisnumArr(misnumArr);
-                    _Da024Dto.setSeqArr(seqArr);
-                    _Da024Dto.setMisqtyArr(misqty);
-
-                    // Convert List<String> to comma-separated String
-                    misdateArrStr = (_Da024Dto.getMisdateArr() != null && !_Da024Dto.getMisdateArr().isEmpty())
-                            ? String.join(",", _Da024Dto.getMisdateArr())
-                            : null;
-                    misnumArrStr = (_Da024Dto.getMisnumArr() != null && !_Da024Dto.getMisnumArr().isEmpty())
-                            ? String.join(",", _Da024Dto.getMisnumArr())
-                            : null;
-                    seqArrStr = (_Da024Dto.getSeqArr() != null && !_Da024Dto.getSeqArr().isEmpty())
-                            ? String.join(",", _Da024Dto.getSeqArr())
-                            : null;
-                    misqtyStr = (_Da024Dto.getMisqtyArr() != null && !_Da024Dto.getMisqtyArr().isEmpty())
-                            ? _Da024Dto.getMisqtyArr().stream().map(String::valueOf).collect(Collectors.joining(","))
-                            : null;
-//                    log.info("cltcd >" + _Da024Dto.getCltcd());
-//                    log.info("misdate >" + _Da024Dto.getMisdate());
-//                    log.info("misdateArrStr >" + misdateArrStr);
-//                    log.info("misnumArrStr >" + misnumArrStr);
-//                    log.info("seqArrStr >" + seqArrStr);
-                    _Da024Dto.setMisdateStr(misdateArrStr);
-                    _Da024Dto.setMisnumStr(misnumArrStr);
-                    _Da024Dto.setSeqStr(seqArrStr);
-                    _Da024Dto.setMisqtyStr(misqtyStr);
-                    Boolean _liresult = service14.UpdateDA024Makfix(_Da024Dto);
-                    //log.info(_liresult);
-
-                    _syslogDto.setType("등록");
-                    _syslogDto.setMenunm("주문등록");
-                    String ls_chkmisdate = "";
-                    year = misdate.substring(0,4);
-                    month = misdate.substring(5,7);
-                    day = misdate.substring(8,10);
-                    ls_chkmisdate = year + month + day ;
-                    if(!ls_chkmisdate.equals(ls_misdate)) {
-                        _syslogDto.setSource("주문확정(일자변경)");
-                        _syslogDto.setMessage(ls_misdate + "/" + _Da024Dto.getMisnum() + "/" + _Da024Dto.getCltcd() + "->" + ls_chkmisdate   );
-                    }else{
-                        _syslogDto.setSource("주문확정");
-                        _syslogDto.setMessage(_Da024Dto.getMisdate() + "/" + _Da024Dto.getMisnum() + "/" + _Da024Dto.getSeq());
+                //수량업데이트
+                if( misdateArr.size() > 0){
+                    for(int i = 0; i < misdateArr.size(); i++){
+                        year = misdateArr.get(i).substring(0,4);
+                        month = misdateArr.get(i).substring(5,7);
+                        day = misdateArr.get(i).substring(8,10);
+                        String ls_misdate = year + month + day ;
+                        _Da024Dto.setMisdate(ls_misdate);
+                        _Da024Dto.setMisnum(misnumArr.get(i));
+                        _Da024Dto.setSeq(seqArr.get(i));
+                        _Da024Dto.setQty(Integer.parseInt(misqty.get(i)));
+                        _indexDa024Dto.setMisdate(_Da024Dto.getMisdate());
+                        _indexDa024Dto.setMisnum(_Da024Dto.getMisnum());
+                        _indexDa024Dto.setSeq(_Da024Dto.getSeq());
+                        _indexDa024Dto.setCltcd(_Da024Dto.getCltcd());
+                        _indexDa024Dto.setMisgubun(_Da024Dto.getMisgubun());
+//                        log.info("getMisdate >" + _indexDa024Dto.getMisdate() );
+//                        log.info("getMisnum  >" + _indexDa024Dto.getMisnum() );
+//                        log.info("getSeq     >" + _indexDa024Dto.getSeq() );
+//                        log.info("getCltcd   >" + _indexDa024Dto.getCltcd() );
+//                        log.info("getMisgubun>" + _indexDa024Dto.getMisgubun() );
+                        _indexDa024Dto = service14.SelectDa024Detail(_indexDa024Dto);
+                        Integer _ll_uamt = _indexDa024Dto.getUamt();
+                        Integer _ll_samt = 0;
+                        Integer _ll_addamt = 0;
+                        Integer _ll_amt = 0;
+                        Integer _ll_qty = _Da024Dto.getQty();
+                        if(_ll_uamt > 0){
+                            _ll_samt = _ll_qty * _ll_uamt;
+                            _ll_addamt = _ll_samt / 10 ;
+                            _ll_amt = _ll_samt + _ll_addamt;
+                            _Da024Dto.setSamt(_ll_samt);
+                            _Da024Dto.setAddamt(_ll_addamt);
+                            _Da024Dto.setAmt(_ll_amt);
+                        }else{
+                            _Da024Dto.setSamt(0);
+                            _Da024Dto.setAddamt(0);
+                            _Da024Dto.setAmt(0);
+                        }
+                        result = service14.UpdateDA024Qty(_Da024Dto);
+                        if (!result){
+                            return "error";
+                        }else{
+                            _syslogDto.setType("등록");
+                            _syslogDto.setMenunm("주문등록");
+                            _syslogDto.setSource("주문확정");
+                            _syslogDto.setMessage(_Da024Dto.getMisdate() + "/" + _Da024Dto.getMisnum() + "/" + _Da024Dto.getSeq());
+                            _syslogDto.setUserid(userid);
+                            _syslogDto.setUsernm(usernm);
+                            result = service_auth.TB_SYSLOG_INSERT(_syslogDto);
+                            if (!result) {
+                                //return "error";
+                            }
+                        }
                     }
-                    _syslogDto.setUserid(userid);
-                    _syslogDto.setUsernm(usernm);
-                    result = service_auth.TB_SYSLOG_INSERT(_syslogDto);
-                    if (!result) {
-                        //return "error";
-                    }
-
                 }
                 return "success";
             }
@@ -2239,6 +2230,7 @@ public class App01CrudController {
         }
         return "success";
     }
+
 
 
     @RequestMapping(value="/index14/savecustdel")
