@@ -602,6 +602,7 @@
          var asdate2      = new Array(); 
          var acorpArr      = new Array(); 
         var wtabExl_data = [];
+         var ls_new = true
          var gsUserid = "";                             
          var gsUsernm  = "";                           
          var gsRnum  = "";  
@@ -1634,7 +1635,7 @@
                             return ;                                           
                         }
                     }   
-                    
+                    //엔터 두번 입력하는 경우 방지를 위해 clear 한 후 다시 등록 가능 
                         $.ajax({
                             url: '/app01m/jupsusave',  
                             type:"POST",
@@ -1668,7 +1669,7 @@
                                     searchList_rtn(ls_tab);  
                                     setTimeout(() => {
                                         clear_rtn(); 
-                                    }, 1000); // 3000ms = 3초 
+                                    }, 300); // 3000ms = 3초 
                                                 
                                 }else{   
                                     if(data == "relogin"){
@@ -2647,7 +2648,7 @@
 
         }  
         function clear_rtn(){ 
-                //getToday()
+                //getToday() 
                 var ls_condamdang = document.getElementById('condamdang').value;
                 var ls_asasgong = document.getElementById('asasgong').value;
                 document.getElementById('asaskey2').value = "";   
@@ -2674,6 +2675,7 @@
         }
         function clear_rtn_new(){ 
                 getToday()
+                ls_new = true;
                 var ls_condamdang = document.getElementById('condamdang').value;
                 var ls_asasgong = document.getElementById('asasgong').value;
                 document.getElementById('asaskey2').value = "";   
