@@ -985,6 +985,12 @@ public class App01CrudController {
         SyslogDto _syslogDto = new SyslogDto();
         Index04Dto _index04Dto = new Index04Dto();
         model.addAttribute("userformDto",userformDto);
+
+        String year = ipdate.substring(0,4) ;
+        String month = ipdate.substring(5,7) ;
+        String day   = ipdate.substring(8,10) ;
+        ipdate = year + month + day ;
+
         _index04Dto.setKey1(ipdate);
         _index04Dto.setAcorp(acorp);
         _index04Dto.setJepm(jepm);

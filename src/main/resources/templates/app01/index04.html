@@ -1259,7 +1259,8 @@
         function delete_btn(arg){
             var ls_tab = document.getElementById('tabvalue').value;
             var ls_ipdate = document.getElementById('ipfrdate').value; 
-        
+            var ls_acorp = "";
+            var ls_jepm = "";
             if (!confirm("입고일자 : " + ls_ipdate + " 자료를 삭제하시겠습니까?")) {
                     return ; 
             }   
@@ -1271,7 +1272,7 @@
                     alert("입고일자를 등록하세요") 
                     document.getElementById("ipfrdate").focus(); 
                     return ;               
-                }   
+                }    
                     var ls_acorp = "";
                     var ls_jepm = "";
                     $.ajax({
