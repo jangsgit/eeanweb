@@ -50,16 +50,25 @@
         <![CDATA[  select  mnum  from tb_da024_mnum  WITH (NOLOCK) where misdate = #{misdate}      ]]>
     </select>
 
+    <select id="SelectTrackDevnum" parameterType="String" resultType="Integer">
+        <![CDATA[  select  mnum  from tb_da024_dnum  WITH (NOLOCK) where devdate = #{misdate}      ]]>
+    </select>
 
     <insert id="InsertTrackMisnum" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
         insert into TB_DA024_MNUM ( misdate, mnum ) values  ( #{misdate}, #{mnum} )
     </insert>
 
+    <insert id="InsertTrackDevnum" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
+        insert into tb_da024_dnum ( devdate, mnum ) values  ( #{misdate}, #{mnum} )
+    </insert>
 
     <update id="UpdateTrackMisnum" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
         update TB_DA024_MNUM  set  mnum  = #{mnum} where misdate = #{misdate}
     </update>
 
+    <update id="UpdateTrackDevnum" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
+        update tb_da024_dnum  set  mnum  = #{mnum} where devdate = #{misdate}
+    </update>
 
     <select id="SelectMaxMisnumWish" parameterType="com.dae.eean.DTO.App01.IndexDa023Dto" resultType="String">
         <![CDATA[  select  max(misnum)  from tb_da025  WITH (NOLOCK) where misdate = #{misdate}      ]]>
@@ -456,7 +465,7 @@
             substring(B.misdate, 1,4)+ '년 ' + substring(B.misdate, 5,2)+ '월 ' + substring(B.misdate, 7,2) + '일' as misdatetxt,
             sum(B.qty) as qty,   sum(B.samt) as samt, sum(B.addamt) as addamt, sum(B.amt) as amt,
             case when sum(B.qty) = 1 then  MAX(B.pname) else Max(B.pname) + ' 외' + cast(sum(B.qty) - 1 as varchar(100)) + '건' end  as pname,
-            A.acorp, max(A.atelno) as atelno, max(ajuso1) + ' ' + max(ajuso2) as ajuso , '안경원입니다.' as remark,
+            A.acorp, max(A.atelno) as atelno, max(ajuso1) + ' ' + max(ajuso2) as ajuso , '안경원입니다.' as remark, max(B.devnum) as devnum,
             '안경원입니다! 인수자  서명 부탁드립니다.' as message, isnull(max(B.payflag), '0') AS payflag,
             ROW_NUMBER() OVER(ORDER BY (SELECT 1)) AS rownum,
             MAX(A.aascode1) + '-' + MAX(A.aascode2) as aascodetxt,
@@ -468,7 +477,7 @@
               ajuso1 + ' ' + ajuso2 as ajuso, aascode1 + '-' + aascode2 as eeacodetxt, atelno as eeatelno
             from cif where acorp1 + acorp2 + acorp3 = '0000' ) F
         where  B.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
-            AND B.misdate   + B.cltcd in
+            AND B.misdate   + B.misnum + B.cltcd in
             <foreach collection="itemcdArr" item="itemcd"  open="(" close=")" separator=",">
                 #{itemcd}
             </foreach>
@@ -1098,6 +1107,12 @@
         where misdate=#{misdate} and   cltcd = #{cltcd}
     </update>
 
+    <update id="UpdateDA023UnsongDevnum" parameterType="com.dae.eean.DTO.App01.IndexDa023Dto" >
+        UPDATE tb_da024 SET
+        unsongnum=#{unsongnum} , reservnum =#{reservnum}
+        where  devnum = #{devnum}
+    </update>
+
     <update id="UpdateDA024rkaa" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
         UPDATE tb_da023 SET
         remarkaa=#{remarkaa} , makflag = '1'
@@ -1129,12 +1144,25 @@
 
     <update id="UpdateDA024Dev" parameterType="hashmap">
         UPDATE tb_da024 SET
-        devflag='1', devdatetime = getdate()
+        devflag='1', devdatetime = getdate(),
+        devnum = 'D' + CAST(misdate AS VARCHAR) +
+        (
+        SELECT top 1
+            RIGHT('0000' + CAST(COALESCE(d.mnum, 0) AS VARCHAR), 4)
+        FROM TB_DA024_DNUM d ORDER BY misdate desc
+        )  +  CAST(cltcd AS VARCHAR)
         where   misdate + misnum + seq + cltcd in
         <foreach collection="itemcdArr" item="itemcd"  open="(" close=")" separator=",">
             #{itemcd}
         </foreach>
         and len( isnull(CONVERT(CHAR(19),devdatetime,20),'') ) = 0
+    </update>
+
+
+    <update id="UpdateDA024Devnum" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
+        UPDATE tb_da024 SET
+        devnum=#{devnum}
+        where   misdate=#{misdate} and misnum =#{misnum} and seq =#{seq} and cltcd =#{cltcd}
     </update>
 
     <update id="UpdateDA024Qty" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >

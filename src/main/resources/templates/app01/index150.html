@@ -156,7 +156,7 @@
                                                     <input class="form-control form-control-sm" id="bacorp3" type="hidden"  />
                                                     <input class="form-control form-control-sm" id="bacode" type="hidden"  /> 
                                                     <input class="form-control form-control-sm" id="bjpbgubn" type="hidden"  /> 
-                                                    <input class="form-control form-control-sm" id="bmisdate" type="hidden"  /> 
+                                                    <!-- <input class="form-control form-control-sm" id="bmisdate" type="hidden"  />  -->
                                                     <input class="form-control form-control-sm" id="bmisnum" type="hidden"  /> 
                                                     <input class="form-control form-control-sm" id="bcltcd" type="hidden"  /> 
                                                     <input class="form-control form-control-sm" id="bseq" type="hidden"  /> 
@@ -314,14 +314,17 @@
                                 </div>   
                             </div>                                    -->
                             <div class="row"  >
+                                <div class="col-auto">
+                                    <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">주문일자</span>
+                                        <input type="text"  class="form-control datetimepicker" id="bmisdate" autocomplete="off"  placeholder="Y-m-d"      >
+                                    </div>
+                                </div>
                                 <div class="col">
                                     <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">요청사항</span> 
                                         <input class="form-control form-control-sm" id="mremark" type="text"    autocomplete="off"  placeholder="예) SF31번 코, DN01번 힌지나사"     > 
                                         
                                     </div>
-                                </div>  
-                                <div class="col-md-auto"> 
-                                </div>
+                                </div>   
                                 <div class="col col-lg-2">
                                     <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="OrderBtnSave" type="button"  >주문
                                     </button>
@@ -2284,15 +2287,19 @@ aria-hidden="true">
                     alert("이미 주문되었습니다.")
                     return false
                 }
-                if(chkTabA[i]._data.qty >chkTabA[i]._data.jqty){
+                if(chkTabA[i]._data.qty > chkTabA[i]._data.jqty){
                     alert("재고수량을 초과했습니다. 주문수량을 확인하세요")
+                    return  false
+                } 
+                if(chkTabA[i]._data.jqty == 0){
+                    alert("재고수량이 없습니다. 문의바랍니다.")
                     return  false
                 } 
                 if(i == 0) { 
                     document.getElementById('mjpumnm').value = chkTabA[i]._data.pname; 
                     document.getElementById('mjkey').value = chkTabA[i]._data.pcode;  
                     document.getElementById('mgubun').value = "O"; 
-                    document.getElementById('bmisdate').value = chkTabA[i]._data.misdate; 
+                    // document.getElementById('bmisdate').value = chkTabA[i]._data.misdate; 
                     document.getElementById('bmisnum').value = chkTabA[i]._data.misnum; 
                     document.getElementById('bseq').value = chkTabA[i]._data.seq;    
                     document.getElementById('bcltcd').value = chkTabA[i]._data.cltcd;     
@@ -2329,7 +2336,7 @@ aria-hidden="true">
                     document.getElementById('mjpumnm02').value = chkTabB[i]._data.pname; 
                     document.getElementById('mjkey02').value = chkTabB[i]._data.pcode;  
                     document.getElementById('mgubun02').value = "R"; 
-                    document.getElementById('bmisdate').value = chkTabB[i]._data.misdate; 
+                    // document.getElementById('bmisdate').value = chkTabB[i]._data.misdate; 
                     document.getElementById('bmisnum').value = chkTabB[i]._data.misnum; 
                     document.getElementById('bseq').value = chkTabB[i]._data.seq;    
                     document.getElementById('bcltcd').value = chkTabB[i]._data.cltcd;     
@@ -2921,6 +2928,7 @@ aria-hidden="true">
             document.getElementById('ipdate').value = ls_today;
             document.getElementById('frdate02').value = ls_frday;
             document.getElementById('todate02').value = ls_today;
+            document.getElementById('bmisdate').value = ls_today;
             // document.getElementById('todate').value = ls_today;
         } 
 
@@ -2939,7 +2947,7 @@ aria-hidden="true">
         function fn_egov_init_date(){ 
             gsUserid = window.localStorage.getItem("userid_BB");   
             gsUsernm = window.localStorage.getItem("username_BB");  
-            const ls_perid = window.localStorage.getItem("perid_BB");
+            const ls_perid = window.localStorage.getItem("perid_BB"); 
             const ls_pernm = window.localStorage.getItem("pernm_BB");
             const ls_custnm = window.localStorage.getItem("custnm_BB");
             const ls_disflag = window.localStorage.getItem("disflag_BB");

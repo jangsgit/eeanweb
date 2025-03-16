@@ -30,11 +30,20 @@ public class Index14Service {
     public Integer SelectTrackMisnum(String parm){
         return  appMapper.SelectTrackMisnum(parm);
     }
+    public Integer SelectTrackDevnum(String parm){
+        return  appMapper.SelectTrackDevnum(parm);
+    }
     public Boolean InsertTrackMisnum(IndexDa024Dto parm){
         return  appMapper.InsertTrackMisnum(parm);
     }
+    public Boolean InsertTrackDevnum(IndexDa024Dto parm){
+        return  appMapper.InsertTrackDevnum(parm);
+    }
     public Boolean UpdateTrackMisnum(IndexDa024Dto parm){
         return  appMapper.UpdateTrackMisnum(parm);
+    }
+    public Boolean UpdateTrackDevnum(IndexDa024Dto parm){
+        return  appMapper.UpdateTrackDevnum(parm);
     }
 
     public String SelectMaxMisnumWish(IndexDa023Dto parm){
@@ -268,10 +277,13 @@ public class Index14Service {
     public Boolean DeleteDA025(IndexDa024Dto parm){ return  appMapper.DeleteDA025(parm);}
     public Boolean DeleteDA026(IndexDa024Dto parm){ return  appMapper.DeleteDA026(parm);}
     public Boolean UpdateDA023Unsong(IndexDa023Dto parm){ return  appMapper.UpdateDA023Unsong(parm);}
+    public Boolean UpdateDA023UnsongDevnum(IndexDa023Dto parm){ return  appMapper.UpdateDA023UnsongDevnum(parm);}
     public Boolean UpdateDA024(IndexDa024Dto parm){ return  appMapper.UpdateDA024(parm);}
     public Boolean UpdateDA024Del(IndexDa024Dto parm){ return  appMapper.UpdateDA024Del(parm);}
 
     public Boolean UpdateDA024Dev(HashMap<String,String> parm){ return  appMapper.UpdateDA024Dev(parm);}
+
+    public Boolean UpdateDA024Devnum(IndexDa024Dto parm){ return  appMapper.UpdateDA024Devnum(parm);}
 
     public Boolean UpdateDA024Fix(HashMap<String,String> parm){ return  appMapper.UpdateDA024Fix(parm);}
 

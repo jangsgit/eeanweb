@@ -92,5 +92,6 @@ public class IndexDa024Dto {
     private String agita;
     private String reservnum;
     private String as_yumu;
+    private String devnum;
     private  Integer mnum;
 }

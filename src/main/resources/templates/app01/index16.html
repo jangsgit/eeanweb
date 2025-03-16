@@ -2980,7 +2980,8 @@
                 ls_eeatelno = wtab05Dto[i]["eeatelno"]; 
                 ls_misdate = wtab05Dto[i]["misdate"];
                 ls_misnum = wtab05Dto[i]["misnum"];
-                ls_miskey = wtab05Dto[i]["misdate"] +   wtab05Dto[i]["cltcd"];  //wtab05Dto[i]["misdate"] + wtab05Dto[i]["misnum"] + wtab05Dto[i]["cltcd"];
+                ls_devnum = wtab05Dto[i]["devnum"];
+                ls_miskey = wtab05Dto[i]["devnum"]; //wtab05Dto[i]["misdate"] +   wtab05Dto[i]["cltcd"];  //wtab05Dto[i]["misdate"] + wtab05Dto[i]["misnum"] + wtab05Dto[i]["cltcd"];
                 ls_misdatetxt = wtab05Dto[i]["misdatetxt"]; 
                 if(wtab05Dto[i]["payflag"] == "1"){
                     bfixflag = "착불";
@@ -3018,7 +3019,8 @@
                     eeajong: wtab05Dto[i]["eeajong"],      
                     eeajuso: ls_eeajuso,         
                     eeacodetxt: ls_eeacodetxt,       
-                    eeatelno: wtab05Dto[i]["eeatelno"],        
+                    eeatelno: wtab05Dto[i]["eeatelno"],       
+                    devnum: wtab05Dto[i]["devnum"],        
                 });
                 cnt++;
             }    

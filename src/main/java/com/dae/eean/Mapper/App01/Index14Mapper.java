@@ -12,8 +12,11 @@ import java.util.List;
 public interface Index14Mapper {
     public String SelectMaxMisnum(IndexDa023Dto parm) ;
     public Integer SelectTrackMisnum(String parm) ;
+    public Integer SelectTrackDevnum(String parm) ;
     public Boolean InsertTrackMisnum(IndexDa024Dto parm) ;
+    public Boolean InsertTrackDevnum(IndexDa024Dto parm) ;
     public Boolean UpdateTrackMisnum(IndexDa024Dto parm) ;
+    public Boolean UpdateTrackDevnum(IndexDa024Dto parm) ;
 
 
     public String SelectCheckMisnum(IndexDa023Dto parm) ;
@@ -66,8 +69,12 @@ public interface Index14Mapper {
 
 
     public Boolean UpdateDA023Unsong(IndexDa023Dto parm) ;
+    public Boolean UpdateDA023UnsongDevnum(IndexDa023Dto parm) ;
     public Boolean UpdateDA024(IndexDa024Dto parm) ;
     public Boolean UpdateDA024Dev(HashMap<String,String> parm) ;
+
+    public Boolean UpdateDA024Devnum(IndexDa024Dto parm) ;
+
     public Boolean UpdateDA024rkaa(IndexDa024Dto parm) ;
     public Boolean UpdateDA024rkbb(IndexDa024Dto parm) ;
     public Boolean UpdateDA024Del(IndexDa024Dto parm) ;

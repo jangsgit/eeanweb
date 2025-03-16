@@ -34,5 +34,6 @@ public class IndexDa023Dto {
     private String makflag;
     private String reservnum;
     private String unsongnum;
+    private String devnum;
 
 }
