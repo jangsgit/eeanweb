@@ -302,7 +302,7 @@ public class AppIndexCrudController {
 //            }
 
             //userid 가 다를수 있거나 없을수 있음
-            result = service.UpdateUserModifyUserid(_UserFormDto);
+//            result = service.UpdateUserModifyUserid(_UserFormDto);
 //            if (!result) {
 //                log.info("UpdateUserModifyUserid =====>" + result);
 //                return "error";
