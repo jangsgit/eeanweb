@@ -208,10 +208,11 @@
 
     <update id="UpdateDevJupsu" parameterType="com.dae.eean.DTO.App01.Index20Dto">
         <![CDATA[
-        UPDATE  as_jupsu SET as_devflag = #{as_devflag} , as_devdate =  getdate(), as_date2 =  #{as_date2}, as_devcode = #{as_devcode}
+        UPDATE  as_jupsu SET as_devflag = #{as_devflag} , as_devdate =  getdate(), as_date2 =  #{as_date2}, as_devcode =  #{as_devcode}
         where as_key1  = #{as_key1} and as_key2 = #{as_key2} and as_devdate is null
         ]]>
     </update>
+
 
     <update id="UpdateMisJupsu" parameterType="com.dae.eean.DTO.App01.Index20Dto">
         <![CDATA[

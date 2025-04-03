@@ -41,6 +41,7 @@ public interface Index14Mapper {
     public Boolean InsertDa024(IndexDa024Dto parm) ;
     public Boolean InsertDa024Jumsu(IndexDa024Dto parm) ;
     public Boolean UpdateDa024Jumsu(IndexDa024Dto parm) ;
+    public Boolean UpdateDa024JumsuDev(IndexDa024Dto parm) ;
 
     public Boolean InsertDa025(IndexDa023Dto parm) ;
     public Boolean InsertDa026(IndexDa024Dto parm) ;

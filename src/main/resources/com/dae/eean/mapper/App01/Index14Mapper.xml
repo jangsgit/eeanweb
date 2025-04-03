@@ -492,7 +492,7 @@
             substring(B.as_key1, 1,4)+ '년 ' + substring(B.as_key1, 6,2)+ '월 ' + substring(B.as_key1, 9,2) + '일' as misdatetxt,
             sum(isnull(E.qty,0)) as qty,   sum(isnull(E.samt,0)) as samt, sum(isnull(E.addamt,0)) as addamt, sum(isnull(E.amt,0)) as amt,
             case when sum(isnull(E.qty,0)) = 1 then  MAX(isnull(E.pname,'')) when sum(isnull(E.qty,0)) = 0 then '무상'  else Max(isnull(E.pname,'')) + ' 외' + cast(sum(isnull(E.qty,0)) - 1 as varchar(100)) + '건' end  as pname,
-            A.acorp as acorp, max(A.atelno) as atelno, max(ajuso1) + ' ' + max(ajuso2) as ajuso , '안경원입니다.' as remark,
+            A.acorp as acorp, max(A.atelno) as atelno, max(ajuso1) + ' ' + max(ajuso2) as ajuso , '안경원입니다.' as remark,  max(E.devnum) as devnum,
             '안경원입니다! 인수자  서명 부탁드립니다.' as message, isnull(max(E.payflag), '0') AS payflag,
             ROW_NUMBER() OVER(ORDER BY (SELECT 1)) AS rownum,
             MAX(A.aascode1) + '-' + MAX(A.aascode2) as aascodetxt,
@@ -994,9 +994,27 @@
         <if test="reservnum != null">reservnum=#{reservnum}</if>
         <if test="unsongnum != null ">,</if>
         <if test="unsongnum != null">unsongnum=#{unsongnum}</if>
+        <if test="devnum != null ">,</if>
+        <if test="devnum != null">devnum=#{devnum}</if>
         where misdate   = #{misdate} and misnum = #{misnum} and misgubun = #{misgubun}  and pmodel='AS'
     </update>
 
+
+    <update id="UpdateDa024JumsuDev" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto">
+        update TB_DA024
+        set custcd = 'EEAN'
+        <if test="devflag != null ">,</if>
+        <if test="devflag != null">devflag=#{devflag}</if>
+        <if test="devdatetime != null ">,</if>
+        <if test="devdatetime != null">devdatetime=#{devdatetime}</if>
+        <if test="reservnum != null ">,</if>
+        <if test="reservnum != null">reservnum=#{reservnum}</if>
+        <if test="unsongnum != null ">,</if>
+        <if test="unsongnum != null">unsongnum=#{unsongnum}</if>
+        <if test="devnum != null ">,</if>
+        <if test="devnum != null">devnum=#{devnum}</if>
+        where misdate   = #{misdate} and misnum = #{misnum} and misgubun = #{misgubun}  and pmodel='AS' and devnum is null
+    </update>
 
 
     <insert id="InsertDa026" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >

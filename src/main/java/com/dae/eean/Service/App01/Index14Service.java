@@ -255,6 +255,7 @@ public class Index14Service {
     public Boolean InsertDa024(IndexDa024Dto parm){ return  appMapper.InsertDa024(parm);}
     public Boolean InsertDa024Jumsu(IndexDa024Dto parm){ return  appMapper.InsertDa024Jumsu(parm);}
     public Boolean UpdateDa024Jumsu(IndexDa024Dto parm){ return  appMapper.UpdateDa024Jumsu(parm);}
+    public Boolean UpdateDa024JumsuDev(IndexDa024Dto parm){ return  appMapper.UpdateDa024JumsuDev(parm);}
 
     public Boolean InsertDa025(IndexDa023Dto parm){ return  appMapper.InsertDa025(parm);}
     public Boolean InsertDa026(IndexDa024Dto parm){ return  appMapper.InsertDa026(parm);}

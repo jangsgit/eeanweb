@@ -2468,8 +2468,8 @@
                 ls_mistxt = "";
                 ls_mistxt = wtab02Dto[i]["misdate"]; 
                 ls_mistxt = ls_mistxt.substring(0,4) + ls_mistxt.substring(5,7) + ls_mistxt.substring(8,10);
-                ls_miskey = ls_mistxt + wtab02Dto[i]["misnum"] + wtab02Dto[i]["cltcd"];
-                ls_misdatetxt = wtab02Dto[i]["misdatetxt"]; 
+                ls_miskey = wtab02Dto[i]["devnum"]; //ls_mistxt + wtab02Dto[i]["misnum"] + wtab02Dto[i]["cltcd"];
+                ls_misdatetxt = wtab02Dto[i]["misdatetxt"];  
                 if(wtab02Dto[i]["payflag"] == "1"){
                     bfixflag = "착불";
                 }else{
