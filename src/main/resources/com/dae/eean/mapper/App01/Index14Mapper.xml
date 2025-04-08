@@ -1166,7 +1166,7 @@
         devnum = 'D' +
         (
         SELECT top 1
-            devdate + RIGHT('0000' + CAST(COALESCE(d.mnum, 0) AS VARCHAR), 4)
+            d.devdate + RIGHT('0000' + CAST(COALESCE(d.mnum, 0) AS VARCHAR), 4)
         FROM TB_DA024_DNUM d ORDER BY devdate desc
         )  +  CAST(cltcd AS VARCHAR)
         where   misdate + misnum + seq + cltcd in
