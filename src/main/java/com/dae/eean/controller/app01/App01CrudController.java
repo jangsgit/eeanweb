@@ -4519,7 +4519,8 @@ public class App01CrudController {
 
 
             //당일 배송순번 채번
-            String ls_devnum;
+            String ls_devnum, ls_devdate;
+            ls_devdate = getToDate();
             ls_devnum = GetTrackDevNum(getToDate());
             if(ls_devnum.equals("error")){
                 return "error";
@@ -5563,7 +5564,8 @@ public class App01CrudController {
 
 
             //당일 배송순번 채번
-            String ls_devnum;
+            String ls_devnum, ls_devdate;
+            ls_devdate = getToDate();
             ls_devnum = GetTrackDevNum(getToDate());
             if(ls_devnum.equals("error")){
                 return "error";
@@ -5592,7 +5594,7 @@ public class App01CrudController {
 //                    }else{
 //                        index20Dto.setAs_devflag("0");
 //                    }
-                    _index20Dto.setAs_devcode('D' + ls_misdate + ls_devnum );
+                    _index20Dto.setAs_devcode('D' + ls_devdate + ls_devnum );
                     result = service01.UpdateDevJupsu(_index20Dto);
 //                    log.info("result  =====>" + result);
 //                    log.info("setAs_date2  =====>" + ls_date2);
