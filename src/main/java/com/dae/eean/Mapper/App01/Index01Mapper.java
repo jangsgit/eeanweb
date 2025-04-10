@@ -27,6 +27,8 @@ public interface Index01Mapper {
     public Boolean ModifyJupsuMemo(Index20Dto parm) ;
     public Boolean UpdateDevJupsu(Index20Dto parm) ;
     public Boolean UpdateDevJupsuUnsong(Index20Dto parm) ;
+    public Boolean UpdateDevJupsuUnsongDevnum(Index20Dto parm) ;
+
     public Boolean UpdateMisJupsu(Index20Dto parm) ;
 
     public Index20Dto GetAsJumsuDataYU(Index20Dto parm) ;

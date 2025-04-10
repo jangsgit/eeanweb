@@ -221,6 +221,12 @@
         ]]>
     </update>
 
+    <update id="UpdateDevJupsuUnsongDevnum" parameterType="com.dae.eean.DTO.App01.Index20Dto" >
+        UPDATE as_jupsu SET
+        unsongnum=#{unsongnum} , reservnum =#{reservnum}
+        where   as_devcode = #{as_devcode}
+    </update>
+
     <update id="UpdateDevJupsuUnsong" parameterType="com.dae.eean.DTO.App01.Index20Dto" >
         UPDATE as_jupsu SET
         unsongnum=#{unsongnum} , reservnum =#{reservnum}

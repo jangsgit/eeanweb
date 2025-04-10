@@ -4819,7 +4819,7 @@ public class App01CrudController {
             }
 
         }catch (Exception e){
-            log.info("savedev 오류 메시지: " + e.getMessage());
+            log.info("index16 savedev 오류 메시지: " + e.getMessage());
             e.printStackTrace();
             return "error";
         }
@@ -5615,7 +5615,7 @@ public class App01CrudController {
                             _indexDa024Dto.setDevdatetime(_index20DtoRe.getAs_devdate());
                             _indexDa024Dto.setUnsongnum(_index20DtoRe.getUnsongnum());
                             _indexDa024Dto.setReservnum(_index20DtoRe.getReservnum());
-                            _indexDa024Dto.setDevnum('D' + ls_misdate + ls_devnum);
+                            _indexDa024Dto.setDevnum('D' + ls_devdate + ls_devnum);
                             _indexDa024Dto.setMisgubun("AA");
                             result = service14.UpdateDa024JumsuDev(_indexDa024Dto);
                             if (!result){
@@ -5659,9 +5659,11 @@ public class App01CrudController {
             String ls_date2 = formatter.format(date);
             if( asKey1Arr.size() > 0){
                 for(int i = 0; i < asKey1Arr.size(); i++){
-                    String year = asKey1Arr.get(i).substring(0,4);
-                    String month = asKey1Arr.get(i).substring(5,7);
-                    String day = asKey1Arr.get(i).substring(8,10);
+                    if(asKey1Arr.get(i).length() == 10){
+                        String year = asKey1Arr.get(i).substring(0,4);
+                        String month = asKey1Arr.get(i).substring(5,7);
+                        String day = asKey1Arr.get(i).substring(8,10);
+                    }
 //                    String ls_misdate = year + month + day ;  //요청에 의해 당일일자로 변경함.
                     String ls_misdate = getToDate() ;
                     String ls_misnum = "";
@@ -5855,25 +5857,41 @@ public class App01CrudController {
                     String ls_cltcd = "";
                     index20Dto.setReservnum(devnum01.get(i));
                     index20Dto.setUnsongnum(devnum02.get(i));
-                    index20Dto.setAs_key1(devnum03.get(i).substring(0,8));
-                    index20Dto.setAs_key2(devnum03.get(i).substring(8,12));
-                    ls_cltcd = devnum03.get(i);
-                    if(ls_cltcd.length() < 12){
-                        continue;
+                    indexDa023Dto.setReservnum(devnum01.get(i));
+                    indexDa023Dto.setUnsongnum(devnum02.get(i));
+                    if(devnum03.get(i).substring(0,1).equals("D")){
+                        index20Dto.setAs_devcode(devnum03.get(i));
+                        result = service01.UpdateDevJupsuUnsongDevnum(index20Dto);
+                        if (!result){
+                            //return "error";
+                        }
+                        indexDa023Dto.setDevnum(devnum03.get(i));
+                        result = service14.UpdateDA023UnsongDevnum(indexDa023Dto);
+                        if (!result){
+                            //return "error";
+                        }
+                    }else{
+                        index20Dto.setMisdate(devnum03.get(i).substring(0,8));
+                        index20Dto.setMisnum(devnum03.get(i).substring(8,12));
+                        ls_cltcd = devnum03.get(i);
+                        if(ls_cltcd.length() < 12){
+                            continue;
+                        }
+                        ls_cltcd = ls_cltcd.substring(12, ls_cltcd.length());
+                        index20Dto.setAs_acorp1(ls_cltcd);
+                        result = service01.UpdateDevJupsuUnsong(index20Dto);
+                        if (!result){
+                            //return "error";
+                        }
                     }
-                    ls_cltcd = ls_cltcd.substring(12, ls_cltcd.length());
-                    index20Dto.setAs_acorp1(ls_cltcd);
-                    result = service01.UpdateDevJupsuUnsong(index20Dto);
-                    if (!result){
-                        //return "error";
-                    }
+
 
                 }
                 return "success";
             }
 
         }catch (Exception e){
-            log.info("savedev 오류 메시지: " + e.getMessage());
+            log.info("index20 savedev 오류 메시지: " + e.getMessage());
             e.printStackTrace();
             return "error";
         }

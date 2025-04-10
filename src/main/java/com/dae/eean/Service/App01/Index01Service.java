@@ -36,6 +36,8 @@ public class Index01Service {
     public Boolean ModifyJupsuMemo(Index20Dto parm){ return  indexMapper.ModifyJupsuMemo(parm);}
     public Boolean UpdateDevJupsu(Index20Dto parm){ return  indexMapper.UpdateDevJupsu(parm);}
     public Boolean UpdateDevJupsuUnsong(Index20Dto parm){ return  indexMapper.UpdateDevJupsuUnsong(parm);}
+    public Boolean UpdateDevJupsuUnsongDevnum(Index20Dto parm){ return  indexMapper.UpdateDevJupsuUnsongDevnum(parm);}
+
     public Boolean UpdateMisJupsu(Index20Dto parm){ return  indexMapper.UpdateMisJupsu(parm);}
 
     public Index20Dto GetAsJumsuDataYU(Index20Dto parm){

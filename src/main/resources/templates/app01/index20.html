@@ -1908,9 +1908,7 @@
                                 }
                                 //console.log(wtab03Grid.rows[i]._ubv["2g"]);  
                                 iCnt++;
-                                //console.log(iCnt);
-                                //console.log(devnum03);  
-                                //console.log(devnum05);     
+                                //console.log(iCnt);     
                                 
                             }else{
                                 break;                                
@@ -1921,6 +1919,9 @@
                         //break;
                     }
                     var gridrow = devnum01.length; 
+                    // console.log(devnum01);   
+                    // console.log(devnum02); 
+                    // console.log(devnum03); 
                     $.ajax({
                         url: '/app01m/index20/savedev',  
                         type:"POST",
