@@ -2953,7 +2953,13 @@
             cols.align = "right";
             cols.aggregate = 'Sum';
             cols.width = 120;   
-            theGridPrt.columns.push(cols);   
+            theGridPrt.columns.push(cols); 
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'index'; 
+            cols.header = 'index'; 
+            cols.visible = false; // 화면에서는 숨김!
+            cols.width = 20;   
+            theGridPrt.columns.push(cols);      
  
         } 
 
