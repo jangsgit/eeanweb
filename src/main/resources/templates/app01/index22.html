@@ -1567,6 +1567,8 @@
             }  
             theGridPrt.columns.clear();  
             theGridPrt.autoGenerateColumns = false; 
+            theGridPrt.collectionView.sortDescriptions.clear();
+            theGridPrt.collectionView.sortDescriptions.push(new wijmo.collections.SortDescription("index", true)); 
             view_p01tab03page.sourceCollection  = wtab03_data; 
             var cols = new wijmo.grid.Column(); 
             cols.binding = 'rownum';
