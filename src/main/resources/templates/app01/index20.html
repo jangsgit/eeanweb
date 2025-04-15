@@ -1820,8 +1820,8 @@
                         var ls_asname = chkTabA[i]._data.as_aname; 
                         var ls_asYumu = chkTabA[i]._data.as_yumu;  
                         var ls_misdate = chkTabA[i]._data.misdate
-                            ls_asname = ls_asname.trim();
-                            ls_asYumu = ls_asYumu.trim(); 
+                            // ls_asname = ls_asname.trim();
+                            // ls_asYumu = ls_asYumu.trim(); 
                         if (ls_asname == 'Z'){
                             //alert("비거래가 선택되었습니다. 확인하세요") 
                             //return ;   
@@ -1830,6 +1830,14 @@
                         if (ls_asYumu == '무상'){
                             continue;
                         }; 
+                        if(ls_asname == null  ){ 
+                            asAname[ichkcnt]          = 'P';        
+                        }else{
+
+                        }
+                        if(ls_asYumu == null ){ 
+                            ls_asYumu = " "            
+                        }  
                         if(ls_misdate != null && ls_misdate.length > 0 ){ 
                             //alert("이미 주문된 자료가 있습니다. 확인하세요") ; 
                             //return ; 
