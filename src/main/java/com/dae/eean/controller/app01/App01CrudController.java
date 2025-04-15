@@ -5601,7 +5601,7 @@ public class App01CrudController {
 //                    }else{
 //                        index20Dto.setAs_devflag("0");
 //                    }
-                    _index20Dto.setAs_devcode('D' + ls_devdate + ls_devnum + ascltcdArr.get(i) );
+                    _index20Dto.setAs_devcode("DJ" + ls_devdate + ls_devnum + ascltcdArr.get(i) );
                     result = service01.UpdateDevJupsu(_index20Dto);
 //                    log.info("result  =====>" + result);
 //                    log.info("setAs_date2  =====>" + ls_date2);
@@ -5622,7 +5622,7 @@ public class App01CrudController {
                             _indexDa024Dto.setDevdatetime(_index20DtoRe.getAs_devdate());
                             _indexDa024Dto.setUnsongnum(_index20DtoRe.getUnsongnum());
                             _indexDa024Dto.setReservnum(_index20DtoRe.getReservnum());
-                            _indexDa024Dto.setDevnum('D' + ls_devdate + ls_devnum + ascltcdArr.get(i) );
+                            _indexDa024Dto.setDevnum("DJ" + ls_devdate + ls_devnum + ascltcdArr.get(i) );
                             _indexDa024Dto.setMisgubun("AA");
                             result = service14.UpdateDa024JumsuDev(_indexDa024Dto);
                             if (!result){
