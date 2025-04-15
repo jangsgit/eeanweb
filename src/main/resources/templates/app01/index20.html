@@ -1820,8 +1820,12 @@
                         var ls_asname = chkTabA[i]._data.as_aname; 
                         var ls_asYumu = chkTabA[i]._data.as_yumu;  
                         var ls_misdate = chkTabA[i]._data.misdate
-                            // ls_asname = ls_asname.trim();
-                            // ls_asYumu = ls_asYumu.trim(); 
+                        if(ls_asname != null  ){ 
+                            ls_asname = ls_asname.trim();
+                        }
+                        if(ls_asYumu != null  ){ 
+                            ls_asYumu = ls_asYumu.trim();
+                        }  
                         if (ls_asname == 'Z'){
                             //alert("비거래가 선택되었습니다. 확인하세요") 
                             //return ;   
@@ -1833,7 +1837,7 @@
                         if(ls_asname == null  ){ 
                             asAname[ichkcnt]          = 'P';        
                         }else{
-
+                            asAname[ichkcnt]          = ls_asname;  
                         }
                         if(ls_asYumu == null ){ 
                             ls_asYumu = " "            
@@ -1845,9 +1849,9 @@
                         }  
                         asKey1Arr[ichkcnt]   = chkTabA[i]._data.as_key1;
                         asKey2Arr[ichkcnt]   = chkTabA[i]._data.as_key2; 
-                        misdateArr[ichkcnt]      = chkTabA[i]._data.misdate; 
-                        misnumArr[ichkcnt]      = chkTabA[i]._data.misnum; 
-                        asYumu[ichkcnt]          = chkTabA[i]._data.as_yumu;
+                        misdateArr[ichkcnt]  = chkTabA[i]._data.misdate; 
+                        misnumArr[ichkcnt]   = chkTabA[i]._data.misnum; 
+                        asYumu[ichkcnt]      = ls_asYumu;
                         if(asKey1Arr[ichkcnt] == null || asKey1Arr[ichkcnt].length < 10 ){ 
                             alert(asKey1Arr[ichkcnt] + " : 주문일자를 확인하세요") ; 
                             return ;               
