@@ -1760,13 +1760,14 @@
                     // if(misdateArr.length == null || misdateArr.length == 0 || misdateArr.every(item => item == null)){ 
                     //     alert("발송할 내역중 주문등록이 안된 내역이 있습니다. 주문등록 후 발송출력하세요") 
                     //     return ;               
-                    // }   
+                    // }    
                     $.ajax({
                         url: '/app01m/index20/deliv',  
                         type:"POST",
                         data: { 
                             "asKey1Arr"  : asKey1Arr,  
-                            "asKey2Arr"   : asKey2Arr ,   
+                            "asKey2Arr"   : asKey2Arr ,  
+                            "ascltcdArr"   : cltcdArr ,   
                             "asYumu"   : asYumu , 
                         }, 
                         async:false,

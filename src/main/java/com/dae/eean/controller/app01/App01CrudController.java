@@ -2036,7 +2036,13 @@ public class App01CrudController {
                     _Da024Dto.setMisnumStr(misnumArrStr);
                     _Da024Dto.setSeqStr(seqArrStr);
                     _Da024Dto.setMisqtyStr(misqtyStr);
+                    log.info(misdateArrStr);
+                    log.info(misnumArrStr);
+                    log.info(seqArrStr);
+                    log.info(misqtyStr);
                     Boolean _liresult = service14.UpdateDA024Makfix(_Da024Dto);
+
+                    log.info(_liresult);
 
                     _syslogDto.setType("등록");
                     _syslogDto.setMenunm("주문등록");
@@ -5555,6 +5561,7 @@ public class App01CrudController {
     @RequestMapping(value="/index20/deliv")
     public String index21Deliv(@RequestParam(value = "asKey1Arr[]") List<String> asKey1Arr
             ,@RequestParam( value =  "asKey2Arr[]") List<String> asKey2Arr
+            ,@RequestParam( value =  "ascltcdArr[]") List<String> ascltcdArr
             ,@RequestParam( value =  "asYumu[]") List<String> asYumu
             , Model model
             , HttpServletRequest request){
@@ -5594,7 +5601,7 @@ public class App01CrudController {
 //                    }else{
 //                        index20Dto.setAs_devflag("0");
 //                    }
-                    _index20Dto.setAs_devcode('D' + ls_devdate + ls_devnum );
+                    _index20Dto.setAs_devcode('D' + ls_devdate + ls_devnum + ascltcdArr.get(i) );
                     result = service01.UpdateDevJupsu(_index20Dto);
 //                    log.info("result  =====>" + result);
 //                    log.info("setAs_date2  =====>" + ls_date2);
@@ -5615,7 +5622,7 @@ public class App01CrudController {
                             _indexDa024Dto.setDevdatetime(_index20DtoRe.getAs_devdate());
                             _indexDa024Dto.setUnsongnum(_index20DtoRe.getUnsongnum());
                             _indexDa024Dto.setReservnum(_index20DtoRe.getReservnum());
-                            _indexDa024Dto.setDevnum('D' + ls_devdate + ls_devnum);
+                            _indexDa024Dto.setDevnum('D' + ls_devdate + ls_devnum + ascltcdArr.get(i) );
                             _indexDa024Dto.setMisgubun("AA");
                             result = service14.UpdateDa024JumsuDev(_indexDa024Dto);
                             if (!result){
