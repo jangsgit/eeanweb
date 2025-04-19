@@ -1399,6 +1399,67 @@ public class App01CrudController {
         return _indexMonCDtoList;
     }
 
+    //재고재계산
+    @RequestMapping(value="/index04/savecal")
+    public String index04SaveCal(
+            @RequestParam("savejaedate") String savejaedate
+            ,@RequestParam("userid") String userid
+            ,@RequestParam("usernm") String usernm
+            , Model model
+            , HttpServletRequest request){
+
+        try {
+            SyslogDto _syslogDto = new SyslogDto();
+            Index03Dto _index03Dto = new Index03Dto();
+            HttpSession session = request.getSession();
+            Boolean result = false ;
+            String ls_result = "";
+            Integer ll_count = 0;
+            UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+            if(userformDto == null){
+                log.info("index04MonthSave Exception =====> relogin userformDto null");
+                return "relogin";
+            }
+            String searchtxt = "%";
+            String jcustcd = "%";
+            String jpbgubn = "%";
+            _index03Dto.setJfrdate("20000101");
+            _index03Dto.setJpb_gubn(jpbgubn);
+
+            String year = savejaedate.substring(0,4) ;
+            String month = savejaedate.substring(5,7) ;
+            String day   = "99" ;
+            savejaedate = year + month + day ;
+            _index03Dto.setFrdate("20000101");
+            _index03Dto.setTodate(savejaedate);
+            _index03Dto.setJkey(searchtxt);
+
+             log.info("savejaedate =====> " + savejaedate );
+             service03.GetJpumCustJaegoCal(_index03Dto);
+            _syslogDto.setType("저장");
+            _syslogDto.setMenunm("재고재계산");
+            _syslogDto.setMessage(savejaedate);
+            _syslogDto.setSource(savejaedate + " : 재계산 시행");
+            _syslogDto.setUserid(userid);
+            _syslogDto.setUsernm(usernm);
+            result = service_auth.TB_SYSLOG_INSERT(_syslogDto);
+            if (!result) {
+                //return "error";
+            }
+
+        }catch (Exception e){
+            log.info("index04SaveCal Exception =====> " + e.getMessage());
+            model.addAttribute("errorMessage", e.getMessage());
+            return "error";
+        }
+        return "success";
+    }
+
+
+
+
+
+
 
     @RequestMapping(value="/index14/save")
     public String index14Save(

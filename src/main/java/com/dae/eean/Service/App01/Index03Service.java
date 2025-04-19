@@ -67,6 +67,10 @@ public class Index03Service {
         return  appMapper.GetJpumCustJaegoList(parm);
     }
 
+    public List<Index03Dto> GetJpumCustJaegoCal(Index03Dto parm){
+        return  appMapper.GetJpumCustJaegoCal(parm);
+    }
+
     public List<Index03Dto> GetJpumFromJaegoList(Index03Dto parm){
         return  appMapper.GetJpumFromJaegoList(parm);
     }

@@ -138,6 +138,12 @@
     </select>
 
 
+    <select id="GetJpumCustJaegoCal" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
+        {
+        call SP_JaegoCal(#{frdate},#{todate}, #{jkey}, #{jpb_gubn})
+        }
+    </select>
+
     <select id="GetJpumFromJaegoList_OLD" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
         <![CDATA[
         select    jkey,  jpum  ,  jgugek , jsize,

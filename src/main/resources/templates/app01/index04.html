@@ -239,6 +239,10 @@
                                                 </button>
                                             </div>  
                                             <div class="col-auto"> 
+                                                <button class="btn btn-falcon-primary me-1 mb-1 btn-sm" type="button" id="saveCal"  >재고재계산
+                                                </button> 
+                                            </div> 
+                                            <div class="col-auto"> 
                                                 <button class="btn btn-falcon-primary me-1 mb-1 btn-sm" type="button" id="saveJaego" disabled>재고마감
                                                 </button> 
                                             </div> 
@@ -1000,6 +1004,11 @@
                 document.getElementById("actnmbtn").click(); 
             
         })   
+        //재고재계산
+        document.getElementById("saveCal").addEventListener("click",function(){ 
+            JaegoCal_rtn()
+            
+        })  
         //재고마감
         document.getElementById("saveJaego").addEventListener("click",function(){ 
                 document.getElementById("actnmbtn02").click(); 
@@ -2122,6 +2131,35 @@
             } 
         }            
         
+        function JaegoCal_rtn(){  
+
+            if (!confirm("재고재계산을 하시겠습니까? 약간의 시간이 소요됩니다.")) {
+                    return ; 
+            } 
+  
+            var ls_savejaedate = document.getElementById('savejaedate').value;  
+            console.log(ls_savejaedate)
+            $.ajax({
+                    url: '/app01m/index04/savecal',  
+                    type:"POST",
+                    data: { 
+                            "savejaedate" :ls_savejaedate,         
+                            "userid"  : gsUserid   ,      
+                            "usernm"  : gsUsernm   
+                    }, 
+                    async:false,
+                    success:function(data){   
+                        chkLogin(data)  
+                        alert("정상 처리되었습니다.")
+                    },error:function(e){
+                        console.log("error");                            
+                    }
+                }).done(function(fragment){           
+
+                })    
+
+
+        }
         function JpumSearchList_rtn(arg){  
 
             var searchCode = ""; 
