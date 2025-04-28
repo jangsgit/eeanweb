@@ -522,8 +522,9 @@
                          isnull(B.remarkbb,'') as remarkbb,
                          isnull(B.makflag, '0') as makflag,
                          B.amt, B.acorp, pbonsa, pmodel, pcolor, B.pernm as inname, B.misgubun, isnull(B.fixflag,'0') as fixflag, B.pernm as pernm,
-                         B.omisdate, B.omisnum, B.oseq , convert(integer, DBO.DF_TB_PCODE_JQTY(B.pcode,  #{jfrdate},  #{jtodate}) ) as jqty, B.userid, B.usernm
+                         B.omisdate, B.omisnum, B.oseq , C.stock_qty as jqty, B.userid, B.usernm
            from  TB_DA026 B WITH (NOLOCK)
+                      JOIN TB_JSTOCK C ON B.pcode = C.jkey
            where  B.cltcd = #{cltcd}
              AND isnull(B.perid,'')  Like concat('%',#{perid},'%')
             AND B.misdate between #{frdate} and #{todate}
@@ -570,8 +571,9 @@
                           isnull(B.remarkbb,'') as remarkbb,
                            isnull(B.makflag, '0') as makflag,
                          B.amt, B.acorp, pbonsa, pmodel, pcolor, B.pernm as inname, B.misgubun, isnull(B.fixflag,'0') as fixflag, B.pernm as pernm,
-                         B.omisdate, B.omisnum, B.oseq, convert(integer, DBO.DF_TB_PCODE_JQTY(B.pcode,  #{jfrdate},  #{jtodate}) ) as jqty, B.userid, B.usernm
+                         B.omisdate, B.omisnum, B.oseq, C.stock_qty as jqty, B.userid, B.usernm
            from  TB_DA026 B WITH (NOLOCK)
+                 JOIN TB_JSTOCK C ON B.pcode = C.jkey
            where B.cltcd Like  #{cltcd}
              AND isnull(B.perid,'')  Like concat('%',#{perid},'%')
             AND B.misdate between #{frdate} and #{todate}
