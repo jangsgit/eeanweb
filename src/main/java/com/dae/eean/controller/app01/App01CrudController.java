@@ -2051,6 +2051,7 @@ public class App01CrudController {
                 if(jremark == null){
                     jremark = "";
                 }
+
                 // 개별확정방식으로변경  장바구니에서 체크한것만 주문으로 넘어가도록 방식 변경 23.3.7
                 // 기존주문일자를 기준으로 요청내용을 변경한뒤 변경주문일자로 업데이트
                 switch (mflag){
@@ -2069,6 +2070,7 @@ public class App01CrudController {
                     default:
                         break;
                 }
+
                 if (!result){
                     return "error";
                 }
@@ -2097,13 +2099,13 @@ public class App01CrudController {
                     _Da024Dto.setMisnumStr(misnumArrStr);
                     _Da024Dto.setSeqStr(seqArrStr);
                     _Da024Dto.setMisqtyStr(misqtyStr);
-                    log.info(misdateArrStr);
-                    log.info(misnumArrStr);
-                    log.info(seqArrStr);
-                    log.info(misqtyStr);
+//                    log.info(misdateArrStr);
+//                    log.info(misnumArrStr);
+//                    log.info(seqArrStr);
+//                    log.info(misqtyStr);
                     Boolean _liresult = service14.UpdateDA024Makfix(_Da024Dto);
 
-                    log.info(_liresult);
+//                    log.info(_liresult);
 
                     _syslogDto.setType("등록");
                     _syslogDto.setMenunm("주문등록");

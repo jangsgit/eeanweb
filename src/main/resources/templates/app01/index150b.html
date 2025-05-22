@@ -88,12 +88,12 @@
                                   <div class="tab-content">
                                     <div class="tab-pane fade show active" id="step01">   
                                         <div class="row gx-3" style="  margin: 10px 10px 10px;">   
-                                            <div class="col-auto">
+                                            <div class="col-12 col-sm-auto">
                                                 <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">등록일자</span>
                                                     <input type="text"  class="form-control datetimepicker" id="ipdate" autocomplete="off"  placeholder="Y-m-d"     >
                                                 </div>
                                             </div> 
-                                            <div class="col-auto">
+                                            <div class="col-12 col-sm-auto">
                                                 <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">거래처</span> 
                                                     <input class="form-control form-control-sm" id="cifname" type="text"    autocomplete="off"  placeholder=""     >
                                                     <input class="form-control form-control-sm" id="acorp1" type="hidden"  />
@@ -106,33 +106,33 @@
                                                     
                                                 </div>
                                             </div>
-                                            <div class="col-auto">  
+                                            <div class="col-6 col-sm-auto">   
                                                 <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="retrieveBtn"  type="button" onclick="retrieveClick01()">조회
                                                 </button>
                                             </div>  
-                                            <div class="col-auto">  
+                                            <div class="col-6 col-sm-auto">   
                                                 <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="orderBtn" type="button" onclick="orderlist_rtn()">주문장바구니
                                                 </button>
                                             </div> 
-                                            <div class="col-auto">  
+                                            <div class="col-6 col-sm-auto">   
                                                 <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="wishBtn" type="button" onclick="wishorderlist_rtn()" >예약장바구니
                                                 </button>
                                             </div>       
-                                            <div class="col-auto">  
+                                            <div class="col-12 col-sm-auto">  
                                                 <div class="input-group mb-3" >
                                                     <span class="input-group-text" style="max-height:50px;" >전화</span>
                                                     <input class="form-control" type="text"   aria-describedby="inputGroup-sizing-default"  id="atelno"  disabled=true/>
                                                     <!-- <textarea class="form-control"   rows="3" id="abigo"  disabled=true></textarea> -->
                                                 </div>
                                             </div>         
-                                            <div class="col-auto">
+                                            <div class="col-12 col-sm-auto">
                                                 <div class="input-group mb-3" >
                                                     <span class="input-group-text" style="max-height:50px;" >주소</span>
                                                     <input class="form-control" type="text"   aria-describedby="inputGroup-sizing-default"  id="ajusotxt"  />
                                                     <!-- <textarea class="form-control"   rows="3" id="abigo"  disabled=true></textarea> -->
                                                 </div>
                                             </div>  
-                                            <div class="col-auto">
+                                            <div class="col-12 col-sm-auto">
                                                 <div class="input-group input-group-sm mb-3"> 
                                                     <input class="form-control form-control-sm"   type="text"    autocomplete="off"  placeholder=""   id="pernm" disabled  > 
                                                 </div>
@@ -166,17 +166,17 @@
                                     </div>
                                     <div class="tab-pane fade" id="step02"> 
                                         <div class="row gx-3" style="  margin: 10px 10px 10px;">   
-                                            <div class="col-2 col-sm-2">
+                                            <div class="col-12 col-sm-auto">
                                                 <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">주문일자</span>
                                                     <input type="text"  class="form-control datetimepicker" id="frdate" autocomplete="off"  placeholder="Y-m-d"     >
                                                 </div> 
                                             </div>   
-                                            <div class="col-2 col-sm-2"> 
+                                            <div class="col-12 col-sm-auto"> 
                                                 <div class="input-group input-group-sm mb-3"> 
                                                     <input type="text"  class="form-control datetimepicker" id="todate" autocomplete="off"  placeholder="Y-m-d"     >
                                                 </div>
                                             </div> 
-                                            <div class="col-2 col-sm-2">
+                                            <div class="col-12 col-sm-auto">
                                                 <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">거래처</span> 
                                                     <input class="form-control form-control-sm" id="bcifname" type="text"    autocomplete="off"  placeholder=""      >
                                                     <input class="form-control form-control-sm" id="bacorp1" type="hidden"  />
@@ -191,7 +191,7 @@
                                                     
                                                 </div>
                                             </div>
-                                            <div class="col-2 col-sm-2">
+                                            <div class="col-12 col-sm-auto">
                                                 <select class="form-select form-select-sm" id="makflag01" aria-label=".form-select-sm example">
                                                     <option selected="">구분</option>
                                                     <option value="%">전체</option>
@@ -199,11 +199,11 @@
                                                     <option value="1">주문완료</option>
                                                   </select> 
                                             </div>  
-                                            <div class="col-1 col-sm-1">  
+                                            <div class="col-6 col-sm-auto"> 
                                                 <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="listBtn" type="button"  >조회
                                                 </button>
                                             </div> 
-                                            <div class="col-1 col-sm-1">  
+                                            <div class="col-6 col-sm-auto">   
                                                 <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="saveBtn01" type="button"  >주문등록
                                                 </button>
                                             </div> 
@@ -219,17 +219,17 @@
                                     </div> 
                                     <div class="tab-pane fade" id="step03"> 
                                         <div class="row gx-3" style="  margin: 10px 10px 10px;">   
-                                            <div class="col-2 col-sm-2">
+                                            <div class="col-12 col-sm-auto">
                                                 <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">예약일자</span>
                                                     <input type="text"  class="form-control datetimepicker" id="frdate02" autocomplete="off"  placeholder="Y-m-d"     >
                                                 </div> 
                                             </div>   
-                                            <div class="col-2 col-sm-2"> 
+                                            <div class="col-12 col-sm-auto"> 
                                                 <div class="input-group input-group-sm mb-3"> 
                                                     <input type="text"  class="form-control datetimepicker" id="todate02" autocomplete="off"  placeholder="Y-m-d"     >
                                                 </div>
                                             </div> 
-                                            <div class="col-2 col-sm-2">
+                                            <div class="col-12 col-sm-auto">
                                                 <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">거래처</span> 
                                                     <input class="form-control form-control-sm" id="dcifname" type="text"    autocomplete="off"  placeholder=""      >
                                                     <input class="form-control form-control-sm" id="dacorp1" type="hidden"  />
@@ -240,7 +240,7 @@
                                                     
                                                 </div>
                                             </div>
-                                            <div class="col-2 col-sm-2">
+                                            <div class="col-12 col-sm-auto">
                                                 <select class="form-select form-select-sm" id="makflag02" aria-label=".form-select-sm example">
                                                     <option selected="">구분</option>
                                                     <option value="%">전체</option>
@@ -248,11 +248,11 @@
                                                     <option value="1">예약완료</option>
                                                   </select> 
                                             </div>  
-                                            <div class="col-1 col-sm-1">  
+                                            <div class="col-6 col-sm-auto">  
                                                 <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="listBtn02" type="button"  >조회
                                                 </button>
                                             </div> 
-                                            <div class="col-1 col-sm-1">  
+                                            <div class="col-6 col-sm-auto">  
                                                 <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="saveBtn02" type="button"  >예약등록
                                                 </button>
                                             </div> 
@@ -283,7 +283,7 @@
     <div class="modal fade" id="cifmodal" data-bs-keyboard="false"
     data-bs-backdrop="static" tabindex="-1" aria-labelledby="staticBackdropLabel"
     aria-hidden="true">
-        <div class="modal-dialog modal-lg mt-6" role="document" id = "modalForm01"
+        <div class="modal-dialog modal-lg modal-fullscreen-sm-down" role="document" id = "modalForm01"
             style="max-width: 800px">
             <div class="modal-content border-0">
                 <div class="modal-body p-0" > 
@@ -334,7 +334,7 @@
     <div class="modal fade" id="orderlistmodal" data-bs-keyboard="false"
     data-bs-backdrop="static" tabindex="-1" aria-labelledby="staticBackdropLabel"
     aria-hidden="true">
-        <div class="modal-dialog modal-lg mt-6" role="document" id = "modalForm01"
+        <div class="modal-dialog modal-lg modal-fullscreen-sm-down" role="document" id = "modalForm01"
             style="max-width: 1200px">
             <div class="modal-content border-0">
                 <div class="modal-body p-0" > 
@@ -397,7 +397,7 @@
     <div class="modal fade" id="wishlistmodal" data-bs-keyboard="false"
     data-bs-backdrop="static" tabindex="-1" aria-labelledby="staticBackdropLabel"
     aria-hidden="true">
-        <div class="modal-dialog modal-lg mt-6" role="document" id = "modalForm01"
+        <div class="modal-dialog modal-lg modal-fullscreen-sm-down" role="document" id = "modalForm01"
             style="max-width: 1200px">
             <div class="modal-content border-0">
                 <div class="modal-body p-0" > 
@@ -513,7 +513,7 @@
 <!--------------------------------------------------------------------------------------->   
 <div class="modal fade" id="imgmodal" data-bs-keyboard="false"  tabindex="-1" aria-labelledby="staticBackdropLabel"
 aria-hidden="true">
-    <div class="modal-dialog modal-lg mt-6" role="document" id = "modalForm02"
+    <div class="modal-dialog modal-lg modal-fullscreen-sm-down" role="document" id = "modalForm02"
         style="max-width: 1000px">
         <div class="modal-content border-0">
             <div class="modal-body p-0" > 

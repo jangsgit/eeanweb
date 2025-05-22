@@ -77,12 +77,12 @@
                                   <div class="tab-content" style="  margin: 0px 0px 0px;">
                                     <div class="tab-pane fade show active" id="step01">   
                                         <div class="row gx-3" style="  margin: 10px 10px 10px;">   
-                                            <div class="col-2 col-sm-2">
+                                            <div class="col-12 col-sm-auto">
                                                 <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">등록일자</span>
                                                     <input type="text"  class="form-control datetimepicker" id="ipdate" autocomplete="off"  placeholder="Y-m-d"     >
                                                 </div>
                                             </div> 
-                                            <div class="col-2 col-sm-2">
+                                            <div class="col-12 col-sm-auto">
                                                 <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">거래처</span> 
                                                     <input class="form-control form-control-sm" id="cifname" type="text"    autocomplete="off"  placeholder=""     >
                                                     <input class="form-control form-control-sm" id="acorp1" type="hidden"  />
@@ -94,26 +94,26 @@
                                                     
                                                 </div>
                                             </div>
-                                            <div class="col-1 col-sm-1">  
+                                            <div class="col-6 col-sm-auto"> 
                                                 <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="retrieveBtn" type="button" onclick="retrieveClick01()">조회
                                                 </button>
                                             </div> 
-                                            <div class="col-1 col-sm-1">  
+                                            <div class="col-6 col-sm-auto"> 
                                                 <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="orderBtn" type="button" onclick="orderlist_rtn()">주문장바구니
                                                 </button>
                                             </div> 
-                                            <div class="col-1 col-sm-1">  
+                                            <div class="col-6 col-sm-auto"> 
                                                 <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="wishBtn" type="button" onclick="wishorderlist_rtn()" >예약장바구니
                                                 </button>
                                             </div>      
-                                            <div class="col-auto">  
+                                            <div class="col-12 col-sm-auto">  
                                                 <div class="input-group mb-3" >
                                                     <span class="input-group-text" style="max-height:50px;" >전화</span>
                                                     <input class="form-control" type="text"   aria-describedby="inputGroup-sizing-default"  id="atelno"  disabled=true/>
                                                     <!-- <textarea class="form-control"   rows="3" id="abigo"  disabled=true></textarea> -->
                                                 </div>
                                             </div>         
-                                            <div class="col-2 col-sm-2">
+                                            <div class="col-12 col-sm-auto">
                                                 <div class="input-group mb-3" >
                                                     <span class="input-group-text" style="max-height:50px;" >주소</span>
                                                     <input class="form-control" type="text"   aria-describedby="inputGroup-sizing-default"  id="ajusotxt"  />
@@ -370,9 +370,11 @@
     <!--------------------------------------------------------------------------------------->   
     <div class="modal fade" id="orderlistmodal" data-bs-keyboard="false"
     data-bs-backdrop="static" tabindex="-1" aria-labelledby="staticBackdropLabel"
-    aria-hidden="true">
-        <div class="modal-dialog modal-lg mt-6" role="document" id = "modalForm01"
-            style="max-width: 1200px">
+    aria-hidden="true"> 
+    <!-- <div class="modal-dialog modal-lg mt-6" role="document" id = "modalForm01"
+    style="max-width: 1200px"> -->
+        <div class="modal-dialog modal-lg modal-fullscreen-sm-down" role="document" id = "modalForm01"
+            style="max-width: 1200px">        
             <div class="modal-content border-0">
                 <div class="modal-body p-0" > 
                     <div class="rounded-top-lg py-3 ps-4 pe-6 bg-light">                            
@@ -392,18 +394,20 @@
                                     <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">주문일자</span>
                                         <input type="text"  class="form-control datetimepicker" id="bmisdate" autocomplete="off"  placeholder="Y-m-d"      >
                                     </div>
-                                </div>
-                                <div class="col">
-                                    <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">요청사항</span> 
-                                        <input class="form-control form-control-sm" id="mremark" type="text"    autocomplete="off"  placeholder="예) SF31번 코, DN01번 힌지나사"     > 
-                                        
-                                    </div>
-                                </div>   
+                                </div> 
                                 <div class="col col-lg-2">
                                     <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="OrderBtnSave" type="button"  >주문
                                     </button>
                                     <button class="btn btn-falcon-danger me-1 mb-1 btn-sm" id="DelBtnSave" type="button"  >삭제
                                     </button>
+                                </div>    
+                            </div>     
+                            <div class="row"  > 
+                                <div class="col">
+                                    <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">요청사항</span> 
+                                        <input class="form-control form-control-sm" id="mremark" type="text"    autocomplete="off"  placeholder="예) SF31번 코, DN01번 힌지나사"     > 
+                                        
+                                    </div>
                                 </div>    
                             </div>     
                         </div>                             
@@ -437,7 +441,7 @@
     <div class="modal fade" id="wishlistmodal" data-bs-keyboard="false"
     data-bs-backdrop="static" tabindex="-1" aria-labelledby="staticBackdropLabel"
     aria-hidden="true">
-        <div class="modal-dialog modal-lg mt-6" role="document" id = "modalForm01"
+        <div class="modal-dialog modal-lg modal-fullscreen-sm-down" role="document" id = "modalForm01"
             style="max-width: 1200px">
             <div class="modal-content border-0">
                 <div class="modal-body p-0" > 
@@ -1623,7 +1627,7 @@
             //요청사항 
             if(arg3 == null || arg3.length == 0 || arg3 == ""){ 
                 arg3 = ""          ;
-            }    
+            }     
             //수량
             if(arg4 == null ){ 
                 arg4 = 1         ;
