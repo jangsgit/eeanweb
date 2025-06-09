@@ -503,6 +503,8 @@
          var uamtArr    = new Array(); 
          var remarkaa    = new Array(); 
          var remarkbb    = new Array();  
+         var fixflagArr    = new Array(); 
+         var devflagArr    = new Array(); 
           
          var misdateWArr = new Array();
          var misnumWArr = new Array();
@@ -1119,20 +1121,38 @@
                         uamtArr.pop();
                         remarkaa.pop();
                         remarkbb.pop();
+                        fixflagArr.pop();
+                        devflagArr.pop();
                     } 
+                    var cnt = 0;
+                    var prtcnt = 0;
                     for (var i = 0; i < chkTabA.length; i++) { 
-                        misdateArr[i]   = chkTabA[i]._data.misdate;
-                        misnumArr[i]   = chkTabA[i]._data.misnum;
-                        seqArr[i]  = chkTabA[i]._data.seq; 
-                        cltcdArr[i]  = chkTabA[i]._data.cltcd; 
-                        gubunArr[i]  = chkTabA[i]._data.misgubun;   
-                        qtyArr[i]  = chkTabA[i]._data.qty;    
-                        uamtArr[i]  = chkTabA[i]._data.uamt;  ;  
-                    }   
+                        fixflagArr[i]  = chkTabA[i]._data.fixflag;  ;  
+                        devflagArr[i]  = chkTabA[i]._data.devflag;  ;   
+                        if(gsUserid != '권상미pv' && gsUserid != '권상미bl'){
+                            if (fixflagArr[i] || devflagArr[i] ){  
+                                prtcnt++                          
+                                continue
+                            }
+                        }
+                        misdateArr[cnt]   = chkTabA[i]._data.misdate;
+                        misnumArr[cnt]   = chkTabA[i]._data.misnum;
+                        seqArr[cnt]  = chkTabA[i]._data.seq; 
+                        cltcdArr[cnt]  = chkTabA[i]._data.cltcd; 
+                        gubunArr[cnt]  = chkTabA[i]._data.misgubun;   
+                        qtyArr[cnt]  = chkTabA[i]._data.qty;    
+                        uamtArr[cnt]  = chkTabA[i]._data.uamt;  ;  
+                        cnt++;
+                    }    
+                    if(prtcnt > 0){
+                        alert("출력했거나 배송한 자료는 수정할 수 없습니다.") 
+                        return ;    
+                    } 
                     if(misdateArr.length == null || misdateArr.length == 0){ 
                         alert("수정할 내역을 선택하세요") 
                         return ;               
                     }   
+ 
                     $.ajax({
                         url: '/app01m/index16/modify',  
                         type:"POST",
@@ -1178,21 +1198,36 @@
                     if (!confirm("삭제 하시겠습니까?")) { 
                         return false; 
                     }   
+                    var cnt = 0;
+                    var prtcnt = 0;
                     while (misdateArr.length > 0) {
                         misdateArr.pop();
                         misnumArr.pop();
                         seqArr.pop();
                         cltcdArr.pop();
                         gubunArr.pop();
-                        fixflagArr.pop(); 
+                        fixflagArr.pop();  
+                        devflagArr.pop();
                     } 
                     for (var i = 0; i < chkTabA.length; i++) { 
-                        misdateArr[i]   = chkTabA[i]._data.misdate;
-                        misnumArr[i]   = chkTabA[i]._data.misnum;
-                        seqArr[i]  = chkTabA[i]._data.seq; 
-                        cltcdArr[i]  = chkTabA[i]._data.cltcd; 
-                        gubunArr[i]  = chkTabA[i]._data.misgubun;   
+                        fixflagArr[i]  = chkTabA[i]._data.fixflag;  ;  
+                        devflagArr[i]  = chkTabA[i]._data.devflag;  ;   
+                        if(gsUserid != '권상미pv' && gsUserid != '권상미bl'){
+                            if (fixflagArr[i] || devflagArr[i] ){  
+                                prtcnt++                          
+                                continue
+                            }
+                        }
+                        misdateArr[cnt]   = chkTabA[i]._data.misdate;
+                        misnumArr[cnt]   = chkTabA[i]._data.misnum;
+                        seqArr[cnt]  = chkTabA[i]._data.seq; 
+                        cltcdArr[cnt]  = chkTabA[i]._data.cltcd; 
+                        gubunArr[cnt]  = chkTabA[i]._data.misgubun;   
                     }   
+                    if(prtcnt > 0){
+                        alert("출력했거나 배송한 자료는 삭제할 수 없습니다.") 
+                        return ;    
+                    } 
                     if(misdateArr.length == null || misdateArr.length == 0){ 
                         alert("삭제할 내역을 선택하세요") 
                         return ;               
