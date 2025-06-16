@@ -2909,7 +2909,6 @@ public class App01CrudController {
             return "relogin";
         }
         model.addAttribute("userformDto",userformDto);
-
         try {
             String year = frdate.substring(0,4) ;
             String month = frdate.substring(5,7) ;
@@ -2970,7 +2969,6 @@ public class App01CrudController {
 //            log.info("makflag =====>" + misgubun);
 //            log.info("mflag =====>" + mflag);
 
-
             if(checkAS.equals("AS")){
                 //as접수 포함
                 if(acode.equals("%")){
@@ -2986,7 +2984,6 @@ public class App01CrudController {
                     _indexDa024ListDto = service14.SelectDa024List(_indexDa024Dto);
                 }
             }
-
 //            log.info("misgubun2 =====>" + misgubun);
             model.addAttribute("indexDa024ListDto",_indexDa024ListDto);
 
@@ -3368,7 +3365,6 @@ public class App01CrudController {
                 }
                 hm.put("itemcdArr", itemString);
                 indexDa024ListDto = service14.SelectDa024ListPrtGroup(hm);
-
             }
 
         } catch (Exception ex) {

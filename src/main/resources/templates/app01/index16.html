@@ -1223,7 +1223,9 @@
                         seqArr[cnt]  = chkTabA[i]._data.seq; 
                         cltcdArr[cnt]  = chkTabA[i]._data.cltcd; 
                         gubunArr[cnt]  = chkTabA[i]._data.misgubun;   
+                        cnt++
                     }   
+ 
                     if(prtcnt > 0){
                         alert("출력했거나 배송한 자료는 삭제할 수 없습니다.") 
                         return ;    
@@ -1973,7 +1975,15 @@
             var lsMisdate = salesdata.misdate    
             var lsMisnum =  salesdata.misnum   
             var lsMiscltcd =  salesdata.cltcd   
-            var lsMisgubun =  salesdata.misgubun  
+            var lsMisgubun =  salesdata.misgubun 
+            var lsMisgubunTxt = "" 
+            if (lsMisgubun == "AA"){
+                lsMisgubunTxt = "(본사)"
+            }else if(lsMisgubun == "BB"){
+                lsMisgubunTxt = "(거래처)"
+            }else{
+                lsMisgubunTxt = "(영업담당)"
+            }
             // console.log(lsMisdate + '/' + lsMisnum + '/'  + lsMiscltcd);
               
             //상세매출조회     
@@ -2189,10 +2199,11 @@
                 if(ls_remark.length == null || ls_remark.length == 0){ 
                     //doc.drawText('합계금액 : ' + wijmo.changeType(ll_sumamt, wijmo.DataType.String, 'n0') + '원', 370, doc.y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 13), continue:true, underline:true, align:2}); 
                     //doc.drawText('순    번 : ' + ls_misnum, 10, doc.y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 11),   underline:false}); 
+                    doc.drawText('비    고 : ' +  lsMisgubunTxt, 10, doc.y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 12,  "normal", "bold"),   underline:false}); 
                 }else{
                     //doc.drawText('합계금액 : ' + wijmo.changeType(ll_sumamt, wijmo.DataType.String, 'n0') + '원', 370, doc.y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 13), continue:true, underline:true, align:2});                     
                     //doc.drawText('비    고 : ' + ls_remark, 10, doc.y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 12),   underline:false});   
-                    doc.drawText('비    고 : ' + ls_remark, 10, doc.y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 12,  "normal", "bold"),   underline:false}); 
+                    doc.drawText('비    고 : ' + ls_remark + ' ' + lsMisgubunTxt, 10, doc.y, {font: new wijmo.pdf.PdfFont("BMHANNAPro", 12,  "normal", "bold"),   underline:false}); 
  
                 }
 
