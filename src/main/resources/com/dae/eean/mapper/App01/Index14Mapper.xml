@@ -446,7 +446,7 @@
             sum(B.qty) as qty,   sum(B.samt) as samt, sum(B.addamt) as addamt, sum(B.amt) as amt, MAX(isnull(B.pmodel,'')) as pmodel, MAX(isnull(B.pcolor,'')) as pcolor,
             D.acorp, ROW_NUMBER() OVER(ORDER BY (SELECT 1)) AS rownum, max(B.jpb_gubn) as jpb_gubn,
             MAX(F.acorp) as eeacorp, MAX(F.asano) as eeasano, MAX(F.aname) as eeaname, MAX(F.aupte) as eeupte,
-            MAX(F.ajong) as eeajong, MAX(F.ajuso) as eeajuso, MAX(F.atelno) as eeatelno
+            MAX(F.ajong) as eeajong, MAX(F.ajuso) as eeajuso, MAX(F.atelno) as eeatelno, MAX(B.misgubun) as misgubun
         from  TB_DA024 B WITH (NOLOCK)
               LEFT JOIN CIF D ON B.CLTCD = D.acorp1+CAST(D.acorp2 as varchar),
             ( select acorp, atelno, asano1 + '-' + asano2 + '-' + asano3 as asano, aname, aupte, ajong, ajuso1 + ' ' + ajuso2 as ajuso
