@@ -230,11 +230,12 @@ public class AppIndexCrudController {
             log.info("role   =====> " + role);
             if(role.equals("B") ){
                 appUserFormDto.setCustnm("블리스");
-            }if(role.equals("P") ){
+            }else if(role.equals("P") ){
                 appUserFormDto.setCustnm("피오비노");
             }else{
                 appUserFormDto.setCustnm("공통");
             }
+            log.info("role   =====> " + appUserFormDto.getCustnm());
             appUserFormDto.setFlag("CC");
 
             boolean result = service.UpdateUserInfoCC(appUserFormDto);
