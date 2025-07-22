@@ -1081,9 +1081,19 @@
 
 
     <delete id="DeleteDA023" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
-        delete from tb_da023
-        where misdate = #{misdate} and misnum = #{misnum} and cltcd = #{cltcd}
-          and  (select count(*) as cnt  from tb_da024 with (NOLOCK) where misdate = #{misdate} and misnum=#{misnum} and misgubun = #{misgubun} and cltcd = #{cltcd} ) = 0
+        DELETE FROM tb_da023
+        WHERE misdate = #{misdate}
+        AND misnum = #{misnum}
+        AND cltcd = #{cltcd}
+        AND NOT EXISTS (
+            SELECT 1
+            FROM tb_da024 WITH (NOLOCK)
+            WHERE misdate = tb_da023.misdate
+            AND misnum = tb_da023.misnum
+            AND cltcd = tb_da023.cltcd
+            AND misgubun = #{misgubun}
+        )
+
     </delete>
 
     <delete id="DeleteDA024" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
