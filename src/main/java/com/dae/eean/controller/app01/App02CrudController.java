@@ -89,7 +89,7 @@ public class App02CrudController {
                 }else{
                     index11List = service11.GetAsJupsuList01(index11Dto);
                 }
-            }else if(userid.substring(0,2).equals("ee")) {
+            }else if(userid.substring(0,2).equals("ee") || userid.substring(0,2).equals("bl")) {
                 //영업사원 as현황
                 index11List = service11.GetAsJupsuList04(index11Dto);
             }else{

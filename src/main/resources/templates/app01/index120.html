@@ -283,9 +283,10 @@
                     { binding: 'as_key1', header: '접수일자', align: "center",   width: 120 }, 
                     { binding: 'as_key2', header: '순번', align: "center",   width: 50 },
                     { binding: 'as_acorp', header: '업체명', align: "center",   width: 150 },
+                    { binding: 'as_gongjang', header: '제조처', align: "center",   width: 100 }, 
                     { binding: 'as_model', header: '모델', align: "center",   width: 80 },
                     { binding: 'as_color', header: '칼라', align: "center",   width: 80 },
-                    { binding: 'as_yumu', header: '유무상', align: "center",   width: 80 },
+                    { binding: 'jchgoga', header: '유무상', align: "center",   width: 80 },
                     { binding: 'as_suri', header: '수리부위', align: "center",   width: 150 },
                     // { binding: 'as_gongjang', header: '공장', align: "center",   width: 100 },
                     // { binding: 'as_acorp', header: '거래처', align: "left",   width: 200 },
@@ -699,7 +700,7 @@
                     if(ls_bcifname == null || ls_bcifname.length == 0 || ls_bcifname == ""){ 
                         ls_bacode = '%'             
                     }  
-                    ls_misflag = '%' //주문   
+                    ls_misflag = '%' //주문  
                     $.ajax({
                         url: '/app02m/index11/list01',  
                         type:"POST",
@@ -775,7 +776,7 @@
         
 
         }        
-        function tabA_grid(data){
+        function tabA_grid(data){ 
             var wtab01Dto  = data;    
             var wtab01_data = [];
             var bfixflag= false;
@@ -806,7 +807,8 @@
                     as_aname:  wtab01Dto[i]["as_aname"], 
                     as_memo:  wtab01Dto[i]["as_memo"], 
                     as_date2:  wtab01Dto[i]["as_date2"],  
-                    unsongnum:  wtab01Dto[i]["unsongnum"],   
+                    unsongnum:  wtab01Dto[i]["unsongnum"],  
+                    jchgoga:  wtab01Dto[i]["jchgoga"],  
                      as_devflag:  bfixflag,                                                
                 });
                 cnt++;
@@ -835,6 +837,12 @@
             cols.width = 150;  
             wtab01Grid.columns.push(cols);  
             cols = new wijmo.grid.Column(); 
+            cols.binding = 'as_gongjang';
+            cols.header = '제조처';
+            cols.align = "center";
+            cols.width = 100;  
+            wtab01Grid.columns.push(cols);  
+            cols = new wijmo.grid.Column(); 
             cols.binding = 'as_model';
             cols.header = '모델';
             cols.align = "center";
@@ -847,9 +855,9 @@
             cols.width = 80;  
             wtab01Grid.columns.push(cols);  
             cols = new wijmo.grid.Column(); 
-            cols.binding = 'as_yumu';
+            cols.binding = 'jchgoga';
             cols.header = '유무상';
-            cols.align = "center";
+            cols.align = "right";
             cols.width = 80;  
             wtab01Grid.columns.push(cols); 
             cols = new wijmo.grid.Column(); 
