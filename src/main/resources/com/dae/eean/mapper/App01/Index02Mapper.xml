@@ -168,4 +168,13 @@
         DELETE  FROM TB_XUSERS  where perid  = #{acode} and flag = 'BB'
     </delete>
 
+
+    <update id="UpdateBonsadam" parameterType="com.dae.eean.DTO.App01.Index02Dto">
+        UPDATE cif  SET abonsadam1 = #{abonsadam1}
+        WHERE  acorp1 + CAST(acorp2 as varchar) = #{acode}
+    </update>
+    <update id="Updateda024Damdang" parameterType="com.dae.eean.DTO.App01.Index02Dto">
+        UPDATE TB_DA024  SET  pernm = #{inname01}, perid =  #{abonsadam1}
+        WHERE  cltcd = #{acode}
+    </update>
 </mapper>

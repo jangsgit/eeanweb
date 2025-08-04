@@ -234,6 +234,7 @@
                                                     <input type="hidden" name="abonsadam1" id="abonsadam1" placeholder=""  >                             
                                                 </div>
                                             </td>                                       
+                                            <th><button type="button" class="btn btn-sm btn-primary" id="changeManagerBtn">담당변경</button></th>                             
                                             <th>팩스</th>
                                             <td colspan="2"> 
                                                 <div class="input_wrap">
@@ -1197,8 +1198,13 @@
 
 
 
+        
 
+        // 거래처검색   
+        document.getElementById("changeManagerBtn").addEventListener("click",function(){  
+            change_rtn(); 
 
+        })  
         // 거래처검색   
         document.getElementById("retrieveBtn").addEventListener("click",function(){  
             let ls_searchtxt = document.getElementById('searchtxt').value;  
@@ -1208,11 +1214,53 @@
         //검색  
         document.getElementById("searchtxt").addEventListener("keyup", (e)=>{ 
             if(e.keyCode === 13){ 
-                var searchText = document.getElementById('searchtxt').value;
-            console.log(searchText);   
+                var searchText = document.getElementById('searchtxt').value; 
                 searchList_rtn(searchText); 
             }
-        });         
+        });  
+        function change_rtn(){ 
+            var ls_inname = document.getElementById('inname01').value ;
+            var ls_abonsadam = document.getElementById('abonsadam1').value ;  
+            var ls_acorp1 = document.getElementById('acorp1').value;  
+            var ls_acorp2 = document.getElementById('acorp2').value;   
+            if(ls_abonsadam == null || ls_abonsadam.length == 0 || ls_abonsadam == ""){ 
+                alert("담당사원을 먼저 선택하세요")       
+                return 
+            }  
+            if(ls_inname == null || ls_inname.length == 0 || ls_inname == ""){ 
+                alert("담당사원을 먼저 선택하세요")       
+                return 
+            }  
+            if(ls_acorp1 == null || ls_acorp1.length == 0 || ls_acorp1 == ""){ 
+                alert("거래처를 먼저 선택하세요")       
+                return 
+            } 
+            if (!confirm(ls_inname + '(' + ls_abonsadam + ') : 해당업체의 주문정보도 모두 변경 하시겠습니까?')) {
+                    return ; 
+                }  
+                $.ajax({
+                    url: '/app01m/index02/chbonsadam',  
+                    type:"POST",
+                    data: { 
+                        "acorp1" :ls_acorp1, 
+                        "acorp2" :ls_acorp2, 
+                        "abonsadam" :ls_abonsadam, 
+                        "inname" :ls_inname, 
+                    }, 
+                    async:false,
+                    success:function(data){ 
+                        if(data == "SUCCESS"){
+                            alert("변경되었습니다")
+                        }else{
+                            alert("업데이트 중 오류 발생")                         
+                        }
+                    },error:function(e){ 
+                        console.log("error");                            
+                    }
+                }).done(function(fragment){           
+
+                })        
+        }      
         function searchList_rtn(arg1){    
             $.ajax({
                         url: '/app01m/index02/list',  

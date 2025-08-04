@@ -38,6 +38,8 @@ public class Index02Service {
     public Boolean UpdateCif(Index02Dto parm){  return  appMapper.UpdateCif(parm);  }
     public Boolean DeleteCif(Index02Dto parm){  return  appMapper.DeleteCif(parm);  }
     public Boolean DeleteXuserBB(Index02Dto parm){  return  appMapper.DeleteXuserBB(parm);  }
+    public Boolean UpdateBonsadam(Index02Dto parm){  return  appMapper.UpdateBonsadam(parm);  }
+    public Boolean Updateda024Damdang(Index02Dto parm){  return  appMapper.Updateda024Damdang(parm);  }
 
 
 }

@@ -164,6 +164,49 @@ public class App01CrudController {
     }
 
 
+    //거래처등록
+    @GetMapping(value="/index02/chbonsadam")
+    public String App02ChbonsaDam_index(@RequestParam("acorp1") String acorp1,
+                                  @RequestParam("acorp2") String acorp2,
+                                  @RequestParam("abonsadam") String abonsadam,
+                                  @RequestParam("inname") String inname,
+                                  Model model, HttpServletRequest request) throws Exception{
+        Index02Dto _index02Dto = new Index02Dto();
+        List<Index02Dto> _index02List = new ArrayList<>();
+        HttpSession session = request.getSession();
+        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        if(userformDto == null){
+            log.info("App02List_index Exception =====> relogin userformDto null");
+            return "relogin";
+        }
+        model.addAttribute("userformDto",userformDto);
+
+        try {
+
+            _index02Dto.setAcode(acorp1 + acorp2);
+            _index02Dto.setAcorp1(acorp1);
+            _index02Dto.setAcorp2(acorp2);
+            _index02Dto.setAbonsadam1(abonsadam);
+            _index02Dto.setInname01(inname);
+            Boolean _result = false;
+            _result = service02.UpdateBonsadam(_index02Dto);
+            if(!_result){
+                return "error";
+            }
+            _result = service02.Updateda024Damdang(_index02Dto);
+            if(!_result){
+                return "error";
+            }
+
+        } catch (Exception ex) {
+            log.info("App02ChbonsaDam_index Exception =====>" + ex.toString());
+            return "error";
+        }
+
+        return "SUCCESS";
+    }
+
+
     @RequestMapping(value="/index02/save")
     public String index02Save(@RequestPart(value = "key") Map<String, Object> param
             , Model model

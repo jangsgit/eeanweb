@@ -21,6 +21,8 @@ public interface Index02Mapper {
     public Boolean UpdateCif(Index02Dto  parm) ;
     public Boolean DeleteCif(Index02Dto  parm) ;
     public Boolean DeleteXuserBB(Index02Dto  parm) ;
+    public Boolean UpdateBonsadam(Index02Dto  parm) ;
+    public Boolean Updateda024Damdang(Index02Dto  parm) ;
 
 
 }
