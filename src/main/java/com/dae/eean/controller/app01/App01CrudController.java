@@ -2079,6 +2079,8 @@ public class App01CrudController {
             String misnumArrStr = null ;
             String seqArrStr = null ;
             String misqtyStr = null ;
+
+            log.info("kkkkkkkkkkk");
             //장바구니가 존재하는경우
             if (!misdate.equals("0000")){
                 year = misdateArr.get(0).substring(0,4);
@@ -2094,7 +2096,16 @@ public class App01CrudController {
                 if(jremark == null){
                     jremark = "";
                 }
+                log.info(ls_misdate);
+                log.info(misnum);
+                String _lsSeq = service14.CheckedFixDA024(_Da024Dto);
+                if (_lsSeq == null){
 
+                }else if(_lsSeq.length() > 0 && _lsSeq != null){
+                    return "reorder";
+                }
+
+                log.info(misdateArr.size() );
                 // 개별확정방식으로변경  장바구니에서 체크한것만 주문으로 넘어가도록 방식 변경 23.3.7
                 // 기존주문일자를 기준으로 요청내용을 변경한뒤 변경주문일자로 업데이트
                 switch (mflag){
@@ -2146,6 +2157,7 @@ public class App01CrudController {
 //                    log.info(misnumArrStr);
 //                    log.info(seqArrStr);
 //                    log.info(misqtyStr);
+
                     Boolean _liresult = service14.UpdateDA024Makfix(_Da024Dto);
 
 //                    log.info(_liresult);

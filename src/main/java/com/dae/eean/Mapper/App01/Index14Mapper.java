@@ -109,6 +109,7 @@ public interface Index14Mapper {
     public List<IndexDa024Dto> SelectDa024ListLikeJupsu(IndexDa024Dto parm) ;
 
     public String SelectedFixDA024(IndexDa024Dto parm) ;
+    public String CheckedFixDA024(IndexDa024Dto parm) ;
 
 
 //    public List<IndexDa024Dto> SelectDa024ListPrt(IndexDa024Dto parm) ;

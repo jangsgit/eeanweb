@@ -249,6 +249,9 @@ public class Index14Service {
     public String SelectedFixDA024(IndexDa024Dto parm){
         return  appMapper.SelectedFixDA024(parm);
     }
+    public String CheckedFixDA024(IndexDa024Dto parm){
+        return  appMapper.CheckedFixDA024(parm);
+    }
 
 
     public Boolean InsertDa023(IndexDa023Dto parm){ return  appMapper.InsertDa023(parm);}

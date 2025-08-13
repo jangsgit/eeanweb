@@ -904,6 +904,11 @@
     </select>
 
 
+    <select id="CheckedFixDA024" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" resultType="String">
+        SELECT top 1 seq FROM  tb_da024
+        where misdate=#{misdate} and misnum=#{misnum}   and cltcd = #{cltcd}   and len( isnull(CONVERT(CHAR(19),fixdatetime,20),'') ) > 0
+    </select>
+
     <select id="SelectedFixDA024" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" resultType="String">
         SELECT seq FROM  tb_da024
         where misdate=#{misdate} and misnum=#{misnum} and  seq=#{seq} and cltcd = #{cltcd} and misgubun = #{misgubun} and len( isnull(CONVERT(CHAR(19),fixdatetime,20),'') ) = 0
