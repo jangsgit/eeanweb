@@ -906,7 +906,7 @@
 
     <select id="CheckedFixDA024" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" resultType="String">
         SELECT top 1 seq FROM  tb_da024
-        where misdate=#{misdate} and misnum=#{misnum}   and cltcd = #{cltcd}   and len( isnull(CONVERT(CHAR(19),fixdatetime,20),'') ) > 0
+        where misdate=#{misdate} and misnum=#{misnum}   and cltcd = #{cltcd}   and len( isnull(CONVERT(CHAR(19),misdatetime,20),'') ) > 0
     </select>
 
     <select id="SelectedFixDA024" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" resultType="String">
@@ -1220,6 +1220,19 @@
             #{usernm}
     </update >
 
+    <update  id="ChangeDA024Makfix" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto"  >
+        EXEC SP_ChangeMisnum
+        #{cltcd},
+        #{misdate},
+        #{misdateStr},
+        #{misnumStr},
+        #{seqStr},
+        #{misqtyStr},
+        #{remarkaa},
+        #{remarkbb},
+        #{userid},
+        #{usernm}
+    </update >
 
 
     <update id="UpdateDA024QtySame" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >

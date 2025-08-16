@@ -300,6 +300,7 @@ public class Index14Service {
     public Boolean UpdateDA026rkbb(IndexDa024Dto parm){ return  appMapper.UpdateDA026rkbb(parm);}
     public Boolean UpdateDA024Qty(IndexDa024Dto parm){ return  appMapper.UpdateDA024Qty(parm);}
     public Boolean UpdateDA024Makfix(IndexDa024Dto parm){ return  appMapper.UpdateDA024Makfix(parm);}
+    public Boolean ChangeDA024Makfix(IndexDa024Dto parm){ return  appMapper.ChangeDA024Makfix(parm);}
     public Boolean UpdateDA024QtySame(IndexDa024Dto parm){ return  appMapper.UpdateDA024QtySame(parm);}
     public Boolean UpdateDA026QtySame(IndexDa024Dto parm){ return  appMapper.UpdateDA026QtySame(parm);}
     public Boolean UpdateDA026Qty(IndexDa024Dto parm){ return  appMapper.UpdateDA026Qty(parm);}

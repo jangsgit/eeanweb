@@ -2080,7 +2080,6 @@ public class App01CrudController {
             String seqArrStr = null ;
             String misqtyStr = null ;
 
-            log.info("kkkkkkkkkkk");
             //장바구니가 존재하는경우
             if (!misdate.equals("0000")){
                 year = misdateArr.get(0).substring(0,4);
@@ -2102,7 +2101,50 @@ public class App01CrudController {
                 if (_lsSeq == null){
 
                 }else if(_lsSeq.length() > 0 && _lsSeq != null){
-                    return "reorder";
+                    //하나의 주문중에 일부 주문 후 추가 주문할경우 번호변경 후 주문등록
+                    _Da024Dto.setMisdate(misdate);
+                    _Da024Dto.setMisdateArr(misdateArr);
+                    _Da024Dto.setMisnumArr(misnumArr);
+                    _Da024Dto.setSeqArr(seqArr);
+                    _Da024Dto.setMisqtyArr(misqty);
+
+                    // Convert List<String> to comma-separated String
+                    misdateArrStr = (_Da024Dto.getMisdateArr() != null && !_Da024Dto.getMisdateArr().isEmpty())
+                            ? String.join(",", _Da024Dto.getMisdateArr())
+                            : null;
+                    misnumArrStr = (_Da024Dto.getMisnumArr() != null && !_Da024Dto.getMisnumArr().isEmpty())
+                            ? String.join(",", _Da024Dto.getMisnumArr())
+                            : null;
+                    seqArrStr = (_Da024Dto.getSeqArr() != null && !_Da024Dto.getSeqArr().isEmpty())
+                            ? String.join(",", _Da024Dto.getSeqArr())
+                            : null;
+                    misqtyStr = (_Da024Dto.getMisqtyArr() != null && !_Da024Dto.getMisqtyArr().isEmpty())
+                            ? _Da024Dto.getMisqtyArr().stream().map(String::valueOf).collect(Collectors.joining(","))
+                            : null;
+                    _Da024Dto.setMisdateStr(misdateArrStr);
+                    _Da024Dto.setMisnumStr(misnumArrStr);
+                    _Da024Dto.setSeqStr(seqArrStr);
+                    _Da024Dto.setMisqtyStr(misqtyStr);
+                    Boolean _liresult01 = service14.ChangeDA024Makfix(_Da024Dto);
+                    log.info(_liresult01);
+                    _syslogDto.setType("변경등록");
+                    _syslogDto.setMenunm("주문번호변경등록");
+                    if(!misdate.equals(ls_misdate)) {
+                        _syslogDto.setSource("주문확정(번호변경)");
+                        _syslogDto.setMessage(ls_misdate + "/" + _Da024Dto.getMisnum() + "/" + _Da024Dto.getCltcd() + "->" + misdate + "/" );
+                    }else{
+                        _syslogDto.setSource("주문확정(번호변경)");
+                        _syslogDto.setMessage(_Da024Dto.getMisdate() + "/" + _Da024Dto.getMisnum() + "/" + _Da024Dto.getSeq());
+                    }
+                    _syslogDto.setUserid(userid);
+                    _syslogDto.setUsernm(usernm);
+                    result = service_auth.TB_SYSLOG_INSERT(_syslogDto);
+                    if (!result) {
+                        //return "error";
+                    }
+
+                    log.info("변경");
+                    return "success";
                 }
 
                 log.info(misdateArr.size() );

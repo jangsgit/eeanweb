@@ -90,6 +90,7 @@ public interface Index14Mapper {
     public Boolean UpdateDA026rkbb(IndexDa024Dto parm) ;
     public Boolean UpdateDA024Qty(IndexDa024Dto parm) ;
     public Boolean UpdateDA024Makfix(IndexDa024Dto parm) ;
+    public Boolean ChangeDA024Makfix(IndexDa024Dto parm) ;
     public Boolean UpdateDA024QtySame(IndexDa024Dto parm) ;
     public Boolean UpdateDA026QtySame(IndexDa024Dto parm) ;
     public Boolean UpdateDA026Qty(IndexDa024Dto parm) ;
