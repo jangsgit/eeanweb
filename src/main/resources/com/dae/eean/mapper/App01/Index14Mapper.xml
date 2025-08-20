@@ -7,23 +7,28 @@
 
 
     <select id="SelectCheckMisnum" parameterType="com.dae.eean.DTO.App01.IndexDa023Dto" resultType="String">
-        <![CDATA[  select top 1 misnum  from tb_da024 WITH (NOLOCK) where misdate = #{misdate} and cltcd=#{cltcd} and misgubun = #{misgubun} and isnull(pmodel,'') <> 'AS' and ( Len(isnull(makflag,'')) = 0 OR makflag = '0')    order by misdate, misnum     ]]>
+        <![CDATA[  select top 1 misnum  from tb_da024 WITH (NOLOCK)
+        where custcd = 'EEAN' and spjangcd = 'ZZ' and misdate = #{misdate} and cltcd=#{cltcd} and misgubun = #{misgubun} and isnull(pmodel,'') <> 'AS' and ( Len(isnull(makflag,'')) = 0 OR makflag = '0')    order by misdate, misnum     ]]>
     </select>
 
     <select id="SelectCheckMisnumJupsu" parameterType="com.dae.eean.DTO.App01.IndexDa023Dto" resultType="String">
-        <![CDATA[  select top 1 misnum  from tb_da024 WITH (NOLOCK) where misdate = #{misdate} and cltcd=#{cltcd} and misgubun = #{misgubun} and isnull(pmodel,'') = 'AS' and ( Len(isnull(makflag,'')) = 0 OR makflag = '0')    order by misdate, misnum     ]]>
+        <![CDATA[  select top 1 misnum  from tb_da024 WITH (NOLOCK)
+        where custcd = 'EEAN' and spjangcd = 'ZZ' and misdate = #{misdate} and cltcd=#{cltcd} and misgubun = #{misgubun} and isnull(pmodel,'') = 'AS' and ( Len(isnull(makflag,'')) = 0 OR makflag = '0')    order by misdate, misnum     ]]>
     </select>
 
     <select id="SelectCheckMisnumMkflag" parameterType="com.dae.eean.DTO.App01.IndexDa023Dto" resultType="String">
-        <![CDATA[  select top 1 misnum  from tb_da024 WITH (NOLOCK) where misdate = #{misdate} and isnull(pmodel,'') <> 'AS'     order by misdate, misnum desc     ]]>
+        <![CDATA[  select top 1 misnum  from tb_da024 WITH (NOLOCK)
+        where custcd = 'EEAN' and spjangcd = 'ZZ' and misdate = #{misdate} and isnull(pmodel,'') <> 'AS'     order by misdate, misnum desc     ]]>
     </select>
 
     <select id="SelectCheckMisnumMkflagJupsu" parameterType="com.dae.eean.DTO.App01.IndexDa023Dto" resultType="String">
-        <![CDATA[  select top 1 misnum  from tb_da024 WITH (NOLOCK) where misdate = #{misdate} and isnull(pmodel,'') = 'AS' and left(misnum,1) = '5'    order by misdate, misnum desc     ]]>
+        <![CDATA[  select top 1 misnum  from tb_da024 WITH (NOLOCK)
+        where custcd = 'EEAN' and spjangcd = 'ZZ' and misdate = #{misdate} and isnull(pmodel,'') = 'AS' and left(misnum,1) = '5'    order by misdate, misnum desc     ]]>
     </select>
 
     <select id="SelectCheckMisnumOrd" parameterType="com.dae.eean.DTO.App01.IndexDa023Dto" resultType="String">
-        <![CDATA[  select top 1 misnum  from tb_da024 WITH (NOLOCK) where misdate = #{omisdate} and cltcd=#{cltcd} and misgubun = #{misgubun} and isnull(pmodel,'') <> 'AS' order by misdate, misnum     ]]>
+        <![CDATA[  select top 1 misnum  from tb_da024 WITH (NOLOCK)
+        where custcd = 'EEAN' and spjangcd = 'ZZ' and misdate = #{omisdate} and cltcd=#{cltcd} and misgubun = #{misgubun} and isnull(pmodel,'') <> 'AS' order by misdate, misnum     ]]>
     </select>
 
     <select id="SelectCheckMisnumWish" parameterType="com.dae.eean.DTO.App01.IndexDa023Dto" resultType="String">
@@ -35,7 +40,8 @@
     </select>
 
     <select id="SelectCheckJpum024" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" resultType="com.dae.eean.DTO.App01.IndexDa024Dto">
-        <![CDATA[  select  seq, uamt, qty  from tb_da024 WITH (NOLOCK) where pcode=#{pcode} and misdate = #{misdate} and misnum=#{misnum}   and misgubun = #{misgubun} and ( Len(isnull(makflag,'')) = 0 OR makflag = '0')   order by misdate, misnum     ]]>
+        <![CDATA[  select  seq, uamt, qty  from tb_da024 WITH (NOLOCK) where
+                  custcd = 'EEAN' and spjangcd = 'ZZ' and pcode=#{pcode} and misdate = #{misdate} and misnum=#{misnum}   and misgubun = #{misgubun} and ( Len(isnull(makflag,'')) = 0 OR makflag = '0')   order by misdate, misnum     ]]>
     </select>
 
     <select id="SelectCheckJpum026" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" resultType="com.dae.eean.DTO.App01.IndexDa024Dto">
@@ -75,7 +81,8 @@
     </select>
 
     <select id="SelectMaxSeq" parameterType="com.dae.eean.DTO.App01.IndexDa023Dto" resultType="String">
-        <![CDATA[  select  max(seq)  from tb_da024 WITH (NOLOCK) where misdate = #{misdate} and misnum = #{misnum} and cltcd = #{cltcd} and misgubun =#{misgubun}   ]]>
+        <![CDATA[  select  max(seq)  from tb_da024 WITH (NOLOCK)
+        where custcd = 'EEAN' and spjangcd = 'ZZ' and misdate = #{misdate} and misnum = #{misnum} and cltcd = #{cltcd} and misgubun =#{misgubun}   ]]>
     </select>
 
     <select id="SelectMaxSeqWish" parameterType="com.dae.eean.DTO.App01.IndexDa023Dto" resultType="String">
@@ -92,7 +99,7 @@
     <select id="SelectDa024Detail" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" resultType="com.dae.eean.DTO.App01.IndexDa024Dto">
         <![CDATA[  select  isnull(uamt,0) as uamt, samt, addamt, amt
                    from tb_da024 WITH (NOLOCK)
-                   where misdate = #{misdate} and misnum = #{misnum} and seq = #{seq}
+                   where custcd = 'EEAN' and spjangcd = 'ZZ' and misdate = #{misdate} and misnum = #{misnum} and seq = #{seq}
                    and misgubun = #{misgubun}    ]]>
     </select>
 
@@ -118,7 +125,7 @@
                       B.userid, B.usernm
                   from  TB_DA024 B WITH (NOLOCK)
                        LEFT JOIN cif C ON B.cltcd = C.acorp1 + CAST(C.acorp2 as varchar)
-                  where  B.cltcd = #{cltcd}
+                  where  B.custcd = 'EEAN' and B.spjangcd = 'ZZ' and B.cltcd = #{cltcd}
                     AND isnull(B.perid,'')  Like concat('%',#{perid},'%')
                     AND B.misdate between #{frdate} and #{todate}
                     AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
@@ -147,7 +154,7 @@
                   from  TB_DA024 B WITH (NOLOCK)
                        LEFT JOIN cif C ON B.cltcd = C.acorp1 + CAST(C.acorp2 as varchar)
                        LEFT JOIN as_jupsu D ON B.misdate = D.misdate and B.misnum = D.misnum
-                  where  B.cltcd = #{cltcd}
+                  where  B.custcd = 'EEAN' and B.spjangcd = 'ZZ' and B.cltcd = #{cltcd}
                     AND isnull(B.perid,'')  Like concat('%',#{perid},'%')
                     AND B.misdate between #{frdate} and #{todate}
                     AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
@@ -175,7 +182,7 @@
                       B.userid, B.usernm
                   from  TB_DA024 B WITH (NOLOCK)
                        LEFT JOIN cif C ON B.cltcd = C.acorp1 + CAST(C.acorp2 as varchar)
-                  where B.CLTCD Like concat('%',#{cltcd},'%')
+                  where B.custcd = 'EEAN' and B.spjangcd = 'ZZ' and B.CLTCD Like concat('%',#{cltcd},'%')
                     AND isnull(B.perid,'')  Like concat('%',#{perid},'%')
                     AND B.misdate between #{frdate} and #{todate}
                     AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
@@ -213,7 +220,7 @@
                   from  TB_DA024 B WITH (NOLOCK)
                        LEFT JOIN cif C ON B.cltcd = C.acorp1 + CAST(C.acorp2 as varchar)
                        LEFT JOIN JUPSUDATA D ON B.misdate = D.misdate and B.misnum = D.misnum
-                  where B.CLTCD Like  #{cltcd}
+                  where B.custcd = 'EEAN' and B.spjangcd = 'ZZ' and B.CLTCD Like  #{cltcd}
                     AND isnull(B.perid,'')  Like concat('%',#{perid},'%')
                     AND B.misdate between #{frdate} and #{todate}
                     AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
@@ -252,7 +259,7 @@
                   from  TB_DA024 B WITH (NOLOCK)
                         LEFT JOIN cif C ON B.cltcd = C.acorp1 + CAST(C.acorp2 as varchar)
                        LEFT JOIN JUPSUDATA D ON B.misdate = D.misdate and B.misnum = D.misnum
-                  where B.CLTCD Like #{cltcd}
+                  where B.custcd = 'EEAN' and B.spjangcd = 'ZZ' and B.CLTCD Like #{cltcd}
                     AND B.misdate between #{frdate} and #{todate}
                     AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
                     AND Isnull(B.userid, '') Like #{userid}
@@ -275,7 +282,7 @@
                       B.fixdate,  CONVERT(CHAR(19),B.fixdatetime,20) as fixdatetime ,  DBO.DF_TB_PCODE_JQTY(B.pcode,  #{jfrdate},  #{jtodate})  as jqty
                   from  TB_DA024 B WITH (NOLOCK)
                        LEFT JOIN cif C ON B.cltcd = C.acorp1 + CAST(C.acorp2 as varchar)
-                  where   B.cltcd = #{cltcd}
+                  where B.custcd = 'EEAN' and B.spjangcd = 'ZZ' and  B.cltcd = #{cltcd}
                     AND isnull(B.perid,'')  Like concat('%',#{perid},'%')
                     AND B.misdate between #{frdate} and #{todate}
                     AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
@@ -298,7 +305,7 @@
                       B.fixdate,  CONVERT(CHAR(19),B.fixdatetime,20) as fixdatetime ,  DBO.DF_TB_PCODE_JQTY(B.pcode,  #{jfrdate},  #{jtodate})  as jqty
                   from  TB_DA024 B WITH (NOLOCK)
                        LEFT JOIN cif C ON B.cltcd = C.acorp1 + CAST(C.acorp2 as varchar)
-                  where  B.cltcd Like #{cltcd}
+                  where  B.custcd = 'EEAN' and B.spjangcd = 'ZZ' and B.cltcd Like #{cltcd}
                     AND isnull(B.inperid,'')  Like concat('%',#{perid},'%')
                     AND B.misdate between #{frdate} and #{todate}
                     AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
@@ -348,7 +355,7 @@
                       B.amt, A.acorp, pbonsa, pmodel, pcolor , D.pernm as inname, B.misgubun, isnull(B.fixflag,'0') as fixflag,isnull(B.devflag,'0') as devflag,   D.pernm ,    B.misdatetime
                   from  TB_DA024 B WITH (NOLOCK) ,
                       cif A WITH (NOLOCK) Left outer JOIN tb_xusers D ON  A.abonsadam1 = D.PERID
-                  where   B.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
+                  where B.custcd = 'EEAN' and B.spjangcd = 'ZZ' and B.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
                     AND A.acorp1 + CAST(A.acorp2 as varchar) Like concat('%',#{cltcd},'%')
                     AND B.misdate between #{frdate} and #{todate}
                     AND Isnull(B.misgubun, '') Like concat('%',#{misgubun},'%')
@@ -379,7 +386,7 @@
             ( select acorp, atelno, asano1 + '-' + asano2 + '-' + asano3 as asano, aname, aupte, ajong, ajuso1 + ' ' + ajuso2 as ajuso,
                 aascode1 + '-' + aascode2 as eeacodetxt
                  from cif where acorp1 + acorp2 + acorp3 = '0000' ) F
-        where B.pcode = K.jkey
+        where B.custcd = 'EEAN' and B.spjangcd = 'ZZ' and B.pcode = K.jkey
         AND B.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
         AND B.misdate = #{misdate} and B.misnum = #{misnum}  and B.cltcd = #{cltcd}
         AND B.fixflag = '1'
@@ -676,7 +683,7 @@
                   from  TB_DA024 B WITH (NOLOCK)
                        LEFT JOIN cif C ON B.cltcd = C.acorp1 + CAST(C.acorp2 as varchar)
                        LEFT JOIN as_jupsu D ON B.misdate = D.misdate and B.misnum = D.misnum
-                  where    B.cltcd Like  #{cltcd}
+                  where   B.custcd = 'EEAN' and B.spjangcd = 'ZZ' and B.cltcd Like  #{cltcd}
                     AND isnull(B.perid,'')  Like concat('%',#{perid},'%')
                     AND isnull(B.misgubun,'')  Like concat('%',#{misgubun},'%')
                     AND B.misdate between #{frdate} and #{todate}
@@ -697,7 +704,7 @@
                                  B.fixdate,  CONVERT(CHAR(19),B.fixdatetime,20) as fixdatetime
                    from  TB_DA024 B WITH (NOLOCK)
                        LEFT JOIN cif C ON B.cltcd = C.acorp1 + CAST(C.acorp2 as varchar)
-                   where  B.cltcd Like #{cltcd}
+                   where B.custcd = 'EEAN' and B.spjangcd = 'ZZ' and B.cltcd Like #{cltcd}
                      AND isnull(B.perid,'')  Like concat('%',#{perid},'%')
                      AND isnull(B.misgubun,'')  Like concat('%',#{misgubun},'%')
                     AND B.fixdate between #{frdate} and #{todate}
@@ -757,7 +764,7 @@
                          B.fixdate,  CONVERT(CHAR(19),B.fixdatetime,20) as fixdatetime
            from  TB_DA024 B WITH (NOLOCK)
                  LEFT JOIN cif C ON B.cltcd = C.acorp1 + CAST(C.acorp2 as varchar)
-           where    isnull(B.makflag, '0') = '1'
+           where   B.custcd = 'EEAN' and B.spjangcd = 'ZZ' and isnull(B.makflag, '0') = '1'
              AND isnull(B.pcode,'')  Like concat('%',#{pcode},'%')
              AND isnull(B.misgubun,'')  Like concat('%',#{misgubun},'%')
             AND B.fixdate between #{frdate} and #{todate}
@@ -906,12 +913,12 @@
 
     <select id="CheckedFixDA024" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" resultType="String">
         SELECT top 1 seq FROM  tb_da024
-        where misdate=#{misdate} and misnum=#{misnum}   and cltcd = #{cltcd}   and len( isnull(CONVERT(CHAR(19),misdatetime,20),'') ) > 0
+        where  custcd = 'EEAN' and  spjangcd = 'ZZ' and misdate=#{misdate} and misnum=#{misnum}   and cltcd = #{cltcd}   and len( isnull(CONVERT(CHAR(19),misdatetime,20),'') ) > 0
     </select>
 
     <select id="SelectedFixDA024" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" resultType="String">
         SELECT seq FROM  tb_da024
-        where misdate=#{misdate} and misnum=#{misnum} and  seq=#{seq} and cltcd = #{cltcd} and misgubun = #{misgubun} and len( isnull(CONVERT(CHAR(19),fixdatetime,20),'') ) = 0
+        where custcd = 'EEAN' and  spjangcd = 'ZZ' and misdate=#{misdate} and misnum=#{misnum} and  seq=#{seq} and cltcd = #{cltcd} and misgubun = #{misgubun} and len( isnull(CONVERT(CHAR(19),fixdatetime,20),'') ) = 0
     </select>
 
     <insert id="InsertDa023" parameterType="com.dae.eean.DTO.App01.IndexDa023Dto" >
@@ -1003,7 +1010,7 @@
         <if test="unsongnum != null">unsongnum=#{unsongnum}</if>
         <if test="devnum != null ">,</if>
         <if test="devnum != null">devnum=#{devnum}</if>
-        where misdate   = #{misdate} and misnum = #{misnum} and misgubun = #{misgubun}  and pmodel='AS'
+        where custcd = 'EEAN' and  spjangcd = 'ZZ' and misdate   = #{misdate} and misnum = #{misnum} and misgubun = #{misgubun}  and pmodel='AS'
     </update>
 
 
@@ -1020,7 +1027,7 @@
         <if test="unsongnum != null">unsongnum=#{unsongnum}</if>
         <if test="devnum != null ">,</if>
         <if test="devnum != null">devnum=#{devnum}</if>
-        where misdate   = #{misdate} and misnum = #{misnum} and misgubun = #{misgubun}  and pmodel='AS' and devnum is null
+        where custcd = 'EEAN' and  spjangcd = 'ZZ' and misdate   = #{misdate} and misnum = #{misnum} and misgubun = #{misgubun}  and pmodel='AS' and devnum is null
     </update>
 
 
@@ -1103,12 +1110,12 @@
 
     <delete id="DeleteDA024" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
         delete from tb_da024
-        where misdate = #{misdate} and misnum = #{misnum} and seq = #{seq} and cltcd = #{cltcd}
+        where custcd = 'EEAN' and  spjangcd = 'ZZ' and misdate = #{misdate} and misnum = #{misnum} and seq = #{seq} and cltcd = #{cltcd}
     </delete>
 
     <delete id="DeleteDA024Jumsu" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
         delete from tb_da024
-        where misdate = #{misdate} and misnum = #{misnum} and seq = #{seq} and cltcd = #{cltcd} and pmodel='AS'
+        where custcd = 'EEAN' and  spjangcd = 'ZZ' and misdate = #{misdate} and misnum = #{misnum} and seq = #{seq} and cltcd = #{cltcd} and pmodel='AS'
     </delete>
 
     <delete id="DeleteDA023Ord" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
@@ -1119,7 +1126,7 @@
 
     <delete id="DeleteDA024Ord" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
         delete from tb_da024
-        where  cltcd = #{cltcd}
+        where  custcd = 'EEAN' and  spjangcd = 'ZZ' and cltcd = #{cltcd}
           and  misdate + misnum + seq  = ( #{omisdate} + #{omisnum} + #{oseq} )
     </delete>
 
