@@ -4703,12 +4703,12 @@ public class App01CrudController {
                     _indexDa024Dto.setCltcd(cltcdarr.get(i));
                     _indexDa024Dto.setMisgubun(gubunarr.get(i));
                     _indexDa024Dto.setFixdate(getToDate());
-                    if(ls_tempItem.equals( ls_misdate + misnumarr.get(i) + seqarr.get(i)  + cltcdarr.get(i))){
+                    if(ls_tempItem.equals( "EEAN" + "ZZ" + ls_misdate + misnumarr.get(i) + seqarr.get(i)  + cltcdarr.get(i))){
                         continue;
                     }
-                    itemString[ll_count] = ls_misdate + misnumarr.get(i) + seqarr.get(i)  + cltcdarr.get(i);  //
+                    itemString[ll_count] = "EEAN" + "ZZ" + ls_misdate + misnumarr.get(i) + seqarr.get(i)  + cltcdarr.get(i);  //
                     ll_count++;
-                    ls_tempItem = ls_misdate  + misnumarr.get(i) + seqarr.get(i) + cltcdarr.get(i);  //
+                    ls_tempItem = "EEAN" + "ZZ" + ls_misdate  + misnumarr.get(i) + seqarr.get(i) + cltcdarr.get(i);  //
 //                    if (!mflag.equals("AA")){
 //                        _indexDa024Dto.setDevflag("1");
 //                        result = service14.UpdateDA024Dev(_indexDa024Dto);

@@ -1139,38 +1139,38 @@
     <update id="UpdateDA023Unsong" parameterType="com.dae.eean.DTO.App01.IndexDa023Dto" >
         UPDATE tb_da024 SET
                             unsongnum=#{unsongnum} , reservnum =#{reservnum}
-        where misdate=#{misdate} and   cltcd = #{cltcd}
+        where custcd = 'EEAN' and spjangcd = 'ZZ' and misdate=#{misdate} and   cltcd = #{cltcd}
     </update>
 
     <update id="UpdateDA023UnsongDevnum" parameterType="com.dae.eean.DTO.App01.IndexDa023Dto" >
         UPDATE tb_da024 SET
         unsongnum=#{unsongnum} , reservnum =#{reservnum}
-        where  devnum = #{devnum}
+        where custcd = 'EEAN' and spjangcd = 'ZZ' and devnum = #{devnum}
     </update>
 
     <update id="UpdateDA024rkaa" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
         UPDATE tb_da023 SET
         remarkaa=#{remarkaa} , makflag = '1'
-        where misdate=#{misdate} and misnum=#{misnum}   and cltcd = #{cltcd}
+        where custcd = 'EEAN' and spjangcd = 'ZZ' and misdate=#{misdate} and misnum=#{misnum}   and cltcd = #{cltcd}
     </update>
 
     <update id="UpdateDA024rkbb" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
         UPDATE tb_da023 SET
         remarkbb=#{remarkbb} , makflag = '1'
-        where misdate=#{misdate} and misnum=#{misnum} and cltcd = #{cltcd}
+        where custcd = 'EEAN' and spjangcd = 'ZZ' and misdate=#{misdate} and misnum=#{misnum} and cltcd = #{cltcd}
     </update>
 
     <update id="UpdateDA024" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
         UPDATE tb_da024 SET
         fixflag=#{fixflag}, fixdate=#{fixdate}, fixdatetime = getdate()
-        where misdate=#{misdate} and misnum=#{misnum} and  seq=#{seq} and cltcd = #{cltcd} and misgubun = #{misgubun} and len( isnull(CONVERT(CHAR(19),fixdatetime,20),'') ) = 0
+        where custcd = 'EEAN' and spjangcd = 'ZZ' and misdate=#{misdate} and misnum=#{misnum} and  seq=#{seq} and cltcd = #{cltcd} and misgubun = #{misgubun} and len( isnull(CONVERT(CHAR(19),fixdatetime,20),'') ) = 0
     </update>
 
 
     <update id="UpdateDA024Fix" parameterType="hashmap"   >
         UPDATE tb_da024 SET
                fixflag='1', fixdate=CONVERT(CHAR(8),getdate(),112), fixdatetime = getdate()
-        where   misdate + misnum + seq + cltcd in
+        where   custcd + spjangcd + misdate + misnum + seq + cltcd in
             <foreach collection="itemcdArr" item="itemcd"  open="(" close=")" separator=",">
                 #{itemcd}
             </foreach>
@@ -1186,7 +1186,7 @@
             d.devdate + RIGHT('0000' + CAST(COALESCE(d.mnum, 0) AS VARCHAR), 4)
         FROM TB_DA024_DNUM d ORDER BY devdate desc
         )  +  CAST(cltcd AS VARCHAR)
-        where   misdate + misnum + seq + cltcd in
+        where   custcd + spjangcd + misdate + misnum + seq + cltcd in
         <foreach collection="itemcdArr" item="itemcd"  open="(" close=")" separator=",">
             #{itemcd}
         </foreach>
@@ -1197,13 +1197,13 @@
     <update id="UpdateDA024Devnum" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
         UPDATE tb_da024 SET
         devnum=#{devnum}
-        where   misdate=#{misdate} and misnum =#{misnum} and seq =#{seq} and cltcd =#{cltcd}
+        where  custcd = 'EEAN' and spjangcd = 'ZZ' and misdate=#{misdate} and misnum =#{misnum} and seq =#{seq} and cltcd =#{cltcd}
     </update>
 
     <update id="UpdateDA024Qty" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
         UPDATE tb_da024 SET
           qty=#{qty}, samt=#{samt}, addamt=#{addamt}, amt=#{amt},   makflag = '1', misdatetime = getdate(),  remarkaa=#{remarkaa}, remarkbb=#{remarkbb}, userid=#{userid}, usernm=#{usernm}
-        where misdate=#{misdate} and misnum=#{misnum} and seq=#{seq}
+        where custcd = 'EEAN' and spjangcd = 'ZZ' and misdate=#{misdate} and misnum=#{misnum} and seq=#{seq}
     </update>
 
     <update  id="UpdateDA024Makfix" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto"  >
@@ -1238,31 +1238,31 @@
     <update id="UpdateDA024QtySame" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
         UPDATE tb_da024 SET
                 qty=#{qty}, samt=#{samt}, addamt=#{addamt}, amt=#{amt}, userid=#{userid}, usernm=#{usernm}
-        where misdate=#{misdate} and misnum=#{misnum} and seq=#{seq}
+        where custcd = 'EEAN' and spjangcd = 'ZZ' and misdate=#{misdate} and misnum=#{misnum} and seq=#{seq}
     </update>
 
     <update id="UpdateDA024Amt" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
         UPDATE tb_da024 SET
                             qty=#{qty}, samt=#{samt}, addamt=#{addamt}, amt=#{amt}, uamt=#{uamt}
-        where misdate=#{misdate} and misnum=#{misnum} and seq=#{seq}
+        where custcd = 'EEAN' and spjangcd = 'ZZ' and misdate=#{misdate} and misnum=#{misnum} and seq=#{seq}
     </update>
 
 
     <update id="UpdateDA024Remk" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
         UPDATE tb_da024 SET remarkaa=#{remarkaa}, remarkbb=#{remarkbb}
-        where misdate=#{misdate} and misnum=#{misnum} and misgubun = #{misgubun}
+        where custcd = 'EEAN' and spjangcd = 'ZZ' and misdate=#{misdate} and misnum=#{misnum} and misgubun = #{misgubun}
     </update>
 
 
     <update id="UpdateDA024Del" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
         UPDATE tb_da024_del SET deluserid=#{deluserid}, deluser=#{deluser}
-        where misdate=#{misdate} and misnum=#{misnum} and seq = #{seq}
+        where custcd = 'EEAN' and spjangcd = 'ZZ' and misdate=#{misdate} and misnum=#{misnum} and seq = #{seq}
     </update>
 
 
     <delete id="DeleteDA024Mkflag" parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" >
         delete from tb_da024
-        where  misdate =#{misdate} and misnum =  #{misnum} and seq  =  #{seq}
+        where  custcd = 'EEAN' and spjangcd = 'ZZ' and misdate =#{misdate} and misnum =  #{misnum} and seq  =  #{seq}
     </delete>
 
 
