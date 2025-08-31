@@ -76,7 +76,7 @@ public class App02CrudController {
             index11Dto.setAs_gongjang(asasgong);
             index11Dto.setAs_damdang(condamdang);
 //            log.info("setAscode  ====>" + index11Dto.getAscode());
-            log.info("setFrdate  ====>" + index11Dto.getFrdate());
+//            log.info("setFrdate  ====>" + index11Dto.getFrdate());
 //            log.info("setTodate  ====>" + index11Dto.getTodate());
 //            log.info("setAs_devflag  ====>" + index11Dto.getAs_devflag());
 //            log.info("setMisflag  ====>" + index11Dto.getMisflag());

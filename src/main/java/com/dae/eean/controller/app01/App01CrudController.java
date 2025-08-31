@@ -304,6 +304,9 @@ public class App01CrudController {
                     case "afax":
                         _index02Dto.setAfax(values.toString());
                         break;
+                    case "astop":
+                        _index02Dto.setAstop(values.toString());
+                        break;
                     default:
                         break;
                 }
@@ -376,8 +379,18 @@ public class App01CrudController {
                 _appUserFormDto.setSeq(_appUserDto.getSeq());
                 if (_index02Dto.getAgita().equals("Z")){
                     _appUserFormDto.setUseyn("N");  //비거래가 아닐경우 임의로 N을 넣은경우가 있어 비거래만 체크하여 업데이트함.
+                }else{
+                    //_appUserFormDto.setUseyn("N");
                 }
-                result = service_auth.UpdateUserInfoBB(_appUserFormDto);
+                if(_index02Dto.getAstop().equals("Y")){
+                    _appUserFormDto.setDisflag("Y");
+                }else{
+                    _appUserFormDto.setDisflag("N");
+                }
+                log.info("useyn->" + _appUserFormDto.getUseyn());
+                result = service_auth.UpdateUserInfoBBDisflag(_appUserFormDto);
+//                log.info("flag-2->" + _appUserFormDto.getFlag());
+//                log.info("Seq-2->" + _appUserFormDto.getSeq());
                 if (!result) {
                     return "error";
                 }
@@ -3657,7 +3670,7 @@ public class App01CrudController {
         HttpSession session = request.getSession();
         UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
         IndexDa024Dto _indexDa024Dto = new IndexDa024Dto();
-        List<IndexDa024Dto> _indexDa024ListDto = new ArrayList<>();
+        List<IndexDa024PeridDto> _indexDa024ListDto = new ArrayList<>();
         if(userformDto == null){
             log.info("App14ListPeridGroup_index  =====> relogin userformDto null");
             return "relogin";

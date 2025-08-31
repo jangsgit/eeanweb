@@ -7,7 +7,7 @@
         <![CDATA[
             select acorp1, acorp2, acorp3, acorp, asano1, asano2, asano3, asano1 + '-' + asano2 + '-' + asano3 as asanotxt, aname, aupte, ajong, apost1,  acorp1 + CAST(acorp2 as varchar) as acode,
                    ajuso1, ajuso2, abigo, agita, ajumi1, ajumi2, ajumi1 + '-' + ajumi2 as ajumitxt,
-                   aascode1,aascode2, aascode1 + '-' + aascode2 as aascodetxt, atelno, atelno2,
+                   aascode1,aascode2, aascode1 + '-' + aascode2 as aascodetxt, atelno, atelno2, astop,
                    ahand , aemail,abonsadam1, abonsadam2, abonsadam3, adomain, afax, isnull(ajuso1,'') + ' ' + isnull(ajuso2,'') as ajusotxt,
                    B.pernm as inname01, C.pernm as inname02, D.pernm as inname03, E.cifcodename as cifcodename
             from cif WITH (NOLOCK)
@@ -95,10 +95,10 @@
     <insert id="InsertCif" parameterType="com.dae.eean.DTO.App01.Index02Dto" >
         insert into CIF (acorp1, acorp2, acorp3, acorp, asano1, asano2, asano3, aname, aupte, ajong, apost1,
                          ajuso1, ajuso2, abigo, agita, ajumi1, ajumi2, aascode1,aascode2, atelno, atelno2,
-                         ahand , aemail,abonsadam1, abonsadam2, abonsadam3, adomain, afax, delflag) values
+                         ahand , aemail,abonsadam1, abonsadam2, abonsadam3, adomain, afax, delflag, astop) values
                         (#{acorp1}, #{acorp2}, 0, #{acorp}, #{asano1}, #{asano2}, #{asano3}, #{aname},#{aupte},#{ajong},#{apost1},
                          #{ajuso1}, #{ajuso2}, #{abigo}, #{agita}, #{ajumi1}, #{ajumi2}, #{aascode1}, #{aascode2},#{atelno},#{atelno2},
-                         #{ahand}, #{aemail}, #{abonsadam1}, #{abonsadam2}, #{abonsadam3}, #{adomain}, #{afax}, '0')
+                         #{ahand}, #{aemail}, #{abonsadam1}, #{abonsadam2}, #{abonsadam3}, #{adomain}, #{afax}, '0',  #{astop})
     </insert>
 
 
@@ -155,6 +155,8 @@
         <if test="adomain != null">adomain=#{adomain}</if>
         <if test="afax != null ">,</if>
         <if test="afax != null">afax=#{afax}</if>
+        <if test="afax != null ">,</if>
+        <if test="astop != null">astop=#{astop}</if>
         where acorp1 + CAST(acorp2 as varchar) = #{acode}
     </update>
 

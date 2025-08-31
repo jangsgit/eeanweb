@@ -193,11 +193,11 @@ public class Index14Service {
     public List<IndexDa024Dto> SelectDa024ListPeridJumun(IndexDa024Dto parm){
         return  appMapper.SelectDa024ListPeridJumun(parm);
     }
-    public List<IndexDa024Dto> SelectDa024ListPeridGroup(IndexDa024Dto parm){
+    public List<IndexDa024PeridDto> SelectDa024ListPeridGroup(IndexDa024Dto parm){
         return  appMapper.SelectDa024ListPeridGroup(parm);
     }
 
-    public List<IndexDa024Dto> SelectDa024ListPeridGroupJumun(IndexDa024Dto parm){
+    public List<IndexDa024PeridDto> SelectDa024ListPeridGroupJumun(IndexDa024Dto parm){
         return  appMapper.SelectDa024ListPeridGroupJumun(parm);
     }
 

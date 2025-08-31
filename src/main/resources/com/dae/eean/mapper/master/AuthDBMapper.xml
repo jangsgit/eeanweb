@@ -100,9 +100,42 @@
     </update>
 
     <update id="UpdateUserInfoBB" parameterType="com.dae.eean.DTO.UserFormDto"  >
-        UPDATE TB_XUSERS SET  perid = #{perid},  userid=#{userid}, username=#{username}, passwd1=#{passwd1}, passwd2=#{passwd1}, custnm=#{custnm}, saupnum=#{saupnum}, rnum='0', USEYN=#{useyn}
+        update TB_XUSERS
+        set rnum = '0'
+        <if test="perid != null ">,</if>
+        <if test="perid != null">perid=#{perid}</if>
+        <if test="userid != null ">,</if>
+        <if test="userid != null">userid=#{userid}</if>
+        <if test="username != null ">,</if>
+        <if test="username != null">username=#{username}</if>
+        <if test="passwd1 != null ">,</if>
+        <if test="passwd1 != null">passwd1=#{passwd1}</if>
+        <if test="passwd2 != null ">,</if>
+        <if test="passwd2 != null">passwd2=#{passwd2}</if>
+        <if test="custnm != null ">,</if>
+        <if test="custnm != null">custnm=#{custnm}</if>
+        <if test="saupnum != null ">,</if>
+        <if test="saupnum != null">saupnum=#{saupnum}</if>
+        <if test="USEYN != null ">,</if>
+        <if test="USEYN != null">USEYN=#{USEYN}</if>
+        <if test="disflag != null ">,</if>
+        <if test="disflag != null">disflag=#{disflag}</if>
+        where  seq=#{seq} and flag = #{flag}
+    </update>
+
+
+    <update id="UpdateUserInfoBBDisflag" parameterType="com.dae.eean.DTO.UserFormDto"  >
+        UPDATE TB_XUSERS SET  USEYN=#{useyn}, disflag=#{disflag}
          where seq=#{seq} and flag = #{flag}
     </update>
+    <!--        update TB_XUSERS-->
+    <!--        set rnum = '0'-->
+    <!--        <if test="USEYN != null ">,</if>-->
+    <!--        <if test="USEYN != null">USEYN=#{USEYN}</if>-->
+    <!--        <if test="disflag != null ">,</if>-->
+    <!--        <if test="disflag != null">disflag=#{disflag}</if>-->
+    <!--        where  seq=#{seq} and flag = #{flag}-->
+
 
 
     <update id="UpdateUserModifyCif" parameterType="com.dae.eean.DTO.UserFormDto"  >

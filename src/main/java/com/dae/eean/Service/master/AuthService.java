@@ -114,9 +114,19 @@ public class AuthService {
         int queryResult = 1;
         queryResult = authMapper.UpdateUserInfoBB(parm);
         if(queryResult < 1){
-            queryResult = 0;
+            return false;
         }
-        return (queryResult > 0);
+        return true;
+    }
+    //사용자사용여부
+    @Transactional
+    public boolean UpdateUserInfoBBDisflag(UserFormDto parm){
+        int queryResult = 1;
+        queryResult = authMapper.UpdateUserInfoBBDisflag(parm);
+        if(queryResult < 1){
+            return false;
+        }
+        return true;
     }
 
     //사용자사용여부

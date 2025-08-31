@@ -130,8 +130,8 @@ public interface Index14Mapper {
 
     public List<IndexDa024Dto> SelectDa024ListPerid(IndexDa024Dto parm) ;
     public List<IndexDa024Dto> SelectDa024ListPeridJumun(IndexDa024Dto parm) ;
-    public List<IndexDa024Dto> SelectDa024ListPeridGroup(IndexDa024Dto parm) ;
-    public List<IndexDa024Dto> SelectDa024ListPeridGroupJumun(IndexDa024Dto parm) ;
+    public List<IndexDa024PeridDto> SelectDa024ListPeridGroup(IndexDa024Dto parm) ;
+    public List<IndexDa024PeridDto> SelectDa024ListPeridGroupJumun(IndexDa024Dto parm) ;
     public List<IndexDa024Dto> SelectDa024ListJpumArea(IndexDa024Dto parm) ;
     public List<IndexDa024Dto> SelectDa024ListJpumAreaGugun(IndexDa024Dto parm) ;
 
