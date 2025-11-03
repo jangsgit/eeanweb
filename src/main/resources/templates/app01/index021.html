@@ -1345,7 +1345,8 @@
                     afax: wtab01Dto[i]["afax"],  
                     inname01: wtab01Dto[i]["inname01"],   
                     inname02: wtab01Dto[i]["inname02"],   
-                    inname03: wtab01Dto[i]["inname03"],       
+                    inname03: wtab01Dto[i]["inname03"],    
+                    astop: wtab01Dto[i]["astop"],           
                 });
                 cnt++;
             }   
@@ -1457,6 +1458,7 @@
             document.getElementById('inname01').value = arg30; 
             // document.getElementById('inname02').value = arg31; 
             // document.getElementById('inname03').value = arg32; 
+            console.log(arg33)
             if (arg33 == 'Y'){
                 document.getElementById('astop').checked = true
             }else{
