@@ -379,7 +379,7 @@
             A.acorp, A.asano1 + '-' + A.asano2 + '-' + A.asano3 as asano, A.aname, A.aupte, A.ajong, A.ajuso1 + ' ' + A.ajuso2 as ajuso, A.atelno,
             A.aascode1 + '-' + A.aascode2 as aascodetxt,
             F.acorp as eeacorp, F.asano as eeasano, F.aname as eeaname, F.aupte as eeupte, F.ajong as eeajong, F.ajuso as eeajuso, F.atelno as eeatelno,
-            F.eeacodetxt as eeacodetxt
+            F.eeacodetxt as eeacodetxt, K.jbonsa_code
         from  TB_DA024 B WITH (NOLOCK) ,
               JCODE3 K  WITH (NOLOCK) ,
             cif A WITH (NOLOCK) Left outer JOIN tb_xusers D ON A.abonsadam1 = D.perid,

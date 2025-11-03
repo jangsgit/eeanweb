@@ -2781,6 +2781,8 @@
             var wtab03Dto  = data;  
             var cnt = 1;
             var bfixflag = false 
+            var ls_jbonsa_code = "";
+            var ll_qty = 0;
             ll_sumqty = 0; ll_sumsamt = 0; ll_sumaddamt = 0; ll_sumamt= 0; wtab03_data = [];
             // console.log(wtab03Dto)
             for (var i = 0; i < wtab03Dto.length; i++) {
@@ -2789,6 +2791,7 @@
                 }else{
                     bfixflag = false;
                 }
+                ls_jbonsa_code = wtab03Dto[i]["jbonsa_code"];
                 ls_acorp = wtab03Dto[i]["acorp"];
                 ls_asano = wtab03Dto[i]["asano"];
                 ls_aname = wtab03Dto[i]["aname"];
@@ -2809,7 +2812,13 @@
                 ls_misdatetxt = wtab03Dto[i]["misdatetxt"];
                 ls_fixdatetxt = wtab03Dto[i]["fixdatetime"]; 
                 ls_atelno = wtab03Dto[i]["atelno"];
-                ll_sumqty = ll_sumqty + wtab03Dto[i]["qty"]
+                if(ls_jbonsa_code == "부속"){
+                    ll_sumqty = ll_sumqty //총합계에서 빠짐
+                    ll_qty = ''           //수량표시안함  
+                }else{
+                    ll_sumqty = ll_sumqty + wtab03Dto[i]["qty"]
+                    ll_qty = wtab03Dto[i]["qty"]
+                }
                 ll_sumsamt = ll_sumsamt + wtab03Dto[i]["samt"]
                 ll_sumaddamt = ll_sumaddamt + wtab03Dto[i]["addamt"]
                 ll_sumamt = ll_sumamt + wtab03Dto[i]["samt"]
@@ -2826,7 +2835,7 @@
                     pbonsa: wtab03Dto[i]["pbonsa"],    
                     pmodel: wtab03Dto[i]["pmodel"],    
                     pcolor: wtab03Dto[i]["pcolor"],    
-                    qty: wtab03Dto[i]["qty"],    
+                    qty: ll_qty,    
                     uamt: wtab03Dto[i]["uamt"], 
                     samt: wtab03Dto[i]["samt"],  
                     addamt: wtab03Dto[i]["addamt"], 
