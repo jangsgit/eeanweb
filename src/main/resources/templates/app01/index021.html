@@ -78,8 +78,8 @@
                     <div class="box_wrap" style="padding-bottom: 100px;">
                         <form action="">
                             <div class="table table_style1" >
-                                <table>
-                                    <tbody>   
+                                <table>  
+                                    <tbody>    
                                         <tr> 
                                             <th>신규업체구분<br>(수정금지)</th>
                                             <td  colspan="4">
@@ -189,15 +189,28 @@
                                                     <input type="text" name="ajuso1" id="ajuso1" placeholder="주소"  >                             
                                                 </div>
                                             </td>                                       
-                                        </tr>      
+                                        </tr>       
                                         <tr> 
                                             <th>상세주소</th>
-                                            <td  colspan="5">
+                                            <td  colspan="3">
                                                 <div class="input_wrap">
                                                     <input type="text" name="ajuso2" id="ajuso2" placeholder="상세주소"  >                             
                                                 </div>
-                                            </td>                                       
-                                        </tr>                                                                                                                                                                                      
+                                            </td>                              
+                                            <th colspan="2">
+                                                <div class="form-check form-switch">
+                                                    <label class="form-check-label" for="astop" style="font-weight:bold; color:#df0909; font-size:15px;">출고정지</label>
+                                                    <input class="form-check-input" type="checkbox" id="astop"value="false" >
+                                                  </div>
+                                            </th>
+                                            <!-- <td colspan="2">  
+                                                <input type="hidden" name="astop" value="false"> 
+                                                <div class="form-check form-switch m-0">
+                                                    <input class="form-check-input" type="checkbox" name="astop" id="astop" value="true">
+                                                    <label class="form-check-label" for="astop"></label>
+                                                </div>
+                                            </td>                                                                       -->
+                                        </tr>                                                                                                                                                                                         
                                         <tr>                                        
                                             <th>대표전화<h5 style="color:rgb(255, 166, 0); float:right;">★</h5></th>
                                             <td   colspan="2">
@@ -233,7 +246,8 @@
                                                     <input type="text" name="inname01" id="inname01" placeholder=""   > 
                                                     <input type="hidden" name="abonsadam1" id="abonsadam1" placeholder=""  >                             
                                                 </div>
-                                            </td>                                       
+                                            </td>        
+                                            <th><button type="button" class="btn btn-sm btn-primary" id="changeManagerBtn">담당변경</button></th>                                  
                                             <th>팩스</th>
                                             <td colspan="2"> 
                                                 <div class="input_wrap">
@@ -447,7 +461,7 @@
                     cellTemplate: wijmo.grid.cellmaker.CellMaker.makeLink({ 
                         text: '<b>${item.acode}</b>',
                         click: (e, ctx) => {
-                            wcifChk_a(ctx.item.acorp1, ctx.item.acorp2, ctx.item.acorp3, ctx.item.acode, ctx.item.acorp,ctx.item.asano1, ctx.item.asano2, ctx.item.asano3, ctx.item.aname, ctx.item.aupte, ctx.item.ajong,ctx.item.apost1, ctx.item.ajuso1, ctx.item.ajuso2, ctx.item.abigo, ctx.item.agita, ctx.item.ajumi1, ctx.item.ajumi2,ctx.item.aascode1, ctx.item.aascode2, ctx.item.atelno, ctx.item.atelno2, ctx.item.aemail, ctx.item.ahand, ctx.item.abonsadam1, ctx.item.abonsadam2, ctx.item.abonsadam3, ctx.item.adomain, ctx.item.afax, ctx.item.inname01, ctx.item.inname02, ctx.item.inname03 );                    
+                            wcifChk_a(ctx.item.acorp1, ctx.item.acorp2, ctx.item.acorp3, ctx.item.acode, ctx.item.acorp,ctx.item.asano1, ctx.item.asano2, ctx.item.asano3, ctx.item.aname, ctx.item.aupte, ctx.item.ajong,ctx.item.apost1, ctx.item.ajuso1, ctx.item.ajuso2, ctx.item.abigo, ctx.item.agita, ctx.item.ajumi1, ctx.item.ajumi2,ctx.item.aascode1, ctx.item.aascode2, ctx.item.atelno, ctx.item.atelno2, ctx.item.aemail, ctx.item.ahand, ctx.item.abonsadam1, ctx.item.abonsadam2, ctx.item.abonsadam3, ctx.item.adomain, ctx.item.afax, ctx.item.inname01, ctx.item.inname02, ctx.item.inname03, ctx.item.astop );                    
                         }
                     })
                 }, 
@@ -499,6 +513,7 @@
                 start = 0;
             rowCount = wtab01Dto.length; 
             for (var i = 0; i < rowCount; i++) {
+                var ls_asano = wtab01Dto[i]["asano1"] + '-' + wtab01Dto[i]["asano2"] + '-' + wtab01Dto[i]["asano3"]
                 wactnm_data.push({
                     id: i + start, 
                     index: cnt,
@@ -507,6 +522,7 @@
                     acorp3: wtab01Dto[i]["acorp3"], 
                     acode: wtab01Dto[i]["acode"], 
                     acorp: wtab01Dto[i]["acorp"], 
+                    asano: ls_asano, 
                     asano1: wtab01Dto[i]["asano1"], 
                     asano2: wtab01Dto[i]["asano2"], 
                     asano3: wtab01Dto[i]["asano3"], 
@@ -537,7 +553,8 @@
                     afax: wtab01Dto[i]["afax"],   
                     inname01: wtab01Dto[i]["inname01"],   
                     inname02: wtab01Dto[i]["inname02"],   
-                    inname03: wtab01Dto[i]["inname03"],      
+                    inname03: wtab01Dto[i]["inname03"],    
+                    astop: wtab01Dto[i]["astop"],          
                     
                 });
                 cnt++;
@@ -576,7 +593,7 @@
                     cellTemplate: wijmo.grid.cellmaker.CellMaker.makeLink({ 
                         text: '<b>${item.acode}</b>',
                         click: (e, ctx) => {
-                            wcifChk_a(ctx.item.acorp1, ctx.item.acorp2, ctx.item.acorp3, ctx.item.acode, ctx.item.acorp,ctx.item.asano1, ctx.item.asano2, ctx.item.asano3, ctx.item.aname, ctx.item.aupte, ctx.item.ajong,ctx.item.apost1, ctx.item.ajuso1, ctx.item.ajuso2, ctx.item.abigo, ctx.item.agita, ctx.item.ajumi1, ctx.item.ajumi2,ctx.item.aascode1, ctx.item.aascode2, ctx.item.atelno, ctx.item.atelno2, ctx.item.aemail, ctx.item.ahand, ctx.item.abonsadam1, ctx.item.abonsadam2, ctx.item.abonsadam3, ctx.item.adomain, ctx.item.afax, ctx.item.inname01, ctx.item.inname02, ctx.item.inname03 );                    
+                            wcifChk_a(ctx.item.acorp1, ctx.item.acorp2, ctx.item.acorp3, ctx.item.acode, ctx.item.acorp,ctx.item.asano1, ctx.item.asano2, ctx.item.asano3, ctx.item.aname, ctx.item.aupte, ctx.item.ajong,ctx.item.apost1, ctx.item.ajuso1, ctx.item.ajuso2, ctx.item.abigo, ctx.item.agita, ctx.item.ajumi1, ctx.item.ajumi2,ctx.item.aascode1, ctx.item.aascode2, ctx.item.atelno, ctx.item.atelno2, ctx.item.aemail, ctx.item.ahand, ctx.item.abonsadam1, ctx.item.abonsadam2, ctx.item.abonsadam3, ctx.item.adomain, ctx.item.afax, ctx.item.inname01, ctx.item.inname02, ctx.item.inname03, ctx.item.astop );                    
                         }
                     })
                 }, 
@@ -695,7 +712,8 @@
                     afax: wtab01Dto[i]["afax"],   
                     inname01: wtab01Dto[i]["inname01"],   
                     inname02: wtab01Dto[i]["inname02"],   
-                    inname03: wtab01Dto[i]["inname03"],      
+                    inname03: wtab01Dto[i]["inname03"],   
+                    astop: wtab01Dto[i]["astop"],          
                     
                 });
                 cnt++;
@@ -817,6 +835,7 @@
             //document.getElementById('adomain').value = "";
             document.getElementById('afax').value = "";
             document.getElementById('inname01').value = "";
+            document.getElementById('astop').checked = false;
             //document.getElementById('inname02').value = "";
             //document.getElementById('inname03').value = "";  
     }
@@ -855,6 +874,7 @@
         var ls_inname01 = document.getElementById('inname01').value ; 
         var ls_inname02 = ''; //document.getElementById('inname02').value ; 
         var ls_inname03 = ''; //document.getElementById('inname03').value;  
+        var ls_astop = document.getElementById('astop').checked;   
              
         if(ls_inname01 == null || ls_inname01.length == 0 || ls_inname01 == ""){ 
             ls_abonsadam1 = "";
@@ -864,6 +884,11 @@
         }                      
         if(ls_inname03 == null || ls_inname03.length == 0 || ls_inname03 == ""){ 
             ls_abonsadam3 = "";
+        }                                    
+        if (ls_astop == true){
+            ls_astop = "Y"
+        }else{
+            ls_astop = ""
         }                                      
         
 
@@ -998,7 +1023,8 @@
                 "abonsadam2" : ls_abonsadam2,
                 "abonsadam3" : ls_abonsadam3, 
                 "adomain" : ls_adomain,                
-                "afax" : ls_afax          
+                "afax" : ls_afax      ,
+                "astop" : ls_astop        
             } 
             //직전 데이타가 메모리에 남아 폼데이타 키를 삭제후 다시 데이타를 전송해야함. 
             formData.delete("key");  
@@ -1195,6 +1221,11 @@
 
 
 
+        // 거래처검색   
+        document.getElementById("changeManagerBtn").addEventListener("click",function(){  
+            change_rtn(); 
+
+        }) 
 
         // 거래처검색   
         document.getElementById("retrieveBtn").addEventListener("click",function(){  
@@ -1209,7 +1240,50 @@
             console.log(searchText);   
                 searchList_rtn(searchText); 
             }
-        });         
+        });       
+        function change_rtn(){ 
+            var ls_inname = document.getElementById('inname01').value ;
+            var ls_abonsadam = document.getElementById('abonsadam1').value ;  
+            var ls_acorp1 = document.getElementById('acorp1').value;  
+            var ls_acorp2 = document.getElementById('acorp2').value;   
+            if(ls_abonsadam == null || ls_abonsadam.length == 0 || ls_abonsadam == ""){ 
+                alert("담당사원을 먼저 선택하세요")       
+                return 
+            }  
+            if(ls_inname == null || ls_inname.length == 0 || ls_inname == ""){ 
+                alert("담당사원을 먼저 선택하세요")       
+                return 
+            }  
+            if(ls_acorp1 == null || ls_acorp1.length == 0 || ls_acorp1 == ""){ 
+                alert("거래처를 먼저 선택하세요")       
+                return 
+            } 
+            if (!confirm(ls_inname + '(' + ls_abonsadam + ') : 해당업체의 주문정보도 모두 변경 하시겠습니까?')) {
+                    return ; 
+                }  
+                $.ajax({
+                    url: '/app01m/index02/chbonsadam',  
+                    type:"POST",
+                    data: { 
+                        "acorp1" :ls_acorp1, 
+                        "acorp2" :ls_acorp2, 
+                        "abonsadam" :ls_abonsadam, 
+                        "inname" :ls_inname, 
+                    }, 
+                    async:false,
+                    success:function(data){ 
+                        if(data == "SUCCESS"){
+                            alert("변경되었습니다")
+                        }else{
+                            alert("업데이트 중 오류 발생")                         
+                        }
+                    },error:function(e){ 
+                        console.log("error");                            
+                    }
+                }).done(function(fragment){           
+
+                })        
+        }      
         function searchList_rtn(arg1){    
             $.ajax({
                         url: '/app01m/index02/list',  
@@ -1290,7 +1364,7 @@
             cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
                 text: '<b>${item.acode}</b>',
                 click: (e, ctx) => {
-                    wcifChk_a(ctx.item.acorp1, ctx.item.acorp2, ctx.item.acorp3, ctx.item.acode, ctx.item.acorp,ctx.item.asano1, ctx.item.asano2, ctx.item.asano3, ctx.item.aname, ctx.item.aupte, ctx.item.ajong,ctx.item.apost1, ctx.item.ajuso1, ctx.item.ajuso2, ctx.item.abigo, ctx.item.agita, ctx.item.ajumi1, ctx.item.ajumi2,ctx.item.aascode1, ctx.item.aascode2, ctx.item.atelno, ctx.item.atelno2, ctx.item.aemail, ctx.item.ahand, ctx.item.abonsadam1, ctx.item.abonsadam2, ctx.item.abonsadam3, ctx.item.adomain, ctx.item.afax, ctx.item.inname01, ctx.item.inname02, ctx.item.inname03 );                    
+                    wcifChk_a(ctx.item.acorp1, ctx.item.acorp2, ctx.item.acorp3, ctx.item.acode, ctx.item.acorp,ctx.item.asano1, ctx.item.asano2, ctx.item.asano3, ctx.item.aname, ctx.item.aupte, ctx.item.ajong,ctx.item.apost1, ctx.item.ajuso1, ctx.item.ajuso2, ctx.item.abigo, ctx.item.agita, ctx.item.ajumi1, ctx.item.ajumi2,ctx.item.aascode1, ctx.item.aascode2, ctx.item.atelno, ctx.item.atelno2, ctx.item.aemail, ctx.item.ahand, ctx.item.abonsadam1, ctx.item.abonsadam2, ctx.item.abonsadam3, ctx.item.adomain, ctx.item.afax, ctx.item.inname01, ctx.item.inname02, ctx.item.inname03, ctx.item.astop );                    
                     
                 }
             });
@@ -1311,10 +1385,18 @@
             cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
                 text: '<b>${item.atelno}</b>',
                 click: (e, ctx) => {
-                    wcifChk_a(ctx.item.acorp1, ctx.item.acorp2, ctx.item.acorp3, ctx.item.acode, ctx.item.acorp,ctx.item.asano1, ctx.item.asano2, ctx.item.asano3, ctx.item.aname, ctx.item.aupte, ctx.item.ajong,ctx.item.apost1, ctx.item.ajuso1, ctx.item.ajuso2, ctx.item.abigo, ctx.item.agita, ctx.item.ajumi1, ctx.item.ajumi2,ctx.item.aascode1, ctx.item.aascode2, ctx.item.atelno, ctx.item.atelno2, ctx.item.aemail, ctx.item.ahand, ctx.item.abonsadam1, ctx.item.abonsadam2, ctx.item.abonsadam3, ctx.item.adomain, ctx.item.afax, ctx.item.inname01, ctx.item.inname02, ctx.item.inname03 );                    
+                    wcifChk_a(ctx.item.acorp1, ctx.item.acorp2, ctx.item.acorp3, ctx.item.acode, ctx.item.acorp,ctx.item.asano1, ctx.item.asano2, ctx.item.asano3, ctx.item.aname, ctx.item.aupte, ctx.item.ajong,ctx.item.apost1, ctx.item.ajuso1, ctx.item.ajuso2, ctx.item.abigo, ctx.item.agita, ctx.item.ajumi1, ctx.item.ajumi2,ctx.item.aascode1, ctx.item.aascode2, ctx.item.atelno, ctx.item.atelno2, ctx.item.aemail, ctx.item.ahand, ctx.item.abonsadam1, ctx.item.abonsadam2, ctx.item.abonsadam3, ctx.item.adomain, ctx.item.afax, ctx.item.inname01, ctx.item.inname02, ctx.item.inname03, ctx.item.astop );                    
                 }
             });
+            wtab01Grid.columns.push(cols); 
+
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'asano';
+            cols.header = '사업자번호';
+            cols.align = "center";
+            cols.width = 150;                  
             wtab01Grid.columns.push(cols);  
+ 
 
             cols = new wijmo.grid.Column(); 
             cols.binding = 'aemail';
@@ -1337,12 +1419,12 @@
             cols.width = 80;           
             wtab01Grid.columns.push(cols);
       
-        }        
+        }          
         //   acorp1, acorp2, acorp3, acode, acorp,asano1, asano2, asano3, aname, aupte, 
         //   ajong,  apost1, ajuso1, ajuso2, abigo, agita, ajumi1, ajumi2,aascode1, aascode2, 
         //   atelno, atelno2, aemail, ahand, abonsadam1, abonsadam2, abonsadam3, adomain, afax, inname01, 
-        //   inname02, inname03  
-        function wcifChk_a(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16, arg17, arg18, arg19, arg20, arg21, arg22, arg23, arg24, arg25, arg26, arg27, arg28, arg29, arg30, arg31, arg32){                        
+        //   inname02, inname03  , astop
+        function wcifChk_a(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16, arg17, arg18, arg19, arg20, arg21, arg22, arg23, arg24, arg25, arg26, arg27, arg28, arg29, arg30, arg31, arg32, arg33){                        
             document.getElementById('acorp1').value = arg1;  
             document.getElementById('acorp2').value = arg2;   
             document.getElementById('acorp3').value = arg3;
@@ -1375,6 +1457,11 @@
             document.getElementById('inname01').value = arg30; 
             // document.getElementById('inname02').value = arg31; 
             // document.getElementById('inname03').value = arg32; 
+            if (arg33 == 'Y'){
+                document.getElementById('astop').checked = true
+            }else{
+                document.getElementById('astop').checked = false
+            }
             $("#wciflist_rtn").trigger("click");
         }      
 
@@ -1476,7 +1563,7 @@
             cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
                 text: '<b>${item.acode}</b>',
                 click: (e, ctx) => {
-                    wcifChk_a(ctx.item.acorp1, ctx.item.acorp2, ctx.item.acorp3, ctx.item.acode, ctx.item.acorp,ctx.item.asano1, ctx.item.asano2, ctx.item.asano3, ctx.item.aname, ctx.item.aupte, ctx.item.ajong,ctx.item.apost1, ctx.item.ajuso1, ctx.item.ajuso2, ctx.item.abigo, ctx.item.agita, ctx.item.ajumi1, ctx.item.ajumi2,ctx.item.aascode1, ctx.item.aascode2, ctx.item.atelno, ctx.item.atelno2, ctx.item.aemail, ctx.item.ahand, ctx.item.abonsadam1, ctx.item.abonsadam2, ctx.item.abonsadam3, ctx.item.adomain, ctx.item.afax, ctx.item.inname01, ctx.item.inname02, ctx.item.inname03 );                    
+                    wcifChk_a(ctx.item.acorp1, ctx.item.acorp2, ctx.item.acorp3, ctx.item.acode, ctx.item.acorp,ctx.item.asano1, ctx.item.asano2, ctx.item.asano3, ctx.item.aname, ctx.item.aupte, ctx.item.ajong,ctx.item.apost1, ctx.item.ajuso1, ctx.item.ajuso2, ctx.item.abigo, ctx.item.agita, ctx.item.ajumi1, ctx.item.ajumi2,ctx.item.aascode1, ctx.item.aascode2, ctx.item.atelno, ctx.item.atelno2, ctx.item.aemail, ctx.item.ahand, ctx.item.abonsadam1, ctx.item.abonsadam2, ctx.item.abonsadam3, ctx.item.adomain, ctx.item.afax, ctx.item.inname01, ctx.item.inname02, ctx.item.inname03, ctx.item.astop );                    
                     
                 }
             });
@@ -1533,7 +1620,7 @@
             cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
                 text: '<b>${item.atelno}</b>',
                 click: (e, ctx) => {
-                    wcifChk_a(ctx.item.acorp1, ctx.item.acorp2, ctx.item.acorp3, ctx.item.acode, ctx.item.acorp,ctx.item.asano1, ctx.item.asano2, ctx.item.asano3, ctx.item.aname, ctx.item.aupte, ctx.item.ajong,ctx.item.apost1, ctx.item.ajuso1, ctx.item.ajuso2, ctx.item.abigo, ctx.item.agita, ctx.item.ajumi1, ctx.item.ajumi2,ctx.item.aascode1, ctx.item.aascode2, ctx.item.atelno, ctx.item.atelno2, ctx.item.aemail, ctx.item.ahand, ctx.item.abonsadam1, ctx.item.abonsadam2, ctx.item.abonsadam3, ctx.item.adomain, ctx.item.afax, ctx.item.inname01, ctx.item.inname02, ctx.item.inname03 );                    
+                    wcifChk_a(ctx.item.acorp1, ctx.item.acorp2, ctx.item.acorp3, ctx.item.acode, ctx.item.acorp,ctx.item.asano1, ctx.item.asano2, ctx.item.asano3, ctx.item.aname, ctx.item.aupte, ctx.item.ajong,ctx.item.apost1, ctx.item.ajuso1, ctx.item.ajuso2, ctx.item.abigo, ctx.item.agita, ctx.item.ajumi1, ctx.item.ajumi2,ctx.item.aascode1, ctx.item.aascode2, ctx.item.atelno, ctx.item.atelno2, ctx.item.aemail, ctx.item.ahand, ctx.item.abonsadam1, ctx.item.abonsadam2, ctx.item.abonsadam3, ctx.item.adomain, ctx.item.afax, ctx.item.inname01, ctx.item.inname02, ctx.item.inname03, ctx.item.astop );                    
                 }
             });
             wtab02Grid.columns.push(cols);  
