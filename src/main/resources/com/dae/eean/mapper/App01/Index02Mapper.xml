@@ -57,7 +57,7 @@
           and isnull(acorp1,'') Like concat('%',#{acorp1},'%')
           and isnull(agita,'') Like concat('%',#{agita},'%')
           and isnull(abonsadam1,'') Like concat('%',#{abonsadam1},'%')
-          and isnull(astop,'') not in ('Y')
+
         ORDER BY acorp
         ]]>
     </select>
