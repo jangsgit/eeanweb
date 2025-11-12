@@ -14,7 +14,7 @@
                  ,as_yumu
                  ,as_memo
                  ,as_gongjang
-                 ,isnull(as_acorp, C.acorp) as as_acorp
+                 ,isnull(C.acorp, as_acorp) as as_acorp
                  ,as_acorp1
                  ,as_acorp2
                  ,as_acorp3
@@ -60,7 +60,7 @@
              ,as_yumu
              ,as_memo
              ,as_gongjang
-             ,isnull(as_acorp, C.acorp) as as_acorp
+             ,isnull(C.acorp, as_acorp) as as_acorp
              ,as_acorp1
              ,as_acorp2
              ,as_acorp3
@@ -105,7 +105,7 @@
              ,as_yumu
              ,as_memo
              ,as_gongjang
-             ,isnull(as_acorp, C.acorp) as as_acorp
+             ,isnull(C.acorp, as_acorp) as as_acorp
              ,as_acorp1
              ,as_acorp2
              ,as_acorp3
@@ -148,7 +148,7 @@
              ,as_yumu
              ,as_memo
              ,as_gongjang
-             ,isnull(as_acorp, cif.acorp) as as_acorp
+             ,isnull(cif.acorp, as_acorp) as as_acorp
              ,as_acorp1
              ,as_acorp2
              ,as_acorp3
