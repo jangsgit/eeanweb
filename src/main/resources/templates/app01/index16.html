@@ -2813,11 +2813,9 @@
                 ls_fixdatetxt = wtab03Dto[i]["fixdatetime"]; 
                 ls_atelno = wtab03Dto[i]["atelno"];
                 if(ls_jbonsa_code == "부속"){
-                    ll_sumqty = ll_sumqty //총합계에서 빠짐
-                    ll_qty = ''           //수량표시안함  
+                    ll_sumqty = ll_sumqty //총합계에서 빠짐 
                 }else{
-                    ll_sumqty = ll_sumqty + wtab03Dto[i]["qty"]
-                    ll_qty = wtab03Dto[i]["qty"]
+                    ll_sumqty = ll_sumqty + wtab03Dto[i]["qty"] 
                 }
                 ll_sumsamt = ll_sumsamt + wtab03Dto[i]["samt"]
                 ll_sumaddamt = ll_sumaddamt + wtab03Dto[i]["addamt"]
@@ -2835,7 +2833,7 @@
                     pbonsa: wtab03Dto[i]["pbonsa"],    
                     pmodel: wtab03Dto[i]["pmodel"],    
                     pcolor: wtab03Dto[i]["pcolor"],    
-                    qty: ll_qty,    
+                    qty:  wtab03Dto[i]["qty"],    
                     uamt: wtab03Dto[i]["uamt"], 
                     samt: wtab03Dto[i]["samt"],  
                     addamt: wtab03Dto[i]["addamt"], 

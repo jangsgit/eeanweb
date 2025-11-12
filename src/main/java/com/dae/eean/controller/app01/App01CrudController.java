@@ -146,7 +146,7 @@ public class App01CrudController {
                 _index02List = service02.GetCifListTotJupsu(_index02Dto);
             }else{
                 if (jpbgubn.equals("DD")){
-                    //비거래 포함
+                    //비거래 포함, 거래중지 포함
                     _index02List = service02.GetCifListTotJupsu(_index02Dto);
                 }else{
                     _index02List = service02.GetCifListTot(_index02Dto);
