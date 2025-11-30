@@ -31,7 +31,7 @@
         from cif WITH (NOLOCK)
             LEFT OUTER JOIN tb_xusers B WITH(NOLOCK) ON (cif.abonsadam1 = B.perid) and B.flag = 'CC'
             LEFT OUTER JOIN cifcode E WITH(NOLOCK) ON (cif.acorp1 = E.cifcode)
-        WHERE isnull(acorp,'') Like concat( '%', #{acor`p},'%')
+        WHERE isnull(acorp,'') Like concat( '%', #{acorp},'%')
           and isnull(delflag,'0')  = '0'
           and isnull(acorp1,'') Like concat('%',#{acorp1},'%')
           and isnull(agita,'') Like concat('%',#{agita},'%')
