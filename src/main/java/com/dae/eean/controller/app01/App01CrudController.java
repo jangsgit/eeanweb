@@ -1620,6 +1620,7 @@ public class App01CrudController {
                       if(ls_misnum.equals("error")){
                           return "error";
                       }
+
 //                    ls_misnum = service14.SelectCheckMisnumMkflag(_indexDa023Dto);  //주문된 순번max 찾기
 //                    if(ls_misnum == null){
 //                        ls_misnum = "0001";
@@ -2139,7 +2140,7 @@ public class App01CrudController {
                     _Da024Dto.setSeqStr(seqArrStr);
                     _Da024Dto.setMisqtyStr(misqtyStr);
                     Boolean _liresult01 = service14.ChangeDA024Makfix(_Da024Dto);
-                    log.info(_liresult01);
+//                    log.info(_liresult01);
                     _syslogDto.setType("변경등록");
                     _syslogDto.setMenunm("주문번호변경등록");
                     if(!misdate.equals(ls_misdate)) {
@@ -2160,7 +2161,7 @@ public class App01CrudController {
                     return "success";
                 }
 
-                log.info(misdateArr.size() );
+//                log.info(misdateArr.size() );
                 // 개별확정방식으로변경  장바구니에서 체크한것만 주문으로 넘어가도록 방식 변경 23.3.7
                 // 기존주문일자를 기준으로 요청내용을 변경한뒤 변경주문일자로 업데이트
                 switch (mflag){
