@@ -169,8 +169,8 @@
         <![CDATA[
             select top 1  jkey, jpb_gubn, jgong_code,   jdan_code, jmodel_code, jdan_code, jmodel_code2, jcolor_code2, jcustomer_code,
                      jbonsa_code, jbonsa_code2, jsayong_gubn, jpum, jgugek, jsize,    convert(int , isnull(jchgoga0,0))  AS jchgoga0, jbigo,
-                   convert(integer, DBO.DF_TB_PCODE_JQTY(jkey,  #{frdate},  #{todate}) ) as jqty
-            from JCODE3 WITH (NOLOCK)
+                  0  as jqty
+            from JCODE3 A WITH (NOLOCK)
             WHERE isnull(jmodel_code2,'') = #{jmodel_code2}
              and  isnull(jbonsa_code,'') = #{jbonsa_code}
              and  isnull(jbonsa_code2,'') = #{jbonsa_code2}
@@ -182,10 +182,11 @@
 
     <select id="GetJpumOrderJkey02" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
         <![CDATA[
-            select top 1  jkey, jpb_gubn, jgong_code, jdan_code, jmodel_code, jcolor_code, jcustomer_code,jbonsa_code,
+            select top 1  A.jkey, jpb_gubn, jgong_code, jdan_code, jmodel_code, jcolor_code, jcustomer_code,jbonsa_code,
                      jbonsa_code, jsayong_gubn, jpum, jgugek, jsize,   convert(int , isnull(jchgoga0,0))  AS jchgoga0, jbigo,
-                     convert(integer, DBO.DF_TB_PCODE_JQTY(jkey,  #{frdate},  #{todate}) ) as jqty
-            from JCODE3 WITH (NOLOCK)
+                     D.stock_qty as jqty
+            from JCODE3  A WITH (NOLOCK)
+            LEFT JOIN TB_JSTOCK D ON A.jkey = D.jkey
             WHERE isnull(jkey,'') = #{jkey}
               and jsayong_gubn <> '4'
         ]]>
@@ -194,10 +195,10 @@
 
     <select id="GetJpumModelList" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
         <![CDATA[
-        select   jkey, jpb_gubn, jgong_code, jdan_code, jmodel_code, jcolor_code, jcustomer_code,
+        select  jkey, jpb_gubn, jgong_code, jdan_code, jmodel_code, jcolor_code, jcustomer_code,
                  jbonsa_code, jsayong_gubn, jpum, jgugek, isnull(jgugek2,'') as jgugek2, isnull(jgugek3,'') as jgugek3, isnull(jgugek4,'') as jgugek4, jsize,   convert(int , jchgoga0)  as jchgoga0, jbigo,
-                 convert(integer, DBO.DF_TB_PCODE_JQTY(jkey,  #{frdate},  #{todate}) )   as jqty
-        from JCODE3 WITH (NOLOCK)
+                0   as jqty
+        from JCODE3  A WITH (NOLOCK)
         WHERE isnull(jmodel_code,'')   = #{jmodel_code}
           and isnull(jcustomer_code,'')   = #{jcustomer_code}
           and isnull(jpb_gubn,'') Like concat('%',#{jpb_gubn},'%')
@@ -279,7 +280,7 @@
         set delflag = '0'
         <if test="jpb_gubn != null ">,</if>
         <if test="jpb_gubn != null">jpb_gubn=#{jpb_gubn}</if>
-        <if test="jgong_code != null ">,</if>
+        <if test="jgong_code != null ">,</
         <if test="jgong_code != null">jgong_code=#{jgong_code}</if>
         <if test="jdan_code != null ">,</if>
         <if test="jdan_code != null">jdan_code=#{jdan_code}</if>
