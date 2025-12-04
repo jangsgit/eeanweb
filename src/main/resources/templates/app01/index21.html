@@ -295,7 +295,7 @@
                 autoGenerateColumns: false,
                 showMarquee: true,
                 isReadOnly: true, 
-                selectionMode: 'RowRange',
+                // selectionMode: 'RowRange',
                 allowSorting: 'MultiColumn',
                 alternatingRowStep: 0,
                 columns: [     
@@ -344,20 +344,19 @@
             new FlexGridContextMenu(wtab01Grid); 
             // 선택기 생성
             let selector = new wijmo.grid.selector.Selector(wtab01Grid, {
-                itemChecked: () => {
-                   // showCheckedCount();
-                }
+                // itemChecked: () => {
+                //     showCheckedCount();
+                // }
             }); 
-            wtab01Grid.onSelectionChanged(null); // 선택 표시를 초기화
-            wtab01Grid.selectionMode = 'Row'; 
             // 헤더 열 전환
-            setHeaderColumn(true);
+            setHeaderColumn(false);
             function setHeaderColumn(headerOn) {
                 wtab01Grid.headersVisibility = headerOn
                 ? wijmo.grid.HeadersVisibility.All
                 : wijmo.grid.HeadersVisibility.Column; 
             } 
-            wtab01Grid.showMarquee = true; 
+            wtab01Grid.showMarquee = true;
+            wtab01Grid.focus();
             wijmo.toggleClass(wtab01Grid.hostElement, 'highlightActive', true);
             wtab01Grid.focus();
 
@@ -472,7 +471,7 @@
             }); 
             // 헤더 열 전환
             // 헤더 열 전환
-            setHeaderColumn2(true);
+            setHeaderColumn2(false);
             function setHeaderColumn2(headerOn) {
                 wtab02Grid.headersVisibility = headerOn
                 ? wijmo.grid.HeadersVisibility.All
