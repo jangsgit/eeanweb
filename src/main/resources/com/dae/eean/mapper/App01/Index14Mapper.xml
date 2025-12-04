@@ -279,10 +279,9 @@
                       B.unsongnum as unsongnum,
                       isnull(B.makflag, '0') as makflag,
                       B.amt, C.acorp, pbonsa, pmodel, pcolor , B.pernm as inname, B.misgubun, isnull(B.fixflag,'0') as fixflag,isnull(B.devflag,'0') as devflag,   B.PERNM as pernm,
-                      B.fixdate,  CONVERT(CHAR(19),B.fixdatetime,20) as fixdatetime ,  D.stock_qty   as jqty
+                      B.fixdate,  CONVERT(CHAR(19),B.fixdatetime,20) as fixdatetime ,  DBO.DF_TB_PCODE_JQTY(B.pcode,  #{jfrdate},  #{jtodate})  as jqty
                   from  TB_DA024 B WITH (NOLOCK)
                        LEFT JOIN cif C ON B.cltcd = C.acorp1 + CAST(C.acorp2 as varchar)
-                       LEFT JOIN TB_JSTOCK D ON B.pcode = D.jkey
                   where B.custcd = 'EEAN' and B.spjangcd = 'ZZ' and  B.cltcd = #{cltcd}
                     AND isnull(B.perid,'')  Like concat('%',#{perid},'%')
                     AND B.misdate between #{frdate} and #{todate}
@@ -303,10 +302,9 @@
                       B.unsongnum as unsongnum,
                       isnull(B.makflag, '0') as makflag,
                       B.amt, C.acorp, pbonsa, pmodel, pcolor , B.pernm as inname, B.misgubun, isnull(B.fixflag,'0') as fixflag,isnull(B.devflag,'0') as devflag,   B.pernm as pernm,
-                      B.fixdate,  CONVERT(CHAR(19),B.fixdatetime,20) as fixdatetime ,  D.stock_qty   as jqty
+                      B.fixdate,  CONVERT(CHAR(19),B.fixdatetime,20) as fixdatetime ,  DBO.DF_TB_PCODE_JQTY(B.pcode,  #{jfrdate},  #{jtodate})  as jqty
                   from  TB_DA024 B WITH (NOLOCK)
                        LEFT JOIN cif C ON B.cltcd = C.acorp1 + CAST(C.acorp2 as varchar)
-                       LEFT JOIN TB_JSTOCK D ON B.pcode = D.jkey
                   where  B.custcd = 'EEAN' and B.spjangcd = 'ZZ' and B.cltcd Like #{cltcd}
                     AND isnull(B.inperid,'')  Like concat('%',#{perid},'%')
                     AND B.misdate between #{frdate} and #{todate}
