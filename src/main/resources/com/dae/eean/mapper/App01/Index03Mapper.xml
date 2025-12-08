@@ -2,183 +2,520 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <!-- mapper >> interface 매핑 : id 값 중요 (interface 메소드) -->
-<mapper namespace="com.dae.eean.Mapper.App01.Index02Mapper">
-    <select id="GetCifList" parameterType="com.dae.eean.DTO.App01.Index02Dto" resultType="com.dae.eean.DTO.App01.Index02Dto">
+<mapper namespace="com.dae.eean.Mapper.App01.Index03Mapper">
+    <select id="GetJBonsaCodeList" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
         <![CDATA[
-            select acorp1, acorp2, acorp3, acorp, asano1, asano2, asano3, asano1 + '-' + asano2 + '-' + asano3 as asanotxt, aname, aupte, ajong, apost1,  acorp1 + CAST(acorp2 as varchar) as acode,
-                   ajuso1, ajuso2, abigo, agita, ajumi1, ajumi2, ajumi1 + '-' + ajumi2 as ajumitxt,
-                   aascode1,aascode2, aascode1 + '-' + aascode2 as aascodetxt, atelno, atelno2, astop,
-                   ahand , aemail,abonsadam1, abonsadam2, abonsadam3, adomain, afax, isnull(ajuso1,'') + ' ' + isnull(ajuso2,'') as ajusotxt,
-                   B.pernm as inname01, C.pernm as inname02, D.pernm as inname03, E.cifcodename as cifcodename
-            from cif WITH (NOLOCK)
-            LEFT OUTER JOIN tb_xusers B WITH(NOLOCK) ON (cif.abonsadam1 = B.perid)
-            LEFT OUTER JOIN tb_xusers C WITH(NOLOCK) ON (cif.abonsadam2 = C.perid)
-            LEFT OUTER JOIN tb_xusers D WITH(NOLOCK) ON (cif.abonsadam3 = D.perid)
-            LEFT OUTER JOIN cifcode E WITH(NOLOCK) ON (cif.acorp1 = E.cifcode)
-            WHERE isnull(acorp,'') Like concat('%',#{acorp},'%')
-            and isnull(delflag,'') <> '1'
-            ORDER BY acorp
+        select   jbonsa_code as jbonsa_code
+        from JCODE3 WITH (NOLOCK)
+        WHERE isnull(jpb_gubn,'') Like concat('%',#{jpb_gubn},'%')
+          and jsayong_gubn <> '4'
+          AND LEN(jbonsa_code) > 0
+        Group by jbonsa_code, jbonsa_code_seq
+        ORDER BY CONVERT(int, jbonsa_code_seq)
+        ]]>
+    </select>
+    <select id="GetJBonsaCodeList_AA" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
+        <![CDATA[
+        select   jbonsa_code as jbonsa_code
+        from JCODE3 WITH (NOLOCK)
+         WHERE isnull(jpb_gubn,'') Like concat('%',#{jpb_gubn},'%')
+           and jsayong_gubn <> '4'
+           and jsayong_gubn in ('1', '2', '3')
+           AND LEN(jbonsa_code) > 0
+        Group by jbonsa_code, jbonsa_code_seq
+        ORDER BY CONVERT(int, jbonsa_code_seq)
+        ]]>
+    </select>
+    <select id="GetJBonsaCodeList_BB" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
+        <![CDATA[
+        select   jbonsa_code as jbonsa_code
+        from JCODE3 WITH (NOLOCK)
+        WHERE isnull(jpb_gubn,'') Like concat('%',#{jpb_gubn},'%')
+          and jsayong_gubn <> '4'
+          and jsayong_gubn in ('1')
+          AND LEN(jbonsa_code) > 0
+        Group by jbonsa_code, jbonsa_code_seq
+        ORDER BY CONVERT(int, jbonsa_code_seq)
+        ]]>
+    </select>
+    <select id="GetJBonsaCodeList_CC" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
+        <![CDATA[
+        select   jbonsa_code as jbonsa_code
+        from JCODE3 WITH (NOLOCK)
+        WHERE isnull(jpb_gubn,'') Like concat('%',#{jpb_gubn},'%')
+          and jsayong_gubn <> '4'
+          and jsayong_gubn in ('1', '2')
+          AND LEN(jbonsa_code) > 0
+        Group by jbonsa_code, jbonsa_code_seq
+        ORDER BY CONVERT(int, jbonsa_code_seq)
+        ]]>
+    </select>
+    <select id="GetJcustomCode" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
+        <![CDATA[
+        select   jcustomer_code as jcustomer_code
+        from JCODE3 WITH (NOLOCK)
+        WHERE isnull(jcustomer_code,'')   NOT IN ('X')
+        AND isnull(jpb_gubn,'') Like concat('%',#{jpb_gubn},'%')
+        and jsayong_gubn <> '4'
+        AND LEN(jcustomer_code) > 0
+        Group by jcustomer_code, jcustomer_code_seq, jpb_gubn
+        ORDER BY CONVERT(int, jcustomer_code_seq)
+        ]]>
+    </select>
+    <select id="GetJcustomCode_BB" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
+        <![CDATA[
+        select   jcustomer_code as jcustomer_code
+        from JCODE3 WITH (NOLOCK)
+        WHERE isnull(jcustomer_code,'')   NOT IN ('X')
+          and jsayong_gubn <> '4'
+          and jsayong_gubn in ('1')
+          AND LEN(jcustomer_code) > 0
+          AND isnull(jpb_gubn,'') Like concat('%',#{jpb_gubn},'%')
+        Group by jcustomer_code, jcustomer_code_seq, jpb_gubn
+        ORDER BY CONVERT(int, jcustomer_code_seq)
+        ]]>
+    </select>
+    <select id="GetJcustomCode_CC" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
+        <![CDATA[
+        select   jcustomer_code as jcustomer_code
+        from JCODE3 WITH (NOLOCK)
+        WHERE isnull(jcustomer_code,'')   NOT IN ('X')
+          and jsayong_gubn <> '4'
+          and jsayong_gubn in ('1','2')
+          AND LEN(jcustomer_code) > 0
+          and isnull(jpb_gubn,'') Like concat('%',#{jpb_gubn},'%')
+        Group by jcustomer_code, jcustomer_code_seq, jpb_gubn
+        ORDER BY CONVERT(int, jcustomer_code_seq)
         ]]>
     </select>
 
-    <select id="GetCifListTot" parameterType="com.dae.eean.DTO.App01.Index02Dto" resultType="com.dae.eean.DTO.App01.Index02Dto">
+    <select id="GetJcustomCodeTot" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
         <![CDATA[
-        select acorp1, acorp2, acorp3, acorp, asano1, asano2, asano3, asano1 + '-' + asano2 + '-' + asano3 as asanotxt, aname, aupte, ajong, apost1,  acorp1 + CAST(acorp2 as varchar) as acode,
-               ajuso1, ajuso2, abigo, agita, ajumi1, ajumi2, ajumi1 + '-' + ajumi2 as ajumitxt,
-               aascode1,aascode2, aascode1 + '-' + aascode2 as aascodetxt,  atelno, atelno2,
-               ahand , aemail,abonsadam1, abonsadam2, abonsadam3, adomain, afax, isnull(ajuso1,'') + ' ' + isnull(ajuso2,'') as ajusotxt,
-               B.pernm as inname01, '' as inname02, '' as inname03, E.cifcodename as cifcodename
-        from cif WITH (NOLOCK)
-            LEFT OUTER JOIN tb_xusers B WITH(NOLOCK) ON (cif.abonsadam1 = B.perid) and B.flag = 'CC'
-            LEFT OUTER JOIN cifcode E WITH(NOLOCK) ON (cif.acorp1 = E.cifcode)
-        WHERE isnull(acorp,'') Like concat( '%', #{acorp},'%')
-          and isnull(delflag,'0')  = '0'
-          and isnull(acorp1,'') Like concat('%',#{acorp1},'%')
-          and isnull(agita,'') Like concat('%',#{agita},'%')
-          and isnull(agita,'') <> 'Z'
-          and isnull(abonsadam1,'') Like concat('%',#{abonsadam1},'%')
-          and isnull(astop,'') not in ('Y')
-        ORDER BY acorp
-        ]]>
-    </select>
-
-    <select id="GetCifListTotJupsu" parameterType="com.dae.eean.DTO.App01.Index02Dto" resultType="com.dae.eean.DTO.App01.Index02Dto">
-        <![CDATA[
-        select acorp1, acorp2, acorp3, acorp, asano1, asano2, asano3, asano1 + '-' + asano2 + '-' + asano3 as asanotxt, aname, aupte, ajong, apost1,  acorp1 + CAST(acorp2 as varchar) as acode,
-               ajuso1, ajuso2, abigo, agita, ajumi1, ajumi2, ajumi1 + '-' + ajumi2 as ajumitxt,
-               aascode1,aascode2, aascode1 + '-' + aascode2 as aascodetxt,  atelno, atelno2,
-               ahand , aemail,abonsadam1, abonsadam2, abonsadam3, adomain, afax, isnull(ajuso1,'') + ' ' + isnull(ajuso2,'') as ajusotxt,
-               B.pernm as inname01, '' as inname02, '' as inname03, E.cifcodename as cifcodename
-        from cif WITH (NOLOCK)
-            LEFT OUTER JOIN tb_xusers B WITH(NOLOCK) ON (cif.abonsadam1 = B.perid)  and B.flag = 'CC'
-            LEFT OUTER JOIN cifcode E WITH(NOLOCK) ON (cif.acorp1 = E.cifcode)
-        WHERE  ( isnull(acorp,'') Like concat( '%', #{acorp},'%') or isnull(ajuso1,'') + isnull(ajuso2,'') Like concat( '%', #{acorp},'%') or isnull(atelno,'') Like concat( '%', #{acorp},'%') )
-          and isnull(delflag,'0')  = '0'
-          and isnull(acorp1,'') Like concat('%',#{acorp1},'%')
-          and isnull(agita,'') Like concat('%',#{agita},'%')
-          and isnull(abonsadam1,'') Like concat('%',#{abonsadam1},'%')
-
-        ORDER BY acorp
-        ]]>
-    </select>
-
-    <select id="GetCifListAcode" parameterType="com.dae.eean.DTO.App01.Index02Dto" resultType="com.dae.eean.DTO.App01.Index02Dto">
-        <![CDATA[
-            select acorp1, acorp2, acorp3, acorp, asano1, asano2, asano3, asano1 + '-' + asano2 + '-' + asano3 as asanotxt, aname, aupte, ajong, apost1,  acorp1 + CAST(acorp2 as varchar) as acode,
-                   ajuso1, ajuso2, abigo, agita, ajumi1, ajumi2, ajumi1 + '-' + ajumi2 as ajumitxt,
-                   aascode1,aascode2, aascode1 + '-' + aascode2 as aascodetxt, atelno, atelno2,
-                   ahand , aemail,abonsadam1, abonsadam2, abonsadam3, adomain, afax, isnull(ajuso1,'') + ' ' + isnull(ajuso2,'') as ajusotxt,
-                   B.username as inname01, '' as inname02, '' as inname03, E.cifcodename as cifcodename
-            from cif WITH (NOLOCK)
-            LEFT OUTER JOIN TB_XUSERS B WITH(NOLOCK) ON (cif.abonsadam1 = B.perid and B.flag ='CC')
-            LEFT OUTER JOIN cifcode E WITH(NOLOCK) ON (cif.acorp1 = E.cifcode)
-            WHERE acorp1 + CAST(acorp2 as varchar) = #{acode}
-            ORDER BY acorp
+        select   jcustomer_code as jcustomer_code
+        from JCODE3 WITH (NOLOCK)
+        WHERE jsayong_gubn <> '4'
+          AND LEN(jcustomer_code) > 0
+        Group by jcustomer_code
+        ORDER BY jcustomer_code
         ]]>
     </select>
 
 
-    <select id="GetCifBonsa" parameterType="com.dae.eean.DTO.App01.Index02Dto" resultType="com.dae.eean.DTO.App01.Index02Dto">
+    <select id="GetJpumCustList" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
+        {
+        call GetFilteredData(#{frdate},#{todate}, #{jpb_gubn}, #{jcustomer_code}, #{flag} )
+        }
+        <!--        <![CDATA[-->
+        <!--            select   jcustomer_code, jmodel_code-->
+        <!--            from JCODE3 WITH (NOLOCK)-->
+        <!--            WHERE isnull(jcustomer_code,'')   = #{jcustomer_code}-->
+        <!--              and jsayong_gubn <> '4'-->
+        <!--              AND LEN(jcustomer_code) > 0-->
+        <!--              and isnull(jpb_gubn,'') Like concat('%',#{jpb_gubn},'%')-->
+        <!--            Group by jcustomer_code, jmodel_code-->
+        <!--            ORDER BY jcustomer_code, jmodel_code-->
+        <!--        ]]>-->
+    </select>
+
+
+    <select id="GetJpumCustJaegoList_New" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
         <![CDATA[
-            select acorp1, acorp2, acorp3, acorp, asano1, asano2, asano3, asano1 + '-' + asano2 + '-' + asano3 as asanotxt, aname, aupte, ajong, apost1,  acorp1 + CAST(acorp2 as varchar) as acode,
-                   ajuso1, ajuso2, abigo, agita, ajumi1, ajumi2, ajumi1 + '-' + ajumi2 as ajumitxt,
-                   aascode1,aascode2, aascode1 + '-' + aascode2 as aascodetxt, atelno, atelno2,
-                   ahand , aemail,abonsadam1, abonsadam2, abonsadam3, adomain, afax, isnull(ajuso1,'') + ' ' + isnull(ajuso2,'') as ajusotxt
-            from cif WITH (NOLOCK)
-            WHERE acorp1  = '00'
-            ORDER BY acorp
+            select    B.jkey,  B.jpum  ,  B.jgugek , B.jsize,
+                             B.jmodel_code, B.jcolor_code, B.jcustomer_code,
+                             D.stock_qty as jqty
+            from JCODE3 B WITH (NOLOCK)
+            JOIN TB_JSTOCK D ON B.jkey = D.jkey
+            WHERE   isnull(B.jkey,'') Like concat('%',#{jpum},'%')
+              and B.jsayong_gubn <> '4'
+              and isnull(B.jpb_gubn,'') Like concat('%',#{jpb_gubn},'%')
+            ORDER BY B.jkey,  B.jpum
         ]]>
     </select>
 
-    <select id="getIndex02MaxSeq"  parameterType="String" resultType="String">
-        <![CDATA[ select isnull(max(acorp2),'0') from cif  where acorp1 = #{acorp1}   ]]>
+    <select id="GetJpumCustJaegoList" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
+        {
+        call SP_JaegoList(#{frdate},#{todate}, #{jkey}, #{jpb_gubn})
+        }
     </select>
 
-    <insert id="InsertCif" parameterType="com.dae.eean.DTO.App01.Index02Dto" >
-        insert into CIF (acorp1, acorp2, acorp3, acorp, asano1, asano2, asano3, aname, aupte, ajong, apost1,
-        ajuso1, ajuso2, abigo, agita, ajumi1, ajumi2, aascode1,aascode2, atelno, atelno2,
-        ahand , aemail,abonsadam1, abonsadam2, abonsadam3, adomain, afax, delflag, astop) values
-        (#{acorp1}, #{acorp2}, 0, #{acorp}, #{asano1}, #{asano2}, #{asano3}, #{aname},#{aupte},#{ajong},#{apost1},
-        #{ajuso1}, #{ajuso2}, #{abigo}, #{agita}, #{ajumi1}, #{ajumi2}, #{aascode1}, #{aascode2},#{atelno},#{atelno2},
-        #{ahand}, #{aemail}, #{abonsadam1}, #{abonsadam2}, #{abonsadam3}, #{adomain}, #{afax}, '0',  #{astop})
+
+    <select id="GetJpumCustJaegoCal" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
+        {
+        call SP_JaegoCal(#{frdate},#{todate}, #{jkey}, #{jpb_gubn})
+        }
+    </select>
+
+    <select id="GetJpumFromJaegoList_OLD" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
+        <![CDATA[
+        select    jkey,  jpum  ,  jgugek , jsize,
+                jmodel_code, jcolor_code, jcustomer_code, 0 AS junqty, 0 AS ipsu, 0 AS chulsu , 0 as jqty
+        from JCODE3 WITH (NOLOCK)
+        WHERE   isnull(jkey,'') Like concat('%',#{jpum},'%')
+        and jsayong_gubn <> '4'
+        and isnull(jpb_gubn,'') Like concat('%',#{jpb_gubn},'%')
+        ORDER BY jkey,  jpum
+        ]]>
+    </select>
+
+
+
+    <select id="GetJpumFromJaegoList" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
+        {
+        call SP_FromToJaegoList(#{frdate},#{todate}, #{jkey}, #{jpb_gubn})
+        }
+    </select>
+
+
+    <select id="GetJpumOrderJkey" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
+        <![CDATA[
+            select top 1  A.jkey, A.jpb_gubn, A.jgong_code,   A.jdan_code, A.jmodel_code, A.jdan_code, A.jmodel_code2, A.jcolor_code2, jcustomer_code,
+                     A.jbonsa_code, A.jbonsa_code2, A.jsayong_gubn, A.jpum, A.jgugek, A.jsize,    convert(int , isnull(A.jchgoga0,0))  AS jchgoga0, jbigo,
+                   D.stock_qty  as jqty
+            from JCODE3 A WITH (NOLOCK)
+            LEFT JOIN TB_JSTOCK D ON A.jkey = D.jkey
+            WHERE isnull(A.jmodel_code2,'') = #{jmodel_code2}
+             and  isnull(A.jbonsa_code,'') = #{jbonsa_code}
+             and  isnull(A.jbonsa_code2,'') = #{jbonsa_code2}
+             and  isnull(A.jcolor_code2,'') = #{jcolor_code2}
+              and  isnull(A.jpb_gubn,'') = #{jpb_gubn}
+              and A.jsayong_gubn <> '4'
+        ]]>
+    </select>
+
+    <select id="GetJpumOrderJkey02" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
+        <![CDATA[
+            select top 1  A.jkey, A.jpb_gubn, A.jgong_code, A.jdan_code, A.jmodel_code, A.jcolor_code, A.jcustomer_code,A.jbonsa_code,
+                     A.jbonsa_code, A.jsayong_gubn, A.jpum, A.jgugek, A.jsize,   convert(int , isnull(A.jchgoga0,0))  AS jchgoga0, A.jbigo,
+                     D.stock_qty as jqty
+            from JCODE3  A WITH (NOLOCK)
+            LEFT JOIN TB_JSTOCK D ON A.jkey = D.jkey
+            WHERE isnull(A.jkey,'') = #{jkey}
+              and A.jsayong_gubn <> '4'
+        ]]>
+    </select>
+
+
+    <select id="GetJpumModelList" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
+        <![CDATA[
+        select   A.jkey, A.jpb_gubn, A.jgong_code, A.jdan_code, A.jmodel_code, A.jcolor_code, A.jcustomer_code,
+                 A.jbonsa_code, A.jsayong_gubn, A.jpum, A.jgugek, isnull(A.jgugek2,'') as jgugek2, isnull(A.jgugek3,'') as jgugek3, isnull(A.jgugek4,'') as jgugek4, A.jsize,   convert(int , A.jchgoga0)  as jchgoga0, jbigo,
+                 D.stock_qty   as jqty
+        from JCODE3  A WITH (NOLOCK)
+        LEFT JOIN TB_JSTOCK D ON A.jkey = D.jkey
+        WHERE isnull(A.jmodel_code,'')   = #{jmodel_code}
+          and isnull(A.jcustomer_code,'')   = #{jcustomer_code}
+          and isnull(A.jpb_gubn,'') Like concat('%',#{jpb_gubn},'%')
+          AND (
+                    (#{flag} = 'AA' AND jsayong_gubn IN ('1','2','3'))
+                    OR
+                    (#{flag} = 'CC' AND jsayong_gubn IN ('1','2'))
+                    OR
+                    (#{flag} = 'BB' AND jsayong_gubn IN ('1'))
+		        )
+          and A.jsayong_gubn <> '4'
+        ORDER BY A.jmodel_code, CONVERT(float, A.jcolor_code3),jkey
+        ]]>
+    </select>
+
+
+    <select id="GetJpumCheck" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="String">
+        <![CDATA[
+        select   jpum
+        from JCODE3 WITH (NOLOCK)
+        WHERE isnull(jkey,'')   = #{jkey}
+        ORDER BY jkey
+        ]]>
+    </select>
+
+    <select id="GetJpumCheck02" parameterType="String" resultType="com.dae.eean.DTO.App01.Index03Dto">
+        <![CDATA[
+        select top 1  jkey, jpb_gubn, jgong_code, jdan_code, jmodel_code, jcolor_code, jcustomer_code,
+                 jbonsa_code, jsayong_gubn, jpum, jgugek, jsize,   convert(int , jchgoga0)  as jchgoga0, jbigo
+        from JCODE3 WITH (NOLOCK)
+        WHERE isnull(jpum,'')   = #{jpum}
+        ORDER BY jpum
+        ]]>
+    </select>
+
+    <select id="GetJpumList" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
+        <![CDATA[
+            select jkey, jpb_gubn, jgong_code, jdan_code, jmodel_code, jcolor_code, jcustomer_code, jcustomer_code_seq,
+                   jbonsa_code, jbonsa_code2, jbonsa_code_seq, jbonsa_code_seq2, jmodel_code2, jcolor_code2, delflag, jcolor_code3, isnull(jopt,'') as jopt,
+                   jsayong_gubn, jpum, jgugek, jsize,  convert ( numeric , convert(int , jchgoga0) ) AS jchgoga0, jbigo,
+                   E.jcifcodename as jcifcodename
+            from JCODE3 WITH (NOLOCK)
+            LEFT OUTER JOIN jcifcode E WITH(NOLOCK) ON (JCODE3.jmodel_code = E.jcifcode)
+            WHERE (isnull(jpum,'') Like concat('%',#{jpum},'%')  or isnull(jkey,'') Like concat('%',#{jpum},'%'))
+              and jsayong_gubn <> '4'
+              and isnull(delflag,'0') = '0'
+              and isnull(jpb_gubn,'') Like concat('%',#{jpb_gubn},'%')
+            ORDER BY jkey
+        ]]>
+    </select>
+
+    <select id="GetJpumListTot" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
+        <![CDATA[
+        select jkey, jpb_gubn, jgong_code, jdan_code, jmodel_code, jcolor_code, jcustomer_code, jcustomer_code_seq,
+               jbonsa_code, jbonsa_code2, jbonsa_code_seq, jbonsa_code_seq2, jmodel_code2, jcolor_code2, delflag, jcolor_code3, jopt,
+               jsayong_gubn, jpum, jgugek, jsize,  convert ( numeric , convert(int , jchgoga0) ) AS jchgoga0, jbigo,
+               E.jcifcodename as jcifcodename
+        from JCODE3 WITH (NOLOCK)
+            LEFT OUTER JOIN jcifcode E WITH(NOLOCK) ON (JCODE3.jmodel_code = E.jcifcode)
+        WHERE (isnull(jpum,'') Like concat('%',#{jpum},'%')   or isnull(jkey,'') Like concat('%',#{jpum},'%') )
+          and isnull(jpb_gubn,'') Like concat('%',#{jpb_gubn},'%')
+          and isnull(jmodel_code,'') Like concat('%',#{jmodel_code},'%')
+          and jsayong_gubn <> '4'
+          and isnull(delflag,'0') = '0'
+        ORDER BY jpum
+        ]]>
+    </select>
+
+    <insert id="InsertJpum" parameterType="com.dae.eean.DTO.App01.Index03Dto" >
+        insert into JCODE3 ( jkey, jpb_gubn, jgong_code, jdan_code, jmodel_code, jmodel_code2, jcolor_code, jcolor_code2, jcolor_code3, jcustomer_code, jcustomer_code_seq,
+        jbonsa_code, jbonsa_code2, jbonsa_code_seq, jbonsa_code_seq2,         jsayong_gubn, jpum, jgugek, jsize, jchgoga0, jbigo, delflag) values
+        (#{jkey}, #{jpb_gubn}, #{jgong_code}, #{jdan_code}, #{jmodel_code}, #{jmodel_code2}, #{jcolor_code},  #{jcolor_code2}, #{jcolor_code3}, #{jcustomer_code}, #{jcustomer_code_seq},
+        #{jbonsa_code}, #{jbonsa_code2},  #{jbonsa_code_seq},  #{jbonsa_code_seq2},  #{jsayong_gubn}, #{jpum}, #{jgugek}, #{jsize}, #{jchgoga0}, #{jbigo},  '0')
     </insert>
 
 
-    <update id="UpdateCif" parameterType="com.dae.eean.DTO.App01.Index02Dto">
-        update CIF
-        set acorp1 = #{acorp1}
-        <if test="acorp != null ">,</if>
-        <if test="acorp != null">acorp=#{acorp}</if>
-        <if test="asano1 != null ">,</if>
-        <if test="asano1 != null">asano1=#{asano1}</if>
-        <if test="asano2 != null ">,</if>
-        <if test="asano2 != null">asano2=#{asano2}</if>
-        <if test="asano3 != null ">,</if>
-        <if test="asano3 != null">asano3=#{asano3}</if>
-        <if test="aname != null ">,</if>
-        <if test="aname != null">aname=#{aname}</if>
-        <if test="aupte != null ">,</if>
-        <if test="aupte != null">aupte=#{aupte}</if>
-        <if test="ajong != null ">,</if>
-        <if test="ajong != null">ajong=#{ajong}</if>
-        <if test="apost1 != null ">,</if>
-        <if test="apost1 != null">apost1=#{apost1}</if>
-        <if test="ajuso1 != null ">,</if>
-        <if test="ajuso1 != null">ajuso1=#{ajuso1}</if>
-        <if test="ajuso2 != null ">,</if>
-        <if test="ajuso2 != null">ajuso2=#{ajuso2}</if>
-        <if test="abigo != null ">,</if>
-        <if test="abigo != null">abigo=#{abigo}</if>
-        <if test="agita != null ">,</if>
-        <if test="agita != null">agita=#{agita}</if>
-        <if test="ajumi1 != null ">,</if>
-        <if test="ajumi1 != null">ajumi1=#{ajumi1}</if>
-        <if test="ajumi2 != null ">,</if>
-        <if test="ajumi2 != null">ajumi2=#{ajumi2}</if>
-        <if test="aascode1 != null ">,</if>
-        <if test="aascode1 != null">aascode1=#{aascode1}</if>
-        <if test="aascode2 != null ">,</if>
-        <if test="aascode2 != null">aascode2=#{aascode2}</if>
-        <if test="atelno != null ">,</if>
-        <if test="atelno != null">atelno=#{atelno}</if>
-        <if test="atelno2 != null ">,</if>
-        <if test="atelno2 != null">atelno2=#{atelno2}</if>
-        <if test="ahand != null ">,</if>
-        <if test="ahand != null">ahand=#{ahand}</if>
-        <if test="aemail != null ">,</if>
-        <if test="aemail != null">aemail=#{aemail}</if>
-        <if test="abonsadam1 != null ">,</if>
-        <if test="abonsadam1 != null">abonsadam1=#{abonsadam1}</if>
-        <if test="abonsadam2 != null ">,</if>
-        <if test="abonsadam2 != null">abonsadam2=#{abonsadam2}</if>
-        <if test="abonsadam3 != null ">,</if>
-        <if test="abonsadam3 != null">abonsadam3=#{abonsadam3}</if>
-        <if test="adomain != null ">,</if>
-        <if test="adomain != null">adomain=#{adomain}</if>
-        <if test="afax != null ">,</if>
-        <if test="afax != null">afax=#{afax}</if>
-        <if test="afax != null ">,</if>
-        <if test="astop != null">astop=#{astop}</if>
-        where acorp1 + CAST(acorp2 as varchar) = #{acode}
+    <update id="UpdateJpum" parameterType="com.dae.eean.DTO.App01.Index03Dto">
+        update JCODE3
+        set delflag = '0'
+        <if test="jpb_gubn != null ">,</if>
+        <if test="jpb_gubn != null">jpb_gubn=#{jpb_gubn}</if>
+        <if test="jgong_code != null ">,</if>
+        <if test="jgong_code != null">jgong_code=#{jgong_code}</if>
+        <if test="jdan_code != null ">,</if>
+        <if test="jdan_code != null">jdan_code=#{jdan_code}</if>
+        <if test="jmodel_code != null ">,</if>
+        <if test="jmodel_code != null">jmodel_code=#{jmodel_code}</if>
+        <if test="jmodel_code2 != null ">,</if>
+        <if test="jmodel_code2 != null">jmodel_code2=#{jmodel_code2}</if>
+        <if test="jcolor_code != null ">,</if>
+        <if test="jcolor_code != null">jcolor_code=#{jcolor_code}</if>
+        <if test="jcolor_code2 != null ">,</if>
+        <if test="jcolor_code2 != null">jcolor_code2=#{jcolor_code2}</if>
+        <if test="jcolor_code3 != null ">,</if>
+        <if test="jcolor_code3 != null">jcolor_code3=#{jcolor_code3}</if>
+        <if test="jcustomer_code != null ">,</if>
+        <if test="jcustomer_code != null">jcustomer_code=#{jcustomer_code}</if>
+        <if test="jcustomer_code_seq != null ">,</if>
+        <if test="jcustomer_code_seq != null">jcustomer_code_seq=#{jcustomer_code_seq}</if>
+        <if test="jbonsa_code != null ">,</if>
+        <if test="jbonsa_code != null">jbonsa_code=#{jbonsa_code}</if>
+        <if test="jbonsa_code2 != null ">,</if>
+        <if test="jbonsa_code2 != null">jbonsa_code2=#{jbonsa_code2}</if>
+        <if test="jbonsa_code_seq != null ">,</if>
+        <if test="jbonsa_code_seq != null">jbonsa_code_seq=#{jbonsa_code_seq}</if>
+        <if test="jbonsa_code_seq2 != null ">,</if>
+        <if test="jbonsa_code_seq2 != null">jbonsa_code_seq2=#{jbonsa_code_seq2}</if>
+        <if test="jsayong_gubn != null ">,</if>
+        <if test="jsayong_gubn != null">jsayong_gubn=#{jsayong_gubn}</if>
+        <if test="jpum != null ">,</if>
+        <if test="jpum != null">jpum=#{jpum}</if>
+        <if test="jgugek != null ">,</if>
+        <if test="jgugek != null">jgugek=#{jgugek}</if>
+        <if test="jsize != null ">,</if>
+        <if test="jsize != null">jsize=#{jsize}</if>
+        <if test="jchgoga0 != null ">,</if>
+        <if test="jchgoga0 != null">jchgoga0=#{jchgoga0}</if>
+        <if test="jbigo != null ">,</if>
+        <if test="jbigo != null">jbigo=#{jbigo}</if>
+        where jkey   = #{jkey}
     </update>
 
 
-    <update id="DeleteCif" parameterType="com.dae.eean.DTO.App01.Index02Dto">
-        UPDATE  CIF SET delflag = '1' where acorp1 + CAST(acorp2 as varchar) = #{acode}
+    <update id="DeleteJpum" parameterType="com.dae.eean.DTO.App01.Index03Dto">
+        UPDATE  JCODE3 SET delflag = '1' where jkey  = #{jkey}
     </update>
 
+    <select id="GetGanListBonsa01" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03ColorDto">
+        <![CDATA[
+                exec SP_GetGanListBonsa01
+                    #{jpb_gubn, jdbcType=VARCHAR},
+                    #{jbonsa_code, jdbcType=VARCHAR},
+                    #{todate, jdbcType=VARCHAR},
+                    #{jsayong_gubn, jdbcType=VARCHAR}
+         ]]>
+    </select>
 
-    <delete id="DeleteXuserBB" parameterType="com.dae.eean.DTO.App01.Index02Dto">
-        DELETE  FROM TB_XUSERS  where perid  = #{acode} and flag = 'BB'
+    <select id="GetGanListBonsa01_OLD" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
+        <![CDATA[
+        SELECT jbonsa_code, jbonsa_code2, jmodel_code2 as jmodel_code,   jpb_gubn
+        from JCODE3 WITH (NOLOCK)
+        WHERE isnull(jpb_gubn,'') Like concat('%',#{jpb_gubn},'%')
+         AND jsayong_gubn IN ( '1', '2','3')
+         AND isnull(jbonsa_code,'') = #{jbonsa_code}
+          and jsayong_gubn <> '4'
+         GROUP BY jbonsa_code, jbonsa_code_seq, jbonsa_code2, jbonsa_code_seq2, jmodel_code2, jpb_gubn
+         ORDER  BY  CONVERT(int, jbonsa_code_seq),  CONVERT(int, jbonsa_code_seq2), jbonsa_code2, jmodel_code2, jpb_gubn
+        ]]>
+    </select>
+
+    <select id="GetGanListBonsa01BB" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03ColorDto">
+        <![CDATA[
+                exec SP_GetGanListBonsa01
+                    #{jpb_gubn, jdbcType=VARCHAR},
+                    #{jbonsa_code, jdbcType=VARCHAR},
+                    #{todate, jdbcType=VARCHAR}
+         ]]>
+    </select>
+
+    <select id="GetGanListBonsa01BB_OLD" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03ColorDto">
+        <![CDATA[
+        SELECT jbonsa_code, jbonsa_code2, jmodel_code2 as jmodel_code,   jpb_gubn
+        from JCODE3 WITH (NOLOCK)
+        WHERE isnull(jpb_gubn,'') Like concat('%',#{jpb_gubn},'%')
+          AND isnull(jbonsa_code,'') = #{jbonsa_code}
+          and jsayong_gubn in ('1','2')
+        GROUP BY jbonsa_code, jbonsa_code_seq, jbonsa_code2, jbonsa_code_seq2, jmodel_code2, jpb_gubn
+        ORDER  BY  CONVERT(int, jbonsa_code_seq),  CONVERT(int, jbonsa_code_seq2), jbonsa_code2, jmodel_code2, jpb_gubn
+        ]]>
+    </select>
+
+    <select id="GetGanListBonsa02_PRC" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
+        <![CDATA[
+                call SP_GanListBonsa02(#{frdate}, #{todate}, #{jpb_gubn}, #{jbonsa_code},#{jbonsa_code2}, #{jmodel_code})
+        ]]>
+    </select>
+
+    <select id="GetGanListBonsa02" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
+        <![CDATA[
+                exec SP_GetGanListBonsa02
+                    #{jpb_gubn, jdbcType=VARCHAR},
+                    #{jbonsa_code, jdbcType=VARCHAR},
+                    #{jbonsa_code2, jdbcType=VARCHAR},
+                    #{jmodel_code, jdbcType=VARCHAR},
+                    #{frdate, jdbcType=VARCHAR},
+                    #{todate, jdbcType=VARCHAR}
+         ]]>
+    </select>
+    <select id="GetGanListBonsa02_OLD" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
+        <![CDATA[
+        SELECT jbonsa_code, jbonsa_code2, jmodel_code2 as jmodel_code,   jpb_gubn, jcolor_code2 as jcolor_code, jkey,
+               convert(integer, DBO.DF_TB_PCODE_JQTY(jkey,  #{frdate},  #{todate}) ) as jqty
+        from JCODE3 WITH (NOLOCK)
+        WHERE isnull(jpb_gubn,'')   = #{jpb_gubn}
+          and isnull(jbonsa_code,'')   = #{jbonsa_code}
+          and isnull(jbonsa_code2,'')   = #{jbonsa_code2}
+          and isnull(jmodel_code2,'') = #{jmodel_code}
+          AND jsayong_gubn IN ( '1', '2','3')
+          and jsayong_gubn <> '4'
+        ORDER  BY jmodel_code2, CONVERT(float, jcolor_code3), jkey
+        ]]>
+    </select>
+
+    <select id="GetJpumSubul01" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
+        <![CDATA[
+            select p.flag, Left(p.jdate,4) + '-' + substring(p.jdate, 5,2)+ '-' + substring(p.jdate, 7,2) as jdate, p.jkey, p.jpum,p.jgugek, p.jbonsa_code, p.jcolor_code, p.jmodel_code, p.ipsu, p.chulsu
+            FROM (
+                select '0' as flag, A.key1 as jdate, B.jkey, B.jpum, isnull(B.jgugek, '') as jgugek, B.jbonsa_code, B.jcolor_code, B.jmodel_code, a.ijaego_su1 as ipsu, 0 as chulsu
+                from  jego_jepmjanak A WITH (NOLOCK), jcode3 B WITH (NOLOCK)
+                WHERE A.jepm = B.jkey
+                and A.key1 between #{frdate} and #{todate}
+                and  isnull(B.jkey,'') Like concat('%',#{jkey},'%')
+                and  isnull(B.jpb_gubn,'') Like concat('%',#{jpb_gubn},'%')
+                and a.ijaego_su1 <> 0
+
+                union all
+
+                Select '1' as flag, A.misdate as jdate,   B.jkey, B.jpum, isnull(B.jgugek, '') as jgugek, B.jbonsa_code, B.jcolor_code, B.jmodel_code, 0 as ipsu, A.qty as chulsu
+                from  tb_da024 A WITH (NOLOCK), jcode3 B WITH (NOLOCK)
+                WHERE A.pcode = B.jkey
+                AND isnull(A.makflag, '0') = '1'
+                and isnull(A.fixflag, '0') = '1'
+                and A.misdate between #{frdate} and #{todate}
+                and  isnull(B.jkey,'') Like concat('%',#{jkey},'%')
+                and  isnull(B.jpb_gubn,'') Like concat('%',#{jpb_gubn},'%')
+                and A.qty <> 0
+            ) P
+            ORDER BY P.jdate, p.jkey, p.flag
+        ]]>
+    </select>
+
+
+    <select id="GetJpumSubul02" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
+        <![CDATA[
+            select p.flag, Left(p.jdate,4) + '-' + substring(p.jdate, 5,2)+ '-' + substring(p.jdate, 7,2) as jdate, p.jkey, p.jpum,p.jgugek, p.jbonsa_code, p.jcolor_code, p.jmodel_code, p.ipsu, p.chulsu
+            FROM (
+                select '0' as flag, A.key1 as jdate, B.jkey, B.jpum, isnull(B.jgugek, '') as jgugek, B.jbonsa_code, B.jcolor_code, B.jmodel_code, a.ijaego_su1 as ipsu, 0 as chulsu
+                from  jego_jepmjanak A WITH (NOLOCK), jcode3 B WITH (NOLOCK)
+                WHERE A.jepm = B.jkey
+                and A.key1 between #{frdate} and #{todate}
+                and  isnull(B.jkey,'') Like concat('%',#{jkey},'%')
+                and  isnull(B.jpb_gubn,'') Like concat('%',#{jpb_gubn},'%')
+                and a.ijaego_su1 <> 0
+
+                union all
+
+                Select '1' as flag, A.misdate as jdate,   B.jkey, B.jpum, isnull(B.jgugek, '') as jgugek, B.jbonsa_code, B.jcolor_code, B.jmodel_code, 0 as ipsu, A.qty as chulsu
+                from  tb_da024 A WITH (NOLOCK), jcode3 B WITH (NOLOCK)
+                WHERE A.pcode = B.jkey
+                AND isnull(A.makflag, '0') = '1'
+                and isnull(A.fixflag, '0') = '1'
+                and A.misdate between #{frdate} and #{todate}
+                and  isnull(B.jkey,'') Like concat('%',#{jkey},'%')
+                and  isnull(B.jpb_gubn,'') Like concat('%',#{jpb_gubn},'%')
+                and A.qty <> 0
+            ) P
+            ORDER BY  p.jkey, P.jdate, p.flag
+        ]]>
+    </select>
+
+    <select id="GetMonthCloseList" parameterType="com.dae.eean.DTO.App01.IndexMonCDto" resultType="com.dae.eean.DTO.App01.IndexMonCDto">
+        <![CDATA[
+        SELECT yymm
+        from TB_JMAGAM WITH (NOLOCK)
+        where isnull(pcode,'') Like concat('%',#{pcode},'%')
+        GROUP BY yymm
+        ORDER  BY  yymm desc
+        ]]>
+    </select>
+
+
+    <select id="GetMonthCloseCount" parameterType="com.dae.eean.DTO.App01.IndexMonCDto" resultType="Integer">
+        <![CDATA[
+        SELECT Count(*) as cnt
+        from TB_JMAGAM WITH (NOLOCK)
+        where isnull(yymm,'') Like concat('%',#{yymm},'%')
+        GROUP BY yymm
+        ]]>
+    </select>
+
+
+    <select id="GetMonthYYMMList" parameterType="com.dae.eean.DTO.App01.IndexMonCDto" resultType="com.dae.eean.DTO.App01.IndexMonCDto">
+        <![CDATA[
+            SELECT 	 A.YYMM as yymm,
+                     A.PCODE as pcode,
+                     B.jpum as jpum,
+                     B.jgugek as jgugek,
+                     B.jsize  as jsize,
+                     B.jmodel_code as jmodel_code,
+                     B.jcolor_code as jcolor_code,
+                     B.jcustomer_code as jcustomer_code,
+                     A.IQTY,
+                     A.CQTY,
+                     A.JQTY,
+                     A.QTY
+             FROM TB_JMAGAM A ,
+                  JCODE3 B
+            WHERE A.pcode = B.jkey
+              and A.yymm = #{yymm}
+              and isnull(A.pcode,'') Like concat('%',#{pcode},'%')
+        ]]>
+    </select>
+
+
+    <select id="GetMonthJaego_PRC" parameterType="com.dae.eean.DTO.App01.IndexMonCDto"  resultType="String">
+        <![CDATA[
+                EXEC SP_MONTHLY_CLOSU @PS_YYMM = #{yymm}
+        ]]>
+    </select>
+
+
+    <delete id="DeleteMonthJaego" parameterType="com.dae.eean.DTO.App01.IndexMonCDto" >
+        delete from TB_JMAGAM
+        where yymm = #{yymm}
     </delete>
 
-
-    <update id="UpdateBonsadam" parameterType="com.dae.eean.DTO.App01.Index02Dto">
-        UPDATE cif  SET abonsadam1 = #{abonsadam1}
-        WHERE  acorp1 + CAST(acorp2 as varchar) = #{acode}
-    </update>
-    <update id="Updateda024Damdang" parameterType="com.dae.eean.DTO.App01.Index02Dto">
-        UPDATE TB_DA024  SET  pernm = #{inname01}, perid =  #{abonsadam1}
-        WHERE  cltcd = #{acode}
-    </update>
 </mapper>
