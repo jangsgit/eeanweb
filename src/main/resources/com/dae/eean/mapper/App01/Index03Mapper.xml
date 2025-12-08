@@ -103,18 +103,18 @@
 
     <select id="GetJpumCustList" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
         {
-            call GetFilteredData(#{frdate},#{todate}, #{jpb_gubn}, #{jcustomer_code}, #{flag} )
+        call GetFilteredData(#{frdate},#{todate}, #{jpb_gubn}, #{jcustomer_code}, #{flag} )
         }
-<!--        <![CDATA[-->
-<!--            select   jcustomer_code, jmodel_code-->
-<!--            from JCODE3 WITH (NOLOCK)-->
-<!--            WHERE isnull(jcustomer_code,'')   = #{jcustomer_code}-->
-<!--              and jsayong_gubn <> '4'-->
-<!--              AND LEN(jcustomer_code) > 0-->
-<!--              and isnull(jpb_gubn,'') Like concat('%',#{jpb_gubn},'%')-->
-<!--            Group by jcustomer_code, jmodel_code-->
-<!--            ORDER BY jcustomer_code, jmodel_code-->
-<!--        ]]>-->
+        <!--        <![CDATA[-->
+        <!--            select   jcustomer_code, jmodel_code-->
+        <!--            from JCODE3 WITH (NOLOCK)-->
+        <!--            WHERE isnull(jcustomer_code,'')   = #{jcustomer_code}-->
+        <!--              and jsayong_gubn <> '4'-->
+        <!--              AND LEN(jcustomer_code) > 0-->
+        <!--              and isnull(jpb_gubn,'') Like concat('%',#{jpb_gubn},'%')-->
+        <!--            Group by jcustomer_code, jmodel_code-->
+        <!--            ORDER BY jcustomer_code, jmodel_code-->
+        <!--        ]]>-->
     </select>
 
 
@@ -134,7 +134,7 @@
 
     <select id="GetJpumCustJaegoList" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
         {
-            call SP_JaegoList(#{frdate},#{todate}, #{jkey}, #{jpb_gubn})
+        call SP_JaegoList(#{frdate},#{todate}, #{jkey}, #{jpb_gubn})
         }
     </select>
 
@@ -161,50 +161,50 @@
 
     <select id="GetJpumFromJaegoList" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
         {
-            call SP_FromToJaegoList(#{frdate},#{todate}, #{jkey}, #{jpb_gubn})
+        call SP_FromToJaegoList(#{frdate},#{todate}, #{jkey}, #{jpb_gubn})
         }
     </select>
 
 
     <select id="GetJpumOrderJkey" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
         <![CDATA[
-            select top 1  A.jkey, jpb_gubn, jgong_code,   jdan_code, jmodel_code, jdan_code, jmodel_code2, jcolor_code2, jcustomer_code,
-                     jbonsa_code, jbonsa_code2, jsayong_gubn, jpum, jgugek, jsize,    convert(int , isnull(jchgoga0,0))  AS jchgoga0, jbigo,
+            select top 1  A.jkey, A.jpb_gubn, A.jgong_code,   A.jdan_code, A.jmodel_code, A.jdan_code, A.jmodel_code2, A.jcolor_code2, jcustomer_code,
+                     A.jbonsa_code, A.jbonsa_code2, A.jsayong_gubn, A.jpum, A.jgugek, A.jsize,    convert(int , isnull(A.jchgoga0,0))  AS jchgoga0, jbigo,
                    D.stock_qty  as jqty
             from JCODE3 A WITH (NOLOCK)
             LEFT JOIN TB_JSTOCK D ON A.jkey = D.jkey
-            WHERE isnull(jmodel_code2,'') = #{jmodel_code2}
-             and  isnull(jbonsa_code,'') = #{jbonsa_code}
-             and  isnull(jbonsa_code2,'') = #{jbonsa_code2}
-             and  isnull(jcolor_code2,'') = #{jcolor_code2}
-              and  isnull(jpb_gubn,'') = #{jpb_gubn}
-              and jsayong_gubn <> '4'
+            WHERE isnull(A.jmodel_code2,'') = #{jmodel_code2}
+             and  isnull(A.jbonsa_code,'') = #{jbonsa_code}
+             and  isnull(A.jbonsa_code2,'') = #{jbonsa_code2}
+             and  isnull(A.jcolor_code2,'') = #{jcolor_code2}
+              and  isnull(A.jpb_gubn,'') = #{jpb_gubn}
+              and A.jsayong_gubn <> '4'
         ]]>
     </select>
 
     <select id="GetJpumOrderJkey02" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
         <![CDATA[
-            select top 1  A.jkey, jpb_gubn, jgong_code, jdan_code, jmodel_code, jcolor_code, jcustomer_code,jbonsa_code,
-                     jbonsa_code, jsayong_gubn, jpum, jgugek, jsize,   convert(int , isnull(jchgoga0,0))  AS jchgoga0, jbigo,
+            select top 1  A.jkey, A.jpb_gubn, A.jgong_code, A.jdan_code, A.jmodel_code, A.jcolor_code, A.jcustomer_code,A.jbonsa_code,
+                     A.jbonsa_code, A.jsayong_gubn, A.jpum, A.jgugek, A.jsize,   convert(int , isnull(A.jchgoga0,0))  AS jchgoga0, A.jbigo,
                      D.stock_qty as jqty
             from JCODE3  A WITH (NOLOCK)
             LEFT JOIN TB_JSTOCK D ON A.jkey = D.jkey
-            WHERE isnull(jkey,'') = #{jkey}
-              and jsayong_gubn <> '4'
+            WHERE isnull(A.jkey,'') = #{jkey}
+              and A.jsayong_gubn <> '4'
         ]]>
     </select>
 
 
     <select id="GetJpumModelList" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
         <![CDATA[
-        select   A.jkey, jpb_gubn, jgong_code, jdan_code, jmodel_code, jcolor_code, jcustomer_code,
-                 jbonsa_code, jsayong_gubn, jpum, jgugek, isnull(jgugek2,'') as jgugek2, isnull(jgugek3,'') as jgugek3, isnull(jgugek4,'') as jgugek4, jsize,   convert(int , jchgoga0)  as jchgoga0, jbigo,
+        select   A.jkey, A.jpb_gubn, A.jgong_code, A.jdan_code, A.jmodel_code, A.jcolor_code, A.jcustomer_code,
+                 A.jbonsa_code, A.jsayong_gubn, A.jpum, A.jgugek, isnull(A.jgugek2,'') as jgugek2, isnull(A.jgugek3,'') as jgugek3, isnull(A.jgugek4,'') as jgugek4, A.jsize,   convert(int , A.jchgoga0)  as jchgoga0, jbigo,
                  D.stock_qty   as jqty
         from JCODE3  A WITH (NOLOCK)
         LEFT JOIN TB_JSTOCK D ON A.jkey = D.jkey
-        WHERE isnull(jmodel_code,'')   = #{jmodel_code}
-          and isnull(jcustomer_code,'')   = #{jcustomer_code}
-          and isnull(jpb_gubn,'') Like concat('%',#{jpb_gubn},'%')
+        WHERE isnull(A.jmodel_code,'')   = #{jmodel_code}
+          and isnull(A.jcustomer_code,'')   = #{jcustomer_code}
+          and isnull(A.jpb_gubn,'') Like concat('%',#{jpb_gubn},'%')
           AND (
                     (#{flag} = 'AA' AND jsayong_gubn IN ('1','2','3'))
                     OR
@@ -212,8 +212,8 @@
                     OR
                     (#{flag} = 'BB' AND jsayong_gubn IN ('1'))
 		        )
-          and jsayong_gubn <> '4'
-        ORDER BY jmodel_code, CONVERT(float, jcolor_code3),jkey
+          and A.jsayong_gubn <> '4'
+        ORDER BY A.jmodel_code, CONVERT(float, A.jcolor_code3),jkey
         ]]>
     </select>
 
@@ -272,9 +272,9 @@
 
     <insert id="InsertJpum" parameterType="com.dae.eean.DTO.App01.Index03Dto" >
         insert into JCODE3 ( jkey, jpb_gubn, jgong_code, jdan_code, jmodel_code, jmodel_code2, jcolor_code, jcolor_code2, jcolor_code3, jcustomer_code, jcustomer_code_seq,
-                             jbonsa_code, jbonsa_code2, jbonsa_code_seq, jbonsa_code_seq2,         jsayong_gubn, jpum, jgugek, jsize, jchgoga0, jbigo, delflag) values
-                        (#{jkey}, #{jpb_gubn}, #{jgong_code}, #{jdan_code}, #{jmodel_code}, #{jmodel_code2}, #{jcolor_code},  #{jcolor_code2}, #{jcolor_code3}, #{jcustomer_code}, #{jcustomer_code_seq},
-                         #{jbonsa_code}, #{jbonsa_code2},  #{jbonsa_code_seq},  #{jbonsa_code_seq2},  #{jsayong_gubn}, #{jpum}, #{jgugek}, #{jsize}, #{jchgoga0}, #{jbigo},  '0')
+        jbonsa_code, jbonsa_code2, jbonsa_code_seq, jbonsa_code_seq2,         jsayong_gubn, jpum, jgugek, jsize, jchgoga0, jbigo, delflag) values
+        (#{jkey}, #{jpb_gubn}, #{jgong_code}, #{jdan_code}, #{jmodel_code}, #{jmodel_code2}, #{jcolor_code},  #{jcolor_code2}, #{jcolor_code3}, #{jcustomer_code}, #{jcustomer_code_seq},
+        #{jbonsa_code}, #{jbonsa_code2},  #{jbonsa_code_seq},  #{jbonsa_code_seq2},  #{jsayong_gubn}, #{jpum}, #{jgugek}, #{jsize}, #{jchgoga0}, #{jbigo},  '0')
     </insert>
 
 
