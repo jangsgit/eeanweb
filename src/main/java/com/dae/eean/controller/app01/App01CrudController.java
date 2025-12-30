@@ -1734,7 +1734,7 @@ public class App01CrudController {
                             _syslogDto.setMessage(_indexDa024Dto.getMisdate() + "/" + _indexDa024Dto.getMisnum());
                             _syslogDto.setUserid(userid);
                             _syslogDto.setUsernm(usernm);
-                            result = service_auth.TB_SYSLOG_INSERT(_syslogDto);
+                            result = true; //service_auth.TB_SYSLOG_INSERT(_syslogDto);
                             if (!result) {
                                 //return "error";
                             }
@@ -1779,7 +1779,7 @@ public class App01CrudController {
                 _syslogDto.setMessage(_indexDa024Dto.getMisdate() + "/" + _indexDa024Dto.getMisnum() + "/" + _indexDa024Dto.getSeq());
                 _syslogDto.setUserid(userid);
                 _syslogDto.setUsernm(usernm);
-                result = service_auth.TB_SYSLOG_INSERT(_syslogDto);
+                result = true; //service_auth.TB_SYSLOG_INSERT(_syslogDto);
                 if (!result) {
                    // return "error";
                 }
