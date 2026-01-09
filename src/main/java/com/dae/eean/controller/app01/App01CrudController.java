@@ -3219,8 +3219,8 @@ public class App01CrudController {
             _indexDa024Dto.setJfrdate("20000101");
             _indexDa024Dto.setJtodate(todate);
             if(acode.equals("%")){
-                _indexDa024Dto.setFrdate("20000101");
-                _indexDa024Dto.setTodate("21000101");
+//                _indexDa024Dto.setFrdate("20000101");
+//                _indexDa024Dto.setTodate("21000101");
                 _indexDa024ListDto = service14.SelectDa024ListLikeJang(_indexDa024Dto);
             }else{
                 _indexDa024ListDto = service14.SelectDa024ListJang(_indexDa024Dto);
@@ -3869,6 +3869,7 @@ public class App01CrudController {
             //출력일기준
             if(sflag.equals("0")){
                 _indexDa024ListDto = service14.SelectDa024ListCltcdGroup(_indexDa024Dto); //출력일
+                log.info("002 =====>");
             }else{
                 _indexDa024ListDto = service14.SelectDa024ListCltcdGroupJumun(_indexDa024Dto); //주문일
             }

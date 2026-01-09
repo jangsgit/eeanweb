@@ -585,7 +585,7 @@
                  JOIN TB_JSTOCK C ON B.pcode = C.jkey
            where B.cltcd Like  #{cltcd}
              AND isnull(B.perid,'')  Like concat('%',#{perid},'%')
-            AND B.misdate between #{frdate} and #{todate}
+             AND B.misdate between #{frdate} and #{todate}
              AND isnull(B.misgubun,'')  Like concat('%',#{misgubun},'%')
              AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
              AND Isnull(B.makflag, '0') Like concat('%',#{makflag},'%')
@@ -600,19 +600,17 @@
     <select id="SelectDa024ListPeridGroup"  parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" resultType="com.dae.eean.DTO.App01.IndexDa024Dto">
         <![CDATA[ select count(*) as rownum,  sum(B.qty) as qty,  sum(B.samt) as samt, sum(B.addamt) as addamt,
                          sum(B.amt) as amt,   B.pernm as pernm, B.perid AS perid
-           from  TB_DA024 B WITH (NOLOCK) ,
-                 jcode3 E WITH (NOLOCK)
-           where B.pcode = E.jkey
-              AND B.cltcd Like  #{cltcd}
-             AND isnull(B.perid,'')  Like concat('%',#{perid},'%')
-             AND isnull(B.misgubun,'')  Like concat('%',#{misgubun},'%')
-            AND B.fixdate between #{frdate} and #{todate}
-            AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
-             AND Isnull(B.makflag, '0') Like concat('%',#{makflag},'%')
-
-             and isnull(B.pcode,'') Like  #{pcode} + '%'
-             AND Len(ISNULL(B.pernm,'')) > 0
-             AND E.jbonsa_code NOT IN ( '부속' )
+           from  TB_DA024 B WITH (NOLOCK)
+                 JOIN jcode3 E WITH (NOLOCK) ON B.pcode = E.jkey
+           where  B.cltcd Like  #{cltcd}
+             AND B.perid  Like (#{perid} + '%')
+             AND isnull(B.misgubun,'')  Like (#{misgubun} + '%')
+            AND B.fixdate >= #{frdate} and B.fixdate <= #{todate}
+            AND B.fixflag Like (#{fixflag} + '%')
+            AND B.makflag = #{makflag}
+            AND B.pcode LIKE (#{pcode} + '%')
+            AND B.pernm IS NOT NULL AND B.pernm <> ''
+             AND E.jbonsa_code  <> '부속'
             Group BY B.perid,  B.pernm
             ORDER BY  B.pernm
         ]]>
@@ -624,19 +622,17 @@
     <select id="SelectDa024ListPeridGroupJumun"  parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" resultType="com.dae.eean.DTO.App01.IndexDa024Dto">
         <![CDATA[ select count(*) as rownum,  sum(B.qty) as qty,  sum(B.samt) as samt, sum(B.addamt) as addamt,
                          sum(B.amt) as amt,   B.pernm as pernm, B.perid AS perid
-           from  TB_DA024 B WITH (NOLOCK) ,
-                 jcode3 E WITH (NOLOCK)
-           where   B.pcode = E.jkey
-              AND B.cltcd Like  #{cltcd}
-             AND isnull(B.perid,'')  Like concat('%',#{perid},'%')
-             AND isnull(B.misgubun,'')  Like concat('%',#{misgubun},'%')
-            AND B.misdate between #{frdate} and #{todate}
-            AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
-             AND Isnull(B.makflag, '0') Like concat('%',#{makflag},'%')
-
-             AND Len(ISNULL(B.pernm,'')) > 0
-             and isnull(B.pcode,'') Like  #{pcode} + '%'
-             AND E.jbonsa_code NOT IN ( '부속' )
+           from  TB_DA024 B WITH (NOLOCK)
+             JOIN    jcode3 E WITH (NOLOCK) ON B.pcode = E.jkey
+           where    B.cltcd Like  #{cltcd}
+             AND B.perid  Like ( #{perid}+ '%')
+             AND B.misgubun  Like (#{misgubun}+ '%')
+            AND B.misdate >= #{frdate} and B.misdate <= #{todate}
+            AND  B.fixflag  Like ( #{fixflag} + '%')
+             AND B.makflag = #{makflag}
+                AND B.pernm IS NOT NULL AND B.pernm <> ''
+            AND B.pcode LIKE (#{pcode} + '%')
+             AND E.jbonsa_code <> '부속'
             Group BY B.perid,  B.pernm
             ORDER BY  B.pernm
         ]]>
@@ -694,15 +690,14 @@
                         jcode3 E WITH (NOLOCK)
                   where   B.pcode = E.jkey
                     AND  B.custcd = 'EEAN' and B.spjangcd = 'ZZ' and B.cltcd Like  #{cltcd}
-                    AND isnull(B.perid,'')  Like concat('%',#{perid},'%')
+                    AND B.perid  Like Like (#{perid} + '%')
                     AND isnull(B.misgubun,'')  Like concat('%',#{misgubun},'%')
-                    AND B.misdate between #{frdate} and #{todate}
-                    AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
-                    AND Isnull(B.makflag, '0') Like concat('%',#{makflag},'%')
-
-                    AND Len(ISNULL(B.pernm,'')) > 0
-                    and isnull(B.pcode,'') Like  #{pcode} + '%'
-                    AND E.jbonsa_code NOT IN ( '부속' )
+                    AND B.misdate >= #{frdate} and B.misdate <= {todate}
+                    AND B.fixflag Like (#{fixflag} + '%')
+                    AND B.makflag = #{makflag}
+                    AND B.pernm IS NOT NULL AND B.pernm <> ''
+                    AND B.pcode LIKE (#{pcode} + '%')
+                    AND E.jbonsa_code <>  '부속'
                   ORDER BY B.pernm, B.misdate, B.misnum, B.seq, B.fixdate
         ]]>
 
@@ -735,17 +730,16 @@
                         sum(B.qty) as qty, sum(B.samt) as samt, sum(B.addamt) as addamt,
                       sum(B.amt) as amt, B.acorp, B.pernm as inname, B.misgubun as misgubun, isnull(B.fixflag,'0') as fixflag, B.pernm as pernm,
                       max(isnull(B.remarkaa,'')) as remarkaa, max(isnull(B.remarkbb,'')) as remarkbb
-                  from  TB_DA024 B WITH (NOLOCK),
-                        jcode3 E WITH (NOLOCK)
-                  where  B.pcode = E.jkey
-                    AND B.cltcd Like #{cltcd}
-                    AND isnull(B.perid,'')  Like concat('%',#{perid},'%')
-                    AND B.fixdate between #{frdate} and #{todate}
-                    AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
-                    AND Isnull(B.makflag, '0') Like concat('%',#{makflag},'%')
-                    AND Len(ISNULL(B.pernm,'')) > 0
-                    and isnull(B.pcode,'') Like  #{pcode} + '%'
-                    AND E.jbonsa_code NOT IN ( '부속' )
+                  from  TB_DA024 B WITH (NOLOCK)
+                   join  jcode3 E WITH (NOLOCK) on B.pcode = E.jkey
+                  where  B.cltcd Like #{cltcd}
+                    AND B.fixdate >= #{frdate} and B.fixdate <= #{todate}
+                    AND LEN(B.pernm) > 0
+                    AND B.pcode LIKE (#{pcode} + '%')
+                    AND E.jbonsa_code  <> '부속'
+                    AND B.perid Like concat('%',#{perid},'%')
+                    AND B.fixflag = #{fixflag}
+                    AND B.makflag = #{makflag}
                   Group by B.cltcd,  B.pernm,   B.acorp, B.fixflag, B.misdate, B.misnum , B.misgubun
                   ORDER BY B.pernm, b.acorp, B.misdate, B.misnum,sum(B.qty ) desc
         ]]>
@@ -757,17 +751,16 @@
         <![CDATA[ select B.cltcd as cltcd, count(*) as rownum,
                         sum(B.qty) as qty, sum(B.samt) as samt, sum(B.addamt) as addamt,
                       sum(B.amt) as amt, B.acorp, B.pernm as inname, max(B.misgubun) as misgubun, isnull(B.fixflag,'0') as fixflag, B.pernm as pernm
-                  from  TB_DA024 B WITH (NOLOCK),
-                        jcode3 E WITH (NOLOCK)
-                  where  B.pcode = E.jkey
-                    AND  B.cltcd Like #{cltcd}
-                    AND isnull(B.perid,'')  Like concat('%',#{perid},'%')
-                    AND B.misdate between #{frdate} and #{todate}
-                    AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
-                    AND Isnull(B.makflag, '0') Like concat('%',#{makflag},'%')
-                    AND Len(ISNULL(B.pernm,'')) > 0
-                    and isnull(B.pcode,'') Like  #{pcode} + '%'
-                    AND E.jbonsa_code NOT IN ( '부속' )
+                  from  TB_DA024 B WITH (NOLOCK)
+                      JOIN  jcode3 E WITH (NOLOCK) ON B.pcode = E.jkey
+                  where   B.cltcd Like #{cltcd}
+                    AND B.perid  Like ( #{perid} + '%')
+                    AND B.misdate >= #{frdate} and B.misdate <= #{todate}
+                    AND B.fixflag  Like (#{fixflag} + '%')
+                    AND B.makflag = #{makflag}
+                      AND B.pernm IS NOT NULL AND B.pernm <> ''
+                      AND B.pcode LIKE (#{pcode} + '%')
+                    AND E.jbonsa_code <> '부속'
                   Group by B.cltcd,  B.pernm,   B.acorp, B.fixflag
                   ORDER BY B.pernm, sum(B.qty ) desc, b.acorp
         ]]>
@@ -795,19 +788,18 @@
     <select id="SelectDa024ListJpumGroup"  parameterType="com.dae.eean.DTO.App01.IndexDa024Dto" resultType="com.dae.eean.DTO.App01.IndexDa024Dto">
         <![CDATA[ select    B.pcode, B.pname, B.psize, sum(B.qty) as qty, sum(B.samt) as samt, sum(B.addamt) as addamt,  count(*) as rownum,
                             sum(B.amt) as amt, B.acorp, B.pernm as inname, B.misgubun, isnull(B.fixflag,'0') as fixflag, B.pernm as pernm
-                  from  TB_DA024 B WITH (NOLOCK),
-                        jcode3 E WITH (NOLOCK)
-                  where   B.pcode = E.jkey
-                    AND B.cltcd Like #{cltcd}
-                    AND isnull(B.perid,'')  Like concat('%',#{perid},'%')
+                  from  TB_DA024 B WITH (NOLOCK)
+                    JOIN    jcode3 E WITH (NOLOCK) ON B.pcode = E.jkey
+                  where  B.cltcd Like #{cltcd}
+                    AND B.perid  Like (#{perid} + '%')
                     AND isnull(B.misgubun,'')  Like concat('%',#{misgubun},'%')
-                    AND B.fixdate between #{frdate} and #{todate}
-                    AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
-                    AND Isnull(B.makflag, '0') Like concat('%',#{makflag},'%')
-                    and isnull(B.jpb_gubn,'') Like concat('%',#{jpbgubn},'%')
-                    AND Len(ISNULL(B.pernm,'')) > 0
-                    and isnull(B.pcode,'') Like  #{pcode} + '%'
-                    AND E.jbonsa_code NOT IN ( '부속' )
+                    AND B.fixdate >= #{frdate} and B.fixdate <= #{todate}
+                    AND B.fixflag Like (#{fixflag} + '%')
+                    AND B.makflag = #{makflag}
+                    and B.jpb_gubn  Like (#{jpbgubn} + '%')
+                  AND B.pernm IS NOT NULL AND B.pernm <> ''
+                  AND B.pcode LIKE (#{pcode} + '%')
+                    AND E.jbonsa_code <> '부속'
                   Group by B.cltcd, B.pcode, B.pname, B.psize, B.pernm, B.misgubun  , B.acorp, B.fixflag
                   ORDER BY  B.pernm, sum(B.qty ) desc
         ]]>
@@ -818,19 +810,18 @@
         <![CDATA[ select    B.pcode, B.pname, B.psize, sum(B.qty) as qty, sum(B.samt) as samt, sum(B.addamt) as addamt,  count(*) as rownum,
                             sum(B.amt) as amt, C.acorp, B.pernm as inname, B.misgubun, isnull(B.fixflag,'0') as fixflag, B.pernm as pernm
                   from  TB_DA024 B WITH (NOLOCK)
-                       LEFT JOIN cif C ON B.cltcd = C.acorp1 + CAST(C.acorp2 as varchar),
-                        jcode3 E WITH (NOLOCK)
-                  where   B.pcode = E.jkey
-                    AND  B.cltcd Like #{cltcd}
-                    AND isnull(B.perid,'')  Like concat('%',#{perid},'%')
+                       LEFT JOIN cif C ON B.cltcd = C.acorp1 + CAST(C.acorp2 as varchar)
+                       JOIN jcode3 E WITH (NOLOCK) ON  B.pcode = E.jkey
+                  where    B.cltcd Like #{cltcd}
+                    AND B.perid  Like (#{perid} + '%')
                     AND isnull(B.misgubun,'')  Like concat('%',#{misgubun},'%')
-                    AND B.misdate between #{frdate} and #{todate}
-                    AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
-                    AND Isnull(B.makflag, '0') Like concat('%',#{makflag},'%')
-                    and isnull(B.jpb_gubn,'') Like concat('%',#{jpbgubn},'%')
-                    AND Len(ISNULL(B.pernm,'')) > 0
-                    and isnull(B.pcode,'') Like  #{pcode} + '%'
-                    AND E.jbonsa_code NOT IN ( '부속' )
+                    AND B.misdate >= #{frdate} and B.misdate <= #{todate}
+                    AND B.fixflag Like (#{fixflag} + '%')
+                    AND B.makflag = #{makflag}
+                    and B.jpb_gubn Like (#{jpbgubn} + '%')
+                  AND B.pernm IS NOT NULL AND B.pernm <> ''
+                  AND B.pcode LIKE (#{pcode} + '%')
+                    AND E.jbonsa_code <> '부속'
                   Group by B.cltcd, B.pcode, B.pname, B.psize, B.pernm, B.misgubun  , B.acorp, B.fixflag
                   ORDER BY  B.pernm, sum(B.qty ) desc
         ]]>
