@@ -128,10 +128,10 @@
                   where  B.custcd = 'EEAN' and B.spjangcd = 'ZZ' and B.cltcd = #{cltcd}
                     AND isnull(B.perid,'')  Like concat('%',#{perid},'%')
                     AND B.misdate >= #{frdate} and B.misdate <= #{todate}
-                    AND B.fixflag  Like (#{fixflag} + '%')
+                    AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
                     AND Isnull(B.devflag, '0') Like concat('%',#{devflag},'%')
                     AND Isnull(B.misgubun, '') Like concat('%',#{misgubun},'%')
-                    AND B.makflag  Like (#{makflag} + '%')
+                    AND Isnull(B.makflag, '0') Like concat('%',#{makflag},'%')
                     and isnull(B.jpb_gubn,'') Like concat('%',#{jpbgubn},'%')
                     and isnull(B.pname, '') not in ('AS', '유상')
                   ORDER BY  B.misdate desc, B.misnum, B.seq
@@ -157,10 +157,10 @@
                   where  B.custcd = 'EEAN' and B.spjangcd = 'ZZ' and B.cltcd = #{cltcd}
                     AND isnull(B.perid,'')  Like concat('%',#{perid},'%')
                     AND B.misdate >= #{frdate} and B.misdate <= #{todate}
-                    AND B.fixflag  Like (#{fixflag} + '%')
+                    AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
                     AND Isnull(B.devflag, '0') Like concat('%',#{devflag},'%')
                     AND Isnull(B.misgubun, '') Like concat('%',#{misgubun},'%')
-                    AND B.makflag  Like (#{makflag} + '%')
+                    AND Isnull(B.makflag, '0') Like concat('%',#{makflag},'%')
                     and isnull(B.jpb_gubn,'') Like concat('%',#{jpbgubn},'%')
                   ORDER BY  B.misdate desc, B.misnum, B.seq
         ]]>
@@ -185,10 +185,10 @@
                   where B.custcd = 'EEAN' and B.spjangcd = 'ZZ' and B.CLTCD Like concat('%',#{cltcd},'%')
                     AND isnull(B.perid,'')  Like concat('%',#{perid},'%')
                     AND B.misdate >= #{frdate} and B.misdate <= #{todate}
-                    AND B.fixflag  Like (#{fixflag} + '%')
+                    AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
                     AND Isnull(B.devflag, '0') Like concat('%',#{devflag},'%')
                     AND Isnull(B.misgubun, '') Like concat('%',#{misgubun},'%')
-                    AND B.makflag  Like (#{makflag} + '%')
+                    AND Isnull(B.makflag, '0') Like concat('%',#{makflag},'%')
                     and isnull(B.jpb_gubn,'') Like concat('%',#{jpbgubn},'%')
                     and isnull(B.pname, '') not in ('AS', '유상')
                   ORDER BY  B.misdate desc, B.misnum, B.seq
@@ -223,10 +223,10 @@
                   where B.custcd = 'EEAN' and B.spjangcd = 'ZZ' and B.CLTCD Like  #{cltcd}
                     AND isnull(B.perid,'')  Like concat('%',#{perid},'%')
                     AND B.misdate >= #{frdate} and B.misdate <= #{todate}
-                    AND B.fixflag  Like (#{fixflag} + '%')
+                    AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
                     AND Isnull(B.devflag, '0') Like concat('%',#{devflag},'%')
                     AND Isnull(B.misgubun, '') Like concat('%',#{misgubun},'%')
-                    AND B.makflag  Like (#{makflag} + '%')
+                    AND Isnull(B.makflag, '0') Like concat('%',#{makflag},'%')
                     and isnull(B.jpb_gubn,'') Like concat('%',#{jpbgubn},'%')
                   ORDER BY  B.misdate desc, B.misnum, B.seq
         ]]>
@@ -261,7 +261,7 @@
                        LEFT JOIN JUPSUDATA D ON B.misdate = D.misdate and B.misnum = D.misnum
                   where B.custcd = 'EEAN' and B.spjangcd = 'ZZ' and B.CLTCD Like #{cltcd}
                     AND B.misdate >= #{frdate} and B.misdate <= #{todate}
-                    AND B.fixflag  Like (#{fixflag} + '%')
+                    AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
                     AND Isnull(B.userid, '') Like #{userid}
                     AND B.pmodel = 'AS'
                   ORDER BY  B.misdate desc, B.misnum, B.seq
@@ -286,10 +286,10 @@
                   where B.custcd = 'EEAN' and B.spjangcd = 'ZZ' and  B.cltcd = #{cltcd}
                     AND isnull(B.perid,'')  Like concat('%',#{perid},'%')
                     AND B.misdate >= #{frdate} and B.misdate <= #{todate}
-                    AND B.fixflag  Like (#{fixflag} + '%')
+                    AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
                     AND Isnull(B.devflag, '0') Like concat('%',#{devflag},'%')
                     AND Isnull(B.misgubun, '') Like concat('%',#{misgubun},'%')
-                    AND B.makflag  Like (#{makflag} + '%')
+                    AND Isnull(B.makflag, '0') Like concat('%',#{makflag},'%')
                     and isnull(B.jpb_gubn,'') Like concat('%',#{jpbgubn},'%')
                   ORDER BY  B.misdate desc, B.misnum, B.seq
         ]]>
@@ -310,10 +310,10 @@
                   where  B.custcd = 'EEAN' and B.spjangcd = 'ZZ' and B.cltcd Like #{cltcd}
                     AND isnull(B.inperid,'')  Like concat('%',#{perid},'%')
                     AND B.misdate >= #{frdate} and B.misdate <= #{todate}
-                    AND B.fixflag  Like (#{fixflag} + '%')
+                    AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
                     AND Isnull(B.devflag, '0') Like concat('%',#{devflag},'%')
                     AND Isnull(B.misgubun, '') Like concat('%',#{misgubun},'%')
-                    AND B.makflag  Like (#{makflag} + '%')
+                    AND Isnull(B.makflag, '0') Like concat('%',#{makflag},'%')
                     and isnull(B.jpb_gubn,'') Like concat('%',#{jpbgubn},'%')
                   ORDER BY  B.misdate desc, B.misnum, B.seq
         ]]>
@@ -538,8 +538,8 @@
              AND isnull(B.perid,'')  Like concat('%',#{perid},'%')
             AND B.misdate >= #{frdate} and B.misdate <= #{todate}
              AND isnull(B.misgubun,'')  Like concat('%',#{misgubun},'%')
-             AND B.fixflag  Like (#{fixflag} + '%')
-             AND B.makflag  Like (#{makflag} + '%')
+             AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
+             AND Isnull(B.makflag, '0') Like concat('%',#{makflag},'%')
              and isnull(B.jpb_gubn,'') Like concat('%',#{jpbgubn},'%')
              AND Isnull(B.pcode, '') Like concat( #{pcode},'%')
             ORDER BY B.misdate, B.misnum, B.seq
@@ -564,8 +564,8 @@
                     AND isnull(A.abonsadam1,'')  Like concat('%',#{perid},'%')
                     AND B.misdate >= #{frdate} and B.misdate <= #{todate}
                     AND isnull(B.misgubun,'')  Like concat('%',#{misgubun},'%')
-                    AND B.fixflag  Like (#{fixflag} + '%')
-                    AND B.makflag  Like (#{makflag} + '%')
+                    AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
+                    AND Isnull(B.makflag, '0') Like concat('%',#{makflag},'%')
                     and isnull(E.jpb_gubn,'') Like concat('%',#{jpbgubn},'%')
                     AND Isnull(B.pcode, '') Like concat( #{pcode},'%')
                   ORDER BY B.misdate, B.misnum, B.seq
@@ -587,8 +587,8 @@
              AND isnull(B.perid,'')  Like concat('%',#{perid},'%')
              AND B.misdate >= #{frdate} and B.misdate <= #{todate}
              AND isnull(B.misgubun,'')  Like concat('%',#{misgubun},'%')
-             AND B.fixflag  Like (#{fixflag} + '%')
-             AND B.makflag  Like (#{makflag} + '%')
+             AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
+             AND Isnull(B.makflag, '0') Like concat('%',#{makflag},'%')
              AND Isnull(B.pcode, '') Like concat(   #{pcode},'%')
              and isnull(B.jpb_gubn,'') Like concat('%',#{jpbgubn},'%')
             ORDER BY B.misdate, B.misnum, B.seq
@@ -714,8 +714,8 @@
                      AND isnull(B.perid,'')  Like concat('%',#{perid},'%')
                      AND isnull(B.misgubun,'')  Like concat('%',#{misgubun},'%')
                     AND B.fixdate >= #{frdate} and B.fixdate <= #{todate}
-                    AND B.fixflag  Like (#{fixflag} + '%')
-                    AND B.makflag  Like (#{makflag} + '%')
+                    AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
+                    AND Isnull(B.makflag, '0') Like concat('%',#{makflag},'%')
                     ORDER BY B.cltcd,  B.fixdate, B.misdate, B.misnum, B.seq
                 ]]>
 
@@ -756,7 +756,7 @@
                   where   B.cltcd Like #{cltcd}
                     AND B.perid  Like ( #{perid} + '%')
                     AND B.misdate >= #{frdate} and B.misdate <= #{todate}
-                    AND B.fixflag  Like (#{fixflag} + '%')
+                    AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
                     AND B.makflag = #{makflag}
                       AND B.pernm IS NOT NULL AND B.pernm <> ''
                       AND B.pcode LIKE (#{pcode} + '%')
@@ -778,7 +778,7 @@
              AND isnull(B.pcode,'')  Like concat('%',#{pcode},'%')
              AND isnull(B.misgubun,'')  Like concat('%',#{misgubun},'%')
             AND B.fixdate >= #{frdate} and B.fixdate <= #{todate}
-            AND B.fixflag  Like (#{fixflag} + '%')
+            AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
             and isnull(B.jpb_gubn,'') Like concat('%',#{jpbgubn},'%')
             ORDER BY B.pcode,  B.fixdate, B.misdate, B.misnum, B.seq
         ]]>
@@ -838,7 +838,7 @@
                   where  B.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
                     AND B.pcode = F.jkey
                     AND B.misdate >= #{frdate} and B.misdate <= #{todate}
-                    AND B.makflag  Like (#{makflag} + '%')
+                    AND Isnull(B.makflag, '0') Like concat('%',#{makflag},'%')
                     and isnull(F.jpb_gubn,'') Like concat('%',#{jpbgubn},'%')
                     AND F.jbonsa_code NOT IN ( '부속' )
                   Group by B.pcode, B.pname, B.psize,  E.sido, E.sidocd, F.jpb_gubn
@@ -857,7 +857,7 @@
                     AND B.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
                     AND B.pcode = F.jkey
                     AND B.misdate >= #{frdate} and B.misdate <= #{todate}
-                    AND B.makflag  Like (#{makflag} + '%')
+                    AND Isnull(B.makflag, '0') Like concat('%',#{makflag},'%')
                     and isnull(F.jpb_gubn,'') Like concat('%',#{jpbgubn},'%')
                   Group by B.pcode, B.pname, B.psize,  E.sido, E.sidocd,E.gugun, E.postcd, F.jpb_gubn
                   ORDER BY E.sidocd, E.postcd, sum(B.qty ) desc, B.pname
@@ -878,8 +878,8 @@
              AND isnull(B.perid,'')  Like concat('%',#{perid},'%')
             AND B.misdate >= #{frdate} and B.misdate <= #{todate}
              AND isnull(B.misgubun,'')  Like concat('%',#{misgubun},'%')
-             AND B.fixflag  Like (#{fixflag} + '%')
-             AND B.makflag  Like (#{makflag} + '%')
+             AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
+             AND Isnull(B.makflag, '0') Like concat('%',#{makflag},'%')
              AND Isnull(B.pcode, '0') Like concat('%',#{pcode},'%')
             ORDER BY B.perid,  B.misdate, B.misnum, B.seq
         ]]>
@@ -897,8 +897,8 @@
              AND isnull(B.perid,'')  Like concat('%',#{perid},'%')
             AND B.misdate >= #{frdate} and B.misdate <= #{todate}
              AND isnull(B.misgubun,'')  Like concat('%',#{misgubun},'%')
-             AND B.fixflag  Like (#{fixflag} + '%')
-             AND B.makflag  Like (#{makflag} + '%')
+             AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
+             AND Isnull(B.makflag, '0') Like concat('%',#{makflag},'%')
              and isnull(B.jpb_gubn,'') Like concat('%',#{jpbgubn},'%')
             ORDER BY B.cltcd,  B.misdate, B.misnum, B.seq
         ]]>
@@ -916,8 +916,8 @@
              AND isnull(B.pcode,'')  Like concat('%',#{pcode},'%')
             AND B.misdate >= #{frdate} and B.misdate <= #{todate}
              AND isnull(B.misgubun,'')  Like concat('%',#{misgubun},'%')
-             AND B.fixflag  Like (#{fixflag} + '%')
-             AND B.makflag  Like (#{makflag} + '%')
+             AND Isnull(B.fixflag, '0') Like concat('%',#{fixflag},'%')
+             AND Isnull(B.makflag, '0') Like concat('%',#{makflag},'%')
              and isnull(B.jpb_gubn,'') Like concat('%',#{jpbgubn},'%')
 
             ORDER BY B.pcode,  B.misdate, B.misnum, B.seq
