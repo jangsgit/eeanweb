@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- mapper >> interface 매핑 : id 값 중요 (interface 메소드) -->
+ <mapper namespace="com.dae.eean.Mapper.App01.Index14ExcelMapper">
+
+
+    <select id="selectDa024ForExcel"
+            parameterType="com.dae.eean.DTO.App01.IndexDa024Dto"
+            resultType="com.dae.eean.DTO.App01.IndexDa024Dto"
+            fetchSize="1000">
+        <![CDATA[ select B.cltcd as cltcd,
+                         Left(B.misdate,4) + '-' + substring(B.misdate, 5,2)+ '-' + substring(B.misdate, 7,2) as misdate,
+                         B.misnum,
+                         B.seq,
+                         B.pcode, B.pname, B.psize,    B.punit,  B.qty,  B.uamt, B.samt, B.addamt,
+                         B.amt, C.acorp, pbonsa, pmodel, pcolor , '' AS inname, B.misgubun, isnull(B.fixflag,'0') as fixflag, B.pernm as pernm,
+                         B.fixdate,  CONVERT(CHAR(19),B.fixdatetime,20) as fixdatetime
+           from  TB_DA024 B WITH (NOLOCK)
+                 LEFT JOIN cif C ON B.cltcd = C.acorp1 + CAST(C.acorp2 as varchar)
+           where   B.custcd = 'EEAN' and B.spjangcd = 'ZZ' and isnull(B.makflag, '0') = '1'
+             AND isnull(B.pcode,'')  Like #{pcode} + '%'
+            AND B.fixdate >= #{frdate} and B.fixdate <= #{todate}
+            AND Isnull(B.fixflag, '0') = #{fixflag}
+            and isnull(B.jpb_gubn,'')  = #{jpbgubn}
+            ORDER BY B.pcode,  B.fixdate, B.misdate, B.misnum, B.seq
+        ]]>
+
+    </select>
+
+
+
+</mapper>

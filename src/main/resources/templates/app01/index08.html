@@ -54,9 +54,9 @@
                                     <li class="nav-item">
                                       <a class="nav-link" data-toggle="tab" href="#step02"  onclick="tabchk_rtn('B')">품목별예약현황</a>
                                     </li>
-                                    <!-- <li class="nav-item">
-                                      <a class="nav-link" data-toggle="tab" href="#step03"  onclick="tabchk_rtn('C')">예약현황</a>
-                                    </li> -->
+                                    <li class="nav-item">
+                                      <a class="nav-link" data-toggle="tab" href="#step03"  onclick="tabchk_rtn('C')">품목구분별매출현황</a>
+                                    </li>
                                     <input type="hidden" id="tabvalue" value="A">
                                   </ul>
                                   <div class="tab-content">
@@ -135,6 +135,37 @@
                                           </div>
                                     </div>
                                     
+                                    <div class="tab-pane fade show active" id="step03"> 
+                                        <div class="row gx-3" style="  margin: 10px 10px 10px;">   
+                                            <div class="col-2 col-sm-2">
+                                                <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">출력일자</span>
+                                                    <input type="text"  class="form-control datetimepicker" id="frdate03" autocomplete="off"  placeholder="Y-m-d"     >
+                                                </div> 
+                                            </div>   
+                                            <div class="col-2 col-sm-2"> 
+                                                <div class="input-group input-group-sm mb-3"> 
+                                                    <input type="text"  class="form-control datetimepicker" id="todate03" autocomplete="off"  placeholder="Y-m-d"     >
+                                                </div>
+                                            </div> 
+                                            <div class="col-2 col-sm-2">
+                                                <div class="input-group input-group-sm mb-3"><span class="input-group-text" id="inputGroup-sizing-sm">품명</span> 
+                                                    <input class="form-control form-control-sm" id="cjpumnm" type="text"    autocomplete="off"  placeholder=""     >
+                                                    <input class="form-control form-control-sm" id="cjkey" type="hidden"  />   
+                                                </div>
+                                            </div>
+                                            <div class="col-2 col-sm-2">
+                                                <select class="form-select" id="jpb_gubn" >   
+                                                    <option selected="">품목구분</option>
+                                                    <option value="P">피오비노</option>
+                                                    <option value="B">블리스</option>  
+                                                  </select>       
+                                            </div>  
+                                            <div class="col-1 col-sm-1">  
+                                                <button class="btn btn-falcon-primary me-1 mb-1 btn-sm"  type="button"  onclick="downloadExcel()" >엑셀다운로드
+                                                </button>
+                                            </div> 
+                                        </div>  
+                                    </div>
                                   </div>
                             </div>
                         <!-- </div> 
@@ -189,6 +220,19 @@
       
  <!--------------------------------------------------------------------------------------->         
   
+<div id="dlOverlay" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,.35); z-index:9999;">
+  <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+              background:#fff; padding:20px 24px; border-radius:12px; width:320px; text-align:center;">
+    <div class="spinner" style="margin:0 auto 12px; width:36px; height:36px; border:4px solid #ddd; border-top:4px solid #3b82f6; border-radius:50%;
+                               animation:spin 1s linear infinite;"></div>
+    <div style="font-weight:600; margin-bottom:6px;">엑셀 생성 중...</div>
+    <div style="font-size:13px; color:#666;">데이터 양에 따라 10~20초 걸릴 수 있습니다.</div>
+  </div>
+</div>
+
+<style>
+@keyframes spin { to { transform: rotate(360deg); } }
+</style>
 
 
 
@@ -399,10 +443,9 @@
                 // selector02.column = headerOn
                 // ? wtab04Grid.rowHeaders.columns[0]
                 // : wtab04Grid.columns[0];
-            }  
-            new FlexGridContextMenu(wtab04Grid); 
-            wtab04Grid.focus(); 
-
+            }   
+            wtab04Grid.focus();  
+ 
             // // ################################################################  
             //거래처현황 Modalㅁ
             view_innamepage = new wijmo.collections.CollectionView(getData_wlist2(), {
@@ -511,9 +554,14 @@
         document.getElementById("listBtn02").addEventListener("click",function(){  
             var ls_tab = document.getElementById('tabvalue').value;   
             searchList_rtn(ls_tab);
-        })     
+        })                           
+        // tab03 검색   
+        // document.getElementById("listBtn03").addEventListener("click",function(){  
+        //     var ls_tab = document.getElementById('tabvalue').value;   
+        //     //searchList_rtn(ls_tab);
+        // })     
 
-
+        
         
 
         //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 모달 검색@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -644,7 +692,7 @@
                     }).done(function(fragment){           
 
                     })  
-                    break;                
+                    break;          
                 default:    
                     break;                
             }
@@ -986,7 +1034,65 @@
             wtab04Grid.collapseGroupsToLevel(1);
  
         } 
-           
+        
+        function showDlOverlay() {
+             document.getElementById("dlOverlay").style.display = "block";
+        }
+
+        function hideDlOverlay() {
+            document.getElementById("dlOverlay").style.display = "none";
+        }
+
+
+        function downloadExcel(){  
+            var ls_frdate = document.getElementById('frdate03').value; 
+            var ls_todate = document.getElementById('todate03').value;          
+            var ls_jpumnm   = document.getElementById('cjpumnm').value; 
+            var ls_jkey  = document.getElementById('cjkey').value; 
+            var ls_jpbgubn = document.getElementById('jpb_gubn').value; 
+            if(ls_frdate == null || ls_frdate.length == 0 || ls_frdate == ""){ 
+                alert("조회일자를 등록하세요") 
+                document.getElementById("frdate").focus(); 
+                return ;               
+            }   
+            if(ls_todate == null || ls_todate.length == 0 || ls_todate == ""){ 
+                alert("조회일자를 등록하세요") 
+                document.getElementById("todate").focus(); 
+                return ;                
+            }    
+            if(ls_jpbgubn == null || ls_jpbgubn.length == 0 || ls_jpbgubn == ""){ 
+                alert("품목구분을 선택하세요") 
+                return ;                
+            }  
+            ls_misfixflag = "1"; 
+            if(ls_jpumnm == null || ls_jpumnm.length == 0 || ls_jpumnm == ""){  
+                ls_jpumnm = "%";
+            }else{
+                ls_jpumnm = ls_jkey;
+            }   
+            //console.log(ls_jpumnm)
+            ls_cifname = "%"; 
+            ls_abonsadam1 = "%";  
+
+
+            // 다운로드는 GET 추천
+            var params = new URLSearchParams({
+                frdate: ls_frdate,
+                todate: ls_todate,
+                acode: "%",       // cifname
+                jkey: ls_jpumnm,
+                perid: "%",       // abonsadam1
+                fixflag: ls_misfixflag,
+                makflag: "1",
+                mflag: "AA",
+                jpbgubn: ls_jpbgubn
+            });
+            showDlOverlay();
+            // 엑셀 다운로드 엔드포인트로 이동
+            window.location.href = "/app14m/index14/listjkeyexl?" + params.toString(); 
+            // 다운로드 완료 이벤트를 못 받으니, 타임아웃으로 안전 해제
+            setTimeout(hideDlOverlay, 36000); // 36초
+        }
         function JpumSearchList_rtn(arg){  
 
             var searchCode = ""; 
@@ -999,6 +1105,9 @@
             } 
             if(arg == "B"){
                 searchCode = document.getElementById('bjpumnm').value;   
+            } 
+            if(arg == "C"){
+                searchCode = document.getElementById('cjpumnm').value;   
             } 
             // if(arg == "C"){
             //     searchCode = document.getElementById('djpumnm').value;   
@@ -1123,6 +1232,11 @@
                 document.getElementById('bjpumnm').value = arg2; 
                 searchList_rtn(ls_tab) 
                 $("#winnamemodal_btn").trigger("click"); 
+            } else if(ls_tab == "C"){
+                document.getElementById('cjkey').value = arg1;   
+                document.getElementById('cjpumnm').value = arg2; 
+                searchList_rtn(ls_tab) 
+                $("#winnamemodal_btn").trigger("click"); 
             } 
 
         }    
@@ -1171,7 +1285,10 @@
         document.getElementById('todate').value = ls_today; 
         document.getElementById('frdate02').value = ls_frday;
         document.getElementById('todate02').value = ls_today; 
+        document.getElementById('frdate03').value = ls_frday;
+        document.getElementById('todate03').value = ls_today; 
         document.getElementById('misfixflag').value = "1"; 
+        document.getElementById('jpb_gubn').value = "P"; 
         
         // document.getElementById('todate').value = ls_today;
     }
