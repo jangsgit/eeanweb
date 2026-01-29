@@ -383,6 +383,35 @@
                 //     }
                 // }
             });  
+            
+            wtab02Grid.hostElement.addEventListener('mousedown', (e) => {
+                const ht = wtab02Grid.hitTest(e);
+                if (ht.cellType !== wijmo.grid.CellType.Cell) return;
+
+                // 클릭한 셀로 선택 이동(보기에도 자연스러움)
+                wtab02Grid.select(ht.row, ht.col);
+
+                // 표시값(포맷 적용된 텍스트) 복사: true
+                const text = wtab02Grid.getCellData(ht.row, ht.col, true); 
+                copyToClipboard(text);
+            });
+            function copyToClipboard(text) {
+                // 최신(HTTPS 환경 권장)
+                if (navigator.clipboard && window.isSecureContext) {
+                    navigator.clipboard.writeText(text);
+                    return;
+                } 
+                // 구형/HTTP fallback
+                const ta = document.createElement('textarea');
+                ta.value = text;
+                ta.style.position = 'fixed';
+                ta.style.opacity = '0';
+                document.body.appendChild(ta);
+                ta.focus();
+                ta.select();
+                document.execCommand('copy');
+                document.body.removeChild(ta);
+            }  
             // wtab02Grid.formatItem.addHandler((s, e) => {
             //     if (e.panel == s.cells) {
             //         var val = s.getCellData(e.row,0); 
