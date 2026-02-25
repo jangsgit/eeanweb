@@ -629,6 +629,34 @@
             new FlexGridContextMenu(wtab04Grid); 
             wtab04Grid.focus(); 
 
+            wtab04Grid.hostElement.addEventListener('mousedown', (e) => {
+                const ht = wtab04Grid.hitTest(e);
+                if (ht.cellType !== wijmo.grid.CellType.Cell) return;
+
+                // 클릭한 셀로 선택 이동(보기에도 자연스러움)
+                wtab04Grid.select(ht.row, ht.col);
+
+                // 표시값(포맷 적용된 텍스트) 복사: true
+                const text = wtab04Grid.getCellData(ht.row, ht.col, true); 
+                copyToClipboard(text);
+            });
+            function copyToClipboard(text) {
+                // 최신(HTTPS 환경 권장)
+                if (navigator.clipboard && window.isSecureContext) {
+                    navigator.clipboard.writeText(text);
+                    return;
+                } 
+                // 구형/HTTP fallback
+                const ta = document.createElement('textarea');
+                ta.value = text;
+                ta.style.position = 'fixed';
+                ta.style.opacity = '0';
+                document.body.appendChild(ta);
+                ta.focus();
+                ta.select();
+                document.execCommand('copy');
+                document.body.removeChild(ta);
+            }  
             //////////////////////////////////////////////////////////////////////////////////////////////////////////  
             //거래처별주문현황 popup list
             view_p01tab03page = new wijmo.collections.CollectionView(getData_wlist());    
