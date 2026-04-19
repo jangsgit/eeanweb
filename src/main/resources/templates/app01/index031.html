@@ -221,19 +221,26 @@
                                                   </select>                                                                  
                                             </td>                                                     
                                         </tr>    
-                                        <tr> 
+                                        <tr>  
                                             <th>출고단가</th>
-                                            <td  colspan="2">
-                                                <div class="input_wrap">                                               
+                                            <td>
+                                                <div class="input_wrap">         
                                                     <input type="text"  id="jchgoga0" autocomplete="off"   > 
                                                 </div>
-                                            </td>                                        
-                                            <th>입고단가</th> 
-                                            <td  colspan="2">
-                                                <div class="input_wrap">                                               
+                                            </td>   
+                                            <th>입고단가</th>
+                                            <td> 
+                                                <div class="input_wrap">                                                                   
                                                     <input type="text"  id="jchgoga1" autocomplete="off"   > 
                                                 </div>
-                                            </td>                                                       
+                                            </td>                                         
+                                            <th>준비이미지</th> 
+                                            <td >
+                                                <div class="form-check form-switch">
+                                                    <label class="form-check-label" for="jjunflag" style="font-weight:bold; color:#df0909; font-size:15px;">사용</label>
+                                                    <input class="form-check-input" type="checkbox" id="jjunflag"value="false" >
+                                                  </div>                                                             
+                                            </td>                                                     
                                         </tr>                                                                                                                                                                                    
                                         <!-- <tr>                                     
                                             <th>적정재고</th>
@@ -470,7 +477,7 @@
                     cellTemplate: wijmo.grid.cellmaker.CellMaker.makeLink({ 
                         text: '<b>${item.jkey}</b>',
                         click: (e, ctx) => {
-                            wcifChk_a(ctx.item.jkey, ctx.item.jpb_gubn, ctx.item.jgong_code, ctx.item.jdan_code, ctx.item.jmodel_code, ctx.item.jmodel_code2, ctx.item.jcolor_code, ctx.item.jcolor_code2, ctx.item.jcolor_code3, ctx.item.jcustomer_code, ctx.item.jcustomer_code_seq, ctx.item.jbonsa_code, ctx.item.jbonsa_code2, ctx.item.jbonsa_code_seq, ctx.item.jbonsa_code_seq2, ctx.item.jsayong_gubn, ctx.item.jpum, ctx.item.jgugek,ctx.item.jsize, ctx.item.jchgoga0, ctx.item.jbigo, ctx.item.jopt, ctx.item.delflag );                    
+                            wcifChk_a(ctx.item.jkey, ctx.item.jpb_gubn, ctx.item.jgong_code, ctx.item.jdan_code, ctx.item.jmodel_code, ctx.item.jmodel_code2, ctx.item.jcolor_code, ctx.item.jcolor_code2, ctx.item.jcolor_code3, ctx.item.jcustomer_code, ctx.item.jcustomer_code_seq, ctx.item.jbonsa_code, ctx.item.jbonsa_code2, ctx.item.jbonsa_code_seq, ctx.item.jbonsa_code_seq2, ctx.item.jsayong_gubn, ctx.item.jpum, ctx.item.jgugek,ctx.item.jsize, ctx.item.jchgoga0, ctx.item.jbigo, ctx.item.jopt, ctx.item.delflag, ctx.item.jjunflag  );                    
                         }
                     })
                 }, 
@@ -538,6 +545,7 @@
             var wactnm_data = [];       
             var cnt = 1;   
             var ll_jchgoga0 = 0;
+            console.log(wtab01Dto)
             for (var i = 0; i < wtab01Dto.length; i++) {
                 ll_jchgoga0 = Number(wtab01Dto[i]["jchgoga0"])
                 wactnm_data.push({
@@ -565,7 +573,9 @@
                     jchgoga0: ll_jchgoga0, 
                     jbigo: wtab01Dto[i]["jbigo"],     
                     jopt: wtab01Dto[i]["jopt"],        
-                    delflag: wtab01Dto[i]["delflag"],   
+                    delflag: wtab01Dto[i]["delflag"],  
+                    jjunflag: wtab01Dto[i]["jjunflag"],  
+                     
                     
                 });
                 cnt++;
@@ -762,7 +772,8 @@
         document.getElementById('jgugek').value =  ""; 
         document.getElementById('jsize').value =  ""; 
         document.getElementById('jchgoga0').value =  ""; 
-        document.getElementById('jbigo').value = "";   
+        document.getElementById('jbigo').value = ""; 
+        document.getElementById('jjunflag').checked = false;  
     }
     // <!-- 저장 스크립트 시작 -->
     function save_btn(){   
@@ -787,7 +798,8 @@
         var ls_jgugek        =  document.getElementById('jgugek').value;             //규격
         var ls_jsize         =  document.getElementById('jsize').value;              //사이즈
         var ls_jchgoga0      =  document.getElementById('jchgoga0').value;            //출고가
-        var ls_jbigo         =  document.getElementById('jbigo').value;               //비고   
+        var ls_jbigo         =  document.getElementById('jbigo').value;               //비고 
+        var ls_jjunflag = document.getElementById('jjunflag').checked;                       //준비이미지사용여부   
               
 
         
@@ -817,7 +829,12 @@
                     alert("칼라코드를 선택하세요") 
                     document.getElementById("jcolor_code").focus(); 
                     return ;               
-            }           
+            }                                     
+            if (ls_jjunflag == true){
+                ls_jjunflag = "Y"
+            }else{
+                ls_jjunflag = ""
+            }          
             var inputdata = {  
                 "jkey" : ls_jkey,
                 "jpbgubn": ls_jpbgubn , 
@@ -839,7 +856,8 @@
                 "jgugek":  ls_jgugek,
                 "jsize" :  ls_jsize,
                 "jchgoga" :  ls_jchgoga0, 
-                "jbigo" :  ls_jbigo      
+                "jbigo" :  ls_jbigo  ,
+                "jjunflag" : ls_jjunflag       
             } 
             //직전 데이타가 메모리에 남아 폼데이타 키를 삭제후 다시 데이타를 전송해야함. 
             formData.delete("key");  
@@ -977,7 +995,8 @@
                     jchgoga0: ll_jchgoga0,  
                     jbigo: wtab01Dto[i]["jbigo"],     
                     jopt: wtab01Dto[i]["jopt"],        
-                    delflag: wtab01Dto[i]["delflag"],    
+                    delflag: wtab01Dto[i]["delflag"],      
+                    jjunflag: wtab01Dto[i]["jjunflag"],    
                 });
                 cnt++;
             }   
@@ -997,7 +1016,7 @@
             cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
                 text: '<b>${item.jkey}</b>',
                 click: (e, ctx) => {
-                    wcifChk_a(ctx.item.jkey, ctx.item.jpb_gubn, ctx.item.jgong_code, ctx.item.jdan_code, ctx.item.jmodel_code, ctx.item.jmodel_code2, ctx.item.jcolor_code, ctx.item.jcolor_code2, ctx.item.jcolor_code3, ctx.item.jcustomer_code, ctx.item.jcustomer_code_seq, ctx.item.jbonsa_code, ctx.item.jbonsa_code2, ctx.item.jbonsa_code_seq, ctx.item.jbonsa_code_seq2, ctx.item.jsayong_gubn, ctx.item.jpum, ctx.item.jgugek,ctx.item.jsize, ctx.item.jchgoga0, ctx.item.jbigo, ctx.item.jopt, ctx.item.delflag );                    
+                    wcifChk_a(ctx.item.jkey, ctx.item.jpb_gubn, ctx.item.jgong_code, ctx.item.jdan_code, ctx.item.jmodel_code, ctx.item.jmodel_code2, ctx.item.jcolor_code, ctx.item.jcolor_code2, ctx.item.jcolor_code3, ctx.item.jcustomer_code, ctx.item.jcustomer_code_seq, ctx.item.jbonsa_code, ctx.item.jbonsa_code2, ctx.item.jbonsa_code_seq, ctx.item.jbonsa_code_seq2, ctx.item.jsayong_gubn, ctx.item.jpum, ctx.item.jgugek,ctx.item.jsize, ctx.item.jchgoga0, ctx.item.jbigo, ctx.item.jopt, ctx.item.delflag, ctx.item.jjunflag);                    
                     
                 }
             });
@@ -1025,7 +1044,7 @@
             cols.cellTemplate = wijmo.grid.cellmaker.CellMaker.makeLink({ 
                 text: '<b>${item.jpum}</b>',
                 click: (e, ctx) => {
-                    wcifChk_a(ctx.item.jkey, ctx.item.jpb_gubn, ctx.item.jgong_code, ctx.item.jdan_code, ctx.item.jmodel_code, ctx.item.jmodel_code2, ctx.item.jcolor_code, ctx.item.jcolor_code2, ctx.item.jcolor_code3, ctx.item.jcustomer_code, ctx.item.jcustomer_code_seq, ctx.item.jbonsa_code, ctx.item.jbonsa_code2, ctx.item.jbonsa_code_seq, ctx.item.jbonsa_code_seq2, ctx.item.jsayong_gubn, ctx.item.jpum, ctx.item.jgugek,ctx.item.jsize, ctx.item.jchgoga0, ctx.item.jbigo, ctx.item.jopt, ctx.item.delflag );                    
+                    wcifChk_a(ctx.item.jkey, ctx.item.jpb_gubn, ctx.item.jgong_code, ctx.item.jdan_code, ctx.item.jmodel_code, ctx.item.jmodel_code2, ctx.item.jcolor_code, ctx.item.jcolor_code2, ctx.item.jcolor_code3, ctx.item.jcustomer_code, ctx.item.jcustomer_code_seq, ctx.item.jbonsa_code, ctx.item.jbonsa_code2, ctx.item.jbonsa_code_seq, ctx.item.jbonsa_code_seq2, ctx.item.jsayong_gubn, ctx.item.jpum, ctx.item.jgugek,ctx.item.jsize, ctx.item.jchgoga0, ctx.item.jbigo, ctx.item.jopt, ctx.item.delflag, ctx.item.jjunflag );                    
                 }
             });
             wtab01Grid.columns.push(cols);  
@@ -1047,8 +1066,12 @@
       
         }        
 
-        //    wcifChk_a(   jkey, jpb_gubn, jgong_code, jdan_code, jmodel_code, jmodel_code2, jcolor_code, jcolor_code2, jcolor_code3, jcustomer_code,|| jcustomer_code_seq, jbonsa_code, jbonsa_code2, jbonsa_code_seq, jbonsa_code_seq2, jsayong_gubn, jpum, jgugek,jsize, jchgoga0, jbigo, jopt, || delflag );                    
-        function wcifChk_a(arg1,arg2,arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16, arg17, arg18, arg19, arg20, arg21, arg22, arg23, arg24, arg25, arg26, arg27, arg28, arg29, arg30, arg31, arg32){            
+        //    wcifChk_a(        jkey,              jpb_gubn,     jgong_code,   jdan_code,  jmodel_code, 
+                        //    jmodel_code2,    jcolor_code, jcolor_code2, jcolor_code3, jcustomer_code,||
+                        //    jcustomer_code_seq, jbonsa_code, jbonsa_code2, jbonsa_code_seq, jbonsa_code_seq2, 
+                        //    jsayong_gubn, jpum, jgugek,jsize, jchgoga0, 
+                        //    jbigo, jopt, || delflag , jjunflag);                    
+        function wcifChk_a(arg1,arg2,arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16, arg17, arg18, arg19, arg20, arg21, arg22, arg23, arg24, arg25, arg26, arg27, arg28, arg29, arg30, arg31, arg32, arg33){            
             document.getElementById('jkey').value = arg1;  
             document.getElementById('jpb_gubn').value = arg2;   
             document.getElementById('jgong_code').value = arg3;  //공장구분
@@ -1070,6 +1093,12 @@
             document.getElementById('jsize').value = arg19;              //사이즈
             document.getElementById('jchgoga0').value = arg20;            //출고가
             document.getElementById('jbigo').value = arg21;               //비고   
+            console.log(arg24)
+            if (arg24 == 'Y'){
+                document.getElementById('jjunflag').checked = true
+            }else{
+                document.getElementById('jjunflag').checked = false
+            } 
             //document.getElementById('jopt').value = arg22;      
            // document.getElementById('delflag').value = arg23;           
         }      

@@ -42,5 +42,6 @@ public class Index03Dto {
     private Integer junqty;
     private Integer ipsu;
     private Integer chulsu;
+    private String jjunflag;
 
 }

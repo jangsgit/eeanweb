@@ -241,7 +241,7 @@
         <![CDATA[
             select jkey, jpb_gubn, jgong_code, jdan_code, jmodel_code, jcolor_code, jcustomer_code, jcustomer_code_seq,
                    jbonsa_code, jbonsa_code2, jbonsa_code_seq, jbonsa_code_seq2, jmodel_code2, jcolor_code2, delflag, jcolor_code3, isnull(jopt,'') as jopt,
-                   jsayong_gubn, jpum, jgugek, jsize,  convert ( numeric , convert(int , jchgoga0) ) AS jchgoga0, jbigo,
+                   jsayong_gubn, jpum, jgugek, jsize,  convert ( numeric , convert(int , jchgoga0) ) AS jchgoga0, jbigo, jjunflag,
                    E.jcifcodename as jcifcodename
             from JCODE3 WITH (NOLOCK)
             LEFT OUTER JOIN jcifcode E WITH(NOLOCK) ON (JCODE3.jmodel_code = E.jcifcode)
@@ -256,7 +256,7 @@
     <select id="GetJpumListTot" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
         <![CDATA[
         select jkey, jpb_gubn, jgong_code, jdan_code, jmodel_code, jcolor_code, jcustomer_code, jcustomer_code_seq,
-               jbonsa_code, jbonsa_code2, jbonsa_code_seq, jbonsa_code_seq2, jmodel_code2, jcolor_code2, delflag, jcolor_code3, jopt,
+               jbonsa_code, jbonsa_code2, jbonsa_code_seq, jbonsa_code_seq2, jmodel_code2, jcolor_code2, delflag, jcolor_code3, jopt, jjunflag,
                jsayong_gubn, jpum, jgugek, jsize,  convert ( numeric , convert(int , jchgoga0) ) AS jchgoga0, jbigo,
                E.jcifcodename as jcifcodename
         from JCODE3 WITH (NOLOCK)
@@ -272,9 +272,9 @@
 
     <insert id="InsertJpum" parameterType="com.dae.eean.DTO.App01.Index03Dto" >
         insert into JCODE3 ( jkey, jpb_gubn, jgong_code, jdan_code, jmodel_code, jmodel_code2, jcolor_code, jcolor_code2, jcolor_code3, jcustomer_code, jcustomer_code_seq,
-        jbonsa_code, jbonsa_code2, jbonsa_code_seq, jbonsa_code_seq2,         jsayong_gubn, jpum, jgugek, jsize, jchgoga0, jbigo, delflag) values
+        jbonsa_code, jbonsa_code2, jbonsa_code_seq, jbonsa_code_seq2,         jsayong_gubn, jpum, jgugek, jsize, jchgoga0, jbigo, delflag, jjunflag) values
         (#{jkey}, #{jpb_gubn}, #{jgong_code}, #{jdan_code}, #{jmodel_code}, #{jmodel_code2}, #{jcolor_code},  #{jcolor_code2}, #{jcolor_code3}, #{jcustomer_code}, #{jcustomer_code_seq},
-        #{jbonsa_code}, #{jbonsa_code2},  #{jbonsa_code_seq},  #{jbonsa_code_seq2},  #{jsayong_gubn}, #{jpum}, #{jgugek}, #{jsize}, #{jchgoga0}, #{jbigo},  '0')
+        #{jbonsa_code}, #{jbonsa_code2},  #{jbonsa_code_seq},  #{jbonsa_code_seq2},  #{jsayong_gubn}, #{jpum}, #{jgugek}, #{jsize}, #{jchgoga0}, #{jbigo},  '0', #{jjunflag})
     </insert>
 
 
@@ -321,6 +321,8 @@
         <if test="jchgoga0 != null">jchgoga0=#{jchgoga0}</if>
         <if test="jbigo != null ">,</if>
         <if test="jbigo != null">jbigo=#{jbigo}</if>
+        <if test="jjunflag != null ">,</if>
+        <if test="jjunflag != null">jjunflag=#{jjunflag}</if>
         where jkey   = #{jkey}
     </update>
 

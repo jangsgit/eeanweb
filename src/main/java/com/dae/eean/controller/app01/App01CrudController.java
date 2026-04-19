@@ -762,6 +762,9 @@ public class App01CrudController {
                     case "jbigo":
                         _index03Dto.setJbigo(values.toString());
                         break;
+                    case "jjunflag":
+                        _index03Dto.setJjunflag(values.toString());
+                        break;
                     default:
                         break;
                 }
