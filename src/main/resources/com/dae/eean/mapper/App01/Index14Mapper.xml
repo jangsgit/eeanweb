@@ -392,7 +392,23 @@
         AND B.cltcd = A.acorp1 + CAST(A.acorp2 as varchar)
         AND B.misdate = #{misdate} and B.misnum = #{misnum}  and B.cltcd = #{cltcd}
         AND B.fixflag = '1'
-        ORDER BY  CONVERT(int, K.jbonsa_code_seq), B.pname, pcolor, B.misdate desc, B.misnum, B.seq
+        ORDER BY
+            CONVERT(INT, K.jbonsa_code_seq),
+            CASE
+                WHEN ISNUMERIC(k.jcolor_code3) = 1 THEN 0
+            ELSE 1
+            END,
+            CASE
+                WHEN ISNUMERIC(k.jcolor_code3) = 1
+            THEN CONVERT(INT, k.jcolor_code3)
+            ELSE NULL
+            END,
+            k.jcolor_code3,
+            pcolor,
+            B.misdate DESC,
+            B.misnum,
+            B.seq
+
     </select>
 
 <!--    <select id="SelectDa024ListPrt"  parameterType="com.dae.eean.DTO.App01.IndexDa024Dto"  resultType="com.dae.eean.DTO.App01.IndexDa024Dto">-->
