@@ -128,6 +128,11 @@
         UPDATE TB_XUSERS SET  USEYN=#{useyn}, disflag=#{disflag}
          where seq=#{seq} and flag = #{flag}
     </update>
+
+    <update id="DeleteUserInfoBBDisflag" parameterType="com.dae.eean.DTO.UserFormDto"  >
+        DELETE FROM TB_XUSERS   where seq=#{seq} and flag = #{flag}
+    </update>
+
     <!--        update TB_XUSERS-->
     <!--        set rnum = '0'-->
     <!--        <if test="USEYN != null ">,</if>-->

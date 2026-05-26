@@ -131,6 +131,16 @@ public class AuthService {
 
     //사용자사용여부
     @Transactional
+    public boolean DeleteUserInfoBBDisflag(UserFormDto parm){
+        int queryResult = 1;
+        queryResult = authMapper.DeleteUserInfoBBDisflag(parm);
+        if(queryResult < 1){
+            return false;
+        }
+        return true;
+    }
+    //사용자사용여부
+    @Transactional
     public boolean TB_XUSERS_INSERT(UserFormDto parm){
         int queryResult = 1;
         queryResult = authMapper.TB_XUSERS_INSERT(parm);
