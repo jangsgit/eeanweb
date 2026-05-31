@@ -385,13 +385,22 @@ public class App01CrudController {
                 }
                 if(_index02Dto.getAstop().equals("Y")){
                     _appUserFormDto.setDisflag("Y");
-                    log.info("delete useyn->" + _appUserFormDto.getUseyn());
-                    result = service_auth.DeleteUserInfoBBDisflag(_appUserFormDto);
+                    log.info("update useyn->" + _appUserFormDto.getUseyn());
+                    result = service_auth.UpdateUserInfoBBDisflag(_appUserFormDto);
                 }else{
                     _appUserFormDto.setDisflag("N");
                     log.info("update useyn->" + _appUserFormDto.getUseyn());
                     result = service_auth.UpdateUserInfoBBDisflag(_appUserFormDto);
                 }
+//                if(_index02Dto.getAstop().equals("Y")){
+//                    _appUserFormDto.setDisflag("Y");
+//                    log.info("delete useyn->" + _appUserFormDto.getUseyn());
+//                    result = service_auth.DeleteUserInfoBBDisflag(_appUserFormDto);
+//                }else{
+//                    _appUserFormDto.setDisflag("N");
+//                    log.info("update useyn->" + _appUserFormDto.getUseyn());
+//                    result = service_auth.UpdateUserInfoBBDisflag(_appUserFormDto);
+//                }
 
 //                log.info("flag-2->" + _appUserFormDto.getFlag());
 //                log.info("Seq-2->" + _appUserFormDto.getSeq());
