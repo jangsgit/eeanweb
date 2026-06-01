@@ -394,6 +394,23 @@
         AND B.fixflag = '1'
         ORDER BY
         B.pmodel,
+        CASE
+        WHEN ISNUMERIC(
+        CASE
+        WHEN ISNUMERIC(LEFT(B.pcolor, 1)) = 0
+        THEN SUBSTRING(B.pcolor, 2, LEN(B.pcolor))
+        ELSE B.pcolor
+        END
+        ) = 1
+        THEN CONVERT(INT,
+        CASE
+        WHEN ISNUMERIC(LEFT(B.pcolor, 1)) = 0
+        THEN SUBSTRING(B.pcolor, 2, LEN(B.pcolor))
+        ELSE B.pcolor
+        END
+        )
+        ELSE 99999
+        END,
         B.pcolor,
         B.misdate DESC,
         B.misnum,
