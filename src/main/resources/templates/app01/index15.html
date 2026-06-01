@@ -1039,12 +1039,12 @@ aria-hidden="true">
                     ls_jjunflag = "N"
                 } 
                  var ls_argimgkey = ""  
-                 ls_argimgkey =   ls_jkey + "'";
-                // if(ls_jjunflag == "Y"){
-                //     ls_argimgkey =   ls_jkey + "_tmp'";
-                // }else{
-                //     ls_argimgkey =   ls_jkey + "'";
-                // }  
+                 ls_argimgkey =   ls_jkey  ;
+                if(ls_jjunflag == "Y"){
+                    ls_argimgkey =   ls_jkey + "_tmp'";
+                }else{
+                    ls_argimgkey =   ls_jkey  ;
+                }  
                 var ls_argstr = "'" + ls_jpum + "','" + ls_jkey + "'";
                 if(ls_modeltemp !== ls_jmodelcode){
                     var DivHtml01 = " <div class='row flex-nowrap  overflow-auto' data-name='ListDiv'> ";   
@@ -1057,9 +1057,9 @@ aria-hidden="true">
                 DivHtml01 = DivHtml01 +  "    <div class='card card-block'  > ";                 
                  DivHtml01 = DivHtml01 +  " 		<a class='color-white' href=javascript:imgdetail('" + ls_imgurl + ls_argimgkey + "');>					         ";  	// ls_imgurl + "11001_1240442012214252104');>
                                 DivHtml01 = DivHtml01 +  " 		  <div class='hoverbox rounded-3'>						 "; 
-                                DivHtml01 = DivHtml01 +  " 		            <img class='img-fluid rounded' src='" + ls_imgurl + ls_argimgkey + "'_1.jpg' alt='' style='height:180px;  display: block;  margin-left: auto; margin-right: auto'/>	 ";             //ls_imgurl + "11001_1240442012214252104_01.png' alt='' />	 ";  
+                                DivHtml01 = DivHtml01 +  " 		            <img class='img-fluid rounded' src='" + ls_imgurl + ls_argimgkey + "_1.jpg' alt='' style='height:180px;  display: block;  margin-left: auto; margin-right: auto'/>	 ";             //ls_imgurl + "11001_1240442012214252104_01.png' alt='' />	 ";  
                                 DivHtml01 = DivHtml01 +  " 		        <div class='hoverbox-content'>						 ";  
-                                DivHtml01 = DivHtml01 +  " 		            <img class='img-fluid rounded' src='" + ls_imgurl + ls_argimgkey + "'_2.jpg' alt='' style='height:180px;  display: block;  margin-left: auto; margin-right: auto'/>	 ";  
+                                DivHtml01 = DivHtml01 +  " 		            <img class='img-fluid rounded' src='" + ls_imgurl + ls_argimgkey + "_2.jpg' alt='' style='height:180px;  display: block;  margin-left: auto; margin-right: auto'/>	 ";  
                                 DivHtml01 = DivHtml01 +  " 		        </div>									 ";  
                                 DivHtml01 = DivHtml01 +  " 		  </div>									 ";  
                  DivHtml01 = DivHtml01 +  " 		</a>										 ";
