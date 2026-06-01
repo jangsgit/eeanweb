@@ -393,28 +393,29 @@
         AND B.misdate = #{misdate} and B.misnum = #{misnum}  and B.cltcd = #{cltcd}
         AND B.fixflag = '1'
         ORDER BY
-        B.pmodel,
-        CASE
-        WHEN ISNUMERIC(
-        CASE
-        WHEN ISNUMERIC(LEFT(B.pcolor, 1)) = 0
-        THEN SUBSTRING(B.pcolor, 2, LEN(B.pcolor))
-        ELSE B.pcolor
-        END
-        ) = 1
-        THEN CONVERT(INT,
-        CASE
-        WHEN ISNUMERIC(LEFT(B.pcolor, 1)) = 0
-        THEN SUBSTRING(B.pcolor, 2, LEN(B.pcolor))
-        ELSE B.pcolor
-        END
-        )
-        ELSE 99999
-        END,
-        B.pcolor,
-        B.misdate DESC,
-        B.misnum,
-        B.seq
+            CASE WHEN K.jbonsa_code = '부속' THEN 1 ELSE 0 END,  -- 부속 맨 뒤
+                    B.pmodel,
+                CASE
+                    WHEN ISNUMERIC(
+                CASE
+                    WHEN ISNUMERIC(LEFT(B.pcolor, 1)) = 0
+                    THEN SUBSTRING(B.pcolor, 2, LEN(B.pcolor))
+                ELSE B.pcolor
+            END
+            ) = 1
+            THEN CONVERT(INT,
+                CASE
+                    WHEN ISNUMERIC(LEFT(B.pcolor, 1)) = 0
+                THEN SUBSTRING(B.pcolor, 2, LEN(B.pcolor))
+                 ELSE B.pcolor
+                END
+            )
+            ELSE 99999
+            END,
+            B.pcolor,
+            B.misdate DESC,
+            B.misnum,
+            B.seq
     </select>
 
 <!--    <select id="SelectDa024ListPrt"  parameterType="com.dae.eean.DTO.App01.IndexDa024Dto"  resultType="com.dae.eean.DTO.App01.IndexDa024Dto">-->
