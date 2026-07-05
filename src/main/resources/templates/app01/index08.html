@@ -311,7 +311,9 @@
                     { binding: 'pernm', header: '사원명', align: "center", width: 150 , }, 
                     { binding: 'qty', header: '수량', align: "center", width: 80 ,  aggregate: 'Sum'},  
                     { binding: 'uamt', header: '단가', align: "center", width: 100 },  
-                    { binding: 'samt', header: '금액', align: "center", width: 150 ,  aggregate: 'Sum'},  
+                    { binding: 'samt', header: '금액', align: "center", width: 150 ,  aggregate: 'Sum'},   
+                    { binding: 'remarkaa', header: '본사비고', align: "center", width: 150 , },  
+                    { binding: 'remarkbb', header: '영업점비고', align: "center", width: 150 , } 
                     // { binding: 'fixflag', header: '출력', align: "center", width: 150, cssClass: 'switch'   },  
                     
                 ], 
@@ -704,12 +706,25 @@
             var wtab02_data = [];
             var cnt = 1;
             var bfixflag = false
+            var ls_remark01 = "";
+            var ls_remark02 = "";
             for (var i = 0; i < wtab02Dto.length; i++) {
                 if(wtab02Dto[i]["fixflag"] == "1"){
                     bfixflag = true;
                 }else{
                     bfixflag = false;
                 }
+                
+                if(wtab02Dto[i]["remarkaa"].length > 0){
+                    ls_remark01 = wtab02Dto[i]["remarkaa"];
+                }else{
+                    ls_remark01 = "";
+                }  
+                if(wtab02Dto[i]["remarkbb"].length > 0){
+                    ls_remark02 = wtab02Dto[i]["remarkbb"];
+                }else{
+                    ls_remark02 = "";
+                }  
                 wtab02_data.push({
                     id: i, 
                     index: cnt,
@@ -732,7 +747,9 @@
                     inname: wtab02Dto[i]["inname"],       
                     misgubun: wtab02Dto[i]["misgubun"],     
                     fixdate: wtab02Dto[i]["fixdate"],   
-                    fixdatetime: wtab02Dto[i]["fixdatetime"],       
+                    fixdatetime: wtab02Dto[i]["fixdatetime"],  
+                    remarkaa: ls_remark01,  
+                    remarkbb: ls_remark02,       
                     fixflag: bfixflag,                          
                 });
                 cnt++;
@@ -851,7 +868,19 @@
             cols.align = "center";
             cols.aggregate = 'Sum';
             cols.width = 120;  
-            wtab02Grid.columns.push(cols);    
+            wtab02Grid.columns.push(cols);       
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'remarkaa'; 
+            cols.header = '본사비고';
+            cols.align = "left"; 
+            cols.width = 200;  
+            wtab02Grid.columns.push(cols);     
+            cols = new wijmo.grid.Column(); 
+            cols.binding = 'remarkbb'; 
+            cols.header = '영업점비고';
+            cols.align = "left"; 
+            cols.width = 200;  
+            wtab02Grid.columns.push(cols);      
             // cols = new wijmo.grid.Column(); 
             // cols.binding = 'fixflag'; 
             // cols.header = '출력';
@@ -1146,7 +1175,7 @@
             var wtab01Dto  = data;    
             var wtab01_data = [];
             var cnt = 1;
-            for (var i = 0; i < wtab01Dto.length; i++) {
+            for (var i = 0; i < wtab01Dto.length; i++) { 
                 wtab01_data.push({
                     id: i, 
                     index: cnt, 

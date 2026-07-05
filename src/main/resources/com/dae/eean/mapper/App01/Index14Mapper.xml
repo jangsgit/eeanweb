@@ -799,7 +799,9 @@
         <![CDATA[ select B.cltcd as cltcd, Left(B.misdate,4) + '-' + substring(B.misdate, 5,2)+ '-' + substring(B.misdate, 7,2) as misdate, B.misnum, B.seq,
                          B.pcode, B.pname, B.psize,    B.punit,  B.qty,  B.uamt, B.samt, B.addamt,
                          B.amt, C.acorp, pbonsa, pmodel, pcolor , '' AS inname, B.misgubun, isnull(B.fixflag,'0') as fixflag, B.pernm as pernm,
-                         B.fixdate,  CONVERT(CHAR(19),B.fixdatetime,20) as fixdatetime
+                         B.fixdate,  CONVERT(CHAR(19),B.fixdatetime,20) as fixdatetime,
+                         isnull(B.remarkaa,'') as remarkaa,
+                         isnull(B.remarkbb,'') as remarkbb
            from  TB_DA024 B WITH (NOLOCK)
                  LEFT JOIN cif C ON B.cltcd = C.acorp1 + CAST(C.acorp2 as varchar)
            where   B.custcd = 'EEAN' and B.spjangcd = 'ZZ' and isnull(B.makflag, '0') = '1'
