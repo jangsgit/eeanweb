@@ -1078,12 +1078,14 @@
             if(ls_jpbgubn == null || ls_jpbgubn.length == 0 || ls_jpbgubn == ""){ 
                 ls_jpbgubn = "%"         ;
             }   
+            var ls_ssayonggubn = "";
             $.ajax({
                     url: '/app01m/index03/list',  
                     type:"POST",
                     data: { 
                             "searchtxt" :searchJcodeCode, 
                             "jpbgubn" :ls_jpbgubn, 
+                            "jsayonggubn" :ls_ssayonggubn, 
                     }, 
                     async:false,
                     success:function(data){  

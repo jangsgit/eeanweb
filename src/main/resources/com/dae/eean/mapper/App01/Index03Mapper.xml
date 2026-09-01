@@ -239,18 +239,32 @@
 
     <select id="GetJpumList" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
         <![CDATA[
-            select jkey, jpb_gubn, jgong_code, jdan_code, jmodel_code, jcolor_code, jcustomer_code, jcustomer_code_seq,
-                   jbonsa_code, jbonsa_code2, jbonsa_code_seq, jbonsa_code_seq2, jmodel_code2, jcolor_code2, delflag, jcolor_code3, isnull(jopt,'') as jopt,
-                   jsayong_gubn, jpum, jgugek, jsize,  convert ( numeric , convert(int , jchgoga0) ) AS jchgoga0, jbigo, jjunflag,
-                   E.jcifcodename as jcifcodename
-            from JCODE3 WITH (NOLOCK)
-            LEFT OUTER JOIN jcifcode E WITH(NOLOCK) ON (JCODE3.jmodel_code = E.jcifcode)
-            WHERE (isnull(jpum,'') Like concat('%',#{jpum},'%')  or isnull(jkey,'') Like concat('%',#{jpum},'%'))
-              and jsayong_gubn <> '4'
-              and isnull(delflag,'0') = '0'
-              and isnull(jpb_gubn,'') Like concat('%',#{jpb_gubn},'%')
-            ORDER BY jkey
-        ]]>
+        select jkey, jpb_gubn, jgong_code, jdan_code, jmodel_code, jcolor_code, jcustomer_code, jcustomer_code_seq,
+               jbonsa_code, jbonsa_code2, jbonsa_code_seq, jbonsa_code_seq2, jmodel_code2, jcolor_code2, delflag, jcolor_code3, isnull(jopt,'') as jopt,
+               jsayong_gubn, jpum, jgugek, jsize,  convert ( numeric , convert(int , jchgoga0) ) AS jchgoga0, jbigo, jjunflag,
+               E.jcifcodename as jcifcodename
+        from JCODE3 WITH (NOLOCK)
+        LEFT OUTER JOIN jcifcode E WITH(NOLOCK) ON (JCODE3.jmodel_code = E.jcifcode)
+        WHERE (isnull(jpum,'') Like concat('%',#{jpum},'%')  or isnull(jkey,'') Like concat('%',#{jpum},'%'))
+          and isnull(delflag,'0') = '0'
+          and isnull(jpb_gubn,'') Like concat('%',#{jpb_gubn},'%')
+    ]]>
+        <choose>
+            <!-- 품목정보등록: 사용구분 콤보에서 특정 값을 선택한 경우 -->
+            <when test='jsayong_gubn != null and jsayong_gubn != "" and jsayong_gubn != "%"'>
+                AND jsayong_gubn = #{jsayong_gubn}
+            </when>
+            <!-- 품목정보등록: 콤보 미선택("%") → 전체조회, 사용안함(4)도 포함 -->
+            <when test='jsayong_gubn == "%"'>
+            </when>
+            <!-- 다른 화면들: 파라미터 자체를 안 보냄(null) → 기존처럼 사용안함(4) 제외 -->
+            <otherwise>
+                <![CDATA[ AND jsayong_gubn <> '4' ]]>
+            </otherwise>
+        </choose>
+        <![CDATA[
+        ORDER BY jkey
+    ]]>
     </select>
 
     <select id="GetJpumListTot" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">

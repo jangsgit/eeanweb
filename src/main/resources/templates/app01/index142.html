@@ -946,13 +946,15 @@
             }   
             let ls_conacorp1 = "%";  
             let ls_conagita = "%";   
-            let ls_abonsadam1 = "%";
+            let ls_abonsadam1 = "%"; 
+            var ls_ssayonggubn = "";
             $.ajax({
                     url: '/app01m/index03/list',  
                     type:"POST",
                     data: { 
                             "searchtxt" :searchCode, 
                             "jpbgubn" :ls_jpbgubn, 
+                            "jsayonggubn" :ls_ssayonggubn, 
                     }, 
                     async:false,
                     success:function(data){  

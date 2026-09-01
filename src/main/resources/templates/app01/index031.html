@@ -57,9 +57,16 @@
                     <div class="box_wrap">
                         <div class="box_input" >
                             <div class="date_wrap">
-                                <input type="text"  id="searchtxt" placeholder="품명"> 
+                                <input type="text"  id="searchtxt" placeholder="품명" style="max-width:450px;"> 
+                                <select class="form-select" id="ssayong_gubn" style="display:inline-block; width:150px; margin-left:5px;">
+                                    <option value="" selected>전체조회</option>
+                                    <option value="1">전체사용</option>
+                                    <option value="2">물류/영업사원</option>
+                                    <option value="3">물류팀만 사용</option>
+                                    <option value="4">사용안함</option>
+                                  </select>
                                 <button type="button" id="retrieveBtn" >검색</button>      
-                            </div>                              
+                            </div>                                      
                             <!-- //여기서부터 그래프 -->
                             <div class="table table_style2">
                                   
@@ -942,12 +949,18 @@
         });         
         function searchList_rtn(arg1){    
             var ls_sjpbgubn = document.getElementById('sjpbgubn').value;  
+            var ls_ssayonggubn = document.getElementById('ssayong_gubn').value;   //사용구분 
+            if(ls_ssayonggubn == null || ls_ssayonggubn.length == 0 || ls_ssayonggubn == ""){  
+                ls_ssayonggubn = "%";
+            }       
+            console.log(ls_ssayonggubn);
             $.ajax({
                         url: '/app01m/index03/list',  
                         type:"POST",
                         data: { 
                             "searchtxt" :arg1, 
-                            "jpbgubn" :ls_sjpbgubn, 
+                            "jpbgubn" :ls_sjpbgubn,  
+                            "jsayonggubn" :ls_ssayonggubn, 
                         }, 
                         async:false,
                         success:function(data){  

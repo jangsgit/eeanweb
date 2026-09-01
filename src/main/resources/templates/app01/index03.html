@@ -925,12 +925,14 @@
         });         
         function searchList_rtn(arg1){    
             var ls_sjpbgubn = document.getElementById('sjpbgubn').value;  
+            var ls_ssayonggubn = "";
             $.ajax({
                         url: '/app01m/index03/list',  
                         type:"POST",
                         data: { 
                             "searchtxt" :arg1, 
-                            "jpbgubn" :ls_sjpbgubn, 
+                            "jpbgubn" :ls_sjpbgubn,  
+                            "jsayonggubn" :ls_ssayonggubn, 
                         }, 
                         async:false,
                         success:function(data){  
