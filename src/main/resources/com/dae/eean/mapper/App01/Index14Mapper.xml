@@ -632,7 +632,7 @@
                  JOIN jcode3 E WITH (NOLOCK) ON B.pcode = E.jkey
            where  B.cltcd Like  #{cltcd}
              AND B.perid  Like (#{perid} + '%')
-             AND isnull(B.misgubun,'')  Like (#{misgubun} + '%')
+             AND B.misgubun  Like (#{misgubun}+ '%')
             AND B.fixdate >= #{frdate} and B.fixdate <= #{todate}
             AND B.fixflag Like (#{fixflag} + '%')
             AND B.makflag = #{makflag}
