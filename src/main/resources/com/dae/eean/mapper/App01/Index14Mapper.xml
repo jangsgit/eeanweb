@@ -762,8 +762,8 @@
                    join  jcode3 E WITH (NOLOCK) on B.pcode = E.jkey
                   where  B.cltcd Like #{cltcd}
                     AND B.fixdate >= #{frdate} and B.fixdate <= #{todate}
-                    AND LEN(B.pernm) > 0
-                    AND B.pcode LIKE (#{pcode} + '%')
+                    AND B.pernm <> ''
+                    AND B.pcode LIKE #{pcode} + '%'
                     AND E.jbonsa_code  <> '부속'
                     AND B.perid Like concat('%',#{perid},'%')
                     AND B.fixflag = #{fixflag}

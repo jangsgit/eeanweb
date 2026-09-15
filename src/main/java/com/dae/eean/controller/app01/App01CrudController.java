@@ -3883,6 +3883,7 @@ public class App01CrudController {
 //            log.info("makflag =====>" +makflag);
 //            log.info("perid =====>" +perid);
 //            log.info("mflag =====>" +mflag);
+//            log.info("jkey =====>" +jkey);
 //            log.info("jpbgubn =====>" +jpbgubn);
             //출력일기준
             if(sflag.equals("0")){
