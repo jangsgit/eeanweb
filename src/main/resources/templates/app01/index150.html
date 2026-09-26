@@ -110,30 +110,30 @@
                                             </div>    
                                         </div> 
                                         <div class="table-responsive">
-                                            <table class="table table-borderless" style="height: 100px; cellpadding:0px" > 
-                                              <tbody>
-                                                <tr style="padding-top:0; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; "> 
+                                            <table class="table table-borderless" style="height: 100px; cellpadding:0px" >
+                                                <tbody>
+                                                  <tr style="padding-top:0; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; "> 
                                                     <td class="align-top" style="padding-top:0; padding-bottom: 0px; padding-left: 0px; padding-right: 0px;  width:250px;"> 
-                                                        <div class="container-fluid">   
-                                                            <div id="wtab01Grid_div"  style="overflow:scroll;   height:680px;  width:250px; margin:0 auto; "></div> 
-                                                            <!-- <div style="display: flex; margin: 0 auto; " id="tab01Pager"  ></div> -->
-                                                        </div>  
+                                                      <div class="container-fluid">   
+                                                          <!-- [검색기능 추가] 품번/색상/사이즈 검색 -->
+                                                          <div class="input-group input-group-sm mb-2" style="width:250px;">
+                                                              <input class="form-control form-control-sm" id="itemSearchTxt" type="text" autocomplete="off" placeholder="품번·색상 검색 (예: JR1013, 핑크)">
+                                                              <button class="btn btn-falcon-default btn-sm" type="button" id="itemSearchClear" title="검색어 지우기">✕</button>
+                                                          </div>
+                                                          <div id="itemSearchInfo" class="text-muted small mb-1" style="width:250px; min-height:18px;"></div>
+                                                          <div id="wtab01Grid_div"  style="overflow:scroll;   height:630px;  width:250px; margin:0 auto; "></div> 
+                                                          <!-- <div style="display: flex; margin: 0 auto; " id="tab01Pager"  ></div> -->
+                                                      </div>  
                                                     </td>
-                                                    <td class="align-top"style="padding-top:0; padding-bottom: 0px; padding-left: 0px; padding-right: 0px;  width:1500px; ">                                                     
-                                                        <div class="container-fluid"  style="overflow:scroll;    width:1500px;  margin:0 auto; " >                                                            
-                                                            <div id="btnDiv" class="btn_wrap"></div> 
-                                                        </div>  
+                                                    <td class="align-top"style="padding-top:0; padding-bottom: 0px; padding-left: 0px; padding-right: 0px;  width:1500px; ">                                                         
+                                                      <div class="container-fluid"  style="overflow:scroll;    width:1500px;  margin:0 auto; " >                                                         
+                                                          <div id="btnDiv" class="btn_wrap"></div> 
+                                                       </div>  
                                                     </td> 
-                                                </tr>
-                                              </tbody>
-                                            </table>
-                                        </div> 
-
-
-
-
-                            
-
+                                                  </tr>
+                                                </tbody>
+                                              </table>
+                                        </div>  
 
                                     </div>
                                     <div class="tab-pane fade" id="step02"> 
@@ -666,6 +666,7 @@ aria-hidden="true">
                         cellTemplate: wijmo.grid.cellmaker.CellMaker.makeLink({ 
                             text: '<b>${item.jcustomercode}</b>',
                             click: (e, ctx) => {
+                                itemSearchReset();   // [검색기능 추가] 분류 선택 시 검색 해제
                                 wcustcodeChk_a(ctx.item.jcustomercode );                    
                             }
                         })
@@ -1222,6 +1223,7 @@ aria-hidden="true">
             // div 초기화 
             const ListDivs = $('div[data-name="ListDiv"]');
             ListDivs.remove();
+            $('div[data-name="ListDivEmpty"]').remove();   // [검색기능 추가]
             var ls_jpbgubn = document.getElementById('jpbgubn').value ;  
             if(ls_jpbgubn == null || ls_jpbgubn.length == 0 || ls_jpbgubn == ""){ 
                 ls_jpbgubn = "%";
@@ -1285,6 +1287,78 @@ aria-hidden="true">
             
         }
 
+        //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ [검색기능 추가] 품목 검색 $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+        var itemSearchTimer = null;
+        var itemSearchSeq   = 0;     // 늦게 도착한 이전 응답을 무시하기 위한 번호
+
+        function itemSearchReset(){
+            clearTimeout(itemSearchTimer);
+            itemSearchSeq++;
+            $('#itemSearchTxt').val('');
+            $('#itemSearchInfo').text('');
+            $('div[data-name="ListDivEmpty"]').remove();
+        }
+
+        function itemSearch_rtn(kw){
+            kw = (kw || '').trim();
+            if (kw.length < 2) {
+                $('#itemSearchInfo').text(kw.length ? '2글자 이상 입력하세요' : '');
+                return;
+            }
+            var ls_jpbgubn = document.getElementById('jpbgubn').value;
+            if (ls_jpbgubn == null || ls_jpbgubn == "") { ls_jpbgubn = "%"; }
+
+            var mySeq = ++itemSearchSeq;
+            $('#itemSearchInfo').text('검색 중...');
+
+            $.ajax({
+                url: '/app01m/index03/itemsearch',
+                type: "POST",
+                data: {
+                    "searchtxt": kw,
+                    "jpbgubn"  : ls_jpbgubn,
+                    "flag"     : 'BB'          // 분류조회(custlist)와 동일한 flag
+                }
+            }).done(function(data){
+                if (mySeq !== itemSearchSeq) return;              // 이미 새 검색/분류선택이 시작됨
+                if (data == "relogin") {
+                    alert("다시 로그인해주세요");
+                    window.location.href = 'http://eean.co.kr';
+                    return;
+                }
+                $('div[data-name="ListDiv"]').remove();           // 기존 카드 제거
+                $('div[data-name="ListDivEmpty"]').remove();
+                wtab01Grid.selection = new wijmo.grid.CellRange(-1, -1);   // 왼쪽 분류 선택 해제
+                var cnt = (data || []).length;
+                // .text() 사용: 입력값이 HTML로 해석되지 않도록
+                $('#itemSearchInfo').text('"' + kw + '" 검색결과 ' + cnt + '건' + (cnt >= 200 ? ' (상위 200건)' : ''));
+                if (cnt === 0) {
+                    $('#btnDiv').before("<div data-name='ListDivEmpty' class='p-4 text-muted'>검색 결과가 없습니다.</div>");
+                    return;
+                }
+                jmodel_grid(data);                                 // 기존 카드 렌더링 함수 재사용
+            }).fail(function(){
+                if (mySeq !== itemSearchSeq) return;
+                $('#itemSearchInfo').text('');
+                alert("검색되지 않았습니다. 잠시 후 다시 시도하세요");
+            });
+        }
+
+        document.getElementById("itemSearchTxt").addEventListener("input", function(){
+            var kw = this.value;
+            clearTimeout(itemSearchTimer);
+            itemSearchTimer = setTimeout(function(){ itemSearch_rtn(kw); }, 300);
+        });
+        document.getElementById("itemSearchTxt").addEventListener("keyup", function(e){
+            if (e.key === 'Enter') { clearTimeout(itemSearchTimer); itemSearch_rtn(this.value); }
+        });
+        document.getElementById("itemSearchClear").addEventListener("click", function(){
+            itemSearchReset();
+            document.getElementById("itemSearchTxt").focus();
+        });
+        //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+
         function jmodel_grid(data){  
             var ls_modeltemp = "";
             // var DivHtml01 = " <div class='row flex-nowrap  overflow-auto' data-name='ListDiv'> ";  
@@ -1295,14 +1369,14 @@ aria-hidden="true">
                 var ls_jcustomercode = data[i]["jcustomer_code"]  
                 var ls_jmodelcode = data[i]["jmodel_code"]  
                 var ls_jpum = data[i]["jpum"]  
-                ls_jpum = ls_jpum.replace(' ','_');
+                ls_jpum = (ls_jpum || '').replace(/ /g,'_');   // [검색기능 추가] null 방어 + 모든 공백 치환
                 var ls_jgugek = data[i]["jgugek"]   
                 var ls_jgugek2 = data[i]["jgugek2"]   
                 var ls_jgugek3 = data[i]["jgugek3"]   
                 var ls_jgugek4 = data[i]["jgugek4"]  
                 var ls_jsize = data[i]["jsize"]  
                 var ls_jchgoga0 = data[i]["jchgoga0"] 
-                ls_jchgoga0 = ls_jchgoga0.toLocaleString(); 
+                ls_jchgoga0 = (ls_jchgoga0 == null ? 0 : ls_jchgoga0).toLocaleString();   // [검색기능 추가] null 방어
                 var ls_jqty = data[i]["jqty"]   
                 var ls_jcolorcode = data[i]["jcolor_code"]  
                 var ls_jqty = data[i]["jqty"]   

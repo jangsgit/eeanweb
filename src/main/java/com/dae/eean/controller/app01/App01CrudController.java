@@ -479,6 +479,51 @@ public class App01CrudController {
         return _index03List;
     }
 
+    //제품등록
+    /* ---------------------------------------------------------------------
+     * 1. Controller  (기존 custlist 가 있는 Index03Controller 에 추가)
+     * --------------------------------------------------------------------- */
+    //주문등록 품목검색
+    @PostMapping(value="/index03/itemsearch")
+    public Object App03ItemSearch_index(@RequestParam("searchtxt") String searchtxt,
+                                        @RequestParam(value="jpbgubn", defaultValue="%") String jpbgubn,
+                                        HttpServletRequest request) throws Exception{
+
+        List<Index03Dto> _index03List = new ArrayList<>();
+        HttpSession session = request.getSession();
+        UserFormDto userformDto = (UserFormDto) session.getAttribute("userformDto");
+        if(userformDto == null){
+            log.info("App03ItemSearch_index Exception =====> relogin userformDto null");
+            return "relogin";
+        }
+
+        try {
+            String kw = (searchtxt == null) ? "" : searchtxt.trim();
+            if(kw.length() < 2 || kw.length() > 30){
+                return _index03List;                 // 과도한 조회 차단
+            }
+
+            // LIKE 특수문자 이스케이프 (SQL Server : [ % _ )
+            kw = kw.replace("[", "[[]").replace("%", "[%]").replace("_", "[_]");
+
+            if(jpbgubn == null || jpbgubn.equals("")){
+                jpbgubn = "%";
+            }
+
+            Index03Dto _index03Dto = new Index03Dto();
+            _index03Dto.setJpum(kw);                 // 매퍼의 #{jpum}
+            _index03Dto.setJpb_gubn(jpbgubn);        // 매퍼의 #{jpb_gubn}
+
+            _index03List = service03.itemSearch(_index03Dto);
+
+        } catch (Exception ex) {
+            log.info("App03ItemSearch_index Exception =====>" + ex.toString());
+        }
+
+        return _index03List;
+    }
+
+
     //기간별수불현황
     @GetMapping(value="/index03/subul01")
     public Object App03SubulList_index(@RequestParam("frdate") String frdate,

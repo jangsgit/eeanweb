@@ -138,6 +138,33 @@
         }
     </select>
 
+    <select id="itemSearch" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
+        <![CDATA[
+        SELECT TOP 200
+            B.jkey, B.jpum, B.jgugek, B.jsize,
+            B.jmodel_code, B.jcolor_code, B.jcustomer_code,
+            D.stock_qty AS jqty
+        FROM   JCODE3 B WITH (NOLOCK)
+        JOIN   TB_JSTOCK D ON B.jkey = D.jkey
+        WHERE  B.jsayong_gubn <> '4'
+            AND  ISNULL(B.jpb_gubn,'') LIKE CONCAT('%', #{jpb_gubn}, '%')
+            AND (
+            UPPER(REPLACE(REPLACE(ISNULL(B.jpum,''), '-', ''), ' ', ''))
+            LIKE CONCAT('%', UPPER(REPLACE(REPLACE(#{jpum}, '-', ''), ' ', '')), '%')   /* 품번 */
+            OR ISNULL(B.jkey,'')   LIKE CONCAT('%', #{jpum}, '%')                                   /* 제품키 */
+            OR ISNULL(B.jgugek,'') LIKE CONCAT('%', #{jpum}, '%')                                   /* 색상 */
+            OR ISNULL(B.jsize,'')  LIKE CONCAT('%', #{jpum}, '%')                                   /* 사이즈 */
+            )
+        ORDER BY
+            MIN(CASE WHEN UPPER(REPLACE(REPLACE(ISNULL(B.jpum,''), '-', ''), ' ', ''))
+            LIKE CONCAT(UPPER(REPLACE(REPLACE(#{jpum}, '-', ''), ' ', '')), '%')
+            THEN 0 ELSE 1 END) OVER (PARTITION BY B.jmodel_code),
+            B.jmodel_code,      /* jmodel_grid() 가 연속된 같은 모델코드로 줄을 나눔 → 필수 */
+            B.jpum
+          ]]>
+    </select>
+
+
 
     <select id="GetJpumCustJaegoCal" parameterType="com.dae.eean.DTO.App01.Index03Dto" resultType="com.dae.eean.DTO.App01.Index03Dto">
         {
