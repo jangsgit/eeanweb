@@ -5032,25 +5032,28 @@ public class App01CrudController {
             if( devnum01.size() > 0){
                 for(int i = 0; i < devnum01.size(); i++){
                     String ls_cltcd = "";
-                    String ls_unsongnum = "";
-                    ls_unsongnum = devnum02.get(i);
-                    if(ls_unsongnum == null || ls_unsongnum.equals("")){
-                        break;
+                    String ls_unsongnum =   devnum02.get(i);
+                    String ls_balno = devnum03.get(i);
+                    if(ls_unsongnum == null || ls_unsongnum.equals("")
+                            || ls_balno == null || ls_balno.trim().equals("")){
+                        continue;
                     }
-                    indexDa023Dto.setReservnum(devnum01.get(i));
-                    indexDa023Dto.setUnsongnum(devnum02.get(i));
-                    if(devnum03.get(i).substring(0,1).equals("D")){
-                        indexDa023Dto.setDevnum(devnum03.get(i));
-                        result = service14.UpdateDA023UnsongDevnum(indexDa023Dto);
+                    IndexDa023Dto _indexDa023Dto = new IndexDa023Dto();
+                    _indexDa023Dto.setReservnum(devnum01.get(i));
+                    _indexDa023Dto.setUnsongnum(devnum02.get(i));
+                    if(ls_balno.substring(0,1).equals("D")){
+                        _indexDa023Dto.setDevnum(ls_balno);
+                        result = service14.UpdateDA023UnsongDevnum(_indexDa023Dto);
                     }else{
-                        indexDa023Dto.setMisdate(devnum03.get(i).substring(0,8));
-                        indexDa023Dto.setMisnum(devnum03.get(i).substring(8,12));
-                        ls_cltcd = ls_cltcd.substring(12, ls_cltcd.length());
-                        indexDa023Dto.setCltcd(ls_cltcd);
-                        result = service14.UpdateDA023Unsong(indexDa023Dto);
+                        _indexDa023Dto.setMisdate(ls_balno.substring(0,8));
+                        _indexDa023Dto.setMisnum(ls_balno.substring(8,12));
+                        _indexDa023Dto.setCltcd(ls_balno.substring(12));  // devnum03 에서 추출
+//                        ls_cltcd = ls_cltcd.substring(12, ls_cltcd.length());
+//                        _indexDa023Dto.setCltcd(ls_cltcd);
+                        result = service14.UpdateDA023Unsong(_indexDa023Dto);
                     }
                     if (!result){
-                         log.info("배송업로드 없는자료 =====>" +  indexDa023Dto.getMisdate() + '/'  + indexDa023Dto.getCltcd());
+                         log.info("배송업로드 없는자료 =====>" + ls_balno + " / " + ls_unsongnum);
                         //log.info("배송업로드 없는자료 =====>" +  indexDa023Dto.getMisdate() + '/' + indexDa023Dto.getMisnum() + '/' + indexDa023Dto.getCltcd());
                         //return "error";
                     }
