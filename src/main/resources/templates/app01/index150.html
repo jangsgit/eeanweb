@@ -116,10 +116,10 @@
                                                     <td class="align-top" style="padding-top:0; padding-bottom: 0px; padding-left: 0px; padding-right: 0px;  width:250px;"> 
                                                       <div class="container-fluid">   
                                                           <!-- [검색기능 추가] 품번/색상/사이즈 검색 -->
-                                                          <div class="input-group input-group-sm mb-2" style="width:250px;">
+                                                          <!-- <div class="input-group input-group-sm mb-2" style="width:250px;">
                                                               <input class="form-control form-control-sm" id="itemSearchTxt" type="text" autocomplete="off" placeholder="품번·색상 검색 (예: JR1013, 핑크)">
                                                               <button class="btn btn-falcon-default btn-sm" type="button" id="itemSearchClear" title="검색어 지우기">✕</button>
-                                                          </div>
+                                                          </div> -->
                                                           <div id="itemSearchInfo" class="text-muted small mb-1" style="width:250px; min-height:18px;"></div>
                                                           <div id="wtab01Grid_div"  style="overflow:scroll;   height:630px;  width:250px; margin:0 auto; "></div> 
                                                           <!-- <div style="display: flex; margin: 0 auto; " id="tab01Pager"  ></div> -->
@@ -1344,18 +1344,18 @@ aria-hidden="true">
             });
         }
 
-        document.getElementById("itemSearchTxt").addEventListener("input", function(){
-            var kw = this.value;
-            clearTimeout(itemSearchTimer);
-            itemSearchTimer = setTimeout(function(){ itemSearch_rtn(kw); }, 300);
-        });
-        document.getElementById("itemSearchTxt").addEventListener("keyup", function(e){
-            if (e.key === 'Enter') { clearTimeout(itemSearchTimer); itemSearch_rtn(this.value); }
-        });
-        document.getElementById("itemSearchClear").addEventListener("click", function(){
-            itemSearchReset();
-            document.getElementById("itemSearchTxt").focus();
-        });
+        // document.getElementById("itemSearchTxt").addEventListener("input", function(){
+        //     var kw = this.value;
+        //     clearTimeout(itemSearchTimer);
+        //     itemSearchTimer = setTimeout(function(){ itemSearch_rtn(kw); }, 300);
+        // });
+        // document.getElementById("itemSearchTxt").addEventListener("keyup", function(e){
+        //     if (e.key === 'Enter') { clearTimeout(itemSearchTimer); itemSearch_rtn(this.value); }
+        // });
+        // document.getElementById("itemSearchClear").addEventListener("click", function(){
+        //     itemSearchReset();
+        //     document.getElementById("itemSearchTxt").focus();
+        // });
         //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
 
