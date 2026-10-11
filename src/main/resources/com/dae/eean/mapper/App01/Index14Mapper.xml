@@ -393,6 +393,7 @@
         AND B.misdate = #{misdate} and B.misnum = #{misnum}  and B.cltcd = #{cltcd}
         AND B.fixflag = '1'
         ORDER BY
+            ISNULL(K.jgong_code, ''),                               -- 공장코드 (추가)
             CASE WHEN K.jbonsa_code = '부속' THEN 1 ELSE 0 END,
             CASE
             WHEN CHARINDEX('-', B.pname, CHARINDEX('-', B.pname) + 1) > 0
