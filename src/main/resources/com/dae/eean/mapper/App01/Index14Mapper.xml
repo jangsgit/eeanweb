@@ -394,6 +394,10 @@
         AND B.fixflag = '1'
         ORDER BY
             ISNULL(K.jgong_code, ''),                               -- 공장코드 (추가)
+            CASE WHEN ISNULL(K.jbonsa_code_seq, '') != ''
+                    AND K.jbonsa_code_seq NOT LIKE '%[^0-9]%'
+                 THEN CONVERT(INT, K.jbonsa_code_seq)
+            ELSE 999 END,                                           -- 본사코드 순번 (추가, 빈값은 뒤로)
             CASE WHEN K.jbonsa_code = '부속' THEN 1 ELSE 0 END,
             CASE
             WHEN CHARINDEX('-', B.pname, CHARINDEX('-', B.pname) + 1) > 0

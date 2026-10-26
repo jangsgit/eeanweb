@@ -146,12 +146,11 @@
             D.stock_qty AS jqty
         FROM   JCODE3 B WITH (NOLOCK)
         JOIN   TB_JSTOCK D ON B.jkey = D.jkey
-        WHERE  B.jsayong_gubn <> '4'
+        WHERE  B.jsayong_gubn = '1'
             AND  ISNULL(B.jpb_gubn,'') LIKE CONCAT('%', #{jpb_gubn}, '%')
             AND (
             UPPER(REPLACE(REPLACE(ISNULL(B.jpum,''), '-', ''), ' ', ''))
             LIKE CONCAT('%', UPPER(REPLACE(REPLACE(#{jpum}, '-', ''), ' ', '')), '%')   /* 품번 */
-            OR ISNULL(B.jkey,'')   LIKE CONCAT('%', #{jpum}, '%')                                   /* 제품키 */
             OR ISNULL(B.jgugek,'') LIKE CONCAT('%', #{jpum}, '%')                                   /* 색상 */
             OR ISNULL(B.jsize,'')  LIKE CONCAT('%', #{jpum}, '%')                                   /* 사이즈 */
             )

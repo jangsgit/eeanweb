@@ -31,8 +31,9 @@
 
     <select id="SelectMaxSeqIpgo"  parameterType="com.dae.eean.DTO.App01.Index04Dto" resultType="String">
         <![CDATA[ select  ISNULL(MAX(B.acorp),'00') as acorp
-                  from  JEGO_JEPMJANAK B WITH (NOLOCK)
-                  where  isnull(B.jepm,'') = #{jepm} and B.key1 = #{key1}
+                  from  JEGO_JEPMJANAK B
+                  WHERE  B.key1 = CAST(#{key1} AS varchar(8))
+                    AND  B.jepm = #{jepm}
         ]]>
     </select>
 
