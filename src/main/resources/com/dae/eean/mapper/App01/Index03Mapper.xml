@@ -149,16 +149,21 @@
         WHERE  B.jsayong_gubn = '1'
             AND  ISNULL(B.jpb_gubn,'') LIKE CONCAT('%', #{jpb_gubn}, '%')
             AND (
-            UPPER(REPLACE(REPLACE(ISNULL(B.jpum,''), '-', ''), ' ', ''))
-            LIKE CONCAT('%', UPPER(REPLACE(REPLACE(#{jpum}, '-', ''), ' ', '')), '%')   /* 품번 */
-            OR ISNULL(B.jgugek,'') LIKE CONCAT('%', #{jpum}, '%')                                   /* 색상 */
-            OR ISNULL(B.jsize,'')  LIKE CONCAT('%', #{jpum}, '%')                                   /* 사이즈 */
+                /* 1) 품번: 하이픈 유지, 공백만 제거 */
+                UPPER(REPLACE(ISNULL(B.jpum,''), ' ', ''))
+                    LIKE CONCAT('%', UPPER(REPLACE(#{jpum}, ' ', '')), '%')
+                /* 2) 품번: 하이픈 무시 비교 — 검색어에 영문이 있을 때만 (예: PVSF34 → PV-SF34) */
+                OR ( #{jpum} LIKE '%[A-Za-z]%'
+                     AND UPPER(REPLACE(REPLACE(ISNULL(B.jpum,''), '-', ''), ' ', ''))
+                         LIKE CONCAT('%', UPPER(REPLACE(REPLACE(#{jpum}, '-', ''), ' ', '')), '%') )
+                /* 3) 모델코드 */
+                OR ISNULL(B.jmodel_code,'') LIKE CONCAT('%', #{jpum}, '%')
             )
         ORDER BY
             MIN(CASE WHEN UPPER(REPLACE(REPLACE(ISNULL(B.jpum,''), '-', ''), ' ', ''))
             LIKE CONCAT(UPPER(REPLACE(REPLACE(#{jpum}, '-', ''), ' ', '')), '%')
             THEN 0 ELSE 1 END) OVER (PARTITION BY B.jmodel_code),
-            B.jmodel_code,      /* jmodel_grid() 가 연속된 같은 모델코드로 줄을 나눔 → 필수 */
+            B.jmodel_code,
             B.jpum
           ]]>
     </select>
